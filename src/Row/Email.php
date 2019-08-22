@@ -12,19 +12,19 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 	
 		
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'priority'=>951,
 		'parent'=>'system',
-		'cols'=>array(
+		'cols'=>[
 			'active'=>true,
-			'type'=>array('relation'=>'emailType'),
+			'type'=>['relation'=>'emailType'],
 			'key'=>true,
 			'name_fr'=>false,
 			'name_en'=>false,
-			'content_fr'=>array('class'=>Core\Col\Textarea::class,'exists'=>false),
-			'content_en'=>array('class'=>Core\Col\Textarea::class,'exists'=>false))
-	);
+			'content_fr'=>['class'=>Core\Col\Textarea::class,'exists'=>false],
+			'content_en'=>['class'=>Core\Col\Textarea::class,'exists'=>false]]
+	];
 	
 	
 	// contentType

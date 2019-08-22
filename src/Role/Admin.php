@@ -7,14 +7,14 @@ use Quid\Core;
 class Admin extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'permission'=>80,
-		'can'=>array(
-			'home'=>array(
-				'infoPopup'=>true),
-			'login'=>array('app'=>false,'cms'=>true)),
-		'db'=>array(
-			'*'=>array(
+		'can'=>[
+			'home'=>[
+				'infoPopup'=>true],
+			'login'=>['app'=>false,'cms'=>true]],
+		'db'=>[
+			'*'=>[
 				'insert'=>true,
 				'update'=>true,
 				'delete'=>true,
@@ -24,48 +24,48 @@ class Admin extends Core\RoleAlias
 				'drop'=>true,
 				'infoPopup'=>true,
 				'mediaRegenerate'=>true,
-				'colPopup'=>array(
+				'colPopup'=>[
 					'name','required','unique','editable','pattern','preValidate','validate','compare','type','length','unsigned',
-					'default','acceptsNull','collation','orderable','filterable','searchable','priority','classCol','classCell')),
-			'user'=>array(
+					'default','acceptsNull','collation','orderable','filterable','searchable','priority','classCol','classCell']],
+			'user'=>[
 				'export'=>true,
-				'userWelcome'=>true),
-			'lang'=>array(
-				'export'=>true),
-			'redirection'=>array(
-				'export'=>true),
-			'queueEmail'=>array(
+				'userWelcome'=>true],
+			'lang'=>[
+				'export'=>true],
+			'redirection'=>[
+				'export'=>true],
+			'queueEmail'=>[
 				'add'=>false,
-				'truncate'=>true),
-			'session'=>array(
+				'truncate'=>true],
+			'session'=>[
 				'add'=>false,
-				'truncate'=>true),
-			'log'=>array(
-				'add'=>false,
-				'truncate'=>true,
-				'empty'=>true),
-			'logEmail'=>array(
+				'truncate'=>true],
+			'log'=>[
 				'add'=>false,
 				'truncate'=>true,
-				'empty'=>true),
-			'logCron'=>array(
+				'empty'=>true],
+			'logEmail'=>[
 				'add'=>false,
 				'truncate'=>true,
-				'empty'=>true),
-			'logError'=>array(
+				'empty'=>true],
+			'logCron'=>[
 				'add'=>false,
 				'truncate'=>true,
-				'empty'=>true),
-			'logHttp'=>array(
+				'empty'=>true],
+			'logError'=>[
 				'add'=>false,
 				'truncate'=>true,
-				'empty'=>true),
-			'logSql'=>array(
+				'empty'=>true],
+			'logHttp'=>[
 				'add'=>false,
 				'truncate'=>true,
-				'empty'=>true)
-		)
-	);
+				'empty'=>true],
+			'logSql'=>[
+				'add'=>false,
+				'truncate'=>true,
+				'empty'=>true]
+		]
+	];
 	
 	
 	// isAdmin

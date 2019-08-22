@@ -13,7 +13,7 @@ class Calendar extends Core\WidgetAlias
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

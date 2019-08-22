@@ -9,7 +9,7 @@ use Quid\Base;
 abstract class Files extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'inputText',
 		'complex'=>'inputFile',
 		'export'=>false,
@@ -17,27 +17,27 @@ abstract class Files extends Core\ColAlias
 		'filter'=>false,
 		'panel'=>'media',
 		'duplicate'=>false,
-		'check'=>array('kind'=>'text'),
+		'check'=>['kind'=>'text'],
 		'version'=>null, // custom
 		'generalExcerptMin'=>null,
-		'defaultVersionExtension'=>array('jpg','png'), // extension par défaut
+		'defaultVersionExtension'=>['jpg','png'], // extension par défaut
 		'path'=>'[storagePublic]/storage', // chemin du media
 		'media'=>1, // nombre de media
-		'validateKeys'=>array('extension'=>null,'maxFilesize'=>null), // clés de validation, remplacé dans media/medias
+		'validateKeys'=>['extension'=>null,'maxFilesize'=>null], // clés de validation, remplacé dans media/medias
 		'extension'=>null, // extensions permises
 		'maxFilesize'=>null, // max file size spécifique pour l'upload, sinon utilise php ini, si false désactive
-		'compressAction'=>array('ratio','ratio_x','ratio_y','crop','fill','bestFit'), // liste des actions de compressions admises
-		'defaultVersion'=>array( // défaut pour version
+		'compressAction'=>['ratio','ratio_x','ratio_y','crop','fill','bestFit'], // liste des actions de compressions admises
+		'defaultVersion'=>[ // défaut pour version
 			'quality'=>90,
 			'convert'=>'jpg',
 			'action'=>null,
 			'width'=>null,
 			'height'=>null,
-			'autoRotate'=>false),
+			'autoRotate'=>false],
 		'fileUpload'=>true, // permet le chargement par fichier (input file)
-		'@cms'=>array(
-			'route'=>array('download'=>Core\Cms\SpecificDownload::class))
-	);
+		'@cms'=>[
+			'route'=>['download'=>Core\Cms\SpecificDownload::class]]
+	];
 	
 	
 	// onMakeAttr
@@ -118,7 +118,7 @@ abstract class Files extends Core\ColAlias
 							
 							if(!Base\Path::isExtension($extension,$basename))
 							{
-								$return = array($extensionKey=>$extension);
+								$return = [$extensionKey=>$extension];
 								break;
 							}
 						}
@@ -161,7 +161,7 @@ abstract class Files extends Core\ColAlias
 							
 							if(!Base\File::isMaxSize($maxSize,$path))
 							{
-								$return = array($maxFilesizeKey=>$format);
+								$return = [$maxFilesizeKey=>$format];
 								break;
 							}
 						}
@@ -191,7 +191,7 @@ abstract class Files extends Core\ColAlias
 	// retourne une clé de validation dans les attributs
 	public function getValidateKey(string $key):string 
 	{
-		return $this->attr(array('validateKeys',$key));
+		return $this->attr(['validateKeys',$key]);
 	}
 	
 	
@@ -325,7 +325,7 @@ abstract class Files extends Core\ColAlias
 		if($allowFileUpload === true || $isEmpty === false)
 		{
 			$class = ($isEmpty === true)? 'empty':'notEmpty';
-			$return .= Html::divOp(array('block',$class));
+			$return .= Html::divOp(['block',$class]);
 			
 			if(is_int($i))
 			$return .= Html::div(Html::divtable($i),'count');
@@ -340,14 +340,14 @@ abstract class Files extends Core\ColAlias
 					
 					if($isRegenerateable === true)
 					{
-						$data = array('action'=>'regenerate','confirm'=>$lang->text('common/confirm'),'text'=>$lang->text('specific/mediaRegenerate'));
-						$action .= Html::div(null,array('icon','solo','action','regenerate','data'=>$data));
+						$data = ['action'=>'regenerate','confirm'=>$lang->text('common/confirm'),'text'=>$lang->text('specific/mediaRegenerate')];
+						$action .= Html::div(null,['icon','solo','action','regenerate','data'=>$data]);
 					}
 					
 					if($isDeleteable === true)
 					{
-						$data = array('action'=>'delete','confirm'=>$lang->text('common/confirm'),'text'=>$lang->text('specific/mediaDelete'));
-						$action .= Html::div(null,array('icon','solo','action','remove','data'=>$data));
+						$data = ['action'=>'delete','confirm'=>$lang->text('common/confirm'),'text'=>$lang->text('specific/mediaDelete')];
+						$action .= Html::div(null,['icon','solo','action','remove','data'=>$data]);
 					}
 					
 					$return .= Html::divCond($action,'actions');
@@ -363,12 +363,12 @@ abstract class Files extends Core\ColAlias
 				$return .= $this->form(null,$attr,$option);
 				$path = ($hasIndex === true)? $value->cellPathBasename($index):$value->cellPathBasename($index);
 				
-				$hidden = Base\Json::encode(array('action'=>null,'path'=>$path));
-				$return .= $this->formHidden($hidden,Base\Arr::plus($attr,array('disabled'=>true)),$option);
+				$hidden = Base\Json::encode(['action'=>null,'path'=>$path]);
+				$return .= $this->formHidden($hidden,Base\Arr::plus($attr,['disabled'=>true]),$option);
 				
 				$return .= Html::divOp('message');
 				$return .= Html::div(null,'actionText');
-				$return .= Html::div(null,array('icon','solo','close'));
+				$return .= Html::div(null,['icon','solo','close']);
 				$return .= Html::divCl();
 				
 				$return .= Html::divCl();
@@ -514,7 +514,7 @@ abstract class Files extends Core\ColAlias
 			
 			if($this->hasVersion())
 			{
-				$return = array();
+				$return = [];
 				
 				foreach ($this->attr('version') as $key => $value) 
 				{
@@ -547,9 +547,9 @@ abstract class Files extends Core\ColAlias
 	public function checkVersion(array $value):bool 
 	{
 		$return = true;
-		$throw = array();
+		$throw = [];
 		
-		foreach (array('quality','width','height') as $z) 
+		foreach (['quality','width','height'] as $z) 
 		{
 			if(!is_int($value[$z]) && $value[$z] !== null)
 			$throw[] = $z;
@@ -627,7 +627,7 @@ abstract class Files extends Core\ColAlias
 	// retourne un tableau de détail en lien avec la colonne, utilise versionDetails
 	public function details(bool $lang=true):array
 	{
-		$return = array();
+		$return = [];
 		
 		$extension = $this->extensionDetails($lang);
 		$fileSize = $this->fileSizeDetails($lang);
@@ -649,7 +649,7 @@ abstract class Files extends Core\ColAlias
 		if($this->attr('maxFilesize') !== false)
 		{
 			$maxFilesize = $this->maxFilesizeFormat();
-			$return = array($maxFilesizeKey=>$maxFilesize);
+			$return = [$maxFilesizeKey=>$maxFilesize];
 
 			if($lang === true)
 			{
@@ -672,7 +672,7 @@ abstract class Files extends Core\ColAlias
 		
 		if(is_string($extensionKey) && !empty($extension))
 		{
-			$return = array($extensionKey=>$extension);
+			$return = [$extensionKey=>$extension];
 			
 			if($lang === true)
 			{
@@ -695,7 +695,7 @@ abstract class Files extends Core\ColAlias
 		
 		if(!empty($version))
 		{
-			$return = array();
+			$return = [];
 			
 			foreach ($version as $key => $value) 
 			{
@@ -779,7 +779,7 @@ abstract class Files extends Core\ColAlias
 			foreach($this->indexRange() as $i)
 			{
 				$int = $i + 1;
-				$return .= Html::divOp(array('block','empty'));
+				$return .= Html::divOp(['block','empty']);
 				
 				if($hasMultiple === true)
 				$return .= Html::div(Html::divtable($int),'count');

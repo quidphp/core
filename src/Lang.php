@@ -13,8 +13,8 @@ class Lang extends Main\Lang
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array( // chemin pour des types de texte précis liés à des méthodes
+	public static $config = [
+		'path'=>[ // chemin pour des types de texte précis liés à des méthodes
 			'bool'=>'relation/bool',
 			'direction'=>'direction',
 			'bootLabel'=>'label',
@@ -42,8 +42,8 @@ class Lang extends Main\Lang
 			'validate'=>'validate',
 			'required'=>'required',
 			'editable'=>'editable',
-			'unique'=>'unique')
-	);
+			'unique'=>'unique']
+	];
 	
 	
 	// existsRelation
@@ -63,7 +63,7 @@ class Lang extends Main\Lang
 	// retourne vrai si un élément de com existe pour le type et la valeur spécifié
 	public function existsCom(string $type,$path,?string $lang=null):bool
 	{
-		return $this->existsText(static::getPath('com',array($type,$path)),$lang);
+		return $this->existsText(static::getPath('com',[$type,$path]),$lang);
 	}
 	
 	
@@ -154,7 +154,7 @@ class Lang extends Main\Lang
 		
 		if(is_string($table))
 		{
-			$return = $this->safe(static::getPath('colTableLabel',array($table,$col)),null,$lang,$option);
+			$return = $this->safe(static::getPath('colTableLabel',[$table,$col]),null,$lang,$option);
 			if(empty($return))
 			{
 				$return = $this->safe($colLabel,null,$lang,$option);
@@ -185,7 +185,7 @@ class Lang extends Main\Lang
 		$colDescription = static::getPath('colDescription',$col);
 		
 		if(is_string($table))
-		$return = $this->alt(static::getPath('colTableDescription',array($table,$col)),$colDescription,$replace,$lang,Base\Arr::plus(array('error'=>false),$option));
+		$return = $this->alt(static::getPath('colTableDescription',[$table,$col]),$colDescription,$replace,$lang,Base\Arr::plus(['error'=>false],$option));
 		else
 		$return = $this->safe($colDescription,null,$lang,$option);
 		
@@ -201,7 +201,7 @@ class Lang extends Main\Lang
 	{
 		$return = null;
 		$tableLabel = $this->tableLabel($table,$lang);
-		$replace = array('primary'=>$primary,'table'=>$tableLabel);
+		$replace = ['primary'=>$primary,'table'=>$tableLabel];
 		$return = $this->alt(static::getPath('rowLabel',$table),static::getPath('rowLabel','*'),$replace,$lang,$option);
 		
 		return $return;
@@ -218,7 +218,7 @@ class Lang extends Main\Lang
 		$tableLabel = $this->tableLabel($table,$lang);
 		$replace['primary'] = $primary;
 		$replace['table'] = $tableLabel;
-		$return = $this->alt(static::getPath('rowDescription',$table),static::getPath('rowDescription','*'),$replace,$lang,Base\Arr::plus(array('error'=>false),$option));
+		$return = $this->alt(static::getPath('rowDescription',$table),static::getPath('rowDescription','*'),$replace,$lang,Base\Arr::plus(['error'=>false],$option));
 		
 		return $return;
 	}
@@ -320,7 +320,7 @@ class Lang extends Main\Lang
 	public function validate(?array $value=null,?string $lang=null,?array $option=null)
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('path'=>null,'same'=>true),$option);
+		$option = Base\Arr::plus(['path'=>null,'same'=>true],$option);
 		
 		if($value === null)
 		$return = $this->pathAlternateTake('validate',$lang,$option['path']);
@@ -344,7 +344,7 @@ class Lang extends Main\Lang
 			else
 			{
 				$path = $this->pathAlternateValue('validate',$k,true,$option['path']);
-				$replace = array('%'=>$v);
+				$replace = ['%'=>$v];
 				
 				if(is_int($v) || is_array($v))
 				$plural = $v;
@@ -353,7 +353,7 @@ class Lang extends Main\Lang
 			if(empty($plural))
 			$return = $this->same($path,$replace,$lang,$option);
 			else
-			$return = $this->plural($plural,$path,$replace,array('s'=>'s'),$lang,$option);
+			$return = $this->plural($plural,$path,$replace,['s'=>'s'],$lang,$option);
 		}
 		
 		else
@@ -369,7 +369,7 @@ class Lang extends Main\Lang
 	// retourne un tableau
 	public function validates(array $values,?string $lang=null,?array $option=null):array
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($values as $key => $value) 
 		{
@@ -379,7 +379,7 @@ class Lang extends Main\Lang
 				$value = current($value);
 			}
 			
-			$return[] = $this->validate(array($key=>$value),$lang,$option);
+			$return[] = $this->validate([$key=>$value],$lang,$option);
 		}
 		
 		return $return;
@@ -394,7 +394,7 @@ class Lang extends Main\Lang
 	public function compare(?array $value=null,?string $lang=null,?array $option=null)
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('path'=>null),$option);
+		$option = Base\Arr::plus(['path'=>null],$option);
 		
 		if($value === null)
 		$return = $this->pathAlternateTake('compare',$lang,$option['path']);
@@ -407,7 +407,7 @@ class Lang extends Main\Lang
 			if(is_string($symbol) && is_string($v))
 			{
 				$path = $this->pathAlternateValue('compare',$symbol,true,$option['path']);
-				$replace = array('%'=>$v);
+				$replace = ['%'=>$v];
 				$return = $this->def($path,$replace,$lang,$option);
 			}
 		}
@@ -422,11 +422,11 @@ class Lang extends Main\Lang
 	// retourne un tableau
 	public function compares(array $values,?string $lang=null,?array $option=null):array
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($values as $key => $value) 
 		{
-			$return[] = $this->compare(array($key=>$value),$lang,$option);
+			$return[] = $this->compare([$key=>$value],$lang,$option);
 		}
 		
 		return $return;
@@ -439,7 +439,7 @@ class Lang extends Main\Lang
 	public function required($value=null,?string $lang=null,?array $option=null)
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('path'=>null),$option);
+		$option = Base\Arr::plus(['path'=>null],$option);
 		
 		if($value === null)
 		$return = $this->pathAlternateTake('required',$lang,$option['path']);
@@ -460,7 +460,7 @@ class Lang extends Main\Lang
 	public function unique($value=null,?string $lang=null,?array $option=null)
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('path'=>null),$option);
+		$option = Base\Arr::plus(['path'=>null],$option);
 		
 		if($value === null)
 		$return = $this->pathAlternateTake('unique',$lang,$option['path']);
@@ -468,7 +468,7 @@ class Lang extends Main\Lang
 		else
 		{
 			$path = $this->pathAlternateValue('unique','common',false,$option['path']);
-			$replace = array('%'=>'');
+			$replace = ['%'=>''];
 			
 			if(is_array($value))
 			{
@@ -490,7 +490,7 @@ class Lang extends Main\Lang
 			if(is_scalar($value) && !is_bool($value))
 			{
 				$text = (is_numeric($value))? " (#$value)":" ($value)";
-				$replace = array('%'=>$text);
+				$replace = ['%'=>$text];
 			}
 
 			$return = $this->text($path,$replace,$lang,$option);
@@ -506,7 +506,7 @@ class Lang extends Main\Lang
 	public function editable($value=null,?string $lang=null,?array $option=null)
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('path'=>null),$option);
+		$option = Base\Arr::plus(['path'=>null],$option);
 		
 		if($value === null)
 		$return = $this->pathAlternateTake('editable',$lang,$option['path']);

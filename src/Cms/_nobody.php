@@ -12,10 +12,10 @@ trait _nobody
 	
 	
 	// config
-	public static $configNobody = array(
-		'docOpen'=>array(
-			'body'=>array('background-image'=>'%background%'))
-	);
+	public static $configNobody = [
+		'docOpen'=>[
+			'body'=>['background-image'=>'%background%']]
+	];
 	
 	
 	// makeButtons
@@ -74,7 +74,7 @@ trait _nobody
 		if(!empty($buttons))
 		{
 			$class = 'amount-'.count($buttons);
-			$r .= Html::divOp(array('buttons',$class));
+			$r .= Html::divOp(['buttons',$class]);
 			
 			foreach ($buttons as $key => $value) 
 			{

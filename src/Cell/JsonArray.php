@@ -7,7 +7,7 @@ use Quid\Core;
 class JsonArray extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// index

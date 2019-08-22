@@ -12,21 +12,21 @@ class GeneralTruncate extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/truncate',
-			'fr'=>'table/[table]/vider'),
-		'segment'=>array(
-			'table'=>'structureSegmentTable'),
-		'match'=>array(
+			'fr'=>'table/[table]/vider'],
+		'segment'=>[
+			'table'=>'structureSegmentTable'],
+		'match'=>[
 			'csrf'=>false,
 			'genuine'=>true,
 			'method'=>'post',
-			'post'=>array('-table-'=>array('='=>'[table]')),
-			'role'=>array('>='=>20)),
+			'post'=>['-table-'=>['='=>'[table]']],
+			'role'=>['>='=>20]],
 		'parent'=>General::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore
@@ -60,7 +60,7 @@ class GeneralTruncate extends Core\RouteAlias
 		$post = $this->onBeforeCommit($post);
 		
 		if($post !== null)
-		$return = $this->table()->truncate(array('com'=>true,'context'=>static::class));
+		$return = $this->table()->truncate(['com'=>true,'context'=>static::class]);
 		
 		if(empty($return))
 		$this->failureComplete();

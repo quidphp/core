@@ -7,9 +7,9 @@ use Quid\Core;
 class Integer extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\Integer::class
-	);
+	];
 }
 
 // config

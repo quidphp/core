@@ -9,20 +9,20 @@ use Quid\Base;
 class UserPassword extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'inputPassword',
-		'preValidate'=>array('arrCount'=>2),
+		'preValidate'=>['arrCount'=>2],
 		'required'=>true,
 		'search'=>false,
 		'export'=>false,
-		'visible'=>array(
+		'visible'=>[
 			'session'=>'isPasswordVisible',
-			'row'=>'isUpdateable'),
+			'row'=>'isUpdateable'],
 		'visibleGeneral'=>false,
-		'check'=>array('kind'=>'char'),
+		'check'=>['kind'=>'char'],
 		'log'=>Core\Row\Log::Class, // custom
 		'security'=>null // défini le niveau de sécurité du mot de passe utilisé, support pour loose
-	);
+	];
 	
 	
 	// onMakeAttr
@@ -31,7 +31,7 @@ class UserPassword extends Core\ColAlias
 	protected function onMakeAttr(array $return):array 
 	{
 		$return['pattern'] = $return['pattern'] ?? null;
-		$return['validate'] = $return['validate'] ?? array();
+		$return['validate'] = $return['validate'] ?? [];
 		$security = $return['security'] ?? null;
 		$originalValidate = 'passwordHash';
 		$validate = $originalValidate;
@@ -48,7 +48,7 @@ class UserPassword extends Core\ColAlias
 		if(!in_array($originalValidate,$return['validate']) && !in_array($validate,$return['validate']))
 		$return['validate'][] = $validate;
 		
-		if(!in_array($return['pattern'],array($originalPattern,$pattern),true))
+		if(!in_array($return['pattern'],[$originalPattern,$pattern],true))
 		$return['pattern'] = $pattern;
 		
 		return $return;
@@ -98,7 +98,7 @@ class UserPassword extends Core\ColAlias
 			{
 				$rule = $this->rulePattern(true);
 				$neg = 'changePassword'.ucfirst($validate);
-				static::catchable(array('log'=>false,'errorLog'=>false),$neg,$rule);
+				static::catchable(['log'=>false,'errorLog'=>false],$neg,$rule);
 			}
 			
 			else
@@ -130,7 +130,7 @@ class UserPassword extends Core\ColAlias
 			$log = static::$config['log'];
 			
 			if(!empty($log))
-			$log::logOnCloseDown('changePassword',array('key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null));
+			$log::logOnCloseDown('changePassword',['key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null]);
 		}
 		
 		return $this;
@@ -141,16 +141,16 @@ class UserPassword extends Core\ColAlias
 	// retourne les inputs à utiliser pour le formulaire
 	public function inputs(?array $attr=null,bool $required=false):array 
 	{
-		$return = array();
+		$return = [];
 		$lang = $this->db()->lang();
 		$name = $this->name()."[]";
 		$pattern = $this->rulePattern();
 		
-		foreach (array('newPassword','newPasswordConfirm') as $value) 
+		foreach (['newPassword','newPasswordConfirm'] as $value) 
 		{
 			$placeholder = $lang->text('changePassword/'.$value);
 			$id = $attr['id'] ?? null;
-			$array = array('name'=>$name,'id'=>$id,'placeholder'=>$placeholder,'data-required'=>$required,'data-pattern'=>$pattern);
+			$array = ['name'=>$name,'id'=>$id,'placeholder'=>$placeholder,'data-required'=>$required,'data-pattern'=>$pattern];
 			$return[$value] = $array;
 			
 			if(is_array($attr) && array_key_exists('id',$attr))

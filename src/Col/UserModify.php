@@ -6,14 +6,14 @@ namespace Quid\Core\Col;
 class UserModify extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'div',
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'relation'=>'user',
 		'required'=>false,
 		'duplicate'=>false,
-		'check'=>array('kind'=>'int')
-	);
+		'check'=>['kind'=>'int']
+	];
 	
 	
 	// onUpdate

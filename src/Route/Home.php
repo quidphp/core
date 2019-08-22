@@ -7,11 +7,11 @@ use Quid\Core;
 abstract class Home extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'path'=>'',
 		'group'=>'home',
 		'priority'=>1
-	);
+	];
 	
 	
 	// onReplace

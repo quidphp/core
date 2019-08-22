@@ -12,9 +12,9 @@ class ResetPassword extends Core\Route\ResetPassword
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>Login::class
-	);
+	];
 	
 	
 	// submitRoute
@@ -29,7 +29,7 @@ class ResetPassword extends Core\Route\ResetPassword
 	// attribut pour le bouton submit du formulaire
 	public function submitAttr() 
 	{
-		return array('icon','padLeft','reset');
+		return ['icon','padLeft','reset'];
 	}
 	
 	
@@ -43,7 +43,7 @@ class ResetPassword extends Core\Route\ResetPassword
 		$table = $this->db()->tables()->get('user');
 		
 		$r .= Html::divOp('top');
-		$r .= $table->col('email')->formWrap('divtable','%:',null,array('data-required'=>true));
+		$r .= $table->col('email')->formWrap('divtable','%:',null,['data-required'=>true]);
 		$r .= Html::divClose();
 		
 		$r .= Html::divCond(static::langText('resetPassword/info'),'info');
@@ -62,7 +62,7 @@ class ResetPassword extends Core\Route\ResetPassword
 	// retourne un tableau avec les boutons sous le formulaire de connexion
 	protected function makeButtons():array 
 	{
-		$return = array();
+		$return = [];
 		$return['login'] = $this->makeLogin();
 		$return['register'] = $this->makeRegister();
 		$return['about'] = $this->makeAbout();

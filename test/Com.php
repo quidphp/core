@@ -14,7 +14,7 @@ class Com extends Base\Test
 		$com = new Core\Com();
 
 		// lang
-		assert(!empty($com->neutralPrepend('Row #1',array('replace'=>'ok'),"#id",array('pos',"okidou"))->output()));
+		assert(!empty($com->neutralPrepend('Row #1',['replace'=>'ok'],"#id",['pos',"okidou"])->output()));
 
 		return true;
 	}

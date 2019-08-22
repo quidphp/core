@@ -11,9 +11,9 @@ trait _specific
 	
 	
 	// config
-	public static $configGeneral = array(
+	public static $configGeneral = [
 		'group'=>'specific'
-	);
+	];
 	
 	
 	// selectedUri
@@ -41,7 +41,7 @@ trait _specific
 	// getBreadcrumbs
 	public function getBreadcrumbs():array 
 	{
-		return array(static::makeParent(),$this);
+		return [static::makeParent(),$this];
 	}
 }
 ?>

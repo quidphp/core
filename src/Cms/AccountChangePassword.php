@@ -9,13 +9,13 @@ use Quid\Base;
 class AccountChangePassword extends Core\Route\AccountChangePassword
 {
 	// config
-	public static $config = array(
-		'match'=>array(
-			'role'=>array('>='=>20),
-			'ajax'=>true),
+	public static $config = [
+		'match'=>[
+			'role'=>['>='=>20],
+			'ajax'=>true],
 		'row'=>Core\Row\User::class,
 		'parent'=>Account::class
-	);
+	];
 	
 	
 	// submitRoute
@@ -30,7 +30,7 @@ class AccountChangePassword extends Core\Route\AccountChangePassword
 	// attribut pour le bouton submit du formulaire
 	public function submitAttr() 
 	{
-		return array('icon','modify','padLeft');
+		return ['icon','modify','padLeft'];
 	}
 	
 	
@@ -53,7 +53,7 @@ class AccountChangePassword extends Core\Route\AccountChangePassword
 	// retourne le lien dialog pour ouvrir la formulaire dans une box
 	public function aDialog($attr=null):string
 	{
-		return $this->aTitle(static::langText('accountChangePassword/link'),Base\Attr::append($attr,array('data'=>array('jsBox'=>'dialogAccountChangePassword'))));
+		return $this->aTitle(static::langText('accountChangePassword/link'),Base\Attr::append($attr,['data'=>['jsBox'=>'dialogAccountChangePassword']]));
 	}
 }
 

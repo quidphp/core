@@ -7,7 +7,7 @@ use Quid\Core;
 class Robots extends Core\Route\Robots
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

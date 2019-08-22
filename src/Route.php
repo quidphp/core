@@ -13,30 +13,30 @@ abstract class Route extends Routing\Route
 	
 
 	// config
-	public static $config = array( // config pour la route
+	public static $config = [ // config pour la route
 		'type'=>null, // type de la route
-		'metaTitle'=>array('bootLabel'=>true,'typeLabel'=>false), // éléments à ajouter à la fin du titre
+		'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
 		'jsInit'=>true, // s'il faut init le js en cas de requête non ajax
 		'label'=>null, // nom de la route
 		'description'=>null, // description de la route
 		'row'=>null, // permet de spécifier la classe row en lien avec la route
-		'docOpen'=>array(
-			'html'=>array('data-route'=>'%name%'),
-			'head'=>array(
-				'css'=>array(
-					'type'=>'css/%type%.css'),
-				'js'=>array(
+		'docOpen'=>[
+			'html'=>['data-route'=>'%name%'],
+			'head'=>[
+				'css'=>[
+					'type'=>'css/%type%.css'],
+				'js'=>[
 					'jquery'=>'js/jquery/jquery.js',
 					'base'=>'js/include.js',
-					'type'=>'js/%type%.js')),
-			'wrapper'=>array("#wrapper")),
-		'@cms'=>array( // config pour cms
-			'metaTitle'=>array('typeLabel'=>true),
-			'docOpen'=>array(
-				'head'=>array(
-					'js'=>array(
-						'jquery-ui'=>'js/jquery/jquery-ui.js'))))
-	); 
+					'type'=>'js/%type%.js']],
+			'wrapper'=>["#wrapper"]],
+		'@cms'=>[ // config pour cms
+			'metaTitle'=>['typeLabel'=>true],
+			'docOpen'=>[
+				'head'=>[
+					'js'=>[
+						'jquery-ui'=>'js/jquery/jquery-ui.js']]]]
+	]; 
 	
 	
 	// getTimeoutObject
@@ -97,7 +97,7 @@ abstract class Route extends Routing\Route
 		if($dig === true)
 		{
 			$parent = get_parent_class(static::class);
-			if(!empty($parent) && !in_array($parent,array(Routing\Route::class,self::class),true))
+			if(!empty($parent) && !in_array($parent,[Routing\Route::class,self::class],true))
 			$parent::setType($value,$dig);
 		}
 		
@@ -112,7 +112,7 @@ abstract class Route extends Routing\Route
 	// une route qui retourne false ou qui lance une Routing\Exception ont la valeur continue à true (pour le loop)
 	public function run(bool $echo=false):array
 	{
-		$return = array('bool'=>false,'continue'=>false,'output'=>null);
+		$return = ['bool'=>false,'continue'=>false,'output'=>null];
 		$output = null;
 		
 		try 
@@ -158,7 +158,7 @@ abstract class Route extends Routing\Route
 	// utilisé par docOpen et docClose
 	public function getBaseReplace():array 
 	{
-		$return = array();
+		$return = [];
 		$boot = static::boot();
 		$lang = $boot->lang();
 		$request = $this->request();
@@ -190,10 +190,10 @@ abstract class Route extends Routing\Route
 	// prépare le titre après le onReplace
 	protected function prepareTitle($return,array $array):array
 	{
-		$titleConfig = static::$config['metaTitle'] ?? array();
+		$titleConfig = static::$config['metaTitle'] ?? [];
 		
 		if(!is_array($return))
-		$return = array($return);
+		$return = [$return];
 		
 		$last = Base\Arr::valueLast($return);
 		
@@ -233,7 +233,7 @@ abstract class Route extends Routing\Route
 				{
 					$js = $service->docOpenJs();
 					if(!empty($js))
-					$return['head']['js'] = Base\Arr::append($return['head']['js'] ?? array(),array($key=>$js));
+					$return['head']['js'] = Base\Arr::append($return['head']['js'] ?? [],[$key=>$js]);
 				}
 				
 				$return['head']['script'] = $return['head']['script'] ?? null;
@@ -241,7 +241,7 @@ abstract class Route extends Routing\Route
 				{
 					$script = $service->docOpenScript();
 					if(!empty($script))
-					$return['head']['script'] = Base\Arr::append($return['head']['script'] ?? array(),$script);
+					$return['head']['script'] = Base\Arr::append($return['head']['script'] ?? [],$script);
 				}
 			}
 			
@@ -252,7 +252,7 @@ abstract class Route extends Routing\Route
 				{
 					$script = $service->docCloseScript();
 					if(!empty($script))
-					$return['script'] = Base\Arr::append($return['script'] ?? array(),$script);
+					$return['script'] = Base\Arr::append($return['script'] ?? [],$script);
 				}
 			}
 		}
@@ -267,8 +267,8 @@ abstract class Route extends Routing\Route
 	{
 		if(static::$config['jsInit'] === true && $this->request()->isAjax() === false)
 		{
-			$callable = array(static::class,'jsInit');
-			$return['script'] = Base\Arr::append($return['script'],array($callable));
+			$callable = [static::class,'jsInit'];
+			$return['script'] = Base\Arr::append($return['script'],[$callable]);
 		}
 		
 		return $return;
@@ -290,7 +290,7 @@ abstract class Route extends Routing\Route
 			if(is_scalar($pattern))
 			{
 				$obj = static::boot()->lang();
-				$option = Base\Arr::plus($option,array('pattern'=>$pattern));		
+				$option = Base\Arr::plus($option,['pattern'=>$pattern]);		
 				$return = $obj->textAfter($title,$option);
 			}
 			
@@ -372,7 +372,7 @@ abstract class Route extends Routing\Route
 		$return = null;
 		$obj = static::boot()->lang();
 		$path = static::$config['label'] ?? null;
-		$option = Base\Arr::plus($option,array('pattern'=>$pattern));
+		$option = Base\Arr::plus($option,['pattern'=>$pattern]);
 		
 		if(!empty($path))
 		$return = $obj->same($path,null,$lang,$option);
@@ -390,7 +390,7 @@ abstract class Route extends Routing\Route
 		$return = null;
 		$obj = static::boot()->lang();
 		$path = static::$config['description'] ?? null;
-		$option = Base\Arr::plus($option,array('pattern'=>$pattern));
+		$option = Base\Arr::plus($option,['pattern'=>$pattern]);
 		
 		if(!empty($path))
 		$return = $obj->same($path,$replace,$lang,$option);
@@ -441,13 +441,13 @@ abstract class Route extends Routing\Route
 		
 		if(!is_array($return))
 		{
-			$return = array();
+			$return = [];
 			$boot = static::boot();
 			$type = $boot->type();
 			$env = $boot->env();
 			$className = static::className();
 			$context = $type.":".lcfirst($className);
-			$return = static::$context = array('class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context);
+			$return = static::$context = ['class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context];
 		}
 		
 		if(!empty($option))

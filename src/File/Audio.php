@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Audio extends BinaryAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'audio'
-	);
+	];
 }
 
 // config

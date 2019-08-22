@@ -11,6 +11,6 @@ class Redirection extends Main\Redirection
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 ?>

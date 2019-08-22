@@ -12,10 +12,10 @@ class Home extends Core\Route\Home
 	
 	
 	// config
-	public static $config = array(
-		'match'=>array(
-			'role'=>array('>='=>20))
-	);
+	public static $config = [
+		'match'=>[
+			'role'=>['>='=>20]]
+	];
 	
 	
 	// main
@@ -69,11 +69,11 @@ class Home extends Core\Route\Home
 	{
 		$r = '';
 		$tables = $this->db()->tables();
-		$total = $tables->filter(array('hasPermission'=>true),'view')->total(true,true);
+		$total = $tables->filter(['hasPermission'=>true],'view')->total(true,true);
 		$popup = $this->makeInfoPopup();;
-		$attr = array('countInfo',(!empty($popup))? array('withPopup','anchorCorner'):null);
+		$attr = ['countInfo',(!empty($popup))? ['withPopup','anchorCorner']:null];
 		$r .= Html::divOp($attr);
-		$r .= Html::divOp(array('count','icon','info','padLeft'));
+		$r .= Html::divOp(['count','icon','info','padLeft']);
 		$r .= Html::span($total['table']." ".static::langPlural($total['table'],'lcf|common/table'));
 		$r .= Html::span(",&nbsp;");
 		$r .= Html::span($total['row']." ".static::langPlural($total['row'],'lcf|common/row'));
@@ -96,7 +96,7 @@ class Home extends Core\Route\Home
 		if(static::sessionUser()->can('home/infoPopup'))
 		{
 			$db = $this->db();
-			$loop = array('dbName','driver','serverVersion','host','username','charset','collation','connectionStatus','classDb','classTables');
+			$loop = ['dbName','driver','serverVersion','host','username','charset','collation','connectionStatus','classDb','classTables'];
 			
 			$r .= Html::divOp('popup');
 			$r .= Html::ulOp();
@@ -161,7 +161,7 @@ class Home extends Core\Route\Home
 		if($session->can('about'))
 		{
 			$route = About::makeOverload();
-			$r .= $route->aDialog(array('submit','help','icon','padLeft'));
+			$r .= $route->aDialog(['submit','help','icon','padLeft']);
 		}
 		
 		return $r;
@@ -192,7 +192,7 @@ class Home extends Core\Route\Home
 		$r = '';
 		$tables = $this->db()->tables();
 		
-		foreach ($tables->filter(array('attrNotEmpty'=>true),'homeTask') as $table) 
+		foreach ($tables->filter(['attrNotEmpty'=>true],'homeTask') as $table) 
 		{
 			if($table->hasPermission('view','insert','add'))
 			$r .= SpecificAdd::makeOverload($table)->aTitle();
@@ -217,11 +217,11 @@ class Home extends Core\Route\Home
 			if($searchable->isNotEmpty())
 			{
 				$searchMinLength = $tables->searchMinLength();
-				$data = array('query'=>'s','required'=>true,'keyupDelay'=>800,'pattern'=>array('minLength'=>$searchMinLength));
+				$data = ['query'=>'s','required'=>true,'keyupDelay'=>800,'pattern'=>['minLength'=>$searchMinLength]];
 				
 				$r .= $route->formOpen();
-				$r .= Html::inputText(null,array('name'=>true,'placeholder'=>static::langText('home/searchSubmit'),'data'=>$data));
-				$r .= Html::submit(true,array('button','solo','icon','search'));
+				$r .= Html::inputText(null,['name'=>true,'placeholder'=>static::langText('home/searchSubmit'),'data'=>$data]);
+				$r .= Html::submit(true,['button','solo','icon','search']);
 				$r .= Html::div(null,'popup');
 				$r .= Html::formClose();
 				

@@ -7,13 +7,13 @@ use Quid\Core;
 class Enum extends RelationAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\Enum::class,
 		'enum'=>true,
 		'required'=>true,
 		'order'=>true,
-		'complex'=>array(0=>'select',11=>'search')
-	);
+		'complex'=>[0=>'select',11=>'search']
+	];
 	
 	
 	// isEnum

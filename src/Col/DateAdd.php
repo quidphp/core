@@ -7,15 +7,15 @@ use Quid\Base;
 class DateAdd extends DateAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'general'=>true,
 		'date'=>'long',
 		'complex'=>'div',
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'duplicate'=>false,
 		'editable'=>false,
-		'onGet'=>array(array(Base\Date::class,'onGet'),'long')
-	);
+		'onGet'=>[[Base\Date::class,'onGet'],'long']
+	];
 	
 	
 	// onInsert

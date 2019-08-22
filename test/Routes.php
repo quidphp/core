@@ -18,7 +18,7 @@ class Routes extends Base\Test
 		$request = Core\Request::live();
 		$login = Core\Cms\Login::class;
 		$loginSubmit = Core\Cms\LoginSubmit::class;
-		$routes = new Core\Routes(array(Core\Cms::class,Test\Cms::class));
+		$routes = new Core\Routes([Core\Cms::class,Test\Cms::class]);
 		$routes->init('cms');
 		
 		// routing
@@ -50,11 +50,11 @@ class Routes extends Base\Test
 		assert($routes->pair('priority')['Home'] === 1);
 		assert(is_numeric($routes->pairStr('priority')));
 		assert($routes->pair('path','en')['LoginSubmit'] === 'login');
-		assert($routes->pair('label','%:',null,array('error'=>false))['Home'] === 'Home:');
-		assert($routes->filter(array('group'=>'home'))->isCount(1));
-		assert($routes->first(array('group'=>'home')) === Core\Cms\Home::class);
-		assert($routes->filter(array('group'=>'error','priority'=>992))->isEmpty());
-		assert($routes->filter(array('group'=>'error','priority'=>999))->isCount(1));
+		assert($routes->pair('label','%:',null,['error'=>false])['Home'] === 'Home:');
+		assert($routes->filter(['group'=>'home'])->isCount(1));
+		assert($routes->first(['group'=>'home']) === Core\Cms\Home::class);
+		assert($routes->filter(['group'=>'error','priority'=>992])->isEmpty());
+		assert($routes->filter(['group'=>'error','priority'=>999])->isCount(1));
 		assert(count($routes->group('group')) === 9);
 		assert($routes->sortBy('name',false)->index(1) === Core\Cms\SpecificUserWelcome::class);
 		assert($routes->sortBy('name',false) !== $routes);

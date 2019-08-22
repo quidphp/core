@@ -11,7 +11,7 @@ class Routes extends Routing\Routes
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

@@ -8,7 +8,7 @@ use Quid\Base;
 class Media extends FilesAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// cast

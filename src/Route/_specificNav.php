@@ -9,23 +9,23 @@ use Quid\Base;
 trait _specificNav
 {
 	// config
-	public static $configSpecificNav = array(
+	public static $configSpecificNav = [
 		'group'=>'specific'
-	);
+	];
 	
 	
 	// makeSpecificNav
 	// génère la nav à partir d'un objet route vers general
 	protected function makeSpecificNav(Core\Route $general,Core\Row $row,string $segment,?string $highlightSegment=null,?array $attr=null):array 
 	{
-		$return = array();
+		$return = [];
 		$sql = $general->sql();
 		$specific = $sql->specific($row);
-		$attributes = array();
+		$attributes = [];
 		
-		foreach (array('first','prev','count','next','last','back') as $v) 
+		foreach (['first','prev','count','next','last','back'] as $v) 
 		{
-			$attributes[$v] = array($v);
+			$attributes[$v] = [$v];
 			
 			if(!empty($attr[$v]))
 			$attributes[$v] = Base\Attr::append($attr[$v],$attributes[$v]);
@@ -64,7 +64,7 @@ trait _specificNav
 		$page = (!empty($specific['page']))? $specific['page']:1;
 		if(is_int($page))
 		{
-			$segments = array('page'=>$specific['page']);
+			$segments = ['page'=>$specific['page']];
 			
 			if(is_string($highlightSegment))
 			$segments[$highlightSegment] = $row;

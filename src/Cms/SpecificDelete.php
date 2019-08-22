@@ -11,22 +11,22 @@ class SpecificDelete extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/[primary]/delete',
-			'fr'=>'table/[table]/[primary]/effacer'),
-		'segment'=>array(
+			'fr'=>'table/[table]/[primary]/effacer'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
-			'primary'=>'structureSegmentPrimary'),
-		'match'=>array(
+			'primary'=>'structureSegmentPrimary'],
+		'match'=>[
 			'csrf'=>true,
 			'genuine'=>true,
 			'method'=>'post',
-			'post'=>array('id'=>array('='=>'[primary]'),'-table-'=>array('='=>'[table]')),
-			'role'=>array('>='=>20)),
+			'post'=>['id'=>['='=>'[primary]'],'-table-'=>['='=>'[table]']],
+			'role'=>['>='=>20]],
 		'parent'=>Specific::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore
@@ -61,7 +61,7 @@ class SpecificDelete extends Core\RouteAlias
 		$post = $this->onBeforeCommit($post);
 		
 		if($post !== null)
-		$return = $this->row()->delete(array('com'=>true,'context'=>static::class));
+		$return = $this->row()->delete(['com'=>true,'context'=>static::class]);
 		
 		if(empty($return))
 		$this->failureComplete();

@@ -8,13 +8,13 @@ use Quid\Base;
 class Json extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'search'=>false,
 		'panel'=>'admin',
-		'onSet'=>array(Base\Json::class,'onSet'),
-		'onGet'=>array(Base\Json::class,'onGet'),
-		'check'=>array('kind'=>'text')
-	);
+		'onSet'=>[Base\Json::class,'onSet'],
+		'onGet'=>[Base\Json::class,'onGet'],
+		'check'=>['kind'=>'text']
+	];
 }
 
 // config

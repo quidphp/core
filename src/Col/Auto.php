@@ -9,18 +9,18 @@ use Quid\Base;
 class Auto extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'div',
 		'setPriority'=>9,
 		'include'=>true,
 		'required'=>false,
-		'visible'=>array('validate'=>'notEmpty'),
-		'auto'=>array( // custom
+		'visible'=>['validate'=>'notEmpty'],
+		'auto'=>[ // custom
 			'pair'=>'cellName',
-			'callable'=>array(),
-			'cols'=>array(),
-			'separator'=>', ')
-	);
+			'callable'=>[],
+			'cols'=>[],
+			'separator'=>', ']
+	];
 	
 
 	// onSet
@@ -29,7 +29,7 @@ class Auto extends Core\ColAlias
 	{
 		$return = '';
 		$attr = $this->autoAttr();
-		$array = array();
+		$array = [];
 		
 		foreach ($attr['cols'] as $segment) 
 		{
@@ -40,7 +40,7 @@ class Auto extends Core\ColAlias
 				if($hasSegment === true)
 				$cols = Base\Segment::get(null,$segment);
 				else
-				$cols = array($segment);
+				$cols = [$segment];
 				
 				if(!empty($cols))
 				{

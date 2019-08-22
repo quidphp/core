@@ -9,14 +9,14 @@ use Quid\Base;
 class PhpConcatenator extends Core\ServiceAlias
 {
 	// config
-	public static $config = array(
-		'option'=>array(
+	public static $config = [
+		'option'=>[
 			'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
 			'registerClosure'=>false, // s'il faut register la closure
-			'concatenator'=>array(), // option pour le compileur, voir la méthode statique concatenatorOption
+			'concatenator'=>[], // option pour le compileur, voir la méthode statique concatenatorOption
 			'credit'=>null, // permet de mettre un texte de crédit en haut du fichier
-			'namespace'=>array())// spécifie les namespace pour la compilation, closure, closureinitMethod et priority sont supportés
-	);
+			'namespace'=>[]]// spécifie les namespace pour la compilation, closure, closureinitMethod et priority sont supportés
+	];
 	
 	
 	// dynamique
@@ -28,7 +28,7 @@ class PhpConcatenator extends Core\ServiceAlias
 	public function __construct(string $key,?array $option=null) 
 	{
 		parent::__construct($key,$option);
-		$concatenator = array('concatenator'=>$this->concatenatorOption());
+		$concatenator = ['concatenator'=>$this->concatenatorOption()];
 		$this->option($concatenator);
 		$this->concatenator = Main\Concatenator::newOverload($this->getOption('concatenator/base'));
 		
@@ -106,7 +106,7 @@ class PhpConcatenator extends Core\ServiceAlias
 	// retourne les options pour le concatenator
 	public function concatenatorOption():array
 	{
-		$return = array();
+		$return = [];
 		$strictType = $this->getOption('strictType');
 		$registerClosure = $this->getOption('registerClosure');
 		
@@ -123,24 +123,24 @@ class PhpConcatenator extends Core\ServiceAlias
 		}
 		$end .= PHP_EOL."?>".PHP_EOL;
 		
-		$return['base'] = array(
+		$return['base'] = [
 			'start'=>$start,
 			'end'=>$end,
 			'separator'=>PHP_EOL.PHP_EOL
-		);
+		];
 		
-		$return['credit'] = array(
+		$return['credit'] = [
 			'separator'=>PHP_EOL.PHP_EOL,
 			'start'=>PHP_EOL.'/*'.PHP_EOL,
 			'end'=>PHP_EOL.'*/'
-		);
+		];
 		
-		$return['entry'] = array(
+		$return['entry'] = [
 			'separator'=>PHP_EOL.PHP_EOL,
 			'lineStart'=>2,
 			'lineEnd'=>1,
 			'extension'=>'php'
-		);
+		];
 		
 		return $return;
 	}
@@ -182,7 +182,7 @@ class PhpConcatenator extends Core\ServiceAlias
 				{
 					$class = ucfirst(Base\Str::stripStart("// ",$value));
 					
-					$newLine = array('\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',"");
+					$newLine = ['\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',""];
 					$lines = Base\Arr::insert($key,$newLine,$lines);
 					
 					if(is_string($initMethod))

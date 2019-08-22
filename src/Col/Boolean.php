@@ -7,13 +7,13 @@ use Quid\Base;
 class Boolean extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'radio',
 		'required'=>true,
 		'relation'=>'bool',
-		'onSet'=>array(Base\Set::class,'onSet'),
-		'check'=>array('kind'=>'int')
-	);
+		'onSet'=>[Base\Set::class,'onSet'],
+		'check'=>['kind'=>'int']
+	];
 }
 
 // config

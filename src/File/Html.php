@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Html extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'html'
-	);
+	];
 }
 
 // config

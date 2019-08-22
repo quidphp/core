@@ -13,22 +13,22 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'search'=>false,
 		'parent'=>'system',
 		'priority'=>1002,
-		'cols'=>array(
-			'context'=>array('class'=>Core\Col\Context::class),
-			'request'=>array('class'=>Core\Col\Request::class),
-			'type'=>array('general'=>true,'relation'=>'logHttpType'),
-			'json'=>array('class'=>Core\Col\JsonExport::class)),
+		'cols'=>[
+			'context'=>['class'=>Core\Col\Context::class],
+			'request'=>['class'=>Core\Col\Request::class],
+			'type'=>['general'=>true,'relation'=>'logHttpType'],
+			'json'=>['class'=>Core\Col\JsonExport::class]],
 		'deleteTrim'=>500, // custom
-		'block'=>array( // liste des patterns de chemins à ne pas logger, insensible à la case
+		'block'=>[ // liste des patterns de chemins à ne pas logger, insensible à la case
 			'apple-touch-icon',
 			'browserconfig.xml',
-			'autodiscover.xml'),
-		'type'=>array( // type de logHttp
+			'autodiscover.xml'],
+		'type'=>[ // type de logHttp
 			1=>'unsafe',
 			2=>'redirection',
 			3=>'request',
@@ -38,8 +38,8 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 			302=>302,
 			400=>400,
 			404=>404,
-			500=>500)
-	);
+			500=>500]
+	];
 	
 	
 	// shouldLog
@@ -47,7 +47,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 	// voir static config block
 	public static function shouldLog(Main\Request $request):bool 
 	{
-		return (Base\Arr::hasValueStart($request->pathStripStart(),static::$config['block'] ?? array(),false))? false:true;
+		return (Base\Arr::hasValueStart($request->pathStripStart(),static::$config['block'] ?? [],false))? false:true;
 	}
 	
 	
@@ -67,7 +67,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 		$type = static::getTypeCode($type);
 		
 		if(is_int($type))
-		$return = array('type'=>$type,'json'=>$json);
+		$return = ['type'=>$type,'json'=>$json];
 		
 		return $return;
 	}
@@ -81,7 +81,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 		Base\Response::onCloseDown(function() {
 			
 			$code = Base\Response::code();
-			$data = array();
+			$data = [];
 			$bool = false;
 			
 			$boot = static::bootReady();

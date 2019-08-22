@@ -9,16 +9,16 @@ use Quid\Base;
 class Excerpt extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'include'=>true,
 		'required'=>false,
-		'check'=>array('kind'=>'text'),
-		'excerpt'=>array( // custom
-			'method'=>array(Base\Html::class,'excerpt'),
-			'option'=>array('suffix'=>'...'),
+		'check'=>['kind'=>'text'],
+		'excerpt'=>[ // custom
+			'method'=>[Base\Html::class,'excerpt'],
+			'option'=>['suffix'=>'...'],
 			'length'=>500,
-			'col'=>'content')
-	);
+			'col'=>'content']
+	];
 	
 
 	// onSet
@@ -31,7 +31,7 @@ class Excerpt extends Core\ColAlias
 		{
 			$attr = $this->attr('excerpt');
 			
-			if(is_array($attr) && Base\Arr::keysExists(array('method','length','col'),$attr))
+			if(is_array($attr) && Base\Arr::keysExists(['method','length','col'],$attr))
 			{
 				$lang = $this->patternType();
 				$method = $attr['method'];

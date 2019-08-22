@@ -7,12 +7,12 @@ use Quid\Core;
 class Session extends EnumAlias
 {
 	// config
-	public static $config = array(
-		'visible'=>array('validate'=>'notEmpty'),
+	public static $config = [
+		'visible'=>['validate'=>'notEmpty'],
 		'required'=>false,
 		'complex'=>'div',
 		'inRelation'=>false // custom, n'a pas besoin d'être dans la relation
-	);
+	];
 	
 	
 	// onCommit

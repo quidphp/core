@@ -23,10 +23,10 @@ class ServiceMailer extends Base\Test
 		$mailer = $boot->service('mailer');
 		$from = $mailer->username();
 		$to = 'test@exempla.la';
-		$msg = array('subject'=>'Test','body'=>'<b>what</b>','to'=>$to);
-		$msg2 = array('subject'=>'Test','body'=>'<b>what</b>','to'=>$user);
-		$msg3 = array('subject'=>'Test','body'=>'<b>what</b>','to'=>$user['email']);
-		$msg4 = array('subject'=>'Test','body'=>'<b>what</b>','to'=>array($to=>'Pierre'),'from'=>array('james@test.com'=>'NAME'));
+		$msg = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$to];
+		$msg2 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user];
+		$msg3 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user['email']];
+		$msg4 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>[$to=>'Pierre'],'from'=>['james@test.com'=>'NAME']];
 		
 		// getLangCode
 		assert($mailer->getLangCode() === 'en');
@@ -40,7 +40,7 @@ class ServiceMailer extends Base\Test
 		assert(count($mailer->option()) === 26);
 		assert($mailer->getKey() === 'mailer');
 		assert($mailer->username() === $from);
-		assert($mailer->from() === array('email'=>'noreply@makeitrealplay.com','name'=>'James'));
+		assert($mailer->from() === ['email'=>'noreply@makeitrealplay.com','name'=>'James']);
 		assert($mailer->mailer() instanceof \PHPMailer\PHPMailer\PHPMailer);
 		assert($mailer->isReady());
 		assert($mailer->checkReady() === $mailer);
@@ -49,7 +49,7 @@ class ServiceMailer extends Base\Test
 		assert($mailer->prepareMessage($msg2)['to'][0]['name'] === 'admin');
 		assert($mailer->prepareMessage($msg3)['to'][0]['name'] === 'administrator');
 		assert($mailer->queueTest($msg));
-		assert($mailer->queueLoop(array($msg)) === array(true));
+		assert($mailer->queueLoop([$msg]) === [true]);
 		$queue = $mailer::queueClass();
 		assert(class_exists($queue));
 		$rows = $queue::getQueued(10);
@@ -74,15 +74,15 @@ class ServiceMailer extends Base\Test
 		assert($row->contentType() === 2);
 		assert($row->subject() === 'Password reset [subject]');
 		assert(strlen($row->body()) === 49);
-		assert($row->messageSegment() === array('subject','password','uri','domain'));
-		$replace = array('subject'=>'ok','password'=>'LOL','uri'=>'http://google.com','domain'=>'well');
-		assert(count($row->prepareMessage(array('test@exempla.la','pierre'),$replace,array('cc'=>'paul@ok.com'))) === 5);
+		assert($row->messageSegment() === ['subject','password','uri','domain']);
+		$replace = ['subject'=>'ok','password'=>'LOL','uri'=>'http://google.com','domain'=>'well'];
+		assert(count($row->prepareMessage(['test@exempla.la','pierre'],$replace,['cc'=>'paul@ok.com'])) === 5);
 		assert($row->serviceMailer('mailer') === $mailer);
-		assert($row->queue('mailer',array('test@exempla.la'=>'Pierre champion'),$replace));
+		assert($row->queue('mailer',['test@exempla.la'=>'Pierre champion'],$replace));
 		assert($row instanceof Main\Contract\Email);
 		assert($row->queue('mailer',$user,$replace));
 		assert($row->queue('mailer',$user['email'],$replace));
-		$row->queue('mailer','test@exempla.la',$replace,array('debug'=>2,'output'=>'html','priority'=>1,'header'=>array('test'=>4)));
+		$row->queue('mailer','test@exempla.la',$replace,['debug'=>2,'output'=>'html','priority'=>1,'header'=>['test'=>4]]);
 		assert($db->truncate($queue::tableFromFqcn()) instanceof \PdoStatement);
 		
 		return true;

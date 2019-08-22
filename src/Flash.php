@@ -11,7 +11,7 @@ class Flash extends Main\Flash
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// onPrepareKey

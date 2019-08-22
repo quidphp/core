@@ -7,9 +7,9 @@ use Quid\Core;
 class AccountChangePasswordSubmit extends Core\Route\AccountChangePasswordSubmit
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>AccountChangePassword::class
-	);
+	];
 	
 	
 	// routeSuccess

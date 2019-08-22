@@ -12,21 +12,21 @@ class GeneralDelete extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/multi/delete',
-			'fr'=>'table/[table]/multiple/effacer'),
-		'segment'=>array(
-			'table'=>'structureSegmentTable'),
-		'match'=>array(
+			'fr'=>'table/[table]/multiple/effacer'],
+		'segment'=>[
+			'table'=>'structureSegmentTable'],
+		'match'=>[
 			'method'=>'post',
 			'csrf'=>true,
 			'genuine'=>true,
-			'post'=>array('-table-'=>array('='=>'[table]')),
-			'role'=>array('>='=>20)),
+			'post'=>['-table-'=>['='=>'[table]']],
+			'role'=>['>='=>20]],
 		'parent'=>General::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// dynamique
@@ -96,7 +96,7 @@ class GeneralDelete extends Core\RouteAlias
 		$post = $this->onBeforeCommit($post);
 		
 		if($post !== null)
-		$return = $this->rows()->delete(array('com'=>true,'context'=>static::class));
+		$return = $this->rows()->delete(['com'=>true,'context'=>static::class]);
 		
 		if(empty($return))
 		$this->failureComplete();

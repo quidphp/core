@@ -13,18 +13,18 @@ class HomeSearch extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'home/search',
-			'fr'=>'accueil/recherche'),
-		'match'=>array(
+			'fr'=>'accueil/recherche'],
+		'match'=>[
 			'ajax'=>true,
-			'role'=>array('>='=>20),
-			'query'=>array('s'=>true)),
-		'search'=>array('query'=>'s'),
+			'role'=>['>='=>20],
+			'query'=>['s'=>true]],
+		'search'=>['query'=>'s'],
 		'parent'=>Home::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore
@@ -95,8 +95,8 @@ class HomeSearch extends Core\RouteAlias
 				{
 					$table = $tables->get($key);
 					$count = count($value);
-					$route = General::makeOverload(array('table'=>$table));
-					$uri = Base\Uri::changeQuery(array($searchQuery=>$search),$route->uri());
+					$route = General::makeOverload(['table'=>$table]);
+					$uri = Base\Uri::changeQuery([$searchQuery=>$search],$route->uri());
 					$title = $route->title("% ($count)");
 					
 					$r .= Html::liOp();

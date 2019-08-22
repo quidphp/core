@@ -11,7 +11,7 @@ class Response extends Main\Response
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

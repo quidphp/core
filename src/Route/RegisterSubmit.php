@@ -13,30 +13,30 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'enregistrement/soumettre',
-			'en'=>'register/submit'),
-		'match'=>array(
+			'en'=>'register/submit'],
+		'match'=>[
 			'method'=>'post',
 			'role'=>'nobody',
-			'session'=>'allowRegister'),
-		'verify'=>array(
-			'post'=>array('username','email','password','passwordConfirm'),
+			'session'=>'allowRegister'],
+		'verify'=>[
+			'post'=>['username','email','password','passwordConfirm'],
 			'timeout'=>true,
 			'csrf'=>true,
-			'genuine'=>true),
-		'timeout'=>array(
-			'failure'=>array('max'=>12,'timeout'=>600),
-			'success'=>array('max'=>2,'timeout'=>600)),
+			'genuine'=>true],
+		'timeout'=>[
+			'failure'=>['max'=>12,'timeout'=>600],
+			'success'=>['max'=>2,'timeout'=>600]],
 		'parent'=>Register::class,
-		'dataDefault'=>array('active'=>null),
-		'baseFields'=>array('username','email'),
-		'passwordFields'=>array(
+		'dataDefault'=>['active'=>null],
+		'baseFields'=>['username','email'],
+		'passwordFields'=>[
 			'password'=>'password',
-			'passwordConfirm'=>'passwordConfirm'),
+			'passwordConfirm'=>'passwordConfirm'],
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onSuccess
@@ -81,7 +81,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	// retourne le tableau post pour l'enregistrement
 	public function post():array 
 	{
-		$return = array();
+		$return = [];
 		$request = $this->request();
 		$post = $request->post(true,true);
 		$password = static::getPasswordFields();
@@ -127,7 +127,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	// option pour le reset password
 	protected function getOption():?array 
 	{
-		return array('com'=>true);
+		return ['com'=>true];
 	}
 	
 	
@@ -136,7 +136,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	// possible de lier une callable à une clé
 	public static function getDataDefault(array $data):array 
 	{
-		$return = static::$config['dataDefault'] ?? array();
+		$return = static::$config['dataDefault'] ?? [];
 		
 		foreach ($return as $key => $value) 
 		{
@@ -152,7 +152,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	// retourne les champs de base
 	public static function getBaseFields():array 
 	{
-		return static::$config['baseFields'] ?? array();
+		return static::$config['baseFields'] ?? [];
 	}
 	
 	
@@ -160,7 +160,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
 	// retourne les champs de mot de passe
 	public static function getPasswordFields():array 
 	{
-		return static::$config['passwordFields'] ?? array();
+		return static::$config['passwordFields'] ?? [];
 	}
 }
 

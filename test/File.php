@@ -24,10 +24,10 @@ class File extends Base\Test
 		Base\File::unlink($storage."/newZip.zip");
 		$audio = Core\File::newCreate($storage."/create.mp3");
 		$audio2 = Core\File::new($audio);
-		$font = Core\File::new($storage."/create.ttf",array('create'=>true));
-		$video = Core\File::new($storage."/create.mp4",array('create'=>true));
-		$create = Core\File::new($storage."/create.jpg",array('create'=>true));
-		$csv = Core\File::new("[assertCommon]/csv.csv",array('toUtf8'=>true));
+		$font = Core\File::new($storage."/create.ttf",['create'=>true]);
+		$video = Core\File::new($storage."/create.mp4",['create'=>true]);
+		$create = Core\File::new($storage."/create.jpg",['create'=>true]);
+		$csv = Core\File::new("[assertCommon]/csv.csv",['toUtf8'=>true]);
 		$text = Core\File::newCreate($storage."/index.php");
 		$text->write("lorem ipsum lorem ipsum\nlorem ipsum lorem ipsum2\nlorem ipsum lorem ipsum3\nlorem ipsum lorem ipsum4");
 		$raster = Core\File::new($mediaJpg);
@@ -36,26 +36,26 @@ class File extends Base\Test
 		$vectorStorage = Core\File::new("[assertCommon]/svg.svg");
 		$doc = Core\File::new($storage."/document345.doc");
 		$pdf = Core\File::new($mediaPdf);
-		$calendar = Core\File::new($storage."/ics.ics",array('create'=>true));
+		$calendar = Core\File::new($storage."/ics.ics",['create'=>true]);
 		$calendarTemp = Core\File\Calendar::new(true);
 		$res = Base\Res::temp("csv","ok.csv");
 		$tempCsv = Core\File\Csv::new($res);
 		$core = Core\File::new(true);
-		$text2 = Core\File::new(true,array('mime'=>'txt'));
-		$raster2 = Core\File::new(true,array('mime'=>'jpg'));
+		$text2 = Core\File::new(true,['mime'=>'txt']);
+		$raster2 = Core\File::new(true,['mime'=>'jpg']);
 		$csv2 = Core\File\Csv::new(true);
 		$pngTemp = Core\File::new(Base\Res::temp("png","temp.png"));
 		$png = Core\File::newCreate($mediaPng);
-		$serialize = Core\File\Serialize::new($storage."/serialize.txt",array('create'=>true));
-		$dump = Core\File\Dump::new($storage."/serialize.html",array('create'=>true));
-		$html = Core\File::new(true,array('mime'=>'html'));
-		$json = Core\File::new($storage."/json.json",array('create'=>true));
-		$xml = Core\File::new($storage."/xml.xml",array('create'=>true));
+		$serialize = Core\File\Serialize::new($storage."/serialize.txt",['create'=>true]);
+		$dump = Core\File\Dump::new($storage."/serialize.html",['create'=>true]);
+		$html = Core\File::new(true,['mime'=>'html']);
+		$json = Core\File::new($storage."/json.json",['create'=>true]);
+		$xml = Core\File::new($storage."/xml.xml",['create'=>true]);
 		$zip = Core\File::new("[assertCommon]/zip.zip");
 		$newZip = Core\File::newCreate($storage."/newZip.zip");
-		$newXml = Core\File::new($storage."/xml2éèàsad l'article.xml",array('create'=>true));
-		$file = new Core\File($storage."/test.php",array('create'=>true));
-		$imgMime = new Core\File($storage."/test.jpg",array('mime'=>'jpg','create'=>true));
+		$newXml = Core\File::new($storage."/xml2éèàsad l'article.xml",['create'=>true]);
+		$file = new Core\File($storage."/test.php",['create'=>true]);
+		$imgMime = new Core\File($storage."/test.jpg",['mime'=>'jpg','create'=>true]);
 		$temp = new Core\File(true);
 
 		// getOverloadKeyPrepend
@@ -89,11 +89,11 @@ class File extends Base\Test
 		assert($audioTest === $audio);
 		
 		// cache
-		$new = Core\File\Cache::storage(array(1,2,3));
+		$new = Core\File\Cache::storage([1,2,3]);
 		assert($new instanceof Core\File\Cache);
 		$cache = Core\File\Cache::storageAll()->first();
 		assert($cache instanceof Core\File\Cache);
-		assert($new->read() === array(1,2,3));
+		assert($new->read() === [1,2,3]);
 		assert($new->unlink());
 		
 		// calendar
@@ -126,7 +126,7 @@ class File extends Base\Test
 
 		// dump
 		assert($dump instanceof Core\File\Dump);
-		$write = new Main\Map(array(2=>'ok','yes',4));
+		$write = new Main\Map([2=>'ok','yes',4]);
 		assert($dump->write($write) === $dump);
 		assert(empty($dump->readOption()['callback']));
 		assert(!empty($dump->writeOption()));
@@ -221,20 +221,20 @@ class File extends Base\Test
 		
 		// json
 		assert($json instanceof Core\File\Json);
-		$write = array('test'=>'ok',2,3);
+		$write = ['test'=>'ok',2,3];
 		assert($json->write($write));
 		assert($json->read() === $write);
 		assert(is_string($json->readRaw()));
 		assert($json->unlink());
 
 		// log
-		$write = new Main\Map(array(2=>'test',3,'ok'));
+		$write = new Main\Map([2=>'test',3,'ok']);
 		assert(Core\File\Log::isStorageDataValid());
 		assert(!empty(Core\File\Log::storageDirname()));
 		assert(Core\File\Log::storageFilename() === Base\Response::id()."-0");
 		assert(Base\File::isWritableOrCreatable(Core\File\Log::storagePath($write)));
 		assert(Core\File\Log::storageData($write) === $write);
-		assert(Core\File\Log::storageData($write,2) === array($write,2));
+		assert(Core\File\Log::storageData($write,2) === [$write,2]);
 		assert(($log = Core\File\Log::log($write)) instanceof Core\File\Log);
 		assert(Core\File::new($log->resource()) instanceof Core\File\Log);
 		assert(Core\File\Log::logTrim() === 0);
@@ -254,10 +254,10 @@ class File extends Base\Test
 			return 'test';
 		}) === null);
 		assert(is_int(Core\File\Queue::storageAll()->unlink()));
-		$data = array('what'=>'ok');
+		$data = ['what'=>'ok'];
 		$queue = Core\File\Queue::queue($data);
 		assert($queue->extension() === null);
-		$data = array('what2'=>'ok');
+		$data = ['what2'=>'ok'];
 		$queue2 = Core\File\Queue::queue($data);
 		assert($queue instanceof Core\File\Queue);
 		assert(Core\File\Queue::storageAll()->isNotEmpty());
@@ -265,15 +265,15 @@ class File extends Base\Test
 		assert(Core\File\Queue::storageSkip(1)->isCount(1));
 		assert(Core\File\Queue::getQueued()->isCount(2));
 		assert(Core\File\Queue::storageAll()->first() instanceof Core\File\Queue);
-		assert(Core\File\Queue::storageAll()->first()->read() === array('what'=>'ok'));
-		assert(Core\File\Queue::triggerUnqueue(1) === array('test'));
+		assert(Core\File\Queue::storageAll()->first()->read() === ['what'=>'ok']);
+		assert(Core\File\Queue::triggerUnqueue(1) === ['test']);
 		assert(Core\File\Queue::storageAll()->unlink() === 1);
 		assert(Core\File\Queue::storageTrim(2) === 0);
 		assert(Core\File\Queue::triggerUnqueue(1) === null);
 		assert(Base\Dir::emptyAndUnlink(Core\File\Queue::storageDirname()));
 
 		// serialize
-		$write = new Main\Map(array(2=>'ok','yes',4));
+		$write = new Main\Map([2=>'ok','yes',4]);
 		assert($serialize instanceof Core\File\Serialize);
 		assert($serialize->extension() === 'txt');
 		assert($serialize->write($write) === $serialize);
@@ -283,17 +283,17 @@ class File extends Base\Test
 		assert(is_string($serialize->readRaw()));
 		assert($serialize->read() !== $write);
 		assert($serialize->unlink());
-		assert(Core\File\Serialize::getClass($storage."/serialize.txt",array('create'=>true)) === Core\File\Serialize::class);
+		assert(Core\File\Serialize::getClass($storage."/serialize.txt",['create'=>true]) === Core\File\Serialize::class);
 
 		// session
 		$storageSession = "[storage]/session/main";
-		$f = new Core\File\Session($storageSession."/abcdef",array('create'=>true));
-		$f->write(array(1,2,3));
+		$f = new Core\File\Session($storageSession."/abcdef",['create'=>true]);
+		$f->write([1,2,3]);
 		assert(Core\File::new($f->path()) instanceof Core\File\Session);
-		assert($f->read() === array(1,2,3));
+		assert($f->read() === [1,2,3]);
 		assert($f->sessionSid() === 'abcdef');
 		assert(!empty($f->sessionData()));
-		assert($f->sessionWrite(serialize(array(3,4,5))));
+		assert($f->sessionWrite(serialize([3,4,5])));
 		assert($f->sessionUpdateTimestamp());
 		assert($f->sessionDestroy());
 		assert(!empty(Core\File\Session::sessionDir(Base\Finder::shortcut($storageSession),'test')));
@@ -335,7 +335,7 @@ class File extends Base\Test
 		assert($zip->archive() instanceof \ZipArchive);
 		assert(count($zip->all()) === 9);
 		assert($zip->extract($storage."/extract"));
-		assert($newZip->all() === array());
+		assert($newZip->all() === []);
 		assert($newZip->addFile($newXml));
 		assert($newZip->addFile($video));
 		assert(count($newZip->all()) === 2);

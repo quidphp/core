@@ -44,7 +44,7 @@ trait _cols
 						
 						$array = Base\Str::explodeTrimClean($default,$value);
 						$count = count($array);
-						$value = $table->cols(...$array)->filter(array('isVisibleGeneral'=>true));
+						$value = $table->cols(...$array)->filter(['isVisibleGeneral'=>true]);
 						
 						if($value->isCount($count))
 						$return = $value;
@@ -55,7 +55,7 @@ trait _cols
 				}
 				
 				elseif($type === 'validateDefault')
-				$return = $table->cols()->general()->filter(array('isVisibleGeneral'=>true));
+				$return = $table->cols()->general()->filter(['isVisibleGeneral'=>true]);
 			}
 		}
 		

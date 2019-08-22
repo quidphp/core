@@ -7,9 +7,9 @@ use Quid\Core;
 class RegisterSubmit extends Core\Route\RegisterSubmit
 {
 	//  config
-	public static $config = array(
+	public static $config = [
 		'parent'=>Register::class
-	);
+	];
 }
 
 // config

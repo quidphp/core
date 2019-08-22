@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Doc extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'doc'
-	);
+	];
 }
 
 // config

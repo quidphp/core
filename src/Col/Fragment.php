@@ -6,10 +6,10 @@ namespace Quid\Core\Col;
 class Fragment extends SlugAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'unique'=>false,
-		'validate'=>array(1=>'fragment')
-	);
+		'validate'=>[1=>'fragment']
+	];
 }
 
 // config

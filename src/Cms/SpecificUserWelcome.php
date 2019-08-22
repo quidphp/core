@@ -11,22 +11,22 @@ class SpecificUserWelcome extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'table/user/[primary]/courriel-bienvenue',
-			'en'=>'table/user/[primary]/welcome-emeail'),
-		'segment'=>array(
-			'primary'=>'structureSegmentPrimary'),
+			'en'=>'table/user/[primary]/welcome-emeail'],
+		'segment'=>[
+			'primary'=>'structureSegmentPrimary'],
 		'row'=>Core\Row\User::class,
 		'parent'=>Specific::class,
-		'match'=>array(
+		'match'=>[
 			'method'=>'post',
 			'csrf'=>true,
-			'post'=>array('id'=>array('='=>'[primary]'),'-table-'=>array('='=>'[table]')),
+			'post'=>['id'=>['='=>'[primary]'],'-table-'=>['='=>'[table]']],
 			'genuine'=>true,
-			'role'=>array('>='=>20)),
+			'role'=>['>='=>20]],
 		'group'=>'specific'
-	);
+	];
 	
 	
 	// onBefore
@@ -111,7 +111,7 @@ class SpecificUserWelcome extends Core\RouteAlias
 	// option pour l'envoie de courriel
 	protected function emailOption():?array 
 	{
-		return array('com'=>true);
+		return ['com'=>true];
 	}
 }
 

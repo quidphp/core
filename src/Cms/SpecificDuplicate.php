@@ -12,22 +12,22 @@ class SpecificDuplicate extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/[primary]/duplicate',
-			'fr'=>'table/[table]/[primary]/dupliquer'),
-		'segment'=>array(
+			'fr'=>'table/[table]/[primary]/dupliquer'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
-			'primary'=>'structureSegmentPrimary'),
-		'match'=>array(
+			'primary'=>'structureSegmentPrimary'],
+		'match'=>[
 			'method'=>'post',
 			'csrf'=>true,
 			'genuine'=>true,
-			'role'=>array('>='=>20)),
+			'role'=>['>='=>20]],
 		'parent'=>Specific::class,
 		'group'=>'specific',
 		'navigation'=>false
-	);
+	];
 	
 	
 	// dynamique
@@ -102,7 +102,7 @@ class SpecificDuplicate extends Core\RouteAlias
 		$table = $row->table();
 		$context = static::context();
 		$com = static::sessionCom();
-		$option = array('com'=>true,'context'=>$context);
+		$option = ['com'=>true,'context'=>$context];
 		$post = $this->post();
 		$post = $this->onBeforeCommit($post);
 		

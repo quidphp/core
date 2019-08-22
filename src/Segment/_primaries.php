@@ -53,7 +53,7 @@ trait _primaries
 		}
 		
 		elseif($type === 'validateDefault')
-		$return = array();
+		$return = [];
 		
 		return $return;
 	}

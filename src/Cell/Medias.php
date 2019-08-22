@@ -7,7 +7,7 @@ use Quid\Core;
 class Medias extends FilesAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// cast
@@ -253,7 +253,7 @@ class Medias extends FilesAlias
 	// retourne un tableau avec tous les indexes qui existent
 	public function indexesExists($version=null):array
 	{
-		$return = array();
+		$return = [];
 		$get = $this->get();
 		
 		if(is_array($get) && !empty($get))

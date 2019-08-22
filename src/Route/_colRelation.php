@@ -56,7 +56,7 @@ trait _colRelation
 		$return = null;
 		$col = $this->segment('col');
 		$method = static::$config['method'] ?? null;
-		$base = array('limit'=>$this->limit(),'not'=>$this->relationSearchNot(),'method'=>$method,'order'=>$this->currentOrder());
+		$base = ['limit'=>$this->limit(),'not'=>$this->relationSearchNot(),'method'=>$method,'order'=>$this->currentOrder()];
 		$base = Base\Arr::clean($base);
 		$option = Base\Arr::plus($base,$option);
 		
@@ -67,12 +67,12 @@ trait _colRelation
 		if($this->hasPage() && is_int($option['limit']))
 		{
 			$page = $this->segment('page');
-			$option['limit'] = array($page=>$option['limit']);
+			$option['limit'] = [$page=>$option['limit']];
 		}
 		
 		if($required === false || $search !== null)
 		{
-			$return = array();
+			$return = [];
 			
 			if(is_string($search))
 			$return = $relation->search($search,$option);

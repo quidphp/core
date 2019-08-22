@@ -8,15 +8,15 @@ use Quid\Base;
 class Set extends RelationAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\Set::class,
-		'onGet'=>array(Base\Set::class,'onGet'),
+		'onGet'=>[Base\Set::class,'onGet'],
 		'preValidate'=>'array',
 		'set'=>true,
-		'complex'=>array(0=>'checkbox',11=>'search'),
-		'check'=>array('kind'=>'text'),
+		'complex'=>[0=>'checkbox',11=>'search'],
+		'check'=>['kind'=>'text'],
 		'sortable'=>true
-	);
+	];
 	
 
 	// isSet
@@ -38,7 +38,7 @@ class Set extends RelationAlias
 			$tag = $this->complexTag();
 			$relation = $this->relation();
 			
-			if(in_array($tag,array('checkbox','search'),true) && $relation->size() > 1)
+			if(in_array($tag,['checkbox','search'],true) && $relation->size() > 1)
 			$return = true;
 		}
 		
@@ -66,7 +66,7 @@ class Set extends RelationAlias
 	// retourne la ou les classe à utiliser en html pour sortable
 	public function classHtml() 
 	{
-		$return = array(parent::classHtml());
+		$return = [parent::classHtml()];
 		
 		if($this->isSortable())
 		$return[] = 'sortable';
@@ -80,7 +80,7 @@ class Set extends RelationAlias
 	// si sortable, met les éléments cochés en ordre au début de la liste
 	protected function prepareStandardRelation($value):array
 	{
-		$return = array();
+		$return = [];
 		
 		if($this->isSortable())
 		{

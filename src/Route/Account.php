@@ -7,14 +7,14 @@ use Quid\Core;
 abstract class Account extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mon-compte',
-			'en'=>'my-account'),
-		'match'=>array(
-			'role'=>array('>='=>20)),
+			'en'=>'my-account'],
+		'match'=>[
+			'role'=>['>='=>20]],
 		'sitemap'=>false
-	);
+	];
 	
 	
 	// submitClass

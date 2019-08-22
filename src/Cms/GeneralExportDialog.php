@@ -12,25 +12,25 @@ class GeneralExportDialog extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'dialog/export/[table]/[order]/[direction]/[filter]/[in]/[notIn]',
-			'fr'=>'dialogue/exportation/[table]/[order]/[direction]/[filter]/[in]/[notIn]'),
-		'segment'=>array(
+			'fr'=>'dialogue/exportation/[table]/[order]/[direction]/[filter]/[in]/[notIn]'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
 			'order'=>'structureSegmentOrder',
 			'direction'=>'structureSegmentDirection',
 			'filter'=>'structureSegmentFilter',
 			'in'=>'structureSegmentPrimaries',
-			'notIn'=>'structureSegmentPrimaries'),
-		'match'=>array(
+			'notIn'=>'structureSegmentPrimaries'],
+		'match'=>[
 			'ajax'=>true,
-			'role'=>array('>='=>20)),
+			'role'=>['>='=>20]],
 		'longExport'=>1500,
-		'query'=>array('s'),
+		'query'=>['s'],
 		'parent'=>General::class,
 		'group'=>'dialog'
-	);
+	];
 	
 	
 	// trigger
@@ -76,8 +76,8 @@ class GeneralExportDialog extends Core\RouteAlias
 		foreach ($encoding as $value) 
 		{
 			$route = $route->changeSegment('encoding',$value);
-			$label = static::langText(array('export',$value));
-			$r .= $route->a($label,array('submit','icon','padLeft','download'));
+			$label = static::langText(['export',$value]);
+			$r .= $route->a($label,['submit','icon','padLeft','download']);
 		}
 		
 		return $r;
@@ -88,7 +88,7 @@ class GeneralExportDialog extends Core\RouteAlias
 	// retourne le lien dialog
 	public function aDialog():string
 	{
-		return $this->aTitle(null,array('submit','icon','padLeft','download','data'=>array('jsBox'=>'dialogGeneralExport')));
+		return $this->aTitle(null,['submit','icon','padLeft','download','data'=>['jsBox'=>'dialogGeneralExport']]);
 	}
 	
 	

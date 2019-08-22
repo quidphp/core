@@ -12,32 +12,32 @@ class File extends Main\File
 	
 	
 	// config
-	public static $config = array(
-		'types'=>array( // défini les options à mettre selon le type
-			'dump'=>array(
-				'write'=>array(
-					'callback'=>array(Base\Debug::class,'varGet'))),
-			'json'=>array(
-				'read'=>array(
-					'callback'=>array(Base\Json::class,'decode')),
-				'write'=>array(
-					'callback'=>array(Base\Json::class,'encodePretty'))),
-			'serialize'=>array(
-				'read'=>array(
-					'callback'=>array(Base\Crypt::class,'unserialize')),
-				'write'=>array(
-					'callback'=>array(Base\Crypt::class,'serialize')))),
-		'storageClass'=>array( // défini les classes storages, un dirname dans celui défini de la classe doit utilisé un objet particulier
+	public static $config = [
+		'types'=>[ // défini les options à mettre selon le type
+			'dump'=>[
+				'write'=>[
+					'callback'=>[Base\Debug::class,'varGet']]],
+			'json'=>[
+				'read'=>[
+					'callback'=>[Base\Json::class,'decode']],
+				'write'=>[
+					'callback'=>[Base\Json::class,'encodePretty']]],
+			'serialize'=>[
+				'read'=>[
+					'callback'=>[Base\Crypt::class,'unserialize']],
+				'write'=>[
+					'callback'=>[Base\Crypt::class,'serialize']]]],
+		'storageClass'=>[ // défini les classes storages, un dirname dans celui défini de la classe doit utilisé un objet particulier
 			'cache'=>File\Cache::class,
 			'error'=>File\Error::class,
 			'log'=>File\Log::class,
 			'queue'=>File\Queue::class,
-			'session'=>File\Session::class),
-		'utilClass'=>array( // défini les classes utilités
+			'session'=>File\Session::class],
+		'utilClass'=>[ // défini les classes utilités
 			'dump'=>File\Dump::class,
 			'serialize'=>File\Serialize::class,
-			'email'=>File\Email::class),
-		'groupClass'=>array( // défini la classe à utiliser selon le mimeGroup du fichier
+			'email'=>File\Email::class],
+		'groupClass'=>[ // défini la classe à utiliser selon le mimeGroup du fichier
 			'audio'=>File\Audio::class,
 			'calendar'=>File\Calendar::class,
 			'css'=>File\Css::class,
@@ -54,8 +54,8 @@ class File extends Main\File
 			'txt'=>File\Txt::class,
 			'video'=>File\Video::class,
 			'xml'=>File\Xml::class,
-			'zip'=>File\Zip::class)
-	);
+			'zip'=>File\Zip::class]
+	];
 	
 	
 	// getOverloadKeyPrepend

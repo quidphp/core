@@ -12,7 +12,7 @@ class Cells extends Orm\Cells
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// tableFromFqcn
@@ -41,7 +41,7 @@ class Cells extends Orm\Cells
 	// retourne un tableau utilisé par onPrepareKey
 	public static function keyClassExtends():array
 	{
-		return array(Cell::class,Col::class);
+		return [Cell::class,Col::class];
 	}
 }
 ?>

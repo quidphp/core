@@ -9,10 +9,10 @@ use Quid\Base;
 class Js extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'js',
 		'service'=>Core\Service\JShrink::class
-	);
+	];
 	
 
 	// concatenateFrom
@@ -20,11 +20,11 @@ class Js extends TextAlias
 	// utilise la classe main/concatenator
 	public function concatenateFrom($values,?array $option=null):self 
 	{
-		$option = Base\Arr::plus(array('extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true),$option);
+		$option = Base\Arr::plus(['extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
 		
-		$concatenatorOption = array();
+		$concatenatorOption = [];
 		if($option['compress'] === true)
-		$concatenatorOption['callable'] = array(static::getServiceClass(),'staticTrigger');
+		$concatenatorOption['callable'] = [static::getServiceClass(),'staticTrigger'];
 		
 		$concatenator = Main\Concatenator::newOverload($concatenatorOption);
 

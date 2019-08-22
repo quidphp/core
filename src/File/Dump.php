@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Dump extends HtmlAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'type'=>'dump'
-	);
+	];
 }
 
 // config

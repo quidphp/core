@@ -12,25 +12,25 @@ abstract class AccountSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mon-compte/soumettre',
-			'en'=>'my-account/submit'),
-		'match'=>array(
+			'en'=>'my-account/submit'],
+		'match'=>[
 			'method'=>'post',
-			'role'=>array('>='=>20)),
-		'verify'=>array(
-			'post'=>array('email'),
+			'role'=>['>='=>20]],
+		'verify'=>[
+			'post'=>['email'],
 			'timeout'=>true,
 			'genuine'=>true,
-			'csrf'=>true),
-		'timeout'=>array(
-			'failure'=>array('max'=>25,'timeout'=>600),
-			'success'=>array('max'=>25,'timeout'=>600)),
+			'csrf'=>true],
+		'timeout'=>[
+			'failure'=>['max'=>25,'timeout'=>600],
+			'success'=>['max'=>25,'timeout'=>600]],
 		'parent'=>Account::class,
-		'baseFields'=>array('email'),
+		'baseFields'=>['email'],
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onSuccess
@@ -74,7 +74,7 @@ abstract class AccountSubmit extends Core\RouteAlias
 	// retourne le tableau post pour la modification du compte
 	public function post():array 
 	{
-		$return = array();
+		$return = [];
 		$request = $this->request();
 		$post = $request->post(true,true);
 		$keep = static::getBaseFields();
@@ -112,7 +112,7 @@ abstract class AccountSubmit extends Core\RouteAlias
 	// option pour le update
 	protected function getOption():?array 
 	{
-		return array('com'=>true);
+		return ['com'=>true];
 	}
 	
 	
@@ -120,7 +120,7 @@ abstract class AccountSubmit extends Core\RouteAlias
 	// retourne les champs de base
 	public static function getBaseFields():array 
 	{
-		return static::$config['baseFields'] ?? array();
+		return static::$config['baseFields'] ?? [];
 	}
 }
 

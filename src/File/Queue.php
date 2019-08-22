@@ -12,11 +12,11 @@ class Queue extends SerializeAlias implements Main\Contract\Queue, Main\Contract
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'dirname'=>'[storage]/queue',
 		'extension'=>'txt',
 		'unqueue'=>null // callable à mettre pour le unqueue
-	);
+	];
 	
 	
 	// onUnqueue

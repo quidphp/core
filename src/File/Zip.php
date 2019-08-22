@@ -8,9 +8,9 @@ use Quid\Base;
 class Zip extends BinaryAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'zip'
-	);
+	];
 	
 	
 	// dynamique
@@ -60,7 +60,7 @@ class Zip extends BinaryAlias
 	// retourne un tableau avec tous les fichiers contenus dans l'archive
 	public function all():array 
 	{
-		$return = array();
+		$return = [];
 		$archive = $this->archive();
 		
 		for ($i=0; $i < $archive->count(); $i++) 
@@ -78,7 +78,7 @@ class Zip extends BinaryAlias
 	public function addFile($value,?string $local=null,?array $option=null):bool
 	{
 		$return = false;
-		$option = Base\Arr::plus(array('safeBasename'=>false),$option);
+		$option = Base\Arr::plus(['safeBasename'=>false],$option);
 		$archive = $this->archive();
 		$this->check('isWritable');
 		

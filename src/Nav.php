@@ -11,12 +11,12 @@ class Nav extends Main\Map
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// map
 	protected static $is = 'string'; // les données de nav doivent être des routes, donc is est string
-	protected static $allow = array('set','unset','empty','serialize'); // méthodes permises
+	protected static $allow = ['set','unset','empty','serialize']; // méthodes permises
 	
 	
 	// route

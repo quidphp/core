@@ -11,20 +11,20 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mon-compte/mot-de-passe/soumettre',
-			'en'=>'my-account/change-password/submit'),
-		'match'=>array(
+			'en'=>'my-account/change-password/submit'],
+		'match'=>[
 			'method'=>'post',
-			'role'=>array('>='=>20)),
-		'verify'=>array(
-			'post'=>array('oldPassword','newPassword','newPasswordConfirm'),
+			'role'=>['>='=>20]],
+		'verify'=>[
+			'post'=>['oldPassword','newPassword','newPasswordConfirm'],
 			'genuine'=>true,
-			'csrf'=>true),
+			'csrf'=>true],
 		'parent'=>AccountChangePassword::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onFailure
@@ -56,7 +56,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 		$post = $this->onBeforeCommit($post);
 		
 		if($post !== null)
-		$return = $session->changePassword($post['newPassword'],$post['newPasswordConfirm'],$post['oldPassword'],array('com'=>true));
+		$return = $session->changePassword($post['newPassword'],$post['newPasswordConfirm'],$post['oldPassword'],['com'=>true]);
 		
 		if(empty($return))
 		$this->failureComplete();
@@ -72,7 +72,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 	// retourne les données post pour le changement de mot de passe compte
 	protected function post():array 
 	{
-		$return = array();
+		$return = [];
 		$request = $this->request();
 		
 		foreach (static::getFields() as $value) 
@@ -89,7 +89,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 	// retourne le nom des champs pour le formulaire
 	public static function getFields():array 
 	{
-		return static::$config['verify']['post'] ?? array();
+		return static::$config['verify']['post'] ?? [];
 	}
 }
 

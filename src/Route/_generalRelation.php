@@ -65,7 +65,7 @@ trait _generalRelation
 	// retourne un tableau avec toutes les routes de filtre à afficher
 	protected function makeRoutes(array $array):array
 	{
-		$return = array();
+		$return = [];
 		
 		if(!empty($array))
 		{
@@ -75,20 +75,20 @@ trait _generalRelation
 
 			$selected = $this->segment('selected');
 			$current = $route->segment('filter');
-			$current = (is_array($current))? $current:array();
+			$current = (is_array($current))? $current:[];
 			$currentName = (array_key_exists($name,$current))? $current[$name]:null;
 			
 			foreach ($array as $v => $label) 
 			{
 				if(is_scalar($label))
 				{
-					$r = array();
+					$r = [];
 					$label = Base\Str::cast($label);
 					$active = (in_array($v,$selected,true))? true:false;
 					$filter = $current;
 					
-					$filter[$name] = array($v);
-					$route = $route->changeSegments(array('filter'=>$filter,'page'=>1));
+					$filter[$name] = [$v];
+					$route = $route->changeSegments(['filter'=>$filter,'page'=>1]);
 					$plus = null;
 					$minus = null;
 					
@@ -97,18 +97,18 @@ trait _generalRelation
 						$filter = $current;
 						
 						if(!array_key_exists($name,$filter) || !is_array($filter[$name]))
-						$filter[$name] = array();
+						$filter[$name] = [];
 						
 						if(in_array($v,$filter[$name],true) && $active === true)
 						{
 							$filter[$name] = Base\Arr::valueStrip($v,$filter[$name]);
-							$minus = $route->changeSegments(array('filter'=>$filter,'page'=>1));
+							$minus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
 						}
 						
 						else
 						{
 							$filter[$name][] = $v;
-							$plus = $route->changeSegments(array('filter'=>$filter,'page'=>1));
+							$plus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
 						}
 					}
 					
@@ -141,7 +141,7 @@ trait _generalRelation
 			
 			foreach ($routes as $key => $value) 
 			{
-				if(is_array($value) && Base\Arr::keysAre(array('label','active','route','plus','minus'),$value))
+				if(is_array($value) && Base\Arr::keysAre(['label','active','route','plus','minus'],$value))
 				{
 					$label = $value['label'];
 					$selected = $value['active'];
@@ -156,13 +156,13 @@ trait _generalRelation
 						if(is_int($excerpt))
 						$label = Base\Str::excerpt($excerpt,$label);
 						
-						$value = $route->a($label,array($class,'replace'));
+						$value = $route->a($label,[$class,'replace']);
 						
 						if(!empty($plus))
-						$value .= $plus->a(null,array('icon','plus'));
+						$value .= $plus->a(null,['icon','plus']);
 						
 						elseif(!empty($minus))
-						$value .= $minus->a(null,array('icon','minus'));
+						$value .= $minus->a(null,['icon','minus']);
 						
 						$attr = (!empty($plus) || !empty($minus))? 'hasIcon':null;
 						$r .= Html::li($value,$attr);
@@ -200,14 +200,14 @@ trait _generalRelation
 			$selected = $filter[$name];
 			$class[] = 'filtering';
 			$closeFilter = Base\Arr::unset($name,$filter);
-			$closeRoute = $currentRoute->changeSegments(array('filter'=>$closeFilter));
+			$closeRoute = $currentRoute->changeSegments(['filter'=>$closeFilter]);
 			$after = $closeRoute->a(null,$closeAttr);
 		}
 		
-		$route = $route::make(array('table'=>$table,'col'=>$col,'selected'=>$selected));
+		$route = $route::make(['table'=>$table,'col'=>$col,'selected'=>$selected]);
 		$limit = $route->limit();
 		$query = $route::getSearchQuery();
-		$data = array('query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment());
+		$data = ['query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment()];
 		if($route->hasOrder())
 		$route = $route->changeSegment('order',true);
 		$data['href'] = $route;
@@ -218,7 +218,7 @@ trait _generalRelation
 			$searchMinLength = $table->searchMinLength();
 			$html .= Html::divOp('top');
 			$placeholder = static::langText('common/filter')." ($size)";
-			$html .= Html::inputText(null,array('name'=>true,'data-pattern'=>array('minLength'=>$searchMinLength),'placeholder'=>$placeholder));
+			$html .= Html::inputText(null,['name'=>true,'data-pattern'=>['minLength'=>$searchMinLength],'placeholder'=>$placeholder]);
 			
 			if(!empty($order))
 			{
@@ -237,7 +237,7 @@ trait _generalRelation
 		}
 		
 		$html .= Html::div(null,'result');
-		$r .= Html::clickOpen($html,$label,$after,array($class,'data'=>$data));
+		$r .= Html::clickOpen($html,$label,$after,[$class,'data'=>$data]);
 		
 		return $r;
 	}

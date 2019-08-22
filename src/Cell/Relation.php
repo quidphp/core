@@ -8,7 +8,7 @@ use Quid\Orm;
 abstract class Relation extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// pair
@@ -38,7 +38,7 @@ abstract class Relation extends Core\CellAlias
 	// retourne la valeur pour l'exportation de cellules relation
 	public function export(?array $option=null):array
 	{
-		$return = array();
+		$return = [];
 		$value = $this->relationKeyValue($option);
 		
 		if(is_array($value))

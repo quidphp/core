@@ -8,17 +8,17 @@ use Quid\Core;
 abstract class AccountChangePassword extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mon-compte/mot-de-passe',
-			'en'=>'my-account/change-password'),
-		'match'=>array(
-			'role'=>array('>='=>20)),
+			'en'=>'my-account/change-password'],
+		'match'=>[
+			'role'=>['>='=>20]],
 		'group'=>'submit',
 		'parent'=>Account::class,
 		'colPassword'=>'password',
 		'sitemap'=>false
-	);
+	];
 	
 	
 	// submitRoute
@@ -52,7 +52,7 @@ abstract class AccountChangePassword extends Core\RouteAlias
 		foreach ($fields as $name) 
 		{
 			$label = static::langText('accountChangePassword/'.$name);
-			$attr = array('name'=>$name,'placeholder'=>$label,'data-required'=>true);
+			$attr = ['name'=>$name,'placeholder'=>$label,'data-required'=>true];
 			
 			$r .= Html::divOp('field');
 			$r .= $col->form(null,$attr);

@@ -31,7 +31,7 @@ class Route extends Base\Test
 		$obj = new $route(Core\Request::live());
 		$obj2 = new $loginSubmit();
 		$g = new $general(new Core\Request("/fr/table/ormTable/1/20/-/-/-/-/-/-/-"));
-		$g2 = new $general(array('table'=>$db['ormSql'],'page'=>3,'limit'=>10));
+		$g2 = new $general(['table'=>$db['ormSql'],'page'=>3,'limit'=>10]);
 		$query = new $general(new Core\Request("/fr/table/ormTable/1/20/-/-/-/-/-/-/-?s=éric"));
 		assert(count(Base\Classe::parents($login,true)) === 7);
 		
@@ -152,7 +152,7 @@ class Route extends Base\Test
 		assert($obj2->uriRelative() === '/en/login');
 		assert($obj2->uriAbsolute() === Base\Request::schemeHost()."/en/login");
 		assert($obj2->a() === "<a href='/en/login' hreflang='en'></a>");
-		assert($obj2->a('okk','#id class2','fr',array('attr'=>array('href'=>array('lang'=>false)))) === "<a href='/fr/connexion' id='id' class='class2'>okk</a>");
+		assert($obj2->a('okk','#id class2','fr',['attr'=>['href'=>['lang'=>false]]]) === "<a href='/fr/connexion' id='id' class='class2'>okk</a>");
 		assert($obj2->aOpen() === "<a href='/en/login' hreflang='en'>");
 		assert($obj2->aOpen('okkk','#id class2','fr') === "<a href='/fr/connexion' id='id' class='class2' hreflang='fr'>okkk");
 		assert($obj2->aTitle() === "<a href='/en/login' hreflang='en'>Login - Submit</a>");
@@ -161,7 +161,7 @@ class Route extends Base\Test
 		assert($obj2->aOpenTitle('%:','#id class2') === "<a href='/en/login' id='id' class='class2' hreflang='en'>Login - Submit:");
 		$loginMake = $login::make();
 		assert(strlen($obj2->formOpen()) === 207);
-		assert(strlen($loginMake->formOpen(array('method'=>'post'))) === 199);
+		assert(strlen($loginMake->formOpen(['method'=>'post'])) === 199);
 		assert($loginMake->formSubmit(null,'nameOK') === "<form action='/' method='get'><button name='nameOK' type='submit'></button></form>");
 		assert($loginMake->submitTitle("% ok") === "<button type='submit'>Login ok</button>");
 
@@ -187,7 +187,7 @@ class Route extends Base\Test
 		assert($loginSubmit::parent() === Core\Cms\Login::class);
 		assert($loginSubmit::hasPath('fr'));
 		assert($loginSubmit::hasPath());
-		assert($loginSubmit::paths() === array('en'=>'login','fr'=>'connexion'));
+		assert($loginSubmit::paths() === ['en'=>'login','fr'=>'connexion']);
 		assert($route::path() === false);
 		assert($route::path(null,true) === null);
 		assert($login::path() === '');
@@ -206,11 +206,11 @@ class Route extends Base\Test
 		assert($contact::isRedirectable());
 		assert(!$sitemap::isRedirectable());
 		assert(!$route::hasCheck('captcha'));
-		assert($route::timeout() === array());
+		assert($route::timeout() === []);
 		assert(is_array($loginSubmit::timeout()['trigger']));
 		$max = $loginSubmit::timeout()['trigger']['max'];
 		assert($loginSubmit::prepareTimeout()->isCount(1));
-		$key = array($loginSubmit::classFqcn(),'trigger');
+		$key = [$loginSubmit::classFqcn(),'trigger'];
 		assert($loginSubmit::isTimedOut('trigger') === false);
 		assert($loginSubmit::timeoutGet('trigger') === 0);
 		assert($loginSubmit::timeoutGet('triggerz') === null);
@@ -221,21 +221,21 @@ class Route extends Base\Test
 		assert($loginSubmit::timeoutReset('trigger')->getCount($key) === 0);
 		assert($loginSubmit::isTimedOut('trigger') === false);
 		assert($loginSubmit::timeoutStamp('trigger') instanceof Main\Timeout);
-		assert(count($loginSubmit::tagAttr('a',array('class','#id'))) === 2);
+		assert(count($loginSubmit::tagAttr('a',['class','#id'])) === 2);
 		assert($loginSubmit::tagOption('form') === null);
 
 		// _segment
 		assert($general::make()->routeSegmentRequest() instanceof Routing\RouteSegmentRequest);
 		assert($g->initSegment() === $g);
 		assert($g->checkValidSegment());
-		assert($g->segment(null,false) === array('table'=>'ormTable','page'=>1,'limit'=>20,'order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-'));
+		assert($g->segment(null,false) === ['table'=>'ormTable','page'=>1,'limit'=>20,'order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-']);
 		assert($g->segment('table',false) === 'ormTable');
 		assert($g->segment(0,false) === 'ormTable');
 		assert($g2->segment()['table'] instanceof Core\Table);
 		assert($g2->segment(null,true)['table'] === 'ormSql');
 		assert($g->segment(null,false)['table'] === 'ormTable');
 		assert($g->segment(null,true)['table'] === 'ormTable');
-		assert($g->segment() === array('table'=>$db['ormTable'],'page'=>1,'limit'=>20,'order'=>$db['ormTable']['id'],'direction'=>'desc','cols'=>$g->segment('cols'),'filter'=>array(),'in'=>array(),'notIn'=>array(),'highlight'=>array()));
+		assert($g->segment() === ['table'=>$db['ormTable'],'page'=>1,'limit'=>20,'order'=>$db['ormTable']['id'],'direction'=>'desc','cols'=>$g->segment('cols'),'filter'=>[],'in'=>[],'notIn'=>[],'highlight'=>[]]);
 		assert($g->segment('table') === $db['ormTable']);
 		assert($g->segment(0) === $db['ormTable']);
 		assert($g->hasSegment('table','page'));
@@ -253,7 +253,7 @@ class Route extends Base\Test
 		assert($g3->checkValidSegment());
 		assert($g3->isValid());
 		assert($g3->checkValid());
-		assert(($g4 = $g3->changeSegments(array('table'=>123,'page'=>4))) instanceof Core\Route);
+		assert(($g4 = $g3->changeSegments(['table'=>123,'page'=>4])) instanceof Core\Route);
 		assert(!$g4->isValidSegment());
 		assert(($g5 = $g3->keepSegments('page')) instanceof Core\Route);
 		assert($g5->segment()['page'] === 4);
@@ -262,7 +262,7 @@ class Route extends Base\Test
 		assert($general::isSegmentClass());
 		assert($general::checkSegmentClass());
 		assert($loginSubmit::makeRouteRequest() instanceof Routing\RouteRequest);
-		assert($general::makeRouteRequest(array('table'=>'ormTable')) instanceof Routing\RouteSegmentRequest);
+		assert($general::makeRouteRequest(['table'=>'ormTable']) instanceof Routing\RouteSegmentRequest);
 		assert($general::makeRouteRequest('asdasdss') instanceof Routing\RouteSegmentRequest);
 		assert($general::getDefaultSegment() === '-');
 		assert($general::getReplaceSegment() === '%%%');
@@ -301,11 +301,11 @@ class Route extends Base\Test
 		/* ROUTE REQUEST */
 		// prepare
 		$userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/604.4.7 (KHTML, like Gecko) Version/11.0.2 Safari/604.4.7';
-		$param = array('ssl'=>true,'ajax'=>true,'path'=>'/fr/test/de/la/vie','host'=>'google.com','method'=>'post','ip'=>'127.0.0.1','userAgent'=>$userAgent);
+		$param = ['ssl'=>true,'ajax'=>true,'path'=>'/fr/test/de/la/vie','host'=>'google.com','method'=>'post','ip'=>'127.0.0.1','userAgent'=>$userAgent];
 		$request = new Core\Request($param);
-		$param2 = array('ssl'=>true,'ajax'=>false,'path'=>'/table/routeMatch','host'=>'google.com','method'=>'get','ip'=>'127.0.0.1','userAgent'=>$userAgent);
+		$param2 = ['ssl'=>true,'ajax'=>false,'path'=>'/table/routeMatch','host'=>'google.com','method'=>'get','ip'=>'127.0.0.1','userAgent'=>$userAgent];
 		$request2 = new Core\Request($param2);
-		$param3 = array('ssl'=>true,'ajax'=>false,'path'=>'/','query'=>'abc=123&ok=true&james=lavié','post'=>array('-captcha-'=>$session->captcha(true),'-csrf-'=>$session->csrf(),'-genuine-'=>'','abc'=>'111','ok'=>'true','james'=>'lavié'),'host'=>'google.com','method'=>'get','ip'=>'127.0.0.1','userAgent'=>$userAgent);
+		$param3 = ['ssl'=>true,'ajax'=>false,'path'=>'/','query'=>'abc=123&ok=true&james=lavié','post'=>['-captcha-'=>$session->captcha(true),'-csrf-'=>$session->csrf(),'-genuine-'=>'','abc'=>'111','ok'=>'true','james'=>'lavié'],'host'=>'google.com','method'=>'get','ip'=>'127.0.0.1','userAgent'=>$userAgent];
 		$request3 = new Core\Request($param3);
 		assert($request3['abc'] === 111);
 		assert($request3['ok'] === 'true');
@@ -319,7 +319,7 @@ class Route extends Base\Test
 		$match3 = new Routing\RouteRequest(Core\Cms\Home::class,$request3);
 		$match4 = new Routing\RouteRequest(Core\Cms\LoginSubmit::class,$request2);
 		$match5 = new Routing\RouteRequest(Core\Cms\LoginSubmit::class,"https://google.com/asdsa?ok=2");
-		$match6 = new Routing\RouteRequest(Core\Cms\LoginSubmit::class,array('host'=>'james.com'));
+		$match6 = new Routing\RouteRequest(Core\Cms\LoginSubmit::class,['host'=>'james.com']);
 		assert($match5->request()->absolute() === "https://google.com/asdsa?ok=2");
 		assert($match6->request()->absolute() === Base\Request::scheme()."://james.com");
 
@@ -348,7 +348,7 @@ class Route extends Base\Test
 		assert($rr->isRequestInst());
 
 		// valid
-		assert($match3->valid() === array('match'=>true,'verify'=>true));
+		assert($match3->valid() === ['match'=>true,'verify'=>true]);
 		assert($match3->valid('match') === true);
 		assert($match3->valid('matchz') === false);
 
@@ -391,58 +391,58 @@ class Route extends Base\Test
 		// host
 		assert($match->host(null));
 		assert($match->host('google.com'));
-		assert($match->host(array('google.com','ok.com')));
-		assert(!$match->host(array('google2.com','ok.com')));
+		assert($match->host(['google.com','ok.com']));
+		assert(!$match->host(['google2.com','ok.com']));
 
 		// method
 		assert($match->method(null));
 		assert($match->method('post'));
 		assert(!$match->method('get'));
-		assert($match->method(array('POST','get')));
-		assert(!$match->method(array('get')));
+		assert($match->method(['POST','get']));
+		assert(!$match->method(['get']));
 
 		// header
 		assert($match->header(true));
-		assert($match->header(array('X-Requested-With'=>true)));
-		assert($match->header(array('X-Requested-With'=>array('='=>'XMLHttpRequest'))));
-		assert(!$match->header(array('X-Requested-With'=>'XMLHttpRequestz')));
+		assert($match->header(['X-Requested-With'=>true]));
+		assert($match->header(['X-Requested-With'=>['='=>'XMLHttpRequest']]));
+		assert(!$match->header(['X-Requested-With'=>'XMLHttpRequestz']));
 
 		// lang
 		assert($match->lang(null));
 		assert($match->lang('fr'));
 		assert(!$match->lang('en'));
-		assert($match->lang(array('fr','en')));
-		assert(!$match->lang(array('Fr','en')));
+		assert($match->lang(['fr','en']));
+		assert(!$match->lang(['Fr','en']));
 
 		// ip
 		assert($match->ip(null));
-		assert($match->ip(array('127.0.0.*')));
-		assert($match->ip(array('127.0.*.*')));
-		assert(!$match->ip(array('128.0.*.*')));
-		assert($match->ip(array('128.0.*.*','127.0.0.1')));
+		assert($match->ip(['127.0.0.*']));
+		assert($match->ip(['127.0.*.*']));
+		assert(!$match->ip(['128.0.*.*']));
+		assert($match->ip(['128.0.*.*','127.0.0.1']));
 
 		// browser
 		assert($match->browser(null));
 		assert($match->browser('Safari'));
 		assert(!$match->browser('Google'));
-		assert($match->browser(array('Google','Safari')));
+		assert($match->browser(['Google','Safari']));
 
 		// query
 		assert(!$match->query(true));
 		assert($match->query(false));
 		assert($match3->query(true));
 		assert($match3->query(true));
-		assert($match3->query(array('abc'=>123,'ok'=>'string','james'=>array('='=>'lavié'))));
-		assert(!$match3->query(array('abc'=>123,'ok'=>'string','james'=>array('='=>'lavié2'))));
+		assert($match3->query(['abc'=>123,'ok'=>'string','james'=>['='=>'lavié']]));
+		assert(!$match3->query(['abc'=>123,'ok'=>'string','james'=>['='=>'lavié2']]));
 
 		// post
 		assert(!$match->post(true));
 		assert($match->post(false));
 		assert($match3->post(true));
 		assert($match3->post(true));
-		assert($match3->post(array('abc'=>111,'ok'=>'string','james'=>array('='=>'lavié'))));
-		assert(!$match3->post(array('bla'=>'array','abc'=>111,'ok'=>'string','james'=>array('='=>'lavié'))));
-		assert(!$match3->post(array('abc'=>111,'ok'=>'array','james'=>array('='=>'lavié'))));
+		assert($match3->post(['abc'=>111,'ok'=>'string','james'=>['='=>'lavié']]));
+		assert(!$match3->post(['bla'=>'array','abc'=>111,'ok'=>'string','james'=>['='=>'lavié']]));
+		assert(!$match3->post(['abc'=>111,'ok'=>'array','james'=>['='=>'lavié']]));
 
 		// genuine
 		assert($match3->genuine(true));
@@ -453,10 +453,10 @@ class Route extends Base\Test
 		// role
 		assert($match->role(null,$session));
 		assert(!$match3->role(1,$session));
-		assert($match3->role(array('>'=>1),$session));
-		assert($match3->role(array(80,90),$session));
+		assert($match3->role(['>'=>1],$session));
+		assert($match3->role([80,90],$session));
 		assert($match3->role(80,$session));
-		assert(!$match3->role(array(90),$session));
+		assert(!$match3->role([90],$session));
 
 		// session
 		assert($match->session(null,$session));
@@ -464,8 +464,8 @@ class Route extends Base\Test
 		assert(!$match3->session(false,$session));
 		assert(!$match3->session('isNobody',$session));
 		assert($match3->session('isSomebody',$session));
-		assert($match3->session(array('isSomebody','isAdmin'),$session));
-		assert(!$match3->session(array('isSomebody','isNobody'),$session));
+		assert($match3->session(['isSomebody','isAdmin'],$session));
+		assert(!$match3->session(['isSomebody','isNobody'],$session));
 
 		// csrf
 		assert($match->csrf(null,$session));
@@ -492,14 +492,14 @@ class Route extends Base\Test
 		// uri
 		assert($match4->uri('fr') === $schemeHost.'/fr/connexion');
 		assert($match->uri('fr') === $schemeHost);
-		assert($match4->uri('fr',array('query'=>array('test'=>2,'james'=>'lolé'))) === $schemeHost."/fr/connexion?test=2&james=lolé");
-		assert($match4->uri('fr',array('query'=>true)) === $schemeHost.'/fr/connexion');
+		assert($match4->uri('fr',['query'=>['test'=>2,'james'=>'lolé']]) === $schemeHost."/fr/connexion?test=2&james=lolé");
+		assert($match4->uri('fr',['query'=>true]) === $schemeHost.'/fr/connexion');
 
 		// uriPrepare
 
 		// uriOutput
-		assert($match4->uriOutput('fr',array('absolute'=>true)) === $schemeHost.'/fr/connexion');
-		assert($match4->uriOutput('fr',array('absolute'=>false)) === '/fr/connexion');
+		assert($match4->uriOutput('fr',['absolute'=>true]) === $schemeHost.'/fr/connexion');
+		assert($match4->uriOutput('fr',['absolute'=>false]) === '/fr/connexion');
 		assert($match4->uriOutput('fr') === '/fr/connexion');
 
 		// uriRelative
@@ -525,10 +525,10 @@ class Route extends Base\Test
 		$rr5 = new Routing\RouteSegmentRequest($general,'ormTable',$lang);
 		$rr6 = new Routing\RouteSegmentRequest($specific,$db['user'][1],$lang);
 		$rr7 = new Routing\RouteSegmentRequest($general,$db['user'],$lang);
-		$rr8 = new Routing\RouteSegmentRequest($general,array('table'=>$db['user']),$lang);
-		$rr9 = new Routing\RouteSegmentRequest($general,array('table'=>'user','limit'=>20,'page'=>1),$lang);
-		$rr10 = new Routing\RouteSegmentRequest($specific,array('user',2),$lang);
-		$rr11 = new Routing\RouteSegmentRequest($general,array('table'=>'user'),$lang);
+		$rr8 = new Routing\RouteSegmentRequest($general,['table'=>$db['user']],$lang);
+		$rr9 = new Routing\RouteSegmentRequest($general,['table'=>'user','limit'=>20,'page'=>1],$lang);
+		$rr10 = new Routing\RouteSegmentRequest($specific,['user',2],$lang);
+		$rr11 = new Routing\RouteSegmentRequest($general,['table'=>'user'],$lang);
 
 		// reset
 
@@ -547,8 +547,8 @@ class Route extends Base\Test
 		// setRoute
 
 		// routeSegment
-		assert($rr->routeSegment() === array('table','page','limit','order','direction','cols','filter','in','notIn','highlight'));
-		assert($rr5->routeSegment() === array('table','page','limit','order','direction','cols','filter','in','notIn','highlight'));
+		assert($rr->routeSegment() === ['table','page','limit','order','direction','cols','filter','in','notIn','highlight']);
+		assert($rr5->routeSegment() === ['table','page','limit','order','direction','cols','filter','in','notIn','highlight']);
 
 		// setRequest
 
@@ -569,10 +569,10 @@ class Route extends Base\Test
 		assert($rr->isRouteRequestCompatible());
 
 		// requestSegment
-		assert($rr->requestSegment() === array('table'=>'ormTable','page'=>1,'limit'=>20,'order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-'));
-		assert($rr3->requestSegment() === array('table'=>'user','primary'=>1));
-		assert($rr5->requestSegment() === array('table'=>'ormTable','page'=>'ormTable','limit'=>'ormTable','order'=>'ormTable','direction'=>'ormTable','cols'=>'ormTable','filter'=>'ormTable','in'=>'ormTable','notIn'=>'ormTable','highlight'=>'ormTable'));
-		assert($rr7->requestSegment() === array('table'=>$db['user'],'page'=>$db['user'],'limit'=>$db['user'],'order'=>$db['user'],'direction'=>$db['user'],'cols'=>$db['user'],'filter'=>$db['user'],'in'=>$db['user'],'notIn'=>$db['user'],'highlight'=>$db['user']));
+		assert($rr->requestSegment() === ['table'=>'ormTable','page'=>1,'limit'=>20,'order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-']);
+		assert($rr3->requestSegment() === ['table'=>'user','primary'=>1]);
+		assert($rr5->requestSegment() === ['table'=>'ormTable','page'=>'ormTable','limit'=>'ormTable','order'=>'ormTable','direction'=>'ormTable','cols'=>'ormTable','filter'=>'ormTable','in'=>'ormTable','notIn'=>'ormTable','highlight'=>'ormTable']);
+		assert($rr7->requestSegment() === ['table'=>$db['user'],'page'=>$db['user'],'limit'=>$db['user'],'order'=>$db['user'],'direction'=>$db['user'],'cols'=>$db['user'],'filter'=>$db['user'],'in'=>$db['user'],'notIn'=>$db['user'],'highlight'=>$db['user']]);
 
 		// hasRequestSegment
 		assert($rr7->hasRequestSegment('page','limit'));
@@ -590,18 +590,18 @@ class Route extends Base\Test
 		assert($rr7->uri('fr') === '/fr/table/user/1/-/-/-/-/-/-/-/-');
 
 		// changeRequestSegments
-		assert($rr9->changeRequestSegments(array('table'=>'ormSql','page'=>3)) === $rr9);
+		assert($rr9->changeRequestSegments(['table'=>'ormSql','page'=>3]) === $rr9);
 
 		// keepRequestSegments
 		assert($rr9->keepRequestSegments('table','limit') === $rr9);
 		assert($rr9->requestSegment()['page'] === null);
 		assert($rr9->uri('en') === '/en/table/ormSql/1/20/-/-/-/-/-/-/-');
 		assert($rr9->makeRequestSegment()['page'] === '1');
-		assert($rr9->changeRequestSegments(array('table'=>'ormSql','page'=>3)) === $rr9);
+		assert($rr9->changeRequestSegments(['table'=>'ormSql','page'=>3]) === $rr9);
 
 		// makeRequestSegment
 		assert($rr7->requestSegment()['table'] instanceof Core\Table);
-		assert($rr7->makeRequestSegment() === array('table'=>'user','page'=>'1','limit'=>'-','order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-'));
+		assert($rr7->makeRequestSegment() === ['table'=>'user','page'=>'1','limit'=>'-','order'=>'-','direction'=>'-','cols'=>'-','filter'=>'-','in'=>'-','notIn'=>'-','highlight'=>'-']);
 
 		// isValidSegment
 		assert($rr->isValidSegment($session));
@@ -626,8 +626,8 @@ class Route extends Base\Test
 		// validateArray
 
 		// segment
-		assert($rr->segment() === array('table'=>$db['ormTable'],'page'=>1,'limit'=>20,'order'=>$db['ormTable']['id'],'direction'=>'desc','cols'=>$rr->segment()['cols'],'filter'=>array(),'in'=>array(),'notIn'=>array(),'highlight'=>array()));
-		assert($rr6->segment() === array('table'=>$db['user'],'primary'=>$db['user'][1]));
+		assert($rr->segment() === ['table'=>$db['ormTable'],'page'=>1,'limit'=>20,'order'=>$db['ormTable']['id'],'direction'=>'desc','cols'=>$rr->segment()['cols'],'filter'=>[],'in'=>[],'notIn'=>[],'highlight'=>[]]);
+		assert($rr6->segment() === ['table'=>$db['user'],'primary'=>$db['user'][1]]);
 
 		// path
 

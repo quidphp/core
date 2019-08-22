@@ -13,7 +13,7 @@ class Widget extends Base\Test
 		// getOverloadKeyPrepend
 		
 		// calendar
-		$cal = new Core\Widget\Calendar(array(2018,12));
+		$cal = new Core\Widget\Calendar([2018,12]);
 		$cal->setCallback('day',function($v) {
 			return "-$v-";
 		})->setCallback('prev',function() {
@@ -37,7 +37,7 @@ class Widget extends Base\Test
 		assert($cal->setFormat('dateToDay') === $cal);
 		assert($cal->format() === 'dateToDay');
 		assert($cal->setSelected(Base\Date::mk(2018,12,4)) === $cal);
-		assert($cal->selected() === array(1543899600));
+		assert($cal->selected() === [1543899600]);
 		assert(count($cal->structure()) === 6);
 		assert(strlen($cal->output()) > 3600);
 		

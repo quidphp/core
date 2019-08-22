@@ -7,18 +7,18 @@ use Quid\Base;
 class Timezone extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>false,
-		'relation'=>array(self::class,'getTimezones'),
-		'check'=>array('kind'=>'int')
-	);
+		'relation'=>[self::class,'getTimezones'],
+		'check'=>['kind'=>'int']
+	];
 	
 	
 	// description
 	// retourne la description de la colonne, remplace le segment timezone si existant par la timezone courante
 	public function description($pattern=null,?array $replace=null,?string $lang=null,?array $option=null):?string
 	{
-		return parent::description($pattern,Base\Arr::replace($replace,array('timezone'=>Base\Timezone::get())),$lang,$option);
+		return parent::description($pattern,Base\Arr::replace($replace,['timezone'=>Base\Timezone::get()]),$lang,$option);
 	}
 	
 	

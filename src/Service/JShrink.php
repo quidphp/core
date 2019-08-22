@@ -8,10 +8,10 @@ use JShrink\Minifier;
 class JShrink extends Core\ServiceAlias
 {
 	// config
-	public static $config = array(
-		'option'=>array(
-			'flaggedComments'=>false)
-	);
+	public static $config = [
+		'option'=>[
+			'flaggedComments'=>false]
+	];
 	
 	
 	// trigger

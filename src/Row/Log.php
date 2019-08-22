@@ -12,25 +12,25 @@ class Log extends Core\RowAlias implements Main\Contract\Log
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'search'=>false,
 		'priority'=>1000,
 		'parent'=>'system',
-		'cols'=>array(
-			'context'=>array('class'=>Core\Col\Context::class),
-			'request'=>array('class'=>Core\Col\Request::class),
-			'type'=>array('general'=>true,'relation'=>'logType'),
-			'json'=>array('class'=>Core\Col\JsonExport::class)),
+		'cols'=>[
+			'context'=>['class'=>Core\Col\Context::class],
+			'request'=>['class'=>Core\Col\Request::class],
+			'type'=>['general'=>true,'relation'=>'logType'],
+			'json'=>['class'=>Core\Col\JsonExport::class]],
 		'deleteTrim'=>500, // custom
-		'type'=>array( // type de log
+		'type'=>[ // type de log
 			1=>'login',
 			2=>'logout',
 			3=>'resetPassword',
 			4=>'activatePassword',
 			5=>'changePassword',
-			6=>'register')
-	);
+			6=>'register']
+	];
 	
 	
 	// getTypeCode
@@ -45,7 +45,7 @@ class Log extends Core\RowAlias implements Main\Contract\Log
 	// crée le tableau d'insertion
 	public static function newData(string $type,array $json):array
 	{
-		return array('type'=>static::getTypeCode($type),'json'=>$json);
+		return ['type'=>static::getTypeCode($type),'json'=>$json];
 	}
 }
 

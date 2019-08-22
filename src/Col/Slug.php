@@ -9,26 +9,26 @@ use Quid\Base;
 class Slug extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'inputText',
 		'setPriority'=>9,
-		'validate'=>array(1=>'slug'),
+		'validate'=>[1=>'slug'],
 		'include'=>true,
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'duplicate'=>false,
 		'required'=>true,
-		'check'=>array('kind'=>'char'),
-		'slug'=>array('date'=>'date','dateStart'=>'date','datetimeStart'=>'date','dateAdd'=>'date'), // custom, colonnes de date
-		'slugDate'=>array('ymd','compact'), // format de date
+		'check'=>['kind'=>'char'],
+		'slug'=>['date'=>'date','dateStart'=>'date','datetimeStart'=>'date','dateAdd'=>'date'], // custom, colonnes de date
+		'slugDate'=>['ymd','compact'], // format de date
 		'slugKey'=>'name', // nom de la cellule pour générer la base de slug, le code de langue est ajouté _
 		'slugChangeTablesCols'=>null, // tableau contenant les tables et colonnes ou faire le replace lors d'un changement de slug
 		'slugChangeUri'=>'%lang%/%slug%', // définit le pattern de l'uri à chercher et remplace, %lang% et %slug% sont remplacés
 		'onSlugChange'=>null // callback alternatif si le slug a changé
-	);
+	];
 	
 	
 	// replaceMode
-	protected static $replaceMode = array('=slug'); // défini les colonnes à ne pas merger récursivement
+	protected static $replaceMode = ['=slug']; // défini les colonnes à ne pas merger récursivement
 
 
 	// slugExists
@@ -84,7 +84,7 @@ class Slug extends Core\ColAlias
 				
 				if(!empty($name))
 				{
-					$option = array('totalLength'=>$this->length());
+					$option = ['totalLength'=>$this->length()];
 					$return = static::slugMake($name,$option);
 				}
 			}
@@ -109,7 +109,7 @@ class Slug extends Core\ColAlias
 	// gère l'appel au callback si le slug a changé
 	protected function slugHasChanged(string $return,Core\Cell $cell,array $option):void 
 	{
-		$option = Base\Arr::plus(array('com'=>false),$option);
+		$option = Base\Arr::plus(['com'=>false],$option);
 		$old = $cell->value();
 		if(is_string($old) && $return !== $old)
 		{
@@ -122,7 +122,7 @@ class Slug extends Core\ColAlias
 			
 			if(is_int($replaced) && $replaced > 0 && $option['com'] === true)
 			{
-				$text = static::langPlural($replaced,'com/pos/slug/updated',array('count'=>$replaced));
+				$text = static::langPlural($replaced,'com/pos/slug/updated',['count'=>$replaced]);
 				$this->com($text,$cell,'pos');
 			}
 		}
@@ -179,7 +179,7 @@ class Slug extends Core\ColAlias
 	// méthode protégé
 	protected function slugOnChangeMake(string $return,string $uri,string $langCode):string 
 	{
-		$return = Base\Str::replace(array('%lang%'=>$langCode,'%slug%'=>$return),$uri);
+		$return = Base\Str::replace(['%lang%'=>$langCode,'%slug%'=>$return],$uri);
 		$return = Base\Path::wrapStart($return);
 		$return = Base\Str::quote($return,true);
 		

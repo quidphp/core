@@ -68,7 +68,7 @@ trait _page
 	{
 		$return = null;
 		$className = static::className(true);
-		$return = static::langText(array($className,'subTitle'));
+		$return = static::langText([$className,'subTitle']);
 		
 		return $return;
 	}

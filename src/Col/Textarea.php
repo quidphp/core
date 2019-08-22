@@ -10,15 +10,15 @@ use Quid\Base;
 class Textarea extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'textarea',
 		'search'=>true,
-		'check'=>array('kind'=>'text'),
+		'check'=>['kind'=>'text'],
 		'relative'=>null, // custom, type pour absoluteReplace, utilise ceci pour ramener les liens absoluts dans leur version relative 
 		'tableRelation'=>null, // custom, défini les tables en relation
-		'@cms'=>array(
-			'route'=>array('tableRelation'=>Core\Cms\SpecificTableRelation::class))
-	);
+		'@cms'=>[
+			'route'=>['tableRelation'=>Core\Cms\SpecificTableRelation::class]]
+	];
 	
 	
 	// onSet
@@ -53,7 +53,7 @@ class Textarea extends Core\ColAlias
 	// retourne la classe additionnelle à utiliser
 	public function classHtml():array
 	{
-		$return = array(parent::classHtml());
+		$return = [parent::classHtml()];
 		
 		if($this->hasTableRelation())
 		$return[] = 'tableRelation';
@@ -91,8 +91,8 @@ class Textarea extends Core\ColAlias
 		
 		foreach ($tables as $table) 
 		{
-			$route = $this->route('tableRelation',array('table'=>$table));
-			$r .= $route::makeClickOpen($table,$route,array('clickOpen','filter','anchorCorner'));
+			$route = $this->route('tableRelation',['table'=>$table]);
+			$r .= $route::makeClickOpen($table,$route,['clickOpen','filter','anchorCorner']);
 		}
 		
 		return $r;
@@ -109,7 +109,7 @@ class Textarea extends Core\ColAlias
 		{
 			$relative = (array) $relative;
 			$boot = static::boot();
-			$replace = array();
+			$replace = [];
 			
 			foreach ($relative as $type) 
 			{

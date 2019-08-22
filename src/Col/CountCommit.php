@@ -7,10 +7,10 @@ use Quid\Core;
 class CountCommit extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
-		'check'=>array('kind'=>'int')
-	);
+		'check'=>['kind'=>'int']
+	];
 	
 	
 	// onCommit

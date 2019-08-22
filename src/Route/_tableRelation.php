@@ -69,7 +69,7 @@ trait _tableRelation
 		$return = null;
 		$table = $this->segment('table');
 		$method = static::$config['method'] ?? null;
-		$base = array('limit'=>$this->limit(),'not'=>$this->relationSearchNot(),'method'=>$method,'order'=>$this->currentOrder());
+		$base = ['limit'=>$this->limit(),'not'=>$this->relationSearchNot(),'method'=>$method,'order'=>$this->currentOrder()];
 		$base = Base\Arr::clean($base);
 		$option = Base\Arr::plus($base,$option);
 		
@@ -80,12 +80,12 @@ trait _tableRelation
 		if($this->hasPage() && is_int($option['limit']))
 		{
 			$page = $this->segment('page');
-			$option['limit'] = array($page=>$option['limit']);
+			$option['limit'] = [$page=>$option['limit']];
 		}
 		
 		if($required === false || $search !== null)
 		{
-			$return = array();
+			$return = [];
 			
 			if(is_string($search))
 			$return = $relation->search($search,$option);
@@ -136,7 +136,7 @@ trait _tableRelation
 		
 		$limit = $route->limit();
 		$query = $route::getSearchQuery();
-		$data = array('query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment());
+		$data = ['query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment()];
 		if($route->hasOrder())
 		$route = $route->changeSegment('order',true);
 		$data['href'] = $route;
@@ -148,7 +148,7 @@ trait _tableRelation
 			
 			$html .= Html::divOp('top');
 			$placeholder = static::langText('common/filter')." ($size)";
-			$html .= Html::inputText(null,array('name'=>true,'data-pattern'=>array('minLength'=>$searchMinLength),'placeholder'=>$placeholder));
+			$html .= Html::inputText(null,['name'=>true,'data-pattern'=>['minLength'=>$searchMinLength],'placeholder'=>$placeholder]);
 			
 			if(!empty($order))
 			{
@@ -160,7 +160,7 @@ trait _tableRelation
 		}
 		
 		$html .= Html::div(null,'result');
-		$r .= Html::clickOpen($html,$label,$after,array($class,'data'=>$data));
+		$r .= Html::clickOpen($html,$label,$after,[$class,'data'=>$data]);
 		
 		return $r;
 	}

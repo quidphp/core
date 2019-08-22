@@ -9,15 +9,15 @@ use Verot\Upload;
 class ClassUpload extends Core\ServiceAlias
 {
 	// config
-	public static $config = array(
-		'option'=>array(
+	public static $config = [
+		'option'=>[
 			'quality'=>null,
 			'convert'=>null,
 			'action'=>null,
 			'width'=>null,
 			'height'=>null,
-			'autoRotate'=>null)
-	);
+			'autoRotate'=>null]
+	];
 	
 	
 	// dynamique

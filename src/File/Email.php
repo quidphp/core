@@ -11,7 +11,7 @@ class Email extends JsonAlias implements Main\Contract\Email
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

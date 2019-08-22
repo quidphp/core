@@ -12,13 +12,13 @@ abstract class Login extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(null,''),
+	public static $config = [
+		'path'=>[null,''],
 		'priority'=>998,
-		'match'=>array(
-			'role'=>'nobody'),
+		'match'=>[
+			'role'=>'nobody'],
 		'group'=>'nobody'
-	);
+	];
 	
 	
 	// submitRoute

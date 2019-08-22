@@ -12,17 +12,17 @@ abstract class ResetPassword extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mot-de-passe/reinitialisation',
-			'en'=>'password/reset'),
-		'match'=>array(
+			'en'=>'password/reset'],
+		'match'=>[
 			'role'=>'nobody',
-			'session'=>'allowResetPasswordEmail'),
+			'session'=>'allowResetPasswordEmail'],
 		'sitemap'=>false,
 		'parent'=>Login::class,
 		'group'=>'nobody'
-	);
+	];
 	
 	
 	// submitRoute
@@ -48,7 +48,7 @@ abstract class ResetPassword extends Core\RouteAlias
 		$attr = $this->submitAttr();
 		
 		$r .= $route->formOpen('validate');
-		$field = $this->db()->tables()->get('user')->col('email')->formPlaceholder(null,null,array('data-required'=>true));
+		$field = $this->db()->tables()->get('user')->col('email')->formPlaceholder(null,null,['data-required'=>true]);
 		
 		$r .= Html::divOp('fields');
 		$r .= Html::divCond($field,'field');

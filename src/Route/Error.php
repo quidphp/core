@@ -10,14 +10,14 @@ use Quid\Base;
 abstract class Error extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'path'=>null,
 		'priority'=>999,
 		'group'=>'error',
 		'sitemap'=>false,
-		'response'=>array(
-			'code'=>404)
-	);
+		'response'=>[
+			'code'=>404]
+	];
 	
 	
 	// onBefore
@@ -142,7 +142,7 @@ abstract class Error extends Core\RouteAlias
 		{
 			$r .= Html::divOp('back');
 			$link = $route->a(static::langText('lc|common/here'));
-			$r .= Html::span(static::langText('error/page/back',array('link'=>$link)));
+			$r .= Html::span(static::langText('error/page/back',['link'=>$link]));
 			$r .= Html::divCl();
 		}
 		

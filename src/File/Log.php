@@ -11,10 +11,10 @@ class Log extends DumpAlias implements Main\Contract\Log, Main\Contract\FileStor
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'dirname'=>'[storageLog]',
 		'deleteTrim'=>500
-	);
+	];
 }
 
 // config

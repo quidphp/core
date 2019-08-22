@@ -13,11 +13,11 @@ trait _general
 	
 	
 	// config
-	public static $configGeneral = array(
+	public static $configGeneral = [
 		'group'=>'general',
 		'maxPerPage'=>100,
-		'query'=>array('s')
-	);
+		'query'=>['s']
+	];
 	
 	
 	// selectedUri
@@ -25,9 +25,9 @@ trait _general
 	// par défaut la route avec segment par défaut est sélectionné
 	public function selectedUri():array
 	{
-		$return = array();
+		$return = [];
 		$route = static::make();
-		$uri = $route->uri(null,array('query'=>false));
+		$uri = $route->uri(null,['query'=>false]);
 		$return[$uri] = true;
 		
 		return $return;
@@ -41,7 +41,7 @@ trait _general
 		$return = null;
 		$class = static::class;
 		
-		$key = array($class);
+		$key = [$class];
 		if($navKey !== null)
 		$key = Base\Arr::append($key,$navKey);
 		
@@ -155,12 +155,12 @@ trait _general
 				$search = $this->getSearchValue();
 				$searchMinLength = $table->searchMinLength();
 				
-				$uri = Base\Uri::removeQuery($this->changeSegments(array('page'=>1))->uri());
-				$data = array('href'=>$uri,'char'=>$searchQuery,'keyupDelay'=>800,'current'=>$search,'pattern'=>array('minLength'=>$searchMinLength));
+				$uri = Base\Uri::removeQuery($this->changeSegments(['page'=>1])->uri());
+				$data = ['href'=>$uri,'char'=>$searchQuery,'keyupDelay'=>800,'current'=>$search,'pattern'=>['minLength'=>$searchMinLength]];
 
 				$r .= Html::divOp('form');
 				$r .= Html::divOp('input');
-				$r .= Html::inputText($search,array('name'=>true,'placeholder'=>$placeholder,'data'=>$data));
+				$r .= Html::inputText($search,['name'=>true,'placeholder'=>$placeholder,'data'=>$data]);
 				
 				if($search !== null)
 				$r .= Html::a($uri,null,Base\Arr::append($attr['close'] ?? null,'close'));
@@ -184,13 +184,13 @@ trait _general
 		
 		if($this->hasPermission('limit','perPage') && $sql->isTriggerCountNotEmpty())
 		{
-			$route = $this->changeSegments(array('limit'=>true,'page'=>1));
+			$route = $this->changeSegments(['limit'=>true,'page'=>1]);
 			$limit = $sql->getLimit();
 			$maxPerPage = static::$config['maxPerPage'];
 			
-			$data = array('href'=>$route,'char'=>static::getReplaceSegment(),'current'=>$limit,'keyupDelay'=>800,'pattern'=>'numberWholeNotEmpty','max'=>$maxPerPage);
+			$data = ['href'=>$route,'char'=>static::getReplaceSegment(),'current'=>$limit,'keyupDelay'=>800,'pattern'=>'numberWholeNotEmpty','max'=>$maxPerPage];
 			$r .= Html::divOp('limit');
-			$r .= Html::inputText($limit,array('name'=>"limit",'data'=>$data));
+			$r .= Html::inputText($limit,['name'=>"limit",'data'=>$data]);
 			$r .= Html::span(static::langText('lcf|common/limit'));
 			$r .= Html::divCl();
 		}
@@ -220,11 +220,11 @@ trait _general
 				
 				$route = $this->changeSegment('page',true);
 				$total = $general['total'];
-				$data = array('href'=>$route,'char'=>static::getReplaceSegment(),'current'=>$general['current'],'keyupDelay'=>800,'pattern'=>'numberWholeNotEmpty','max'=>$total);
+				$data = ['href'=>$route,'char'=>static::getReplaceSegment(),'current'=>$general['current'],'keyupDelay'=>800,'pattern'=>'numberWholeNotEmpty','max'=>$total];
 				
 				$r .= Html::divOp('center');
 				$r .= Html::span(static::langText('common/page'));
-				$r .= Html::inputText($general['current'],array('name'=>'page','data'=>$data));
+				$r .= Html::inputText($general['current'],['name'=>'page','data'=>$data]);
 				$r .= Html::span(static::langText('lcf|common/on')." ".$total);
 				$r .= Html::divCl();
 				
@@ -298,7 +298,7 @@ trait _general
 			else
 			$direction = $col->direction();
 			
-			$route = $this->changeSegments(array('order'=>$col,'direction'=>$direction));
+			$route = $this->changeSegments(['order'=>$col,'direction'=>$direction]);
 			$uri = $route->uri();
 			$html .= Html::divOp('right');
 			$html .= Html::span(null,$icon);
@@ -306,7 +306,7 @@ trait _general
 			$html = Html::a($uri,$html,$attr);
 		}
 		
-		return array($html,$thAttr);
+		return [$html,$thAttr];
 	}
 }
 ?>

@@ -9,11 +9,11 @@ use Quid\Base;
 class UserRole extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
-		'relation'=>array(self::class,'getRoles'),
-		'check'=>array('kind'=>'int')
-	);
+		'relation'=>[self::class,'getRoles'],
+		'check'=>['kind'=>'int']
+	];
 	
 
 	// onCellSet
@@ -51,7 +51,7 @@ class UserRole extends EnumAlias
 		$user = $session->user();
 		
 		if($value instanceof Core\Cell && $value->row()->primary() === $user->primary())
-		$attr = Base\Arr::plus($attr,array('tag'=>'div'));
+		$attr = Base\Arr::plus($attr,['tag'=>'div']);
 		
 		$return = parent::formComplex($value,$attr,$option);
 		

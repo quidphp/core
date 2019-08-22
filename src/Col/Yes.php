@@ -7,14 +7,14 @@ use Quid\Base;
 class Yes extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'checkbox',
 		'required'=>false,
 		'relation'=>'yes',
-		'preValidate'=>array('arrMaxCount'=>1),
-		'onSet'=>array(Base\Set::class,'onSet'),
-		'check'=>array('kind'=>'int')
-	);
+		'preValidate'=>['arrMaxCount'=>1],
+		'onSet'=>[Base\Set::class,'onSet'],
+		'check'=>['kind'=>'int']
+	];
 }
 
 // config

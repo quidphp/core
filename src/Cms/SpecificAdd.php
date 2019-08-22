@@ -13,18 +13,18 @@ class SpecificAdd extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/add/0',
-			'fr'=>'table/[table]/ajouter/0'),
-		'segment'=>array(
-			'table'=>'structureSegmentTable'),
-		'match'=>array(
-			'role'=>array('>='=>20)),
+			'fr'=>'table/[table]/ajouter/0'],
+		'segment'=>[
+			'table'=>'structureSegmentTable'],
+		'match'=>[
+			'role'=>['>='=>20]],
 		'parent'=>Specific::class,
 		'group'=>'specific',
 		'sitemap'=>true
-	);
+	];
 	
 	
 	// dynamique
@@ -41,7 +41,7 @@ class SpecificAdd extends Core\RouteAlias
 		if($table instanceof Core\Table && $table->hasPermission('view','add','insert'))
 		{
 			$flash = $this->session()->flash();
-			$key = array(SpecificAddSubmit::class,$this->table());
+			$key = [SpecificAddSubmit::class,$this->table()];
 			$this->flash = $flash->get($key);
 			$return = $this;
 		}
@@ -54,7 +54,7 @@ class SpecificAdd extends Core\RouteAlias
 	// retourne les uri sélectionnés pour la route
 	public function selectedUri():array
 	{
-		$return = array();
+		$return = [];
 		
 		if(!$this->hasSpecificAddNavLink())
 		{
@@ -114,7 +114,7 @@ class SpecificAdd extends Core\RouteAlias
 		}
 		
 		else
-		$r .= $this->a(null,array('add','icon','solo','toSpecificAdd'));
+		$r .= $this->a(null,['add','icon','solo','toSpecificAdd']);
 		
 		return $r;
 	}
@@ -126,7 +126,7 @@ class SpecificAdd extends Core\RouteAlias
 	{
 		$r = null;
 		$table = $this->table();
-		$r = $this->lang()->safe(array('table','add',$table),null,$lang);
+		$r = $this->lang()->safe(['table','add',$table],null,$lang);
 		
 		return $r;
 	}
@@ -153,7 +153,7 @@ class SpecificAdd extends Core\RouteAlias
 	// tous les segments pour la route, un par table
 	public static function allSegment():array
 	{
-		$return = array();
+		$return = [];
 		$db = static::db();
 		
 		foreach ($db->tables() as $table) 
@@ -205,8 +205,8 @@ class SpecificAdd extends Core\RouteAlias
 		
 		$r .= Html::divOp("container");
 		$r .= Html::divOp('form');
-		$data = array('unload'=>static::langText('common/unload'));
-		$r .= SpecificAddSubmit::makeOverload($this->segment())->formOpen(array('data'=>$data));
+		$data = ['unload'=>static::langText('common/unload')];
+		$r .= SpecificAddSubmit::makeOverload($this->segment())->formOpen(['data'=>$data]);
 		$r .= $this->makeFormTop();
 		$r .= $this->makeFormInner();
 		$r .= $this->makeFormBottom();
@@ -293,7 +293,7 @@ class SpecificAdd extends Core\RouteAlias
 	// génère le submit pour le formulaire d'ajout
 	protected function makeFormSubmit(string $type):string 
 	{
-		return Html::submit(static::langText('common/add'),array('icon','add','padLeft'));
+		return Html::submit(static::langText('common/add'),['icon','add','padLeft']);
 	}
 }
 

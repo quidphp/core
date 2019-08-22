@@ -16,7 +16,7 @@ class Col extends Base\Test
 		$db = Core\Boot::inst()->db();
 		$table = "ormCol";
 		assert($db->truncate($table) instanceof \PDOStatement);
-		assert($db->inserts($table,array('id','active','name','password','email','dateAdd','userAdd','dateModify','userModify'),array(1,1,'james','james','james@gmail.com',10,11,12,13),array(2,2,'james2','james2','james2@gmail.com',20,21,22,23)) === array(1,2));
+		assert($db->inserts($table,['id','active','name','password','email','dateAdd','userAdd','dateModify','userModify'],[1,1,'james','james','james@gmail.com',10,11,12,13],[2,2,'james2','james2','james2@gmail.com',20,21,22,23]) === [1,2]);
 		$tb = $db[$table];
 		$col = $tb['name'];
 		$active = $tb->cols()->get('active');
@@ -54,12 +54,12 @@ class Col extends Base\Test
 		assert($col->sameTable($tb));
 
 		// col
-		assert($tb->colAttr('myRelation') === array('relation'=>array('test',3,4,9=>'ok')));
+		assert($tb->colAttr('myRelation') === ['relation'=>['test',3,4,9=>'ok']]);
 		assert($tb->colAttr('email')['description'] === 'Ma description');
 		assert(count($tb->colAttr('email')) === 5);
 		
 		// active
-		assert($active->onGet(1,array()) === 1);
+		assert($active->onGet(1,[]) === 1);
 		assert($active->complexTag() === 'checkbox');
 		assert(strlen($active->formComplex()) === 175);
 		
@@ -83,7 +83,7 @@ class Col extends Base\Test
 		assert(strlen($date->formComplex('08-08-1984')) === 278);
 		assert(strlen($date->formComplex(mktime(0,0,0,8,8,1984))) === 278);
 		assert($date::makeDateFormat(true) === 'F j, Y');
-		assert($date::allowedFormats() === array(true,'dateToDay','dateToMinute','dateToSecond'));
+		assert($date::allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
 
 		// dateAdd
 		assert($dateAdd->date() === 'long');
@@ -137,7 +137,7 @@ class Col extends Base\Test
 		assert($media->versionKey(-1) === 'small');
 		assert($media->versionKey(1) === 'large');
 		assert($storage->ruleValidate()['extension'] instanceof \Closure);
-		assert($storage->ruleValidate()['extension']('lang') === array('pdf'));
+		assert($storage->ruleValidate()['extension']('lang') === ['pdf']);
 		assert($storage->ruleValidate(true)[3] === "The extension of the file must be: pdf");
 		assert(count($storage->extension()) === 1);
 		assert(count($storage->extensionDetails(false)) === 1);
@@ -147,12 +147,12 @@ class Col extends Base\Test
 		assert($medias->hasIndex());
 		assert($medias->getAmount() === 6);
 		assert(count($medias::defaultVersion()) === 6);
-		assert($media::defaultVersionExtension() === array('jpg','png'));
+		assert($media::defaultVersionExtension() === ['jpg','png']);
 		assert($media::defaultConvertExtension() === 'jpg');
 		
 		// phone
 		assert($phone instanceof Core\Col\Phone);
-		assert($phone->onGet(5144839999,array()) === '(514) 483-9999');
+		assert($phone->onGet(5144839999,[]) === '(514) 483-9999');
 
 		// pointer
 		
@@ -171,21 +171,21 @@ class Col extends Base\Test
 		// set
 		assert($multi->complexTag() === 'multiselect');
 		assert($check->complexTag() === 'search');
-		assert(strlen($array->formComplex(null,array('data-required'=>null))) === 177);
+		assert(strlen($array->formComplex(null,['data-required'=>null])) === 177);
 		assert(strlen($array->formComplex()) === 195);
 		assert(strlen($multi->formComplex(2)) === 165);
-		assert(strlen($multi->formComplex(array(2,5))) === 185);
+		assert(strlen($multi->formComplex([2,5])) === 185);
 		
 		// slug
 		assert($slug instanceof Core\Col\Slug);
-		assert($slug->onSet('dasasd dsaasd asddas',array(),null,array()) === "dasasd dsaasd asddas");
-		assert($slug->onSet(null,array('name_en'=>'OK'),null,array()) === null);
+		assert($slug->onSet('dasasd dsaasd asddas',[],null,[]) === "dasasd dsaasd asddas");
+		assert($slug->onSet(null,['name_en'=>'OK'],null,[]) === null);
 		assert(is_array($slug->slugAttr()));
 		assert($slug->slugDateConvert('date','12-05-2018') === '2018-12-05');
 		assert($slug->slugDo('lol') === false);
 		assert($slug->slugUnique('blabla'));
-		assert($slug->slugKeyFromArr(array('name'=>'james')) === 'james');
-		assert($slug->slugKeyFromArr(array('name_fr'=>'jamesFr','name_en'=>'jamesEn')) === 'jamesFr');
+		assert($slug->slugKeyFromArr(['name'=>'james']) === 'james');
+		assert($slug->slugKeyFromArr(['name_fr'=>'jamesFr','name_en'=>'jamesEn']) === 'jamesFr');
 		assert($slug->slugAddNow('blabla') !== 'blabla');
 		assert($slug->slugDateFirst() === 'ymd');
 
@@ -212,7 +212,7 @@ class Col extends Base\Test
 		
 		// userPasswordReset
 		assert($passwordReset instanceof Core\Col\UserPasswordReset);
-		assert(strlen($passwordReset->onGet('dssddsa',array())) === 40);
+		assert(strlen($passwordReset->onGet('dssddsa',[])) === 40);
 
 		// userRole
 		

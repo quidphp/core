@@ -11,19 +11,19 @@ abstract class ActivatePassword extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mot-de-passe/activation/[primary]/[hash]',
-			'en'=>'password/activate/[primary]/[hash]'),
-		'segment'=>array(
+			'en'=>'password/activate/[primary]/[hash]'],
+		'segment'=>[
 			'primary'=>'structureSegmentPrimary',
-			'hash'=>'structureSegmentStr'),
-		'match'=>array(
-			'role'=>'nobody'),
+			'hash'=>'structureSegmentStr'],
+		'match'=>[
+			'role'=>'nobody'],
 		'parent'=>Login::class,
 		'sitemap'=>false,
 		'row'=>null // à spécifier dans la classe qui étend
-	);
+	];
 	
 	
 	// trigger
@@ -33,7 +33,7 @@ abstract class ActivatePassword extends Core\RouteAlias
 		$user = $this->segment('primary');
 		$primary = $user->primary();
 		$hash = $this->segment('hash');
-		$user::activatePasswordProcess($primary,$hash,array('com'=>true));
+		$user::activatePasswordProcess($primary,$hash,['com'=>true]);
 		
 		return;
 	}

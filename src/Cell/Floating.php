@@ -8,7 +8,7 @@ use Quid\Base;
 class Floating extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// pair

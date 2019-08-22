@@ -9,11 +9,11 @@ use Quid\Base;
 class JsonArrayRelation extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\JsonArrayRelation::class,
 		'required'=>true,
 		'relationCols'=>null // custom
-	);
+	];
 	
 	
 	// onGet
@@ -54,7 +54,7 @@ class JsonArrayRelation extends Core\ColAlias
 				if(is_string($label))
 				$return .= Html::div($label,'underInput');
 				else
-				$return .= Html::div($lang->text('common/nothing'),array('underInput','nothing'));
+				$return .= Html::div($lang->text('common/nothing'),['underInput','nothing']);
 			}
 		}
 		

@@ -6,10 +6,10 @@ namespace Quid\Core\File;
 class Serialize extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>null,
 		'type'=>'serialize'
-	);
+	];
 }
 
 // config

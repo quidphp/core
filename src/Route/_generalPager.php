@@ -10,11 +10,11 @@ trait _generalPager
 	// construit un block de navigation à partir d'un tableau general
 	protected function makeGeneralPager(array $general,bool $firstLast=true,bool $prevNext=true,bool $str=false)
 	{
-		$return = array();
+		$return = [];
 		
 		if(!empty($general) && array_key_exists('total',$general) && $general['total'] > 1)
 		{
-			$loop = array();
+			$loop = [];
 			($firstLast === true)? ($loop[] = 'first'):null;
 			($prevNext === true)? ($loop[] = 'prev'):null;
 			$loop[] = 'closest';

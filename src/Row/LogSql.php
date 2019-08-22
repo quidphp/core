@@ -13,20 +13,20 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'search'=>false,
 		'parent'=>'system',
 		'priority'=>1003,
-		'cols'=>array(
-			'context'=>array('class'=>Core\Col\Context::class),
-			'request'=>array('class'=>Core\Col\Request::class),
-			'type'=>array('general'=>true,'relation'=>'logSqlType'),
-			'json'=>array('class'=>Core\Col\JsonExport::class)),
-		'logSql'=>array(
-			'truncate'=>false),
+		'cols'=>[
+			'context'=>['class'=>Core\Col\Context::class],
+			'request'=>['class'=>Core\Col\Request::class],
+			'type'=>['general'=>true,'relation'=>'logSqlType'],
+			'json'=>['class'=>Core\Col\JsonExport::class]],
+		'logSql'=>[
+			'truncate'=>false],
 		'deleteTrim'=>500, // custom
-		'type'=>array( // type de logSql
+		'type'=>[ // type de logSql
 			1=>'select',
 			2=>'show',
 			3=>'insert',
@@ -35,8 +35,8 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 			6=>'create',
 			7=>'alter',
 			8=>'truncate',
-			9=>'drop')
-	);
+			9=>'drop']
+	];
 	
 	
 	// getTypeCode
@@ -58,7 +58,7 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 		
 		if($col->validate($return) !== true)
 		{
-			$value = array('truncated'=>true);
+			$value = ['truncated'=>true];
 			$return = Base\Json::encode($value);
 		}
 		
@@ -70,7 +70,7 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 	// crée le tableau d'insertion
 	public static function newData(string $type,array $json):array
 	{
-		return array('type'=>static::getTypeCode($type),'json'=>static::prepareJson($json));
+		return ['type'=>static::getTypeCode($type),'json'=>static::prepareJson($json)];
 	}
 }
 

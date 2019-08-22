@@ -52,7 +52,7 @@ trait _new
 			if($data !== null)
 			{
 				$db->off();
-				$return = $table->insert($data,array('strict'=>true,'reservePrimary'=>false));
+				$return = $table->insert($data,['strict'=>true,'reservePrimary'=>false]);
 				$db->on();
 			}
 		}

@@ -13,27 +13,27 @@ class GeneralExport extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/export/[encoding]/[table]/[order]/[direction]/[filter]/[in]/[notIn]',
-			'fr'=>'table/exportation/[encoding]/[table]/[order]/[direction]/[filter]/[in]/[notIn]'),
-		'segment'=>array(
+			'fr'=>'table/exportation/[encoding]/[table]/[order]/[direction]/[filter]/[in]/[notIn]'],
+		'segment'=>[
 			'encoding'=>'structureSegmentEncoding',
 			'table'=>'structureSegmentTable',
 			'order'=>'structureSegmentOrder',
 			'direction'=>'structureSegmentDirection',
 			'filter'=>'structureSegmentFilter',
 			'in'=>'structureSegmentPrimaries',
-			'notIn'=>'structureSegmentPrimaries'),	
-		'match'=>array(
-			'role'=>array('>='=>20)),
-		'response'=>array(
-			'timeLimit'=>300),
-		'query'=>array('s'),
+			'notIn'=>'structureSegmentPrimaries'],	
+		'match'=>[
+			'role'=>['>='=>20]],
+		'response'=>[
+			'timeLimit'=>300],
+		'query'=>['s'],
 		'parent'=>General::class,
 		'group'=>'submit',
 		'navigation'=>false
-	);
+	];
 	
 
 	// isLatin1
@@ -67,7 +67,7 @@ class GeneralExport extends Core\RouteAlias
 		$return = null;
 		$table = $this->table();
 		$basename = $table->name()."_".Base\Date::format(0);
-		$return = Core\File\Csv::new(true,array('basename'=>$basename));
+		$return = Core\File\Csv::new(true,['basename'=>$basename]);
 		
 		return $return;
 	}
@@ -80,7 +80,7 @@ class GeneralExport extends Core\RouteAlias
 	{
 		$offset = 0;
 		$total = $sql->triggerRowCount();
-		$option = array('header'=>true,'latin1'=>$this->isLatin1());
+		$option = ['header'=>true,'latin1'=>$this->isLatin1()];
 		$storage = $this->session()->storage();
 		
 		if(!$storage instanceof Core\Row)

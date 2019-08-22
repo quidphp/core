@@ -9,22 +9,22 @@ use Quid\Base;
 abstract class Relation extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'search'=>false,
 		'filter'=>true,
 		'order'=>false,
-		'onSet'=>array(Base\Set::class,'onSet'),
+		'onSet'=>[Base\Set::class,'onSet'],
 		'generalExcerptMin'=>null,
-		'check'=>array('null'=>true), // les relations doivent être nullables
+		'check'=>['null'=>true], // les relations doivent être nullables
 		'relationSearchRequired'=>false, // custom
 		'inRelation'=>true,
 		'excerpt'=>100,
 		'generalMax'=>3,
-		'@cms'=>array(
-			'route'=>array(
+		'@cms'=>[
+			'route'=>[
 				'specific'=>Core\Cms\Specific::class,
-				'specificRelation'=>Core\Cms\SpecificRelation::class))
-	);
+				'specificRelation'=>Core\Cms\SpecificRelation::class]]
+	];
 	
 	
 	// onMakeAttr
@@ -200,13 +200,13 @@ abstract class Relation extends Core\ColAlias
 	protected function formComplexSearch($value=true,?array $attr=null,?array $option=null):string
 	{
 		$return = '';
-		$option = Base\Arr::plus(array('button'=>true),$option);
+		$option = Base\Arr::plus(['button'=>true],$option);
 		$rel = $this->relation();
 		$mode = $rel->mode();
 		$size = $rel->size();
 		$lang = $this->db()->lang();
 		
-		$route = $this->route('specificRelation',array('table'=>$this->table(),'col'=>$this,'selected'=>true));
+		$route = $this->route('specificRelation',['table'=>$this->table(),'col'=>$this,'selected'=>true]);
 		$query = $route::getSearchQuery();
 		
 		$placeholder = $attr['placeholder'] ?? $lang->text('common/search');
@@ -222,7 +222,7 @@ abstract class Relation extends Core\ColAlias
 		$searchMinLength = ($rel->isRelationTable())? $rel->relationTable()->searchMinLength():$this->table()->searchMinLength();
 		$required = ($this->attr('relationSearchRequired') === true)? true:null;
 		
-		$data = array('query'=>$query,'separator'=>$route::getDefaultSegment(),'required'=>$required,'char'=>$route::getReplaceSegment(),'pattern'=>array('minLength'=>$searchMinLength));
+		$data = ['query'=>$query,'separator'=>$route::getDefaultSegment(),'required'=>$required,'char'=>$route::getReplaceSegment(),'pattern'=>['minLength'=>$searchMinLength]];
 		if($route->hasOrder())
 		$route = $route->changeSegment('order',true);
 		$data['href'] = $route;
@@ -231,12 +231,12 @@ abstract class Relation extends Core\ColAlias
 		if(is_array($attr) && array_key_exists('id',$attr))
 		unset($attr['id']);
 		
-		$return .= Html::divOp(array('searchEnumSet',$mode,'data-mode'=>$mode));
+		$return .= Html::divOp(['searchEnumSet',$mode,'data-mode'=>$mode]);
 		$return .= Html::divOp('input');
-		$return .= Html::inputText(null,array('placeholder'=>$placeholder,'name'=>true,'data'=>$data,'id'=>$id));
+		$return .= Html::inputText(null,['placeholder'=>$placeholder,'name'=>true,'data'=>$data,'id'=>$id]);
 		
 		if($option['button'] === true)
-		$return .= Html::button(null,array('icon','solo','search'));
+		$return .= Html::button(null,['icon','solo','search']);
 		
 		$return .= Html::divOp('popup');
 		$return .= $route->orderSelect();
@@ -268,8 +268,8 @@ abstract class Relation extends Core\ColAlias
 		
 		if(is_array($relation) && !empty($relation))
 		{
-			$attr = Base\Arr::plus($attr,array('tag'=>'checkbox'));
-			$option = Base\Arr::plus($option,array('value'=>$value));
+			$attr = Base\Arr::plus($attr,['tag'=>'checkbox']);
+			$option = Base\Arr::plus($option,['value'=>$value]);
 			$relation = $this->valueComplexExcerpt($relation);
 			$return = $this->formComplexOutput($relation,$attr,$option);
 		}
@@ -286,14 +286,14 @@ abstract class Relation extends Core\ColAlias
 		$value = $this->valueComplex($value,$option);
 		$rel = $this->relation();
 		$tag = $this->complexTag($attr);
-		$attr = Base\Arr::plus($attr,array('tag'=>$tag));
-		$option = Base\Arr::plus($option,array('value'=>$value));
+		$attr = Base\Arr::plus($attr,['tag'=>$tag]);
+		$option = Base\Arr::plus($option,['value'=>$value]);
 		$relation = $this->prepareStandardRelation($value);
 		
 		if($tag === 'select' && !array_key_exists('title',$option))
 		$option['title'] = true;
 		
-		elseif(in_array($tag,array('radio','checkbox'),true))
+		elseif(in_array($tag,['radio','checkbox'],true))
 		$option = $this->prepareChoiceOption($option,true);
 
 		$relation = $this->valueComplexExcerpt($relation);
@@ -321,7 +321,7 @@ abstract class Relation extends Core\ColAlias
 	protected function prepareChoiceOption(array $return,bool $autoHidden=false):array
 	{
 		$return['autoHidden'] = $autoHidden;
-		$return['html'] = array('div','choice');
+		$return['html'] = ['div','choice'];
 		
 		return $return;
 	}
@@ -398,7 +398,7 @@ abstract class Relation extends Core\ColAlias
 	// utilisé par specific et general dans cms
 	public function makeRelationPlainArray(array $array,?int $max=null,?string $route=null):array 
 	{
-		$return = array();
+		$return = [];
 
 		if(!empty($array))
 		{
@@ -417,7 +417,7 @@ abstract class Relation extends Core\ColAlias
 					{
 						if(is_int($key) && !empty($table) && !empty($route) && $table->hasPermission('view'))
 						{
-							$route = $route::makeOverload(array('table'=>$table,'primary'=>$key));
+							$route = $route::makeOverload(['table'=>$table,'primary'=>$key]);
 							$return[] = $route->a($value);
 						}
 						
@@ -448,7 +448,7 @@ abstract class Relation extends Core\ColAlias
 			$return = Base\Arr::valuesExcerpt($excerpt,$return);
 			
 			elseif(is_string($return))
-			$return = Base\Str::excerpt($excerpt,$return,array('mb'=>true));
+			$return = Base\Str::excerpt($excerpt,$return,['mb'=>true]);
 		}
 		
 		return $return;

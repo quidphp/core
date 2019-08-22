@@ -7,15 +7,15 @@ use Quid\Core;
 abstract class Robots extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'path'=>'robots.txt',
 		'priority'=>500,
 		'sitemap'=>false,
 		'group'=>'seo',
-		'response'=>array(
-			'contentType'=>'txt'),
+		'response'=>[
+			'contentType'=>'txt'],
 		'allow'=>true
-	);
+	];
 	
 	
 	// trigger

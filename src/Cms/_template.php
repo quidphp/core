@@ -41,7 +41,7 @@ trait _template
 		$r = '';
 		
 		$r .= Html::divOp('top');
-		$r .= Html::div(null,array('burgerMenu','icon','burger','solo'));
+		$r .= Html::div(null,['burgerMenu','icon','burger','solo']);
 		$r .= Html::divCond($this->headerLeft(),'left');
 		$r .= Html::divCond($this->headerRight(),'right');
 		$r .= Html::divCl();
@@ -84,13 +84,13 @@ trait _template
 			$r .= Html::divOp('top');
 			
 			if($user->can('account'))
-			$r .= Account::makeOverload()->aTitle(null,array('submit','icon','padLeft','account'));
+			$r .= Account::makeOverload()->aTitle(null,['submit','icon','padLeft','account']);
 			
 			if($user->can('accountChangePassword'))
-			$r .= AccountChangePassword::makeOverload()->aDialog(array('submit','icon','padLeft','password'));
+			$r .= AccountChangePassword::makeOverload()->aDialog(['submit','icon','padLeft','password']);
 			
 			if($user->can('logout'))
-			$r .= Logout::makeOverload()->aTitle(null,array('submit','icon','padLeft','logout'));
+			$r .= Logout::makeOverload()->aTitle(null,['submit','icon','padLeft','logout']);
 			
 			$r .= Html::divCl();
 			
@@ -143,7 +143,7 @@ trait _template
 					
 					if(is_array($value))
 					{
-						$class = array('sub','anchorCorner');
+						$class = ['sub','anchorCorner'];
 						$keys = array_keys($value);
 						
 						if($this->isTableTop($keys))
@@ -151,14 +151,14 @@ trait _template
 					}
 					
 					else
-					$class = array();
+					$class = [];
 					
 					$r .= Html::liOp($class);
 					
 					if(!empty($table))
 					{
 						$route = static::session()->routeTableGeneral($table,true);
-						$option = ($route->routeRequest()->isSegmentParsedFromValue())? array('query'=>false):null;
+						$option = ($route->routeRequest()->isSegmentParsedFromValue())? ['query'=>false]:null;
 						$r .= $route->aTitle(null,null,null,$option);
 						
 						if($i > 0 && !empty($specificAdd) && $table->hasPermission('navAdd','add','insert'))
@@ -176,7 +176,7 @@ trait _template
 					
 					if(is_array($value))
 					{
-						$r .= Html::div(null,array('arrow','white'));
+						$r .= Html::div(null,['arrow','white']);
 						$r .= Html::ulCond($this->navMenu($value,$ii));
 					}
 					
@@ -229,7 +229,7 @@ trait _template
 	// retourne un tableau avec tous les liens à mettre dans la partie gauche du footer
 	protected function footerLinks():array 
 	{
-		$return = array();
+		$return = [];
 		$user = static::sessionUser();
 		
 		if($user->can('footerTypes'))
@@ -247,7 +247,7 @@ trait _template
 	// n'inclut pas un lien vers le type courant ou le type du cms
 	protected function footerTypes():array 
 	{
-		$return = array();
+		$return = [];
 		$user = static::sessionUser();
 		$boot = static::boot();
 		$type = $boot->type();
@@ -274,9 +274,9 @@ trait _template
 	// retourne un tableau avec les liens pour les modules
 	protected function footerModules():array
 	{
-		$return = array();
+		$return = [];
 		$routes = static::boot()->routesActive();
-		$modules = $routes->filter(array('group'=>'cms/module'));
+		$modules = $routes->filter(['group'=>'cms/module']);
 		
 		if($modules->isNotEmpty())
 		{
@@ -297,7 +297,7 @@ trait _template
 		$r = '';
 		$version = static::boot()->version(true,true,true);
 		$author = $this->authorLink();
-		$copyright = static::langText('footer/copyright',array('version'=>$version));
+		$copyright = static::langText('footer/copyright',['version'=>$version]);
 		
 		$r .= Html::span($author,'author');
 		$r .= Html::span('|','separator');
@@ -314,7 +314,7 @@ trait _template
 		$r = Html::divOp('background');
 		$r .= Html::divOp('outer');
 		$r .= Html::divOp('box');
-		$r .= Html::div(null,array('icon','solo','close'));
+		$r .= Html::div(null,['icon','solo','close']);
 		$r .= Html::divOp('inner');
 		$r .= Html::divCl();
 		$r .= Html::divCl();
@@ -336,12 +336,12 @@ trait _template
 		if(!empty($comText))
 		{
 			$route = Specific::makeOverload(true);
-			$data = array('href'=>$route,'char'=>$route::getReplaceSegment());
+			$data = ['href'=>$route,'char'=>$route::getReplaceSegment()];
 			
-			$r .= Html::divOp(array('box','data'=>$data));
-			$r .= Html::div(null,array('icon','solo','close'));
+			$r .= Html::divOp(['box','data'=>$data]);
+			$r .= Html::div(null,['icon','solo','close']);
 			$r .= Html::divOp('top');
-			$r .= Html::div(null,array('arrow','black'));
+			$r .= Html::div(null,['arrow','black']);
 			$r .= Html::div(Base\Date::format(4),'date');
 			$r .= Html::divCl();
 			$r .= Html::div(null,'spacer');

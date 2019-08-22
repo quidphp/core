@@ -12,7 +12,7 @@ abstract class ServiceRequest extends Main\ServiceRequest
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// getLangCode

@@ -13,10 +13,10 @@ class Error extends Base\Test
 	{
 		// prepare
 		$logError = Core\Row\LogError::class;
-		$fatal = new Core\Error(array("fatalz",__FILE__,__LINE__),23);
-		$warning = new Core\Error(array("warningz",__FILE__,__LINE__),22);
+		$fatal = new Core\Error(["fatalz",__FILE__,__LINE__],23);
+		$warning = new Core\Error(["warningz",__FILE__,__LINE__],22);
 		$exception = new Main\Exception("numero1");
-		$arg = new Core\Error(new Main\Exception("message!",null,null,'caRoule',array('string'),$exception,'james'));
+		$arg = new Core\Error(new Main\Exception("message!",null,null,'caRoule',['string'],$exception,'james'));
 
 		// init
 

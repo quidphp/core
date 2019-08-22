@@ -13,12 +13,12 @@ trait _relation
 	
 	
 	// config
-	public static $configRelation = array(
+	public static $configRelation = [
 		'limit'=>20,
 		'order'=>null, // ordre par défaut
-		'query'=>array('q'),
-		'search'=>array('query'=>'q')
-	);
+		'query'=>['q'],
+		'search'=>['query'=>'q']
+	];
 	
 	
 	// relation
@@ -53,8 +53,8 @@ trait _relation
 		{
 			$page = ($this->segment('page') + 1);
 			$limit = $this->limit();
-			$limit = array($page=>$limit);
-			$option = array('limit'=>$limit);
+			$limit = [$page=>$limit];
+			$option = ['limit'=>$limit];
 
 			$relation = $this->relationSearch($option);
 			
@@ -84,8 +84,8 @@ trait _relation
 		if(is_int($pageNext))
 		{
 			$route = $this->changeSegment('page',$pageNext);
-			$data = array('href'=>$route);
-			$r .= Html::liOp(array('loadMore','data'=>$data));
+			$data = ['href'=>$route];
+			$r .= Html::liOp(['loadMore','data'=>$data]);
 			$r .= Html::div(static::langText('common/loadMore'),'text');
 			$r .= Html::liCl();
 		}
@@ -142,7 +142,7 @@ trait _relation
 		
 		if(is_int($order) && is_array($orders) && !empty($orders))
 		{
-			$select = Html::select($orders,array('name'=>true),array('selected'=>$order));
+			$select = Html::select($orders,['name'=>true],['selected'=>$order]);
 			$return = Html::divCond($select,'order');
 		}
 		
@@ -154,7 +154,7 @@ trait _relation
 	// retourne les ordres valables pour la route
 	public static function validOrders(object $relation):array 
 	{
-		$return = array();
+		$return = [];
 		$lang = static::lang();
 		$allowed = $relation->allowedOrdering();
 		

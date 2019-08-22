@@ -12,7 +12,7 @@ class Rows extends Orm\Rows
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// tableFromFqcn

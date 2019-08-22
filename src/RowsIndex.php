@@ -11,6 +11,6 @@ class RowsIndex extends Orm\RowsIndex
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 ?>

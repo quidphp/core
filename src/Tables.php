@@ -11,14 +11,14 @@ class Tables extends Orm\Tables
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// keyClassExtends
 	// retourne un tableau utilisé par onPrepareKey
 	public static function keyClassExtends():array
 	{
-		return array(Row::class,Table::class,Rows::class,Cells::class,Cols::class);
+		return [Row::class,Table::class,Rows::class,Cells::class,Cols::class];
 	}
 }
 ?>
