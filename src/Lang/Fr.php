@@ -386,7 +386,13 @@ class Fr extends Base\Lang\Fr
 			// label
 			'label'=>[
 				1=>'Nobody',
-				80=>'Administrateur'
+				10=>'Compte public',
+				20=>'Utilisateur',
+				50=>'Contributeur',
+				60=>'Éditeur',
+				70=>'Sous-administrateur',
+				80=>'Administrateur',
+				90=>'Cron'
 			],
 			
 			// description

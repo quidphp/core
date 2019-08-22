@@ -19,7 +19,7 @@ class GeneralTruncate extends Core\RouteAlias
 		'segment'=>[
 			'table'=>'structureSegmentTable'],
 		'match'=>[
-			'csrf'=>false,
+			'csrf'=>true,
 			'genuine'=>true,
 			'method'=>'post',
 			'post'=>['-table-'=>['='=>'[table]']],

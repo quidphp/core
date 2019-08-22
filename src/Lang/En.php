@@ -386,7 +386,13 @@ class En extends Base\Lang\En
 			// label
 			'label'=>[
 				1=>'Nobody',
-				80=>'Admin'
+				10=>'Shared',
+				20=>'User',
+				50=>'Contributor',
+				60=>'Editor',
+				70=>'Sub-Admin',
+				80=>'Admin',
+				90=>'Cron'
 			],
 			
 			// description
