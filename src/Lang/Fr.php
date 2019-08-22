@@ -793,14 +793,14 @@ class Fr extends Base\Lang\Fr
 			
 			// author
 			'author'=>[
-				'name'=>'Studio OL',
-				'uri'=>'https://olstudio.co',
-				'email'=>'pph@olstudio.co'
+				'name'=>'Quid',
+				'uri'=>'https://quid5.com',
+				'email'=>'emondpph@gmail.com'
 			],
 			
 			// about
 			'about'=>[
-				'content'=>"Le gestionnaire de contenu est une plateforme accessible aux administrateurs de: [bootLabel]. Cet outil est développé et maintenu par [author]. La version actuelle est [version]. Pour toute information ou demande de support, contactez [supportEmail]."
+				'content'=>"Ce gestionnaire de contenu open-source est développé sur le framework Quid 5. La version actuelle est [version]."
 			],
 			
 			// footer

@@ -187,7 +187,9 @@ abstract class Boot extends Main\Root
 					20=>'[vendorCore]/scss/cms/cms.scss',
 					50=>'[privateScss]/cms/cms.scss']],
 			'concatenateJs'=>[
-				'[publicJs]/cms.js'=>[0=>'[vendorCore]/js/cms']]],
+				'[publicJs]/cms.js'=>[
+					0=>'[vendorCore]/js/cms',
+					10=>'[privateJs]/cms']]],
 		'@dev'=>[
 			'cache'=>false,
 			'umaskGroupWritable'=>true,

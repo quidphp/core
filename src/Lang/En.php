@@ -793,14 +793,14 @@ class En extends Base\Lang\En
 			
 			// author
 			'author'=>[
-				'name'=>'Studio OL',
-				'uri'=>'https://olstudio.co',
-				'email'=>'pph@olstudio.co'
+				'name'=>'Quid',
+				'uri'=>'https://quid5.com',
+				'email'=>'emondpph@gmail.com'
 			],
 			
 			// about
 			'about'=>[
-				'content'=>"The Content Management System is a platform accessible to the administrators for [bootLabel]. This tool is developed and maintained by [author]. The current version is: [version]. For any information or support request, contact [supportEmail]."
+				'content'=>"This open-source Content Management System is based on the Quid 5 framework. The current version is: [version]."
 			],
 			
 			// footer
