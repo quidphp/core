@@ -11,15 +11,15 @@ use Quid\Base;
 abstract class Video extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'inputText',
 		'search'=>false,
-		'onGet'=>array(Base\Json::class,'onGet'),
-		'preValidate'=>array('uriAbsolute'),
-		'check'=>array('kind'=>'text'),
+		'onGet'=>[Base\Json::class,'onGet'],
+		'preValidate'=>['uriAbsolute'],
+		'check'=>['kind'=>'text'],
 		'excerpt'=>500, // custom, longueur maximale de la description
 		'service'=>null // clé du service utilisé, à spécifier
-	);
+	];
 	
 	
 	// getService

@@ -12,10 +12,10 @@ abstract class ServiceMailer extends Main\ServiceMailer
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'queue'=>Row\QueueEmail::class,
 		'log'=>Row\LogEmail::class
-	);
+	];
 	
 	
 	// getLangCode

@@ -8,12 +8,12 @@ use Quid\Base;
 class Error extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'general'=>true,
 		'complex'=>'div',
 		'onComplex'=>true,
-		'check'=>array('kind'=>'text')
-	);
+		'check'=>['kind'=>'text']
+	];
 	
 	
 	// onGet

@@ -11,6 +11,6 @@ class Services extends Main\Services
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 ?>

@@ -6,15 +6,15 @@ namespace Quid\Core\Cms;
 trait _module
 {
 	// config
-	public static $configModule = array(
-		'match'=>array(
-			'role'=>'admin'),
-		'response'=>array(
-			'timeLimit'=>30),
+	public static $configModule = [
+		'match'=>[
+			'role'=>'admin'],
+		'response'=>[
+			'timeLimit'=>30],
 		'group'=>'cms/module',
 		'sitemap'=>false,
 		'navigation'=>false,
 		'ignore'=>false
-	);
+	];
 }
 ?>

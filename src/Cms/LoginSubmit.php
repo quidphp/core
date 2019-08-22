@@ -11,9 +11,9 @@ class LoginSubmit extends Core\Route\LoginSubmit
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>Login::class
-	);
+	];
 	
 	
 	// routeSuccess

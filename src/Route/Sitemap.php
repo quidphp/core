@@ -8,14 +8,14 @@ use Quid\Main;
 abstract class Sitemap extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'path'=>'sitemap.xml',
 		'priority'=>500,
 		'sitemap'=>false,
 		'group'=>'seo',
-		'response'=>array(
-			'contentType'=>'xml')
-	);
+		'response'=>[
+			'contentType'=>'xml']
+	];
 	
 	
 	// trigger

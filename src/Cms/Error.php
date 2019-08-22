@@ -11,7 +11,7 @@ class Error extends Core\Route\Error
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// main

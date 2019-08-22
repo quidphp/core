@@ -12,7 +12,7 @@ abstract class ServiceVideo extends Main\ServiceVideo
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// getLangCode

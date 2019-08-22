@@ -7,19 +7,19 @@ use Quid\Core;
 class Redirection extends Core\RowAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'key'=>'key',
-		'order'=>array('id'=>'desc'),
+		'order'=>['id'=>'desc'],
 		'parent'=>'system',
 		'priority'=>951,
 		'searchMinLength'=>1,
-		'cols'=>array(
+		'cols'=>[
 			'active'=>true,
-			'type'=>array('class'=>Core\Col\ContextType::class),
-			'key'=>array('general'=>true),
-			'value'=>array('general'=>true,'required'=>true))
-	);
+			'type'=>['class'=>Core\Col\ContextType::class],
+			'key'=>['general'=>true],
+			'value'=>['general'=>true,'required'=>true]]
+	];
 	
 	
 	// grabContent
@@ -27,12 +27,12 @@ class Redirection extends Core\RowAlias
 	// il faut fournir un un type
 	public static function grabContent(string $type):array 
 	{
-		$return = array();
+		$return = [];
 		$table = static::tableFromFqcn();
 		$typeCol = $table->col('type');
 		$keyCol = $table->colKey();
 		$valueCol = $table->col("value");
-		$where = array(true,array($typeCol,'findInSet',$type));
+		$where = [true,[$typeCol,'findInSet',$type]];
 		$return = $table->keyValue($keyCol,$valueCol,false,$where);
 		
 		return $return;

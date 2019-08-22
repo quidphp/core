@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Video extends BinaryAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'video'
-	);
+	];
 }
 
 // config

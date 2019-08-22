@@ -11,20 +11,20 @@ class SpecificTableRelation extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'table/relation/[table]/[order]/[page]',
-			'en'=>'table/relation/[table]/[order]/[page]'),
-		'segment'=>array(
+			'en'=>'table/relation/[table]/[order]/[page]'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
 			'order'=>'structureSegmentOrderTableRelation',
-			'page'=>'structureSegmentPage'),
+			'page'=>'structureSegmentPage'],
 		'method'=>'tableRelationOutput',
 		'order'=>true,
-		'match'=>array(
+		'match'=>[
 			'ajax'=>true,
-			'role'=>array('>='=>20)),
-	);
+			'role'=>['>='=>20]],
+	];
 	
 	
 	// onBefore

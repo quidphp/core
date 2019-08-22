@@ -7,11 +7,11 @@ use Quid\Core;
 trait _download
 {
 	// config
-	public static $configDownload = array(
+	public static $configDownload = [
 		'navigation'=>false,
 		'sitemap'=>false,
 		'toScreen'=>false
-	);
+	];
 	
 	
 	// cell

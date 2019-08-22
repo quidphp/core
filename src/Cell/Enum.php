@@ -7,7 +7,7 @@ use Quid\Core;
 class Enum extends RelationAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// cast

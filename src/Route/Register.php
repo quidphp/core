@@ -12,16 +12,16 @@ abstract class Register extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'enregistrement',
-			'en'=>'register'),
-		'match'=>array(
+			'en'=>'register'],
+		'match'=>[
 			'role'=>'nobody',
-			'session'=>'allowRegister'),
+			'session'=>'allowRegister'],
 		'parent'=>Login::class,
 		'group'=>'nobody',
-	);
+	];
 	
 	
 	// submitClass
@@ -72,9 +72,9 @@ abstract class Register extends Core\RouteAlias
 		
 		$r .= Html::divOp('top');
 		
-		$r .= Html::divCond($this->makeFormBase(),array('base','part'));
-		$r .= Html::divCond($this->makeFormPassword(),array('passwords','part'));
-		$r .= Html::divCond($this->makeFormOther(),array('other','part'));
+		$r .= Html::divCond($this->makeFormBase(),['base','part']);
+		$r .= Html::divCond($this->makeFormPassword(),['passwords','part']);
+		$r .= Html::divCond($this->makeFormOther(),['other','part']);
 		
 		$r .= Html::divClose();
 		
@@ -102,7 +102,7 @@ abstract class Register extends Core\RouteAlias
 			$v = $flash[$value] ?? null;
 			$col = $table->col($value);
 			$class = ($col->isRequired())? 'required':null;
-			$r .= $col->formWrap('divtableClass','%:',$v,null,array('class'=>$class));
+			$r .= $col->formWrap('divtableClass','%:',$v,null,['class'=>$class]);
 		}
 		
 		return $r;
@@ -118,10 +118,10 @@ abstract class Register extends Core\RouteAlias
 		$table = static::tableFromRowClass();
 		$col = $table->col($fields['password']);
 		$label = static::langText('register/confirmPassword');
-		$replace = array('class'=>'required');
+		$replace = ['class'=>'required'];
 		
-		$r .= $col->formWrap('divtableClass','%:',null,array('data-required'=>true),$replace);
-		$r .= $col->formWrap('divtableClass',$label.":",null,array('data-required'=>true,'name'=>$fields['passwordConfirm']),$replace);
+		$r .= $col->formWrap('divtableClass','%:',null,['data-required'=>true],$replace);
+		$r .= $col->formWrap('divtableClass',$label.":",null,['data-required'=>true,'name'=>$fields['passwordConfirm']],$replace);
 		
 		return $r;
 	}

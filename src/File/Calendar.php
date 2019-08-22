@@ -7,7 +7,7 @@ use Quid\Base;
 class Calendar extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'calendar',
 		'model'=>"BEGIN:VCALENDAR
 		VERSION:2.0
@@ -23,7 +23,7 @@ class Calendar extends TextAlias
 		UID:quid-%app%-%id%
 		END:VEVENT
 		END:VCALENDAR"
-	);
+	];
 	
 	
 	// event
@@ -33,17 +33,17 @@ class Calendar extends TextAlias
 		$return = null;
 		$array = Base\Obj::cast($array);
 		
-		if(Base\Arr::keysExists(array('dateStart','dateEnd','name','description','location','uri','id'),$array))
+		if(Base\Arr::keysExists(['dateStart','dateEnd','name','description','location','uri','id'],$array))
 		{
 			if(is_int($array['id']) && is_int($array['dateStart']) && is_int($array['dateEnd']) && is_string($array['name']) && is_string($array['uri']))
 			{
 				$app = (!empty($array['app']))? str_replace('-','_',Base\Slug::str($array['app'])):null;
 				$model = Base\Str::removeTabs(static::$config['model']);
 				$timezone = Base\Timezone::get();
-				$name = Base\Str::excerpt(255,str_replace(',',"\,",$array['name']),array('removeLineBreaks'=>true));
-				$location = Base\Str::excerpt(255,str_replace(',',"\,",$array['location'] ?? ''),array('removeLineBreaks'=>true));
-				$description = Base\Str::excerpt(255,str_replace(',',"\,",$array['description'] ?? ''),array('removeLineBreaks'=>true));
-				$replace = array();
+				$name = Base\Str::excerpt(255,str_replace(',',"\,",$array['name']),['removeLineBreaks'=>true]);
+				$location = Base\Str::excerpt(255,str_replace(',',"\,",$array['location'] ?? ''),['removeLineBreaks'=>true]);
+				$description = Base\Str::excerpt(255,str_replace(',',"\,",$array['description'] ?? ''),['removeLineBreaks'=>true]);
+				$replace = [];
 				
 				$replace['%timezone%'] = $timezone;
 				$replace['%dateStart%'] = Base\Date::format('ics',$array['dateStart']);

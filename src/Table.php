@@ -12,27 +12,27 @@ class Table extends Orm\Table
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'route'=>null, // permet de lier une classe de route à la table
-		'@prod'=>array(
-			'colsExists'=>false),
-		'@app'=>array(
+		'@prod'=>[
+			'colsExists'=>false],
+		'@app'=>[
 			'where'=>true,
-			'route'=>array(
-				'cms'=>Cms\Specific::class),
-			'search'=>false),
-		'@cms'=>array(
+			'route'=>[
+				'cms'=>Cms\Specific::class],
+			'search'=>false],
+		'@cms'=>[
 			'homeTask'=>null, // pour cms, ajouter un lien vers la page d'ajout dans task
 			'specificAddNavLink'=>null, // pour le cms, permet de diviser le lien add et view en deux
 			'generalOperation'=>null, // pour le cms, méthode pour ajouter un bouton en haut à droite dans general
 			'specificOperation'=>null, // pour le cms, méthode pour ajouter un bouton en haut à droite dans specific
-			'order'=>array('id'=>'desc'),
-			'relation'=>array('appendPrimary'=>true),
-			'route'=>array(
+			'order'=>['id'=>'desc'],
+			'relation'=>['appendPrimary'=>true],
+			'route'=>[
 				0=>Cms\Specific::class,
 				'general'=>Cms\General::class,
-				'cms'=>Cms\Specific::class))
-	);
+				'cms'=>Cms\Specific::class]]
+	];
 	
 	
 	// tableFromFqcn

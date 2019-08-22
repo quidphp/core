@@ -8,14 +8,14 @@ use Leafo;
 class ScssPhp extends Core\ServiceAlias
 {
 	// config
-	public static $config = array(
-		'format'=>array(
+	public static $config = [
+		'format'=>[
 			Leafo\ScssPhp\Formatter\Expanded::class, // si compress est false
-			Leafo\ScssPhp\Formatter\Crunched::class), // si compress est true
-		'option'=>array(
+			Leafo\ScssPhp\Formatter\Crunched::class], // si compress est true
+		'option'=>[
 			'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
-			'format'=>null), // permet de spécifier un format, ne prend pas en compte l'option compress
-	);
+			'format'=>null], // permet de spécifier un format, ne prend pas en compte l'option compress
+	];
 	
 	
 	// dynamique

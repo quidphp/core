@@ -7,13 +7,13 @@ use Quid\Base;
 class DateLogin extends DateAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'general'=>false,
 		'complex'=>'div',
 		'date'=>'long',
-		'visible'=>array('validate'=>'notEmpty'),
-		'onGet'=>array(array(Base\Date::class,'onGet'),'long'),
-	);
+		'visible'=>['validate'=>'notEmpty'],
+		'onGet'=>[[Base\Date::class,'onGet'],'long'],
+	];
 }
 
 // config

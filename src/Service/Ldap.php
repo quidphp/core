@@ -7,12 +7,12 @@ use Quid\Core;
 class Ldap extends Core\ServiceAlias
 {
 	// config
-	public static $config = array(
-		'option'=>array(
+	public static $config = [
+		'option'=>[
 			'ping'=>2,
 			'host'=>null,
-			'port'=>389) // port par défaut
-	);
+			'port'=>389] // port par défaut
+	];
 	
 	
 	// dynamic

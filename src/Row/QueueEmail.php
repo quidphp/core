@@ -13,16 +13,16 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'search'=>false,
 		'priority'=>953,
 		'parent'=>'system',
-		'cols'=>array(
-			'context'=>array('class'=>Core\Col\Context::class),
-			'status'=>array('general'=>true,'relation'=>'queueEmailStatus'),
-			'json'=>array('class'=>Core\Col\JsonExport::class))
-	);
+		'cols'=>[
+			'context'=>['class'=>Core\Col\Context::class],
+			'status'=>['general'=>true,'relation'=>'queueEmailStatus'],
+			'json'=>['class'=>Core\Col\JsonExport::class]]
+	];
 	
 	
 	// isUnsent
@@ -112,7 +112,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 	// crée le tableau d'insertion
 	public static function newData(array $json):array
 	{
-		$return = array();
+		$return = [];
 		$return['status'] = 1;
 		$return['json'] = $json;
 		
@@ -131,7 +131,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 		if(!empty($table))
 		{
 			$db = $table->db();
-			$return = $db->rows($table,array('status'=>1),array('id'=>'asc'),$limit);
+			$return = $db->rows($table,['status'=>1],['id'=>'asc'],$limit);
 		}
 		
 		return $return;

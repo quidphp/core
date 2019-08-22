@@ -43,7 +43,7 @@ trait _specificRelation
 	
 	// makeResults
 	// génère les résultats d'affichage pour les relations
-	public static function makeResults(array $array,Core\Col $col,array $selected=array(),?string $loadMore=null):string 
+	public static function makeResults(array $array,Core\Col $col,array $selected=[],?string $loadMore=null):string 
 	{
 		$r = '';
 		
@@ -56,9 +56,9 @@ trait _specificRelation
 			{
 				$html = $col->formComplexSearchChoices($key);
 				$class = (in_array($key,$selected,true))? 'selected':null;
-				$data = array('data-value'=>$key,'data-html'=>$html);
+				$data = ['data-value'=>$key,'data-html'=>$html];
 				$value = Html::div($value,'label');
-				$r .= Html::li($value,array($class,'data'=>$data));
+				$r .= Html::li($value,[$class,'data'=>$data]);
 			}
 			
 			if(!empty($r) && is_string($loadMore))

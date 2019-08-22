@@ -9,12 +9,12 @@ use Quid\Base;
 class Media extends FilesAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'search'=>true,
 		'preValidate'=>'fileUpload',
 		'cell'=>Core\Cell\Media::class,
-		'validateKeys'=>array('extension'=>'extension','maxFilesize'=>'maxFilesize') // custom
-	);
+		'validateKeys'=>['extension'=>'extension','maxFilesize'=>'maxFilesize'] // custom
+	];
 	
 	
 	// preValidatePrepare
@@ -30,9 +30,9 @@ class Media extends FilesAlias
 		{
 			$value = Base\Json::decode($value);
 			
-			if(is_array($value) && Base\Arr::keysExists(array('action','path'),$value))
+			if(is_array($value) && Base\Arr::keysExists(['action','path'],$value))
 			{
-				if(in_array($value['action'],array('delete','regenerate'),true))
+				if(in_array($value['action'],['delete','regenerate'],true))
 				{
 					$path = Base\Path::append($this->rootPath(),$value['path']);
 					$return = Base\File::makeUploadArray($path,9,false);
@@ -112,7 +112,7 @@ class Media extends FilesAlias
 	// gère le onSet si c'est upload fichier (array dans $_FILES)
 	protected function onSetFileUpload(array $array):array
 	{
-		$return = array();
+		$return = [];
 		$r = null;
 		$value = null;
 		$error = $array['error'] ?? null;

@@ -9,7 +9,7 @@ use Quid\Base;
 class UserActive extends YesAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// formComplex
@@ -22,7 +22,7 @@ class UserActive extends YesAlias
 		$user = $session->user();
 		
 		if($value instanceof Core\Cell && $value->row()->primary() === $user->primary())
-		$attr = Base\Arr::plus($attr,array('tag'=>'div'));
+		$attr = Base\Arr::plus($attr,['tag'=>'div']);
 		
 		$return = parent::formComplex($value,$attr,$option);
 		

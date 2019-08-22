@@ -8,13 +8,13 @@ use Quid\Base;
 class Email extends Core\ColAlias
 {
 	// config
-	public static $config = array(
-		'validate'=>array(1=>'email'),
+	public static $config = [
+		'validate'=>[1=>'email'],
 		'general'=>true,
-		'check'=>array('kind'=>'char'),
-		'@cms'=>array(
-			'generalExcerptMin'=>null)
-	);
+		'check'=>['kind'=>'char'],
+		'@cms'=>[
+			'generalExcerptMin'=>null]
+	];
 	
 	
 	// onGet
@@ -26,7 +26,7 @@ class Email extends Core\ColAlias
 
 		if(is_string($return) && !empty($return))
 		{
-			if(!in_array($option['context'],array('cms:generalExport','noHtml'),true))
+			if(!in_array($option['context'],['cms:generalExport','noHtml'],true))
 			{
 				if($option['context'] === 'cms:general' && empty($option['excerpt']))
 				$option['excerpt'] = 30;

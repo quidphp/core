@@ -13,14 +13,14 @@ class About extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'about',
-			'fr'=>'a-propos'),
-		'match'=>array(
-			'ajax'=>true),
+			'fr'=>'a-propos'],
+		'match'=>[
+			'ajax'=>true],
 		'group'=>'dialog'
-	);
+	];
 	
 	
 	// trigger
@@ -30,7 +30,7 @@ class About extends Core\RouteAlias
 		$r = '';
 		$boot = static::boot();
 		
-		$replace = array();
+		$replace = [];
 		$replace['bootLabel'] = $boot->label();
 		$replace['version'] = $boot->version(true);
 		$replace['author'] = $this->authorLink();
@@ -51,7 +51,7 @@ class About extends Core\RouteAlias
 	// retourne le lien dialog
 	public function aDialog(?array $attr=null):string
 	{
-		return $this->aTitle(null,Base\Attr::append($attr,array('data'=>array('jsBox'=>'dialogAbout'))));
+		return $this->aTitle(null,Base\Attr::append($attr,['data'=>['jsBox'=>'dialogAbout']]));
 	}
 }
 

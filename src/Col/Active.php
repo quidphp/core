@@ -7,7 +7,7 @@ use Quid\Orm;
 class Active extends YesAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// onDuplicate

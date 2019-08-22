@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Xml extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'xml'
-	);
+	];
 }
 
 // config

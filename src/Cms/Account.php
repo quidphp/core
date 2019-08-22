@@ -11,7 +11,7 @@ class Account extends Core\Route\Account
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// onBefore

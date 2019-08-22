@@ -8,9 +8,9 @@ use Quid\Base;
 trait _calendar
 {
 	// config
-	public static $configCalendar = array(
+	public static $configCalendar = [
 		'widget'=>null // à spécifier, la classe du calendrier
-	);
+	];
 	
 	
 	// getTimestamp

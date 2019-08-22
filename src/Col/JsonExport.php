@@ -7,11 +7,11 @@ use Quid\Base;
 class JsonExport extends JsonAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'div',
 		'onComplex'=>true,
-		'visible'=>array('validate'=>'notEmpty')
-	);
+		'visible'=>['validate'=>'notEmpty']
+	];
 	
 	
 	// onGet

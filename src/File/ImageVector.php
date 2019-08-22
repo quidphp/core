@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class ImageVector extends ImageAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'imageVector'
-	);
+	];
 }
 
 // config

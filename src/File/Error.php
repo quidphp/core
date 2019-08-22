@@ -11,10 +11,10 @@ class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileSt
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'dirname'=>'[storage]/error',
 		'deleteTrim'=>500
-	);
+	];
 	
 	
 	// isStorageDataValid
@@ -29,7 +29,7 @@ class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileSt
 	// retourne les données à mettre dans le fichier logError
 	public static function storageData(...$values)
 	{
-		return (!empty($values[0]))? $values[0]->toArray():array();
+		return (!empty($values[0]))? $values[0]->toArray():[];
 	}
 	
 	

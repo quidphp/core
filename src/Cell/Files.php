@@ -9,7 +9,7 @@ use Quid\Base;
 abstract class Files extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// commonCast
@@ -143,7 +143,7 @@ abstract class Files extends Core\CellAlias
 	protected function commonCellPath($index=null,$version=null):string 
 	{
 		$return = null;
-		$array = array($this->tableName(),$this->rowPrimary(),$this->name());
+		$array = [$this->tableName(),$this->rowPrimary(),$this->name()];
 		$hasIndex = $this->hasIndex();
 		
 		if($hasIndex && $index !== false)
@@ -219,7 +219,7 @@ abstract class Files extends Core\CellAlias
 	{
 		if(!$this->commonFileExists($index,$version))
 		{
-			$array = array($this->table(),$this->row(),$this->col());
+			$array = [$this->table(),$this->row(),$this->col()];
 			if($this->hasIndex())
 			$array[] = $index;
 			
@@ -342,7 +342,7 @@ abstract class Files extends Core\CellAlias
 	{
 		$return = null;
 		$col = $this->col();
-		$array = array('table'=>$this,'primary'=>$this,'col'=>$this);
+		$array = ['table'=>$this,'primary'=>$this,'col'=>$this];
 		
 		if($this->hasIndex())
 		$array['index'] = $index;
@@ -358,8 +358,8 @@ abstract class Files extends Core\CellAlias
 	// efface tous les dossiers sauf celui de l'original (donc efface contenu de version inexistante)
 	protected function commonMakeVersion($indexes=null,?array $option=null):array 
 	{
-		$return = array();
-		$option = Base\Arr::plus(array('com'=>false),$option);
+		$return = [];
+		$option = Base\Arr::plus(['com'=>false],$option);
 		$col = $this->col();
 		$versions = $col->versions();
 		
@@ -373,7 +373,7 @@ abstract class Files extends Core\CellAlias
 		}
 		
 		else
-		$indexes = array(null);
+		$indexes = [null];
 		
 		if(is_array($versions) && !empty($versions))
 		{
@@ -418,7 +418,7 @@ abstract class Files extends Core\CellAlias
 			$count = count($return);
 			if($option['com'] === true && $count > 0)
 			{
-				$text = static::langPlural($count,'com/pos/media/regenerate',array('count'=>$count));
+				$text = static::langPlural($count,'com/pos/media/regenerate',['count'=>$count]);
 				$this->com($text,'pos');
 			}
 		}
@@ -598,7 +598,7 @@ abstract class Files extends Core\CellAlias
 		if($file instanceof Core\File\ImageRaster)
 		{
 			$filename = Base\Path::filename($target);
-			$option = array('autoRotate'=>true);
+			$option = ['autoRotate'=>true];
 			$file->compress($dirname,$filename,$option);
 		}
 		
@@ -617,7 +617,7 @@ abstract class Files extends Core\CellAlias
 	public function unlinks(?Core\Files $all=null,?array $option=null):int 
 	{
 		$return = 0;
-		$option = Base\Arr::plus(array('unsetWhileEmpty'=>true,'com'=>false),$option);
+		$option = Base\Arr::plus(['unsetWhileEmpty'=>true,'com'=>false],$option);
 		$unsetWhileEmpty = $this->unsetWhileEmptyAmount();
 		$all = $all ?? $this->all();
 		
@@ -638,7 +638,7 @@ abstract class Files extends Core\CellAlias
 			
 			if($option['com'] === true && $return > 0)
 			{
-				$text = static::langPlural($return,'com/pos/media/delete',array('count'=>$return));
+				$text = static::langPlural($return,'com/pos/media/delete',['count'=>$return]);
 				$this->com($text,'pos');
 			}
 		}

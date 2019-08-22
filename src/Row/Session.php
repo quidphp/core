@@ -9,25 +9,25 @@ use Quid\Base;
 class Session extends Core\RowAlias implements Main\Contract\Session
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'search'=>false,
 		'relation'=>'id',
 		'priority'=>954,
 		'parent'=>'system',
-		'order'=>array('dateModify'=>'desc'),
-		'cols'=>array(
-			'context'=>array('class'=>Core\Col\Context::class),
-			'data'=>array('class'=>Core\Col\Serialize::class),
-			'name'=>array('general'=>false),
-			'sid'=>array('required'=>true),
-			'count'=>array('class'=>Core\Col\CountCommit::class,'general'=>true),
-			'user_id'=>array('class'=>Core\Col\UserCommit::class,'panel'=>false,'general'=>true),
-			'userAdd'=>array('general'=>false),
-			'dateAdd'=>array('general'=>true),
-			'userModify'=>array('general'=>false),
-			'dateModify'=>array('general'=>true)),
+		'order'=>['dateModify'=>'desc'],
+		'cols'=>[
+			'context'=>['class'=>Core\Col\Context::class],
+			'data'=>['class'=>Core\Col\Serialize::class],
+			'name'=>['general'=>false],
+			'sid'=>['required'=>true],
+			'count'=>['class'=>Core\Col\CountCommit::class,'general'=>true],
+			'user_id'=>['class'=>Core\Col\UserCommit::class,'panel'=>false,'general'=>true],
+			'userAdd'=>['general'=>false],
+			'dateAdd'=>['general'=>true],
+			'userModify'=>['general'=>false],
+			'dateModify'=>['general'=>true]],
 		'inRelation'=>false
-	);
+	];
 	
 	
 	// isDeleteable
@@ -118,7 +118,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 		
 		if(!empty($name) && !empty($sid))
 		{
-			$count = $table->db()->selectCount($table,array('name'=>$name,'sid'=>$sid));
+			$count = $table->db()->selectCount($table,['name'=>$name,'sid'=>$sid]);
 			if($count > 0)
 			$return = true;
 		}
@@ -137,12 +137,12 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 		if(!empty($name) && !empty($sid))
 		{
 			$db = $table->db();
-			$data = array();
+			$data = [];
 			$data['name'] = $name;
 			$data['sid'] = $sid;
 			
 			$db->off();
-			$row = $table->insert($data,array('reservePrimary'=>false));
+			$row = $table->insert($data,['reservePrimary'=>false]);
 			$db->on();
 			
 			if($row instanceof Core\Row)
@@ -163,7 +163,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 		
 		if(!empty($name) && !empty($sid))
 		{
-			$where = array('name'=>$name,'sid'=>$sid);
+			$where = ['name'=>$name,'sid'=>$sid];
 			$return = $table->row($where);
 		}
 		
@@ -184,12 +184,12 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 			if($timestamp > 0)
 			{
 				$db = $table->db();
-				$where = array();
+				$where = [];
 				$where['name'] = $name;
-				$where[] = array('dateModify','<',$timestamp);
+				$where[] = ['dateModify','<',$timestamp];
 				
 				if(!empty($notIn))
-				$where[] = array('id','notIn',$notIn);
+				$where[] = ['id','notIn',$notIn];
 				
 				$db->off();
 				$return = $db->delete($table,$where);
@@ -210,17 +210,17 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 		
 		if(!empty($name))
 		{
-			$where = array('name'=>$name,'user_id'=>$user);
+			$where = ['name'=>$name,'user_id'=>$user];
 			
 			if(!empty($not) && $not instanceof self)
 			{
 				$dateAdd = $not['dateAdd'];
 				$primary = $table->primary();
-				$where[] = array($primary,'!=',$not);
-				$where[] = array('dateAdd','>',$dateAdd);
+				$where[] = [$primary,'!=',$not];
+				$where[] = ['dateAdd','>',$dateAdd];
 			}
 			
-			$return = $table->select($where,array('dateAdd'=>'desc'),1);
+			$return = $table->select($where,['dateAdd'=>'desc'],1);
 		}
 		
 		return $return;

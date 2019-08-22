@@ -19,7 +19,7 @@ class Row extends Base\Test
 		$table = "ormRow";
 		$tb = $db[$table];
 		assert($db->truncate($table) instanceof \PDOStatement);
-		assert($db->inserts($table,array('id','active','name_en','dateAdd','userAdd','dateModify','userModify'),array(1,1,'james',1521762409,2,12,2),array(2,2,'james2',20,2,22,2)) === array(1,2));
+		assert($db->inserts($table,['id','active','name_en','dateAdd','userAdd','dateModify','userModify'],[1,1,'james',1521762409,2,12,2],[2,2,'james2',20,2,22,2]) === [1,2]);
 		$row = $tb->row(1);
 		$row2 = $tb->row(2);
 
@@ -49,10 +49,10 @@ class Row extends Base\Test
 		assert(Core\Row\Session::selects(2122)->isEmpty());
 
 		// grab
-		assert(Core\Row\Session::grab(array('id'=>2312))->isEmpty());
+		assert(Core\Row\Session::grab(['id'=>2312])->isEmpty());
 
 		// grabVisible
-		assert(Core\Row\Session::grabVisible(array('id'=>1233))->isEmpty());
+		assert(Core\Row\Session::grabVisible(['id'=>1233])->isEmpty());
 
 		// insert
 
@@ -69,7 +69,7 @@ class Row extends Base\Test
 		assert($row2->routeClass('contact') === Test\Assert\Contact::class);
 
 		// access
-		$row3 = $tb->insert(array('date'=>time(),'name_en'=>'sure'));
+		$row3 = $tb->insert(['date'=>time(),'name_en'=>'sure']);
 		assert($row3::session() instanceof Core\Session);
 		assert($row3::sessionCom() instanceof Core\Com);
 		assert($row3::sessionUser() instanceof Core\Row\User);

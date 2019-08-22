@@ -7,15 +7,15 @@ use Quid\Core;
 class Primary extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\Primary::class,
 		'general'=>true,
 		'order'=>true,
 		'complex'=>'inputHidden',
-		'check'=>array('kind'=>'int'),
-		'@cms'=>array(
-			'search'=>true)
-	);
+		'check'=>['kind'=>'int'],
+		'@cms'=>[
+			'search'=>true]
+	];
 }
 
 // config

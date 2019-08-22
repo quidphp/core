@@ -7,7 +7,7 @@ use Quid\Core;
 class Integer extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// increment

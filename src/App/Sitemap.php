@@ -7,7 +7,7 @@ use Quid\Core;
 class Sitemap extends Core\Route\Sitemap
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

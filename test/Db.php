@@ -34,7 +34,7 @@ class Db extends Base\Test
 		assert($db['ormCol']->classe()->cell('myRelation') === Core\Cell\Enum::class);
 		assert($db['ormCol']->classe()->cell('user_id') === Core\Cell\Enum::class);
 		assert($db['ormCol']->classe()->cell('user_ids') === Core\Cell\Set::class);
-		assert($db->colAttr('active') === array('class'=>Core\Col\Active::class,'general'=>true,'label'=>array('col','label','*','active'),'priority'=>35));
+		assert($db->colAttr('active') === ['class'=>Core\Col\Active::class,'general'=>true,'label'=>['col','label','*','active'],'priority'=>35]);
 		
 		return true;
 	}

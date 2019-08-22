@@ -13,7 +13,7 @@ class Login extends Core\Route\Login
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// onReplace
@@ -39,7 +39,7 @@ class Login extends Core\Route\Login
 	// attribut pour le bouton submit du formulaire
 	public function submitAttr() 
 	{
-		return array('icon','padLeft','login');
+		return ['icon','padLeft','login'];
 	}
 	
 	
@@ -66,7 +66,7 @@ class Login extends Core\Route\Login
 		
 		$r .= Html::divOp('bottom');
 		$r .= Html::divOp('left');
-		$r .= Html::formWrap(static::langText('login/remember'),array('inputCheckbox',1,array('name'=>'remember','checked'=>$remember)),'reverse');
+		$r .= Html::formWrap(static::langText('login/remember'),['inputCheckbox',1,['name'=>'remember','checked'=>$remember]],'reverse');
 		$r .= Html::divClose();
 		
 		$r .= Html::divOp('right');
@@ -83,7 +83,7 @@ class Login extends Core\Route\Login
 	// retourne un tableau avec les boutons sous le formulaire de connexion
 	protected function makeButtons():array 
 	{
-		$return = array();
+		$return = [];
 		$return['register'] = $this->makeRegister();
 		$return['resetPassword'] = $this->makeResetPassword();
 		$return['about'] = $this->makeAbout();

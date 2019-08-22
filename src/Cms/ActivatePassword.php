@@ -7,10 +7,10 @@ use Quid\Core;
 class ActivatePassword extends Core\Route\ActivatePassword
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>Login::class,
 		'row'=>Core\Row\User::class
-	);
+	];
 }
 
 // config

@@ -7,16 +7,16 @@ use Quid\Base;
 class SlugPath extends SlugAlias
 {
 	// config
-	public static $config = array(
-		'validate'=>array(1=>'slugPath')
-	);
+	public static $config = [
+		'validate'=>[1=>'slugPath']
+	];
 	
 	
 	// slugMake
 	// gère l'appel à la classe base/slugPath
 	public static function slugMake($value,?array $option=null):string 
 	{
-		return Base\SlugPath::str($value,array('slug'=>$option));
+		return Base\SlugPath::str($value,['slug'=>$option]);
 	}
 }
 

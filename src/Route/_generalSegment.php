@@ -71,7 +71,7 @@ trait _generalSegment
 	// retourne les rows visible de la route
 	public function rowsVisible():Core\Rows 
 	{
-		return $this->rows()->filter(array('isVisible'=>true));
+		return $this->rows()->filter(['isVisible'=>true]);
 	}
 	
 	

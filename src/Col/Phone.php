@@ -9,14 +9,14 @@ use Quid\Base;
 class Phone extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'tag'=>'inputText',
 		'search'=>false,
-		'validate'=>array(1=>'phone'),
+		'validate'=>[1=>'phone'],
 		'onComplex'=>true,
-		'check'=>array('kind'=>'char'),
+		'check'=>['kind'=>'char'],
 		'phone'=>null // custom
-	);
+	];
 	
 	
 	// onGet

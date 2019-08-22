@@ -9,43 +9,43 @@ use Quid\Base;
 class User extends Core\RowAlias implements Main\Contract\User
 {
 	// config
-	public static $config = array(
-		'key'=>array('username'), // colonne utilisé pour key
-		'name'=>array('name','username'), // colonne(s) utilisé pour le nom d'une ligne
-		'relation'=>array('what'=>array('username','email'),'output'=>'username'),
-		'cols'=>array(
-			'active'=>array('class'=>Core\Col\UserActive::class,'general'=>true),
-			'role'=>array('class'=>Core\Col\UserRole::class,'general'=>true),
+	public static $config = [
+		'key'=>['username'], // colonne utilisé pour key
+		'name'=>['name','username'], // colonne(s) utilisé pour le nom d'une ligne
+		'relation'=>['what'=>['username','email'],'output'=>'username'],
+		'cols'=>[
+			'active'=>['class'=>Core\Col\UserActive::class,'general'=>true],
+			'role'=>['class'=>Core\Col\UserRole::class,'general'=>true],
 			'username'=>true,
 			'timezone'=>true,
-			'password'=>array('class'=>Core\Col\UserPassword::class,),
-			'passwordReset'=>array(
-				'class'=>Core\Col\UserPasswordReset::class,'export'=>false,'exists'=>false),
+			'password'=>['class'=>Core\Col\UserPassword::class,],
+			'passwordReset'=>[
+				'class'=>Core\Col\UserPasswordReset::class,'export'=>false,'exists'=>false],
 			'email'=>true,
-			'dateLogin'=>true),
+			'dateLogin'=>true],
 		'priority'=>900,
-		'nobody'=>array('role'=>1), // custom, pour trouver utilisateur nobody
-		'log'=>array( // lit des événements à des classes de table
+		'nobody'=>['role'=>1], // custom, pour trouver utilisateur nobody
+		'log'=>[ // lit des événements à des classes de table
 			'register'=>Log::class,
 			'changePassword'=>Log::class,
 			'resetPassword'=>Log::class,
-			'activatePassword'=>Log::class),
-		'credentials'=>array('email'=>'email','username'=>'username'), // champs valides pour la connexion
-		'emailModel'=>array(
+			'activatePassword'=>Log::class],
+		'credentials'=>['email'=>'email','username'=>'username'], // champs valides pour la connexion
+		'emailModel'=>[
 			'registerAdmin'=>null,
 			'registerConfirm'=>null,
 			'resetPassword'=>null,
-			'userWelcome'=>null),
-		'crypt'=>array(
-			'passwordHash'=>array( // configuration pour passwordHash
+			'userWelcome'=>null],
+		'crypt'=>[
+			'passwordHash'=>[ // configuration pour passwordHash
 				'algo'=>PASSWORD_DEFAULT,
-				'options'=>array('cost'=>10)),
-			'passwordNew'=>10), // longueur d'un nouveau mot de passe
-		'@cms'=>array(
-			'route'=>array(
-				'userWelcome'=>Core\Cms\SpecificUserWelcome::class),
-			'specificOperation'=>array(self::class,'specificOperation')),
-	);
+				'options'=>['cost'=>10]],
+			'passwordNew'=>10], // longueur d'un nouveau mot de passe
+		'@cms'=>[
+			'route'=>[
+				'userWelcome'=>Core\Cms\SpecificUserWelcome::class],
+			'specificOperation'=>[self::class,'specificOperation']],
+	];
 	
 	
 	// dynamique
@@ -425,7 +425,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			
 			if(!empty($replace))
 			{
-				$return = array();
+				$return = [];
 				$return['model'] = $model;
 				$return['replace'] = $replace;
 			}
@@ -441,7 +441,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	protected function getEmailModel(string $name):?Main\Contract\Email 
 	{
 		$return = null;
-		$key = $this->attr(array('emailModel',$name));
+		$key = $this->attr(['emailModel',$name]);
 		
 		if(!empty($key))
 		$return = Email::find($key);
@@ -455,7 +455,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	// méthode protégé
 	protected function getEmailReplace():array 
 	{
-		$return = array();
+		$return = [];
 		$return['username'] = $this->username();
 		$return['email'] = $this->email();
 		$return['name'] = $this->fullName();
@@ -595,7 +595,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 		{
 			$email = $this->email()->value();
 			$fullName = $this->fullName();
-			$return = array($email=>$fullName);
+			$return = [$email=>$fullName];
 		}
 		
 		return $return;
@@ -615,7 +615,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	// retourne le tableau a mettre dans session
 	public function toSession():array
 	{
-		$return = array();
+		$return = [];
 		$return['uid'] = $this->primary();
 		$return['permission'] = $this->permission();
 		
@@ -662,7 +662,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	public function setPassword($value,?array $option=null):?int
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('onChange'=>true),$option);
+		$option = Base\Arr::plus(['onChange'=>true],$option);
 		
 		try 
 		{
@@ -744,12 +744,12 @@ class User extends Core\RowAlias implements Main\Contract\User
 	public function passwordRehash(string $value,?array $option=null):?int 
 	{
 		$return = null;
-		$option = Base\Arr::plus($option,array('onChange'=>false));
+		$option = Base\Arr::plus($option,['onChange'=>false]);
 		$hashOption = $this->attr('crypt/passwordHash');
 		$password = $this->password()->value();
 		
 		if(Base\Crypt::passwordNeedsRehash($password,$hashOption))
-		$return = $this->setPassword(array($value),$option);
+		$return = $this->setPassword([$value],$option);
 		
 		return $return;
 	}
@@ -774,7 +774,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			
 			if(!empty($newPassword))
 			{
-				$save = $this->setPasswordReset($newPassword,array('isUpdateable'=>true));
+				$save = $this->setPasswordReset($newPassword,['isUpdateable'=>true]);
 				
 				if($save === 1)
 				{
@@ -806,7 +806,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	// méthode protégé qui valide que le user et le modèle de courriel sont valides
 	protected function validateSend(Main\Contract\Email $model,?array $option=null):Main\Contract\User
 	{
-		$option = Base\Arr::plus(array('method'=>'dispatch'),$option);
+		$option = Base\Arr::plus(['method'=>'dispatch'],$option);
 		
 		if(!$this->canReceiveEmail())
 		static::throw('userCannotReceiveEmail');
@@ -828,7 +828,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	public function sendResetPasswordEmail(string $password,?array $replace=null,?array $option=null):bool
 	{
 		$return = false;
-		$option = Base\Arr::plus(array('key'=>null,'method'=>'dispatch'),$option);
+		$option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
 		$array = $this->resetPasswordEmail($replace);
 		$route = $this->activatePasswordRoute();
 
@@ -855,7 +855,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			if(!is_string($hash) || empty($hash))
 			static::throw('invalidHash');
 			
-			$route = $route::makeOverload(array('primary'=>$primary,'hash'=>$hash));
+			$route = $route::makeOverload(['primary'=>$primary,'hash'=>$hash]);
 			$absolute = $route->uriAbsolute();
 			if(empty($absolute))
 			static::throw('invalidAbsoluteUri');
@@ -882,7 +882,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	protected function sendEmail(string $type,$to,?array $replace=null,?\Closure $closure=null,?array $option=null):bool
 	{
 		$return = false;
-		$option = Base\Arr::plus(array('key'=>null,'method'=>'dispatch'),$option);
+		$option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
 		$method = $type."Email";
 		$array = $this->$method($replace);
 		
@@ -925,7 +925,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 				$newOption = $this->attr('crypt/passwordNew');
 				$password = Base\Crypt::passwordNew($newOption);
 				
-				if($this->setPassword(array($password)) !== 1)
+				if($this->setPassword([$password]) !== 1)
 				static::throw('cannotChangePassword');
 				$return['password'] = $password;
 			}
@@ -978,7 +978,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 		{
 			if($this->isPasswordReset($hash))
 			{
-				if($this->setPasswordFromPasswordReset(array('isUpdateable'=>true)) === 1)
+				if($this->setPasswordFromPasswordReset(['isUpdateable'=>true]) === 1)
 				{
 					$this->onActivatePassword();
 					$pos = 'activatePassword/success';
@@ -1164,7 +1164,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	public static function registerProcess(array $data,?string $passwordConfirm=null,?array $option=null):?self 
 	{
 		$return = null;
-		$option = Base\Arr::plus($option,array('row'=>true));
+		$option = Base\Arr::plus($option,['row'=>true]);
 		$table = static::tableFromFqcn();
 		$password = 'password';
 		$com = $table->db()->com();
@@ -1218,7 +1218,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 		
 		if(is_array($credentials))
 		{
-			$where = array();
+			$where = [];
 			
 			foreach ($credentials as $key) 
 			{
@@ -1273,7 +1273,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 		if(is_array($credentials) && !empty($credentials['email']))
 		{
 			$col = $table->col($credentials['email']);
-			$return = $table->row(array($col->name()=>$value));
+			$return = $table->row([$col->name()=>$value]);
 		}
 		
 		return $return;
@@ -1296,8 +1296,8 @@ class User extends Core\RowAlias implements Main\Contract\User
 				if(!empty($route))
 				{
 					$route = $route::makeOverload($row)->initSegment();
-					$data = array('confirm'=>static::langText('common/confirm'));
-					$attr = array('name'=>'--userWelcome--','value'=>1,'submit','icon','padLeft','email','data'=>$data);
+					$data = ['confirm'=>static::langText('common/confirm')];
+					$attr = ['name'=>'--userWelcome--','value'=>1,'submit','icon','padLeft','email','data'=>$data];
 					$r .= $route->submitTitle(null,$attr);
 				}
 			}
@@ -1311,11 +1311,11 @@ class User extends Core\RowAlias implements Main\Contract\User
 	// méthode utilisé pour exporter les colonnes et cellules d'un utilisateur
 	public static function userExport(array $value,string $type,Core\Cell $cell,array $option):array
 	{
-		$return = array();
+		$return = [];
 		$col = $cell->col();
 		$relation = $col->relation();
 		$table = $relation->relationTable();
-		$cols = $table->cols()->filter(array('attrNotEmpty'=>true),'relationExport');
+		$cols = $table->cols()->filter(['attrNotEmpty'=>true],'relationExport');
 		$cols = $cols->sortBy('attr',true,'relationExport');
 		
 		if($type === 'col')

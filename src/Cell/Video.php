@@ -8,7 +8,7 @@ use Quid\Main;
 class Video extends Core\CellAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// cast

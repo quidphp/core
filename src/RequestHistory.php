@@ -12,7 +12,7 @@ class RequestHistory extends Main\RequestHistory
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// previousRoute
@@ -44,7 +44,7 @@ class RequestHistory extends Main\RequestHistory
 	public function previousRedirect(Routes $routes,$fallback=null,bool $hasExtra=true,?Session $session=null,?array $option=null):bool
 	{
 		$return = false;
-		$option = Base\Arr::plus(array('encode'=>true,'code'=>true,'kill'=>true),$option);
+		$option = Base\Arr::plus(['encode'=>true,'code'=>true,'kill'=>true],$option);
 		$previous = $this->previousRoute($routes,$fallback,$hasExtra,$session);
 		
 		if(!empty($previous))
@@ -58,7 +58,7 @@ class RequestHistory extends Main\RequestHistory
 	// pour chaque request, retourne un tableau avec toutes les routes qui matchs avec la requête
 	public function match(Routes $routes,?Session $session=null):array  
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($this->request() as $key => $value) 
 		{
@@ -73,7 +73,7 @@ class RequestHistory extends Main\RequestHistory
 	// pour chaque request, retourne la première route qui match avec la requête
 	public function matchOne(Routes $routes,?Session $session=null):array  
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($this->request() as $key => $value) 
 		{
@@ -89,7 +89,7 @@ class RequestHistory extends Main\RequestHistory
 	// la route retourné est triggé
 	public function route(Routes $routes,?Session $session=null):array  
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($this->request() as $key => $value) 
 		{

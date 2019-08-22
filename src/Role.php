@@ -12,13 +12,13 @@ abstract class Role extends Main\Role
 	
 
 	// config
-	public static $config = array(
+	public static $config = [
 		'label'=>null, // label du rôle
 		'description'=>null, // description du rôle
-		'can'=>array( // permission générale
-			'login'=>array('app'=>false,'cms'=>false)),
-		'db'=>array( // permission pour db
-			'*'=>array( // permission pour toutes les tables
+		'can'=>[ // permission générale
+			'login'=>['app'=>false,'cms'=>false]],
+		'db'=>[ // permission pour db
+			'*'=>[ // permission pour toutes les tables
 				'access'=>true,
 				'select'=>true,
 				'show'=>true,
@@ -28,43 +28,43 @@ abstract class Role extends Main\Role
 				'create'=>false,
 				'alter'=>false,
 				'truncate'=>false,
-				'drop'=>false),
-			'user'=>array(
-				'update'=>true),
-			'session'=>array(
+				'drop'=>false],
+			'user'=>[
+				'update'=>true],
+			'session'=>[
 				'insert'=>true,
 				'update'=>true,
-				'delete'=>true),
-			'log'=>array(
+				'delete'=>true],
+			'log'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'queueEmail'=>array(
+				'delete'=>true],
+			'queueEmail'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'logEmail'=>array(
+				'delete'=>true],
+			'logEmail'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'logCron'=>array(
+				'delete'=>true],
+			'logCron'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'logError'=>array(
+				'delete'=>true],
+			'logError'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'logHttp'=>array(
+				'delete'=>true],
+			'logHttp'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true),
-			'logSql'=>array(
+				'delete'=>true],
+			'logSql'=>[
 				'insert'=>true,
 				'update'=>false,
-				'delete'=>true)),
-		'@cms'=>array( // pour cms
-			'can'=>array(
+				'delete'=>true]],
+		'@cms'=>[ // pour cms
+			'can'=>[
 				'account'=>true,
 				'accountChangePassword'=>true,
 				'logout'=>true,
@@ -72,12 +72,12 @@ abstract class Role extends Main\Role
 				'footerTypesCms'=>false,
 				'footerModules'=>true,
 				'about'=>true,
-				'home'=>array(
+				'home'=>[
 					'info'=>true,
 					'infoPopup'=>false,
-					'search'=>true)),
-			'db'=>array(
-				'*'=>array( // permission pour toutes les tables
+					'search'=>true]],
+			'db'=>[
+				'*'=>[ // permission pour toutes les tables
 					'view'=>true,
 					'limit'=>true,
 					'perPage'=>true,
@@ -120,13 +120,13 @@ abstract class Role extends Main\Role
 					'relation'=>true,
 					'generalRelation'=>true,
 					'specificRelation'=>true,
-					'tableRelation'=>true),
-				'user'=>array(
-					'userWelcome'=>false),
-				'session'=>array(
+					'tableRelation'=>true],
+				'user'=>[
+					'userWelcome'=>false],
+				'session'=>[
 					'remove'=>false,
-					'modify'=>false)))
-	);
+					'modify'=>false]]]
+	];
 	
 	
 	// isAdmin
@@ -169,7 +169,7 @@ abstract class Role extends Main\Role
 		if($type === null)
 		$type = static::boot()->type();
 		
-		$return = static::can(array('login',$type));
+		$return = static::can(['login',$type]);
 		
 		return $return;
 	}
@@ -213,7 +213,7 @@ abstract class Role extends Main\Role
 	// envoie une exception si l'argument table n'est pas utilisable
 	public static function table($table=null):array 
 	{
-		$return = array();
+		$return = [];
 		
 		if(!empty(static::$config['db']['*']) && is_array(static::$config['db']['*']))
 		$return = static::$config['db']['*'];
@@ -245,7 +245,7 @@ abstract class Role extends Main\Role
 		$return = null;
 		$obj = static::lang();
 		$path = (!empty(static::$config['label']))? static::$config['label']:null;
-		$option = Base\Arr::plus($option,array('pattern'=>$pattern));
+		$option = Base\Arr::plus($option,['pattern'=>$pattern]);
 		
 		if(!empty($path))
 		$return = $obj->same($path,null,$lang,$option);
@@ -264,7 +264,7 @@ abstract class Role extends Main\Role
 		$return = null;
 		$obj = static::lang();
 		$path = (!empty(static::$config['description']))? static::$config['description']:null;
-		$option = Base\Arr::plus($option,array('pattern'=>$pattern));
+		$option = Base\Arr::plus($option,['pattern'=>$pattern]);
 		
 		if(!empty($path))
 		$return = $obj->same($path,$replace,$lang,$option);

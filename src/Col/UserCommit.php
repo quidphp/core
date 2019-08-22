@@ -7,14 +7,14 @@ use Quid\Core;
 class UserCommit extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
 		'complex'=>'div',
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'relation'=>'user',
 		'duplicate'=>false,
-		'check'=>array('kind'=>'int')
-	);
+		'check'=>['kind'=>'int']
+	];
 	
 	
 	// onCommit

@@ -12,10 +12,10 @@ trait _boolean
 		$return = false;
 		
 		if($type === 'make')
-		$return = (in_array($value,array(0,1),true))? $value:false;
+		$return = (in_array($value,[0,1],true))? $value:false;
 		
 		elseif($type === 'validate')
-		$return = (in_array($value,array(0,1),true))? $value:false;
+		$return = (in_array($value,[0,1],true))? $value:false;
 		
 		return $return;
 	}

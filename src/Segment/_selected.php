@@ -34,7 +34,7 @@ trait _selected
 		}
 		
 		elseif($type === 'validateDefault')
-		$return = array();
+		$return = [];
 		
 		return $return;
 	}

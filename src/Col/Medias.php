@@ -9,14 +9,14 @@ use Quid\Base;
 class Medias extends FilesAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'search'=>false,
 		'preValidate'=>'fileUploads',
-		'onGet'=>array(Base\Json::class,'onGet'),
+		'onGet'=>[Base\Json::class,'onGet'],
 		'cell'=>Core\Cell\Medias::class,
 		'media'=>2, // custom
-		'validateKeys'=>array('extension'=>'extensions','maxFilesize'=>'maxFilesizes')
-	);
+		'validateKeys'=>['extension'=>'extensions','maxFilesize'=>'maxFilesizes']
+	];
 	
 	
 	// hasIndex
@@ -35,7 +35,7 @@ class Medias extends FilesAlias
 		
 		if(Base\Arrs::is($values))
 		{
-			$return = array();
+			$return = [];
 			
 			foreach ($values as $key => $value) 
 			{
@@ -49,9 +49,9 @@ class Medias extends FilesAlias
 				{
 					$value = Base\Json::decode($value);
 					
-					if(is_array($value) && Base\Arr::keysExists(array('action','path'),$value))
+					if(is_array($value) && Base\Arr::keysExists(['action','path'],$value))
 					{
-						if(in_array($value['action'],array('delete','regenerate'),true))
+						if(in_array($value['action'],['delete','regenerate'],true))
 						{
 							$path = Base\Path::append($this->rootPath(),$value['path']);
 							$return[$key] = Base\File::makeUploadArray($path,9,false);
@@ -88,7 +88,7 @@ class Medias extends FilesAlias
 			$this->checkFilesIndex($value);
 			$news = Core\Files::newOverload();
 			$olds = Core\Files::newOverload();
-			$regenerate = array();
+			$regenerate = [];
 			
 			if(!empty($cell))
 			{
@@ -145,7 +145,7 @@ class Medias extends FilesAlias
 			else
 			$return = $news = $value;
 			
-			$array = array();
+			$array = [];
 			foreach ($return as $key => $file) 
 			{
 				$basename = $file->mimeBasename($file->getOption('uploadBasename'));

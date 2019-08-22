@@ -10,14 +10,14 @@ use Quid\Base;
 class JsonArray extends JsonAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
 		'sortable'=>true,
 		'cell'=>Core\Cell\JsonArray::class,
 		'preValidate'=>'array',
 		'onComplex'=>true,
 		'tag'=>'inputText'
-	);
+	];
 	
 	
 	// prepare
@@ -65,7 +65,7 @@ class JsonArray extends JsonAlias
 	// retourne la classe additionnelle à utiliser
 	public function classHtml():array
 	{
-		return array(parent::classHtml(),'addRemove');
+		return [parent::classHtml(),'addRemove'];
 	}
 	
 	
@@ -108,10 +108,10 @@ class JsonArray extends JsonAlias
 		$return .= Html::divOp('outer');
 		
 		if($this->attr('sortable'))
-		$return .= Html::div(null,array('icon','solo','move'));
+		$return .= Html::div(null,['icon','solo','move']);
 		
-		$data = array('confirm'=>$lang->text('common/confirm'));
-		$return .= Html::div(null,array('icon','solo','remove','data'=>$data));
+		$data = ['confirm'=>$lang->text('common/confirm')];
+		$return .= Html::div(null,['icon','solo','remove','data'=>$data]);
 		$return .= Html::divCl();
 		$return .= Html::divCl();
 		
@@ -124,7 +124,7 @@ class JsonArray extends JsonAlias
 	protected function prepareValueForm($return,$option) 
 	{
 		$return = $this->valueComplex($return,$option);
-		$return = (empty($return))? array(null):$return;
+		$return = (empty($return))? [null]:$return;
 		
 		return $return;
 	}
@@ -144,21 +144,21 @@ class JsonArray extends JsonAlias
 			$lang = $this->db()->lang();
 			$attr = (!is_array($attr))? (array) $attr:$attr;
 			$attr['name'] = $this->name();
-			$option = Base\Arr::plus(array('multi'=>true),$option);
+			$option = Base\Arr::plus(['multi'=>true],$option);
 			$model = $this->makeModel(null,$attr,null,$option);
-			$data = array('html'=>$model);
+			$data = ['html'=>$model];
 			$return .= Html::divOp('container');
 			
 			foreach ($value as $i => $v) 
 			{
-				$return .= $this->makeModel($v,$attr,$cell,Base\Arr::plus($option,array('index'=>$i)));
+				$return .= $this->makeModel($v,$attr,$cell,Base\Arr::plus($option,['index'=>$i]));
 			}
 			
 			$return .= Html::divCl();
 			
-			$return .= Html::divOp(array('insert','data'=>$data));
+			$return .= Html::divOp(['insert','data'=>$data]);
 			$return .= Html::span($lang->text('common/insert'));
-			$return .= Html::span(null,array('icon','solo','add'));
+			$return .= Html::span(null,['icon','solo','add']);
 			$return .= Html::divCl();
 		}
 		

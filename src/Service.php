@@ -12,7 +12,7 @@ abstract class Service extends Main\Service
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// getLangCode

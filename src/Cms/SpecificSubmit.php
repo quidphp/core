@@ -11,24 +11,24 @@ class SpecificSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/[primary]/submit',
-			'fr'=>'table/[table]/[primary]/soumettre'),
-		'segment'=>array(
+			'fr'=>'table/[table]/[primary]/soumettre'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
-			'primary'=>'structureSegmentPrimary'),
-		'match'=>array(
+			'primary'=>'structureSegmentPrimary'],
+		'match'=>[
 			'method'=>'post',
 			'csrf'=>true,
-			'post'=>array('id'=>array('='=>'[primary]'),'-table-'=>array('='=>'[table]')),
+			'post'=>['id'=>['='=>'[primary]'],'-table-'=>['='=>'[table]']],
 			'genuine'=>true,
-			'role'=>array('>='=>20)),
-		'response'=>array(
-			'timeLimit'=>60),
+			'role'=>['>='=>20]],
+		'response'=>[
+			'timeLimit'=>60],
 		'parent'=>Specific::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore
@@ -57,7 +57,7 @@ class SpecificSubmit extends Core\RouteAlias
 		if($post !== null)
 		{
 			$row = $this->row();
-			$return = $row->setUpdateChangedIncludedValid($post,array('preValidate'=>true,'com'=>true,'context'=>static::class));
+			$return = $row->setUpdateChangedIncludedValid($post,['preValidate'=>true,'com'=>true,'context'=>static::class]);
 		}
 
 		if(empty($return))

@@ -6,7 +6,7 @@ namespace Quid\Core\File;
 class Txt extends TextAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

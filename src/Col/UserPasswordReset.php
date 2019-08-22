@@ -8,19 +8,19 @@ use Quid\Base;
 class UserPasswordReset extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'div',
 		'cell'=>Core\Cell\UserPasswordReset::class,
 		'search'=>false,
-		'visible'=>array(
+		'visible'=>[
 			'validate'=>'notEmpty',
-			'role'=>array('>='=>70)),
+			'role'=>['>='=>70]],
 		'visibleGeneral'=>false,
 		'onComplex'=>true,
 		'export'=>false,
-		'check'=>array('kind'=>'char'),
+		'check'=>['kind'=>'char'],
 		'security'=>null // custom, défini le niveau de sécurité du mot de passe utilisé, support pour loose
-	);
+	];
 	
 	
 	// onGet

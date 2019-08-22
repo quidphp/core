@@ -11,11 +11,11 @@ class Logout extends Core\Route\Logout
 	
 	
 	// config
-	public static $config = array(
-		'match'=>array(
-			'role'=>array('>='=>20)),
+	public static $config = [
+		'match'=>[
+			'role'=>['>='=>20]],
 		'parent'=>Login::class
-	);
+	];
 }
 
 // config

@@ -12,7 +12,7 @@ abstract class Widget extends Main\Widget
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// getOverloadKeyPrepend

@@ -14,7 +14,7 @@ trait _filter
 		$return = false;
 		
 		if($type === 'validateDefault')
-		$return = array();
+		$return = [];
 		
 		else
 		{
@@ -44,7 +44,7 @@ trait _filter
 		{
 			if(is_array($value))
 			{
-				$array = array();
+				$array = [];
 				$delimiters = static::getFilterDelimiters();
 				
 				foreach ($value as $k => $v) 
@@ -55,7 +55,7 @@ trait _filter
 					$v = $v->primary();
 					
 					if(is_scalar($v))
-					$v = array($v);
+					$v = [$v];
 					
 					if(is_array($v) && !empty($v))
 					{
@@ -93,9 +93,9 @@ trait _filter
 		
 		if(is_string($value))
 		{
-			$return = array();
+			$return = [];
 			$delimiters = static::getFilterDelimiters();
-			$array = Base\Str::explodes(array($delimiters[0],$delimiters[1]),$value,null,true,true);
+			$array = Base\Str::explodes([$delimiters[0],$delimiters[1]],$value,null,true,true);
 			
 			if(!empty($array))
 			{
@@ -147,7 +147,7 @@ trait _filter
 	// retourne les délimiteurs à utiliser pour les filtres
 	public static function getFilterDelimiters():array
 	{
-		$return = array();
+		$return = [];
 		$default = static::getDefaultSegment();
 		$return[] = $default.$default.$default;
 		$return[] = $default.$default;

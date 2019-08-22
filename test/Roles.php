@@ -13,7 +13,7 @@ class Roles extends Base\Test
 	{
 		// prepare
 		$user = new Test\Role\User();
-		$roles = new Core\Roles(array(Core\Role::class,Test\Role::class));
+		$roles = new Core\Roles([Core\Role::class,Test\Role::class]);
 		$roles2 = new Core\Roles();
 		
 		// main
@@ -26,10 +26,10 @@ class Roles extends Base\Test
 		assert($roles->not($roles)->isEmpty());
 		assert($roles->pair('name')[1] === 'nobody');
 		assert($roles->pair('label','%:','fr')[80] === 'Administrateur:');
-		assert($roles->filter(array('permission'=>80))->isCount(1));
-		assert($roles->filter(array('permission'=>80)) !== $roles);
-		assert($roles->filter(array('canDb'=>true),'select')->isCount(3));
-		assert($roles->filter(array('canDb'=>true),'insert')->isCount(1));
+		assert($roles->filter(['permission'=>80])->isCount(1));
+		assert($roles->filter(['permission'=>80]) !== $roles);
+		assert($roles->filter(['canDb'=>true],'select')->isCount(3));
+		assert($roles->filter(['canDb'=>true],'insert')->isCount(1));
 		assert(count($roles->group('name')) === 3);
 		assert($roles->sortBy('permission',false) !== $roles);
 		assert(is_a($roles->sortBy('permission',false)->first(),Core\Role\Admin::class,true));

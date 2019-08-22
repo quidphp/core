@@ -7,10 +7,10 @@ use Quid\Core;
 class ImageRaster extends ImageAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'imageRaster',
 		'service'=>Core\Service\ClassUpload::class
-	);
+	];
 	
 	
 	// getServiceClass

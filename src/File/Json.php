@@ -7,10 +7,10 @@ use Quid\Base;
 class Json extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'json',
 		'type'=>'json'
-	);
+	];
 	
 	
 	// readGet

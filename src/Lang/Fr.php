@@ -11,9 +11,9 @@ class Fr extends Base\Lang\Fr
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		// common
-		'common'=>array(
+		'common'=>[
 			'and'=>'Et',
 			'on'=>'Sur',
 			'here'=>'Ici',
@@ -52,13 +52,13 @@ class Fr extends Base\Lang\Fr
 			'loadMore'=>'Charger plus...',
 			'captcha'=>"Entrer les caractères dans l'image",
 			'accessDenied'=>'Accès interdit'
-		),
+		],
 		
 		// error
-		'error'=>array(
+		'error'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				1=>'Erreur',
 				2=>'Notification',
 				3=>'Déconseillé',
@@ -71,82 +71,82 @@ class Fr extends Base\Lang\Fr
 				33=>'Exception base de données',
 				34=>'Exception de route',
 				35=>'Exception de démarrage'
-			),
+			],
 			
 			// page
-			'page'=>array(
+			'page'=>[
 				
 				// content
-				'content'=>array(
+				'content'=>[
 					400=>"La requête est invalide et ne peut pas être traitée.",
 					404=>"Cette URL ne pointe pas vers un contenu valide."
-				),
+				],
 				
 				'back'=>"Cliquez [link] pour revenir."
-			)
-		),
+			]
+		],
 		
 		// lang
-		'lang'=>array(
+		'lang'=>[
 			'fr'=>'Français',
 			'en'=>'Anglais'
-		),
+		],
 		
 		// langSwitch
-		'langSwitch'=>array(
+		'langSwitch'=>[
 			'fr'=>'Français',
 			'en'=>'English'
-		),
+		],
 		
 		// relationOrder
-		'relationOrder'=>array(
-			'key'=>array(
+		'relationOrder'=>[
+			'key'=>[
 				1=>"Plus ancien en premier",
 				2=>"Plus récent en premier",
-			),
+			],
 			
-			'value'=>array(
+			'value'=>[
 				3=>"Ordre alphabétique",
 				4=>"Ordre alphabétique inversé"
-			)
-		),
+			]
+		],
 		
 		// login
-		'login'=>array(
+		'login'=>[
 			'usernameEmail'=>"Nom d'utilisateur ou courriel",
 			'remember'=>'Se souvenir de moi?'
-		),
+		],
 		
 		// browscap
-		'browscap'=>array(
+		'browscap'=>[
 			'noscript'=>"Impossible de se connecter car JavaScript est désactivé sur votre navigateur.",
 			'cookie'=>"Impossible de se connecter car votre navigateur n'accepte pas les cookies."
-		),
+		],
 		
 		// resetPassword
-		'resetPassword'=>array(
+		'resetPassword'=>[
 			'forgot'=>'Mot de passe oublié ?',
 			'submit'=>'Soumettre'
-		),
+		],
 		
 		// register
-		'register'=>array(
+		'register'=>[
 			'confirmPassword'=>'Confirmation du mot de passe'
-		),
+		],
 		
 		// accountChangePassword
-		'accountChangePassword'=>array(
+		'accountChangePassword'=>[
 			'oldPassword'=>'Mot de passe actuel',
 			'newPassword'=>'Nouveau mot de passe',
 			'newPasswordConfirm'=>'Confirmation du nouveau mot de passe',
 			'submit'=>'Modifier mon mot de passe'
-		),
+		],
 		
 		// exception
-		'exception'=>array(
+		'exception'=>[
 			
 			// catchableException
-			'catchableException'=>array(
+			'catchableException'=>[
 				'notDeleteable'=>"La ligne ne peut pas être effacé.",
 				'notUpdatable'=>"La ligne ne peut pas être modifié.",
 				'hostUnreachable'=>"Erreur lors de la connexion: l'hôte [1] n'est pas joignable sur le port [2].",
@@ -164,33 +164,33 @@ class Fr extends Base\Lang\Fr
 				'changePasswordNoChange'=>"Le nouveau mot de passe est le même que l'ancien",
 				'changePasswordInvalidValues'=>"Valeurs fournies invalides",
 				'invalidFileIndex'=>"Impossible de charger un fichier dans l'index #[1]",
-				'pathNotWritable'=>"Le chemin [1] n'est pas accessible en écriture")
-		),
+				'pathNotWritable'=>"Le chemin [1] n'est pas accessible en écriture"]
+		],
 		
 		// direction
-		'direction'=>array(
+		'direction'=>[
 			'asc'=>'Ascendant',
 			'desc'=>'Descendant',
-		),
+		],
 		
 		// label
 		'label'=>'Quid',
 		
 		// db
-		'db'=>array(
+		'db'=>[
 			
 			// label
-			'label'=>array(),
+			'label'=>[],
 			
 			// description
-			'description'=>array()
-		),	
+			'description'=>[]
+		],	
 			
 		// table
-		'table'=>array(
+		'table'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'email'=>'Modèle de courriel',
 				'lang'=>'Contenu de langue',
 				'redirection'=>'Redirection',
@@ -204,20 +204,20 @@ class Fr extends Base\Lang\Fr
 				'session'=>'Session',
 				'user'=>'Utilisateur',
 				'admin'=>'Administration',
-				'system'=>'Système'),
+				'system'=>'Système'],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// col
-		'col'=>array(
+		'col'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				
 				// *
-				'*'=>array(
+				'*'=>[
 					'id'=>'Id',
 					'active'=>'Actif',
 					'featured'=>'En vedette',
@@ -356,48 +356,48 @@ class Fr extends Base\Lang\Fr
 					'price'=>'Prix',
 					'total'=>'Total',
 					'timezone'=>'Fuseau horaire'
-				),
+				],
 				
 				// page
-				'page'=>array(
+				'page'=>[
 					'page_id'=>'Page parent'
-				)
-			),
+				]
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// row
-		'row'=>array(
+		'row'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'*'=>'[table] #[primary]',
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// role
-		'role'=>array(
+		'role'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				1=>'Nobody',
 				80=>'Administrateur'
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// route
-		'route'=>array(
+		'route'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'account'=>'Mon compte',
 				'accountSubmit'=>'Mon compte - Soumettre',
 				'accountChangePassword'=>'Changer mon mot de passe',
@@ -414,78 +414,78 @@ class Fr extends Base\Lang\Fr
 				'resetPasswordSubmit'=>'Régénérer un nouveau mot de passe - Soumettre',
 				'robots'=>'Robots',
 				'sitemap'=>'Carte du site'
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// validate
-		'validate'=>array(
+		'validate'=>[
 			'pointer'=>"Doit être un pointeur valide (table/id)",
 			'inRelation'=>"Doit être dans la relation",
 			
 			// tables
-			'tables'=>array()
-		),
+			'tables'=>[]
+		],
 		
 		// required
-		'required'=>array(
-			'tables'=>array(
-				'formSubmit'=>array(
+		'required'=>[
+			'tables'=>[
+				'formSubmit'=>[
 					'json'=>"Le formulaire est invalide."
-				)
-			)
-		),
+				]
+			]
+		],
 		
 		// unique
-		'unique'=>array(
-			'tables'=>array()
-		),
+		'unique'=>[
+			'tables'=>[]
+		],
 		
 		// editable
-		'editable'=>array(
-			'tables'=>array()
-		),
+		'editable'=>[
+			'tables'=>[]
+		],
 		
 		// compare
-		'compare'=>array(
-			'tables'=>array()
-		),
+		'compare'=>[
+			'tables'=>[]
+		],
 		
 		// com
-		'com'=>array(
+		'com'=>[
 			
 			// neg
-			'neg'=>array(
+			'neg'=>[
 				
 				// captcha
 				'captcha'=>"Les caractères entrés ne correspondent pas à l'image.",
 				
 				// csrf
-				'csrf'=>array(
+				'csrf'=>[
 					'retry'=>"Svp réessayer cette opération une autre fois.",
-				),
+				],
 				
 				// genuine
-				'genuine'=>array(
+				'genuine'=>[
 					'retry'=>"Svp réessayer cette opération une autre fois.",
-				),
+				],
 				
 				// fileUpload
-				'fileUpload'=>array(
+				'fileUpload'=>[
 					'maxFilesize'=>"La taille du fichier téléversé ne doit pas dépasser [maxFilesize].",
 					'dataLost'=>"Les données du dernier formulaire soumis n'ont pas été sauvegardées."
-				),
+				],
 				
 				// timeout
-				'timeout'=>array(
+				'timeout'=>[
 					'retry'=>"Merci de réessayer cette opération plus tard.",
 					'login'=>"La session est verouillée: trop de tentative de connexion",
-				),
+				],
 				
 				// login
-				'login'=>array(
+				'login'=>[
 					'alreadyConnected'=>"Déjà connecté",
 					'invalidUsername'=>"Nom d'utilisateur invalide",
 					'invalidPassword'=>"Mot de passe invalide",
@@ -494,22 +494,22 @@ class Fr extends Base\Lang\Fr
 					'wrongPassword'=>"Le mot de passe ne concorde pas",
 					'cantFindUser'=>"L'utilisateur n'existe pas",
 					'invalidValues'=>"Valeurs de connexion invalides"
-				),
+				],
 				
 				// userSession
-				'userSession'=>array(
+				'userSession'=>[
 					'userInactive'=>"Cet utilisateur est maintenant inactif.",
 					'loginLifetime'=>"Svp vous reconnecter. La durée de vie de la session a été dépassée.",
 					'mostRecentStorage'=>"Svp vous reconnecter. Une session plus récente a été détectée pour cet utilisateur."
-				),
+				],
 				
 				// logout
-				'logout'=>array(
+				'logout'=>[
 					'notConnected'=>"Pas connecté"
-				),
+				],
 				
 				// resetPassword
-				'resetPassword'=>array(
+				'resetPassword'=>[
 					'alreadyConnected'=>"Impossible de regénérer un mot de passe à partir d'un utilisateur connecté",
 					'invalidEmail'=>"Le courriel est invalide",
 					'userInactive'=>"L'utilisateur est inactif",
@@ -518,10 +518,10 @@ class Fr extends Base\Lang\Fr
 					'userNotFound'=>"L'utilisateur n'existe pas",
 					'email'=>"Erreur lors de l'envoie courriel",
 					'invalidValue'=>"Valeur fournie invalide"
-				),
+				],
 				
 				// activatePassword
-				'activatePassword'=>array(
+				'activatePassword'=>[
 					'alreadyConnected'=>"Impossible d'activer un mot de passe à partir d'un utilisateur connecté",
 					'userInactive'=>"L'utilisateur est inactif",
 					'userCantLogin'=>"L'utilisateur ne peut pas se connecter",
@@ -529,215 +529,215 @@ class Fr extends Base\Lang\Fr
 					'error'=>"Impossible d'activer le mot de passe",
 					'userNotFound'=>"L'utilisateur n'existe pas",
 					'invalidValue'=>"Valeurs fournies invalides"
-				),
+				],
 				
 				// register
-				'register'=>array(
+				'register'=>[
 					'alreadyConnected'=>"Impossible de faire un enregistrement à partir d'un utilisateur connecté",
 					'passwordConfirm'=>"La confirmation du mot de passe est incorrect",
 					'invalidValues'=>"Valeurs fournies invalides"
-				),
+				],
 				
 				// user
-				'user'=>array(
+				'user'=>[
 					
 					// welcome
-					'welcome'=>array(
+					'welcome'=>[
 						'failure'=>"Le courriel de bienvenue n'a pas pu être envoyé."
-					)
-				),
+					]
+				],
 				
 				// form
-				'form'=>array(
+				'form'=>[
 					'invalid'=>"Le formulaire est invalide"
-				),
+				],
 				
 				// insert
-				'insert'=>array(
-					'*'=>array(
+				'insert'=>[
+					'*'=>[
 						'exception'=>'[message]',
 						'failure'=>'Ajout non effectué'
-					)
-				),
+					]
+				],
 				
 				// update
-				'update'=>array(
-					'*'=>array(
+				'update'=>[
+					'*'=>[
 						'tooMany'=>'Erreur: plusieurs lignes modifiés',
 						'exception'=>'[message]',
 						'system'=>'Erreur système'
-					)
-				),
+					]
+				],
 				
 				// delete
-				'delete'=>array(
-					'*'=>array(
+				'delete'=>[
+					'*'=>[
 						'notFound'=>'Erreur: aucune ligne effacée',
 						'tooMany'=>'Erreur: plusieurs lignes effacées',
 						'exception'=>'[message]',
 						'system'=>'Erreur système'
-					)
-				),
+					]
+				],
 				
 				// truncate
-				'truncate'=>array(
-					'*'=>array(
+				'truncate'=>[
+					'*'=>[
 						'exception'=>'[message]',
 						'system'=>'Erreur système'
-					)
-				),
+					]
+				],
 				
 				// duplicate
-				'duplicate'=>array(
+				'duplicate'=>[
 					'failure'=>"La duplication a échouée"
-				)
-			),
+				]
+			],
 			
 			// pos
-			'pos'=>array(
+			'pos'=>[
 				
 				// login
-				'login'=>array(
+				'login'=>[
 					'success'=>'Connexion réussie'
-				),
+				],
 				
 				// logout
-				'logout'=>array(
+				'logout'=>[
 					'success'=>'Déconnexion réussie'
-				),
+				],
 				
 				// changePassword
-				'changePassword'=>array(
+				'changePassword'=>[
 					'success'=>'Changement de mot de passe réussi'
-				),
+				],
 				
 				// resetPassword
-				'resetPassword'=>array(
+				'resetPassword'=>[
 					'success'=>"Le mot de passe a été regénéré et envoyé à votre courriel"
-				),
+				],
 				
 				// activatePassword
-				'activatePassword'=>array(
+				'activatePassword'=>[
 					'success'=>"Le mot de passe regénéré a été activé"
-				),
+				],
 				
 				// media
-				'media'=>array(
+				'media'=>[
 					'delete'=>'[count] fichier%s% effacé%s%',
 					'regenerate'=>'[count] fichier%s% regénéré%s%'
-				),
+				],
 				
 				// slug
-				'slug'=>array(
+				'slug'=>[
 					'updated'=>"[count] autre%s% ligne%s% mise%s% à jour"
-				),
+				],
 				
 				// user
-				'user'=>array(
+				'user'=>[
 					
 					// welcome
-					'welcome'=>array(
+					'welcome'=>[
 						'success'=>"Le courriel de bienvenue a été envoyé."
-					),
-				),
+					],
+				],
 				
 				// insert
-				'insert'=>array(
-					'*'=>array(
+				'insert'=>[
+					'*'=>[
 						'success'=>'Ajout effectué'
-					)
-				),
+					]
+				],
 				
 				// update
-				'update'=>array(
-					'*'=>array(
+				'update'=>[
+					'*'=>[
 						'success'=>'Modification effectuée',
 						'partial'=>'Modification partielle effectuée',
 						'noChange'=>'Aucun changement'
-					)
-				),
+					]
+				],
 				
 				// delete
-				'delete'=>array(
-					'*'=>array(
+				'delete'=>[
+					'*'=>[
 						'success'=>'Suppression effectuée'
-					)
-				),
+					]
+				],
 				
 				// truncate
-				'truncate'=>array(
-					'*'=>array(
+				'truncate'=>[
+					'*'=>[
 						'success'=>'La table a été vidée'
-					)
-				),
+					]
+				],
 				
 				// duplicate
-				'duplicate'=>array(
+				'duplicate'=>[
 					'success'=>"La duplication a réussie"
-				)
-			)
-		),
+				]
+			]
+		],
 		
 		// relation
-		'relation'=>array(
+		'relation'=>[
 			
 			// bool
-			'bool'=>array(
+			'bool'=>[
 				0=>'Non',
 				1=>'Oui'
-			),
+			],
 			
 			// yes
-			'yes'=>array(
+			'yes'=>[
 				1=>'Oui'
-			),
+			],
 			
 			// contextType
-			'contextType'=>array(
+			'contextType'=>[
 				'app'=>'Application',
 				'cms'=>'Gestionnaire de contenu'
-			),
+			],
 			
 			// contextEnv
-			'contextEnv'=>array(
+			'contextEnv'=>[
 				'dev'=>'Développement',
 				'staging'=>'Test',
 				'prod'=>'Production'
-			),
+			],
 			
 			// emailType
-			'emailType'=>array(
+			'emailType'=>[
 				1=>'Texte',
 				2=>'Html',
-			),
+			],
 			
 			// logType
-			'logType'=>array(
+			'logType'=>[
 				1=>'Connexion',
 				2=>'Déconnexion',
 				3=>'Réinitialisation du mot de passe',
 				4=>'Activation du mot de passe',
 				5=>'Changement du mot de passe',
 				6=>'Enregistrement'
-			),
+			],
 			
 			// logCronType
-			'logCronType'=>array(
+			'logCronType'=>[
 				1=>'Minute',
 				2=>'Heure',
 				3=>'Jour'
-			),
+			],
 			
 			// queueEmailStatus
-			'queueEmailStatus'=>array(
+			'queueEmailStatus'=>[
 				1=>"À envoyer",
 				2=>"Envoie en cours",
 				3=>"Erreur",
 				4=>"Envoyé"
-			),
+			],
 			
 			// logHttpType
-			'logHttpType'=>array(
+			'logHttpType'=>[
 				1=>'Non sécuritaire',
 				2=>'Redirection',
 				3=>'Requête',
@@ -748,10 +748,10 @@ class Fr extends Base\Lang\Fr
 				400=>'400 - Mauvaise requête',
 				404=>'404 - Pas trouvé',
 				500=>'500 - Erreur interne du serveur'
-			),
+			],
 			
 			// logSqlType
-			'logSqlType'=>array(
+			'logSqlType'=>[
 				1=>'Select',
 				2=>'Show',
 				3=>'Insert',
@@ -761,49 +761,49 @@ class Fr extends Base\Lang\Fr
 				7=>'Alter',
 				8=>'Truncate',
 				9=>'Drop'
-			)
-		),
+			]
+		],
 		
 		// cms
-		'@cms'=>array(
+		'@cms'=>[
 			
 			// resetPassword
-			'resetPassword'=>array(
+			'resetPassword'=>[
 				'info'=>'Entrer votre courriel pour obtenir un message indiquant la marche à suivre pour regénérer le mot de passe.'
-			),
+			],
 			
 			// changePassword
-			'changePassword'=>array(
+			'changePassword'=>[
 				'newPassword'=>'Nouveau mot de passe',
 				'newPasswordConfirm'=>'Confirmation du nouveau mot de passe'
-			),
+			],
 			
 			// accountChangePassword
-			'accountChangePassword'=>array(
+			'accountChangePassword'=>[
 				'link'=>'Mot de passe',
 				'info'=>'Utilisez ce formulaire pour changer le mot de passe du compte courant.',
 				'submit'=>'Modifier'
-			),
+			],
 			
 			// author
-			'author'=>array(
+			'author'=>[
 				'name'=>'Studio OL',
 				'uri'=>'https://olstudio.co',
 				'email'=>'pph@olstudio.co'
-			),
+			],
 			
 			// about
-			'about'=>array(
+			'about'=>[
 				'content'=>"Le gestionnaire de contenu est une plateforme accessible aux administrateurs de: [bootLabel]. Cet outil est développé et maintenu par [author]. La version actuelle est [version]. Pour toute information ou demande de support, contactez [supportEmail]."
-			),
+			],
 			
 			// footer
-			'footer'=>array(
+			'footer'=>[
 				'copyright'=>'Version [version]'
-			),
+			],
 			
 			// home
-			'home'=>array(
+			'home'=>[
 				'searchSubmit'=>'Recherche dans toutes les tables',
 				'searchIn'=>'Recherche dans',
 				'note'=>'Note',
@@ -819,10 +819,10 @@ class Fr extends Base\Lang\Fr
 				'connectionStatus'=>'Connexion',
 				'classDb'=>'Classe DB',
 				'classTables'=>'Classe Tables'
-			),
+			],
 			
 			// general
-			'general'=>array(
+			'general'=>[
 				'notFound'=>'Rien à afficher',
 				'table'=>'Table',
 				'order'=>'Ordre',
@@ -846,19 +846,19 @@ class Fr extends Base\Lang\Fr
 				'classRows'=>'Classe Lignes',
 				'classCols'=>'Classe Colonnes',
 				'classCells'=>'Classe Cellules'
-			),
+			],
 			
 			// export
-			'export'=>array(
+			'export'=>[
 				'long'=>"Cette exportation peut prendre plus d'une minute.",
 				'encoding'=>"Choisir un encodage pour le CSV",
 				'utf8'=>'UTF-8',
 				'latin1'=>'Latin-1',
 				'office'=>'Utilisez Latin-1 pour utilisation dans Microsoft Office sur Windows'
-			),
+			],
 			
 			// specific
-			'specific'=>array(
+			'specific'=>[
 				'add'=>'Ajout',
 				'name'=>'Nom',
 				'required'=>'Requis',
@@ -885,16 +885,16 @@ class Fr extends Base\Lang\Fr
 				'relationChilds'=>'[count] enfant%s% direct%s%',
 				'modifyTop'=>'Modifier',
 				'modifyBottom'=>'Modifier'
-			),
+			],
 			
 			// table
-			'table'=>array(
+			'table'=>[
 				
 				// label
-				'label'=>array(),
+				'label'=>[],
 				
 				// description
-				'description'=>array(
+				'description'=>[
 					'email'=>"Contenu relatif aux courriels envoyés par l'application",
 					'lang'=>"Tous les autres contenus textes présents dans l'application et le CMS",
 					'redirection'=>"Spécifie les redirections d'une URL à une autre",
@@ -906,45 +906,45 @@ class Fr extends Base\Lang\Fr
 					'logSql'=>'Log des requêtes SQL',
 					'queueEmail'=>"Email en attente d'envoie",
 					'session'=>'Suivi des session actives',
-					'user'=>"Utilisateurs pouvant accéder à l'application et/ou au CMS")
-			),
+					'user'=>"Utilisateurs pouvant accéder à l'application et/ou au CMS"]
+			],
 			
 			// col
-			'col'=>array(
+			'col'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					
 					// *
-					'*'=>array(),
+					'*'=>[],
 					
 					// lang
-					'lang'=>array(
+					'lang'=>[
 						'type'=>'Environnement'
-					),
+					],
 					
 					// redirection
-					'redirection'=>array(
+					'redirection'=>[
 						'key'=>'De',
 						'value'=>'Vers',
-					),
+					],
 					
 					// session
-					'session'=>array(
+					'session'=>[
 						'sid'=>'Sid'
-					),
+					],
 					
 					// logEmail
-					'logEmail'=>array(
+					'logEmail'=>[
 						'json'=>'En-tête'
-					)
-				),
+					]
+				],
 				
 				// description
-				'description'=>array(
+				'description'=>[
 					
 					// *
-					'*'=>array(
+					'*'=>[
 						'id'=>'Clé primaire et unique. Obligatoire',
 						'context'=>"Défini le contexte de création de l'élément, pour administrateur.",
 						'metaKeywords_fr'=>'Mots clefs séparés par des virgules, champ facultatif',
@@ -1018,23 +1018,23 @@ class Fr extends Base\Lang\Fr
 						'price'=>"Spécifie le prix de l'élément",
 						'total'=>"Spécifie le total de l'élément",
 						'timezone'=>"Spécifie le fuseau horaire de l'élément"
-					),
+					],
 					
 					// lang
-					'lang'=>array(
+					'lang'=>[
 						'key'=>"Clé unique de l'élément texte. Pour administrateur",
 						'type'=>"L'élément texte est accessible dans ces environnements. Pour administrateur"
-					),
+					],
 					
 					// redirection
-					'redirection'=>array(
+					'redirection'=>[
 						'key'=>"URL à rediriger",
 						'value'=>"Destination de la redirection",
 						'type'=>"La redirection est active dans ces environnements"
-					),
+					],
 					
 					// user
-					'user'=>array(
+					'user'=>[
 						'role'=>"Rôle de l'utilisateur au sein du site et du CMS",
 						'username'=>"Doit être unique et composé de caractère alphanumérique",
 						'password'=>"Le mot de passe doit contenir une lettre, un chiffre et avoir une longueur d'au moins 5 caractères",
@@ -1045,69 +1045,69 @@ class Fr extends Base\Lang\Fr
 						'lastName'=>"Nom de famille de l'utilisateur",
 						'fullName'=>"Prénom et nom de famille de l'utilisateur",
 						'timezone'=>"Fuseau horaire de l'utilisateur, laisser vide pour utiliser le fuseau horaire du serveur ([timezone])"
-					),
+					],
 					
 					// session
-					'session'=>array(
+					'session'=>[
 						'name'=>'Nom de la session et du cookie de la session',
 						'sid'=>"Id unique de la session",
 						'count'=>'Nombre de requêtes effectués avec cette session',
 						'data'=>'Données serializés de la session',
 						'ip'=>'Ip de cette session'
-					),
+					],
 					
 					// email
-					'email'=>array(
+					'email'=>[
 						'key'=>"Clé unique du modèle de courriel. Pour administrateur",
 						'type'=>"Content-Type utilisé lors de l'envoie. Pour administrateur"
-					),
+					],
 					
 					// option
-					'option'=>array(
+					'option'=>[
 						'type'=>"Type d'option",
 						'key'=>"Clé de l'option, utilisez /",
 						'content'=>"Contenu de l'option, peut être du json"
-					),
+					],
 					
 					// log
-					'log'=>array(
+					'log'=>[
 						'type'=>'Type du log',
 						'json'=>'Données du log'
-					),
+					],
 					
 					// logSql
-					'logSql'=>array(
+					'logSql'=>[
 						'type'=>'Type de la requête',
 						'json'=>'Données SQL - pour administrateur'
-					),
+					],
 					
 					// logCron
-					'logCron'=>array(
+					'logCron'=>[
 						'type'=>'Type du cron',
 						'json'=>'Données du script CRON  - pour administrateur'
-					),
+					],
 					
 					// logError
-					'logError'=>array(
+					'logError'=>[
 						'type'=>"Type d'erreur",
 						'json'=>"Données et backtrace de l'erreur - pour administrateur"
-					),
+					],
 					
 					// logEmail
-					'logEmail'=>array(
+					'logEmail'=>[
 						'status'=>"Statut de l'envoie courriel",
 						'email_id'=>"Lien vers le modèle courriel utilisé",
 						'json'=>"Données d'en-tête de l'envoie courriel",
 						'content'=>"Contenu du courriel"
-					)
-				)
-			),
+					]
+				]
+			],
 			
 			// panel
-			'panel'=>array(
+			'panel'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					'default'=>'Général',
 					'fr'=>'Français',
 					'en'=>'Anglais',
@@ -1121,10 +1121,10 @@ class Fr extends Base\Lang\Fr
 					'visibility'=>'Visibilité',
 					'meta'=>'Meta',
 					'param'=>'Paramètres'
-				),
+				],
 
 				// description
-				'description'=>array(
+				'description'=>[
 					'default'=>"Ce panneau contient les champs par défaut, qui n'ont pas de panneau spécifique attribué.",
 					'fr'=>'Ce panneau contient les champs de langue française.',
 					'en'=>'Ce panneau contient les champs de langue anglaise.',
@@ -1138,14 +1138,14 @@ class Fr extends Base\Lang\Fr
 					'visibility'=>"Ce panneau contient les champs en lien avec la visibilité de l'élément.",
 					'meta'=>"Ce panneau contient des champs en lien avec les méta-données de la ligne",
 					'param'=>"Ce panneau contient des champs en lien avec les paramètres de la ligne"
-				)
-			),
+				]
+			],
 			
 			// route
-			'route'=>array(
+			'route'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					'about'=>'À propos',
 					'general'=>'Général',
 					'generalDelete'=>'Général - Suppression',
@@ -1166,13 +1166,13 @@ class Fr extends Base\Lang\Fr
 					'specificSubmit'=>'Spécifique - Soumettre',
 					'specificTableRelation'=>'Spécifique - Relation de table',
 					'specificUserWelcome'=>'Bienvenue'
-				),
+				],
 				
 				// description
-				'description'=>array()
-			)
-		)
-	);
+				'description'=>[]
+			]
+		]
+	];
 }
 
 // config

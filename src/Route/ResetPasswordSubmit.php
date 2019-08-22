@@ -12,25 +12,25 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'mot-de-passe/reinitialisation/soumettre',
-			'en'=>'password/reset/submit'),
-		'match'=>array(
+			'en'=>'password/reset/submit'],
+		'match'=>[
 			'method'=>'post',
 			'session'=>'allowResetPasswordEmail',
-			'role'=>'nobody'),
-		'verify'=>array(
-			'post'=>array('email'),
+			'role'=>'nobody'],
+		'verify'=>[
+			'post'=>['email'],
 			'timeout'=>true,
 			'csrf'=>true,
-			'genuine'=>true),
-		'timeout'=>array(
-			'failure'=>array('max'=>8,'timeout'=>600),
-			'success'=>array('max'=>2,'timeout'=>600)),
+			'genuine'=>true],
+		'timeout'=>[
+			'failure'=>['max'=>8,'timeout'=>600],
+			'success'=>['max'=>2,'timeout'=>600]],
 		'parent'=>ResetPassword::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onSuccess
@@ -99,7 +99,7 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
 	// retourne le tableau post pour le reset du mot de passe
 	public function post():array 
 	{
-		$return = array();
+		$return = [];
 		$request = $this->request();
 		$return['email'] = (string) $request->get('email');
 		
@@ -119,7 +119,7 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
 	// option pour le reset password
 	protected function getOption():?array 
 	{
-		return array('com'=>true);
+		return ['com'=>true];
 	}
 }
 

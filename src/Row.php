@@ -12,7 +12,7 @@ class Row extends Orm\Row
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// inAllSegment
@@ -105,7 +105,7 @@ class Row extends Orm\Row
 	
 	// insert
 	// permet d'insérer une ligne dans la table à partir du fqcn
-	public static function insert(array $set=array(),?array $option=null) 
+	public static function insert(array $set=[],?array $option=null) 
 	{
 		return static::tableFromFqcn()->insert($set,$option);
 	}

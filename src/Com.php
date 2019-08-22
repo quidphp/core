@@ -11,7 +11,7 @@ class Com extends Main\Com
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// lang

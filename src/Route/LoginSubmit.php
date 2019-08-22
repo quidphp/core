@@ -12,23 +12,23 @@ abstract class LoginSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'login',
-			'fr'=>'connexion'),
-		'match'=>array(
+			'fr'=>'connexion'],
+		'match'=>[
 			'method'=>'post',
-			'role'=>'nobody'),
-		'verify'=>array(
-			'post'=>array('username','password'),
+			'role'=>'nobody'],
+		'verify'=>[
+			'post'=>['username','password'],
 			'timeout'=>true,
 			'genuine'=>true,
-			'csrf'=>true),
-		'timeout'=>array(
-			'trigger'=>array('max'=>8,'timeout'=>600)),
+			'csrf'=>true],
+		'timeout'=>[
+			'trigger'=>['max'=>8,'timeout'=>600]],
 		'parent'=>Login::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// routeSuccessDefault
@@ -101,7 +101,7 @@ abstract class LoginSubmit extends Core\RouteAlias
 		if($post !== null)
 		{
 			$remember = $post['remember'] ?? null;
-			$return = $session->loginProcess($post['credential'],$post['password'],array('remember'=>$remember,'com'=>true));
+			$return = $session->loginProcess($post['credential'],$post['password'],['remember'=>$remember,'com'=>true]);
 		}
 		
 		if(empty($return))
@@ -118,7 +118,7 @@ abstract class LoginSubmit extends Core\RouteAlias
 	// retourne les données de post pour le login
 	protected function post():array 
 	{
-		$return = array();
+		$return = [];
 		$request = $this->request();
 		$return['credential'] = (string) $request->get('username');
 		$return['password'] = $this->password();

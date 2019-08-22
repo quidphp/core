@@ -7,18 +7,18 @@ use Quid\Core;
 abstract class Logout extends Core\RouteAlias
 {
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'logout',
-			'fr'=>'deconnexion'),
-		'match'=>array(
-			'role'=>array('>'=>'nobody')),
+			'fr'=>'deconnexion'],
+		'match'=>[
+			'role'=>['>'=>'nobody']],
 		'parent'=>Login::class,
 		'sitemap'=>false,
 		'redirectable'=>false,
 		'com'=>true,
 		'navigation'=>false
-	);
+	];
 	
 	
 	// afterRouteRedirect
@@ -33,7 +33,7 @@ abstract class Logout extends Core\RouteAlias
 	// lance la route logout, redirige vers le parent
 	public function trigger()
 	{
-		static::session()->logoutProcess(array('com'=>true));
+		static::session()->logoutProcess(['com'=>true]);
 		
 		return;
 	}

@@ -11,9 +11,9 @@ class En extends Base\Lang\En
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		// common
-		'common'=>array(
+		'common'=>[
 			'and'=>'And',
 			'on'=>'On',
 			'here'=>'here',
@@ -52,13 +52,13 @@ class En extends Base\Lang\En
 			'loadMore'=>'Load more...',
 			'captcha'=>"Enter the characters in the image",
 			'accessDenied'=>'Access Denied'
-		),
+		],
 		
 		// error
-		'error'=>array(
+		'error'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				1=>'Error',
 				2=>'Notice',
 				3=>'Deprecated',
@@ -71,82 +71,82 @@ class En extends Base\Lang\En
 				33=>'Database exception',
 				34=>'Route exception',
 				35=>'Boot exception'
-			),
+			],
 			
 			// page
-			'page'=>array(
+			'page'=>[
 				
 				// content
-				'content'=>array(
+				'content'=>[
 					400=>"The request is invalid and cannot be processed.",
 					404=>"This URL does not point to any valid content."
-				),
+				],
 				
 				'back'=>"Click [link] to go back."
-			)
-		),
+			]
+		],
 		
 		// lang
-		'lang'=>array(
+		'lang'=>[
 			'fr'=>'French',
 			'en'=>'English'
-		),
+		],
 		
 		// langSwitch
-		'langSwitch'=>array(
+		'langSwitch'=>[
 			'fr'=>'Français',
 			'en'=>'English'
-		),
+		],
 		
 		// relationOrder
-		'relationOrder'=>array(
-			'key'=>array(
+		'relationOrder'=>[
+			'key'=>[
 				1=>"Oldest first",
 				2=>"Newest first",
-			),
+			],
 			
-			'value'=>array(
+			'value'=>[
 				3=>"Alphabetical order",
 				4=>"Inverted alphabetical order"
-			)
-		),
+			]
+		],
 		
 		// login
-		'login'=>array(
+		'login'=>[
 			'usernameEmail'=>"Username or email",
 			'remember'=>'Remember me ?',
-		),
+		],
 		
 		// browscap
-		'browscap'=>array(
+		'browscap'=>[
 			'noscript'=>"Cannot login because JavaScript is disabled on your browser.",
 			'cookie'=>"Cannot login because your browser does not accept cookies."
-		),
+		],
 		
 		// resetPassword
-		'resetPassword'=>array(
+		'resetPassword'=>[
 			'forgot'=>'Forgot your password ?',
 			'submit'=>'Submit'
-		),
+		],
 		
 		// register
-		'register'=>array(
+		'register'=>[
 			'confirmPassword'=>'Password confirmation'
-		),
+		],
 		
 		// accountChangePassword
-		'accountChangePassword'=>array(
+		'accountChangePassword'=>[
 			'oldPassword'=>'Current password',
 			'newPassword'=>'New password',
 			'newPasswordConfirm'=>'New password confirmation',
 			'submit'=>'Change my password'
-		),
+		],
 
 		// exception
-		'exception'=>array(
+		'exception'=>[
 			
 			// catchableException
-			'catchableException'=>array(
+			'catchableException'=>[
 				'notDeleteable'=>"Row cannot be deleted.",
 				'notUpdatable'=>"Row cannot be updated.",
 				'hostUnreachable'=>"Connexion error: host [1] is not reachable on port [2].",
@@ -164,33 +164,33 @@ class En extends Base\Lang\En
 				'changePasswordNoChange'=>"The new password is the same as the old one",
 				'changePasswordInvalidValues'=>"Invalid values",
 				'invalidFileIndex'=>"Impossible to upload a file in index #[1]",
-				'pathNotWritable'=>"Path [1] is not writable")
-		),
+				'pathNotWritable'=>"Path [1] is not writable"]
+		],
 		
 		// direction
-		'direction'=>array(
+		'direction'=>[
 			'asc'=>'Asc',
 			'desc'=>'Desc',
-		),
+		],
 		
 		// label
 		'label'=>'Quid',
 		
 		// db
-		'db'=>array(
+		'db'=>[
 			
 			// label
-			'label'=>array(),
+			'label'=>[],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 			
 		// table
-		'table'=>array(
+		'table'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'email'=>'Email',
 				'lang'=>'Language content',
 				'redirection'=>'Redirection',
@@ -204,20 +204,20 @@ class En extends Base\Lang\En
 				'session'=>'Session',
 				'user'=>'User',
 				'admin'=>'Admin',
-				'system'=>'System'),
+				'system'=>'System'],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// col
-		'col'=>array(
+		'col'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				
 				// *
-				'*'=>array(
+				'*'=>[
 					'id'=>'Id',
 					'active'=>'Active',
 					'featured'=>'Featured',
@@ -356,48 +356,48 @@ class En extends Base\Lang\En
 					'price'=>'Price',
 					'total'=>'Total',
 					'timezone'=>'Timezone'
-				),
+				],
 				
 				// page
-				'page'=>array(
+				'page'=>[
 					'page_id'=>'Parent page'
-				)
-			),
+				]
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// row
-		'row'=>array(
+		'row'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'*'=>'[table] #[primary]'
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 
 		// role
-		'role'=>array(
+		'role'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				1=>'Nobody',
 				80=>'Admin'
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// route
-		'route'=>array(
+		'route'=>[
 			
 			// label
-			'label'=>array(
+			'label'=>[
 				'account'=>'My account',
 				'accountSubmit'=>'My account - Submit',
 				'accountChangePassword'=>'Change my password',
@@ -414,78 +414,78 @@ class En extends Base\Lang\En
 				'resetPasswordSubmit'=>'Reset password - Submit',
 				'robots'=>'Robots',
 				'sitemap'=>'Sitemap'
-			),
+			],
 			
 			// description
-			'description'=>array()
-		),
+			'description'=>[]
+		],
 		
 		// validate
-		'validate'=>array(
+		'validate'=>[
 			'pointer'=>"Must be a valid pointer (table/id)",
 			'inRelation'=>"Must be in the relation",
 			
 			// tables
-			'tables'=>array()
-		),
+			'tables'=>[]
+		],
 		
 		// required
-		'required'=>array(
-			'tables'=>array(
-				'formSubmit'=>array(
+		'required'=>[
+			'tables'=>[
+				'formSubmit'=>[
 					'json'=>"The form is invalid."
-				)
-			)
-		),
+				]
+			]
+		],
 		
 		// unique
-		'unique'=>array(
-			'tables'=>array()
-		),
+		'unique'=>[
+			'tables'=>[]
+		],
 		
 		// editable
-		'editable'=>array(
-			'tables'=>array()
-		),
+		'editable'=>[
+			'tables'=>[]
+		],
 		
 		// compare
-		'compare'=>array(
-			'tables'=>array()
-		),
+		'compare'=>[
+			'tables'=>[]
+		],
 		
 		// com
-		'com'=>array(
+		'com'=>[
 			
 			// neg
-			'neg'=>array(
+			'neg'=>[
 				
 				// captcha
 				'captcha'=>"The characters entered do not match the ones in the image.",
 				
 				// csrf
-				'csrf'=>array(
+				'csrf'=>[
 					'retry'=>"Please try this operation again.",
-				),
+				],
 				
 				// genuine
-				'genuine'=>array(
+				'genuine'=>[
 					'retry'=>"Please try this operation again.",
-				),
+				],
 				
 				// fileUpload
-				'fileUpload'=>array(
+				'fileUpload'=>[
 					'maxFilesize'=>'The size of the uploaded file must not be larger than [maxFilesize]',
 					'dataLost'=>'The data from the last submitted form has not been saved.'
-				),
+				],
 				
 				// timeout
-				'timeout'=>array(
+				'timeout'=>[
 					'retry'=>"Please retry this operation later.",
 					'login'=>"Session is locked: too many failed login attemps",
-				),
+				],
 				
 				// login
-				'login'=>array(
+				'login'=>[
 					'alreadyConnected'=>"Already logged in",
 					'invalidUsername'=>"Invalid username",
 					'invalidPassword'=>"Invalid password",
@@ -494,22 +494,22 @@ class En extends Base\Lang\En
 					'wrongPassword'=>"The password doesn't match",
 					'cantFindUser'=>"This user does not exist",
 					'invalidValues'=>"Invalid connection values"
-				),
+				],
 				
 				// userSession
-				'userSession'=>array(
+				'userSession'=>[
 					'userInactive'=>"This user is now inactive.",
 					'loginLifetime'=>"Please reconnect. The session has expired.",
 					'mostRecentStorage'=>"Please reconnect. A newer session has been detected for this user."
-				),
+				],
 				
 				// logout
-				'logout'=>array(
+				'logout'=>[
 					'notConnected'=>"Not logged in"
-				),
+				],
 				
 				// resetPassword
-				'resetPassword'=>array(
+				'resetPassword'=>[
 					'alreadyConnected'=>"Cannot reset a password from a connected user account",
 					'invalidEmail'=>"Invalid email",
 					'userInactive'=>"This user is inactive",
@@ -518,10 +518,10 @@ class En extends Base\Lang\En
 					'userNotFound'=>"This user does not exist",
 					'email'=>'Error while sending the email',
 					'invalidValue'=>"Invalid value"
-				),
+				],
 				
 				// activatePassword
-				'activatePassword'=>array(
+				'activatePassword'=>[
 					'alreadyConnected'=>"Cannot activate a password from a connected user account",
 					'userInactive'=>"This user is inactive",
 					'userCantLogin'=>"This user cannot login",
@@ -529,215 +529,215 @@ class En extends Base\Lang\En
 					'error'=>"Error while activating the password",
 					'userNotFound'=>"This user does not exist",
 					'invalidValue'=>"Invalid values"
-				),
+				],
 				
 				// register
-				'register'=>array(
+				'register'=>[
 					'alreadyConnected'=>"Cannot register from a connected user account",
 					'passwordConfirm'=>"The password confirmation is incorrect",
 					'invalidValues'=>"Invalid values"
-				),
+				],
 				
 				// user
-				'user'=>array(
+				'user'=>[
 					
 					// welcome
-					'welcome'=>array(
+					'welcome'=>[
 						'failure'=>"The welcome email was not sent."
-					)
-				),
+					]
+				],
 				
 				// form
-				'form'=>array(
+				'form'=>[
 					'invalid'=>"The form is invalid"
-				),
+				],
 				
 				// insert
-				'insert'=>array(
-					'*'=>array(
+				'insert'=>[
+					'*'=>[
 						'exception'=>'[message]',
 						'failure'=>'Add failed'
-					)
-				),
+					]
+				],
 				
 				// update
-				'update'=>array(
-					'*'=>array(
+				'update'=>[
+					'*'=>[
 						'tooMany'=>'Error: many rows updated',
 						'exception'=>'[message]',
 						'system'=>'Error system'
-					)
-				),
+					]
+				],
 				
 				// delete
-				'delete'=>array(
-					'*'=>array(
+				'delete'=>[
+					'*'=>[
 						'notFound'=>'Error: no rows deleted',
 						'tooMany'=>'Error: many rows deleted',
 						'exception'=>'[message]',
 						'system'=>'Error system'
-					)
-				),
+					]
+				],
 				
 				// truncate
-				'truncate'=>array(
-					'*'=>array(
+				'truncate'=>[
+					'*'=>[
 						'exception'=>'[message]',
 						'system'=>'Error system'
-					)
-				),
+					]
+				],
 				
 				// duplicate
-				'duplicate'=>array(
+				'duplicate'=>[
 					'failure'=>"Duplicate has failed"
-				)
-			),
+				]
+			],
 			
 			// pos
-			'pos'=>array(
+			'pos'=>[
 				
 				// login
-				'login'=>array(
+				'login'=>[
 					'success'=>'Logged in'
-				),
+				],
 				
 				// logout
-				'logout'=>array(
+				'logout'=>[
 					'success'=>'Logged out'
-				),
+				],
 				
 				// changePassword
-				'changePassword'=>array(
+				'changePassword'=>[
 					'success'=>'Password changed'
-				),
+				],
 				
 				// resetPassword
-				'resetPassword'=>array(
+				'resetPassword'=>[
 					'success'=>"The password has been reset and sent to your email"
-				),
+				],
 				
 				// activatePassword
-				'activatePassword'=>array(
+				'activatePassword'=>[
 					'success'=>"The password has been activated"
-				),
+				],
 				
 				// media
-				'media'=>array(
+				'media'=>[
 					'delete'=>'[count] file%s% deleted',
 					'regenerate'=>'[count] file%s% regenerated'
-				),
+				],
 				
 				// slug
-				'slug'=>array(
+				'slug'=>[
 					'updated'=>"[count] other%s% line%s% updated"
-				),
+				],
 				
 				// user
-				'user'=>array(
+				'user'=>[
 					
 					// welcome
-					'welcome'=>array(
+					'welcome'=>[
 						'success'=>"The welcome email was sent."
-					),
-				),
+					],
+				],
 				
 				// insert
-				'insert'=>array(
-					'*'=>array(
+				'insert'=>[
+					'*'=>[
 						'success'=>'Add success'
-					)
-				),
+					]
+				],
 				
 				// update
-				'update'=>array(
-					'*'=>array(
+				'update'=>[
+					'*'=>[
 						'success'=>'Modify success',
 						'partial'=>'Modify partial success',
 						'noChange'=>'No change'
-					)
-				),
+					]
+				],
 				
 				// delete
-				'delete'=>array(
-					'*'=>array(
+				'delete'=>[
+					'*'=>[
 						'success'=>'Delete success'
-					)
-				),
+					]
+				],
 				
 				// truncate
-				'truncate'=>array(
-					'*'=>array(
+				'truncate'=>[
+					'*'=>[
 						'success'=>'Table has been truncated'
-					)
-				),
+					]
+				],
 				
 				// duplicate
-				'duplicate'=>array(
+				'duplicate'=>[
 					'success'=>"Duplicate success"
-				)
-			)
-		),
+				]
+			]
+		],
 		
 		// relation
-		'relation'=>array(
+		'relation'=>[
 			
 			// bool
-			'bool'=>array(
+			'bool'=>[
 				0=>'No',
 				1=>'Yes'
-			),
+			],
 			
 			// yes
-			'yes'=>array(
+			'yes'=>[
 				1=>'Yes'
-			),
+			],
 
 			// contextType
-			'contextType'=>array(
+			'contextType'=>[
 				'app'=>'Application',
 				'cms'=>'Content management system'
-			),
+			],
 			
 			// contextEnv
-			'contextEnv'=>array(
+			'contextEnv'=>[
 				'dev'=>'Development',
 				'staging'=>'Staging',
 				'prod'=>'Production'
-			),
+			],
 			
 			// emailType
-			'emailType'=>array(
+			'emailType'=>[
 				1=>'Text',
 				2=>'Html',
-			),
+			],
 			
 			// logType
-			'logType'=>array(
+			'logType'=>[
 				1=>'Login',
 				2=>'Logout',
 				3=>'Password reset',
 				4=>'Activate password',
 				5=>'Change password',
 				6=>'Register'
-			),
+			],
 			
 			// logCronType
-			'logCronType'=>array(
+			'logCronType'=>[
 				1=>'Minute',
 				2=>'Hour',
 				3=>'Day'
-			),
+			],
 			
 			// queueEmailStatus
-			'queueEmailStatus'=>array(
+			'queueEmailStatus'=>[
 				1=>"To send",
 				2=>"In progress",
 				3=>"Error",
 				4=>"Sent"
-			),
+			],
 			
 			// logHttpType
-			'logHttpType'=>array(
+			'logHttpType'=>[
 				1=>'Unsafe',
 				2=>'Redirection',
 				3=>'Request',
@@ -748,10 +748,10 @@ class En extends Base\Lang\En
 				400=>'400 - Bad Request',
 				404=>'404 - Not Found',
 				500=>'500 - Internal Server Error'
-			),
+			],
 			
 			// logSqlType
-			'logSqlType'=>array(
+			'logSqlType'=>[
 				1=>'Select',
 				2=>'Show',
 				3=>'Insert',
@@ -761,49 +761,49 @@ class En extends Base\Lang\En
 				7=>'Alter',
 				8=>'Truncate',
 				9=>'Drop'
-			)
-		),
+			]
+		],
 		
 		// cms
-		'@cms'=>array(
+		'@cms'=>[
 			
 			// resetPassword
-			'resetPassword'=>array(
+			'resetPassword'=>[
 				'info'=>'Enter your email to get a message explaining how to regenerate the password.'
-			),
+			],
 			
 			// changePassword
-			'changePassword'=>array(
+			'changePassword'=>[
 				'newPassword'=>'New password',
 				'newPasswordConfirm'=>'New password confirmation'
-			),
+			],
 			
 			// accountChangePassword
-			'accountChangePassword'=>array(
+			'accountChangePassword'=>[
 				'link'=>'My password',
 				'info'=>'Use this form to change the password for the current account.',
 				'submit'=>'Modify'
-			),
+			],
 			
 			// author
-			'author'=>array(
+			'author'=>[
 				'name'=>'Studio OL',
 				'uri'=>'https://olstudio.co',
 				'email'=>'pph@olstudio.co'
-			),
+			],
 			
 			// about
-			'about'=>array(
+			'about'=>[
 				'content'=>"The Content Management System is a platform accessible to the administrators for [bootLabel]. This tool is developed and maintained by [author]. The current version is: [version]. For any information or support request, contact [supportEmail]."
-			),
+			],
 			
 			// footer
-			'footer'=>array(
+			'footer'=>[
 				'copyright'=>'Version [version]'
-			),
+			],
 			
 			// home
-			'home'=>array(
+			'home'=>[
 				'searchSubmit'=>'Search in all tables',
 				'searchIn'=>'Search in',
 				'note'=>'Note',
@@ -819,10 +819,10 @@ class En extends Base\Lang\En
 				'connectionStatus'=>'Connection status',
 				'classDb'=>'Class DB',
 				'classTables'=>'Class Tables'
-			),
+			],
 			
 			// general
-			'general'=>array(
+			'general'=>[
 				'notFound'=>'Nothing',
 				'table'=>'Table',
 				'order'=>'Order',
@@ -846,19 +846,19 @@ class En extends Base\Lang\En
 				'classRows'=>'Class Rows',
 				'classCols'=>'Class Columns',
 				'classCells'=>'Class Cells'
-			),
+			],
 			
 			// export
-			'export'=>array(
+			'export'=>[
 				'long'=>"This export may take more than one minute.",
 				'encoding'=>"Choose an encoding for the CSV",
 				'utf8'=>'UTF-8',
 				'latin1'=>'Latin-1',
 				'office'=>'Use Latin-1 for use in Microsoft Office on Windows'
-			),
+			],
 			
 			// specific
-			'specific'=>array(
+			'specific'=>[
 				'add'=>'Add',
 				'name'=>'Name',
 				'required'=>'Required',
@@ -885,16 +885,16 @@ class En extends Base\Lang\En
 				'relationChilds'=>'[count] direct child%s%',
 				'modifyTop'=>'Modify',
 				'modifyBottom'=>'Modify'
-			),
+			],
 			
 			// table
-			'table'=>array(
+			'table'=>[
 				
 				// label
-				'label'=>array(),
+				'label'=>[],
 				
 				// description
-				'description'=>array(
+				'description'=>[
 					'email'=>"Email content sent by the app",
 					'lang'=>"All other text content in the application and CMS",
 					'redirection'=>'Specifies the redirection from one URL to another',
@@ -906,45 +906,45 @@ class En extends Base\Lang\En
 					'logSql'=>'Log of SQL queries',
 					'queueEmail'=>"Email waiting to be sent",
 					'session'=>'Active session tracking',
-					'user'=>"Users who can access the application and/or CMS")
-			),
+					'user'=>"Users who can access the application and/or CMS"]
+			],
 			
 			// col
-			'col'=>array(
+			'col'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					
 					// *
-					'*'=>array(),
+					'*'=>[],
 					
 					// lang
-					'lang'=>array(
+					'lang'=>[
 						'type'=>'Environment'
-					),
+					],
 					
 					// redirection
-					'redirection'=>array(
+					'redirection'=>[
 						'key'=>'From',
 						'value'=>'Tos',
-					),
+					],
 					
 					// session
-					'session'=>array(
+					'session'=>[
 						'sid'=>'Sid'
-					),
+					],
 					
 					// logEmail
-					'logEmail'=>array(
+					'logEmail'=>[
 						'json'=>'Header'
-					)
-				),
+					]
+				],
 				
 				// description
-				'description'=>array(
+				'description'=>[
 					
 					// *
-					'*'=>array(
+					'*'=>[
 						'id'=>'Primary and unique key. Required',
 						'context'=>"Defines the creation context of the element, for administrator.",
 						'metaKeywords_fr'=>'Keywords separated by commas, optional field',
@@ -1018,23 +1018,23 @@ class En extends Base\Lang\En
 						'price'=>'Specifies the price of the element',
 						'total'=>"Specifies the total of the element",
 						'timezone'=>"Specifies the timezone of the element"
-					),
+					],
 					
 					// lang
-					'lang'=>array(
+					'lang'=>[
 						'key'=>"Unique key of the text element",
 						'type'=>"The text element is accessible within these environments"
-					),
+					],
 
 					// redirection
-					'redirection'=>array(
+					'redirection'=>[
 						'key'=>"URL to redirect",
 						'value'=>"Destination of the redirection",
 						'type'=>"The redirection is active within these environments"
-					),
+					],
 					
 					// user
-					'user'=>array(
+					'user'=>[
 						'role'=>"Role of the user within the site and CMS",
 						'username'=>"Must be unique and composed of alphanumeric characters",
 						'password'=>"The password must contain a letter, a number and have a length of at least 5 characters",
@@ -1045,69 +1045,69 @@ class En extends Base\Lang\En
 						'lastName'=>"Last name of the user",
 						'fullName'=>"First and last name of the user",
 						'timezone'=>"Timezone of the user, leave empty to use the timezone of the server ([timezone])"
-					),
+					],
 
 					// session
-					'session'=>array(
+					'session'=>[
 						'name'=>'Session and cookie name of the session',
 						'sid'=>"Unique id of the session",
 						'count'=>'Number of requests made with this session',
 						'data'=>'Serialized data of the session',
 						'ip'=>'Ip of the session'
-					),
+					],
 
 					// email
-					'email'=>array(
+					'email'=>[
 						'key'=>"Unique key of the email template",
 						'type'=>"Content-Type to be used, for administrator"
-					),
+					],
 					
 					// option
-					'option'=>array(
+					'option'=>[
 						'type'=>"Option type",
 						'key'=>"Option key, use /",
 						'content'=>"Content of the option, can be json"
-					),
+					],
 					
 					// log
-					'log'=>array(
+					'log'=>[
 						'type'=>'Log type',
 						'json'=>'Log data'
-					),
+					],
 
 					// logSql
-					'logSql'=>array(
+					'logSql'=>[
 						'type'=>'Type of sql query',
 						'json'=>'SQL data - for administrator'
-					),
+					],
 
 					// logCron
-					'logCron'=>array(
+					'logCron'=>[
 						'type'=>'Type of cron',
 						'json'=>'CRON script data - for administrator'
-					),
+					],
 
 					// logError
-					'logError'=>array(
+					'logError'=>[
 						'type'=>"Type of error",
 						'json'=>"Data and backtrace of the error - for administrator"
-					),
+					],
 
 					// logEmail
-					'logEmail'=>array(
+					'logEmail'=>[
 						'status'=>"Email sending status",
 						'email_id'=>"Link to the email template used",
 						'json'=>"Email header data",
 						'content'=>"Content of the email"
-					)
-				)
-			),
+					]
+				]
+			],
 			
 			// panel
-			'panel'=>array(
+			'panel'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					'default'=>'Default',
 					'fr'=>'French',
 					'en'=>'English',
@@ -1121,10 +1121,10 @@ class En extends Base\Lang\En
 					'visibility'=>'Visibility',
 					'meta'=>'Meta',
 					'param'=>'Parameters'
-				),
+				],
 				
 				// description
-				'description'=>array(
+				'description'=>[
 					'default'=>"This panel contains the default fields, which do not have a specific panel assigned.",
 					'fr'=>'This panel contains the French language fields.',
 					'en'=>'This panel contains the English language fields.',
@@ -1138,14 +1138,14 @@ class En extends Base\Lang\En
 					'visibility'=>"This panel contains the fields related to the visibility of the element.",
 					'meta'=>"This panel contains fields related to the metadata of the line",
 					'param'=>"This panel contains fields related to the parameters of the line"
-				)
-			),
+				]
+			],
 			
 			// route
-			'route'=>array(
+			'route'=>[
 				
 				// label
-				'label'=>array(
+				'label'=>[
 					'about'=>'About',
 					'general'=>'General',
 					'generalDelete'=>'General - Delete',
@@ -1166,13 +1166,13 @@ class En extends Base\Lang\En
 					'specificSubmit'=>'Specific - Submit',
 					'specificTableRelation'=>'Specific - Table Relation',
 					'specificUserWelcome'=>'Welcome'
-				),
+				],
 				
 				// description
-				'description'=>array()
-			)
-		)
-	);
+				'description'=>[]
+			]
+		]
+	];
 }
 
 // config

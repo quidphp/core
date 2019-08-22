@@ -11,7 +11,7 @@ class Request extends Main\Request
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// match

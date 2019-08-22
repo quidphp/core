@@ -13,17 +13,17 @@ class Specific extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/[primary]',
-			'fr'=>'table/[table]/[primary]'),
-		'segment'=>array(
+			'fr'=>'table/[table]/[primary]'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
-			'primary'=>'structureSegmentPrimary'),
-		'match'=>array(
-			'role'=>array('>='=>20)),
+			'primary'=>'structureSegmentPrimary'],
+		'match'=>[
+			'role'=>['>='=>20]],
 		'sitemap'=>true
-	);
+	];
 	
 	
 	// onBefore
@@ -45,7 +45,7 @@ class Specific extends Core\RouteAlias
 	// la route account peut être sélectionner
 	public function selectedUri():array
 	{
-		$return = array();
+		$return = [];
 		$table = $this->table();
 		$user = static::sessionUser();
 		
@@ -67,7 +67,7 @@ class Specific extends Core\RouteAlias
 	// retourne tous les segments pour la route specific, un par table et id
 	public static function allSegment():array
 	{
-		$return = array();
+		$return = [];
 		$db = static::db();
 		
 		foreach ($db->tables() as $table) 
@@ -76,9 +76,9 @@ class Specific extends Core\RouteAlias
 			{
 				$name = $table->name();
 				$primary = $table->primary();
-				foreach ($db->selectColumns($primary,$table,null,array($primary=>"desc"),100) as $id) 
+				foreach ($db->selectColumns($primary,$table,null,[$primary=>"desc"],100) as $id) 
 				{
-					$return[] = array('table'=>$name,'primary'=>$id);
+					$return[] = ['table'=>$name,'primary'=>$id];
 				}
 			}
 		}
@@ -162,7 +162,7 @@ class Specific extends Core\RouteAlias
 	protected function makeTitleBox():string
 	{
 		$r = Html::h1($this->makeTitle());
-		$r .= Html::divCond($this->makeRelationChilds(),array('relationChilds','countInfo','withPopup','anchorCorner'));
+		$r .= Html::divCond($this->makeRelationChilds(),['relationChilds','countInfo','withPopup','anchorCorner']);
 		
 		return $r;
 	}
@@ -191,8 +191,8 @@ class Specific extends Core\RouteAlias
 			if(is_array($relationChilds) && !empty($relationChilds))
 			{
 				$count = Base\Arrs::countLevel(2,$relationChilds);
-				$text = static::langPlural($count,'specific/relationChilds',array('count'=>$count));
-				$r .= Html::div($text,array('count','icon','info','padLeft'));
+				$text = static::langPlural($count,'specific/relationChilds',['count'=>$count]);
+				$r .= Html::div($text,['count','icon','info','padLeft']);
 				$r .= Html::divOp('popup');
 				$r .= Html::ul($this->makeRelationChildsInner($relationChilds));
 				$r .= Html::divCl();
@@ -227,7 +227,7 @@ class Specific extends Core\RouteAlias
 						$col = $table->col($colName);
 						$c = count($primaries);
 						$text = $table->label()." / ".$col->label()." ($c)";
-						$segment = array('table'=>$table,'filter'=>array($colName=>$primary));
+						$segment = ['table'=>$table,'filter'=>[$colName=>$primary]];
 						
 						if($table->hasPermission('view'))
 						{
@@ -259,7 +259,7 @@ class Specific extends Core\RouteAlias
 		{
 			$row = $this->row();
 			$general = $this->general();
-			$attr = array('first'=>'hashFollow','prev'=>'hashFollow','next'=>'hashFollow','last'=>'hashFollow');
+			$attr = ['first'=>'hashFollow','prev'=>'hashFollow','next'=>'hashFollow','last'=>'hashFollow'];
 			$specific = $this->makeSpecificNav($general,$row,'primary','highlight',$attr);
 			$r .= Html::divOp('nav');
 			
@@ -274,7 +274,7 @@ class Specific extends Core\RouteAlias
 				if(!empty($specific['count']))
 				{
 					$popup = $general->makeInfoPopup(true);
-					$attr = array('count',(!empty($popup))? array('withPopup','anchorCorner'):null);
+					$attr = ['count',(!empty($popup))? ['withPopup','anchorCorner']:null];
 					
 					$r .= Html::divOp($attr);
 					$r .= $specific['count'];
@@ -314,8 +314,8 @@ class Specific extends Core\RouteAlias
 		
 		if($dispatch === true)
 		{
-			$data = array('unload'=>static::langText('common/unload'));
-			$r .= SpecificDispatch::makeOverload($this->segment())->formOpen(array('data'=>$data));
+			$data = ['unload'=>static::langText('common/unload')];
+			$r .= SpecificDispatch::makeOverload($this->segment())->formOpen(['data'=>$data]);
 			$r .= $this->makeFormPrimary();
 			$r .= $this->makeFormSubmit('hidden');
 		}
@@ -387,7 +387,7 @@ class Specific extends Core\RouteAlias
 		$table = $this->table();
 		
 		if(!$this->isUpdateable() || !$cell->isEditable())
-		$return = array('tag'=>'div');
+		$return = ['tag'=>'div'];
 		
 		return $return;
 	}
@@ -430,7 +430,7 @@ class Specific extends Core\RouteAlias
 			$route = $row->routeSafe($key);
 			
 			if(!empty($route) && $route::hasPath() && $route::allowed())
-			$r .= $route->a(static::langText('common/view'),array('submit','icon','view','padLeft','target'=>false));
+			$r .= $route->a(static::langText('common/view'),['submit','icon','view','padLeft','target'=>false]);
 		}
 		
 		return $r;
@@ -447,8 +447,8 @@ class Specific extends Core\RouteAlias
 		if($table->hasPermission('duplicate'))
 		{
 			$route = SpecificDuplicate::class;
-			$data = array('confirm'=>static::langText('common/confirm'));
-			$attr = array('icon','duplicate','padLeft','name'=>'--duplicate--','value'=>1,'data'=>$data);
+			$data = ['confirm'=>static::langText('common/confirm')];
+			$attr = ['icon','duplicate','padLeft','name'=>'--duplicate--','value'=>1,'data'=>$data];
 			$r .= Html::submit($route::label(),$attr);
 		}
 		
@@ -465,12 +465,12 @@ class Specific extends Core\RouteAlias
 		if($this->isUpdateable())
 		{
 			if($type === 'hidden')
-			$r .= Html::submit(null,array('name'=>'--modify--','value'=>1,'hidden'));
+			$r .= Html::submit(null,['name'=>'--modify--','value'=>1,'hidden']);
 
 			else
 			{
 				$text = "specific/modify".ucfirst($type);
-				$r .= Html::submit(static::langText($text),array('name'=>'--modify--','value'=>1,'icon','modify','padLeft'));
+				$r .= Html::submit(static::langText($text),['name'=>'--modify--','value'=>1,'icon','modify','padLeft']);
 			}
 		}
 		
@@ -502,8 +502,8 @@ class Specific extends Core\RouteAlias
 		
 		if($this->isDeleteable())
 		{
-			$data = array('confirm'=>static::langText('common/confirm'));
-			$attr = array('name'=>'--delete--','value'=>1,'icon','remove','padLeft','data'=>$data);
+			$data = ['confirm'=>static::langText('common/confirm')];
+			$attr = ['name'=>'--delete--','value'=>1,'icon','remove','padLeft','data'=>$data];
 			$r .= Html::submit(static::langText('common/remove'),$attr);
 		}
 		

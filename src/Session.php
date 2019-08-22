@@ -12,23 +12,23 @@ class Session extends Main\Session
 	
 	
 	// config
-	public static $config = array(
-		'option'=>array(
+	public static $config = [
+		'option'=>[
 			'userClass'=>Row\User::class, // classe row de l'utilisateur
 			'userDefault'=>1, // définit le user par défaut (à l'insertion)
 			'nobody'=>1, // défini le user nobody
 			'loginLifetime'=>3600, // durée du login dans une session
 			'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
-			'log'=>array( // lit des événements à des classes de table
+			'log'=>[ // lit des événements à des classes de table
 				'login'=>Row\Log::class,
-				'logout'=>Row\Log::class),
-			'structure'=>array( // callables de structure additionnelles dans data, se merge à celle dans base/session
+				'logout'=>Row\Log::class],
+			'structure'=>[ // callables de structure additionnelles dans data, se merge à celle dans base/session
 				'nav'=>'structureNav',
-				'user'=>'structureUser')),
-		'@dev'=>array(
-			'option'=>array(
-				'loginLifetime'=>(3600 * 24 * 30)))
-	);
+				'user'=>'structureUser']],
+		'@dev'=>[
+			'option'=>[
+				'loginLifetime'=>(3600 * 24 * 30)]]
+	];
 	
 	
 	// dynamique
@@ -232,7 +232,7 @@ class Session extends Main\Session
 
 		if($mode === 'init')
 		{
-			if(is_array($value) && Base\Arr::keysAre(array('uid','permission'),$value) && is_int($value['uid']))
+			if(is_array($value) && Base\Arr::keysAre(['uid','permission'],$value) && is_int($value['uid']))
 			{
 				$user = $class::findByUid($value['uid']);
 				
@@ -442,12 +442,12 @@ class Session extends Main\Session
 			if(is_string($validate))
 			{
 				$logout = true;
-				$neg = array('userSession',$validate);
+				$neg = ['userSession',$validate];
 			}
 		}
 		
 		if($logout === true)
-		$this->logout(array('neg'=>$neg));
+		$this->logout(['neg'=>$neg]);
 		
 		return $this;
 	}
@@ -556,12 +556,12 @@ class Session extends Main\Session
 		if($nav === true)
 		{
 			$nav = $this->nav();
-			$return = $nav->route(array($routeClass,$table));
+			$return = $nav->route([$routeClass,$table]);
 		}
 		
 		if(empty($return) || !$return->isValidSegment())
 		{
-			$segments = array($segment=>$table);
+			$segments = [$segment=>$table];
 			$return = $routeClass::make($segments)->initSegment(true);
 		}
 		
@@ -626,7 +626,7 @@ class Session extends Main\Session
 	protected function beforeLogin(string $connect,string $password,?array $option=null):?string
 	{
 		$return = null;
-		$option = Base\Arr::plus(array('password'=>true,'usernameSecurity'=>null,'passwordSecurity'=>null),$option);
+		$option = Base\Arr::plus(['password'=>true,'usernameSecurity'=>null,'passwordSecurity'=>null],$option);
 		
 		if($this->canLogin())
 		$return = 'login/alreadyConnected';
@@ -656,7 +656,7 @@ class Session extends Main\Session
 		$userClass = $this->getUserClass();
 		$usernameSecurity = $userClass::getUsernameSecurity();
 		$passwordSecurity = $userClass::getPasswordSecurity();
-		$default = array('remember'=>true,'rehash'=>true,'password'=>true,'increment'=>true,'usernameSecurity'=>$usernameSecurity,'passwordSecurity'=>$passwordSecurity);
+		$default = ['remember'=>true,'rehash'=>true,'password'=>true,'increment'=>true,'usernameSecurity'=>$usernameSecurity,'passwordSecurity'=>$passwordSecurity];
 		$option = Base\Arr::plus($default,$option);
 		$neg = $this->beforeLogin($connect,$password,$option);
 		$pos = null;
@@ -675,7 +675,7 @@ class Session extends Main\Session
 			{
 				$validate = $user->userSessionValidate();
 				if(is_string($validate))
-				$neg = array('login',$validate);
+				$neg = ['login',$validate];
 				
 				else
 				{
@@ -706,7 +706,7 @@ class Session extends Main\Session
 		$this->emptyRemember();
 		
 		if($remember === true)
-		$remember = array('credential'=>$connect);
+		$remember = ['credential'=>$connect];
 		
 		if(is_array($remember) && !empty($remember))
 		$this->setsRemember($remember);
@@ -722,7 +722,7 @@ class Session extends Main\Session
 	public function logoutProcess(?array $option=null):bool 
 	{
 		$return = false;
-		$option = Base\Arr::plus(array('regenerateId'=>true),$option);
+		$option = Base\Arr::plus(['regenerateId'=>true],$option);
 		$neg = null;
 		$pos = null;
 		$user = $this->user();
@@ -750,7 +750,7 @@ class Session extends Main\Session
 	// par défaut regenerateId est false
 	public function logout(?array $option=null):self 
 	{
-		$option = Base\Arr::plus(array('regenerateId'=>false,'history'=>true,'nav'=>true,'flash'=>true,'pos'=>null,'neg'=>null),$option);
+		$option = Base\Arr::plus(['regenerateId'=>false,'history'=>true,'nav'=>true,'flash'=>true,'pos'=>null,'neg'=>null],$option);
 		
 		if($option['regenerateId'] === true)
 		$this->regenerateId();
@@ -790,7 +790,7 @@ class Session extends Main\Session
 		
 		else
 		{
-			$save = $this->user()->setPassword(array($newPassword,$newPasswordConfirm,$oldPassword),$option);
+			$save = $this->user()->setPassword([$newPassword,$newPasswordConfirm,$oldPassword],$option);
 			
 			if($save === 1)
 			{

@@ -7,7 +7,7 @@ use Quid\Core;
 abstract class Binary extends Core\FileAlias
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

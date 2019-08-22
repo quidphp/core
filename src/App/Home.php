@@ -7,7 +7,7 @@ use Quid\Core;
 abstract class Home extends Core\Route\Home
 {
 	// config
-	public static $config = array();
+	public static $config = [];
 }
 
 // config

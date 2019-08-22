@@ -8,20 +8,20 @@ use Quid\Base;
 class Lang extends Core\RowAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'panel'=>false,
 		'key'=>'key',
-		'order'=>array('id'=>'desc'),
+		'order'=>['id'=>'desc'],
 		'parent'=>'system',
 		'priority'=>950,
 		'searchMinLength'=>1,
-		'cols'=>array(
+		'cols'=>[
 			'active'=>true,
-			'type'=>array('class'=>Core\Col\ContextType::class),
+			'type'=>['class'=>Core\Col\ContextType::class],
 			'key'=>true,
-			'content_fr'=>array('general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false),
-			'content_en'=>array('general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false))
-	);
+			'content_fr'=>['general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false],
+			'content_en'=>['general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
+	];
 	
 	
 	// grabContent
@@ -29,12 +29,12 @@ class Lang extends Core\RowAlias
 	// il faut fournir un code de langue et un type
 	public static function grabContent(string $value,string $type):array 
 	{
-		$return = array();
+		$return = [];
 		$table = static::tableFromFqcn();
 		$typeCol = $table->col('type');
 		$keyCol = $table->colKey();
 		$contentCol = $table->col("content_$value");
-		$where = array(true,array($typeCol,'findInSet',$type));
+		$where = [true,[$typeCol,'findInSet',$type]];
 		$return = $table->keyValue($keyCol,$contentCol,false,$where);
 		
 		if(!empty($return))

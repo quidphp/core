@@ -6,9 +6,9 @@ namespace Quid\Core\File;
 class Pdf extends BinaryAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'pdf'
-	);
+	];
 }
 
 // config

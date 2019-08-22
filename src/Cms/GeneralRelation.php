@@ -11,22 +11,22 @@ class GeneralRelation extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'general/relation/[table]/[col]/[selected]/[order]/[page]',
-			'en'=>'general/relation/[table]/[col]/[selected]/[order]/[page]'),
+			'en'=>'general/relation/[table]/[col]/[selected]/[order]/[page]'],
 			'encoding'=>'structureSegmentEncoding',
-		'segment'=>array(
+		'segment'=>[
 			'table'=>'structureSegmentTable',
 			'col'=>'structureSegmentColRelation',
 			'selected'=>'structureSegmentSelected',
 			'order'=>'structureSegmentOrderColRelation',
-			'page'=>'structureSegmentPage'),
+			'page'=>'structureSegmentPage'],
 		'order'=>true,
-		'match'=>array(
+		'match'=>[
 			'ajax'=>true,
-			'role'=>array('>='=>20)),
-	);
+			'role'=>['>='=>20]],
+	];
 	
 	
 	// onBefore

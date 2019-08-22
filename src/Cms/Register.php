@@ -12,10 +12,10 @@ class Register extends Core\Route\Register
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>Login::class,
 		'row'=>Core\Row\User::class
-	);
+	];
 	
 	
 	// submitClass
@@ -30,7 +30,7 @@ class Register extends Core\Route\Register
 	// attribut pour le bouton submit du formulaire
 	public function submitAttr() 
 	{
-		return array('icon','padLeft','add');
+		return ['icon','padLeft','add'];
 	}
 	
 	
@@ -38,7 +38,7 @@ class Register extends Core\Route\Register
 	// retourne un tableau avec les boutons sous le formulaire de connexion
 	protected function makeButtons():array 
 	{
-		$return = array();
+		$return = [];
 		$return['login'] = $this->makeLogin();
 		$return['resetPassword'] = $this->makeResetPassword();
 		$return['about'] = $this->makeAbout();

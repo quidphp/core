@@ -12,7 +12,7 @@ class Cell extends Orm\Cell
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// getOverloadKeyPrepend

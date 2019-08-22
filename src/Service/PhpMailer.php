@@ -9,8 +9,8 @@ use Quid\Base;
 class PhpMailer extends Core\ServiceMailerAlias
 {
 	// config
-	public static $config = array(
-		'option'=>array( // paramètres pour la connection
+	public static $config = [
+		'option'=>[ // paramètres pour la connection
 			'ping'=>2, // fait un ping avant l'envoie
 			'username'=>null, // username pour connexion smtp
 			'password'=>null, // password pour connection smtp
@@ -33,8 +33,8 @@ class PhpMailer extends Core\ServiceMailerAlias
 			'replyTo'=>null, // addresse replyTo
 			'to'=>null, // address To
 			'from'=>null, // address from, note name et email ont plus de priorités
-			'header'=>null) // tableau header additionnels
-	);
+			'header'=>null] // tableau header additionnels
+	];
 	
 	
 	// prepare
@@ -70,7 +70,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 			$mailer->SMTPAuth = false;
 			$mailer->SMTPSecure = false;
 			$mailer->SMTPAutoTLS = false;
-			$mailer->SMTPOptions = array();
+			$mailer->SMTPOptions = [];
 			
 			if(!empty($value['username']) || !empty($value['password']))
 			{
@@ -91,7 +91,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 			
 			if(array_key_exists('allowSelfSigned',$value) && !empty($value['allowSelfSigned']))
 			{
-				$options = array('ssl'=>array('verify_peer'=>false,'verify_peer_name'=>false,'allow_self_signed'=>true));
+				$options = ['ssl'=>['verify_peer'=>false,'verify_peer_name'=>false,'allow_self_signed'=>true]];
 				$mailer->SMTPOptions = $options;
 			}
 			
@@ -112,7 +112,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 	protected function prepareMailerMessage(array $value):self 
 	{
 		$mailer = $this->mailer();
-		$keyMethods = array('bcc'=>'addBCC','cc'=>'addCC','replyTo'=>'addReplyTo','to'=>'addAddress','from'=>'setFrom');
+		$keyMethods = ['bcc'=>'addBCC','cc'=>'addCC','replyTo'=>'addReplyTo','to'=>'addAddress','from'=>'setFrom'];
 		
 		$mailer->CharSet = $value['charset'];
 		$mailer->ContentType = $value['contentType'];

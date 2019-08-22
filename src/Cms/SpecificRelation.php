@@ -12,21 +12,21 @@ class SpecificRelation extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'specifique/relation/[table]/[col]/[selected]/[order]/[page]',
-			'en'=>'specific/relation/[table]/[col]/[selected]/[order]/[page]'),
-		'segment'=>array(
+			'en'=>'specific/relation/[table]/[col]/[selected]/[order]/[page]'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
 			'col'=>'structureSegmentColRelation',
 			'selected'=>'structureSegmentSelected',
 			'order'=>'structureSegmentOrderColRelation',
-			'page'=>'structureSegmentPage'),
+			'page'=>'structureSegmentPage'],
 		'order'=>true,
-		'match'=>array(
+		'match'=>[
 			'ajax'=>true,
-			'role'=>array('>='=>20)),
-	);
+			'role'=>['>='=>20]],
+	];
 	
 	
 	// onBefore

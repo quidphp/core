@@ -7,9 +7,9 @@ use Quid\Main;
 class BootException extends Main\Exception
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'code'=>35 // code de l'exception
-	);
+	];
 }
 
 // config

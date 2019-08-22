@@ -7,9 +7,9 @@ use Quid\Core;
 class ResetPasswordSubmit extends Core\Route\ResetPasswordSubmit
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'parent'=>ResetPassword::class
-	);
+	];
 }
 
 // config

@@ -8,10 +8,10 @@ use Quid\Main;
 class Css extends TextAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'css',
 		'service'=>Core\Service\ScssPhp::class
-	);
+	];
 	
 	
 	// compile

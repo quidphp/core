@@ -7,15 +7,15 @@ use Quid\Core;
 class Nobody extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'permission'=>1,
-		'db'=>array(
-			'*'=>array(
-				'view'=>false),
-			'contact'=>array(
-				'insert'=>true)
-		)
-	);
+		'db'=>[
+			'*'=>[
+				'view'=>false],
+			'contact'=>[
+				'insert'=>true]
+		]
+	];
 }
 
 // config

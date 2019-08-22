@@ -12,24 +12,24 @@ class SpecificAddSubmit extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/add/0/submit',
-			'fr'=>'table/[table]/ajouter/0/soumettre'),
-		'segment'=>array(
-			'table'=>'structureSegmentTable'),
-		'match'=>array(
+			'fr'=>'table/[table]/ajouter/0/soumettre'],
+		'segment'=>[
+			'table'=>'structureSegmentTable'],
+		'match'=>[
 			'method'=>'post',
-			'role'=>array('>='=>20)),
-		'verify'=>array(
+			'role'=>['>='=>20]],
+		'verify'=>[
 			'csrf'=>false,
 			'genuine'=>true,
-			'post'=>array('-table-'=>array('='=>'[table]'))),
-		'response'=>array(
-			'timeLimit'=>60),
+			'post'=>['-table-'=>['='=>'[table]']]],
+		'response'=>[
+			'timeLimit'=>60],
 		'parent'=>SpecificAdd::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore
@@ -65,7 +65,7 @@ class SpecificAddSubmit extends Core\RouteAlias
 		$post = $this->onBeforeCommit($post);
 		
 		if($post !== null)
-		$return = $table->insert($post,array('preValidate'=>true,'com'=>true,'context'=>$context));
+		$return = $table->insert($post,['preValidate'=>true,'com'=>true,'context'=>$context]);
 		
 		if(empty($return))
 		$this->failureComplete();
@@ -83,7 +83,7 @@ class SpecificAddSubmit extends Core\RouteAlias
 	{
 		$post = $this->post();
 		$flash = $this->session()->flash();
-		$key = array($this->classFqcn(),$this->table());
+		$key = [$this->classFqcn(),$this->table()];
 		$flash->set($key,$post);
 		
 		return;

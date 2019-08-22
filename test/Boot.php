@@ -107,16 +107,16 @@ class Boot extends Base\Test
 		// pathOverview
 		
 		// makePaths
-		assert(is_string($boot->makePaths(array("[public]/james"))[0]));
+		assert(is_string($boot->makePaths(["[public]/james"])[0]));
 		
 		// makePath
 		assert(is_string($boot->makePath("[public]/james")));
 		
 		// envs
-		assert($boot->envs() === array('dev','staging','prod'));
+		assert($boot->envs() === ['dev','staging','prod']);
 		
 		// types
-		assert($boot->types() === array('assert'));
+		assert($boot->types() === ['assert']);
 		
 		// hosts
 		assert(is_array($boot->hosts()));
@@ -171,14 +171,14 @@ class Boot extends Base\Test
 		assert(count($boot->climbableKeys()) === 4);
 		
 		// valuesWrapClimb
-		assert($boot->valuesWrapClimb(array('james'=>'test'))['james'] === '@test');
+		assert($boot->valuesWrapClimb(['james'=>'test'])['james'] === '@test');
 		
 		// makeConfigClosure
 		
 		// replaceSpecial
-		$array = array('@assert'=>array('ok'=>true),'@app'=>array('ok'=>false));
-		$array2 = array('@assert'=>array('ok2'=>true),'@app'=>array('ok'=>false));
-		assert($boot->replaceSpecial(null,array(),$array,$array2) === array('@app'=>array('ok'=>false),'ok'=>true,'ok2'=>true));
+		$array = ['@assert'=>['ok'=>true],'@app'=>['ok'=>false]];
+		$array2 = ['@assert'=>['ok2'=>true],'@app'=>['ok'=>false]];
+		assert($boot->replaceSpecial(null,[],$array,$array2) === ['@app'=>['ok'=>false],'ok'=>true,'ok2'=>true]);
 
 		// ini
 		
@@ -213,7 +213,7 @@ class Boot extends Base\Test
 		assert(count($boot->schemeHostTypes()) === 1);
 		
 		// schemeHostEnvs
-		assert($boot->schemeHostEnvs('app') === array());
+		assert($boot->schemeHostEnvs('app') === []);
 		assert(count($boot->schemeHostEnvs($type)) === 2);
 	
 		// setsUriShortcut
@@ -324,11 +324,11 @@ class Boot extends Base\Test
 		/* STATIC */
 		
 		// envTypeFromValue
-		assert($boot->envTypeFromValue('test.com',array('dev/'.$type=>'test.com'),$boot->envs(),$boot->types()) === array('env'=>'dev','type'=>$type));
-		assert($boot->envTypeFromValue('test.com',array('dev/appz'=>'test.com'),$boot->envs(),$boot->types()) === null);
+		assert($boot->envTypeFromValue('test.com',['dev/'.$type=>'test.com'],$boot->envs(),$boot->types()) === ['env'=>'dev','type'=>$type]);
+		assert($boot->envTypeFromValue('test.com',['dev/appz'=>'test.com'],$boot->envs(),$boot->types()) === null);
 	
 		// envTypeFromString
-		assert($boot->envTypeFromString('dev/'.$type,$boot->envs(),$boot->types()) === array('env'=>'dev','type'=>$type));
+		assert($boot->envTypeFromString('dev/'.$type,$boot->envs(),$boot->types()) === ['env'=>'dev','type'=>$type]);
 		assert($boot->envTypeFromString('dev/appz',$boot->envs(),$boot->types()) === null);
 	
 		// requirement

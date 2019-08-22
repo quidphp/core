@@ -7,9 +7,9 @@ use Quid\Core;
 abstract class Text extends Core\FileAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'group'=>'text'
-	);
+	];
 }
 
 // config

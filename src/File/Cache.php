@@ -11,9 +11,9 @@ class Cache extends SerializeAlias implements Main\Contract\FileStorage
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		'dirname'=>'[storageCache]'
-	);
+	];
 }
 
 // config

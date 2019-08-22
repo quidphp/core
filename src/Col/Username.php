@@ -7,12 +7,12 @@ use Quid\Core;
 class Username extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'general'=>true,
 		'required'=>true,
-		'check'=>array('kind'=>'char'),
+		'check'=>['kind'=>'char'],
 		'security'=>null // custom, défini le niveau de sécurité du mot de passe utilisé, support pour loose
-	);
+	];
 	
 	
 	// onMakeAttr
@@ -20,7 +20,7 @@ class Username extends Core\ColAlias
 	// permet de charger le niveau de sécurité du username
 	protected function onMakeAttr(array $return):array 
 	{
-		$return['validate'] = $return['validate'] ?? array();
+		$return['validate'] = $return['validate'] ?? [];
 		$security = $return['security'] ?? null;
 		$originalValidate = 'username';
 		$validate = $originalValidate;

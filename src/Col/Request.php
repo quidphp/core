@@ -8,13 +8,13 @@ use Quid\Base;
 class Request extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'general'=>true,
 		'complex'=>'div',
 		'onComplex'=>true,
 		'required'=>true,
-		'check'=>array('kind'=>'text')
-	);
+		'check'=>['kind'=>'text']
+	];
 	
 	
 	// onInsert

@@ -6,13 +6,13 @@ namespace Quid\Core\Col;
 class ContextType extends SetAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
 		'complex'=>'checkbox',
 		'relation'=>'contextType',
 		'sortable'=>false, 
 		'default'=>'app'
-	);
+	];
 }
 
 // config

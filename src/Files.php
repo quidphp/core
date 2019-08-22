@@ -11,7 +11,7 @@ class Files extends Main\Files
 	
 	
 	// config
-	public static $config = array();
+	public static $config = [];
 	
 	
 	// zip
@@ -20,7 +20,7 @@ class Files extends Main\Files
 	// retourne la resource zip
 	public function zip($value,?string $local=null,?array $option=null):File\Zip 
 	{
-		$return = File\Zip::new($value,array('create'=>true));
+		$return = File\Zip::new($value,['create'=>true]);
 		
 		if(empty($return))
 		static::throw('cannotCreateZipArchive');

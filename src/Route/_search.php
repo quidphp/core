@@ -7,11 +7,11 @@ use Quid\Base;
 trait _search
 {
 	// config
-	public static $configSearch = array(
-		'search'=>array(
+	public static $configSearch = [
+		'search'=>[
 			'decode'=>0,
-			'query'=>'s')
-	);
+			'query'=>'s']
+	];
 	
 	
 	// isSearchValueValid

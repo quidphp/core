@@ -7,10 +7,10 @@ use Quid\Core;
 class Pointer extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
-		'validate'=>array('pointer'=>array(self::class,'custom'))
-	);
+		'validate'=>['pointer'=>[self::class,'custom']]
+	];
 	
 	
 	// onGet

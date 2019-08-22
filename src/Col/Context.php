@@ -8,16 +8,16 @@ use Quid\Base;
 class Context extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>true,
 		'general'=>true,
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'complex'=>'div',
 		'onComplex'=>true,
-		'onGet'=>array(Base\Json::class,'onGet'),
-		'onSet'=>array(Base\Json::class,'onSet'),
-		'check'=>array('kind'=>'char')
-	);
+		'onGet'=>[Base\Json::class,'onGet'],
+		'onSet'=>[Base\Json::class,'onSet'],
+		'check'=>['kind'=>'char']
+	];
 	
 	
 	// onCommit

@@ -6,16 +6,16 @@ namespace Quid\Core\Col;
 class UserAdd extends EnumAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'required'=>false,
 		'general'=>true,
 		'complex'=>'div',
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'relation'=>'user',
 		'duplicate'=>false,
 		'editable'=>false,
-		'check'=>array('kind'=>'int')
-	);
+		'check'=>['kind'=>'int']
+	];
 	
 	
 	// onInsert

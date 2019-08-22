@@ -11,28 +11,28 @@ class SpecificDispatch extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'en'=>'table/[table]/[primary]/dispatch',
-			'fr'=>'table/[table]/[primary]/envoyer'),
-		'segment'=>array(
+			'fr'=>'table/[table]/[primary]/envoyer'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
-			'primary'=>'structureSegmentPrimary'),
-		'match'=>array(
+			'primary'=>'structureSegmentPrimary'],
+		'match'=>[
 			'method'=>'post',
-			'role'=>array('>='=>20)),
-		'verify'=>array(
+			'role'=>['>='=>20]],
+		'verify'=>[
 			'csrf'=>false,
 			'genuine'=>true,
-			'post'=>array('id'=>array('='=>'[primary]'),'-table-'=>array('='=>'[table]'))),
-		'dispatch'=>array(
+			'post'=>['id'=>['='=>'[primary]'],'-table-'=>['='=>'[table]']]],
+		'dispatch'=>[
 			'--modify--'=>SpecificSubmit::class,
 			'--duplicate--'=>SpecificDuplicate::class,
 			'--delete--'=>SpecificDelete::class,
-			'--userWelcome--'=>SpecificUserWelcome::class),
+			'--userWelcome--'=>SpecificUserWelcome::class],
 		'parent'=>Specific::class,
 		'group'=>'submit'
-	);
+	];
 	
 	
 	// onBefore

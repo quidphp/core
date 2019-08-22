@@ -8,7 +8,7 @@ use Quid\Base;
 class Date extends Core\ColAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'cell'=>Core\Cell\Date::class,
 		'tag'=>'inputText',
 		'filter'=>true,
@@ -16,12 +16,12 @@ class Date extends Core\ColAlias
 		'date'=>'dateToDay',
 		'pattern'=>false,
 		'onComplex'=>true,
-		'check'=>array('kind'=>'int'),
+		'check'=>['kind'=>'int'],
 		'calendarFormat'=>'dateToDay', // custom
-		'formats'=>array(true,'dateToDay','dateToMinute','dateToSecond'),
-		'@cms'=>array(
-			'route'=>array('calendar'=>Core\Cms\SpecificCalendar::class))
-	);
+		'formats'=>[true,'dateToDay','dateToMinute','dateToSecond'],
+		'@cms'=>[
+			'route'=>['calendar'=>Core\Cms\SpecificCalendar::class]]
+	];
 	
 	
 	// onMakeAttr
@@ -38,10 +38,10 @@ class Date extends Core\ColAlias
 		$allowedFormats = static::allowedFormats();
 		
 		if(empty($return['onGet']))
-		$return['onGet'] = array(array(Base\Date::class,'onGet'),$format);
+		$return['onGet'] = [[Base\Date::class,'onGet'],$format];
 		
 		if(empty($return['onSet']))
-		$return['onSet'] = array(array(Base\Date::class,'onSet'),$format);
+		$return['onSet'] = [[Base\Date::class,'onSet'],$format];
 		
 		if(!array_key_exists('preValidate',$return) && in_array($format,$allowedFormats,true))
 		$return['preValidate'] = $format;
@@ -113,15 +113,15 @@ class Date extends Core\ColAlias
 				$timestamp = $v;
 			}
 			
-			$route = static::route('calendar',array('timestamp'=>true,'format'=>$format));
+			$route = static::route('calendar',['timestamp'=>true,'format'=>$format]);
 			
 			$formatCalendar = strtolower(Base\Date::placeholder(static::$config['calendarFormat']));
 			$placeholderMaxLength = strlen($placeholder);
-			$attr = Base\Attr::append($attr,array('placeholder'=>$placeholder,'maxlength'=>$placeholderMaxLength));
+			$attr = Base\Attr::append($attr,['placeholder'=>$placeholder,'maxlength'=>$placeholderMaxLength]);
 			$return .= $this->form($value,$attr,$option);
 			$return .= Base\Html::divOp('popup');
-			$data = array('char'=>$route::getReplaceSegment(),'format'=>$formatCalendar,'current'=>$timestamp,'href'=>$route);
-			$return .= Base\Html::div(null,array('calendar','data'=>$data));
+			$data = ['char'=>$route::getReplaceSegment(),'format'=>$formatCalendar,'current'=>$timestamp,'href'=>$route];
+			$return .= Base\Html::div(null,['calendar','data'=>$data]);
 			$return .= Base\Html::divCl();
 		}
 		
@@ -136,7 +136,7 @@ class Date extends Core\ColAlias
 	// retourne la date la plus petite de la colonne dans la table
 	public function dateMin():?int 
 	{
-		return $this->db()->selectColumn($this,$this->table(),array(array($this->name(),true)),array($this->name()=>"asc"),1);
+		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>"asc"],1);
 	}
 	
 	
@@ -144,7 +144,7 @@ class Date extends Core\ColAlias
 	// retourne la date la plus grande de la colonne dans la table
 	public function dateMax():?int 
 	{
-		return $this->db()->selectColumn($this,$this->table(),array(array($this->name(),true)),array($this->name()=>"desc"),1);
+		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>"desc"],1);
 	}
 	
 	

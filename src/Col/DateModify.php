@@ -8,13 +8,13 @@ use Quid\Base;
 class DateModify extends DateAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'complex'=>'div',
-		'visible'=>array('validate'=>'notEmpty'),
+		'visible'=>['validate'=>'notEmpty'],
 		'date'=>'long',
 		'duplicate'=>false,
-		'onGet'=>array(array(Base\Date::class,'onGet'),'long'),
-	);
+		'onGet'=>[[Base\Date::class,'onGet'],'long'],
+	];
 	
 	
 	// onUpdate

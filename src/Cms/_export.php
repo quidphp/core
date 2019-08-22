@@ -33,7 +33,7 @@ trait _export
 	// retourne les segments à utiliser pour la création de l'objet sql de generalExport
 	protected function generalSegments():array 
 	{
-		return $this->segment(array('order','direction','filter','in','notIn'));
+		return $this->segment(['order','direction','filter','in','notIn']);
 	}
 	
 	
@@ -49,7 +49,7 @@ trait _export
 	// retourne les encodages permis
 	public static function getEncoding():array
 	{
-		return array('utf8','latin1');
+		return ['utf8','latin1'];
 	}
 	
 	

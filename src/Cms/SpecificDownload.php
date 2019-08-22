@@ -11,18 +11,18 @@ class SpecificDownload extends Core\RouteAlias
 	
 	
 	// config
-	public static $config = array(
-		'path'=>array(
+	public static $config = [
+		'path'=>[
 			'fr'=>'specifique/telechargement/[table]/[primary]/[col]/[index]',
-			'en'=>'specific/download/[table]/[primary]/[col]/[index]'),
-		'segment'=>array(
+			'en'=>'specific/download/[table]/[primary]/[col]/[index]'],
+		'segment'=>[
 			'table'=>'structureSegmentTable',
 			'primary'=>'structureSegmentPrimary',
 			'col'=>'structureSegmentCol',
-			'index'=>'structureSegmentInt'),
-		'match'=>array(
-			'role'=>array('>='=>20))
-	);
+			'index'=>'structureSegmentInt'],
+		'match'=>[
+			'role'=>['>='=>20]]
+	];
 	
 	
 	// onBefore

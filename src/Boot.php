@@ -14,20 +14,20 @@ abstract class Boot extends Main\Root
 	
 	
 	// config
-	public static $config = array(
+	public static $config = [
 		// prepare
-		'host'=>array(), // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
-		'path'=>array( // tableau des chemins, ne peut pas être mis dans un @
+		'host'=>[], // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
+		'path'=>[ // tableau des chemins, ne peut pas être mis dans un @
 			'private'=>null,
 			'vendor'=>null,
 			'public'=>null,
-			'storage'=>null),
-		'envs'=>array('dev','staging','prod'), // définis les environnements, ne peut pas être mis dans un @
-		'types'=>array('app','cms'), // définis les types applicatif, ne peut pas être mis dans un @
+			'storage'=>null],
+		'envs'=>['dev','staging','prod'], // définis les environnements, ne peut pas être mis dans un @
+		'types'=>['app','cms'], // définis les types applicatif, ne peut pas être mis dans un @
 		'climbChar'=>'@', // caractère à mettre avec une clé grimpable, ne peut pas être mis dans un @
-		'typeAs'=>array(), // permet de spécifier des classes dont les types doivent utiliser un autre type, ne peut pas être mis dans un @
+		'typeAs'=>[], // permet de spécifier des classes dont les types doivent utiliser un autre type, ne peut pas être mis dans un @
 		'request'=>null, // valeur par défaut pour la création de request, ne peut pas être mis dans un @
-		'finderShortcut'=>array( // shortcut pour finder
+		'finderShortcut'=>[ // shortcut pour finder
 			'vendor'=>'[vendor]',
 			'vendorCore'=>'[vendor]/quid5/core',
 			'storage'=>'[storage]',
@@ -43,19 +43,19 @@ abstract class Boot extends Main\Root
 			'publicCss'=>'[public]/css',
 			'publicJs'=>'[public]/js',
 			'publicMedia'=>'[public]/media',
-			'publicStorage'=>'[public]/storage'),
+			'publicStorage'=>'[public]/storage'],
 		'configFile'=>null, // fichiers config supplémentaire à charger, doit retourner un tableau
 		'live'=>false, // active ou désactive le merge du tableau de configLive
-		'configLive'=>array( // peut contenir un tableau de configuration à mettre par-dessus à utiliser si live est true
+		'configLive'=>[ // peut contenir un tableau de configuration à mettre par-dessus à utiliser si live est true
 			'requirement'=>false,
 			'writable'=>false,
-			'symlink'=>false), 
+			'symlink'=>false], 
 		'autoload'=>'composer', // type d'autoload utilisé peut être composer, internal ou preload
-		'psr4'=>array( // psr4 pour autoload
-			'%key%'=>'[private]/php'),
-		'composer'=>array( // paramètre pour composer
-			'classMapAuthoritative'=>false), // défini si la classmap de composer est définitive, accélère de genre 2-3%
-		'option'=>array(), // défini les options liés à l'objet boot
+		'psr4'=>[ // psr4 pour autoload
+			'%key%'=>'[private]/php'],
+		'composer'=>[ // paramètre pour composer
+			'classMapAuthoritative'=>false], // défini si la classmap de composer est définitive, accélère de genre 2-3%
+		'option'=>[], // défini les options liés à l'objet boot
 		// dispatch
 		'requirement'=>true, // s'il faut faire les requirement
 		'umaskGroupWritable'=>false, // définit si le serveur doit créer des fichiers/dossiers écrivable par son groupe
@@ -63,94 +63,94 @@ abstract class Boot extends Main\Root
 		'phpInfo'=>null, // tue le script et affiche phpinfo
 		'kill'=>null, // tue le script, possible d'afficher un message
 		'ip'=>null, // ip whiteList ou blackList
-		'writable'=>array('[storage]','[public]'), // chemins qui doivent être écrivables ou créables
+		'writable'=>['[storage]','[public]'], // chemins qui doivent être écrivables ou créables
 		'timeLimit'=>5, // limit de temps
-		'alias'=>array(), // alias pour autoload
-		'overload'=>array(), // overload pour autoload, permet d'obtenir la version surchargé de la classe
-		'scheme'=>array(), // tableaux des schemes avec env/type
-		'finderHost'=>array(), // tableau avec host => chemin serveur
-		'finderHostTypes'=>array('[public]','[storagePublic]'), // chemin à utiliser pour représenter le point racine (public) de chaque type
-		'uriShortcut'=>array( // shortcut pour uri, pas besoin de mettre le slash avant
+		'alias'=>[], // alias pour autoload
+		'overload'=>[], // overload pour autoload, permet d'obtenir la version surchargé de la classe
+		'scheme'=>[], // tableaux des schemes avec env/type
+		'finderHost'=>[], // tableau avec host => chemin serveur
+		'finderHostTypes'=>['[public]','[storagePublic]'], // chemin à utiliser pour représenter le point racine (public) de chaque type
+		'uriShortcut'=>[ // shortcut pour uri, pas besoin de mettre le slash avant
 			'public'=>'',
-			'media'=>'media'),
-		'symlink'=>array( // symlink à créer au chargement
+			'media'=>'media'],
+		'symlink'=>[ // symlink à créer au chargement
 			'[storagePublic]/*'=>'[public]',
-			'[vendorCore]/js/jquery'=>'[publicJs]/jquery'),
-		'callable'=>array(
-			'assertActive'=>array(Base\Assert::Class,'set',ASSERT_ACTIVE,true),
-			'assertBail'=>array(Base\Assert::Class,'set',ASSERT_BAIL,true),
-			'assertWarning'=>array(Base\Assert::Class,'set',ASSERT_WARNING,true),
-			'assertQuietEval'=>array(Base\Assert::Class,'set',ASSERT_QUIET_EVAL,false),
-			'dirCurrent'=>array(Base\Dir::class,'setCurrent','[storage]'),
-			'rootCacheFile'=>array(Base\Root::class,'setCacheFileStorage','[storageCache]'),
-			'uriOptionImg'=>array(Base\Html::class,'setUriOption','img',array('append'=>array('v'=>'%version%'),'exists'=>false)),
-			'uriOptionLink'=>array(Base\Html::class,'setUriOption','link',array('append'=>array('v'=>'%version%'),'exists'=>false)),
-			'uriOptionScript'=>array(Base\Html::class,'setUriOption','script',array('append'=>array('v'=>'%version%'),'exists'=>false)),
-			'uriOptionStyle'=>array(Base\Style::class,'setUriOption',array('append'=>array('v'=>'%version%'),'exists'=>false)),
-			'emailTest'=>array(Base\Email::class,'setTestTo',true),
-			'sessionStorage'=>array(Base\Session::class,'setSavePath','[storage]/session'),
-			'mailerDispatch'=>array(Main\ServiceMailer::class,'setDispatch','send'),
-			'ormExceptionQuery'=>array(Orm\Exception::class,'showQuery',false),
-			'errorHtmlDepth'=>array(Error::class,'setDefaultHtmlDepth',false),
-			'dbHistory'=>array(Db::class,'setDefaultHistory',false)),
+			'[vendorCore]/js/jquery'=>'[publicJs]/jquery'],
+		'callable'=>[
+			'assertActive'=>[Base\Assert::Class,'set',ASSERT_ACTIVE,true],
+			'assertBail'=>[Base\Assert::Class,'set',ASSERT_BAIL,true],
+			'assertWarning'=>[Base\Assert::Class,'set',ASSERT_WARNING,true],
+			'assertQuietEval'=>[Base\Assert::Class,'set',ASSERT_QUIET_EVAL,false],
+			'dirCurrent'=>[Base\Dir::class,'setCurrent','[storage]'],
+			'rootCacheFile'=>[Base\Root::class,'setCacheFileStorage','[storageCache]'],
+			'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>['v'=>'%version%'],'exists'=>false]],
+			'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>['v'=>'%version%'],'exists'=>false]],
+			'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>['v'=>'%version%'],'exists'=>false]],
+			'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>['v'=>'%version%'],'exists'=>false]],
+			'emailTest'=>[Base\Email::class,'setTestTo',true],
+			'sessionStorage'=>[Base\Session::class,'setSavePath','[storage]/session'],
+			'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','send'],
+			'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
+			'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',false],
+			'dbHistory'=>[Db::class,'setDefaultHistory',false]],
 		'lang'=>'en', // lang à mettre dans setLang
-		'response'=>array( // tableau de paramètre à envoyer comme défaut de réponse
+		'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
 			'code'=>500,
-			'headers'=>array(
-				'Quid-Version'=>array(Base\Server::class,'quidVersion'),
-				'Quid-Request'=>array(Base\Request::class,'id'),
-				'Quid-Response'=>array(Base\Response::class,'id'),
-				'Quid-Uri'=>array(Base\Request::class,'absolute')),
-			'headersCallbackSpeed'=>'Quid-Speed'),
+			'headers'=>[
+				'Quid-Version'=>[Base\Server::class,'quidVersion'],
+				'Quid-Request'=>[Base\Request::class,'id'],
+				'Quid-Response'=>[Base\Response::class,'id'],
+				'Quid-Uri'=>[Base\Request::class,'absolute']],
+			'headersCallbackSpeed'=>'Quid-Speed'],
 		'speed'=>false, // affiche speed ou closeBody
-		'version'=>array(), // tableau des versions
-		'config'=>array(), // permet de merger des config sur une classe
-		'configUnset'=>array(), // permet de retirer des config sur une classe
+		'version'=>[], // tableau des versions
+		'config'=>[], // permet de merger des config sur une classe
+		'configUnset'=>[], // permet de retirer des config sur une classe
 		// core
 		'cache'=>true, // active ou désactive la cache globale
 		'clearCache'=>true, // vide le dossier de cache si cache est false
-		'extenders'=>array( // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
+		'extenders'=>[ // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
 			'role'=>Roles::class,
-			'lang'=>array(Main\Extender::class,false),
-			'service'=>array(Main\Extender::class,false),
-			'widget'=>array(Main\Extender::class,false),
-			'table'=>array(Main\Extender::class,false),
-			'rows'=>array(Main\Extender::class,false),
-			'row'=>array(Main\Extender::class,false),
-			'cols'=>array(Main\Extender::class,false),
-			'col'=>array(Main\Extender::class,false),
-			'cells'=>array(Main\Extender::class,false),
-			'cell'=>array(Main\Extender::class,false)),
+			'lang'=>[Main\Extender::class,false],
+			'service'=>[Main\Extender::class,false],
+			'widget'=>[Main\Extender::class,false],
+			'table'=>[Main\Extender::class,false],
+			'rows'=>[Main\Extender::class,false],
+			'row'=>[Main\Extender::class,false],
+			'cols'=>[Main\Extender::class,false],
+			'col'=>[Main\Extender::class,false],
+			'cells'=>[Main\Extender::class,false],
+			'cell'=>[Main\Extender::class,false]],
 		'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
 		'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
-		'concatenateJs'=>array( // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
-			'[publicJs]/include.js'=>array(0=>'[vendorCore]/js/include')),
+		'concatenateJs'=>[ // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
+			'[publicJs]/include.js'=>[0=>'[vendorCore]/js/include']],
 		'concatenateJsOption'=>null, // option pour la concatenation de js
 		'compileScss'=>null, // permet de lancer un encodage scss (fournir un tableau to => from)
 		'compileScssOption'=>null, // option pour le rendu du scss
-		'concatenatePhp'=>array( // tableau pour la compilation de php, fournir un tableau avec target et option
-			'quid'=>array(
+		'concatenatePhp'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
+			'quid'=>[
 				'target'=>null,
-				'option'=>array(
+				'option'=>[
 					'registerClosure'=>true,
-					'namespace'=>array(
-						Base::class=>array(
+					'namespace'=>[
+						Base::class=>[
 							'closure'=>false,
-							'priority'=>array('_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php')),
-						Base\Test::class=>array('closure'=>false),
-						Main::class=>array(
+							'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php']],
+						Base\Test::class=>['closure'=>false],
+						Main::class=>[
 							'closure'=>false,
-							'priority'=>array('_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php')),
-						Main\Test::class=>array('closure'=>false),
-						Orm::class=>array(
+							'priority'=>['_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php']],
+						Main\Test::class=>['closure'=>false],
+						Orm::class=>[
 							'closure'=>false,
-							'priority'=>array('_tableAccess.php','Relation.php')),
-						Orm\Test::class=>array(
-							'closure'=>false),
-						Routing::class=>array('closure'=>true),
-						Routing\Test::class=>array('closure'=>false),
-						__NAMESPACE__=>array('closure'=>true),
-						Test::class=>array('closure'=>false))))), 
+							'priority'=>['_tableAccess.php','Relation.php']],
+						Orm\Test::class=>[
+							'closure'=>false],
+						Routing::class=>['closure'=>true],
+						Routing\Test::class=>['closure'=>false],
+						__NAMESPACE__=>['closure'=>true],
+						Test::class=>['closure'=>false]]]]], 
 		'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
 		'langOption'=>null, // option pour lang, peut être une callable
 		'service'=>null, // tableau des classes credentials pour les services
@@ -158,59 +158,59 @@ abstract class Boot extends Main\Root
 		'db'=>null, // tableau de connexion à db
 		'dbOption'=>null, // option pour db, peut être une callable
 		'sessionStorage'=>Row\Session::class, // classe pour le storage de la session
-		'sessionOption'=>array(), // permet de spécifier des paramètres à passer à session, peut être une callable
+		'sessionOption'=>[], // permet de spécifier des paramètres à passer à session, peut être une callable
 		'sessionVersionMatch'=>true, // spécifie si la version doit match pour continuer la session
 		'redirection'=>null, // tableau redirection par défaut, peut être une callable
 		'redirectionRow'=>Row\Redirection::class, // row pour contenu additionnel de redirection
 		'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
-		'@app'=>array(
+		'@app'=>[
 			'sessionVersionMatch'=>false,
-			'compileScss'=>array(
-				'[publicCss]/app.css'=>array(
+			'compileScss'=>[
+				'[publicCss]/app.css'=>[
 					0=>'[vendorCore]/scss/include/normalize.css',
 					1=>'[vendorCore]/scss/include/include.scss',
 					2=>'[vendorCore]/scss/include/component.scss',
-					50=>'[privateScss]/app/app.scss')),
-			'concatenateJs'=>array(
-				'[publicJs]/app.js'=>'[privateJs]/app')),
-		'@cms'=>array(
-			'option'=>array(
+					50=>'[privateScss]/app/app.scss']],
+			'concatenateJs'=>[
+				'[publicJs]/app.js'=>'[privateJs]/app']],
+		'@cms'=>[
+			'option'=>[
 				'background'=>null,
-				'logo'=>null),
-			'compileScss'=>array(
-				'[publicCss]/cms.css'=>array(
+				'logo'=>null],
+			'compileScss'=>[
+				'[publicCss]/cms.css'=>[
 					0=>'[vendorCore]/scss/include/normalize.css',
 					1=>'[vendorCore]/scss/include/include.scss',
 					2=>'[vendorCore]/scss/include/component.scss',
 					3=>'[vendorCore]/scss/cms/include.scss',
 					4=>'[privateScss]/cms/include.scss',
 					20=>'[vendorCore]/scss/cms/cms.scss',
-					50=>'[privateScss]/cms/cms.scss')),
-			'concatenateJs'=>array(
-				'[publicJs]/cms.js'=>array(0=>'[vendorCore]/js/cms'))),
-		'@dev'=>array(
+					50=>'[privateScss]/cms/cms.scss']],
+			'concatenateJs'=>[
+				'[publicJs]/cms.js'=>[0=>'[vendorCore]/js/cms']]],
+		'@dev'=>[
 			'cache'=>false,
 			'umaskGroupWritable'=>true,
-			'callable'=>array(
-				'uriOptionImg'=>array(Base\Html::class,'setUriOption','img',array('append'=>true,'exists'=>true)),
-				'uriOptionLink'=>array(Base\Html::class,'setUriOption','link',array('append'=>true,'exists'=>true)),
-				'uriOptionScript'=>array(Base\Html::class,'setUriOption','script',array('append'=>true,'exists'=>true)),
-				'uriOptionStyle'=>array(Base\Style::class,'setUriOption',array('append'=>true,'exists'=>true)),
-				'mailerDispatch'=>array(Main\ServiceMailer::class,'setDispatch','queue'),
-				'ormExceptionQuery'=>array(Orm\Exception::class,'showQuery',true),
-				'errorHtmlDepth'=>array(Error::class,'setDefaultHtmlDepth',true),
-				'dbHistory'=>array(Db::class,'setDefaultHistory',true)),
-			'concatenateJsOption'=>array('compress'=>false),
-			'compileScssOption'=>array('compress'=>false)),
-		'@prod'=>array(
+			'callable'=>[
+				'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>true,'exists'=>true]],
+				'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>true,'exists'=>true]],
+				'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>true,'exists'=>true]],
+				'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>true,'exists'=>true]],
+				'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
+				'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
+				'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',true],
+				'dbHistory'=>[Db::class,'setDefaultHistory',true]],
+			'concatenateJsOption'=>['compress'=>false],
+			'compileScssOption'=>['compress'=>false]],
+		'@prod'=>[
 			'cache'=>true,
-			'composer'=>array(
-				'classMapAuthoritative'=>true))
-	);
+			'composer'=>[
+				'classMapAuthoritative'=>true]]
+	];
 
 	
 	// map
-	protected static $allow = array('sort','set','unset','remove','empty','replace','overwrite'); // méthodes permises pour map
+	protected static $allow = ['sort','set','unset','remove','empty','replace','overwrite']; // méthodes permises pour map
 
 
 	// quidVersion
@@ -218,7 +218,7 @@ abstract class Boot extends Main\Root
 	
 	
 	// quidCredit
-	protected static $quidCredit = array( // les crédits de quid
+	protected static $quidCredit = [ // les crédits de quid
 		'name'=>'Quid',
 		'author'=>'Pierre-Philippe Emond',
 		'email'=>'emondpph@gmail.com',
@@ -226,11 +226,11 @@ abstract class Boot extends Main\Root
 		'github'=>'https://github.com/emondpph/quid5',
 		'readme'=>'https://github.com/emondpph/quid5/blob/master/README.md',
 		'license'=>'https://github.com/emondpph/quid5/blob/master/LICENSE'
-	);
+	];
 	
 	
 	// replaceMode
-	protected static $replaceMode = array('=writable','=types','=envs'); // défini les config à ne pas merger récursivement
+	protected static $replaceMode = ['=writable','=types','=envs']; // défini les config à ne pas merger récursivement
 
 
 	// init
@@ -239,7 +239,7 @@ abstract class Boot extends Main\Root
 	
 	// dynamique
 	protected $name = null; // nom du boot
-	protected $value = array(); // argument de départ
+	protected $value = []; // argument de départ
 	protected $status = 0; // niveau de préparation de l'objet
 	protected $envType = null; // garde en mémoire le envType
 	protected $extenders = null; // garde l'objet extenders
@@ -653,7 +653,7 @@ abstract class Boot extends Main\Root
 		
 		if($this->isReady())
 		{
-			$insts = array(Lang::class,Services::class,Redirection::class,Session::class,Request::class);
+			$insts = [Lang::class,Services::class,Redirection::class,Session::class,Request::class];
 			foreach ($insts as $class) 
 			{
 				$obj = $class::instSafe();
@@ -667,8 +667,8 @@ abstract class Boot extends Main\Root
 		}
 		
 		$this->setStatus(0);
-		$this->option = array();
-		$this->attr = array();
+		$this->option = [];
+		$this->attr = [];
 		$this->name = null;
 		$this->envType = null;
 		$this->extenders = null;
@@ -794,7 +794,7 @@ abstract class Boot extends Main\Root
 		$this->makeFinderShortcut();
 		
 		$configFile = $this->attr('configFile');
-		$merge = array();
+		$merge = [];
 		if(!empty($configFile))
 		$merge = $this->getConfigFile((array) $configFile);
 		
@@ -818,7 +818,7 @@ abstract class Boot extends Main\Root
 	// retourne un tableau multidimensionnel
 	protected function getConfigFile(array $files):array
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($files as $file) 
 		{
@@ -864,7 +864,7 @@ abstract class Boot extends Main\Root
 		$request->setInst();
 		
 		if($request->hasFiles())
-		$request->setLogData(array('files'=>'youBET'));
+		$request->setLogData(['files'=>'youBET']);
 		
 		return $this;
 	}
@@ -906,7 +906,7 @@ abstract class Boot extends Main\Root
 	// retourne un chemin 
 	public function path(string $key):string 
 	{
-		return $this->attr(array('path',$key));
+		return $this->attr(['path',$key]);
 	}
 	
 	
@@ -915,8 +915,8 @@ abstract class Boot extends Main\Root
 	// possible de filtrer par extension
 	public function pathOverview($path=null,$extension=null):array
 	{
-		$return = array();
-		$extension = ($extension===null)? array(Base\Finder::phpExtension(),'js','scss'):$extension;
+		$return = [];
+		$extension = ($extension===null)? [Base\Finder::phpExtension(),'js','scss']:$extension;
 		$return['size'] = 0;
 		$return['format'] = null;
 		$return['line'] = 0;
@@ -943,7 +943,7 @@ abstract class Boot extends Main\Root
 	// si replaceKey est true, remplace %key% par le nom de boot
 	public function makePaths(array $array,bool $replaceKey=false):array 
 	{
-		$return = array();
+		$return = [];
 		
 		foreach ($array as $k => $v) 
 		{
@@ -990,7 +990,7 @@ abstract class Boot extends Main\Root
 		$hosts = $this->hosts();
 		$env = (is_string($env))? $env:$this->env();
 		$type = (is_string($type))? $type:$this->type();
-		$key = Base\Arrs::keyPrepare(array($env,$type));
+		$key = Base\Arrs::keyPrepare([$env,$type]);
 		
 		if(array_key_exists($key,$hosts))
 		$return = $hosts[$key];
@@ -1139,7 +1139,7 @@ abstract class Boot extends Main\Root
 	// les types à utiliser ont priorités
 	public function typeAs(string $class,string $type)
 	{
-		return $this->attr(array('typeAs',$class,$type));
+		return $this->attr(['typeAs',$class,$type]);
 	}
 	
 	
@@ -1216,8 +1216,8 @@ abstract class Boot extends Main\Root
 		$charset = Base\Encoding::getCharset();
 		$timezone = Base\Timezone::get();
 		
-		Base\Ini::setIncludePath(array('public'=>$this->path('public')));
-		Base\Ini::setDefault(array('default_charset'=>$charset,'date.timezone'=>$timezone));
+		Base\Ini::setIncludePath(['public'=>$this->path('public')]);
+		Base\Ini::setDefault(['default_charset'=>$charset,'date.timezone'=>$timezone]);
 		
 		return $this;
 	}
@@ -1245,7 +1245,7 @@ abstract class Boot extends Main\Root
 	{
 		$type = $this->autoloadType();
 		
-		if(in_array($type,array('internal','composer','preload'),true))
+		if(in_array($type,['internal','composer','preload'],true))
 		{
 			if($type !== 'preload')
 			Main\Autoload::registerClosure();
@@ -1277,7 +1277,7 @@ abstract class Boot extends Main\Root
 		$psr4 = static::getPsr4FromComposer();
 		Base\Autoload::setsPsr4($psr4);
 		
-		$authoritative = $this->attr(array('composer','classMapAuthoritative'));
+		$authoritative = $this->attr(['composer','classMapAuthoritative']);
 		if(is_bool($authoritative))
 		{
 			$composer = static::composer();
@@ -1294,7 +1294,7 @@ abstract class Boot extends Main\Root
 	protected function checkIp($value):self 
 	{
 		if(is_string($value))
-		$value = array($value);
+		$value = [$value];
 
 		if(is_array($value))
 		{
@@ -1313,7 +1313,7 @@ abstract class Boot extends Main\Root
 	// traite un tableau de scheme avec clés pouvant être env/type
 	protected function getSchemeArray(array $array):array
 	{
-		$return = array();
+		$return = [];
 		
 		if(!empty($array))
 		{
@@ -1343,7 +1343,7 @@ abstract class Boot extends Main\Root
 	// prend le host paramétré et utilise le chemin donné en argument
 	protected function getFinderHostTypes($value,$paths):array 
 	{
-		$return = array();
+		$return = [];
 		
 		if(!empty($paths))
 		{
@@ -1407,7 +1407,7 @@ abstract class Boot extends Main\Root
 		$schemes = $this->schemes(false);
 		$env = (is_string($env))? $env:$this->env();
 		$type = (is_string($type))? $type:$this->type();
-		$key = Base\Arrs::keyPrepare(array($env,$type));
+		$key = Base\Arrs::keyPrepare([$env,$type]);
 		
 		if(array_key_exists($key,$schemes))
 		{
@@ -1445,7 +1445,7 @@ abstract class Boot extends Main\Root
 	// retourne le schemeHost pour tous les types d'un même environnement
 	public function schemeHostTypes($env=true,$scheme=null):array
 	{
-		$return = array();
+		$return = [];
 		$env = (is_string($env))? $env:$this->env();
 
 		foreach ($this->types() as $type) 
@@ -1463,7 +1463,7 @@ abstract class Boot extends Main\Root
 	// retourne le schemeHost pour tous les environnements d'un type
 	public function schemeHostEnvs($type=true,$scheme=null):array
 	{
-		$return = array();
+		$return = [];
 		$type = (is_string($type))? $type:$this->type();
 
 		foreach ($this->envs() as $env) 
@@ -1533,10 +1533,10 @@ abstract class Boot extends Main\Root
 				if(in_array($type,$types,true))
 				{
 					if(array_key_exists($type,$versions))
-					$implode = array($versions[$type]);
+					$implode = [$versions[$type]];
 					
 					else
-					$implode = array(current($versions));
+					$implode = [current($versions)];
 					
 					if($quid === true)
 					{
@@ -1651,7 +1651,7 @@ abstract class Boot extends Main\Root
 		$cache = $this->shouldCache();
 		$type = $this->type();
 		$version = $this->version();
-		$key = array('extenders',$type,$version);
+		$key = ['extenders',$type,$version];
 		
 		$this->fromCache = true;
 		$extenders = static::cacheFile($key,function() {
@@ -1704,7 +1704,7 @@ abstract class Boot extends Main\Root
 		$closure = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
 			if(is_string($key))
 			$ucKey = ucfirst($key);
-			$namespace = array();
+			$namespace = [];
 			
 			foreach ($namespaces as $value) 
 			{
@@ -1723,7 +1723,7 @@ abstract class Boot extends Main\Root
 		// routes
 		foreach ($types as $type) 
 		{
-			$routeNamespace = $this->attr(array('routeNamespace',$type));
+			$routeNamespace = $this->attr(['routeNamespace',$type]);
 			if(!empty($routeNamespace))
 			$extender = $closure(Routes::class,null,$routeNamespace);
 			else
@@ -1747,7 +1747,7 @@ abstract class Boot extends Main\Root
 				$option = Base\Arr::index(1,$value);
 				
 				if($option === false)
-				$option = array('exists'=>false,'overloadKeyPrepend'=>ucfirst($key));
+				$option = ['exists'=>false,'overloadKeyPrepend'=>ucfirst($key)];
 				
 				$extender = $closure($class,$key,$namespaces,$option);
 				$extender->overload();
@@ -1852,7 +1852,7 @@ abstract class Boot extends Main\Root
 	// génère un tableau de variable à injecter dans la feuille de style scss
 	public function getScssVariables():array 
 	{
-		$return = array();
+		$return = [];
 		
 		foreach (Base\Finder::allShortcuts() as $key => $value) 
 		{
@@ -1998,7 +1998,7 @@ abstract class Boot extends Main\Root
 	// retourne un label combiné pour type et env
 	public function typeEnvLabel(string $separator=' / ',?string $lang=null):string 
 	{
-		return implode($separator,array($this->typeLabel($lang),$this->envLabel($lang)));
+		return implode($separator,[$this->typeLabel($lang),$this->envLabel($lang)]);
 	}
 	
 	
@@ -2118,7 +2118,7 @@ abstract class Boot extends Main\Root
 					$version = $this->version();
 					
 					$option['classeClosure'] = function(Main\Extenders $extenders) use($type,$version) {
-						$key = array('classe',$type,$version);
+						$key = ['classe',$type,$version];
 						return static::cacheFile($key,function() use($extenders) {
 							$this->classe = Orm\Classe::newOverload($extenders,$this->getOption('classe'));
 							$this->tablesColsLoad();
@@ -2127,7 +2127,7 @@ abstract class Boot extends Main\Root
 					};
 					
 					$option['schemaClosure'] = function(Db $db) use($type,$version) {
-						$key = array('schema',$type,$version);
+						$key = ['schema',$type,$version];
 						return static::cacheFile($key,function() use($db) {
 							$schema = Orm\Schema::newOverload(null,$db);
 							$schema->all();
@@ -2238,7 +2238,7 @@ abstract class Boot extends Main\Root
 	// retourne un tableau d'informations sur boot
 	public function info():array
 	{
-		$return = array();
+		$return = [];
 		$return['class'] = static::class;
 		$return['status'] = $this->status();
 		$return['ready'] = $this->isReady();
@@ -2282,7 +2282,7 @@ abstract class Boot extends Main\Root
 		
 		if(count($explode) === 2 && in_array($explode[0],$envs,true) && in_array($explode[1],$types,true))
 		{
-			$return = array();
+			$return = [];
 			$return['env'] = $explode[0];
 			$return['type'] = $explode[1];
 		}
@@ -2334,7 +2334,7 @@ abstract class Boot extends Main\Root
 	// retourne un tableau avec tous les psr4 de composer
 	protected static function getPsr4FromComposer():array 
 	{
-		$return = array();
+		$return = [];
 		$composer = static::composer();
 		$psr4 = $composer->getPrefixesPsr4();
 		
@@ -2378,7 +2378,7 @@ abstract class Boot extends Main\Root
 	protected static function checkWritable($value) 
 	{
 		if(is_string($value))
-		$value = array($value);
+		$value = [$value];
 
 		if(is_array($value))
 		{
@@ -2434,9 +2434,9 @@ abstract class Boot extends Main\Root
 	// retourne les informations de crédit de quid
 	public static function quidCredit():string
 	{
-		$return = array();
+		$return = [];
 		$credit = static::$quidCredit;
-		$keys = array('name','type','author','email','github','readme','license');
+		$keys = ['name','type','author','email','github','readme','license'];
 		$version = static::quidVersion();
 		
 		if(Base\Arr::keysExists($keys,$credit))
@@ -2458,7 +2458,7 @@ abstract class Boot extends Main\Root
 	// retourne un tableau avec tous les namespaces étendus (core et après)
 	public static function extendersNamespaces():array
 	{
-		$return = array();
+		$return = [];
 		$parents = static::classParents(true);
 		
 		foreach ($parents as $class) 
@@ -2476,7 +2476,7 @@ abstract class Boot extends Main\Root
 	// ceci est utilisé dans makeInitialAttr
 	public static function unclimbableKeys():array 
 	{
-		return array('host','path','envs','types','climbChar','typeAs','request');
+		return ['host','path','envs','types','climbChar','typeAs','request'];
 	}
 	
 	

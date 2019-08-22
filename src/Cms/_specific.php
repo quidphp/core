@@ -10,9 +10,9 @@ use Quid\Base;
 trait _specific
 {
 	//  configSpecific
-	public static $configSpecific = array(
+	public static $configSpecific = [
 		'formWrap'=>"<div class='left'><div class='label'>%label%%popup%</div>%description%%details%</div><div class='right'>%form%</div>"
-	);
+	];
 	
 	
 	// onReplace
@@ -31,7 +31,7 @@ trait _specific
 	protected function panel():array 
 	{
 		return $this->cache(__METHOD__,function() {
-			$return = array();
+			$return = [];
 			$table = $this->table();
 			$cols = $table->cols()->withoutPrimary();
 			
@@ -39,7 +39,7 @@ trait _specific
 			$group = $cols->group('panel');
 			
 			else
-			$group = array($cols);
+			$group = [$cols];
 			
 			foreach ($group as $key => $cols) 
 			{
@@ -82,7 +82,7 @@ trait _specific
 		$r .= Html::div($this->makeTitleBox(),'title');
 		
 		if($table->hasPermission('description'))
-		$r .= Html::divCond($table->description(),array('description','subTitle'));
+		$r .= Html::divCond($table->description(),['description','subTitle']);
 		
 		$r .= Html::divCl();
 		
@@ -143,13 +143,13 @@ trait _specific
 			{
 				if($cols->isNotEmpty())
 				{
-					$data = array();
+					$data = [];
 					
 					if($table->hasPermission('panelDescription'))
 					$data['description'] = $lang->panelDescription($key);
 					
 					$r .= Html::liOp();
-					$r .= Html::aOpen("#$key",null,array('data'=>$data));
+					$r .= Html::aOpen("#$key",null,['data'=>$data]);
 					$r .= Html::h3($lang->panelLabel($key));
 					$r .= Html::aCl();
 					$r .= Html::liCl();
@@ -179,7 +179,7 @@ trait _specific
 			$lang = $this->lang();
 			
 			$r .= Html::divOp('popup');
-			$r .= Html::div(null,array('icon','topRight','solo','info'));
+			$r .= Html::div(null,['icon','topRight','solo','info']);
 			$r .= Html::ulOp();
 			
 			foreach ($colPopup as $v) 
@@ -281,8 +281,8 @@ trait _specific
 			{
 				if($cols->isNotEmpty())
 				{
-					$data = ($hasPanel === true)? array('fragment'=>$key):null;
-					$r .= Html::divOp(array('panel','data'=>$data));
+					$data = ($hasPanel === true)? ['fragment'=>$key]:null;
+					$r .= Html::divOp(['panel','data'=>$data]);
 					
 					foreach ($cols as $col) 
 					{
@@ -317,14 +317,14 @@ trait _specific
 			$class = (array) $col->classHtml();
 			$class[] = ($col->isRequired())? 'required':null;
 			$class[] = (!empty($popup) || $col->isDate() || $col->isRelation())? 'anchorCorner':null;
-			$class[] = (!empty($popup))? array('hasColPopup'):null;
+			$class[] = (!empty($popup))? ['hasColPopup']:null;
 			$class[] = ($colCell->hasFormLabelId($this->formWrapAttr($colCell),true))? 'pointer':null;
-			$attr = array('element',$class,'data'=>array('col'=>$col));
+			$attr = ['element',$class,'data'=>['col'=>$col]];
 			
 			$detailsHtml = Html::liMany(...$details);
 			$detailsHtml = Html::ulCond($detailsHtml);
 			 
-			$replace = array();
+			$replace = [];
 			$replace['description'] = (!empty($description))? Html::div($description,'description'):'';
 			$replace['popup'] = $popup;
 			$replace['details'] = (!empty($details))? Html::divCond($detailsHtml,'details'):'';
