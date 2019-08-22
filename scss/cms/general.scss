@@ -1,0 +1,611 @@
+// compileOnSave: false
+
+/* TOP */
+.general main .inner > .top .right {
+	> .operation {
+		margin-bottom: 15px;
+		
+		> .truncate {
+			@include inbl();
+			margin-left: 10px;
+		}
+	}
+	
+	> .limit {
+		input[type='text'] {
+			font-size: 90%;
+			width: 40px;
+			padding: 2px 5px;
+			margin-right: 5px;
+			text-align: center;
+		}
+		
+		span {
+			font-size: 90%;
+		}
+	}
+}
+.general main .inner > .top .left .title .countInfo {
+	margin-left: 10px;
+}
+.general main .inner > .top .left .search {
+	padding-top: 10px;
+	
+	> .form {
+		margin-bottom: 5px;
+		
+		> .input {
+			@include inbl();
+			position: relative;
+			margin-right: 10px;
+			
+			input[type='text'] {
+				width: 200px;
+			}
+			
+			> .close {
+				@include abs(-8px,-8px);
+			}
+		}
+	}
+	
+	> .in {
+		display: none;
+		font-size: 90%;
+		
+		div span:first-child {
+			font-weight: bold;
+			margin-right: 3px;
+		}
+	}
+}
+
+
+/* MAIN */
+.general main .inner > .container {
+	margin-bottom: 20px;
+		
+	&.empty {
+		.notFound {
+			margin-bottom: 10px;
+		}
+	}
+	
+	.notFound {
+		@include nothing(true);
+	}
+	
+	.above {
+		.left,
+		.right {
+			@include inbl();
+			width: 50%;
+		}
+		
+		.left {
+			text-align: left;
+		}
+		.right {
+			text-align: right;
+		}
+	}
+	
+	.bellow {
+		.right 
+		{
+			padding: 10px 0;
+			text-align: right;
+		}
+	}
+	
+	.scroller {
+		width: 100%;
+		padding-top: 10px;
+		overflow-y: visible;
+		overflow-x: auto;
+		min-height: 400px;
+	}
+}
+
+
+
+/* TOOL */
+.general main .inner > .container .tool {
+	visibility: hidden;
+	
+	> .icon {
+		@include inbl(bottom);
+		margin-right: 5px;
+	}
+	
+	.multiDelete{
+		@include inbl(bottom);
+	}
+}
+
+
+/* PAGE */
+.general main .inner > .container .pageInput {
+	
+	a {
+		@include inbl(bottom);
+
+		&.prev {
+			margin-right: 5px;
+		}
+		
+		&.next {
+			margin-left: 5px;
+		}
+		
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+	.center {
+		@include inbl(bottom);
+		span {
+			@include inbl(bottom);
+			font-size: 90%;
+		}
+		input[type='text'] {
+			@include inbl(bottom);
+			font-size: 90%;
+			text-align: center;
+			width: 40px;
+			padding: 2px 5px;
+			margin: 0 5px;
+		}
+	}
+}
+
+
+/* TABLE */
+.general main .inner > .container table {
+	@include wh();
+	
+	.bottomLeft .popup,
+	.bottomRight .popup {
+		top: 100%;
+		bottom: inherit;
+	}
+}
+.general main .inner > .container table thead th  {
+	vertical-align: middle;
+	background-color: $color;
+	min-width: 100px;
+	height: 100%;
+	position: relative;
+	
+	&:first-child .in {
+		border-left: 1px solid $darkColor;
+	}
+	
+	.left,
+	.right {
+		@include wh(25px,100%);
+		cursor: pointer;
+	}
+	
+	.in {
+		@include transitions(background-color 0.3s,border 0.3s);
+		display: block;
+		height: 100%;
+		padding: 10px;
+		position: relative;
+		text-align: left;
+		border-right: 1px solid $darkColor;
+		
+		.label {
+			@include inbl();
+			vertical-align: middle;
+			color: $white;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+		}
+	}
+}
+
+
+/* ROWS */
+.general main .inner > .container table thead .rows {
+	width: 40px;
+	min-width: inherit;
+	
+	.in {
+		cursor: pointer;
+		padding: 10px;
+
+		&:hover {
+			background-color: $lightYellow;
+			border-left: 1px solid $lightYellow;
+		}
+		
+		.uncheck {
+			display: none;
+		}
+		
+		&.allChecked {
+			.check {
+				display: none;
+			}
+			
+			.uncheck {
+				display: block;
+			}
+		}
+	}
+}
+
+
+/* ORDER */
+.general main .inner > .container table thead th.orderable {
+	
+	.right {
+		@include abs(0,0);
+		@include transition(background-color);
+		
+		.arrow {
+			@include abs(50%,"","",50%);
+			@include transition(opacity);
+			margin-top: -7px;
+			margin-left: -8px;
+			background-size: inherit;
+			background-position: 0px 0px;
+			display: block;
+			opacity: 0.3;
+		}
+	}
+	
+	.label {
+		padding-right: 25px;
+	}
+	
+	&.asc {
+		.arrow {
+			background-position: 0px -82px;
+		}
+	}
+	&.desc {
+		.arrow {
+			background-position: 0px 0px;
+		}
+	}
+	
+	&:hover,
+	&.ordering {
+		.label {
+			color: $gray;
+		}
+		
+		.right {
+			background-color: $darkerColor;
+			
+			.arrow {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+
+/* FILTER */
+.general main .inner > .container table thead th.filterable {
+	.left {
+		@include abs(0,"","",0);
+		@include wh(30px,100%);
+	}
+	
+	.label {
+		padding-left: 25px;
+	}
+}
+.general main .inner > .container table thead th.filterable .filterOuter {
+	@include transition(background-color);
+	height: 100%;
+	
+	&:hover,
+	&.filtering,
+	&.active {
+		background-color: $lightYellow;
+	}
+	
+	.close {
+		@include abs(-8px,-8px);
+	}
+	
+	.trigger {
+		height: 100%;
+		
+		.filter {
+			@include abs(50%,"","",50%);
+			@include transition(opacity);
+			margin-top: -7px;
+			margin-left: -8px;
+			background-position: 0px 0px;
+			display: block;
+		}
+	}
+	
+	&.loading .popup {
+		min-height: 30px;
+		
+		.top, .result {
+			display: none;
+		}
+	}
+}
+.general main .inner > .container table thead th.filterable .popup {
+	@include clickOpenPopup();
+	
+	ul li {
+		&:first-child > .replace {
+			border-top: 0;
+		}
+		
+		&:hover > .replace {
+			background-color: $lightYellow;
+		}
+		
+		&.hasIcon > .replace {
+			padding-right: 30px;
+		}
+		
+		> .replace {
+			display: block;
+			border-top: 1px solid $lightGray;
+			padding: 5px 10px;
+			cursor: pointer;
+			
+			&.selected {
+				color: $black;
+				background-color: $lightYellow;
+			}
+			
+			.thumbnail {
+				margin-bottom: 3px;
+				text-align: center;
+				
+				img {
+					@include inbl();
+					max-width: 100px;
+				}
+			}
+			
+			.legend {
+				text-align: center;
+				font-size: 80%;
+				word-break: break-all;
+			}
+		}
+	}
+}
+
+
+/* COLS */
+.general main .inner > .container table thead .action {
+	width: 50px;
+	min-width: inherit;
+	
+	.in {
+		padding: 10px;
+		
+		&:hover {
+			background-color: $lightYellow;
+			border-right: 1px solid $lightYellow;
+			
+			.popup {
+				display: block;
+				
+				button {
+					display: none;
+				}
+			}
+		}
+		
+		.popup {
+			width: 300px;
+			overflow: hidden;
+			padding: 0;
+			
+			.inside {
+				height: 250px;
+				padding: 10px 20px 0;
+				overflow-y: scroll;
+				
+				&:after {
+					content: "";
+					height: 10px;
+					display: block;
+				}
+			}
+			
+			&.valid {
+				button {
+					display: block;
+					cursor: pointer;
+				}
+			}
+			
+			&.invalid {
+				label {
+					color: $red;
+				}
+			}
+			
+			.col {
+				padding: 2px 0;
+				
+				input[type='checkbox'] {
+					@include inbl();
+					margin-right: 10px;
+				}
+				
+				label {
+					@include inbl();
+				}
+			}
+		}
+	}
+}
+.general main .inner > .container table tbody {
+	tr {
+		&:hover {
+			background-color: $lighterGray !important;
+		}
+		&:nth-child(even) {
+			background-color: $lightestGray;
+		}
+		&.highlight {
+			background-color: $lightGrayAlt !important;
+		}
+		&.selected {
+			background-color: $lightYellow !important;
+		}
+		
+		td:first-child .in {
+			border-left: 1px solid $lighterGray;
+		}
+	}
+	td {
+		height: 100%;
+		
+		.in {
+			@include transition(background-color);
+			border-right: 1px solid $lighterGray;
+			border-bottom: 1px solid $lighterGray;
+			height: 100%;
+			min-height: 15px;
+			padding: 8px 10px;
+			font-size: 90%;
+			color: $black;
+			display: block;
+			position: relative;
+			
+			a {
+				display: block;
+				color: $black;
+				
+				.thumbnail {
+					margin-bottom: 3px;
+					text-align: center;
+					
+					img {
+						max-width: 100px;
+					}
+				}
+				
+				&:hover {
+					color: $darkGray;
+					text-decoration: underline;
+					
+					.thumbnail {
+						opacity: 0.8;
+					}
+				}
+			}
+			
+			.legend {
+				font-size: 80%;
+				text-align: center;
+			}
+		}
+		
+		&.primary a {
+			display: block;
+			padding: 8px 10px;
+		}
+	}
+}
+.general main .inner > .container table tbody td .in .relation {
+	a {
+		display: inline;
+	}
+}
+.general main table td .media {
+	text-align: center;
+	
+	.mediaPlaceholder {
+		@include wh(64px);
+		margin: auto;
+		margin-bottom: 3px;
+	}
+	
+	img {
+		max-width: 100px;
+	}
+}
+.general main .inner > .container table tbody td.rows {
+	width: 40px;
+	min-width: inherit;
+	text-align: center;
+	
+	.in {
+		padding: 0;
+	}
+	
+	input[type='checkbox'] {
+		@include inbl();
+		@include abs(50%,"","",50%);
+		@include wh(12px);
+		margin-top: -6px;
+		margin-left: -6px;
+		text-align: center;
+	}
+}
+.general main .inner > .container table tbody td.rows,
+.general main .inner > .container table tbody td.primary,
+.general main .inner > .container table tbody td.action {
+	.in {
+		&:hover {
+			background-color: $lightYellow;
+		}
+	}
+}
+.general main .inner > .container table tbody td.action {
+	width: 50px;
+	min-width: inherit;
+	
+	.in {
+		padding: 0;
+	}
+}
+
+
+/* RESPONSIVE */
+@media screen and (max-width: 900px), screen and (orientation: portrait) { 
+	.general main .inner > .container {
+		margin-bottom: 0;
+	}
+	
+	.general main .inner > .container .above .left,
+	.general main .inner > .container .above .right,
+	.general main .inner > .container .bellow .left,
+	.general main .inner > .container .bellow .right {
+		@include responsiveBlock();
+		text-align: left;
+		margin-top: 5px;
+	}
+}
+
+
+/* PRINT */
+@media print {
+	.general main .inner > .top .left .search,
+	.general main .inner > .container .above,
+	.general main .inner > .container .bellow,
+	.general main .inner > .container table thead th.filterable .left,
+	.general main .inner>.container table thead th.orderable .right,
+	.general main .inner > .container table tr > *:first-child,
+	.general main .inner > .container table tr > *:last-child {
+		display: none !important;
+	}
+	
+	.general main .inner > .container table thead th.orderable.ordering .right {
+		display: block !important;
+	}
+	
+	.general main .inner > .container table thead th.filterable .label {
+		padding-left: 0;
+	}
+}

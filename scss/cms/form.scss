@@ -1,0 +1,368 @@
+// compileOnSave: false
+
+/* EXCEPTION */
+.specific #wrapper main .element.exception {
+	background-color: $red;
+	color: $white;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+/* DATE */
+.specific main .element.date .right {
+	position: relative;
+	
+	.popup {
+		width: 250px;
+		padding: 0;
+		border: 0;
+		overflow: hidden;
+		
+		&:after {
+			display: none;
+		}
+	}
+}
+
+
+/* CHANGE PASSWORD */
+.specific main .element.userPassword .right {
+	input[type='password']:first-child {
+		margin-bottom: 10px;
+	}
+}
+
+
+/* MEDIA */
+.specific main .element.media .right .block,
+.specific main .element.medias .right .block {
+	@include inbl();
+	width: 450px;
+	background-color: $white;
+	border-radius: 5px;
+	position: relative;
+	border: 1px solid $lightGray;
+	
+	&.withAction {
+		.info,
+		.actions,
+		.versions {
+			display: none;
+		}
+		
+		.form .message {
+			display: block;
+		}
+	}
+	
+	.count {
+		@include abs(8px,7px);
+		@include wh(24px);
+		background-color: $white;
+		text-align: center;
+		font-weight: bold;
+		border-radius: 50%;
+		border: 1px solid $lightestGray;
+	}
+	
+	.actions {
+		@include abs(-12px,-8px);
+		
+		> .action {
+			@include inbl();
+			margin-left: 4px;
+		}
+	}
+	
+	.form {
+		background-color: $lightGray;
+		padding: 10px;
+		
+		.message {
+			display: none;
+			text-align: center;
+			font-weight: bold;
+			
+			.actionText {
+				@include inbl(top);
+			}
+			
+			.close {
+				margin-left: 4px;
+				@include inbl(top);
+			}
+		}
+	}
+}
+.specific main .element.media .right .block .info,
+.specific main .element.medias .right .block .info {
+	padding: 10px;
+	font-size: 90%;
+	text-align: left;
+	text-align: center;
+	
+	> a {
+		@include inbl();
+		
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+	
+	.mediaPlaceholder {
+		@include wh(64px);
+		margin: auto;
+	}
+	
+	img {
+		max-width: 100px;
+		min-width: 50px;
+		display: block;
+		margin: auto;
+		margin-bottom: 10px;
+	}
+	
+	.line {
+		
+		.notFound {
+			@include nothing();
+			margin-bottom: 3px;
+		}
+		
+		.filename {
+			@include inbl();
+		}
+		a.filename {
+			text-decoration: underline;
+		}
+		
+		.filesize {
+			@include inbl();
+			margin-left: 10px;
+			font-weight: bold;
+		}
+	}
+}
+.specific main .element.media .right .block .versions,
+.specific main .element.medias .right .block .versions {
+	padding: 10px;
+	background-color: $lightestGray;
+	font-size: 90%;
+	
+	> ul {
+		@include ulOlMargin();
+		
+		> li {
+			padding-top: 5px;
+			
+			&:first-child {
+				padding-top: 0;
+			}
+			
+			> span.notFound,
+			> span.filesize {
+				margin-left: 5px;
+				font-weight: bold;
+			}
+			
+			> a {
+				text-decoration: underline;
+				margin-left: 5px;
+			}
+		}
+	}
+}
+.specific main .element.medias .right .block {
+	margin: 10px 10px 0 0;
+	
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+
+/* SEARCH ENUMSET */
+.specific main .element .right .searchEnumSet {
+	@include enumSet();
+	
+	&.loading .popup .order {
+		display: none;
+	}
+	
+	.input {
+		padding-top: 5px;
+		margin-bottom: 5px;
+		
+		input[type='text'] {
+			max-width: 300px !important;
+			margin-right: 10px;
+		}
+		
+		.popup {
+			padding: 0;
+			width: 350px;
+			max-width: 350px;
+			max-height: 300px;
+			
+			&:after {
+				display: none;
+			}
+			
+			> .order {
+				text-align: center;
+				padding: 5px 0;
+				
+			}
+			> .results > ul {
+				list-style-type: none;
+				text-indent: 0;
+				padding: 0;
+				
+				> li {
+					
+					&:first-child .label {
+						border-top: 0;
+					}
+					
+					.label {
+						border-top: 1px solid $gray;
+						
+						.thumbnail {
+							margin-bottom: 3px;
+							text-align: center;
+							
+							img {
+								max-width: 100px;
+							}
+						}
+						
+						.legend {
+							text-align: center;
+						}
+					}
+				}
+			}
+			
+			.loadMore {
+				@include loadMore();
+			}
+		}
+	}
+}
+.specific main .element.enum .right,
+.specific main .element.set .right  {
+	.thumbnail {
+		margin-bottom: 3px;
+		
+		img {
+			max-width: 100px;
+			pointer-events: none;
+		}
+	}
+}
+
+
+/* CHECKBOX SORTABLE */
+.specific main .container .form .element.sortable .right .choice {
+	.choiceInner {
+		@include inbl();
+		
+		&:hover {
+			background-color: $lightYellow;
+		}
+		
+		.move {
+			margin-right: 10px;
+			
+			&:hover {
+				cursor: move;
+			}
+		}
+	}
+}
+
+
+/* TABLE RELATION */
+.specific main .element.tableRelation .right .relations {
+	text-align: center;
+	
+	.clickOpen {
+		margin: 3px;
+		
+		> .trigger {
+			border: 1px solid $gray;
+		}
+	}
+}
+.specific main .element.tableRelation .right .relations .clickOpen .popup .result ul li {
+	border-top: 1px solid $lightGray;
+	
+	&:first-child {
+		border-top: 0;
+	}
+	
+	.insert {
+		padding: 5px 10px;
+		cursor: pointer;
+		
+		.bigIcon {
+			@include wh(64px);
+			margin: auto;
+			margin-bottom: 3px;
+			background-size: contain;
+		}
+		
+		&:hover {
+			background-color: $lightYellow;
+		}
+	}
+}
+.specific main .element.tableRelation .right .relations .clickOpen .popup .result ul li .medias {
+	> .legend {
+		background-color: $lightGray;
+		text-align: center;
+		font-size: 90%;
+		font-weight: bold;
+		padding: 5px 0;
+		border-top: 1px solid $gray;
+		border-bottom: 1px solid $gray;
+	}
+	
+	.insert {
+		margin-bottom: 10px;
+		text-align: center;
+		
+		img {
+			margin-bottom: 3px;
+			@include inbl();
+			max-width: 100px;
+		}
+		
+		.legend {
+			font-style: italic;
+			font-size: 80%;
+		}
+	}
+}
+
+
+/* JSON ARRAY */
+.specific main .element.jsonArray {
+	@include jsonArrayBase();
+}
+
+
+/* PRINT */
+@media print {
+	.specific main .element.media .right .block.empty,
+	.specific main .element.medias .right .block.empty,
+	.specific main .element.media .right .block .actions,
+	.specific main .element.medias .right .block .actions,
+	.specific main .element.media .right .block .form,
+	.specific main .element.medias .right .block .form,
+	.specific main .element .right .searchEnumSet .input,
+	.specific main .element.sortable .move {
+		display: none !important;
+	}
+}

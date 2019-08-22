@@ -1,0 +1,229 @@
+// compileOnSave: false
+
+// jsBox
+@mixin jsBox()
+{
+	.jsBox {
+		@include fixed(0,"","",0);
+		@include wh(100%);
+		z-index: 999;
+		display: none;
+		
+		&.loading .inner {
+			background-position: center;
+		}
+		
+		> .background {
+			height: 100%;
+			background-color: rgba(0,0,0,0.3);
+		}
+	}
+	.jsBox .outer {
+		@include abs(20%,"","",20%);
+		@include wh(60%);
+		
+		> .box {
+			height: 100%;
+			background-color: $white;
+			position: relative;
+			
+			> .close {
+				z-index: 10;
+			}
+			
+			> .inner {
+				height: 100%;
+			}
+		}
+	}
+}
+
+
+// basePopup
+@mixin basePopup()
+{
+	.topRight .popup {
+		left: auto;
+		right: 0;
+	}
+	.bottomLeft .popup {
+		top: auto;
+		bottom: 100%;
+	}
+	.bottomRight .popup {
+		top: auto;
+		left: auto;
+		right: 0;
+		bottom: 100%;
+	}	
+	.popup {
+		@include abs(100%,"","",0px);
+		display: none;
+	}
+}
+
+
+// clickOpen
+@mixin clickOpen()
+{
+	@include inbl();
+	position: relative;
+	min-width: 150px;
+	
+	&.invalid {
+		
+		> .trigger {
+			background-color: $red;
+			color: $white;
+			border: 1px solid $red;
+		}
+	}
+	
+	> .trigger {
+		@include transitions(background-color 0.3s,color 0.3s);
+		position: relative;
+		padding: 5px 40px 5px 12px;
+		cursor: pointer;
+		background-color: $white;
+		border: 1px solid $lightestGray;
+		border-radius: 5px;
+		
+		> .title {
+			text-align: left;
+			font-size: 90%;
+		}
+		
+		> .ico {
+			@include abs(50%,10px);
+			@include wh(12px,true,"",true);
+			background-size: contain;
+		}
+	}
+	
+	&.active > .trigger,
+	> .trigger:hover {
+		color: $black !important;
+		background-color: $lightYellow !important;
+	}
+	
+	&.active > .popup {
+		display: block;
+	}
+	
+	> .popup {
+		width: 100%;
+		display: none;
+		text-align: left;
+		max-height: 250px;
+		overflow-y: auto;
+		z-index: 100;
+		border-radius: 5px;
+	}
+	
+	&.topRight > .popup,
+	&.topLeft > .popup {
+		border-top: 0;
+	}
+}
+
+
+// enumSet
+@mixin enumSet()
+{
+	.nothing {
+		font-weight: bold;
+		font-size: 90%;
+	}
+	
+	.input {
+		position: relative;
+		
+		.popup {
+			
+			h3 {
+				text-align: center;
+				padding: 5px;
+			}
+			
+			li {
+				@include enumSetLi();
+			}
+		}
+	}
+	
+	.loadMore {
+		text-align: center;
+		padding: 5px;
+		cursor: pointer;
+	}
+}
+
+
+// enumSetLi
+@mixin enumSetLi()
+{
+	padding: 0px;
+	
+	.label {
+		cursor: pointer;
+		padding: 5px 10px;
+	}
+	
+	&.alreadyIn .label {
+		background-color: $red !important;
+		color: $white;
+	}
+	
+	&.selected .label,
+	&:hover .label {
+		background-color: $lightYellow;
+	}
+}
+
+
+// mediaSlide
+@mixin mediaSlide($maxWidth,$paddingBottom)
+{
+	display: none;
+	
+	&.active {
+		display: block;
+		
+		.wrap {
+			&.photo {
+				@include fadeIn(1s);
+			}
+			
+			&.video {
+				opacity: 1;
+			}
+		}
+	}
+	
+	.wrap {
+		opacity: 0;
+		max-width: $maxWidth;
+		margin: auto;
+		
+		.ratio {
+			width: 100%;
+			padding-bottom: $paddingBottom;
+			position: relative;
+			
+			.media {
+				@include abs(0,"","",0);
+				@include wh(100%);
+				text-align: center;
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				
+				iframe {
+					@include wh(100% !important);
+					display: block;
+					margin: auto;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,246 @@
+// compileOnSave: false
+
+/* NOBODY */
+.nobody {
+	@include cover();
+	background-attachment: fixed;
+	
+	main {
+		display: flex;
+		flex-direction: column;
+		padding: 0 20px;
+		
+		.inner {
+			@include flexCenter();
+			min-height: 100vh;
+			padding: 60px 0;
+		}
+	}
+	
+	header {
+		@include abs("",20px,40px);
+		z-index: 1;
+		
+		.logo {
+			display: block;
+			
+			img {
+				max-width: 180px;
+				display: block;
+			}
+			
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}
+.nobody main .box {
+	background-color: $color;
+	width: 525px;
+	padding: 25px 0 15px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px 2px $color;
+	
+	.hgroup {
+		padding: 0 25px;
+		margin-bottom: 10px;
+		
+		h1 {
+			margin-bottom: 2px;
+			> a {
+				color: $white;
+				
+				&:hover {
+					color: $lightGray;
+				}
+			}
+		}
+		
+		h2 {
+			color: $lightGray;
+			margin-bottom: 2px;
+		}
+		
+		h3 {
+			color: $gray;
+		}
+	}
+}
+.nobody main .box .browscap {
+	padding: 0 25px;
+	
+	> noscript,
+	> .cookie {
+		background-color: $red;
+		color: $white;
+		padding: 10px;
+		border-radius: 5px;
+	}
+	
+	> noscript {
+		display: block;
+	}
+	
+	> .cookie {
+		display: none;
+	}
+}
+.nobody main .box .form {
+	@include tableForm($white,$gray);
+	padding: 10px 25px;
+	margin-bottom: 10px;
+}
+.nobody main .box .form .top {
+	margin-bottom: 10px;
+}
+.nobody main .box .form .bottom {
+	padding-top: 10px;
+	text-align: right;
+}
+.nobody main .box .buttons {
+	padding: 10px 25px 0;
+	border-top: 1px solid $darkerColor;
+	
+	&.amount-1 .button {
+		@include inbl(middle,100%);
+	}
+	&.amount-2 .button {
+		@include inbl(middle,50%);
+	}
+	&.amount-3 .button {
+		@include inbl(middle,33%);
+		
+		&:first-child {
+			width: 34%;
+		}
+	}
+	
+	.button {
+		padding-left: 10px;
+		
+		> a {
+			border-radius: 5px;
+			font-size: 90%;
+			padding: 5px;
+			display: block;
+			text-align: center;
+			background-color: $darkColor;
+			color: $white;
+			
+			&:hover {
+				background-color: $darkerColor;
+			}
+		}
+		
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}
+
+
+/* LOGIN */
+.login main .box form {
+	.bottom {
+		.left {
+			@include inbl();
+			width: 50%;
+			text-align: left;
+			
+			label {
+				font-size: 90%;
+			}
+			input {
+				@include inbl();
+				margin-right: 8px;
+			}
+		}
+		
+		.right {
+			@include inbl();
+			width: 50%;
+		}
+	}
+}
+
+
+/* RESET PASSWORD */
+.resetPassword main .box form {
+	.info {
+		color: $lightGray;
+		font-size: 90%;
+	}
+}
+
+
+/* REGISTER */
+.register main .box form {
+	.part {
+		padding-top: 5px;
+		margin-top: 5px;
+		border-top: 1px solid $darkColor;
+		
+		&:first-child {
+			padding-top: 0;
+			margin-top: 0;
+			border-top: 0;
+		}
+	}
+}
+
+
+/* RESPONSIVE */
+@media screen and (max-width: 900px), screen and (orientation: portrait) { 
+	.nobody header {
+		position: static;
+		padding: 10px 20px;
+		text-align: center;
+		
+		.logo {
+			@include inbl();
+		}
+	}
+	
+	.nobody main {
+		display: block;
+		
+		.inner {
+			display: block;
+			min-height: 0;
+			padding: 20px 0;
+			
+			.box {
+				width: 100%;
+				
+				.table,
+				.table-row,
+				.table-cell {
+					@include responsiveBlock(true);
+				}
+				
+				.table-cell {
+					padding: 0 0 5px 0 !important;
+					
+					&.label-cell {
+						padding-top: 5px !important;
+					}
+				}
+				
+				.form .bottom .left,
+				.form .bottom .right {
+					@include responsiveBlock();
+				}
+				
+				.buttons .button {
+					@include responsiveBlock(true);
+					margin-top: 10px !important;
+					
+					&:first-child {
+						margin-top: 0 !important;
+					}
+				}
+			}
+		}
+	}
+}

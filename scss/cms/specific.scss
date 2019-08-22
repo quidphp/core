@@ -1,0 +1,338 @@
+// compileOnSave: false
+
+/* TOP */
+.specific main .inner > .top .left {
+	.countInfo {
+		margin-left: 10px;
+	}
+	
+	.popup span {
+		font-weight: normal;
+	}
+}
+.specific main .inner > .top .right .nav {
+	@include specificNav();
+	
+	> .count.withPopup:hover {
+		background-color: $color;
+		color: $white;
+		border-radius: 5px;
+		
+		.popup {
+			display: block;
+		}
+	}
+}
+
+
+/* CONTAINER */
+.specific main .inner > .container {
+	position: relative;
+}
+.specific main .inner > .container .form form button.hidden {
+	visibility: hidden;
+	@include abs(-100%,"","",-100%);
+}
+.specific main .inner > .container .form > .top,
+.specific main .inner > .container .form form > .top {
+	margin-bottom: 15px;
+	
+	.left {
+		@include inbl(top);
+		width: 70%;
+	}
+	
+	.right {
+		text-align: right;
+		@include inbl(top);
+		width: 30%;
+	}
+}
+.specific main .inner > .container .form > .top .left,
+.specific main .inner > .container .form form > .top .left {
+	> ul {
+		list-style-type: none;
+		
+		li {
+			@include inbl();
+			
+			a {
+				@include panelButton();
+				
+				h3 {
+					font-size: 90%;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+	
+	.description {
+		padding-top: 10px;
+		font-size: 90%;
+	}
+}
+.specific main .inner > .container .form > .top .right,
+.specific main .inner > .container .form form > .top .right {
+	a,
+	button[type='submit'] {
+		margin-left: 10px;
+	}
+}
+.specific main .inner > .container .form > .inside,
+.specific main .inner > .container .form form > .inside {
+	margin-bottom: 20px;
+}
+
+
+/* ELEMENT */
+.specific main .inner > .container .form .panel .element {
+	background-color: $lightestGray;
+	border: 1px solid $lightGray;
+	margin-top: 20px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 6px -2px $gray;
+	
+	&:first-child {
+		margin-top: 0;
+	}
+	
+	&.required {
+		.left label {
+			text-decoration: underline;
+		}
+	}
+}
+
+
+/* LEFT */
+.specific main .inner > .container .form .panel .element > .left {
+	@include inbl(middle,30%);
+	padding: 5px 20px 5px 0;
+	position: relative;
+	
+	.label {
+		@include inbl();
+		position: relative;
+		margin-bottom: 3px;
+		padding: 0 5px;
+		
+		label {
+			@include inbl();
+			font-weight: bold;
+			cursor: default;
+			
+			&:hover {
+				color: inherit;
+			}
+		}
+	}
+	
+	.description {
+		padding: 0 5px;
+		font-size: 90%;
+	}
+	
+	.details {
+		padding: 5px;
+		font-size: 90%;
+		
+		> ul {
+			@include ulOlMargin();
+			
+			li {
+				padding: 1px 0;
+			}
+		}
+	}
+}
+.specific main .inner > .container .form .panel .element.pointer > .left label {
+	cursor: pointer;
+	
+	&:hover {
+		color: $darkGray;
+	}
+}
+.specific main .inner > .container .form .panel .element.hasColPopup > .left {
+	
+	.label.hover {
+		background-color: $color;
+		border-radius: 5px;
+		
+		label {
+			color: $white;
+		}
+		
+		.popup {
+			display: block;
+		}
+	}
+}
+
+
+/* RIGHT */
+.specific main .inner > .container .form .element > .right {
+	@include inbl(middle,70%);
+	padding: 5px 0;
+	position: relative;
+	
+	> div.nothing {
+		@include nothing();
+	}
+	
+	> iframe {
+		width: 100%;
+		height: 350px;
+		border: 1px solid $gray;
+		background-color: $white;
+	}
+	
+	a {
+		color: $black;
+		
+		&:hover {
+			color: $darkGray;
+			text-decoration: underline;
+		}
+	}
+	
+	.choice {
+		@include inputChoice();
+		padding: 5px 0;
+		
+		label:hover {
+			background-color: $lightYellow;
+		}
+	}
+
+	input[type='text'],
+	input[type='email'],
+	input[type='password'] {
+		width: 100%;
+		max-width: 1000px;
+	}
+	
+	textarea {
+		@include wh(100%,200px);
+		display: block;
+		max-width: 1000px;
+	}
+	
+	.underInput {
+		padding-top: 10px;
+		font-size: 90%;
+	}
+}
+.specific main .inner > .container .form .element > .right .relationPlain {
+	margin-top: 5px;
+	
+	a {
+		@include inbl();
+	}
+	
+	.legend {
+		font-size: 80%;
+	}
+	
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+
+/* BOTTOM */
+.specific main .inner > .container .form > .bottom,
+.specific main .inner > .container .form > form > .bottom {
+	margin-bottom: 20px;
+	text-align: center;
+	
+	.left {
+		@include inbl(middle,33%);
+		text-align: left;
+	}
+	.center {
+		@include inbl(middle,34%);
+		text-align: center;
+	}
+	.right {
+		@include inbl(middle,33%);
+		text-align: right;
+	}
+	
+	button[type='submit'] {
+		margin: 0 5px;
+	}
+}
+
+
+/* RESPONSIVE */
+@media screen and (max-width: 900px), screen and (orientation: portrait) { 
+	.specific main .inner >.container .form > .top .left, 
+	.specific main .inner>.container .form form >.top .left,
+	.specific main .inner >.container .form > .top .right, 
+	.specific main .inner>.container .form form >.top .right {
+		@include responsiveBlock();
+		
+		&.left {
+			margin-bottom: 10px;
+		}
+	}
+	
+	.specific main .inner>.container .form .panel .element {
+		padding: 10px;
+		
+		> .left {
+			@include responsiveBlock();
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid $lightGray;
+		}
+		
+		> .right {
+			@include responsiveBlock();
+			padding: 5px;
+		}
+	}
+	
+	.specific main .inner > .container .form > .bottom,
+	.specific main .inner > .container .form > form > .bottom {
+		margin: 0;
+		
+		.left,
+		.center,
+		.right {
+			@include responsiveBlock();
+			text-align: center;
+			
+			&.left {
+				display: none;
+			}
+			
+			&.right {
+				margin-top: 10px;
+			}
+		}
+	}
+}
+
+
+/* PRINT */
+@media print {
+	.specific main .inner > .container .top,
+	.specific main .inner > .container .bottom {
+		display: none !important;
+	}
+	
+	.specific main .inner > .container .panel  {
+		display: block !important;
+	}
+	
+	.specific main .inner > .container .form .element {
+		background-color: $white !important;
+		
+		&:first-child {
+			margin-top: 20px !important;
+		}
+	}
+}

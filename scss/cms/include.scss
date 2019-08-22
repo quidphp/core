@@ -1,0 +1,360 @@
+// compileOnSave: false
+
+// var
+$font: 'Helvetica Neue', 'Helvetica', sans-serif;
+$color: #2a2b69;
+$darkColor: #181844;
+$darkerColor: #000;
+$lightGrayAlt: #D3ECFF;
+$lighterGray: #eee;
+$lightestGray: #f7f7f7;
+$lightGray: #ddd;
+$gray: #bbb;
+$darkGray: #555;
+$lightYellow: #f9fdd8;
+$green: #579758;
+$red: #8d1e2d;
+
+
+// nothing
+@mixin nothing($center:'')
+{
+	display: block;
+	font-weight: bold;
+	
+	@if($center != '')
+	{
+		text-align: center;
+	}
+}
+
+
+// ulOlMargin
+@mixin ulOlMargin()
+{
+	margin-left: 1.7rem;
+}
+
+
+// panelButton
+@mixin panelButton()
+{
+	@include inbl();
+	padding: 5px 15px;
+	margin: 0 5px 5px 0;
+	background-color: $gray;
+	border: 1px solid $lightGray;
+	border-radius: 5px;
+	text-transform: uppercase;
+	cursor: pointer;
+	@include transitions(color 0.3s,background-color 0.3s,border 0.3s);
+	
+	&:hover,
+	&.selected {
+		background-color: $color;
+		border: 1px solid $darkColor;
+		color: $white;
+	}
+}
+
+
+// jqueryUi
+@mixin jqueryUi()
+{
+	.ui-draggable-handle {
+		-ms-touch-action: none;
+		touch-action: none;
+	}
+	.ui-selectable {
+		-ms-touch-action: none;
+		touch-action: none;
+	}
+	.ui-selectable-helper {
+		@include abs();
+		z-index: 100;
+		border: 1px dotted black;
+	}
+	.ui-sortable-handle {
+		-ms-touch-action: none;
+		touch-action: none;
+	}
+}
+
+
+// loadMore
+@mixin loadMore()
+{
+	@include transitions(color 0.3s);
+	text-align: center;
+	padding: 5px;
+	cursor: pointer;
+	background-color: $gray;
+	font-weight: bold;
+	
+	&:hover {
+		background-color: $darkGray;
+		color: $white;
+	}
+	
+	&.loading {
+		background-position: center;
+		background-color: $white;
+		
+		.text {
+			visibility: hidden;
+		}
+	}
+}
+
+
+// clickOpenPopup
+@mixin clickOpenPopup()
+{
+	width: 350px;
+	max-width: 350px;
+	max-height: 300px;
+	cursor: default;
+	padding: 0;
+	
+	&:after {
+		height: 0;
+	}
+	
+	.top {
+		padding: 10px;
+		display: block;
+		
+		input[type='text'] {
+			width: 100%;
+		}
+		
+		.spacing {
+			height: 5px;
+		}
+		
+		.order {
+			text-align: center;
+		}
+	}
+	
+	h3 {
+		padding: 5px;
+		text-align: center;
+	}
+	
+	.result {
+		display: block;
+		
+		ul {
+			list-style-type: none;
+			
+			&.selectedList {
+				background-color: black;
+				border-bottom: 4px solid $lightGray;
+			}
+			
+			> li {
+				position: relative;
+				
+				a.icon {
+					@include abs(50%,5px);
+					@include wh(16px,true,"",true);
+					
+					&:hover {
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+	}
+	
+	.loadMore {
+		@include loadMore();
+	}
+}
+
+
+// specificNav
+@mixin specificNav()
+{
+	@include inbl();
+	background-color: $lightestGray;
+	border: 1px solid $lightGray;
+	padding: 5px 10px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 6px -2px $gray;
+	
+	> a {
+		@include inbl();
+		color: $black;
+		font-weight: bold;
+		margin: 0 8px;
+		font-size: 90%;
+		
+		&:hover {
+			color: $darkGray;
+		}
+	}
+	
+	> .count {
+		@include inbl();
+		position: relative;
+		padding: 0px 8px;
+		
+		> span.count {
+			font-size: 90%;
+		}
+	}
+}
+
+
+// inputChoice
+@mixin inputChoice()
+{
+	input[type='radio'],
+	input[type='checkbox'] {
+		@include inbl();
+		margin-right: 6px;
+	}
+	
+	input[type='radio']+label,
+	input[type='checkbox']+label {
+		@include inbl();
+		cursor: pointer;
+	}
+}
+
+
+// wysiwyg
+@mixin wysiwyg()
+{
+	ul {
+		 @include ulOlMargin();
+		
+		> li {
+			padding: 2px 0;
+		}
+	}
+	
+	a {
+		color: $color;
+		
+		&:hover {
+			color: $darkGray;
+		}
+	}
+}
+
+
+// tableForm
+@mixin tableForm($color,$labelHover)
+{
+	label {
+		color: $color;
+		
+		&[for]:hover {
+			color: $labelHover;
+		}
+	}
+	
+	.required label:before {
+		content: "* "
+	}
+	
+	textarea,
+	select,
+	input[type='text'],
+	input[type='email'],
+	input[type='password'] {
+		display: block;
+		width: 100%;
+	}
+	
+	textarea {
+		height: 100px;
+	}
+	
+	.choice {
+		@include inputChoice();
+	}
+	
+	.table {
+		width: 100%;
+		
+		.table-cell {
+			padding: 10px 0 5px;
+			
+			&.label-cell {
+				padding-right: 10px;
+			}
+		}
+		
+		.table-cell:first-child {
+			width: 40%;
+		}
+	}
+}
+
+
+// jsonArrayBase
+@mixin jsonArrayBase()
+{
+	.right > .container > .ele {
+		position: relative;
+		margin-bottom: 10px;
+		
+		> .current {
+			@include inbl();
+			width: 85%;
+		}
+		
+		> .utils {
+			@include inbl();
+			width: 15%;
+			padding-left: 10px;
+			text-align: right;
+			
+			> .outer {
+				@include inbl();
+				background-color: $lightGray;
+				padding: 5px 10px;
+				border-radius: 3px;
+				text-align: center;
+				
+				> .icon {
+					margin-left: 10px;
+					
+					&.move {
+						cursor: move;
+					}
+					
+					&:first-child {
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+	
+	.right > .insert {
+		@include transitions(background-color 0.3s);
+		padding: 5px;
+		text-align: center;
+		background-color: $lightGray;
+		cursor: pointer;
+		border-radius: 3px;
+
+		> span {
+			@include inbl();
+			font-weight: bold;
+			
+			&.icon {
+				margin-left: 10px;
+			}
+		}
+
+		&:hover {
+			background-color: $gray;
+		}
+	}
+}
