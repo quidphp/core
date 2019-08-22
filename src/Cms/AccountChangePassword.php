@@ -30,7 +30,7 @@ class AccountChangePassword extends Core\Route\AccountChangePassword
 	// attribut pour le bouton submit du formulaire
 	public function submitAttr() 
 	{
-		return array('icon','modify','padLeft');
+		return ['icon','modify','padLeft'];
 	}
 	
 	
