@@ -7,21 +7,21 @@ use Quid\Core;
 class Cron extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'ignore'=>true,
 		'permission'=>90,
-		'can'=>array(
-			'login'=>array('app'=>false,'cms'=>false)),
-		'db'=>array(
-			'*'=>array(
+		'can'=>[
+			'login'=>['app'=>false,'cms'=>false]],
+		'db'=>[
+			'*'=>[
 				'insert'=>true,
 				'update'=>true,
 				'delete'=>true,
 				'create'=>true,
 				'alter'=>true,
 				'truncate'=>true,
-				'drop'=>true))
-	);
+				'drop'=>true]]
+	];
 }
 
 // config

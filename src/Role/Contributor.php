@@ -7,47 +7,47 @@ use Quid\Core;
 class Contributor extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'ignore'=>true,
 		'permission'=>50,
-		'can'=>array(
-			'login'=>array('app'=>true,'cms'=>true)),
-		'db'=>array(
-			'*'=>array(
+		'can'=>[
+			'login'=>['app'=>true,'cms'=>true]],
+		'db'=>[
+			'*'=>[
 				'rows'=>false,
 				'in'=>false,
 				'notIn'=>false,
 				'insert'=>true,
 				'update'=>true,
-				'delete'=>true),
-			'user'=>array(
-				'add'=>false),
-			'session'=>array(
-				'view'=>false),
-			'lang'=>array(
-				'view'=>false),
-			'redirection'=>array(
-				'view'=>false),
-			'email'=>array(
-				'view'=>false),
-			'option'=>array(
-				'view'=>false),
-			'queueEmail'=>array(
-				'view'=>false),
-			'log'=>array(
-				'view'=>false),
-			'logEmail'=>array(
-				'view'=>false),
-			'logCron'=>array(
-				'view'=>false),
-			'logError'=>array(
-				'view'=>false),
-			'logHttp'=>array(
-				'view'=>false),
-			'logSql'=>array(
-				'view'=>false)
-		)
-	);
+				'delete'=>true],
+			'user'=>[
+				'add'=>false],
+			'session'=>[
+				'view'=>false],
+			'lang'=>[
+				'view'=>false],
+			'redirection'=>[
+				'view'=>false],
+			'email'=>[
+				'view'=>false],
+			'option'=>[
+				'view'=>false],
+			'queueEmail'=>[
+				'view'=>false],
+			'log'=>[
+				'view'=>false],
+			'logEmail'=>[
+				'view'=>false],
+			'logCron'=>[
+				'view'=>false],
+			'logError'=>[
+				'view'=>false],
+			'logHttp'=>[
+				'view'=>false],
+			'logSql'=>[
+				'view'=>false]
+		]
+	];
 }
 
 // config
