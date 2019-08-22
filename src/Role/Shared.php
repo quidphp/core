@@ -7,12 +7,12 @@ use Quid\Core;
 class Shared extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'ignore'=>true,
 		'permission'=>10,
-		'can'=>array(
-			'login'=>array('app'=>true,'cms'=>false))
-	);
+		'can'=>[
+			'login'=>['app'=>true,'cms'=>false]]
+	];
 }
 
 // config

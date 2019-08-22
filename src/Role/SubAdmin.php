@@ -7,15 +7,15 @@ use Quid\Core;
 class SubAdmin extends Core\RoleAlias
 {
 	// config
-	public static $config = array(
+	public static $config = [
 		'ignore'=>true,
 		'permission'=>70,
-		'can'=>array(
-			'home'=>array(
-				'infoPopup'=>true),
-			'login'=>array('app'=>true,'cms'=>true)),
-		'db'=>array(
-			'*'=>array(
+		'can'=>[
+			'home'=>[
+				'infoPopup'=>true],
+			'login'=>['app'=>true,'cms'=>true]],
+		'db'=>[
+			'*'=>[
 				'insert'=>true,
 				'update'=>true,
 				'delete'=>true,
@@ -25,33 +25,33 @@ class SubAdmin extends Core\RoleAlias
 				'drop'=>true,
 				'infoPopup'=>true,
 				'mediaRegenerate'=>true,
-				'colPopup'=>array(
+				'colPopup'=>[
 					'name','required','unique','editable','pattern','preValidate','validate','compare','type','length','unsigned',
-					'default','acceptsNull','collation','orderable','filterable','searchable','priority','classCol','classCell')),
-			'user'=>array(
+					'default','acceptsNull','collation','orderable','filterable','searchable','priority','classCol','classCell']],
+			'user'=>[
 				'export'=>true,
-				'userWelcome'=>true),
-			'lang'=>array(
-				'export'=>true),
-			'redirection'=>array(
-				'export'=>true),
-			'queueEmail'=>array(
-				'add'=>false),
-			'session'=>array(
-				'add'=>false),
-			'log'=>array(
-				'add'=>false),
-			'logEmail'=>array(
-				'add'=>false),
-			'logCron'=>array(
-				'add'=>false),
-			'logError'=>array(
-				'add'=>false),
-			'logHttp'=>array(
-				'add'=>false),
-			'logSql'=>array(
-				'add'=>false))
-	);
+				'userWelcome'=>true],
+			'lang'=>[
+				'export'=>true],
+			'redirection'=>[
+				'export'=>true],
+			'queueEmail'=>[
+				'add'=>false],
+			'session'=>[
+				'add'=>false],
+			'log'=>[
+				'add'=>false],
+			'logEmail'=>[
+				'add'=>false],
+			'logCron'=>[
+				'add'=>false],
+			'logError'=>[
+				'add'=>false],
+			'logHttp'=>[
+				'add'=>false],
+			'logSql'=>[
+				'add'=>false]]
+	];
 }
 
 // config
