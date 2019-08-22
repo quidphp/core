@@ -12,7 +12,7 @@ class Cols extends Orm\Cols
 	
 	
 	// config
-	public static $config = [];
+	public static $config = array();
 	
 	
 	// tableFromFqcn
