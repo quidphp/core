@@ -289,7 +289,7 @@ class Medias extends FilesAlias
 				{
 					foreach($version as $key => $file2)
 					{
-						$k = $index."/".$key;
+						$k = $index.'/'.$key;
 						$return->set($k,$file2);
 					}
 				}

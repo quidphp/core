@@ -219,11 +219,11 @@ class General extends Core\RouteAlias
 		$r = '';
 		$table = $this->table();
 		
-		$r .= Html::divOp("top");
+		$r .= Html::divOp('top');
 		
-		$r .= Html::divOp("left");
+		$r .= Html::divOp('left');
 		
-		$r .= Html::divOp("title");
+		$r .= Html::divOp('title');
 		$r .= Html::h1($table->label());
 		$r .= $this->makeInfo();
 		$r .= Html::divCl();
@@ -239,7 +239,7 @@ class General extends Core\RouteAlias
 		
 		$r .= Html::divCl();
 		
-		$r .= Html::divOp("right");
+		$r .= Html::divOp('right');
 		$r .= Html::divCond($this->makeOperation(),'operation');
 		$r .= $this->makeInputLimit();
 		$r .= Html::divCl();
@@ -265,11 +265,11 @@ class General extends Core\RouteAlias
 			{
 				$r .= Html::divOp('in');
 				$r .= Html::divOp('first');
-				$r .= Html::span(static::langText('general/note').":");
+				$r .= Html::span(static::langText('general/note').':');
 				$r .= Html::span(static::langText('general/searchNote'),'note');
 				$r .= Html::divCl();
 				$r .= Html::divOp('second');
-				$r .= Html::span(static::langText('general/searchIn').":");
+				$r .= Html::span(static::langText('general/searchIn').':');
 				$r .= Html::span(implode(', ',$cols->pair('label')),'labels');
 				$r .= Html::divCl();
 				$r .= Html::divCl();
@@ -421,7 +421,7 @@ class General extends Core\RouteAlias
 						{
 							$col = $table->col($k);
 							$rel = $col->relation()->getStr($v,', ');
-							$value[] = $col->label().": ".$rel;
+							$value[] = $col->label().': '.$rel;
 						}
 					}
 				}
@@ -432,7 +432,7 @@ class General extends Core\RouteAlias
 					$label = $lang->alt('general/'.$key,'common/'.$key);
 					
 					$r .= Html::liOp();
-					$r .= Html::span($label.":");
+					$r .= Html::span($label.':');
 					
 					if(is_array($value))
 					{

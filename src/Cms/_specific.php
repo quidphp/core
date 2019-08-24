@@ -76,8 +76,8 @@ trait _specific
 		$r = '';
 		$table = $this->table();
 		
-		$r .= Html::divOp("top");
-		$r .= Html::divOp("left");
+		$r .= Html::divOp('top');
+		$r .= Html::divOp('left');
 		
 		$r .= Html::div($this->makeTitleBox(),'title');
 		
@@ -100,7 +100,7 @@ trait _specific
 		$r = '';
 		$r .= $this->makeFormHidden();
 		
-		$r .= Html::divOp("top");
+		$r .= Html::divOp('top');
 		$r .= Html::divOp('left');
 		$r .= $this->makeFormPanel();
 		$r .= Html::divCl();
@@ -241,7 +241,7 @@ trait _specific
 				if(!Base\Validate::isReallyEmpty($value))
 				{
 					$r .= Html::liOp();
-					$r .= Html::span($label.":");
+					$r .= Html::span($label.':');
 					
 					if(is_array($value))
 					{

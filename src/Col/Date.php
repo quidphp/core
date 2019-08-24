@@ -136,7 +136,7 @@ class Date extends Core\ColAlias
 	// retourne la date la plus petite de la colonne dans la table
 	public function dateMin():?int 
 	{
-		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>"asc"],1);
+		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'asc'],1);
 	}
 	
 	
@@ -144,7 +144,7 @@ class Date extends Core\ColAlias
 	// retourne la date la plus grande de la colonne dans la table
 	public function dateMax():?int 
 	{
-		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>"desc"],1);
+		return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'desc'],1);
 	}
 	
 	

@@ -733,7 +733,7 @@ class Session extends Main\Session
 		else
 		{
 			$return = true;
-			$pos = "logout/success";
+			$pos = 'logout/success';
 			
 			$user->onLogout();
 			$this->logout($option);

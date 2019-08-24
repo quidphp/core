@@ -42,13 +42,13 @@ class GeneralExportDialog extends Core\RouteAlias
 		$sql = $this->sql();
 		$total = $sql->triggerRowCount();
 		$longExport = static::longExport();
-		$count = $total." ".static::langPlural($total,'lc|common/row');
+		$count = $total.' '.static::langPlural($total,'lc|common/row');
 		
 		$r .= Html::divtableOpen();
 		$r .= Html::h1(static::label());
 		$r .= Html::h2($table->label());
 		$r .= Html::div($count,'count');
-		$r .= Html::h3(static::langText('export/encoding').":");
+		$r .= Html::h3(static::langText('export/encoding').':');
 		$r .= Html::divCond($this->makeChoices(),'choices');
 		
 		$r .= Html::ulOp();

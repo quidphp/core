@@ -96,8 +96,8 @@ trait _template
 			
 			$r .= Html::divOp('info');
 			$r .= Html::div($username,'username');
-			$r .= Html::div("|",'separator');
-			$r .= Html::div($dateLogin->label().": ".Base\Date::format(4,$dateLogin),'dateLogin');
+			$r .= Html::div('|','separator');
+			$r .= Html::div($dateLogin->label().': '.Base\Date::format(4,$dateLogin),'dateLogin');
 			$r .= Html::divCl();
 		}
 		

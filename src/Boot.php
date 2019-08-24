@@ -952,7 +952,7 @@ abstract class Boot extends Main\Root
 			if($replaceKey === true)
 			{
 				$name = $this->name(true);
-				$k = str_replace("%key%",$name,$k);
+				$k = str_replace('%key%',$name,$k);
 			}
 			
 			$return[$k] = $this->makePath($v);
@@ -2347,7 +2347,7 @@ abstract class Boot extends Main\Root
 				if(is_string($namespace) && is_array($path) && !empty($path))
 				{
 					$v = current($path);
-					$namespace = rtrim($namespace,"\\");
+					$namespace = rtrim($namespace,'\\');
 					$return[$namespace] = $v;
 				}
 			}
@@ -2443,9 +2443,9 @@ abstract class Boot extends Main\Root
 		
 		if(Base\Arr::keysExists($keys,$credit))
 		{
-			$return = "Software: ".$credit['name'];
+			$return = 'Software: '.$credit['name'];
 			$return .= "\nVersion: ".$version;
-			$return .= "\nAuthor: ".$credit['author']." / ".$credit['email'];
+			$return .= "\nAuthor: ".$credit['author'].' / '.$credit['email'];
 			$return .= "\nRequires: PHP 7.2 (compatible PHP 7.3)";
 			$return .= "\nGithub: ".$credit['github'];
 			$return .= "\nLicense: GPLv3 | ".$credit['license'];

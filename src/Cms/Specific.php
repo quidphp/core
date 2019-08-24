@@ -76,7 +76,7 @@ class Specific extends Core\RouteAlias
 			{
 				$name = $table->name();
 				$primary = $table->primary();
-				foreach ($db->selectColumns($primary,$table,null,[$primary=>"desc"],100) as $id) 
+				foreach ($db->selectColumns($primary,$table,null,[$primary=>'desc'],100) as $id) 
 				{
 					$return[] = ['table'=>$name,'primary'=>$id];
 				}
@@ -226,7 +226,7 @@ class Specific extends Core\RouteAlias
 					{
 						$col = $table->col($colName);
 						$c = count($primaries);
-						$text = $table->label()." / ".$col->label()." ($c)";
+						$text = $table->label().' / '.$col->label()." ($c)";
 						$segment = ['table'=>$table,'filter'=>[$colName=>$primary]];
 						
 						if($table->hasPermission('view'))
@@ -309,7 +309,7 @@ class Specific extends Core\RouteAlias
 		$r = '';
 		$dispatch = $this->isUpdateableOrDeleteable();
 		
-		$r .= Html::divOp("container");
+		$r .= Html::divOp('container');
 		$r .= Html::divOp('form');
 		
 		if($dispatch === true)
@@ -469,7 +469,7 @@ class Specific extends Core\RouteAlias
 
 			else
 			{
-				$text = "specific/modify".ucfirst($type);
+				$text = 'specific/modify'.ucfirst($type);
 				$r .= Html::submit(static::langText($text),['name'=>'--modify--','value'=>1,'icon','modify','padLeft']);
 			}
 		}
@@ -484,7 +484,7 @@ class Specific extends Core\RouteAlias
 	{
 		$r = '';
 		
-		$r .= Html::divOp("bottom");
+		$r .= Html::divOp('bottom');
 		$r .= Html::div(null,'left');
 		$r .= Html::div($this->makeFormSubmit('bottom'),'center');
 		$r .= Html::div($this->makeFormDelete(),'right');

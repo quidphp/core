@@ -344,7 +344,7 @@ class Slug extends Core\ColAlias
 		if(strlen($return) && strlen($add))
 		{
 			$length = $this->length();
-			$return .= "-".$add;
+			$return .= '-'.$add;
 			
 			if(strlen($return) > $length)
 			$return = substr($return,-$length);

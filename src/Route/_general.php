@@ -115,22 +115,22 @@ trait _general
 		if($tableCount === $whatCount)
 		{
 			$r .= $tableCount;
-			$r .= " ";
+			$r .= ' ';
 			$r .= static::langPlural($tableCount,'lcf|common/row');
 		}
 		
 		else
 		{
 			$r .= $whatCount;
-			$r .= " ";
+			$r .= ' ';
 			$r .= static::langPlural($whatCount,'lcf|common/row');
-			$r .= " ";
+			$r .= ' ';
 			$r .= static::langPlural($whatCount,'lcf|common/filtered');
-			$r .= ", ";
+			$r .= ', ';
 			$r .= $tableCount;
-			$r .= " ";
+			$r .= ' ';
 			$r .= static::langPlural($tableCount,'lcf|common/row');
-			$r .= " ";
+			$r .= ' ';
 			$r .= static::langText('lcf|common/total');
 		}
 		
@@ -190,7 +190,7 @@ trait _general
 			
 			$data = ['href'=>$route,'char'=>static::getReplaceSegment(),'current'=>$limit,'keyupDelay'=>800,'pattern'=>'numberWholeNotEmpty','max'=>$maxPerPage];
 			$r .= Html::divOp('limit');
-			$r .= Html::inputText($limit,['name'=>"limit",'data'=>$data]);
+			$r .= Html::inputText($limit,['name'=>'limit','data'=>$data]);
 			$r .= Html::span(static::langText('lcf|common/limit'));
 			$r .= Html::divCl();
 		}
@@ -225,7 +225,7 @@ trait _general
 				$r .= Html::divOp('center');
 				$r .= Html::span(static::langText('common/page'));
 				$r .= Html::inputText($general['current'],['name'=>'page','data'=>$data]);
-				$r .= Html::span(static::langText('lcf|common/on')." ".$total);
+				$r .= Html::span(static::langText('lcf|common/on').' '.$total);
 				$r .= Html::divCl();
 				
 				if(!empty($general['next']))

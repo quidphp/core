@@ -46,7 +46,7 @@ trait _specificNav
 			}
 			
 			if(!empty($specific['position']) && !empty($specific['total']))
-			$return['count'] = Html::span($specific['position']." ".static::langText('lc|common/on')." ".$specific['total'],$attributes['count']);
+			$return['count'] = Html::span($specific['position'].' '.static::langText('lc|common/on').' '.$specific['total'],$attributes['count']);
 			
 			if(!empty($specific['next']))
 			{

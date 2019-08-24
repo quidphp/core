@@ -31,7 +31,7 @@ class Redirection extends Core\RowAlias
 		$table = static::tableFromFqcn();
 		$typeCol = $table->col('type');
 		$keyCol = $table->colKey();
-		$valueCol = $table->col("value");
+		$valueCol = $table->col('value');
 		$where = [true,[$typeCol,'findInSet',$type]];
 		$return = $table->keyValue($keyCol,$valueCol,false,$where);
 		

@@ -66,7 +66,7 @@ class GeneralExport extends Core\RouteAlias
 	{
 		$return = null;
 		$table = $this->table();
-		$basename = $table->name()."_".Base\Date::format(0);
+		$basename = $table->name().'_'.Base\Date::format(0);
 		$return = Core\File\Csv::new(true,['basename'=>$basename]);
 		
 		return $return;

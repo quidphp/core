@@ -415,12 +415,12 @@ class User extends Core\RowAlias implements Main\Contract\User
 	protected function getEmailArray(string $name,?array $replace=null):?array 
 	{
 		$return = null;
-		$method = $name."EmailModel";
+		$method = $name.'EmailModel';
 		$model = $this->$method();
 		
 		if(!empty($model))
 		{
-			$method = $name."EmailReplace";
+			$method = $name.'EmailReplace';
 			$replace = Base\Arr::replace($this->$method(),$replace);
 			
 			if(!empty($replace))
@@ -883,7 +883,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 	{
 		$return = false;
 		$option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
-		$method = $type."Email";
+		$method = $type.'Email';
 		$array = $this->$method($replace);
 		
 		if(!empty($array) && !empty($to))
@@ -901,7 +901,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			
 			if($return === true)
 			{
-				$method = "on".ucfirst($type)."EmailSent";
+				$method = 'on'.ucfirst($type).'EmailSent';
 				$this->$method();
 			}
 		}
@@ -1019,7 +1019,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			$return = 'userCantLogin';
 			
 			if(!empty($return))
-			$return = $type."/".$return;
+			$return = $type.'/'.$return;
 		}
 		
 		return $return;

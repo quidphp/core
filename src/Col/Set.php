@@ -117,8 +117,8 @@ class Set extends RelationAlias
 		if($this->isSortable())
 		{
 			$return['html'] = "<div class='choice'><div class='choiceInner'><div class='icon solo move'></div>";
-			$return['html'] .= "%";
-			$return['html'] .= "</div></div>";
+			$return['html'] .= '%';
+			$return['html'] .= '</div></div>';
 		}
 		
 		return $return;

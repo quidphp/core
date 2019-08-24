@@ -110,18 +110,18 @@ class PhpConcatenator extends Core\ServiceAlias
 		$strictType = $this->getOption('strictType');
 		$registerClosure = $this->getOption('registerClosure');
 		
-		$start = "<?php".PHP_EOL;
+		$start = '<?php'.PHP_EOL;
 		if($strictType === true)
-		$start .= "declare(strict_types=1);".PHP_EOL;
+		$start .= 'declare(strict_types=1);'.PHP_EOL;
 		
 		$end = PHP_EOL;
 		if($registerClosure === true)
 		{
 			$end .= PHP_EOL."namespace Quid\Main {";
-			$end .= PHP_EOL."Autoload::registerClosure();";
-			$end .= PHP_EOL."}".PHP_EOL;
+			$end .= PHP_EOL.'Autoload::registerClosure();';
+			$end .= PHP_EOL.'}'.PHP_EOL;
 		}
-		$end .= PHP_EOL."?>".PHP_EOL;
+		$end .= PHP_EOL.'?>'.PHP_EOL;
 		
 		$return['base'] = [
 			'start'=>$start,
@@ -152,11 +152,11 @@ class PhpConcatenator extends Core\ServiceAlias
 	{
 		return function(string $return) {
 			$lines = Base\Str::lines($return);
-			if(!empty($lines[0]) && Base\Str::isEnd(";",$lines[0]))
+			if(!empty($lines[0]) && Base\Str::isEnd(';',$lines[0]))
 			{
-				$lines[0] = Base\Str::stripEnd(";",$lines[0]);
-				$lines[0] .= " {";
-				$lines[] = "}";
+				$lines[0] = Base\Str::stripEnd(';',$lines[0]);
+				$lines[0] .= ' {';
+				$lines[] = '}';
 				
 				$return = Base\Str::lineImplode($lines);
 			}
@@ -174,25 +174,25 @@ class PhpConcatenator extends Core\ServiceAlias
 		return function(string $return) use($initMethod) {
 			$namespaceAccoladeClosure = static::namespaceAccoladeClosure();
 			$lines = Base\Str::lines($return);
-			$namespace = Base\Str::stripStartEnd("namespace ",";",$lines[0]);
+			$namespace = Base\Str::stripStartEnd('namespace ',';',$lines[0]);
 			
 			foreach ($lines as $key => $value) 
 			{
-				if(Base\Str::isStart("//",$value))
+				if(Base\Str::isStart('//',$value))
 				{
-					$class = ucfirst(Base\Str::stripStart("// ",$value));
+					$class = ucfirst(Base\Str::stripStart('// ',$value));
 					
-					$newLine = ['\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',""];
+					$newLine = ['\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',''];
 					$lines = Base\Arr::insert($key,$newLine,$lines);
 					
 					if(is_string($initMethod))
 					{
-						$lines[] = "";
+						$lines[] = '';
 						$lines[] = "//$initMethod";
 						$lines[] = "$class::$initMethod();";
 					}
 					
-					$lines[] = "});";
+					$lines[] = '});';
 					
 					break;
 				}

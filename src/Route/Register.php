@@ -121,7 +121,7 @@ abstract class Register extends Core\RouteAlias
 		$replace = ['class'=>'required'];
 		
 		$r .= $col->formWrap('divtableClass','%:',null,['data-required'=>true],$replace);
-		$r .= $col->formWrap('divtableClass',$label.":",null,['data-required'=>true,'name'=>$fields['passwordConfirm']],$replace);
+		$r .= $col->formWrap('divtableClass',$label.':',null,['data-required'=>true,'name'=>$fields['passwordConfirm']],$replace);
 		
 		return $r;
 	}

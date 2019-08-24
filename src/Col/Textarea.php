@@ -115,7 +115,7 @@ class Textarea extends Core\ColAlias
 			{
 				foreach ($boot->schemeHostEnvs($type) as $schemeHost) 
 				{
-					$schemeHost .= "/";
+					$schemeHost .= '/';
 					$replace[$schemeHost] = '/';
 				}
 			}

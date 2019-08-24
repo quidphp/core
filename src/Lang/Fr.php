@@ -27,7 +27,7 @@ class Fr extends Base\Lang\Fr
 			'modify'=>'Modifier',
 			'remove'=>'Supprimer',
 			'confirm'=>'Confirmer ?',
-			'unload'=>"Voulez-vous vraiment quitter cette page ?",
+			'unload'=>'Voulez-vous vraiment quitter cette page ?',
 			'first'=>'Premier',
 			'prev'=>'Précédent',
 			'next'=>'Suivant',
@@ -78,11 +78,11 @@ class Fr extends Base\Lang\Fr
 				
 				// content
 				'content'=>[
-					400=>"La requête est invalide et ne peut pas être traitée.",
-					404=>"Cette URL ne pointe pas vers un contenu valide."
+					400=>'La requête est invalide et ne peut pas être traitée.',
+					404=>'Cette URL ne pointe pas vers un contenu valide.'
 				],
 				
-				'back'=>"Cliquez [link] pour revenir."
+				'back'=>'Cliquez [link] pour revenir.'
 			]
 		],
 		
@@ -101,13 +101,13 @@ class Fr extends Base\Lang\Fr
 		// relationOrder
 		'relationOrder'=>[
 			'key'=>[
-				1=>"Plus ancien en premier",
-				2=>"Plus récent en premier",
+				1=>'Plus ancien en premier',
+				2=>'Plus récent en premier',
 			],
 			
 			'value'=>[
-				3=>"Ordre alphabétique",
-				4=>"Ordre alphabétique inversé"
+				3=>'Ordre alphabétique',
+				4=>'Ordre alphabétique inversé'
 			]
 		],
 		
@@ -119,7 +119,7 @@ class Fr extends Base\Lang\Fr
 		
 		// browscap
 		'browscap'=>[
-			'noscript'=>"Impossible de se connecter car JavaScript est désactivé sur votre navigateur.",
+			'noscript'=>'Impossible de se connecter car JavaScript est désactivé sur votre navigateur.',
 			'cookie'=>"Impossible de se connecter car votre navigateur n'accepte pas les cookies."
 		],
 		
@@ -147,22 +147,22 @@ class Fr extends Base\Lang\Fr
 			
 			// catchableException
 			'catchableException'=>[
-				'notDeleteable'=>"La ligne ne peut pas être effacé.",
-				'notUpdatable'=>"La ligne ne peut pas être modifié.",
+				'notDeleteable'=>'La ligne ne peut pas être effacé.',
+				'notUpdatable'=>'La ligne ne peut pas être modifié.',
 				'hostUnreachable'=>"Erreur lors de la connexion: l'hôte [1] n'est pas joignable sur le port [2].",
-				'responseCodeShouldBe'=>"Erreur dans la requête: le code de la réponse devait être [1] et non [3].",
-				'invalidResponseFormat'=>"Erreur dans la réponse: format invalide",
+				'responseCodeShouldBe'=>'Erreur dans la requête: le code de la réponse devait être [1] et non [3].',
+				'invalidResponseFormat'=>'Erreur dans la réponse: format invalide',
 				'userRoleNobody'=>"Il n'est pas possible d'attribuer le rôle nobody.",
 				'userRoleSelf'=>"Il n'est pas possible de modifier le rôle de l'utilisateur courant.",
 				'userRoleUpperEqual'=>"Il n'est pas possible d'affecter un rôle égal ou plus grand que le rôle de l'utilisateur courant.",
 				'userRoleUpper'=>"Il n'est pas possible d'affecter un rôle plus grand que le rôle de l'utilisateur courant.",
 				'userActiveSelf'=>"Il n'est pas possible de changer le statut actif de l'utilisateur courant.",
-				'changePasswordInvalidPassword'=>"Mot de passe invalide. [1]",
-				'changePasswordInvalidOldPassword'=>"Ancien mot de passe invalide. [1]",
-				'changePasswordNewPasswordMismatch'=>"La confirmation du nouveau mot de passe est incorrect",
+				'changePasswordInvalidPassword'=>'Mot de passe invalide. [1]',
+				'changePasswordInvalidOldPassword'=>'Ancien mot de passe invalide. [1]',
+				'changePasswordNewPasswordMismatch'=>'La confirmation du nouveau mot de passe est incorrect',
 				'changePasswordOldPasswordMismatch'=>"L'ancien mot de passe est incorrect",
 				'changePasswordNoChange'=>"Le nouveau mot de passe est le même que l'ancien",
-				'changePasswordInvalidValues'=>"Valeurs fournies invalides",
+				'changePasswordInvalidValues'=>'Valeurs fournies invalides',
 				'invalidFileIndex'=>"Impossible de charger un fichier dans l'index #[1]",
 				'pathNotWritable'=>"Le chemin [1] n'est pas accessible en écriture"]
 		],
@@ -274,16 +274,16 @@ class Fr extends Base\Lang\Fr
 					'lastName'=>'Nom de famille',
 					'fullName'=>'Nom complet',
 					'username'=>"Nom d'utilisateur",
-					'userAdd'=>"Ajouté par",
-					'userModify'=>"Modifié par",
-					'password'=>"Mot de passe",
-					'passwordReset'=>"Réinitialisation du mot de passe",
-					'country'=>"Pays",
-					'state'=>"État",
-					'province'=>"Province",
-					'city'=>"Ville",
-					'zipCode'=>"Zip code",
-					'postalCode'=>"Code postal",
+					'userAdd'=>'Ajouté par',
+					'userModify'=>'Modifié par',
+					'password'=>'Mot de passe',
+					'passwordReset'=>'Réinitialisation du mot de passe',
+					'country'=>'Pays',
+					'state'=>'État',
+					'province'=>'Province',
+					'city'=>'Ville',
+					'zipCode'=>'Zip code',
+					'postalCode'=>'Code postal',
 					'key_fr'=>'Clé française',
 					'key_en'=>'Clé anglaise',
 					'slug'=>'Slug',
@@ -320,20 +320,20 @@ class Fr extends Base\Lang\Fr
 					'json_fr'=>'Json français',
 					'json_en'=>'Json anglais',
 					'timestamp'=>'Code temps',
-					'datetime'=>"Date et heure",
-					'datetimeStart'=>"Date et heure de début",
-					'datetimeEnd'=>"Date et heure de fin",
-					'date'=>"Date",
-					'dateStart'=>"Date de début",
-					'dateEnd'=>"Date de fin",
-					'time'=>"Heure",
-					'timeStart'=>"Heure de début",
-					'timeEnd'=>"Heure de fin",
+					'datetime'=>'Date et heure',
+					'datetimeStart'=>'Date et heure de début',
+					'datetimeEnd'=>'Date et heure de fin',
+					'date'=>'Date',
+					'dateStart'=>'Date de début',
+					'dateEnd'=>'Date de fin',
+					'time'=>'Heure',
+					'timeStart'=>'Heure de début',
+					'timeEnd'=>'Heure de fin',
 					'dateAdd'=>"Date d'ajout",
-					'dateModify'=>"Dernière modification",
+					'dateModify'=>'Dernière modification',
 					'dateExpire'=>"Date d'expiration",
-					'dateLogin'=>"Dernière connexion",
-					'dateBirth'=>"Date de naissance",
+					'dateLogin'=>'Dernière connexion',
+					'dateBirth'=>'Date de naissance',
 					'dateSent'=>"Date d'envoie",
 					'pointer'=>'Pointeur',
 					'value'=>'Valeur',
@@ -428,8 +428,8 @@ class Fr extends Base\Lang\Fr
 		
 		// validate
 		'validate'=>[
-			'pointer'=>"Doit être un pointeur valide (table/id)",
-			'inRelation'=>"Doit être dans la relation",
+			'pointer'=>'Doit être un pointeur valide (table/id)',
+			'inRelation'=>'Doit être dans la relation',
 			
 			// tables
 			'tables'=>[]
@@ -439,7 +439,7 @@ class Fr extends Base\Lang\Fr
 		'required'=>[
 			'tables'=>[
 				'formSubmit'=>[
-					'json'=>"Le formulaire est invalide."
+					'json'=>'Le formulaire est invalide.'
 				]
 			]
 		],
@@ -470,60 +470,60 @@ class Fr extends Base\Lang\Fr
 				
 				// csrf
 				'csrf'=>[
-					'retry'=>"Svp réessayer cette opération une autre fois.",
+					'retry'=>'Svp réessayer cette opération une autre fois.',
 				],
 				
 				// genuine
 				'genuine'=>[
-					'retry'=>"Svp réessayer cette opération une autre fois.",
+					'retry'=>'Svp réessayer cette opération une autre fois.',
 				],
 				
 				// fileUpload
 				'fileUpload'=>[
-					'maxFilesize'=>"La taille du fichier téléversé ne doit pas dépasser [maxFilesize].",
+					'maxFilesize'=>'La taille du fichier téléversé ne doit pas dépasser [maxFilesize].',
 					'dataLost'=>"Les données du dernier formulaire soumis n'ont pas été sauvegardées."
 				],
 				
 				// timeout
 				'timeout'=>[
-					'retry'=>"Merci de réessayer cette opération plus tard.",
-					'login'=>"La session est verouillée: trop de tentative de connexion",
+					'retry'=>'Merci de réessayer cette opération plus tard.',
+					'login'=>'La session est verouillée: trop de tentative de connexion',
 				],
 				
 				// login
 				'login'=>[
-					'alreadyConnected'=>"Déjà connecté",
+					'alreadyConnected'=>'Déjà connecté',
 					'invalidUsername'=>"Nom d'utilisateur invalide",
-					'invalidPassword'=>"Mot de passe invalide",
+					'invalidPassword'=>'Mot de passe invalide',
 					'userCantLogin'=>"L'utilisateur ne peut pas se connecter",
 					'userInactive'=>"L'utilisateur est inactif",
-					'wrongPassword'=>"Le mot de passe ne concorde pas",
+					'wrongPassword'=>'Le mot de passe ne concorde pas',
 					'cantFindUser'=>"L'utilisateur n'existe pas",
-					'invalidValues'=>"Valeurs de connexion invalides"
+					'invalidValues'=>'Valeurs de connexion invalides'
 				],
 				
 				// userSession
 				'userSession'=>[
-					'userInactive'=>"Cet utilisateur est maintenant inactif.",
-					'loginLifetime'=>"Svp vous reconnecter. La durée de vie de la session a été dépassée.",
-					'mostRecentStorage'=>"Svp vous reconnecter. Une session plus récente a été détectée pour cet utilisateur."
+					'userInactive'=>'Cet utilisateur est maintenant inactif.',
+					'loginLifetime'=>'Svp vous reconnecter. La durée de vie de la session a été dépassée.',
+					'mostRecentStorage'=>'Svp vous reconnecter. Une session plus récente a été détectée pour cet utilisateur.'
 				],
 				
 				// logout
 				'logout'=>[
-					'notConnected'=>"Pas connecté"
+					'notConnected'=>'Pas connecté'
 				],
 				
 				// resetPassword
 				'resetPassword'=>[
 					'alreadyConnected'=>"Impossible de regénérer un mot de passe à partir d'un utilisateur connecté",
-					'invalidEmail'=>"Le courriel est invalide",
+					'invalidEmail'=>'Le courriel est invalide',
 					'userInactive'=>"L'utilisateur est inactif",
 					'userCantLogin'=>"L'utilisateur ne peut pas se connecter",
-					'error'=>"Impossible de regénérer le mot de passe",
+					'error'=>'Impossible de regénérer le mot de passe',
 					'userNotFound'=>"L'utilisateur n'existe pas",
 					'email'=>"Erreur lors de l'envoie courriel",
-					'invalidValue'=>"Valeur fournie invalide"
+					'invalidValue'=>'Valeur fournie invalide'
 				],
 				
 				// activatePassword
@@ -534,14 +534,14 @@ class Fr extends Base\Lang\Fr
 					'invalidHash'=>"Impossible d'activer le mot de passe",
 					'error'=>"Impossible d'activer le mot de passe",
 					'userNotFound'=>"L'utilisateur n'existe pas",
-					'invalidValue'=>"Valeurs fournies invalides"
+					'invalidValue'=>'Valeurs fournies invalides'
 				],
 				
 				// register
 				'register'=>[
 					'alreadyConnected'=>"Impossible de faire un enregistrement à partir d'un utilisateur connecté",
-					'passwordConfirm'=>"La confirmation du mot de passe est incorrect",
-					'invalidValues'=>"Valeurs fournies invalides"
+					'passwordConfirm'=>'La confirmation du mot de passe est incorrect',
+					'invalidValues'=>'Valeurs fournies invalides'
 				],
 				
 				// user
@@ -555,7 +555,7 @@ class Fr extends Base\Lang\Fr
 				
 				// form
 				'form'=>[
-					'invalid'=>"Le formulaire est invalide"
+					'invalid'=>'Le formulaire est invalide'
 				],
 				
 				// insert
@@ -595,7 +595,7 @@ class Fr extends Base\Lang\Fr
 				
 				// duplicate
 				'duplicate'=>[
-					'failure'=>"La duplication a échouée"
+					'failure'=>'La duplication a échouée'
 				]
 			],
 			
@@ -619,12 +619,12 @@ class Fr extends Base\Lang\Fr
 				
 				// resetPassword
 				'resetPassword'=>[
-					'success'=>"Le mot de passe a été regénéré et envoyé à votre courriel"
+					'success'=>'Le mot de passe a été regénéré et envoyé à votre courriel'
 				],
 				
 				// activatePassword
 				'activatePassword'=>[
-					'success'=>"Le mot de passe regénéré a été activé"
+					'success'=>'Le mot de passe regénéré a été activé'
 				],
 				
 				// media
@@ -635,7 +635,7 @@ class Fr extends Base\Lang\Fr
 				
 				// slug
 				'slug'=>[
-					'updated'=>"[count] autre%s% ligne%s% mise%s% à jour"
+					'updated'=>'[count] autre%s% ligne%s% mise%s% à jour'
 				],
 				
 				// user
@@ -643,7 +643,7 @@ class Fr extends Base\Lang\Fr
 					
 					// welcome
 					'welcome'=>[
-						'success'=>"Le courriel de bienvenue a été envoyé."
+						'success'=>'Le courriel de bienvenue a été envoyé.'
 					],
 				],
 				
@@ -679,7 +679,7 @@ class Fr extends Base\Lang\Fr
 				
 				// duplicate
 				'duplicate'=>[
-					'success'=>"La duplication a réussie"
+					'success'=>'La duplication a réussie'
 				]
 			]
 		],
@@ -736,10 +736,10 @@ class Fr extends Base\Lang\Fr
 			
 			// queueEmailStatus
 			'queueEmailStatus'=>[
-				1=>"À envoyer",
-				2=>"Envoie en cours",
-				3=>"Erreur",
-				4=>"Envoyé"
+				1=>'À envoyer',
+				2=>'Envoie en cours',
+				3=>'Erreur',
+				4=>'Envoyé'
 			],
 			
 			// logHttpType
@@ -748,9 +748,9 @@ class Fr extends Base\Lang\Fr
 				2=>'Redirection',
 				3=>'Requête',
 				4=>'POST externe',
-				200=>"200 - OK",
-				301=>"301 - Déplacé en permanence",
-				302=>"302 - Trouvé",
+				200=>'200 - OK',
+				301=>'301 - Déplacé en permanence',
+				302=>'302 - Trouvé',
 				400=>'400 - Mauvaise requête',
 				404=>'404 - Pas trouvé',
 				500=>'500 - Erreur interne du serveur'
@@ -800,7 +800,7 @@ class Fr extends Base\Lang\Fr
 			
 			// about
 			'about'=>[
-				'content'=>"Ce gestionnaire de contenu open-source est développé sur le framework Quid 5. La version actuelle est [version]."
+				'content'=>'Ce gestionnaire de contenu open-source est développé sur le framework Quid 5. La version actuelle est [version].'
 			],
 			
 			// footer
@@ -857,7 +857,7 @@ class Fr extends Base\Lang\Fr
 			// export
 			'export'=>[
 				'long'=>"Cette exportation peut prendre plus d'une minute.",
-				'encoding'=>"Choisir un encodage pour le CSV",
+				'encoding'=>'Choisir un encodage pour le CSV',
 				'utf8'=>'UTF-8',
 				'latin1'=>'Latin-1',
 				'office'=>'Utilisez Latin-1 pour utilisation dans Microsoft Office sur Windows'
@@ -904,11 +904,11 @@ class Fr extends Base\Lang\Fr
 					'email'=>"Contenu relatif aux courriels envoyés par l'application",
 					'lang'=>"Tous les autres contenus textes présents dans l'application et le CMS",
 					'redirection'=>"Spécifie les redirections d'une URL à une autre",
-					'log'=>"Log des activités",
+					'log'=>'Log des activités',
 					'logCron'=>"Log des scripts d'arrière-plan",
-					'logEmail'=>"Log des envoies courriel",
-					'logError'=>"Log des erreurs",
-					'logHttp'=>"Log des requêtes HTTP échouées",
+					'logEmail'=>'Log des envoies courriel',
+					'logError'=>'Log des erreurs',
+					'logHttp'=>'Log des requêtes HTTP échouées',
 					'logSql'=>'Log des requêtes SQL',
 					'queueEmail'=>"Email en attente d'envoie",
 					'session'=>'Suivi des session actives',
@@ -960,9 +960,9 @@ class Fr extends Base\Lang\Fr
 						'date'=>"Spécifie la date pour représenter l'élément",
 						'datetimeStart'=>"Spécifie la date de début de l'élément",
 						'datetimeEnd'=>"Spécifie la date de fin de l'élément",
-						'phone'=>"Numéro de téléphone avec ou sans extension",
-						'fax'=>"Numéro de fax avec ou sans extension",
-						'address'=>"Adresse complête",
+						'phone'=>'Numéro de téléphone avec ou sans extension',
+						'fax'=>'Numéro de fax avec ou sans extension',
+						'address'=>'Adresse complête',
 						'active'=>"Défini si l'élément est actif et doit s'afficher",
 						'order'=>"Permet d'ordonner l'élément par rapport aux autres de la même table",
 						'media'=>"Image pour représenter l'élément",
@@ -1006,18 +1006,18 @@ class Fr extends Base\Lang\Fr
 						'metaSearch_en'=>'Spécifie des termes de recherches anglais additionnels pour trouver cette ligne. Ce génère automatiquement.',
 						'user_id'=>"Utilisateur en lien avec l'élément",
 						'session_id'=>"Session de l'utilisateur qui a créé l'élément. Pour administrateur",
-						'request'=>"Résumé de la requête HTTP",
+						'request'=>'Résumé de la requête HTTP',
 						'userCommit'=>"Utilisateur de la session de l'utilisateur.",
 						'storage'=>"Fichier à lier à l'élément.",
 						'storage_fr'=>"Fichier à lier à l'élément.",
 						'storage_en'=>"Fichier à lier à l'élément.",
 						'storages'=>"Fichiers(s) à lier à l'élément",
-						'pointer'=>"Pointeur table -> id. Ne pas modifier, pour administrateur.",
+						'pointer'=>'Pointeur table -> id. Ne pas modifier, pour administrateur.',
 						'email'=>"Adresse courriel de l'élément",
-						'color'=>"Spécifier un code couleur (Hex)",
+						'color'=>'Spécifier un code couleur (Hex)',
 						'menu'=>"Spécifie si l'élément doit s'afficher dans le menu",
-						'route'=>"Spécifie la route à utiliser (pour administrateur)",
-						'method'=>"Spécifie la méthode à utiliser (pour administrateur)",
+						'route'=>'Spécifie la route à utiliser (pour administrateur)',
+						'method'=>'Spécifie la méthode à utiliser (pour administrateur)',
 						'featured'=>"Spécifie si l'élément doit être placé à la une",
 						'website'=>"Site web en lien avec l'élément, mettre l'adresse complête",
 						'author'=>"Spécifie l'auteur de l'élément",
@@ -1034,17 +1034,17 @@ class Fr extends Base\Lang\Fr
 					
 					// redirection
 					'redirection'=>[
-						'key'=>"URL à rediriger",
-						'value'=>"Destination de la redirection",
-						'type'=>"La redirection est active dans ces environnements"
+						'key'=>'URL à rediriger',
+						'value'=>'Destination de la redirection',
+						'type'=>'La redirection est active dans ces environnements'
 					],
 					
 					// user
 					'user'=>[
 						'role'=>"Rôle de l'utilisateur au sein du site et du CMS",
-						'username'=>"Doit être unique et composé de caractère alphanumérique",
+						'username'=>'Doit être unique et composé de caractère alphanumérique',
 						'password'=>"Le mot de passe doit contenir une lettre, un chiffre et avoir une longueur d'au moins 5 caractères",
-						'passwordReset'=>"Chaîne pour la réinitialisation du mot de passe",
+						'passwordReset'=>'Chaîne pour la réinitialisation du mot de passe',
 						'email'=>"Courriel de l'utilisateur",
 						'dateLogin'=>'Date de la dernière connexion',
 						'firstName'=>"Prénom de l'utilisateur",
@@ -1056,7 +1056,7 @@ class Fr extends Base\Lang\Fr
 					// session
 					'session'=>[
 						'name'=>'Nom de la session et du cookie de la session',
-						'sid'=>"Id unique de la session",
+						'sid'=>'Id unique de la session',
 						'count'=>'Nombre de requêtes effectués avec cette session',
 						'data'=>'Données serializés de la session',
 						'ip'=>'Ip de cette session'
@@ -1064,7 +1064,7 @@ class Fr extends Base\Lang\Fr
 					
 					// email
 					'email'=>[
-						'key'=>"Clé unique du modèle de courriel. Pour administrateur",
+						'key'=>'Clé unique du modèle de courriel. Pour administrateur',
 						'type'=>"Content-Type utilisé lors de l'envoie. Pour administrateur"
 					],
 					
@@ -1102,9 +1102,9 @@ class Fr extends Base\Lang\Fr
 					// logEmail
 					'logEmail'=>[
 						'status'=>"Statut de l'envoie courriel",
-						'email_id'=>"Lien vers le modèle courriel utilisé",
+						'email_id'=>'Lien vers le modèle courriel utilisé',
 						'json'=>"Données d'en-tête de l'envoie courriel",
-						'content'=>"Contenu du courriel"
+						'content'=>'Contenu du courriel'
 					]
 				]
 			],
@@ -1138,12 +1138,12 @@ class Fr extends Base\Lang\Fr
 					'media'=>'Ce panneau contient les champs qui contiennent des fichiers et des médias.',
 					'admin'=>'Ce panneau contient les champs avancés pour administrateur.',
 					'profile'=>"Ce panneau contient les champs en lien avec un profil d'utilisateur.",
-					'localization'=>"Ce panneau contient les champs en lien avec la géo-localisation.",
-					'contact'=>"Ce panneau contient les champs de contact.",
-					'template'=>"Ce panneau contient les champs en lien avec la mise en page.",
+					'localization'=>'Ce panneau contient les champs en lien avec la géo-localisation.',
+					'contact'=>'Ce panneau contient les champs de contact.',
+					'template'=>'Ce panneau contient les champs en lien avec la mise en page.',
 					'visibility'=>"Ce panneau contient les champs en lien avec la visibilité de l'élément.",
-					'meta'=>"Ce panneau contient des champs en lien avec les méta-données de la ligne",
-					'param'=>"Ce panneau contient des champs en lien avec les paramètres de la ligne"
+					'meta'=>'Ce panneau contient des champs en lien avec les méta-données de la ligne',
+					'param'=>'Ce panneau contient des champs en lien avec les paramètres de la ligne'
 				]
 			],
 			

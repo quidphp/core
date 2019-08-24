@@ -143,7 +143,7 @@ class UserPassword extends Core\ColAlias
 	{
 		$return = [];
 		$lang = $this->db()->lang();
-		$name = $this->name()."[]";
+		$name = $this->name().'[]';
 		$pattern = $this->rulePattern();
 		
 		foreach (['newPassword','newPasswordConfirm'] as $value) 

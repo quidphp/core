@@ -40,7 +40,7 @@ abstract class Robots extends Core\RouteAlias
 	public function robotsAllow():string 
 	{
 		$r = "User-agent: *\n";
-		$r .= "Allow: /";
+		$r .= 'Allow: /';
 		
 		return $r;
 	}
@@ -51,7 +51,7 @@ abstract class Robots extends Core\RouteAlias
 	public function robotsDeny():string 
 	{
 		$r = "User-agent: *\n";
-		$r .= "Disallow: /";
+		$r .= 'Disallow: /';
 		
 		return $r;
 	}

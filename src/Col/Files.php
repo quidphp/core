@@ -469,7 +469,7 @@ abstract class Files extends Core\ColAlias
 					$key = ucfirst($key);
 					
 					$return .= Html::liOp();
-					$return .= Html::span($key.":");
+					$return .= Html::span($key.':');
 					
 					if(!empty($file))
 					{
@@ -843,34 +843,34 @@ abstract class Files extends Core\ColAlias
 			$action = key($action);
 		}
 		
-		$return .= $name.":";
+		$return .= $name.':';
 		
 		if(is_int($width) || is_int($height))
 		{
-			$return .= " ";
-			$return .= (is_int($width))? $width."px":"";
+			$return .= ' ';
+			$return .= (is_int($width))? $width.'px':'';
 			
-			$return .= " x ";
+			$return .= ' x ';
 			
-			$return .= (is_int($height))? $height."px":"";
+			$return .= (is_int($height))? $height.'px':'';
 		}
 		
 		if(is_string($action))
 		{
-			$return .= " ".$action;
+			$return .= ' '.$action;
 			
 			if(is_scalar($actionValue))
-			$return .= ": ".$actionValue;
+			$return .= ': '.$actionValue;
 		}
 		
 		if(is_int($quality))
-		$return .= " ".$quality."%";
+		$return .= ' '.$quality.'%';
 		
 		if(is_string($convert) && strlen($convert))
-		$return .= " ".$convert;
+		$return .= ' '.$convert;
 		
 		elseif($convert === true || $convert === null)
-		$return .= " =";
+		$return .= ' =';
 		
 		return $return;
 	}

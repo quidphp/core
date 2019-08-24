@@ -9,7 +9,7 @@ class Calendar extends TextAlias
 	// config
 	public static $config = [
 		'group'=>'calendar',
-		'model'=>"BEGIN:VCALENDAR
+		'model'=>'BEGIN:VCALENDAR
 		VERSION:2.0
 		CALSCALE:GREGORIAN
 		METHOD:PUBLISH
@@ -22,7 +22,7 @@ class Calendar extends TextAlias
 		URL:%uri%
 		UID:quid-%app%-%id%
 		END:VEVENT
-		END:VCALENDAR"
+		END:VCALENDAR'
 	];
 	
 	

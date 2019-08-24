@@ -29,7 +29,7 @@ abstract class Route extends Routing\Route
 					'jquery'=>'js/jquery/jquery.js',
 					'base'=>'js/include.js',
 					'type'=>'js/%type%.js']],
-			'wrapper'=>["#wrapper"]],
+			'wrapper'=>['#wrapper']],
 		'@cms'=>[ // config pour cms
 			'metaTitle'=>['typeLabel'=>true],
 			'docOpen'=>[
@@ -446,7 +446,7 @@ abstract class Route extends Routing\Route
 			$type = $boot->type();
 			$env = $boot->env();
 			$className = static::className();
-			$context = $type.":".lcfirst($className);
+			$context = $type.':'.lcfirst($className);
 			$return = static::$context = ['class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context];
 		}
 		

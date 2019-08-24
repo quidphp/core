@@ -55,7 +55,7 @@ abstract class Error extends Core\RouteAlias
 	// génère le titre pour la route
 	protected function makeTitle(?string $lang=null):string
 	{
-		return static::label()." ".Base\Response::code();
+		return static::label().' '.Base\Response::code();
 	}
 	
 	

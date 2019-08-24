@@ -141,7 +141,7 @@ class SpecificAdd extends Core\RouteAlias
 		if(empty($r))
 		{
 			$r .=  $this->table()->label(null,$lang);
-			$r .= " | ";
+			$r .= ' | ';
 			$r .= static::langText('specific/add');
 		}
 		
@@ -203,7 +203,7 @@ class SpecificAdd extends Core\RouteAlias
 	{
 		$r = '';
 		
-		$r .= Html::divOp("container");
+		$r .= Html::divOp('container');
 		$r .= Html::divOp('form');
 		$data = ['unload'=>static::langText('common/unload')];
 		$r .= SpecificAddSubmit::makeOverload($this->segment())->formOpen(['data'=>$data]);
@@ -224,7 +224,7 @@ class SpecificAdd extends Core\RouteAlias
 	{
 		$r = '';
 		
-		$r .= Html::divOp("bottom");
+		$r .= Html::divOp('bottom');
 		$r .= $this->makeFormSubmit('bottom');
 		$r .= Html::divCl();
 		

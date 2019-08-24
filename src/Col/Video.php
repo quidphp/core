@@ -127,7 +127,7 @@ abstract class Video extends Core\ColAlias
 		if(!empty($excerpt))
 		{
 			if(strlen($content))
-			$content .= " - ";
+			$content .= ' - ';
 			
 			$content .= Html::span($excerpt);
 		}

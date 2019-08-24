@@ -74,11 +74,11 @@ class Home extends Core\Route\Home
 		$attr = ['countInfo',(!empty($popup))? ['withPopup','anchorCorner']:null];
 		$r .= Html::divOp($attr);
 		$r .= Html::divOp(['count','icon','info','padLeft']);
-		$r .= Html::span($total['table']." ".static::langPlural($total['table'],'lcf|common/table'));
-		$r .= Html::span(",&nbsp;");
-		$r .= Html::span($total['row']." ".static::langPlural($total['row'],'lcf|common/row'));
-		$r .= Html::span("&nbsp;".static::langText('lcf|common/and')."&nbsp;");
-		$r .= Html::span($total['col']." ".static::langPlural($total['col'],'lcf|common/col'));
+		$r .= Html::span($total['table'].' '.static::langPlural($total['table'],'lcf|common/table'));
+		$r .= Html::span(',&nbsp;');
+		$r .= Html::span($total['row'].' '.static::langPlural($total['row'],'lcf|common/row'));
+		$r .= Html::span('&nbsp;'.static::langText('lcf|common/and').'&nbsp;');
+		$r .= Html::span($total['col'].' '.static::langPlural($total['col'],'lcf|common/col'));
 		$r .= Html::divCl();
 		$r .= $popup;
 		$r .= Html::divCl();
@@ -117,7 +117,7 @@ class Home extends Core\Route\Home
 				if(!empty($value))
 				{
 					$r .= Html::liOp();
-					$r .= Html::span($label.":");
+					$r .= Html::span($label.':');
 					
 					if(is_array($value))
 					{
@@ -227,11 +227,11 @@ class Home extends Core\Route\Home
 				
 				$r .= Html::divOp('in');
 				$r .= Html::divOp('first');
-				$r .= Html::span(static::langText('home/note').":");
+				$r .= Html::span(static::langText('home/note').':');
 				$r .= Html::span(static::langText('home/searchNote'),'note');
 				$r .= Html::divCl();
 				$r .= Html::divOp('second');
-				$r .= Html::span(static::langText('home/searchIn').":");
+				$r .= Html::span(static::langText('home/searchIn').':');
 				$r .= Html::span(implode(', ',$searchable->pair('label')),'labels');
 				$r .= Html::divCl();
 				$r .= Html::divCl();
