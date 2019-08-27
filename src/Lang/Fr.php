@@ -800,7 +800,7 @@ class Fr extends Base\Lang\Fr
 			
 			// about
 			'about'=>[
-				'content'=>'Ce gestionnaire de contenu open-source est développé sur le framework Quid 5. La version actuelle est [version].'
+				'content'=>'Ce gestionnaire de contenu open-source est développé sur le framework QuidPHP. La version actuelle est [version].'
 			],
 			
 			// footer

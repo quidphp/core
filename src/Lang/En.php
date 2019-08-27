@@ -800,7 +800,7 @@ class En extends Base\Lang\En
 			
 			// about
 			'about'=>[
-				'content'=>'This open-source Content Management System is based on the Quid 5 framework. The current version is: [version].'
+				'content'=>'This open-source Content Management System is based on the QuidPHP framework. The current version is: [version].'
 			],
 			
 			// footer
