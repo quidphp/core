@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cell;
 use Quid\Core;
 use Quid\Orm;
@@ -9,8 +16,8 @@ final class Primary extends Core\CellAlias
 {
 	// config
 	public static $config = [];
-	
-	
+
+
 	// set
 	// set pour cell primaire n'est pas permis
 	// aucune erreur envoyé si le id est le même qu'initial
@@ -18,7 +25,7 @@ final class Primary extends Core\CellAlias
 	{
 		if(!(is_int($value) && !empty($this->value['initial']) && $this->value['initial'] === $value))
 		static::throw();
-		
+
 		return $this;
 	}
 
@@ -27,17 +34,17 @@ final class Primary extends Core\CellAlias
 	// setInitial pour cell primaire est seulement permis si:
 	// il n'y pas de valeur initial ou si la valeur donné est la valeur initial
 	// onInit n'est pas appelé
-	public function setInitial($value):Orm\Cell 
+	public function setInitial($value):Orm\Cell
 	{
 		if(is_int($value) && (empty($this->value['initial']) || $this->value['initial'] === $value))
 		{
 			if(empty($this->value['initial']))
 			$this->value['initial'] = $value;
 		}
-		
+
 		else
 		static::throw();
-		
+
 		return $this;
 	}
 
@@ -47,7 +54,7 @@ final class Primary extends Core\CellAlias
 	public function reset():Orm\Cell
 	{
 		static::throw();
-		
+
 		return $this;
 	}
 
@@ -57,7 +64,7 @@ final class Primary extends Core\CellAlias
 	public function unset():Orm\Cell
 	{
 		static::throw();
-		
+
 		return $this;
 	}
 }

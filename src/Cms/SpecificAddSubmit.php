@@ -1,16 +1,20 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
 use Quid\Core;
-use Quid\Base;
 
 // specificAddSubmit
 class SpecificAddSubmit extends Core\RouteAlias
 {
 	// trait
-	use _common, _general, _specificSubmit, Core\Route\_formSubmit, Core\Segment\_table;
-	
-	
+	use _common; use _general; use _specificSubmit; use Core\Route\_formSubmit; use Core\Segment\_table;
 	// config
 	public static $config = [
 		'path'=>[
@@ -30,30 +34,30 @@ class SpecificAddSubmit extends Core\RouteAlias
 		'parent'=>SpecificAdd::class,
 		'group'=>'submit'
 	];
-	
-	
+
+
 	// onBefore
 	// validation avant le lancement de la route
 	protected function onBefore()
 	{
 		$return = false;
 		$table = $this->table();
-		
+
 		if(!empty($table) && $table->hasPermission('view','add','insert'))
 		$return = true;
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// fallbackRouteRedirect
 	// si c'est un failedFileUpload, renvoie vers le referer
 	public function fallbackRouteRedirect($context=null)
 	{
 		return ($this->request()->isFailedFileUpload())? true:null;
 	}
-	
-	
+
+
 	// proceed
 	// insère la ligne
 	protected function proceed():?Core\Row
@@ -63,29 +67,29 @@ class SpecificAddSubmit extends Core\RouteAlias
 		$context = static::context();
 		$post = $this->post();
 		$post = $this->onBeforeCommit($post);
-		
+
 		if($post !== null)
 		$return = $table->insert($post,['preValidate'=>true,'com'=>true,'context'=>$context]);
-		
+
 		if(empty($return))
 		$this->failureComplete();
-		
+
 		else
 		$this->successComplete();
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// setFlash
 	// enregistre les données dans l'objet flash
-	protected function setFlash():void 
+	protected function setFlash():void
 	{
 		$post = $this->post();
 		$flash = $this->session()->flash();
 		$key = [$this->classFqcn(),$this->table()];
 		$flash->set($key,$post);
-		
+
 		return;
 	}
 }

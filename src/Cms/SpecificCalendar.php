@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
 use Quid\Core;
 
@@ -7,9 +14,7 @@ use Quid\Core;
 class SpecificCalendar extends Core\RouteAlias
 {
 	// trait
-	use _common, Core\Route\_calendar, Core\Segment\_timestampMonth, Core\Segment\_str, Core\Segment\_selected;
-	
-	
+	use _common; use Core\Route\_calendar; use Core\Segment\_timestampMonth; use Core\Segment\_str; use Core\Segment\_selected;
 	// config
 	public static $config = [
 		'path'=>[
@@ -24,11 +29,11 @@ class SpecificCalendar extends Core\RouteAlias
 			'role'=>['>='=>20]],
 		'widget'=>Core\Widget\Calendar::class
 	];
-	
-	
+
+
 	// setCallback
 	// change les callback pour le calendrier de specific
-	public function setCallback(Core\Widget\Calendar $return):Core\Widget\Calendar 
+	public function setCallback(Core\Widget\Calendar $return):Core\Widget\Calendar
 	{
 		$return->setCallback('prev',function(int $value) {
 			$route = $this->changeSegments(['timestamp'=>$value]);
@@ -38,7 +43,7 @@ class SpecificCalendar extends Core\RouteAlias
 			$route = $this->changeSegments(['timestamp'=>$value]);
 			return $route->a(null,['ajax','next','white','icon','solo']);
 		});
-		
+
 		return $return;
 	}
 }

@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Col;
 use Quid\Core;
 
@@ -14,11 +21,11 @@ class Enum extends RelationAlias
 		'order'=>true,
 		'complex'=>[0=>'select',11=>'search']
 	];
-	
-	
+
+
 	// isEnum
 	// retourne vrai comme la colonne est de type relation enum
-	public function isEnum():bool 
+	public function isEnum():bool
 	{
 		return true;
 	}

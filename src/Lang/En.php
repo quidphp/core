@@ -1,5 +1,12 @@
-<?php 
+<?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Lang;
 use Quid\Base;
 
@@ -8,8 +15,8 @@ class En extends Base\Lang\En
 {
 	// trait
 	use _overload;
-	
-	
+
+
 	// config
 	public static $config = [
 		// common
@@ -53,10 +60,10 @@ class En extends Base\Lang\En
 			'captcha'=>'Enter the characters in the image',
 			'accessDenied'=>'Access Denied'
 		],
-		
+
 		// error
 		'error'=>[
-			
+
 			// label
 			'label'=>[
 				1=>'Error',
@@ -72,68 +79,68 @@ class En extends Base\Lang\En
 				34=>'Route exception',
 				35=>'Boot exception'
 			],
-			
+
 			// page
 			'page'=>[
-				
+
 				// content
 				'content'=>[
 					400=>'The request is invalid and cannot be processed.',
 					404=>'This URL does not point to any valid content.'
 				],
-				
+
 				'back'=>'Click [link] to go back.'
 			]
 		],
-		
+
 		// lang
 		'lang'=>[
 			'fr'=>'French',
 			'en'=>'English'
 		],
-		
+
 		// langSwitch
 		'langSwitch'=>[
 			'fr'=>'Français',
 			'en'=>'English'
 		],
-		
+
 		// relationOrder
 		'relationOrder'=>[
 			'key'=>[
 				1=>'Oldest first',
 				2=>'Newest first',
 			],
-			
+
 			'value'=>[
 				3=>'Alphabetical order',
 				4=>'Inverted alphabetical order'
 			]
 		],
-		
+
 		// login
 		'login'=>[
 			'usernameEmail'=>'Username or email',
 			'remember'=>'Remember me ?',
 		],
-		
+
 		// browscap
 		'browscap'=>[
 			'noscript'=>'Cannot login because JavaScript is disabled on your browser.',
 			'cookie'=>'Cannot login because your browser does not accept cookies.'
 		],
-		
+
 		// resetPassword
 		'resetPassword'=>[
 			'forgot'=>'Forgot your password ?',
 			'submit'=>'Submit'
 		],
-		
+
 		// register
 		'register'=>[
 			'confirmPassword'=>'Password confirmation'
 		],
-		
+
 		// accountChangePassword
 		'accountChangePassword'=>[
 			'oldPassword'=>'Current password',
@@ -144,7 +151,7 @@ class En extends Base\Lang\En
 
 		// exception
 		'exception'=>[
-			
+
 			// catchableException
 			'catchableException'=>[
 				'notDeleteable'=>'Row cannot be deleted.',
@@ -166,29 +173,29 @@ class En extends Base\Lang\En
 				'invalidFileIndex'=>'Impossible to upload a file in index #[1]',
 				'pathNotWritable'=>'Path [1] is not writable']
 		],
-		
+
 		// direction
 		'direction'=>[
 			'asc'=>'Asc',
 			'desc'=>'Desc',
 		],
-		
+
 		// label
 		'label'=>'Quid',
-		
+
 		// db
 		'db'=>[
-			
+
 			// label
 			'label'=>[],
-			
+
 			// description
 			'description'=>[]
 		],
-			
+
 		// table
 		'table'=>[
-			
+
 			// label
 			'label'=>[
 				'email'=>'Email',
@@ -205,17 +212,17 @@ class En extends Base\Lang\En
 				'user'=>'User',
 				'admin'=>'Admin',
 				'system'=>'System'],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// col
 		'col'=>[
-			
+
 			// label
 			'label'=>[
-				
+
 				// *
 				'*'=>[
 					'id'=>'Id',
@@ -357,32 +364,32 @@ class En extends Base\Lang\En
 					'total'=>'Total',
 					'timezone'=>'Timezone'
 				],
-				
+
 				// page
 				'page'=>[
 					'page_id'=>'Parent page'
 				]
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// row
 		'row'=>[
-			
+
 			// label
 			'label'=>[
 				'*'=>'[table] #[primary]'
 			],
-			
+
 			// description
 			'description'=>[]
 		],
 
 		// role
 		'role'=>[
-			
+
 			// label
 			'label'=>[
 				1=>'Nobody',
@@ -394,14 +401,14 @@ class En extends Base\Lang\En
 				80=>'Admin',
 				90=>'Cron'
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// route
 		'route'=>[
-			
+
 			// label
 			'label'=>[
 				'account'=>'My account',
@@ -421,20 +428,20 @@ class En extends Base\Lang\En
 				'robots'=>'Robots',
 				'sitemap'=>'Sitemap'
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// validate
 		'validate'=>[
 			'pointer'=>'Must be a valid pointer (table/id)',
 			'inRelation'=>'Must be in the relation',
-			
+
 			// tables
 			'tables'=>[]
 		],
-		
+
 		// required
 		'required'=>[
 			'tables'=>[
@@ -443,53 +450,53 @@ class En extends Base\Lang\En
 				]
 			]
 		],
-		
+
 		// unique
 		'unique'=>[
 			'tables'=>[]
 		],
-		
+
 		// editable
 		'editable'=>[
 			'tables'=>[]
 		],
-		
+
 		// compare
 		'compare'=>[
 			'tables'=>[]
 		],
-		
+
 		// com
 		'com'=>[
-			
+
 			// neg
 			'neg'=>[
-				
+
 				// captcha
 				'captcha'=>'The characters entered do not match the ones in the image.',
-				
+
 				// csrf
 				'csrf'=>[
 					'retry'=>'Please try this operation again.',
 				],
-				
+
 				// genuine
 				'genuine'=>[
 					'retry'=>'Please try this operation again.',
 				],
-				
+
 				// fileUpload
 				'fileUpload'=>[
 					'maxFilesize'=>'The size of the uploaded file must not be larger than [maxFilesize]',
 					'dataLost'=>'The data from the last submitted form has not been saved.'
 				],
-				
+
 				// timeout
 				'timeout'=>[
 					'retry'=>'Please retry this operation later.',
 					'login'=>'Session is locked: too many failed login attemps',
 				],
-				
+
 				// login
 				'login'=>[
 					'alreadyConnected'=>'Already logged in',
@@ -501,19 +508,19 @@ class En extends Base\Lang\En
 					'cantFindUser'=>'This user does not exist',
 					'invalidValues'=>'Invalid connection values'
 				],
-				
+
 				// userSession
 				'userSession'=>[
 					'userInactive'=>'This user is now inactive.',
 					'loginLifetime'=>'Please reconnect. The session has expired.',
 					'mostRecentStorage'=>'Please reconnect. A newer session has been detected for this user.'
 				],
-				
+
 				// logout
 				'logout'=>[
 					'notConnected'=>'Not logged in'
 				],
-				
+
 				// resetPassword
 				'resetPassword'=>[
 					'alreadyConnected'=>'Cannot reset a password from a connected user account',
@@ -525,7 +532,7 @@ class En extends Base\Lang\En
 					'email'=>'Error while sending the email',
 					'invalidValue'=>'Invalid value'
 				],
-				
+
 				// activatePassword
 				'activatePassword'=>[
 					'alreadyConnected'=>'Cannot activate a password from a connected user account',
@@ -536,28 +543,28 @@ class En extends Base\Lang\En
 					'userNotFound'=>'This user does not exist',
 					'invalidValue'=>'Invalid values'
 				],
-				
+
 				// register
 				'register'=>[
 					'alreadyConnected'=>'Cannot register from a connected user account',
 					'passwordConfirm'=>'The password confirmation is incorrect',
 					'invalidValues'=>'Invalid values'
 				],
-				
+
 				// user
 				'user'=>[
-					
+
 					// welcome
 					'welcome'=>[
 						'failure'=>'The welcome email was not sent.'
 					]
 				],
-				
+
 				// form
 				'form'=>[
 					'invalid'=>'The form is invalid'
 				],
-				
+
 				// insert
 				'insert'=>[
 					'*'=>[
@@ -565,7 +572,7 @@ class En extends Base\Lang\En
 						'failure'=>'Add failed'
 					]
 				],
-				
+
 				// update
 				'update'=>[
 					'*'=>[
@@ -574,7 +581,7 @@ class En extends Base\Lang\En
 						'system'=>'Error system'
 					]
 				],
-				
+
 				// delete
 				'delete'=>[
 					'*'=>[
@@ -584,7 +591,7 @@ class En extends Base\Lang\En
 						'system'=>'Error system'
 					]
 				],
-				
+
 				// truncate
 				'truncate'=>[
 					'*'=>[
@@ -592,68 +599,68 @@ class En extends Base\Lang\En
 						'system'=>'Error system'
 					]
 				],
-				
+
 				// duplicate
 				'duplicate'=>[
 					'failure'=>'Duplicate has failed'
 				]
 			],
-			
+
 			// pos
 			'pos'=>[
-				
+
 				// login
 				'login'=>[
 					'success'=>'Logged in'
 				],
-				
+
 				// logout
 				'logout'=>[
 					'success'=>'Logged out'
 				],
-				
+
 				// changePassword
 				'changePassword'=>[
 					'success'=>'Password changed'
 				],
-				
+
 				// resetPassword
 				'resetPassword'=>[
 					'success'=>'The password has been reset and sent to your email'
 				],
-				
+
 				// activatePassword
 				'activatePassword'=>[
 					'success'=>'The password has been activated'
 				],
-				
+
 				// media
 				'media'=>[
 					'delete'=>'[count] file%s% deleted',
 					'regenerate'=>'[count] file%s% regenerated'
 				],
-				
+
 				// slug
 				'slug'=>[
 					'updated'=>'[count] other%s% line%s% updated'
 				],
-				
+
 				// user
 				'user'=>[
-					
+
 					// welcome
 					'welcome'=>[
 						'success'=>'The welcome email was sent.'
 					],
 				],
-				
+
 				// insert
 				'insert'=>[
 					'*'=>[
 						'success'=>'Add success'
 					]
 				],
-				
+
 				// update
 				'update'=>[
 					'*'=>[
@@ -662,37 +669,37 @@ class En extends Base\Lang\En
 						'noChange'=>'No change'
 					]
 				],
-				
+
 				// delete
 				'delete'=>[
 					'*'=>[
 						'success'=>'Delete success'
 					]
 				],
-				
+
 				// truncate
 				'truncate'=>[
 					'*'=>[
 						'success'=>'Table has been truncated'
 					]
 				],
-				
+
 				// duplicate
 				'duplicate'=>[
 					'success'=>'Duplicate success'
 				]
 			]
 		],
-		
+
 		// relation
 		'relation'=>[
-			
+
 			// bool
 			'bool'=>[
 				0=>'No',
 				1=>'Yes'
 			],
-			
+
 			// yes
 			'yes'=>[
 				1=>'Yes'
@@ -703,20 +710,20 @@ class En extends Base\Lang\En
 				'app'=>'Application',
 				'cms'=>'Content management system'
 			],
-			
+
 			// contextEnv
 			'contextEnv'=>[
 				'dev'=>'Development',
 				'staging'=>'Staging',
 				'prod'=>'Production'
 			],
-			
+
 			// emailType
 			'emailType'=>[
 				1=>'Text',
 				2=>'Html',
 			],
-			
+
 			// logType
 			'logType'=>[
 				1=>'Login',
@@ -726,14 +733,14 @@ class En extends Base\Lang\En
 				5=>'Change password',
 				6=>'Register'
 			],
-			
+
 			// logCronType
 			'logCronType'=>[
 				1=>'Minute',
 				2=>'Hour',
 				3=>'Day'
 			],
-			
+
 			// queueEmailStatus
 			'queueEmailStatus'=>[
 				1=>'To send',
@@ -741,7 +748,7 @@ class En extends Base\Lang\En
 				3=>'Error',
 				4=>'Sent'
 			],
-			
+
 			// logHttpType
 			'logHttpType'=>[
 				1=>'Unsafe',
@@ -755,7 +762,7 @@ class En extends Base\Lang\En
 				404=>'404 - Not Found',
 				500=>'500 - Internal Server Error'
 			],
-			
+
 			// logSqlType
 			'logSqlType'=>[
 				1=>'Select',
@@ -769,45 +776,45 @@ class En extends Base\Lang\En
 				9=>'Drop'
 			]
 		],
-		
+
 		// cms
 		'@cms'=>[
-			
+
 			// resetPassword
 			'resetPassword'=>[
 				'info'=>'Enter your email to get a message explaining how to regenerate the password.'
 			],
-			
+
 			// changePassword
 			'changePassword'=>[
 				'newPassword'=>'New password',
 				'newPasswordConfirm'=>'New password confirmation'
 			],
-			
+
 			// accountChangePassword
 			'accountChangePassword'=>[
 				'link'=>'My password',
 				'info'=>'Use this form to change the password for the current account.',
 				'submit'=>'Modify'
 			],
-			
+
 			// author
 			'author'=>[
 				'name'=>'Quid',
 				'uri'=>'https://quid5.com',
 				'email'=>'emondpph@gmail.com'
 			],
-			
+
 			// about
 			'about'=>[
 				'content'=>'This open-source Content Management System is based on the QuidPHP framework. The current version is: [version].'
 			],
-			
+
 			// footer
 			'footer'=>[
 				'copyright'=>'Version [version]'
 			],
-			
+
 			// home
 			'home'=>[
 				'searchSubmit'=>'Search in all tables',
@@ -826,7 +833,7 @@ class En extends Base\Lang\En
 				'classDb'=>'Class DB',
 				'classTables'=>'Class Tables'
 			],
-			
+
 			// general
 			'general'=>[
 				'notFound'=>'Nothing',
@@ -853,7 +860,7 @@ class En extends Base\Lang\En
 				'classCols'=>'Class Columns',
 				'classCells'=>'Class Cells'
 			],
-			
+
 			// export
 			'export'=>[
 				'long'=>'This export may take more than one minute.',
@@ -862,7 +869,7 @@ class En extends Base\Lang\En
 				'latin1'=>'Latin-1',
 				'office'=>'Use Latin-1 for use in Microsoft Office on Windows'
 			],
-			
+
 			// specific
 			'specific'=>[
 				'add'=>'Add',
@@ -892,13 +899,13 @@ class En extends Base\Lang\En
 				'modifyTop'=>'Modify',
 				'modifyBottom'=>'Modify'
 			],
-			
+
 			// table
 			'table'=>[
-				
+
 				// label
 				'label'=>[],
-				
+
 				// description
 				'description'=>[
 					'email'=>'Email content sent by the app',
@@ -914,41 +921,41 @@ class En extends Base\Lang\En
 					'session'=>'Active session tracking',
 					'user'=>'Users who can access the application and/or CMS']
 			],
-			
+
 			// col
 			'col'=>[
-				
+
 				// label
 				'label'=>[
-					
+
 					// *
 					'*'=>[],
-					
+
 					// lang
 					'lang'=>[
 						'type'=>'Environment'
 					],
-					
+
 					// redirection
 					'redirection'=>[
 						'key'=>'From',
 						'value'=>'Tos',
 					],
-					
+
 					// session
 					'session'=>[
 						'sid'=>'Sid'
 					],
-					
+
 					// logEmail
 					'logEmail'=>[
 						'json'=>'Header'
 					]
 				],
-				
+
 				// description
 				'description'=>[
-					
+
 					// *
 					'*'=>[
 						'id'=>'Primary and unique key. Required',
@@ -1025,7 +1032,7 @@ class En extends Base\Lang\En
 						'total'=>'Specifies the total of the element',
 						'timezone'=>'Specifies the timezone of the element'
 					],
-					
+
 					// lang
 					'lang'=>[
 						'key'=>'Unique key of the text element',
@@ -1038,7 +1045,7 @@ class En extends Base\Lang\En
 						'value'=>'Destination of the redirection',
 						'type'=>'The redirection is active within these environments'
 					],
-					
+
 					// user
 					'user'=>[
 						'role'=>'Role of the user within the site and CMS',
@@ -1067,14 +1074,14 @@ class En extends Base\Lang\En
 						'key'=>'Unique key of the email template',
 						'type'=>'Content-Type to be used, for administrator'
 					],
-					
+
 					// option
 					'option'=>[
 						'type'=>'Option type',
 						'key'=>'Option key, use /',
 						'content'=>'Content of the option, can be json'
 					],
-					
+
 					// log
 					'log'=>[
 						'type'=>'Log type',
@@ -1108,10 +1115,10 @@ class En extends Base\Lang\En
 					]
 				]
 			],
-			
+
 			// panel
 			'panel'=>[
-				
+
 				// label
 				'label'=>[
 					'default'=>'Default',
@@ -1128,7 +1135,7 @@ class En extends Base\Lang\En
 					'meta'=>'Meta',
 					'param'=>'Parameters'
 				],
-				
+
 				// description
 				'description'=>[
 					'default'=>'This panel contains the default fields, which do not have a specific panel assigned.',
@@ -1146,10 +1153,10 @@ class En extends Base\Lang\En
 					'param'=>'This panel contains fields related to the parameters of the line'
 				]
 			],
-			
+
 			// route
 			'route'=>[
-				
+
 				// label
 				'label'=>[
 					'about'=>'About',
@@ -1173,7 +1180,7 @@ class En extends Base\Lang\En
 					'specificTableRelation'=>'Specific - Table Relation',
 					'specificUserWelcome'=>'Welcome'
 				],
-				
+
 				// description
 				'description'=>[]
 			]

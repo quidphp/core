@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Segment;
 use Quid\Core;
 
@@ -8,28 +15,28 @@ trait _pointer
 {
 	// structureSegmentPointer
 	// gère le segment d'uri pour un pointeur, c'est à dire table-id en un seul segment
-	public static function structureSegmentPointer(string $type,$value,array &$keyValue) 
+	public static function structureSegmentPointer(string $type,$value,array &$keyValue)
 	{
 		$return = false;
 		$valid = static::getPointerValidTables();
-		
+
 		if($type === 'make')
 		{
 			if($value instanceof Core\Row)
 			{
 				$tableName = $value->tableName();
-				
+
 				if(empty($valid) || in_array($tableName,$valid,true))
 				$value = $value->pointer('-');
-				
+
 				else
 				$return = false;
 			}
-			
+
 			if(is_string($value) && !empty($value))
 			$return = $value;
 		}
-		
+
 		elseif($type === 'validate')
 		{
 			if(is_string($value) && !empty($value))
@@ -38,25 +45,25 @@ trait _pointer
 				$return = $db->fromPointer($value,'-',$valid) ?? false;
 			}
 		}
-		
+
 		elseif($type === 'validateDefault')
 		$return = static::structureSegmentPointerValidateDefault();
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// getPointerValidTables
 	// retourne les tables valables pour le pointeur, si vide tout est valable
-	public static function getPointerValidTables():?array 
+	public static function getPointerValidTables():?array
 	{
 		return null;
 	}
-	
-	
+
+
 	// structureSegmentPointerValidateDefault
 	// retourne la valeur par défaut pour le segment
-	public static function structureSegmentPointerValidateDefault() 
+	public static function structureSegmentPointerValidateDefault()
 	{
 		return false;
 	}

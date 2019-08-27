@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Row;
 use Quid\Core;
 use Quid\Base;
@@ -22,12 +29,12 @@ class Lang extends Core\RowAlias
 			'content_fr'=>['general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false],
 			'content_en'=>['general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
 	];
-	
-	
+
+
 	// grabContent
 	// retourne un tableau de tous les contenus de langue pertinente
 	// il faut fournir un code de langue et un type
-	public static function grabContent(string $value,string $type):array 
+	public static function grabContent(string $value,string $type):array
 	{
 		$return = [];
 		$table = static::tableFromFqcn();
@@ -36,10 +43,10 @@ class Lang extends Core\RowAlias
 		$contentCol = $table->col("content_$value");
 		$where = [true,[$typeCol,'findInSet',$type]];
 		$return = $table->keyValue($keyCol,$contentCol,false,$where);
-		
+
 		if(!empty($return))
 		$return = Base\Lang::content($return);
-		
+
 		return $return;
 	}
 }

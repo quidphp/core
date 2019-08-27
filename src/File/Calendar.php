@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\File;
 use Quid\Base;
 
@@ -24,15 +31,15 @@ class Calendar extends TextAlias
 		END:VEVENT
 		END:VCALENDAR'
 	];
-	
-	
+
+
 	// event
 	// retourne la string calendar pour un tableau événement
-	public function event(array $array):?string 
+	public function event(array $array):?string
 	{
 		$return = null;
 		$array = Base\Obj::cast($array);
-		
+
 		if(Base\Arr::keysExists(['dateStart','dateEnd','name','description','location','uri','id'],$array))
 		{
 			if(is_int($array['id']) && is_int($array['dateStart']) && is_int($array['dateEnd']) && is_string($array['name']) && is_string($array['uri']))
@@ -44,7 +51,7 @@ class Calendar extends TextAlias
 				$location = Base\Str::excerpt(255,str_replace(',',"\,",$array['location'] ?? ''),['removeLineBreaks'=>true]);
 				$description = Base\Str::excerpt(255,str_replace(',',"\,",$array['description'] ?? ''),['removeLineBreaks'=>true]);
 				$replace = [];
-				
+
 				$replace['%timezone%'] = $timezone;
 				$replace['%dateStart%'] = Base\Date::format('ics',$array['dateStart']);
 				$replace['%dateEnd%'] = Base\Date::format('ics',$array['dateEnd']);
@@ -54,24 +61,24 @@ class Calendar extends TextAlias
 				$replace['%uri%'] = $array['uri'];
 				$replace['%app%'] = $app;
 				$replace['%id%'] = $array['id'];
-				
+
 				$return = Base\Str::replace($replace,$model);
 			}
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// writeEvent
 	// écrit la string événement dans le fichier calendar
 	public function writeEvent(array $array):self
 	{
 		$event = $this->event($array);
-		
+
 		if(is_string($event))
 		$this->write($event);
-		
+
 		return $this;
 	}
 }

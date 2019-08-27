@@ -1,17 +1,23 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Widget;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // calendar
 class Calendar extends Core\WidgetAlias
 {
 	// trait
 	use Main\Widget\_calendar;
-	
-	
+
+
 	// config
 	public static $config = [];
 }

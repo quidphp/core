@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Row;
 use Quid\Main;
 
@@ -7,16 +14,14 @@ use Quid\Main;
 trait _log
 {
 	// trait
-	use Main\_log, _new;
-	
-	
+	use Main\_log; use _new;
 	// log
 	// crée une nouvelle entrée du log maintenant
 	public static function log(...$values):?Main\Contract\Log
 	{
 		return static::new(...$values);
 	}
-	
+
 
 	// logTrim
 	// trim la table de log pour la valeur paramétré dans static config
@@ -24,19 +29,19 @@ trait _log
 	public static function logTrim():?int
 	{
 		$return = null;
-		
+
 		if(array_key_exists('deleteTrim',static::$config) && is_int(static::$config['deleteTrim']))
 		{
 			$boot = static::bootReady();
-			
+
 			if(!empty($boot) && $boot->hasDb())
 			{
 				$db = $boot->db();
-				
+
 				if($db->hasTable(static::class))
 				{
 					$table = $db->table(static::class);
-					
+
 					if($table->hasPermission('delete'))
 					{
 						$currentLog = $db->getOption('log');
@@ -47,7 +52,7 @@ trait _log
 				}
 			}
 		}
-		
+
 		return $return;
 	}
 }

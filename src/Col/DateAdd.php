@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Col;
 use Quid\Base;
 
@@ -16,11 +23,11 @@ class DateAdd extends DateAlias
 		'editable'=>false,
 		'onGet'=>[[Base\Date::class,'onGet'],'long']
 	];
-	
-	
+
+
 	// onInsert
 	// sur insert retourne le timestamp
-	public function onInsert($value,array $row,array $option):int 
+	public function onInsert($value,array $row,array $option):int
 	{
 		return Base\Date::timestamp();
 	}

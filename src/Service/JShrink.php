@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Service;
 use Quid\Core;
 use JShrink\Minifier;
@@ -12,21 +19,21 @@ class JShrink extends Core\ServiceAlias
 		'option'=>[
 			'flaggedComments'=>false]
 	];
-	
-	
+
+
 	// trigger
 	// permet de faire un minify d'une string js fourni en argument
 	// retourne le js minify
-	public function trigger(string $value):string 
+	public function trigger(string $value):string
 	{
 		return Minifier::minify($value,$this->option());
 	}
-	
-	
+
+
 	// staticTrigger
 	// méthode statique pour créer l'objet et minify la string
 	// retourne une string
-	public static function staticTrigger(string $value,?array $option=null):string 
+	public static function staticTrigger(string $value,?array $option=null):string
 	{
 		$return = null;
 		$minifier = new static(__METHOD__,$option);

@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core;
 use Quid\Main;
 
@@ -8,12 +15,12 @@ class Com extends Main\Com
 {
 	// trait
 	use _bootAccess;
-	
-	
+
+
 	// config
 	public static $config = [];
-	
-	
+
+
 	// lang
 	// retourne l'objet lang, peut utiliser celui dans inst
 	// envoie une exception si introuvable
@@ -26,7 +33,7 @@ class Com extends Main\Com
 			if(!empty($boot))
 			$return = $boot->lang();
 		}
-		
+
 		return parent::lang($return);
 	}
 }

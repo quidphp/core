@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core;
 use Quid\Orm;
 
@@ -8,12 +15,12 @@ class Tables extends Orm\Tables
 {
 	// trait
 	use _accessAlias;
-	
-	
+
+
 	// config
 	public static $config = [];
-	
-	
+
+
 	// keyClassExtends
 	// retourne un tableau utilisé par onPrepareKey
 	public static function keyClassExtends():array

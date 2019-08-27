@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Route;
 use Quid\Core;
 
@@ -8,8 +15,8 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 {
 	// trait
 	use _formSubmit;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[
@@ -25,27 +32,27 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 		'parent'=>AccountChangePassword::class,
 		'group'=>'submit'
 	];
-	
-	
+
+
 	// onFailure
 	// callback appelé lors d'un ajout avec erreur
-	protected function onFailure():void 
+	protected function onFailure():void
 	{
 		$com = static::session()->com();
 		$com->keepCeiling();
-		
+
 		return;
 	}
-	
-	
+
+
 	// routeSuccess
 	// retourne l'objet route pour la redirection
-	public function routeSuccess():Core\Route 
+	public function routeSuccess():Core\Route
 	{
 		return static::makeParentOverload();
 	}
-	
-	
+
+
 	// proceed
 	// procède au changement de mot de passe
 	public function proceed():bool
@@ -54,40 +61,40 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 		$session = static::session();
 		$post = $this->post();
 		$post = $this->onBeforeCommit($post);
-		
+
 		if($post !== null)
 		$return = $session->changePassword($post['newPassword'],$post['newPasswordConfirm'],$post['oldPassword'],['com'=>true]);
-		
+
 		if(empty($return))
 		$this->failureComplete();
-		
+
 		else
 		$this->successComplete();
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// post
 	// retourne les données post pour le changement de mot de passe compte
-	protected function post():array 
+	protected function post():array
 	{
 		$return = [];
 		$request = $this->request();
-		
-		foreach (static::getFields() as $value) 
+
+		foreach (static::getFields() as $value)
 		{
 			if(is_string($value))
 			$return[$value] = (string) $request->get($value);
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// getFields
 	// retourne le nom des champs pour le formulaire
-	public static function getFields():array 
+	public static function getFields():array
 	{
 		return static::$config['verify']['post'] ?? [];
 	}

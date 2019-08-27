@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
 use Quid\Core;
 
@@ -7,9 +14,7 @@ use Quid\Core;
 class GeneralRelation extends Core\RouteAlias
 {
 	// trait
-	use _common, _general, Core\Route\_generalRelation, Core\Segment\_table, Core\Segment\_colRelation, Core\Segment\_selected, Core\Segment\_orderColRelation, Core\Segment\_page;
-	
-	
+	use _common; use _general; use Core\Route\_generalRelation; use Core\Segment\_table; use Core\Segment\_colRelation; use Core\Segment\_selected; use Core\Segment\_orderColRelation; use Core\Segment\_page;
 	// config
 	public static $config = [
 		'path'=>[
@@ -27,8 +32,8 @@ class GeneralRelation extends Core\RouteAlias
 			'ajax'=>true,
 			'role'=>['>='=>20]],
 	];
-	
-	
+
+
 	// onBefore
 	// validation avant le lancement de la route
 	protected function onBefore()
@@ -36,7 +41,7 @@ class GeneralRelation extends Core\RouteAlias
 		$return = false;
 		$table = $this->segment('table');
 		$relation = $this->relation();
-		
+
 		if($table instanceof Core\Table && $table->hasPermission('view','relation','generalRelation'))
 		{
 			if($relation->isRelationTable())
@@ -45,15 +50,15 @@ class GeneralRelation extends Core\RouteAlias
 				if($relationTable->hasPermission('relation','generalRelation'))
 				$return = true;
 			}
-			
+
 			else
 			$return = true;
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// getRoute
 	// retourne la route à utiliser
 	protected function getRoute():Core\Route

@@ -1,5 +1,12 @@
-<?php 
+<?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Lang;
 use Quid\Base;
 
@@ -8,8 +15,8 @@ class Fr extends Base\Lang\Fr
 {
 	// trait
 	use _overload;
-	
-	
+
+
 	// config
 	public static $config = [
 		// common
@@ -53,10 +60,10 @@ class Fr extends Base\Lang\Fr
 			'captcha'=>"Entrer les caractères dans l'image",
 			'accessDenied'=>'Accès interdit'
 		],
-		
+
 		// error
 		'error'=>[
-			
+
 			// label
 			'label'=>[
 				1=>'Erreur',
@@ -72,68 +79,68 @@ class Fr extends Base\Lang\Fr
 				34=>'Exception de route',
 				35=>'Exception de démarrage'
 			],
-			
+
 			// page
 			'page'=>[
-				
+
 				// content
 				'content'=>[
 					400=>'La requête est invalide et ne peut pas être traitée.',
 					404=>'Cette URL ne pointe pas vers un contenu valide.'
 				],
-				
+
 				'back'=>'Cliquez [link] pour revenir.'
 			]
 		],
-		
+
 		// lang
 		'lang'=>[
 			'fr'=>'Français',
 			'en'=>'Anglais'
 		],
-		
+
 		// langSwitch
 		'langSwitch'=>[
 			'fr'=>'Français',
 			'en'=>'English'
 		],
-		
+
 		// relationOrder
 		'relationOrder'=>[
 			'key'=>[
 				1=>'Plus ancien en premier',
 				2=>'Plus récent en premier',
 			],
-			
+
 			'value'=>[
 				3=>'Ordre alphabétique',
 				4=>'Ordre alphabétique inversé'
 			]
 		],
-		
+
 		// login
 		'login'=>[
 			'usernameEmail'=>"Nom d'utilisateur ou courriel",
 			'remember'=>'Se souvenir de moi?'
 		],
-		
+
 		// browscap
 		'browscap'=>[
 			'noscript'=>'Impossible de se connecter car JavaScript est désactivé sur votre navigateur.',
 			'cookie'=>"Impossible de se connecter car votre navigateur n'accepte pas les cookies."
 		],
-		
+
 		// resetPassword
 		'resetPassword'=>[
 			'forgot'=>'Mot de passe oublié ?',
 			'submit'=>'Soumettre'
 		],
-		
+
 		// register
 		'register'=>[
 			'confirmPassword'=>'Confirmation du mot de passe'
 		],
-		
+
 		// accountChangePassword
 		'accountChangePassword'=>[
 			'oldPassword'=>'Mot de passe actuel',
@@ -141,10 +148,10 @@ class Fr extends Base\Lang\Fr
 			'newPasswordConfirm'=>'Confirmation du nouveau mot de passe',
 			'submit'=>'Modifier mon mot de passe'
 		],
-		
+
 		// exception
 		'exception'=>[
-			
+
 			// catchableException
 			'catchableException'=>[
 				'notDeleteable'=>'La ligne ne peut pas être effacé.',
@@ -166,29 +173,29 @@ class Fr extends Base\Lang\Fr
 				'invalidFileIndex'=>"Impossible de charger un fichier dans l'index #[1]",
 				'pathNotWritable'=>"Le chemin [1] n'est pas accessible en écriture"]
 		],
-		
+
 		// direction
 		'direction'=>[
 			'asc'=>'Ascendant',
 			'desc'=>'Descendant',
 		],
-		
+
 		// label
 		'label'=>'Quid',
-		
+
 		// db
 		'db'=>[
-			
+
 			// label
 			'label'=>[],
-			
+
 			// description
 			'description'=>[]
-		],	
-			
+		],
+
 		// table
 		'table'=>[
-			
+
 			// label
 			'label'=>[
 				'email'=>'Modèle de courriel',
@@ -205,17 +212,17 @@ class Fr extends Base\Lang\Fr
 				'user'=>'Utilisateur',
 				'admin'=>'Administration',
 				'system'=>'Système'],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// col
 		'col'=>[
-			
+
 			// label
 			'label'=>[
-				
+
 				// *
 				'*'=>[
 					'id'=>'Id',
@@ -357,32 +364,32 @@ class Fr extends Base\Lang\Fr
 					'total'=>'Total',
 					'timezone'=>'Fuseau horaire'
 				],
-				
+
 				// page
 				'page'=>[
 					'page_id'=>'Page parent'
 				]
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// row
 		'row'=>[
-			
+
 			// label
 			'label'=>[
 				'*'=>'[table] #[primary]',
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// role
 		'role'=>[
-			
+
 			// label
 			'label'=>[
 				1=>'Nobody',
@@ -394,14 +401,14 @@ class Fr extends Base\Lang\Fr
 				80=>'Administrateur',
 				90=>'Cron'
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// route
 		'route'=>[
-			
+
 			// label
 			'label'=>[
 				'account'=>'Mon compte',
@@ -421,20 +428,20 @@ class Fr extends Base\Lang\Fr
 				'robots'=>'Robots',
 				'sitemap'=>'Carte du site'
 			],
-			
+
 			// description
 			'description'=>[]
 		],
-		
+
 		// validate
 		'validate'=>[
 			'pointer'=>'Doit être un pointeur valide (table/id)',
 			'inRelation'=>'Doit être dans la relation',
-			
+
 			// tables
 			'tables'=>[]
 		],
-		
+
 		// required
 		'required'=>[
 			'tables'=>[
@@ -443,53 +450,53 @@ class Fr extends Base\Lang\Fr
 				]
 			]
 		],
-		
+
 		// unique
 		'unique'=>[
 			'tables'=>[]
 		],
-		
+
 		// editable
 		'editable'=>[
 			'tables'=>[]
 		],
-		
+
 		// compare
 		'compare'=>[
 			'tables'=>[]
 		],
-		
+
 		// com
 		'com'=>[
-			
+
 			// neg
 			'neg'=>[
-				
+
 				// captcha
 				'captcha'=>"Les caractères entrés ne correspondent pas à l'image.",
-				
+
 				// csrf
 				'csrf'=>[
 					'retry'=>'Svp réessayer cette opération une autre fois.',
 				],
-				
+
 				// genuine
 				'genuine'=>[
 					'retry'=>'Svp réessayer cette opération une autre fois.',
 				],
-				
+
 				// fileUpload
 				'fileUpload'=>[
 					'maxFilesize'=>'La taille du fichier téléversé ne doit pas dépasser [maxFilesize].',
 					'dataLost'=>"Les données du dernier formulaire soumis n'ont pas été sauvegardées."
 				],
-				
+
 				// timeout
 				'timeout'=>[
 					'retry'=>'Merci de réessayer cette opération plus tard.',
 					'login'=>'La session est verouillée: trop de tentative de connexion',
 				],
-				
+
 				// login
 				'login'=>[
 					'alreadyConnected'=>'Déjà connecté',
@@ -501,19 +508,19 @@ class Fr extends Base\Lang\Fr
 					'cantFindUser'=>"L'utilisateur n'existe pas",
 					'invalidValues'=>'Valeurs de connexion invalides'
 				],
-				
+
 				// userSession
 				'userSession'=>[
 					'userInactive'=>'Cet utilisateur est maintenant inactif.',
 					'loginLifetime'=>'Svp vous reconnecter. La durée de vie de la session a été dépassée.',
 					'mostRecentStorage'=>'Svp vous reconnecter. Une session plus récente a été détectée pour cet utilisateur.'
 				],
-				
+
 				// logout
 				'logout'=>[
 					'notConnected'=>'Pas connecté'
 				],
-				
+
 				// resetPassword
 				'resetPassword'=>[
 					'alreadyConnected'=>"Impossible de regénérer un mot de passe à partir d'un utilisateur connecté",
@@ -525,7 +532,7 @@ class Fr extends Base\Lang\Fr
 					'email'=>"Erreur lors de l'envoie courriel",
 					'invalidValue'=>'Valeur fournie invalide'
 				],
-				
+
 				// activatePassword
 				'activatePassword'=>[
 					'alreadyConnected'=>"Impossible d'activer un mot de passe à partir d'un utilisateur connecté",
@@ -536,28 +543,28 @@ class Fr extends Base\Lang\Fr
 					'userNotFound'=>"L'utilisateur n'existe pas",
 					'invalidValue'=>'Valeurs fournies invalides'
 				],
-				
+
 				// register
 				'register'=>[
 					'alreadyConnected'=>"Impossible de faire un enregistrement à partir d'un utilisateur connecté",
 					'passwordConfirm'=>'La confirmation du mot de passe est incorrect',
 					'invalidValues'=>'Valeurs fournies invalides'
 				],
-				
+
 				// user
 				'user'=>[
-					
+
 					// welcome
 					'welcome'=>[
 						'failure'=>"Le courriel de bienvenue n'a pas pu être envoyé."
 					]
 				],
-				
+
 				// form
 				'form'=>[
 					'invalid'=>'Le formulaire est invalide'
 				],
-				
+
 				// insert
 				'insert'=>[
 					'*'=>[
@@ -565,7 +572,7 @@ class Fr extends Base\Lang\Fr
 						'failure'=>'Ajout non effectué'
 					]
 				],
-				
+
 				// update
 				'update'=>[
 					'*'=>[
@@ -574,7 +581,7 @@ class Fr extends Base\Lang\Fr
 						'system'=>'Erreur système'
 					]
 				],
-				
+
 				// delete
 				'delete'=>[
 					'*'=>[
@@ -584,7 +591,7 @@ class Fr extends Base\Lang\Fr
 						'system'=>'Erreur système'
 					]
 				],
-				
+
 				// truncate
 				'truncate'=>[
 					'*'=>[
@@ -592,68 +599,68 @@ class Fr extends Base\Lang\Fr
 						'system'=>'Erreur système'
 					]
 				],
-				
+
 				// duplicate
 				'duplicate'=>[
 					'failure'=>'La duplication a échouée'
 				]
 			],
-			
+
 			// pos
 			'pos'=>[
-				
+
 				// login
 				'login'=>[
 					'success'=>'Connexion réussie'
 				],
-				
+
 				// logout
 				'logout'=>[
 					'success'=>'Déconnexion réussie'
 				],
-				
+
 				// changePassword
 				'changePassword'=>[
 					'success'=>'Changement de mot de passe réussi'
 				],
-				
+
 				// resetPassword
 				'resetPassword'=>[
 					'success'=>'Le mot de passe a été regénéré et envoyé à votre courriel'
 				],
-				
+
 				// activatePassword
 				'activatePassword'=>[
 					'success'=>'Le mot de passe regénéré a été activé'
 				],
-				
+
 				// media
 				'media'=>[
 					'delete'=>'[count] fichier%s% effacé%s%',
 					'regenerate'=>'[count] fichier%s% regénéré%s%'
 				],
-				
+
 				// slug
 				'slug'=>[
 					'updated'=>'[count] autre%s% ligne%s% mise%s% à jour'
 				],
-				
+
 				// user
 				'user'=>[
-					
+
 					// welcome
 					'welcome'=>[
 						'success'=>'Le courriel de bienvenue a été envoyé.'
 					],
 				],
-				
+
 				// insert
 				'insert'=>[
 					'*'=>[
 						'success'=>'Ajout effectué'
 					]
 				],
-				
+
 				// update
 				'update'=>[
 					'*'=>[
@@ -662,61 +669,61 @@ class Fr extends Base\Lang\Fr
 						'noChange'=>'Aucun changement'
 					]
 				],
-				
+
 				// delete
 				'delete'=>[
 					'*'=>[
 						'success'=>'Suppression effectuée'
 					]
 				],
-				
+
 				// truncate
 				'truncate'=>[
 					'*'=>[
 						'success'=>'La table a été vidée'
 					]
 				],
-				
+
 				// duplicate
 				'duplicate'=>[
 					'success'=>'La duplication a réussie'
 				]
 			]
 		],
-		
+
 		// relation
 		'relation'=>[
-			
+
 			// bool
 			'bool'=>[
 				0=>'Non',
 				1=>'Oui'
 			],
-			
+
 			// yes
 			'yes'=>[
 				1=>'Oui'
 			],
-			
+
 			// contextType
 			'contextType'=>[
 				'app'=>'Application',
 				'cms'=>'Gestionnaire de contenu'
 			],
-			
+
 			// contextEnv
 			'contextEnv'=>[
 				'dev'=>'Développement',
 				'staging'=>'Test',
 				'prod'=>'Production'
 			],
-			
+
 			// emailType
 			'emailType'=>[
 				1=>'Texte',
 				2=>'Html',
 			],
-			
+
 			// logType
 			'logType'=>[
 				1=>'Connexion',
@@ -726,14 +733,14 @@ class Fr extends Base\Lang\Fr
 				5=>'Changement du mot de passe',
 				6=>'Enregistrement'
 			],
-			
+
 			// logCronType
 			'logCronType'=>[
 				1=>'Minute',
 				2=>'Heure',
 				3=>'Jour'
 			],
-			
+
 			// queueEmailStatus
 			'queueEmailStatus'=>[
 				1=>'À envoyer',
@@ -741,7 +748,7 @@ class Fr extends Base\Lang\Fr
 				3=>'Erreur',
 				4=>'Envoyé'
 			],
-			
+
 			// logHttpType
 			'logHttpType'=>[
 				1=>'Non sécuritaire',
@@ -755,7 +762,7 @@ class Fr extends Base\Lang\Fr
 				404=>'404 - Pas trouvé',
 				500=>'500 - Erreur interne du serveur'
 			],
-			
+
 			// logSqlType
 			'logSqlType'=>[
 				1=>'Select',
@@ -769,45 +776,45 @@ class Fr extends Base\Lang\Fr
 				9=>'Drop'
 			]
 		],
-		
+
 		// cms
 		'@cms'=>[
-			
+
 			// resetPassword
 			'resetPassword'=>[
 				'info'=>'Entrer votre courriel pour obtenir un message indiquant la marche à suivre pour regénérer le mot de passe.'
 			],
-			
+
 			// changePassword
 			'changePassword'=>[
 				'newPassword'=>'Nouveau mot de passe',
 				'newPasswordConfirm'=>'Confirmation du nouveau mot de passe'
 			],
-			
+
 			// accountChangePassword
 			'accountChangePassword'=>[
 				'link'=>'Mot de passe',
 				'info'=>'Utilisez ce formulaire pour changer le mot de passe du compte courant.',
 				'submit'=>'Modifier'
 			],
-			
+
 			// author
 			'author'=>[
 				'name'=>'Quid',
 				'uri'=>'https://quid5.com',
 				'email'=>'emondpph@gmail.com'
 			],
-			
+
 			// about
 			'about'=>[
 				'content'=>'Ce gestionnaire de contenu open-source est développé sur le framework QuidPHP. La version actuelle est [version].'
 			],
-			
+
 			// footer
 			'footer'=>[
 				'copyright'=>'Version [version]'
 			],
-			
+
 			// home
 			'home'=>[
 				'searchSubmit'=>'Recherche dans toutes les tables',
@@ -826,7 +833,7 @@ class Fr extends Base\Lang\Fr
 				'classDb'=>'Classe DB',
 				'classTables'=>'Classe Tables'
 			],
-			
+
 			// general
 			'general'=>[
 				'notFound'=>'Rien à afficher',
@@ -853,7 +860,7 @@ class Fr extends Base\Lang\Fr
 				'classCols'=>'Classe Colonnes',
 				'classCells'=>'Classe Cellules'
 			],
-			
+
 			// export
 			'export'=>[
 				'long'=>"Cette exportation peut prendre plus d'une minute.",
@@ -862,7 +869,7 @@ class Fr extends Base\Lang\Fr
 				'latin1'=>'Latin-1',
 				'office'=>'Utilisez Latin-1 pour utilisation dans Microsoft Office sur Windows'
 			],
-			
+
 			// specific
 			'specific'=>[
 				'add'=>'Ajout',
@@ -892,13 +899,13 @@ class Fr extends Base\Lang\Fr
 				'modifyTop'=>'Modifier',
 				'modifyBottom'=>'Modifier'
 			],
-			
+
 			// table
 			'table'=>[
-				
+
 				// label
 				'label'=>[],
-				
+
 				// description
 				'description'=>[
 					'email'=>"Contenu relatif aux courriels envoyés par l'application",
@@ -914,41 +921,41 @@ class Fr extends Base\Lang\Fr
 					'session'=>'Suivi des session actives',
 					'user'=>"Utilisateurs pouvant accéder à l'application et/ou au CMS"]
 			],
-			
+
 			// col
 			'col'=>[
-				
+
 				// label
 				'label'=>[
-					
+
 					// *
 					'*'=>[],
-					
+
 					// lang
 					'lang'=>[
 						'type'=>'Environnement'
 					],
-					
+
 					// redirection
 					'redirection'=>[
 						'key'=>'De',
 						'value'=>'Vers',
 					],
-					
+
 					// session
 					'session'=>[
 						'sid'=>'Sid'
 					],
-					
+
 					// logEmail
 					'logEmail'=>[
 						'json'=>'En-tête'
 					]
 				],
-				
+
 				// description
 				'description'=>[
-					
+
 					// *
 					'*'=>[
 						'id'=>'Clé primaire et unique. Obligatoire',
@@ -1025,20 +1032,20 @@ class Fr extends Base\Lang\Fr
 						'total'=>"Spécifie le total de l'élément",
 						'timezone'=>"Spécifie le fuseau horaire de l'élément"
 					],
-					
+
 					// lang
 					'lang'=>[
 						'key'=>"Clé unique de l'élément texte. Pour administrateur",
 						'type'=>"L'élément texte est accessible dans ces environnements. Pour administrateur"
 					],
-					
+
 					// redirection
 					'redirection'=>[
 						'key'=>'URL à rediriger',
 						'value'=>'Destination de la redirection',
 						'type'=>'La redirection est active dans ces environnements'
 					],
-					
+
 					// user
 					'user'=>[
 						'role'=>"Rôle de l'utilisateur au sein du site et du CMS",
@@ -1052,7 +1059,7 @@ class Fr extends Base\Lang\Fr
 						'fullName'=>"Prénom et nom de famille de l'utilisateur",
 						'timezone'=>"Fuseau horaire de l'utilisateur, laisser vide pour utiliser le fuseau horaire du serveur ([timezone])"
 					],
-					
+
 					// session
 					'session'=>[
 						'name'=>'Nom de la session et du cookie de la session',
@@ -1061,44 +1068,44 @@ class Fr extends Base\Lang\Fr
 						'data'=>'Données serializés de la session',
 						'ip'=>'Ip de cette session'
 					],
-					
+
 					// email
 					'email'=>[
 						'key'=>'Clé unique du modèle de courriel. Pour administrateur',
 						'type'=>"Content-Type utilisé lors de l'envoie. Pour administrateur"
 					],
-					
+
 					// option
 					'option'=>[
 						'type'=>"Type d'option",
 						'key'=>"Clé de l'option, utilisez /",
 						'content'=>"Contenu de l'option, peut être du json"
 					],
-					
+
 					// log
 					'log'=>[
 						'type'=>'Type du log',
 						'json'=>'Données du log'
 					],
-					
+
 					// logSql
 					'logSql'=>[
 						'type'=>'Type de la requête',
 						'json'=>'Données SQL - pour administrateur'
 					],
-					
+
 					// logCron
 					'logCron'=>[
 						'type'=>'Type du cron',
 						'json'=>'Données du script CRON  - pour administrateur'
 					],
-					
+
 					// logError
 					'logError'=>[
 						'type'=>"Type d'erreur",
 						'json'=>"Données et backtrace de l'erreur - pour administrateur"
 					],
-					
+
 					// logEmail
 					'logEmail'=>[
 						'status'=>"Statut de l'envoie courriel",
@@ -1108,10 +1115,10 @@ class Fr extends Base\Lang\Fr
 					]
 				]
 			],
-			
+
 			// panel
 			'panel'=>[
-				
+
 				// label
 				'label'=>[
 					'default'=>'Général',
@@ -1146,10 +1153,10 @@ class Fr extends Base\Lang\Fr
 					'param'=>'Ce panneau contient des champs en lien avec les paramètres de la ligne'
 				]
 			],
-			
+
 			// route
 			'route'=>[
-				
+
 				// label
 				'label'=>[
 					'about'=>'À propos',
@@ -1173,7 +1180,7 @@ class Fr extends Base\Lang\Fr
 					'specificTableRelation'=>'Spécifique - Relation de table',
 					'specificUserWelcome'=>'Bienvenue'
 				],
-				
+
 				// description
 				'description'=>[]
 			]

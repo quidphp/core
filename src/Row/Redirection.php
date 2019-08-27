@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Row;
 use Quid\Core;
 
@@ -20,12 +27,12 @@ class Redirection extends Core\RowAlias
 			'key'=>['general'=>true],
 			'value'=>['general'=>true,'required'=>true]]
 	];
-	
-	
+
+
 	// grabContent
 	// retourne un tableau de tous les contenus de redirection pertinente
 	// il faut fournir un un type
-	public static function grabContent(string $type):array 
+	public static function grabContent(string $type):array
 	{
 		$return = [];
 		$table = static::tableFromFqcn();
@@ -34,7 +41,7 @@ class Redirection extends Core\RowAlias
 		$valueCol = $table->col('value');
 		$where = [true,[$typeCol,'findInSet',$type]];
 		$return = $table->keyValue($keyCol,$valueCol,false,$where);
-		
+
 		return $return;
 	}
 }

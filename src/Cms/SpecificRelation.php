@@ -1,16 +1,20 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
-use Quid\Base\Html;
 use Quid\Core;
 
 // specificRelation
 class SpecificRelation extends Core\RouteAlias
 {
 	// trait
-	use _common, Core\Route\_specificRelation, Core\Segment\_table, Core\Segment\_colRelation, Core\Segment\_selected, Core\Segment\_orderColRelation, Core\Segment\_page;
-	
-	
+	use _common; use Core\Route\_specificRelation; use Core\Segment\_table; use Core\Segment\_colRelation; use Core\Segment\_selected; use Core\Segment\_orderColRelation; use Core\Segment\_page;
 	// config
 	public static $config = [
 		'path'=>[
@@ -27,8 +31,8 @@ class SpecificRelation extends Core\RouteAlias
 			'ajax'=>true,
 			'role'=>['>='=>20]],
 	];
-	
-	
+
+
 	// onBefore
 	// validation avant le lancement de la route
 	protected function onBefore()
@@ -36,7 +40,7 @@ class SpecificRelation extends Core\RouteAlias
 		$return = false;
 		$table = $this->segment('table');
 		$relation = $this->relation();
-		
+
 		if($table instanceof Core\Table && $table->hasPermission('view','relation','specificRelation'))
 		{
 			if($relation->isRelationTable())
@@ -45,11 +49,11 @@ class SpecificRelation extends Core\RouteAlias
 				if($relationTable->hasPermission('relation','specificRelation'))
 				$return = true;
 			}
-			
+
 			else
 			$return = true;
 		}
-		
+
 		return $return;
 	}
 }

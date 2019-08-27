@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
 use Quid\Core;
 
@@ -7,9 +14,7 @@ use Quid\Core;
 class SpecificSubmit extends Core\RouteAlias
 {
 	// trait
-	use _common, _general, _specificSubmit, Core\Route\_specificPrimary, Core\Route\_formSubmit, Core\Segment\_table, Core\Segment\_primary;
-	
-	
+	use _common; use _general; use _specificSubmit; use Core\Route\_specificPrimary; use Core\Route\_formSubmit; use Core\Segment\_table; use Core\Segment\_primary;
 	// config
 	public static $config = [
 		'path'=>[
@@ -29,8 +34,8 @@ class SpecificSubmit extends Core\RouteAlias
 		'parent'=>Specific::class,
 		'group'=>'submit'
 	];
-	
-	
+
+
 	// onBefore
 	// validation avant le lancement
 	protected function onBefore()
@@ -38,14 +43,14 @@ class SpecificSubmit extends Core\RouteAlias
 		$return = false;
 		$table = $this->table();
 		$row = $this->segment('primary');
-		
+
 		if(!empty($table) && $table->hasPermission('view','modify','update') && !empty($row) && $row->isUpdateable())
 		$return = true;
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// proceed
 	// fait la mise à jour sur la ligne
 	public function proceed():?int
@@ -53,7 +58,7 @@ class SpecificSubmit extends Core\RouteAlias
 		$return = null;
 		$post = $this->post();
 		$post = $this->onBeforeCommit($post);
-		
+
 		if($post !== null)
 		{
 			$row = $this->row();
@@ -62,10 +67,10 @@ class SpecificSubmit extends Core\RouteAlias
 
 		if(empty($return))
 		$this->failureComplete();
-		
+
 		else
 		$this->successComplete();
-		
+
 		return $return;
 	}
 }

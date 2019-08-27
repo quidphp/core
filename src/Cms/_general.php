@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Cms;
 use Quid\Core;
 
@@ -8,19 +15,19 @@ trait _general
 {
 	// table
 	// retourne la table en lien avec la route
-	public function table():Core\Table 
+	public function table():Core\Table
 	{
 		return $this->cache(__METHOD__,function() {
 			$return = $this->segment('table');
-			
+
 			if(is_string($return))
 			$return = static::boot()->db()->table($return);
-			
+
 			return $return;
 		});
 	}
-	
-	
+
+
 	// general
 	// retourne la route general a utilisé pour rediriger
 	public function general(bool $nav=true):General

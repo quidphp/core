@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Route;
 use Quid\Core;
 use Quid\Main;
@@ -16,8 +23,8 @@ abstract class Sitemap extends Core\RouteAlias
 		'response'=>[
 			'contentType'=>'xml']
 	];
-	
-	
+
+
 	// trigger
 	// lance la route sitemap et génère toutes les uris accessible à l'utilisateur de la session courante
 	public function trigger()
@@ -27,12 +34,12 @@ abstract class Sitemap extends Core\RouteAlias
 		$lang = $this->lang();
 		$routes = $this->routes(true)->sortDefault();
 		$uris = $routes->sitemap($lang->allLang());
-		
+
 		if(!empty($uris))
 		$xml->sitemap(...$uris);
-		
+
 		$r = $xml->output();
-		
+
 		return $r;
 	}
 }

@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Col;
 
 // contextType
@@ -10,7 +17,7 @@ class ContextType extends SetAlias
 		'required'=>true,
 		'complex'=>'checkbox',
 		'relation'=>'contextType',
-		'sortable'=>false, 
+		'sortable'=>false,
 		'default'=>'app'
 	];
 }

@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Col;
 
 // userAdd
@@ -16,8 +23,8 @@ class UserAdd extends EnumAlias
 		'editable'=>false,
 		'check'=>['kind'=>'int']
 	];
-	
-	
+
+
 	// onInsert
 	// donne le user courant lors d'un insert
 	// il faut vérifier que boot hasSession car la row session à un champ userAdd
@@ -25,10 +32,10 @@ class UserAdd extends EnumAlias
 	{
 		$return = 1;
 		$boot = static::bootReady();
-		
+
 		if(!empty($boot) && $boot->hasSession())
 		$return = $boot->session()->user();
-		
+
 		return $return;
 	}
 }

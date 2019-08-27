@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Row;
 use Quid\Core;
 use Quid\Main;
@@ -10,8 +17,8 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait
 	use _log;
-	
-	
+
+
 	// config
 	public static $config = [
 		'panel'=>false,
@@ -37,35 +44,35 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 			8=>'truncate',
 			9=>'drop']
 	];
-	
-	
+
+
 	// getTypeCode
 	// retourne le code à partir du type
-	public static function getTypeCode(string $type):int 
+	public static function getTypeCode(string $type):int
 	{
 		return (in_array($type,static::$config['type'],true))? array_search($type,static::$config['type'],true):0;
 	}
-	
-	
+
+
 	// prepareJson
 	// prépare le tableau, retourne une chaine json
 	// efface les données si le tableau est trop long pour la colonne
-	public static function prepareJson(array $value):string 
+	public static function prepareJson(array $value):string
 	{
 		$return = Base\Json::encode($value);
 		$table = static::tableFromFqcn();
 		$col = $table->col('json');
-		
+
 		if($col->validate($return) !== true)
 		{
 			$value = ['truncated'=>true];
 			$return = Base\Json::encode($value);
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// newData
 	// crée le tableau d'insertion
 	public static function newData(string $type,array $json):array

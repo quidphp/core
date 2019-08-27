@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+
 namespace Quid\Core\Row;
 use Quid\Core;
 use Quid\Main;
@@ -9,8 +16,8 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait
 	use _log;
-	
-	
+
+
 	// config
 	public static $config = [
 		'panel'=>false,
@@ -24,8 +31,8 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 			'error'=>['required'=>true,'class'=>Core\Col\Error::class]],
 		'deleteTrim'=>500 // custom
 	];
-	
-	
+
+
 	// newData
 	// crée le tableau d'insertion
 	public static function newData(Core\Error $error):array
@@ -33,7 +40,7 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 		$return = [];
 		$return['type'] = $error->getCode();
 		$return['error'] = $error->toArray();
-		
+
 		return $return;
 	}
 }
