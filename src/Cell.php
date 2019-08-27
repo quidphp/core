@@ -15,7 +15,10 @@ use Quid\Base;
 class Cell extends Orm\Cell
 {
 	// trait
-	use _routeAttr; use _accessAlias;
+	use _routeAttr;
+	use _accessAlias;
+	
+	
 	// config
 	public static $config = [];
 

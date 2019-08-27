@@ -16,7 +16,10 @@ use Quid\Base;
 class HomeSearch extends Core\RouteAlias
 {
 	// trait
-	use _common; use Core\Route\_search;
+	use _common;
+	use Core\Route\_search;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

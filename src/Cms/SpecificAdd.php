@@ -16,7 +16,12 @@ use Quid\Base;
 class SpecificAdd extends Core\RouteAlias
 {
 	// trait
-	use _templateAlias; use _general; use _specific; use Core\Segment\_table;
+	use _templateAlias;
+	use _general;
+	use _specific;
+	use Core\Segment\_table;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

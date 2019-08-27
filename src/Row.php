@@ -15,7 +15,10 @@ use Quid\Base;
 class Row extends Orm\Row
 {
 	// trait
-	use _routeAttr; use _accessAlias;
+	use _routeAttr;
+	use _accessAlias;
+	
+	
 	// config
 	public static $config = [];
 

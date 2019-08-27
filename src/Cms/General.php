@@ -16,7 +16,18 @@ use Quid\Base;
 class General extends Core\RouteAlias
 {
 	// trait
-	use _templateAlias; use Core\Route\_general; use Core\Segment\_table; use Core\Segment\_page; use Core\Segment\_limit; use Core\Segment\_order; use Core\Segment\_direction; use Core\Segment\_cols; use Core\Segment\_filter; use Core\Segment\_primaries;
+	use _templateAlias;
+	use Core\Route\_general;
+	use Core\Segment\_table;
+	use Core\Segment\_page;
+	use Core\Segment\_limit;
+	use Core\Segment\_order;
+	use Core\Segment\_direction;
+	use Core\Segment\_cols;
+	use Core\Segment\_filter;
+	use Core\Segment\_primaries;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

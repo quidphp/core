@@ -14,7 +14,11 @@ use Quid\Core;
 class SpecificDispatch extends Core\RouteAlias
 {
 	// trait
-	use Core\Route\_specificPrimary; use Core\Segment\_table; use Core\Segment\_primary;
+	use Core\Route\_specificPrimary;
+	use Core\Segment\_table;
+	use Core\Segment\_primary;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

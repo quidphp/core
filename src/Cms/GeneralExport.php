@@ -16,7 +16,16 @@ use Quid\Base;
 class GeneralExport extends Core\RouteAlias
 {
 	// trait
-	use _common; use _export; use Core\Route\_generalSegment; use Core\Segment\_table; use Core\Segment\_order; use Core\Segment\_direction; use Core\Segment\_filter; use Core\Segment\_primaries;
+	use _common;
+	use _export;
+	use Core\Route\_generalSegment;
+	use Core\Segment\_table;
+	use Core\Segment\_order;
+	use Core\Segment\_direction;
+	use Core\Segment\_filter;
+	use Core\Segment\_primaries;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

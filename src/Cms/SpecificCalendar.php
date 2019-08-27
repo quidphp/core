@@ -14,7 +14,13 @@ use Quid\Core;
 class SpecificCalendar extends Core\RouteAlias
 {
 	// trait
-	use _common; use Core\Route\_calendar; use Core\Segment\_timestampMonth; use Core\Segment\_str; use Core\Segment\_selected;
+	use _common;
+	use Core\Route\_calendar;
+	use Core\Segment\_timestampMonth;
+	use Core\Segment\_str;
+	use Core\Segment\_selected;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

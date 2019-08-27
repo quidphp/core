@@ -13,6 +13,7 @@ namespace Quid\Core;
 trait _fullAccess
 {
 	// trait
-	use _accessAlias; use _dbAccess;
+	use _accessAlias;
+	use _dbAccess;
 }
 ?>

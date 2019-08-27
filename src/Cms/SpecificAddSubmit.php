@@ -14,7 +14,13 @@ use Quid\Core;
 class SpecificAddSubmit extends Core\RouteAlias
 {
 	// trait
-	use _common; use _general; use _specificSubmit; use Core\Route\_formSubmit; use Core\Segment\_table;
+	use _common;
+	use _general;
+	use _specificSubmit;
+	use Core\Route\_formSubmit;
+	use Core\Segment\_table;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

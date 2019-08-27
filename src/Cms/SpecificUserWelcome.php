@@ -14,7 +14,12 @@ use Quid\Core;
 class SpecificUserWelcome extends Core\RouteAlias
 {
 	// trait
-	use _common; use Core\Route\_specificPrimary; use Core\Route\_formSubmit; use Core\Segment\_primary;
+	use _common;
+	use Core\Route\_specificPrimary;
+	use Core\Route\_formSubmit;
+	use Core\Segment\_primary;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

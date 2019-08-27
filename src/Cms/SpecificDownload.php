@@ -14,7 +14,14 @@ use Quid\Core;
 class SpecificDownload extends Core\RouteAlias
 {
 	// trait
-	use _common; use Core\Route\_download; use Core\Segment\_table; use Core\Segment\_primary; use Core\Segment\_col; use Core\Segment\_int;
+	use _common;
+	use Core\Route\_download;
+	use Core\Segment\_table;
+	use Core\Segment\_primary;
+	use Core\Segment\_col;
+	use Core\Segment\_int;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

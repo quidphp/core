@@ -14,7 +14,10 @@ use Quid\Main;
 trait _queue
 {
 	// trait
-	use Main\_queue; use _new;
+	use Main\_queue;
+	use _new;
+	
+	
 	// getQueued
 	// retourne un objet rows avec toutes les rows queued
 	abstract public static function getQueued(?int $limit=null):?Main\Map;

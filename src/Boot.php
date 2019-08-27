@@ -17,7 +17,11 @@ use Quid\Base;
 abstract class Boot extends Main\Root
 {
 	// trait
-	use Main\_inst; use Main\_option; use Main\_attr;
+	use Main\_inst;
+	use Main\_option;
+	use Main\_attr;
+	
+	
 	// config
 	public static $config = [
 		// prepare

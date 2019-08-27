@@ -15,7 +15,10 @@ use Quid\Base;
 class Queue extends SerializeAlias implements Main\Contract\Queue, Main\Contract\FileStorage
 {
 	// trait
-	use Main\_queue; use Main\File\_storage;
+	use Main\_queue;
+	use Main\File\_storage;
+	
+	
 	// config
 	public static $config = [
 		'dirname'=>'[storage]/queue',

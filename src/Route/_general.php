@@ -16,7 +16,10 @@ use Quid\Base;
 trait _general
 {
 	// trait
-	use _generalSegment; use _generalPager;
+	use _generalSegment;
+	use _generalPager;
+	
+	
 	// config
 	public static $configGeneral = [
 		'group'=>'general',

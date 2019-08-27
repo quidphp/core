@@ -14,7 +14,13 @@ use Quid\Core;
 class SpecificTableRelation extends Core\RouteAlias
 {
 	// trait
-	use _common; use Core\Route\_tableRelation; use Core\Segment\_table; use Core\Segment\_orderTableRelation; use Core\Segment\_page;
+	use _common;
+	use Core\Route\_tableRelation;
+	use Core\Segment\_table;
+	use Core\Segment\_orderTableRelation;
+	use Core\Segment\_page;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

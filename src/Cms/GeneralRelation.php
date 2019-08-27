@@ -14,7 +14,16 @@ use Quid\Core;
 class GeneralRelation extends Core\RouteAlias
 {
 	// trait
-	use _common; use _general; use Core\Route\_generalRelation; use Core\Segment\_table; use Core\Segment\_colRelation; use Core\Segment\_selected; use Core\Segment\_orderColRelation; use Core\Segment\_page;
+	use _common;
+	use _general;
+	use Core\Route\_generalRelation;
+	use Core\Segment\_table;
+	use Core\Segment\_colRelation;
+	use Core\Segment\_selected;
+	use Core\Segment\_orderColRelation;
+	use Core\Segment\_page;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

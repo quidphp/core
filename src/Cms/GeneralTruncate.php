@@ -14,7 +14,12 @@ use Quid\Core;
 class GeneralTruncate extends Core\RouteAlias
 {
 	// trait
-	use _common; use _general; use Core\Route\_formSubmit; use Core\Segment\_table;
+	use _common;
+	use _general;
+	use Core\Route\_formSubmit;
+	use Core\Segment\_table;
+	
+	
 	// config
 	public static $config = [
 		'path'=>[

@@ -15,7 +15,10 @@ use Quid\Base;
 class Session extends Main\Session
 {
 	// trait
-	use _bootAccess; use _dbAccess;
+	use _bootAccess;
+	use _dbAccess;
+	
+	
 	// config
 	public static $config = [
 		'option'=>[
