@@ -224,10 +224,10 @@ abstract class Boot extends Main\Root
 		'name'=>'Quid',
 		'author'=>'Pierre-Philippe Emond',
 		'email'=>'emondpph@gmail.com',
-		'type'=>'GPLv3',
-		'github'=>'https://github.com/emondpph/quid5',
-		'readme'=>'https://github.com/emondpph/quid5/blob/master/README.md',
-		'license'=>'https://github.com/emondpph/quid5/blob/master/LICENSE'
+		'type'=>'MIT',
+		'github'=>'https://github.com/quidphp',
+		'readme'=>'https://github.com/quidphp/project/blob/master/README.md',
+		'license'=>'https://github.com/quidphp/project/blob/master/LICENSE'
 	];
 	
 	
