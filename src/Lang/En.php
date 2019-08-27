@@ -801,7 +801,7 @@ class En extends Base\Lang\En
 			// author
 			'author'=>[
 				'name'=>'Quid',
-				'uri'=>'https://quid5.com',
+				'uri'=>'https://quidphp.com',
 				'email'=>'emondpph@gmail.com'
 			],
 

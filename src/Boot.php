@@ -38,7 +38,7 @@ abstract class Boot extends Main\Root
 		'request'=>null, // valeur par défaut pour la création de request, ne peut pas être mis dans un @
 		'finderShortcut'=>[ // shortcut pour finder
 			'vendor'=>'[vendor]',
-			'vendorCore'=>'[vendor]/quid5/core',
+			'vendorCore'=>'[vendor]/quidphp/core',
 			'storage'=>'[storage]',
 			'storageCache'=>'[storage]/cache',
 			'storageLog'=>'[storage]/log',
@@ -233,7 +233,6 @@ abstract class Boot extends Main\Root
 		'name'=>'Quid',
 		'author'=>'Pierre-Philippe Emond',
 		'email'=>'emondpph@gmail.com',
-		'type'=>'MIT',
 		'github'=>'https://github.com/quidphp',
 		'readme'=>'https://github.com/quidphp/project/blob/master/README.md',
 		'license'=>'https://github.com/quidphp/project/blob/master/LICENSE'
@@ -2447,7 +2446,7 @@ abstract class Boot extends Main\Root
 	{
 		$return = [];
 		$credit = static::$quidCredit;
-		$keys = ['name','type','author','email','github','readme','license'];
+		$keys = ['name','author','email','github','readme','license'];
 		$version = static::quidVersion();
 
 		if(Base\Arr::keysExists($keys,$credit))
@@ -2457,7 +2456,7 @@ abstract class Boot extends Main\Root
 			$return .= "\nAuthor: ".$credit['author'].' / '.$credit['email'];
 			$return .= "\nRequires: PHP 7.2 (compatible PHP 7.3)";
 			$return .= "\nGithub: ".$credit['github'];
-			$return .= "\nLicense: GPLv3 | ".$credit['license'];
+			$return .= "\nLicense: ".$credit['license'];
 			$return .= "\nReadme: ".$credit['readme'];
 		}
 
