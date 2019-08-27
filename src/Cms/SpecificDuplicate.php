@@ -20,8 +20,8 @@ class SpecificDuplicate extends Core\RouteAlias
 	use Core\Route\_formSubmit;
 	use Core\Segment\_table;
 	use Core\Segment\_primary;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

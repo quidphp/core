@@ -26,8 +26,8 @@ class General extends Core\RouteAlias
 	use Core\Segment\_cols;
 	use Core\Segment\_filter;
 	use Core\Segment\_primaries;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

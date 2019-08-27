@@ -17,8 +17,8 @@ class Row extends Orm\Row
 	// trait
 	use _routeAttr;
 	use _accessAlias;
-	
-	
+
+
 	// config
 	public static $config = [];
 

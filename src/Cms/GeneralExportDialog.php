@@ -23,8 +23,8 @@ class GeneralExportDialog extends Core\RouteAlias
 	use Core\Segment\_direction;
 	use Core\Segment\_filter;
 	use Core\Segment\_primaries;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

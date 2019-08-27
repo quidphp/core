@@ -16,8 +16,8 @@ abstract class ActivatePassword extends Core\RouteAlias
 	// trait
 	use Core\Segment\_primary;
 	use Core\Segment\_str;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

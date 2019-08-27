@@ -18,8 +18,8 @@ class GeneralTruncate extends Core\RouteAlias
 	use _general;
 	use Core\Route\_formSubmit;
 	use Core\Segment\_table;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

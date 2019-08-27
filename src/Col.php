@@ -17,8 +17,8 @@ class Col extends Orm\Col
 	// trait
 	use _routeAttr;
 	use _accessAlias;
-	
-	
+
+
 	// config
 	public static $config = [
 		'route'=>null, // permet de définir la route à utiliser en lien avec complex

@@ -16,8 +16,8 @@ trait _log
 	// trait
 	use Main\_log;
 	use _new;
-	
-	
+
+
 	// log
 	// crée une nouvelle entrée du log maintenant
 	public static function log(...$values):?Main\Contract\Log

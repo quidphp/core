@@ -19,8 +19,8 @@ class SpecificAddSubmit extends Core\RouteAlias
 	use _specificSubmit;
 	use Core\Route\_formSubmit;
 	use Core\Segment\_table;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

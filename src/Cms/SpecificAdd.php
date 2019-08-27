@@ -20,8 +20,8 @@ class SpecificAdd extends Core\RouteAlias
 	use _general;
 	use _specific;
 	use Core\Segment\_table;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

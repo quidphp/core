@@ -20,8 +20,8 @@ class SpecificDownload extends Core\RouteAlias
 	use Core\Segment\_primary;
 	use Core\Segment\_col;
 	use Core\Segment\_int;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

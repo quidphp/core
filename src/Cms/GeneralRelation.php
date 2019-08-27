@@ -22,8 +22,8 @@ class GeneralRelation extends Core\RouteAlias
 	use Core\Segment\_selected;
 	use Core\Segment\_orderColRelation;
 	use Core\Segment\_page;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

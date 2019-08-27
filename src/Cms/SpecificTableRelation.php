@@ -19,8 +19,8 @@ class SpecificTableRelation extends Core\RouteAlias
 	use Core\Segment\_table;
 	use Core\Segment\_orderTableRelation;
 	use Core\Segment\_page;
-	
-	
+
+
 	// config
 	public static $config = [
 		'path'=>[

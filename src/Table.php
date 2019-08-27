@@ -17,8 +17,8 @@ class Table extends Orm\Table
 	// trait
 	use _routeAttr;
 	use _accessAlias;
-	
-	
+
+
 	// config
 	public static $config = [
 		'route'=>null, // permet de lier une classe de route à la table

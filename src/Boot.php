@@ -20,8 +20,8 @@ abstract class Boot extends Main\Root
 	use Main\_inst;
 	use Main\_option;
 	use Main\_attr;
-	
-	
+
+
 	// config
 	public static $config = [
 		// prepare
