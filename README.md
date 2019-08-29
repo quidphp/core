@@ -24,14 +24,14 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Dependency
 **QuidPHP/Core** has the following dependency:
-- [quidphp/routing](https://github.com/quidphp/routing)
-- [quidphp/orm](https://github.com/quidphp/orm)
-- [quidphp/main](https://github.com/quidphp/main)
 - [quidphp/base](https://github.com/quidphp/base)
+- [quidphp/main](https://github.com/quidphp/main)
+- [quidphp/orm](https://github.com/quidphp/orm)
+- [quidphp/routing](https://github.com/quidphp/routing)
 - [verot/class.upload.php](https://github.com/verot/class.upload.php)
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer)
 - [tedivm/jshrink](https://github.com/tedious/JShrink)
-- [leafo/scssphp](https://github.com/leafo/scssphp)
+- [leafo/scssphp](https://github.com/scssphp/scssphp)
 
 ## Testing
 **QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
