@@ -1,4 +1,4 @@
-# Quid\Orm
+# QuidPHP/Core
 [![Release](https://img.shields.io/github/v/release/quidphp/core)](https://packagist.org/packages/quidphp/core)
 [![License](https://img.shields.io/github/license/quidphp/core)](https://github.com/quidphp/core/blob/master/LICENSE)
 [![PHP Version](https://img.shields.io/packagist/php-v/quidphp/core)](https://www.php.net)
