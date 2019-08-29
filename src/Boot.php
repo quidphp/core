@@ -348,7 +348,7 @@ abstract class Boot extends Main\Root
 	protected function onReady():self
 	{
 		$this->attrCall('onReady');
-		
+
 		return $this;
 	}
 
