@@ -160,6 +160,7 @@ abstract class Boot extends Main\Root
 						Routing\Test::class=>['closure'=>false],
 						__NAMESPACE__=>['closure'=>true],
 						Test::class=>['closure'=>false]]]]],
+		'onReady'=>null, // possible de mettre une callable sur onReady
 		'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
 		'langOption'=>null, // option pour lang, peut être une callable
 		'service'=>null, // tableau des classes credentials pour les services
@@ -343,8 +344,11 @@ abstract class Boot extends Main\Root
 
 	// onReady
 	// callback étant appelé une fois le status à ready (4)
+	// possible d'avoir une callable dans les attributs
 	protected function onReady():self
 	{
+		$this->attrCall('onReady');
+		
 		return $this;
 	}
 
