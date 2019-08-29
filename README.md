@@ -6,24 +6,24 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/quidphp/core)](https://github.com/quidphp/core)
 
 ## About
-**quidphp\core** provides PHP, JS and SCSS components for QuidPHP application and CMS. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
+**quidphp/core** provides PHP, JS and SCSS components for QuidPHP application and CMS. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
 
 ## License
-**quidphp\core** is available as an open-source software under the [MIT license](LICENSE).
+**quidphp/core** is available as an open-source software under the [MIT license](LICENSE).
 
 ## Installation
-**quidphp\core** can be easily installed with [Composer](https://getcomposer.org). It is available on [Packagist](https://packagist.org/packages/quidphp/core).
+**quidphp/core** can be easily installed with [Composer](https://getcomposer.org). It is available on [Packagist](https://packagist.org/packages/quidphp/core).
 ``` bash
 $ composer require quidphp/core
 ```
 Once installed, the **Quid\Core** namespace will be available within your PHP application.
 
 ## Requirement
-**quidphp\core** requires the following:
+**quidphp/core** requires the following:
 - PHP 7.2+ with fileinfo, curl, openssl, posix, PDO and pdo_mysql
 
 ## Dependency
-**quidphp\core** has the following dependency:
+**quidphp/core** has the following dependency:
 - [quidphp/routing](https://github.com/quidphp/routing)
 - [quidphp/orm](https://github.com/quidphp/orm)
 - [quidphp/main](https://github.com/quidphp/main)
@@ -34,20 +34,20 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [leafo/scssphp](https://github.com/leafo/scssphp)
 
 ## Testing
-**quidphp\core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
+**quidphp/core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
 
 ## Comment
-**quidphp\core** code is commented and all methods are explained. However, the method and property comments are currently written in French.
+**quidphp/core** code is commented and all methods are explained. However, the method and property comments are currently written in French.
 
 ## Convention
-**quidphp\core** is built on the following conventions:
+**quidphp/core** is built on the following conventions:
 - *Traits*: Traits filenames start with an underscore (_).
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
 ## Overview
-**quidphp\core** contains 263 classes and traits. Here is an overview:
+**quidphp/core** contains 263 classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php)
     - [Home](src/App/Home.php)
