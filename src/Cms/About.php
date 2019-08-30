@@ -13,7 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // about
-// class for the about popup route of the CMS 
+// class for the about popup route of the CMS
 class About extends Core\RouteAlias
 {
 	// trait
