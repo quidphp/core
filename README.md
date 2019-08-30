@@ -54,7 +54,17 @@ All dependencies will be resolved by using the Composer installation process.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
 ## Overview
-**QuidPHP/Core** contains 263 classes and traits. Here is an overview:
+
+### JS
+**QuidPHP/Core** contains 0 javascript files. Here is an overview:
+- Lorem ipsum
+
+### SCSS
+**QuidPHP/Core** contains 0 scss files. Here is an overview:
+- Lorem ipsum
+
+### PHP
+**QuidPHP/Core** contains 263 PHP classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php) | Abstract class for the error route of the application
     - [Home](src/App/Home.php) | Abstract class for the home route of the application
