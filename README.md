@@ -49,27 +49,27 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 ## Overview
 **QuidPHP/Core** contains 263 classes and traits. Here is an overview:
 - [App](src/App)
-    - [Error](src/App/Error.php)
-    - [Home](src/App/Home.php)
-    - [Robots](src/App/Robots.php)
-    - [Sitemap](src/App/Sitemap.php)
+    - [Error](src/App/Error.php) | Abstract class for the error route of the application
+    - [Home](src/App/Home.php) | Abstract class for the home route of the application
+    - [Robots](src/App/Robots.php) | Class for the robots.txt route of the application
+    - [Sitemap](src/App/Sitemap.php) | Class for the sitemap.xml route of the application
 - [Boot](src/Boot.php)
 - [BootException](src/BootException.php)
 - [Cell](src/Cell.php)
-    - [Date](src/Cell/Date.php)
-    - [Enum](src/Cell/Enum.php)
-    - [Files](src/Cell/Files.php)
-    - [Floating](src/Cell/Floating.php)
-    - [Integer](src/Cell/Integer.php)
-    - [JsonArray](src/Cell/JsonArray.php)
-    - [JsonArrayRelation](src/Cell/JsonArrayRelation.php)
-    - [Media](src/Cell/Media.php)
-    - [Medias](src/Cell/Medias.php)
-    - [Primary](src/Cell/Primary.php)
-    - [Relation](src/Cell/Relation.php)
-    - [Set](src/Cell/Set.php)
-    - [UserPasswordReset](src/Cell/UserPasswordReset.php)
-    - [Video](src/Cell/Video.php)
+    - [Date](src/Cell/Date.php) | Class to work with a cell containing a date value
+    - [Enum](src/Cell/Enum.php) | Class to manage a cell containing a single relation (enum)
+    - [Files](src/Cell/Files.php) | Abstract class extendend by the media and medias cells
+    - [Floating](src/Cell/Floating.php) | Class to work with a cell containing a floating value
+    - [Integer](src/Cell/Integer.php) | Class to manage a cell containing an integer value
+    - [JsonArray](src/Cell/JsonArray.php) | Class to manage a cell containing a json array
+    - [JsonArrayRelation](src/Cell/JsonArrayRelation.php) | Class to manage a cell containing a relation value to another cell containing a json array
+    - [Media](src/Cell/Media.php) | Class to work with a cell containing a value which is a link to a file
+    - [Medias](src/Cell/Medias.php) | Class to manage a cell containing a value which is a link to many files
+    - [Primary](src/Cell/Primary.php) | Final class for dealing with a the cell of a column which has an auto increment primary key
+    - [Relation](src/Cell/Relation.php) | Abstract class extendend by the enum and set cells
+    - [Set](src/Cell/Set.php) | Class to manage a cell containing many relations separated by comma (set)
+    - [UserPasswordReset](src/Cell/UserPasswordReset.php) | Class to work with a password reset column within a user table
+    - [Video](src/Cell/Video.php) | Class to manage a cell containing a video from a third-party service
 - [Cells](src/Cells.php)
 - [Cms](src/Cms)
     - [About](src/Cms/About.php)
