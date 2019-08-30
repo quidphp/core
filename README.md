@@ -101,7 +101,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [GeneralExport](src/Cms/GeneralExport.php) | Class for the route which generates the CSV export for the CMS
     - [GeneralExportDialog](src/Cms/GeneralExportDialog.php) | Class for the general export popup route of the CMS
     - [GeneralRelation](src/Cms/GeneralRelation.php) | Class for the route which manages the filters for the general navigation page of the CMS
-    - [GeneralTruncate](src/Cms/GeneralTruncate.php) | Class for the route which allows truncating a table from the general navigation page of the CMS
+    - [GeneralTruncate](src/Cms/GeneralTruncate.php) | Class for the route which allows truncating a table from the general page of the CMS
     - [Home](src/Cms/Home.php) | Class for the home route of the CMS
     - [HomeSearch](src/Cms/HomeSearch.php) | Class for the global search route accessible from the homepage of the CMS
     - [Login](src/Cms/Login.php) | Class for the login route of the CMS
@@ -320,7 +320,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [ScssPhp](src/Service/ScssPhp.php) | Class that grants methods to use leafo/scssphp for compiling scss files
 - [ServiceMailer](src/ServiceMailer.php) | Extended abstract class with basic methods that needs to be extended by a mailing service
 - [ServiceRequest](src/ServiceRequest.php) | Extended abstract class with basic methods for a service that works with HTTP request
-- [ServiceVideo](src/ServiceVideo.php) | Extended abstract class with basic methods for a service that provides a video object after an HTTP request
+- [ServiceVideo](src/ServiceVideo.php) | Extended abstract class with methods for a service that provides a video object after an HTTP request
 - [Services](src/Services.php) | Extended class for a collection containing many service objects
 - [Session](src/Session.php) | Extended class that adds session support for user
 - [Table](src/Table.php) | Extended class to represent an existing table within a database
