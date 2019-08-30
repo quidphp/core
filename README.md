@@ -22,6 +22,12 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 **QuidPHP/Core** requires the following:
 - PHP 7.2+ with fileinfo, curl, openssl, posix, PDO and pdo_mysql
 
+## Included
+**QuidPHP/Core** comes bundled with the following:
+- [jquery/jquery](https://github.com/jquery/jquery)
+- [jquery/jquery-ui](https://github.com/jquery/jquery-ui)
+- [necolas/normalize.css](https://github.com/necolas/normalize.css)
+
 ## Dependency
 **QuidPHP/Core** has the following dependency:
 - [quidphp/base](https://github.com/quidphp/base)
@@ -32,6 +38,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer)
 - [tedivm/jshrink](https://github.com/tedious/JShrink)
 - [leafo/scssphp](https://github.com/scssphp/scssphp)
+All dependencies will be resolved by using the Composer installation process.
 
 ## Testing
 **QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
