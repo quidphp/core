@@ -12,7 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // serviceVideo
-// extended abstract class with basic methods for a service that provides a video object after an HTTP request
+// extended abstract class with methods for a service that provides a video object after an HTTP request
 abstract class ServiceVideo extends Main\ServiceVideo
 {
 	// trait
