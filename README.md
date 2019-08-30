@@ -32,10 +32,10 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 **QuidPHP/Core** has the following dependency:
 - [quidphp/base](https://github.com/quidphp/base) | Quid\Base - PHP library that provides a large set of low-level static methods
 - [quidphp/main](https://github.com/quidphp/main) | Quid\Main - PHP library that provides a set of base objects and collections 
-- [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database abstraction and an easy-to-use Object-Relational Mapper
+- [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database access and a comprehensive Object-Relational Mapper
 - [quidphp/routing](https://github.com/quidphp/routing) | Quid\Routing - PHP library that provides a simple route matching and triggering procedure
 - [verot/class.upload.php](https://github.com/verot/class.upload.php) | Class.upload.php - A popular PHP class used for resizing images
-- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PhpMailer - The classic email sending library for PHP
+- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PHPMailer - The classic email sending library for PHP
 - [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
 - [leafo/scssphp](https://github.com/scssphp/scssphp) | scsssphp - SCSS compiler written in PHP
 
