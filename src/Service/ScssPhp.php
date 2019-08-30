@@ -12,6 +12,7 @@ use Quid\Core;
 use Leafo;
 
 // scssPhp
+// class that grants methods to use leafo/scssphp for compiling scss files
 class ScssPhp extends Core\ServiceAlias
 {
 	// config

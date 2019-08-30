@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // video
+// class for a video file (like mp4)
 class Video extends BinaryAlias
 {
 	// config

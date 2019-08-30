@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // html
+// class for an html file
 class Html extends TextAlias
 {
 	// config

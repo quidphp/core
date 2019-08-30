@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _str
+// trait that issues a method to deal with a simple string route segment
 trait _str
 {
 	// structureSegmentStr

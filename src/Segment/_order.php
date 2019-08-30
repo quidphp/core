@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _order
+// trait to manage a route segment which must contain an orderable column
 trait _order
 {
 	// structureSegmentOrder

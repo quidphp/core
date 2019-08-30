@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // font
+// class for a font file (like ttf)
 class Font extends BinaryAlias
 {
 	// config

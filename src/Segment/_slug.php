@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _slug
+// trait that issues methods to work with a standard slug route segment
 trait _slug
 {
 	// structureSegmentSlug

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // logCron
+// class to represent a row of the logCron table, stores cron jobs results
 class LogCron extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Base;
 
 // image
+// abstract class for an image file (raster or vector)
 abstract class Image extends BinaryAlias
 {
 	// img

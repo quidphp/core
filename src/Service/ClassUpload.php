@@ -13,6 +13,7 @@ use Quid\Base;
 use Verot\Upload;
 
 // classUpload
+// class that provides methods to use verot/class.upload.php for resizing images
 class ClassUpload extends Core\ServiceAlias
 {
 	// config

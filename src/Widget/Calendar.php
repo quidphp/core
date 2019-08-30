@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // calendar
+// class that provides logic for the calendar widget
 class Calendar extends Core\WidgetAlias
 {
 	// trait

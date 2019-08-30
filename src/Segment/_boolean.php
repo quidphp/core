@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _boolean
+// trait that issues a method to deal with boolean route segment (1 or 0)
 trait _boolean
 {
 	// structureSegmentBoolean

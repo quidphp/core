@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // queue
+// class for a queue storage file
 class Queue extends SerializeAlias implements Main\Contract\Queue, Main\Contract\FileStorage
 {
 	// trait

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // pdf
+// class for pdf file
 class Pdf extends BinaryAlias
 {
 	// config

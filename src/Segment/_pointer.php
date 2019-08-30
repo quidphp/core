@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _pointer
+// trait to work with a pointer route segment (value which contains a table and row)
 trait _pointer
 {
 	// structureSegmentPointer

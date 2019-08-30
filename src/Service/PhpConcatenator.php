@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // phpConcatenator
+// class used for concatenating a bunch of php files within a single one
 class PhpConcatenator extends Core\ServiceAlias
 {
 	// config

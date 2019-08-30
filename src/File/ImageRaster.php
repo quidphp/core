@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Core;
 
 // imageRaster
+// class for a pixelated image file
 class ImageRaster extends ImageAlias
 {
 	// config

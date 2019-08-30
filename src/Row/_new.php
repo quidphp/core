@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // _new
+// that that grants access some methods which allows to create rows statically
 trait _new
 {
 	// newData

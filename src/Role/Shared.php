@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // shared
+// class that contains the default configuration for the shared role (disabled per default)
 class Shared extends Core\RoleAlias
 {
 	// config

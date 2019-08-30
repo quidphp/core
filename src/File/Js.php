@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // js
+// class for a js file
 class Js extends TextAlias
 {
 	// config

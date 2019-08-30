@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Main;
 
 // log
+// class for a log storage file
 class Log extends DumpAlias implements Main\Contract\Log, Main\Contract\FileStorage
 {
 	// trait

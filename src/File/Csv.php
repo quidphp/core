@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Main;
 
 // csv
+// class for a csv file
 class Csv extends TextAlias implements Main\Contract\Import
 {
 	// trait

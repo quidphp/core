@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _table
+// trait to work with a route segment which must contain a table name or object
 trait _table
 {
 	// structureSegmentTable

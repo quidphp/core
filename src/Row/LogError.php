@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // logError
+// class to represent a row of the logError table, stores error objects
 class LogError extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

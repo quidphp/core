@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // zip
+// class for a zip file
 class Zip extends BinaryAlias
 {
 	// config

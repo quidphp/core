@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // phpMailer
+// class that provides methods to use phpmailer/phpmailer in order to send emails
 class PhpMailer extends Core\ServiceMailerAlias
 {
 	// config

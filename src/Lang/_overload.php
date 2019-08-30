@@ -11,6 +11,7 @@ namespace Quid\Core\Lang;
 use Quid\Main;
 
 // _overload
+// trait which implements the overload logic for the lang classes
 trait _overload
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // cron
+// class which contains the default configuration for the cron role (disabled per default)
 class Cron extends Core\RoleAlias
 {
 	// config

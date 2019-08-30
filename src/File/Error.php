@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Main;
 
 // error
+// class for an error storage file
 class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileStorage
 {
 	// trait

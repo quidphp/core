@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // serialize
+// class for a file with content that should be serialized
 class Serialize extends TextAlias
 {
 	// config

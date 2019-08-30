@@ -11,6 +11,7 @@ namespace Quid\Core\Row;
 use Quid\Core;
 
 // redirection
+// class to work with row of the redirection table
 class Redirection extends Core\RowAlias
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // user
+// class that contains the default configuration for the user role (disabled per default)
 class User extends Core\RoleAlias
 {
 	// config

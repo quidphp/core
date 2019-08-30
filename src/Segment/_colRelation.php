@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _colRelation
+// trait to work with a route segment which must contain a column with a relation
 trait _colRelation
 {
 	// structureSegmentColRelation

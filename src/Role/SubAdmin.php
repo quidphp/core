@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // subAdmin
+// class that contains the default configuration for the subAdmin role (disabled per default)
 class SubAdmin extends Core\RoleAlias
 {
 	// config

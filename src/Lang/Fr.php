@@ -11,6 +11,7 @@ namespace Quid\Core\Lang;
 use Quid\Base;
 
 // fr
+// french language content used by this namespace
 class Fr extends Base\Lang\Fr
 {
 	// trait

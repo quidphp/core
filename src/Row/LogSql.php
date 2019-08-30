@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // logSql
+// class to represent a row of the logSql table, stores sql queries
 class LogSql extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

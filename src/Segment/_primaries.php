@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _primaries
+// trait to deal with a route segment which must contain many rows
 trait _primaries
 {
 	// structureSegmentPrimaries

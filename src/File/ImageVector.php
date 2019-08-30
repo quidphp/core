@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // imageVector
+// class for a vector image file (like svg)
 class ImageVector extends ImageAlias
 {
 	// config

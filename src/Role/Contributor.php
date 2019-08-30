@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // contributor
+// class which contains the default configuration for the contributor role (disabled per default)
 class Contributor extends Core\RoleAlias
 {
 	// config

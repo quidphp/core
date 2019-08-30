@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // log
+// class to represent a row of the log table, stores user activities
 class Log extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

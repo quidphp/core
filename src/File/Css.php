@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // css
+// class for a css or scss file
 class Css extends TextAlias
 {
 	// config

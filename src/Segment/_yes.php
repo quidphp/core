@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _yes
+// trait that issues a method to deal with yes route segment (1)
 trait _yes
 {
 	// structureSegmentYes

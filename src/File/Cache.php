@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Main;
 
 // cache
+// class for a cache storage file
 class Cache extends SerializeAlias implements Main\Contract\FileStorage
 {
 	// trait

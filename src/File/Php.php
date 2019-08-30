@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // php
+// class for a php file
 class Php extends TextAlias
 {
 	// config

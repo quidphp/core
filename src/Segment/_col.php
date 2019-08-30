@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _col
+// trait to manage a route segment which must contain a column name or object
 trait _col
 {
 	// structureSegmentCol

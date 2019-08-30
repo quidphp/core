@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _orderColRelation
+// trait to work with route segment which must contain an orderable column relation
 trait _orderColRelation
 {
 	// structureSegmentOrderColRelation

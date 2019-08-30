@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _int
+// trait that issues a method to deal with a simple integer route segment
 trait _int
 {
 	// structureSegmentInt

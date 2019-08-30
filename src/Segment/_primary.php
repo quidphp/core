@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Core;
 
 // _primary
+// trait to work with a route segment which must contain a row id or object
 trait _primary
 {
 	// structureSegmentPrimary

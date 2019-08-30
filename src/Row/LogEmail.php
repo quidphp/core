@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // logEmail
+// class to represent a row of the logEmail table, stores emails sent
 class LogEmail extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

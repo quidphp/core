@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // audio
+// class for an audio file (like mp3)
 class Audio extends BinaryAlias
 {
 	// config

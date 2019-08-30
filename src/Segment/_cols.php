@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _cols
+// trait to manage a route segment which must contain many columns
 trait _cols
 {
 	// structureSegmentCols

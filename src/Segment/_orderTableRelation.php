@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _orderTableRelation
+// trait to manage a route segment which must contain an orderable table relation
 trait _orderTableRelation
 {
 	// structureSegmentOrderTableRelation

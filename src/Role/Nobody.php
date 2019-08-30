@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // nobody
+// class that issues default configuration for the nobody role
 class Nobody extends Core\RoleAlias
 {
 	// config

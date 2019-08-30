@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // admin
+// class which contains the default configuration for the admin role
 class Admin extends Core\RoleAlias
 {
 	// config

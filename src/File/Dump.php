@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // dump
+// class for file which contains an exported value (similar to var_export)
 class Dump extends HtmlAlias
 {
 	// config

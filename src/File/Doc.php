@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // doc
+// class for a doc file, like microsoft word
 class Doc extends TextAlias
 {
 	// config

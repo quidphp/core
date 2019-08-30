@@ -11,6 +11,7 @@ namespace Quid\Core\Row;
 use Quid\Main;
 
 // _queue
+// trait that adds queuing-related methods to a row
 trait _queue
 {
 	// trait

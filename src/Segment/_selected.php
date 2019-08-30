@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Base;
 
 // _selected
+// trait that provides logic to deal with a route segment which represents a selected value
 trait _selected
 {
 	// structureSegmentSelected

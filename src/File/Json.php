@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Base;
 
 // json
+// class for a json file
 class Json extends TextAlias
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Base;
 
 // calendar
+// class for a calendar file (like ics)
 class Calendar extends TextAlias
 {
 	// config

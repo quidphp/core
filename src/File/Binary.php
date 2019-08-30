@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Core;
 
 // binary
+// abstract class for a binary file
 abstract class Binary extends Core\FileAlias
 {
 	// config

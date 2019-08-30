@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _page
+// trait that issues a method to deal with a page route segment (page number)
 trait _page
 {
 	// structureSegmentPage

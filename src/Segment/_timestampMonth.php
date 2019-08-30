@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Base;
 
 // _timestampMonth
+// trait to work with a route segment which contains the timestamp of a month
 trait _timestampMonth
 {
 	// structureSegmentTimestampMonth

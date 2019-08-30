@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _limit
+// trait that issues a method to deal with a limit route segment (max per page)
 trait _limit
 {
 	// structureSegmentLimit

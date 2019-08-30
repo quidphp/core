@@ -11,6 +11,7 @@ namespace Quid\Core\Service;
 use Quid\Core;
 
 // ldap
+// class that grants some methods to connect to a ldap server
 class Ldap extends Core\ServiceAlias
 {
 	// config

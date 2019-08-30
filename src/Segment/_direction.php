@@ -11,6 +11,7 @@ namespace Quid\Core\Segment;
 use Quid\Base;
 
 // _direction
+// trait to deal with a route segment which must contain a sorting direction
 trait _direction
 {
 	// structureSegmentDirection

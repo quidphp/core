@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // email
+// class to deal with a row of the email table, contains the emailModels
 class Email extends Core\RowAlias implements Main\Contract\Email
 {
 	// trait

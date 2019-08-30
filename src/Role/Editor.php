@@ -11,6 +11,7 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // editor
+// class which contains the default configuration for the editor role
 class Editor extends Core\RoleAlias
 {
 	// config

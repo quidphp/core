@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Core;
 
 // text
+// abstract class for a text file
 abstract class Text extends Core\FileAlias
 {
 	// config

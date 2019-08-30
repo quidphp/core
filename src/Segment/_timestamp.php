@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Segment;
 
 // _timestamp
+// trait to deal with a route segment which contains a timestamp
 trait _timestamp
 {
 	// structureSegmentTimestamp

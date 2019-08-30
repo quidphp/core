@@ -11,6 +11,7 @@ namespace Quid\Core\File;
 use Quid\Main;
 
 // email
+// class for a file which is an email (in json format)
 class Email extends JsonAlias implements Main\Contract\Email
 {
 	// trait

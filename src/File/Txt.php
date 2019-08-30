@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // txt
+// class for txt file (like txt)
 class Txt extends TextAlias
 {
 	// config

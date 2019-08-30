@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // user
+// class for a row of the user table
 class User extends Core\RowAlias implements Main\Contract\User
 {
 	// config

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // lang
+// class to work with row of the lang table, contains the text and translations
 class Lang extends Core\RowAlias
 {
 	// config

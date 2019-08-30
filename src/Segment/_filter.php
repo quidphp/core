@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _filter
+// trait to manage a complex route segment which contains filtering directive
 trait _filter
 {
 	// structureSegmentFilter

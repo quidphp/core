@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 
 // xml
+// class for an xml file
 class Xml extends TextAlias
 {
 	// config

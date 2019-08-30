@@ -11,6 +11,7 @@ namespace Quid\Core\Row;
 use Quid\Main;
 
 // _log
+// trait that adds log-related methods to a row
 trait _log
 {
 	// trait
