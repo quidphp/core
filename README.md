@@ -80,9 +80,9 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
     - [Error](src/Cms/Error.php) | Class for the error route of the CMS
     - [General](src/Cms/General.php) | Class for the general navigation route of the CMS
     - [GeneralDelete](src/Cms/GeneralDelete.php) | Class for the route which allows to delete rows from the general navigation page of the CMS
-    - [GeneralExport](src/Cms/GeneralExport.php) | Class for the route which generates the CSV export using the general navigation page of the CMS
+    - [GeneralExport](src/Cms/GeneralExport.php) | Class for the route which generates the CSV export for the CMS
     - [GeneralExportDialog](src/Cms/GeneralExportDialog.php) | Class for the general export popup route of the CMS
-    - [GeneralRelation](src/Cms/GeneralRelation.php) | Class for the route which manages general relation - filters for the general navigation page of the CMS
+    - [GeneralRelation](src/Cms/GeneralRelation.php) | Class for the route which manages the filters for the general navigation page of the CMS
     - [GeneralTruncate](src/Cms/GeneralTruncate.php) | Class for the route which allows to truncate a table from the general navigation page of the CMS
     - [Home](src/Cms/Home.php) | Class for the home route of the CMS
     - [HomeSearch](src/Cms/HomeSearch.php) | Class for the global search route accessible from the homepage of the CMS
@@ -100,12 +100,12 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
     - [SpecificAddSubmit](src/Cms/SpecificAddSubmit.php) | Class for the submit specific add route, to process the insertion of a new row in the CMS
     - [SpecificCalendar](src/Cms/SpecificCalendar.php) | Class for the calendar widget route of the CMS
     - [SpecificDelete](src/Cms/SpecificDelete.php) | Class for the specific delete route, to process a row deletion in the CMS
-    - [SpecificDispatch](src/Cms/SpecificDispatch.php) | Class for the specific dispatch route, directs the submit request to the proper dispatch route of the CMS
+    - [SpecificDispatch](src/Cms/SpecificDispatch.php) | Class for the specific dispatch route, directs to the proper dispatch route of the CMS
     - [SpecificDownload](src/Cms/SpecificDownload.php) | Class for the file download route of the CMS
     - [SpecificDuplicate](src/Cms/SpecificDuplicate.php) | Class for the specific duplicate route, to process a row duplication in the CMS
     - [SpecificRelation](src/Cms/SpecificRelation.php) | Class for the route which manages specific relation - enumSet inputs in the specific form
     - [SpecificSubmit](src/Cms/SpecificSubmit.php) | Class for the submit specific route, to process the update of a row in the CMS
-    - [SpecificTableRelation](src/Cms/SpecificTableRelation.php) | Class for the route which manages table relation - used by some columns to insert content within a textarea
+    - [SpecificTableRelation](src/Cms/SpecificTableRelation.php) | Class for the route which manages table relation, used by some inputs in the CMS
     - [SpecificUserWelcome](src/Cms/SpecificUserWelcome.php) | Class for the specific user welcome route which can send a welcome email to the user
     - [_common](src/Cms/_common.php) | Trait that provides commonly used methods for the CMS
     - [_export](src/Cms/_export.php) | Trait that provides commonly used methods for exporting data from the CMS
@@ -113,8 +113,8 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
     - [_module](src/Cms/_module.php) | Trait that provides some initial configuration for a CMS module route
     - [_nobody](src/Cms/_nobody.php) | Trait which provides commonly used methods for routes where the user is not logged in the CMS
     - [_page](src/Cms/_page.php) | Trait that provides some pratical methods to work with page route within the CMS
-    - [_specific](src/Cms/_specific.php) | Trait that provides commonly used methods for the specific routes of the CMS (add and modify)
-    - [_specificSubmit](src/Cms/_specificSubmit.php) | Trait that provides commonly used methods for the specific submit routes of the CMS (add and modify)
+    - [_specific](src/Cms/_specific.php) | Trait that provides commonly used methods for the specific routes of the CMS
+    - [_specificSubmit](src/Cms/_specificSubmit.php) | Trait that provides commonly used methods for the specific submit routes of the CMS
     - [_template](src/Cms/_template.php) | Trait that grants the methods to generate the CMS HTML template
 - [Col](src/Col.php)
     - [Active](src/Col/Active.php) | Class for the active column - a simple yes checkbox
