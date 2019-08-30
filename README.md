@@ -372,7 +372,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 
 ### SCSS 
 **QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
-[cms](scss/cms)
+- [cms](scss/cms)
     - [box.scss](scss/cms/box.scss)
     - [calendar.scss](scss/cms/calendar.scss)
     - [clickOpen.scss](scss/cms/clickOpen.scss)
@@ -382,7 +382,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [general.scss](scss/cms/general.scss)
     - [home.scss](scss/cms/home.scss)
     - [icon.scss](scss/cms/icon.scss)
-    - [icon64.scss](scss/cms/icon64.scss) | Account (16x16 png)
+    - [icon64.scss](scss/cms/icon64.scss)
     - [include.scss](scss/cms/include.scss) | Var
     - [interface.scss](scss/cms/interface.scss)
     - [nobody.scss](scss/cms/nobody.scss)
