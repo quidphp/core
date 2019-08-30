@@ -55,6 +55,9 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
+- *Auto-alias*: All class names that finishes by Alias will resolve to the existing class if no alias exists. Exemple: MyRole extents RoleAlias -> will resolve to Role if no alias found.
+- *Class overloading*: It is possible to retrieve a same overloaded class, higher in the hierarchy, by using the static method $class::getOverloadClass(). Exemple Quid\Orm\Col::getOverloadClass() will return Quid\Core\Col.
+- *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within **QuidPHP/Core** by classes within an application directory.
 
 ### JS
 - Lorem ipsum
