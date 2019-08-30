@@ -47,25 +47,24 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 ## Testing
 **QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
 
-## JS 
-
-### Convention
-- Lorem ipsum
-
-### Overview
-**QuidPHP/Core** also contains 0 JavaScript files. Here is an overview:
-- Lorem ipsum
-
-## PHP 
-
-### Convention
+## Convention
 **QuidPHP/Core** is built on the following conventions:
+
+### PHP
 - *Traits*: Traits filenames start with an underscore (_).
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
-### Overview
+### JS
+- Lorem ipsum
+
+### SCSS
+- Lorem ipsum
+
+## Overview
+
+### PHP 
 **QuidPHP/Core** contains 263 classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php) | Abstract class for the error route of the application
@@ -334,11 +333,10 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [_fullAccess](src/_fullAccess.php) | Trait that provides all access methods related to the Boot
 - [_routeAttr](src/_routeAttr.php) | Trait that provides methods to work with routes in the attributes property
 
-## SCSS 
-
-### Convention
+### JS
+**QuidPHP/Core** contains 0 JavaScript scripts. Here is an overview:
 - Lorem ipsum
 
-### Overview
-**QuidPHP/Core** also contains 0 SCSS files. Here is an overview:
+### SCSS 
+**QuidPHP/Core** contains 0 SCSS stylesheets. Here is an overview:
 - Lorem ipsum
