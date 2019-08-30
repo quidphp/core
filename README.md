@@ -23,21 +23,21 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - PHP 7.2+ with fileinfo, curl, openssl, posix, PDO and pdo_mysql
 
 ## Included
-**QuidPHP/Core** comes bundled with the following:
-- [jquery/jquery](https://github.com/jquery/jquery)
-- [jquery/jquery-ui](https://github.com/jquery/jquery-ui)
-- [necolas/normalize.css](https://github.com/necolas/normalize.css)
+**QuidPHP/Core** comes bundled with the following front-end packages:
+- [jquery/jquery](https://github.com/jquery/jquery) | jQuery, the popular JavaScript library is used for most behaviors
+- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI, only a  minimal version used for drag & drop sorting
+- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize, used has the base for all stylesheets
 
 ## Dependency
 **QuidPHP/Core** has the following dependency:
-- [quidphp/base](https://github.com/quidphp/base)
-- [quidphp/main](https://github.com/quidphp/main)
-- [quidphp/orm](https://github.com/quidphp/orm)
-- [quidphp/routing](https://github.com/quidphp/routing)
-- [verot/class.upload.php](https://github.com/verot/class.upload.php)
-- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer)
-- [tedivm/jshrink](https://github.com/tedious/JShrink)
-- [leafo/scssphp](https://github.com/scssphp/scssphp)
+- [quidphp/base](https://github.com/quidphp/base) | Quid\Base - PHP library that provides a large set of low-level static methods
+- [quidphp/main](https://github.com/quidphp/main) | Quid\Main - PHP library that provides a set of base objects and collections 
+- [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database abstraction and an easy-to-use Object-Relational Mapper
+- [quidphp/routing](https://github.com/quidphp/routing) | Quid\Routing - PHP library that provides a simple route matching and triggering procedure
+- [verot/class.upload.php](https://github.com/verot/class.upload.php) | Class.upload.php - A popular PHP class used for resizing images
+- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PhpMailer - The classic email sending library for PHP
+- [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
+- [leafo/scssphp](https://github.com/scssphp/scssphp) | scsssphp - SCSS compiler written in PHP
 
 All dependencies will be resolved by using the Composer installation process.
 
