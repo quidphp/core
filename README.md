@@ -368,7 +368,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [tab](js/include/tab.js)
 - [jquery](js/jquery)
     - [jquery-ui](js/jquery/jquery-ui.js)
-    - [jquery](js/jquery/jquery.js
+    - [jquery](js/jquery/jquery.js)
 
 ### SCSS 
 **QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
@@ -391,4 +391,4 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [include](scss/include)
     - [component](scss/include/component.scss)
     - [include](scss/include/include.scss)
-    - [normalize](scss/include/normalize.css
+    - [normalize](scss/include/normalize.css)
