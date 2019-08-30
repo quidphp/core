@@ -1,3 +1,6 @@
+// cms
+// common behaviour file for the CMS
+
 $(document).ready(function() {
 	
 	// window

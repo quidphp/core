@@ -55,9 +55,9 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
-- *Auto-alias*: All class names that finishes by Alias will resolve to the existing class if no alias exists. Exemple: MyRole extents RoleAlias -> will resolve to Role if no alias found.
-- *Class overloading*: It is possible to retrieve a same overloaded class, higher in the hierarchy, by using the static method $class::getOverloadClass(). Exemple Quid\Orm\Col::getOverloadClass() will return Quid\Core\Col.
-- *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within **QuidPHP/Core** by classes within an application directory.
+- *Auto-alias*: All class names that finishes by Alias will resolve to the existing class if no alias exists. Exemple: MyRole extents RoleAlias -> will resolve to Role if no alias is found.
+- *Class overloading*: It is possible to retrieve an overloaded class with the same name but higher in the directoir hierarchy. We do this by using the static method $class::getOverloadClass(). Exemple Quid\Orm\Col::getOverloadClass() will return Quid\Core\Col.
+- *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within Quid\Core by classes within an application directory.
 
 ### JS
 - Lorem ipsum
@@ -337,9 +337,58 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [_routeAttr](src/_routeAttr.php) | Trait that provides methods to work with routes in the attributes property
 
 ### JS
-**QuidPHP/Core** contains 0 JavaScript scripts. Here is an overview:
-- Lorem ipsum
+**QuidPHP/Core** contains 28 JavaScript scripts. Here is an overview:
+- [cms](js/cms)
+    - [cms](js/cms/cms.js) | Common behaviour file for the CMS
+    - [general](js/cms/general.js)
+    - [home](js/cms/home.js)
+    - [nobody](js/cms/nobody.js)
+    - [somebody](js/cms/somebody.js)
+    - [specific](js/cms/specific.js)
+- [include](js/include)
+    - [_helper](js/include/_helper.js)
+    - [accordeon](js/include/accordeon.js)
+    - [addRemove](js/include/addRemove.js)
+    - [ajax](js/include/ajax.js)
+    - [appendContainer](js/include/appendContainer.js)
+    - [box](js/include/box.js)
+    - [calendar](js/include/calendar.js)
+    - [clickOpen](js/include/clickOpen.js)
+    - [dimension](js/include/dimension.js)
+    - [dragDrop](js/include/dragDrop.js)
+    - [event](js/include/event.js)
+    - [expr](js/include/expr.js)
+    - [fn](js/include/fn.js)
+    - [form](js/include/form.js)
+    - [input](js/include/input.js)
+    - [navigation](js/include/navigation.js)
+    - [relation](js/include/relation.js)
+    - [scroll](js/include/scroll.js)
+    - [search](js/include/search.js)
+    - [tab](js/include/tab.js)
+- [jquery](js/jquery)
+    - [jquery-ui](js/jquery/jquery-ui.js)
+    - [jquery](js/jquery/jquery.js
 
 ### SCSS 
-**QuidPHP/Core** contains 0 SCSS stylesheets. Here is an overview:
-- Lorem ipsum
+**QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
+- [cms](scss/cms)
+    - [box](scss/cms/box.scss)
+    - [calendar](scss/cms/calendar.scss)
+    - [clickOpen](scss/cms/clickOpen.scss)
+    - [cms](scss/cms/cms.scss)
+    - [error](scss/cms/error.scss)
+    - [form](scss/cms/form.scss)
+    - [general](scss/cms/general.scss)
+    - [home](scss/cms/home.scss)
+    - [icon](scss/cms/icon.scss)
+    - [icon64](scss/cms/icon64.scss)
+    - [include](scss/cms/include.scss)
+    - [interface](scss/cms/interface.scss)
+    - [nobody](scss/cms/nobody.scss)
+    - [specific](scss/cms/specific.scss)
+    - [style](scss/cms/style.scss)
+- [include](scss/include)
+    - [component](scss/include/component.scss)
+    - [include](scss/include/include.scss)
+    - [normalize](scss/include/normalize.css
