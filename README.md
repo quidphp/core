@@ -38,6 +38,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer)
 - [tedivm/jshrink](https://github.com/tedious/JShrink)
 - [leafo/scssphp](https://github.com/scssphp/scssphp)
+
 All dependencies will be resolved by using the Composer installation process.
 
 ## Testing
@@ -53,7 +54,7 @@ All dependencies will be resolved by using the Composer installation process.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
-## Overview
+## PHP Overview
 **QuidPHP/Core** contains 263 PHP classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php) | Abstract class for the error route of the application
@@ -322,10 +323,10 @@ All dependencies will be resolved by using the Composer installation process.
 - [_fullAccess](src/_fullAccess.php)
 - [_routeAttr](src/_routeAttr.php)
 
-## JavaScript
-**QuidPHP/Core** also contains 0 javascript files. Here is an overview:
+## JS Overview
+**QuidPHP/Core** also contains 0 JavaScript files. Here is an overview:
 - Lorem ipsum
 
-## SCSS
-**QuidPHP/Core** also contains 0 scss files. Here is an overview:
+## SCSS Overview
+**QuidPHP/Core** also contains 0 SCSS files. Here is an overview:
 - Lorem ipsum
