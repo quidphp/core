@@ -47,14 +47,16 @@ All dependencies will be resolved by using the Composer installation process.
 ## Comment
 **QuidPHP/Core** code is commented and all methods are explained. However, the method and property comments are currently written in French.
 
-## Convention
+## PHP 
+
+### Convention
 **QuidPHP/Core** is built on the following conventions:
 - *Traits*: Traits filenames start with an underscore (_).
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
-## PHP Overview
+### Overview
 **QuidPHP/Core** contains 263 PHP classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php) | Abstract class for the error route of the application
@@ -323,10 +325,20 @@ All dependencies will be resolved by using the Composer installation process.
 - [_fullAccess](src/_fullAccess.php)
 - [_routeAttr](src/_routeAttr.php)
 
-## JS Overview
+## JS 
+
+### Convention
+- Lorem ipsum
+
+### Overview
 **QuidPHP/Core** also contains 0 JavaScript files. Here is an overview:
 - Lorem ipsum
 
-## SCSS Overview
+## SCSS 
+
+### Convention
+- Lorem ipsum
+
+### Overview
 **QuidPHP/Core** also contains 0 SCSS files. Here is an overview:
 - Lorem ipsum
