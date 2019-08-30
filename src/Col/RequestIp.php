@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // requestIp
+// class for a column which applies the current request ip as value on commit
 class RequestIp extends Core\ColAlias
 {
 	// config

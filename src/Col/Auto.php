@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // auto
+// class for the auto column, generate itself automatically using the data from other cells
 class Auto extends Core\ColAlias
 {
 	// config

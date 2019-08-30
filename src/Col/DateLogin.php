@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // dateLogin
+// class for the dateLogin column, current timestamp is applied automatically when the user logs in
 class DateLogin extends DateAlias
 {
 	// config

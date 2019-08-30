@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificDuplicate
+// class for the specific duplicate route, to process a row duplication in the CMS
 class SpecificDuplicate extends Core\RouteAlias
 {
 	// trait

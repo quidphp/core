@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Base\Html;
 
 // _common
+// trait that provides commonly used methods for the CMS
 trait _common
 {
 	// isTableTop

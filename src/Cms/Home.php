@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // home
+// class for the home route of the CMS
 class Home extends Core\Route\Home
 {
 	// trait

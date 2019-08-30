@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // generalRelation
+// class for the route which manages general relation - filters for the general navigation page of the CMS
 class GeneralRelation extends Core\RouteAlias
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificDelete
+// class for the specific delete route, to process a row deletion in the CMS
 class SpecificDelete extends Core\RouteAlias
 {
 	// trait

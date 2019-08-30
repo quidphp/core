@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // sitemap
+// class for the sitemap.xml route of the CMS
 class Sitemap extends Core\Route\Sitemap
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // register
+// class for the register route of the CMS
 class Register extends Core\Route\Register
 {
 	// trait

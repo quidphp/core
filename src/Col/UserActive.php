@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // userActive
+// class for the column which manages the active field for the user row
 class UserActive extends YesAlias
 {
 	// config

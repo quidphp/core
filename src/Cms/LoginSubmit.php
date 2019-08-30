@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // loginSubmit
+// class for the login submit route of the CMS
 class LoginSubmit extends Core\Route\LoginSubmit
 {
 	// trait

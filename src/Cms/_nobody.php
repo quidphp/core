@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Base;
 
 // _nobody
+// trait which provides commonly used methods for routes where the user is not logged in the CMS
 trait _nobody
 {
 	// trait

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // email
+// class for a column managing email
 class Email extends Core\ColAlias
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // countCommit
+// class for the countCommit column, increments itself automatically on commit
 class CountCommit extends Core\ColAlias
 {
 	// config

@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // specificAdd
+// class for the specific add route of the CMS, generates the insert form for a row
 class SpecificAdd extends Core\RouteAlias
 {
 	// trait

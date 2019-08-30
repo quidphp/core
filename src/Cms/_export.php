@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Cms;
 
 // _export
+// trait that provides commonly used methods for exporting data from the CMS
 trait _export
 {
 	// trait

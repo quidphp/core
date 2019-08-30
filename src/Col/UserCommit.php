@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // userCommit
+// class for the userCommit column, user_id is added automatically on commit
 class UserCommit extends EnumAlias
 {
 	// config

@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // relation
+// abstract class extendend by the enum and set columns
 abstract class Relation extends Core\ColAlias
 {
 	// config

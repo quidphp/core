@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // login
+// class for the login route of the CMS
 class Login extends Core\Route\Login
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // boolean
+// class for the boolean column - a simple yes/no enum relation
 class Boolean extends EnumAlias
 {
 	// config

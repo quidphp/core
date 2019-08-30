@@ -14,6 +14,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // jsonArray
+// class for a column which offers a special input for json values
 class JsonArray extends JsonAlias
 {
 	// config

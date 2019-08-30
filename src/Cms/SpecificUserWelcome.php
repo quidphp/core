@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificUserWelcome
+// class for the specific user welcome route which can send a welcome email to the user
 class SpecificUserWelcome extends Core\RouteAlias
 {
 	// trait

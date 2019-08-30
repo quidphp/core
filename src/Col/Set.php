@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // set
+// class for a column containing a set relation (many)
 class Set extends RelationAlias
 {
 	// config

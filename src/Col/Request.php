@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // request
+// class for a column that manages a request object as a value
 class Request extends Core\ColAlias
 {
 	// config

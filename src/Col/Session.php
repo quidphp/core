@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // session
+// class for a column which should store current session id
 class Session extends EnumAlias
 {
 	// config

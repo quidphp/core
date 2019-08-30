@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Base;
 
 // _template
+// trait that grants the methods to generate the CMS HTML template
 trait _template
 {
 	// trait

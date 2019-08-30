@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // generalDelete
+// class for the route which allows to delete rows from the general navigation page of the CMS
 class GeneralDelete extends Core\RouteAlias
 {
 	// trait

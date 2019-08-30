@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // accountChangePasswordSubmit
+// class for the submit change password route in the CMS
 class AccountChangePasswordSubmit extends Core\Route\AccountChangePasswordSubmit
 {
 	// config

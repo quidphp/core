@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // resetPassword
+// class for the reset password route of the CMS
 class ResetPassword extends Core\Route\ResetPassword
 {
 	// trait

@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // generalExportDialog
+// class for the general export popup route of the CMS
 class GeneralExportDialog extends Core\RouteAlias
 {
 	// trait

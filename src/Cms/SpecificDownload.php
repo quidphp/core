@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificDownload
+// class for the file download route of the CMS
 class SpecificDownload extends Core\RouteAlias
 {
 	// trait

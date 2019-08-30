@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // general
+// class for the general navigation route of the CMS
 class General extends Core\RouteAlias
 {
 	// trait

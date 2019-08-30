@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 
 // fragment
+// class for a column which contains URI fragments
 class Fragment extends SlugAlias
 {
 	// config

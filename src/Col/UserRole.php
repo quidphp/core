@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // userRole
+// class for the column which manages the role field for the user row
 class UserRole extends EnumAlias
 {
 	// config

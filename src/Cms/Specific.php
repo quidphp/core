@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // specific
+// class for the specific route of the CMS, generates the update form for a row
 class Specific extends Core\RouteAlias
 {
 	// trait

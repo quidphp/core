@@ -15,6 +15,7 @@ use Quid\Main;
 use Quid\Base;
 
 // video
+// abstract class for a column containing a video from a third-party service
 abstract class Video extends Core\ColAlias
 {
 	// config

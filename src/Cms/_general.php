@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // _general
+// trait that provides commonly used methods related to the general navigation route of the CMS
 trait _general
 {
 	// table

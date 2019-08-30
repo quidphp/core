@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // generalExport
+// class for the route which generates the CSV export using the general navigation page of the CMS
 class GeneralExport extends Core\RouteAlias
 {
 	// trait

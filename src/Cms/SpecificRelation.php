@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificRelation
+// class for the route which manages specific relation - enumSet inputs in the specific form
 class SpecificRelation extends Core\RouteAlias
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // enum
+// class for a column containing an enum relation (one)
 class Enum extends RelationAlias
 {
 	// config

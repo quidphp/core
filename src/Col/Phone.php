@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // phone
+// class for a column managing phone numbers, automatically formats the value
 class Phone extends Core\ColAlias
 {
 	// config

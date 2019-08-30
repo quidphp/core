@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // floating
+// class for a column which deals with floating values
 class Floating extends Core\ColAlias
 {
 	// config

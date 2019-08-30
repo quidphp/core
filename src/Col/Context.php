@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // context
+// class for the context column, updates itself automatically on commit
 class Context extends Core\ColAlias
 {
 	// config

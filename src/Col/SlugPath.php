@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // slugPath
+// class for a column dealing with URI slug within a URI path
 class SlugPath extends SlugAlias
 {
 	// config

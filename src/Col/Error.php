@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // error
+// class for a column that manages an error object as a value
 class Error extends Core\ColAlias
 {
 	// config

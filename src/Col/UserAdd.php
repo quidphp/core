@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 
 // userAdd
+// class for the userAdd column, user_id is added automatically on insert
 class UserAdd extends EnumAlias
 {
 	// config

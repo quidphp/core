@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // jsonArrayRelation
+// class to manage a column containing a relation value to another column which is a jsonArray
 class JsonArrayRelation extends Core\ColAlias
 {
 	// config

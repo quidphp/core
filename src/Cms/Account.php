@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // account
+// class for the account route of the CMS, by default redirects to the user's specific route
 class Account extends Core\Route\Account
 {
 	// trait

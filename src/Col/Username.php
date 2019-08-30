@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // username
+// class for the username column of a user row
 class Username extends Core\ColAlias
 {
 	// config

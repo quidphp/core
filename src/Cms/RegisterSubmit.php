@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // registerSubmit
+// class for the register submit route of the CMS
 class RegisterSubmit extends Core\Route\RegisterSubmit
 {
 	//  config

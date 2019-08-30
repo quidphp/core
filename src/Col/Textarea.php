@@ -14,6 +14,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // textarea
+// class for a column which is editable through a textarea input
 class Textarea extends Core\ColAlias
 {
 	// config

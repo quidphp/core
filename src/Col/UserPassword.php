@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // userPassword
+// class for the column which manages the password field for the user row
 class UserPassword extends Core\ColAlias
 {
 	// config

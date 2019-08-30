@@ -14,6 +14,7 @@ use Quid\Main;
 use Quid\Base;
 
 // _specific
+// trait that provides commonly used methods for the specific routes of the CMS (add and modify)
 trait _specific
 {
 	//  configSpecific

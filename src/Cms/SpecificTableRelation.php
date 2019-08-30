@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // SpecificTableRelation
+// class for the route which manages table relation - used by some columns to insert content within a textarea
 class SpecificTableRelation extends Core\RouteAlias
 {
 	// trait

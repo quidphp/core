@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // primary
+// class for dealing with a column which has an auto increment primary key
 class Primary extends Core\ColAlias
 {
 	// config

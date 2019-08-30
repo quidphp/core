@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificDispatch
+// class for the specific dispatch route, directs the submit request to the proper dispatch route of the CMS
 class SpecificDispatch extends Core\RouteAlias
 {
 	// trait

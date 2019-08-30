@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // excerpt
+// class for a column which contains an excerpt of a longer value
 class Excerpt extends Core\ColAlias
 {
 	// config

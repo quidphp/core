@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // userPasswordReset
+// class for the userPasswordReset column of a user row
 class UserPasswordReset extends Core\ColAlias
 {
 	// config

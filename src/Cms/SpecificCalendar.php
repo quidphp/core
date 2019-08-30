@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificCalendar
+// class for the calendar widget route of the CMS
 class SpecificCalendar extends Core\RouteAlias
 {
 	// trait

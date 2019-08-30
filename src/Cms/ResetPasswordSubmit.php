@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // resetPasswordSubmit
+// class for the submit reset password route of the CMS
 class ResetPasswordSubmit extends Core\Route\ResetPasswordSubmit
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // logout
+// class for the logout route of the CMS
 class Logout extends Core\Route\Logout
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // integer
+// class for a column which deals with integer values
 class Integer extends Core\ColAlias
 {
 	// config

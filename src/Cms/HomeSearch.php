@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // homeSearch
+// class for the global search route accessible from the homepage of the CMS
 class HomeSearch extends Core\RouteAlias
 {
 	// trait

@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // accountChangePassword
+// class for the change password route in the CMS
 class AccountChangePassword extends Core\Route\AccountChangePassword
 {
 	// config

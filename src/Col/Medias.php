@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // medias
+// class to work with a column containing a value which is a link to many files
 class Medias extends FilesAlias
 {
 	// config

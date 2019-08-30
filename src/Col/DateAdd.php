@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // dateAdd
+// class for the dateAdd column, current timestamp is added automatically on insert
 class DateAdd extends DateAlias
 {
 	// config

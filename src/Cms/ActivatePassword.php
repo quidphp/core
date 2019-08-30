@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // activatePassword
+// class for the activate password in the CMS
 class ActivatePassword extends Core\Route\ActivatePassword
 {
 	// config

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // json
+// class for a column which manages json values
 class Json extends Core\ColAlias
 {
 	// config

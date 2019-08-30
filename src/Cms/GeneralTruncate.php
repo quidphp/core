@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // generalTruncate
+// class for the route which allows to truncate a table from the general navigation page of the CMS
 class GeneralTruncate extends Core\RouteAlias
 {
 	// trait

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _specificSubmit
+// trait that provides commonly used methods for the specific submit routes of the CMS (add and modify)
 trait _specificSubmit
 {
 	// routeSuccess

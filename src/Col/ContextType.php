@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 
 // contextType
+// class for the contextType column, a checkbox set relation with all boot types (like app, cms)
 class ContextType extends SetAlias
 {
 	// config

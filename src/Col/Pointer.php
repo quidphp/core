@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Core;
 
 // pointer
+// class for a column which the value is a pointer to another row in the database
 class Pointer extends Core\ColAlias
 {
 	// config

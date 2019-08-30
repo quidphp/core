@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Cms;
 
 // _module
+// trait that provides some initial configuration for a CMS module route
 trait _module
 {
 	// config

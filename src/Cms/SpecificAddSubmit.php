@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // specificAddSubmit
+// class for the submit specific add route, to process the insertion of a new row in the CMS
 class SpecificAddSubmit extends Core\RouteAlias
 {
 	// trait

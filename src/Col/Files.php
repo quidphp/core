@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // files
+// abstract class extendend by the media and medias cols
 abstract class Files extends Core\ColAlias
 {
 	// config

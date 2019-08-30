@@ -11,6 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Core;
 
 // error
+// class for the error route of the CMS
 class Error extends Core\Route\Error
 {
 	// trait
