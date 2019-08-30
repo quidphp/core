@@ -383,7 +383,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [home.scss](scss/cms/home.scss)
     - [icon.scss](scss/cms/icon.scss)
     - [icon64.scss](scss/cms/icon64.scss)
-    - [include.scss](scss/cms/include.scss) | Var
+    - [include.scss](scss/cms/include.scss)
     - [interface.scss](scss/cms/interface.scss)
     - [nobody.scss](scss/cms/nobody.scss)
     - [specific.scss](scss/cms/specific.scss)
