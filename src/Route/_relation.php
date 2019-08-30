@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // _relation
+// trait that provides common methods related to a relation route
 trait _relation
 {
 	// trait

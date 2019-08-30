@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Routing;
 
 // routes
+// extended class for a collection of many untriggered routes
 class Routes extends Routing\Routes
 {
 	// trait

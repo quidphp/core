@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // sitemap
+// abstract class for a sitemap route
 abstract class Sitemap extends Core\RouteAlias
 {
 	// config

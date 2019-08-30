@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // services
+// extended class for a collection containing many service objects
 class Services extends Main\Services
 {
 	// trait

@@ -11,7 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // timezone
-// class for a column which is a enum relation to the PHP timezone array
+// class for a column which is an enum relation to the PHP timezone array
 class Timezone extends EnumAlias
 {
 	// config

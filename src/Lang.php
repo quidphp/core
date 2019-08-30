@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // lang
+// extended class for a collection object containing language texts and translations
 class Lang extends Main\Lang
 {
 	// trait

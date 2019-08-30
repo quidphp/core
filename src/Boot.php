@@ -14,6 +14,7 @@ use Quid\Main;
 use Quid\Base;
 
 // boot
+// abstract class for boot which is the object that bootstraps the application and CMS
 abstract class Boot extends Main\Root
 {
 	// trait

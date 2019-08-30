@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // col
+// extended class to represent an existing column within a table
 class Col extends Orm\Col
 {
 	// trait

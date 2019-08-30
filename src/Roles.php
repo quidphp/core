@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // roles
+// extended class for a collection containing many roles
 class Roles extends Main\Roles
 {
 	// trait

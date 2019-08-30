@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // nav
+// class for storing route navigation-related data
 class Nav extends Main\Map
 {
 	// trait

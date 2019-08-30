@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // error
+// extended class used as an error handler
 class Error extends Main\Error
 {
 	// config

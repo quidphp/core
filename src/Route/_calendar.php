@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _calendar
+// trait that provides most methods to make a calendar route
 trait _calendar
 {
 	// config

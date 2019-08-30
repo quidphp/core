@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // accountChangePassword
+// abstract class for an account change password route
 abstract class AccountChangePassword extends Core\RouteAlias
 {
 	// config

@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // accountSubmit
+// abstract class for an account submit route
 abstract class AccountSubmit extends Core\RouteAlias
 {
 	// trait

@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _specificNav
+// trait that provides a method to make a specific siblings navigator
 trait _specificNav
 {
 	// config

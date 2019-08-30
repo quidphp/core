@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // request
+// extended class with methods to manage an HTTP request
 class Request extends Main\Request
 {
 	// trait

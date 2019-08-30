@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // cell
+// extended class to represent an existing cell within a row
 class Cell extends Orm\Cell
 {
 	// trait

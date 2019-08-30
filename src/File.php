@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // file
+// extended class for a basic file object
 class File extends Main\File
 {
 	// trait

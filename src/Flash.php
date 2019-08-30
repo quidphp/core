@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // flash
+// extended class for a collection containing flash-like data (delete on read)
 class Flash extends Main\Flash
 {
 	// trait

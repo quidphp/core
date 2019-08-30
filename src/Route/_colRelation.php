@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // _colRelation
+// trait that provides methods related to a column relation route
 trait _colRelation
 {
 	// trait

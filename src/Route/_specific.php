@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // _specific
+// trait that provides most methods used for a specific route
 trait _specific
 {
 	// trait

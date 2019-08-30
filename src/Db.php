@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Orm;
 
 // db
+// extended class used to query the database
 class Db extends Orm\Db
 {
 	// trait

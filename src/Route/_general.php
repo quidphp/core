@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _general
+// trait that provides most methods used for a general navigation route
 trait _general
 {
 	// trait

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core;
 
 // _routeAttr
+// trait that provides methods to work with routes in the attributes property
 trait _routeAttr
 {
 	// routeAttr

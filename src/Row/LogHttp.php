@@ -13,7 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // logHttp
-// class to represent a row of the logHttp table, stores bad http requests
+// class to represent a row of the logHttp table, stores bad HTTP requests
 class LogHttp extends Core\RowAlias implements Main\Contract\Log
 {
 	// trait

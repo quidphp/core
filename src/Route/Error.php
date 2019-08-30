@@ -14,6 +14,7 @@ use Quid\Main;
 use Quid\Base;
 
 // error
+// abstract class for an error route
 abstract class Error extends Core\RouteAlias
 {
 	// config

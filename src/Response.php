@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // response
+// extended class with methods to manage an HTTP response
 class Response extends Main\Response
 {
 	// trait

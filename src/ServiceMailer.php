@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // serviceMailer
+// extended abstract class with basic methods that needs to be extended by a mailing service
 abstract class ServiceMailer extends Main\ServiceMailer
 {
 	// trait

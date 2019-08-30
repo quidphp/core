@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // serviceRequest
+// extended abstract class with basic methods for a service that works with HTTP request
 abstract class ServiceRequest extends Main\ServiceRequest
 {
 	// trait

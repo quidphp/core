@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // robots
+// abstract class for a robots route
 abstract class Robots extends Core\RouteAlias
 {
 	// config

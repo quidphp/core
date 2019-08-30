@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // session
+// extended class that adds session support for user
 class Session extends Main\Session
 {
 	// trait

@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // login
+// abstract class for a login route
 abstract class Login extends Core\RouteAlias
 {
 	// trait

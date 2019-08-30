@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // service
+// extended abstract class that provides basic methods to manage a third-party service
 abstract class Service extends Main\Service
 {
 	// trait

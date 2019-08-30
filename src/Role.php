@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // role
+// extended abstract class that provides more advanced logic for a role
 abstract class Role extends Main\Role
 {
 	// trait

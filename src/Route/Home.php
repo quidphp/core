@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // home
+// abstract class for a home route
 abstract class Home extends Core\RouteAlias
 {
 	// config

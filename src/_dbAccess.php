@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Orm;
 
 // _dbAccess
+// trait that provides a method to access the current database
 trait _dbAccess
 {
 	// db

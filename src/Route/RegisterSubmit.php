@@ -13,6 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // registerSubmit
+// abstract class for a register submit route
 abstract class RegisterSubmit extends Core\RouteAlias
 {
 	// trait

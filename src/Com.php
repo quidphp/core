@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // com
+// extended class that provides the logic to store communication messages
 class Com extends Main\Com
 {
 	// trait

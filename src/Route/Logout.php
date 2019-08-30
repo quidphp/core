@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // logout
+// abstract class for a logout route
 abstract class Logout extends Core\RouteAlias
 {
 	// config

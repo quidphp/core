@@ -13,7 +13,7 @@ use Quid\Main;
 use Quid\Base;
 
 // session
-// class to work with row of the session table
+// class to work with a row of the session table
 class Session extends Core\RowAlias implements Main\Contract\Session
 {
 	// config

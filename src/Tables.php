@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Orm;
 
 // tables
+// extended class for a collection of many tables within a same database
 class Tables extends Orm\Tables
 {
 	// trait

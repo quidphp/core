@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // account
+// abstract class for an account route
 abstract class Account extends Core\RouteAlias
 {
 	// config

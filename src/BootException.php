@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // bootException
+// class for a bootException, a boot exception breaks the root matching loop
 class BootException extends Main\Exception
 {
 	// config

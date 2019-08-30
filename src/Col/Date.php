@@ -12,7 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // date
-// class for the date column, supports many date formats
+// class for a date column, supports many date formats
 class Date extends Core\ColAlias
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Orm;
 
 // rowsIndex
+// extended class for a collection of many rows within different tables (keys are indexed)
 class RowsIndex extends Orm\RowsIndex
 {
 	// trait

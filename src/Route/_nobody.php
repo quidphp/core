@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Base\Html;
 
 // _nobody
+// trait that provides a common method for a route when the user is not logged in
 trait _nobody
 {
 	// browscap

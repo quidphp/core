@@ -12,7 +12,7 @@ use Quid\Core;
 use JShrink\Minifier;
 
 // jShrink
-// class that provides methods to use tedivm/jshrink for minifying javascript
+// class that provides methods to use tedivm/jshrink for minifying JavaScript
 class JShrink extends Core\ServiceAlias
 {
 	// config

@@ -11,7 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 
 // jsonExport
-// class for a column which contains json which should be exported (similar to var_export)
+// class for a column that contains json which should be exported (similar to var_export)
 class JsonExport extends JsonAlias
 {
 	// config

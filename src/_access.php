@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // _access
+// trait that provides methods to useful objects related to the Boot
 trait _access
 {
 	// trait

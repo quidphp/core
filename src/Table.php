@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // table
+// extended class to represent an existing table within a database
 class Table extends Orm\Table
 {
 	// trait

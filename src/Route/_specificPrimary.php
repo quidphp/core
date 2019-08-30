@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // _specificPrimary
+// trait that provides most methods used for a specific route using a primary segment
 trait _specificPrimary
 {
 	// onBefore

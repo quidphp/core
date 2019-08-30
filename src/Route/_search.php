@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Base;
 
 // _search
+// trait that grants methods for search route
 trait _search
 {
 	// config

@@ -13,6 +13,7 @@ use Quid\Core;
 use Quid\Base;
 
 // _generalRelation
+// trait that provides methods to make a filter from a relation
 trait _generalRelation
 {
 	// trait

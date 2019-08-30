@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Base\Html;
 
 // _generalPager
+// trait that provides a method to make a general page navigator
 trait _generalPager
 {
 	// makeGeneralPager

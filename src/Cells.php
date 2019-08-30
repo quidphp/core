@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // cells
+// extended class for a collection of many cells within a same row
 class Cells extends Orm\Cells
 {
 	// trait

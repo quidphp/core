@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // _download
+// trait that provides most methods necessary to make a download route
 trait _download
 {
 	// config

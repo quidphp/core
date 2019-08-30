@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core;
 
 // _fullAccess
+// trait that provides all access methods related to the Boot
 trait _fullAccess
 {
 	// trait

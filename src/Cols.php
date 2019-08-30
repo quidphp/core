@@ -12,6 +12,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // cols
+// extended class for a collection of many columns within a same table
 class Cols extends Orm\Cols
 {
 	// trait

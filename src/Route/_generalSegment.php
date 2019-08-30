@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Orm;
 
 // _generalSegment
+// trait that provides some methods for a general navigation page
 trait _generalSegment
 {
 	// trait

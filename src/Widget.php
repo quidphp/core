@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // widget
+// extended abstract class that provides basic methods for a widget
 abstract class Widget extends Main\Widget
 {
 	// trait

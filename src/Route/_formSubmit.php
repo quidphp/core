@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Route;
 
 // _formSubmit
+// trait that provides methods and logic necessary to make a form submit route
 trait _formSubmit
 {
 	// dynamique

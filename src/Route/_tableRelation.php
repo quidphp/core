@@ -14,6 +14,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // _tableRelation
+// trait that provides methods to make a table relation route, used by some inputs
 trait _tableRelation
 {
 	// trait

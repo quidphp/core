@@ -24,12 +24,12 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Included
 **QuidPHP/Core** comes bundled with the following front-end packages:
-- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library is used for most behaviors
+- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library is used for most behaviours
 - [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI - A minimal version is used for drag & drop sorting
 - [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize.css - Used as the normalizing base for all stylesheets
 
 ## Dependency
-**QuidPHP/Core** has the following dependency:
+**QuidPHP/Core** has the following back-end dependencies:
 - [quidphp/base](https://github.com/quidphp/base) | Quid\Base - PHP library that provides a large set of low-level static methods
 - [quidphp/main](https://github.com/quidphp/main) | Quid\Main - PHP library that provides a set of base objects and collections 
 - [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database access and a comprehensive Object-Relational Mapper
@@ -39,13 +39,13 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
 - [leafo/scssphp](https://github.com/scssphp/scssphp) | scsssphp - SCSS compiler written in PHP
 
-All dependencies will be resolved by using the Composer](https://getcomposer.org) installation process.
+All dependencies will be resolved by using the [Composer](https://getcomposer.org) installation process.
+
+## Comment
+**QuidPHP/Core** code is commented and all methods are explained. However, most of the comments are currently written in French.
 
 ## Testing
 **QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
-
-## Comment
-**QuidPHP/Core** code is commented and all methods are explained. However, the method and property comments are currently written in French.
 
 ## JS 
 
@@ -66,15 +66,15 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
 - *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 
 ### Overview
-**QuidPHP/Core** contains 263 PHP classes and traits. Here is an overview:
+**QuidPHP/Core** contains 263 classes and traits. Here is an overview:
 - [App](src/App)
     - [Error](src/App/Error.php) | Abstract class for the error route of the application
     - [Home](src/App/Home.php) | Abstract class for the home route of the application
     - [Robots](src/App/Robots.php) | Class for the robots.txt route of the application
     - [Sitemap](src/App/Sitemap.php) | Class for the sitemap.xml route of the application
-- [Boot](src/Boot.php)
-- [BootException](src/BootException.php)
-- [Cell](src/Cell.php)
+- [Boot](src/Boot.php) | Abstract class for boot object, its the object that bootstraps the application and CMS
+- [BootException](src/BootException.php) | Class for a bootException, a boot exception breaks the root matching loop
+- [Cell](src/Cell.php) | Extended class to represent an existing cell within a row
     - [Date](src/Cell/Date.php) | Class to work with a cell containing a date value
     - [Enum](src/Cell/Enum.php) | Class to manage a cell containing a single relation (enum)
     - [Files](src/Cell/Files.php) | Abstract class extendend by the media and medias cells
@@ -89,7 +89,7 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [Set](src/Cell/Set.php) | Class to manage a cell containing many relations separated by comma (set)
     - [UserPasswordReset](src/Cell/UserPasswordReset.php) | Class to work with a password reset column within a user table
     - [Video](src/Cell/Video.php) | Class to manage a cell containing a video from a third-party service
-- [Cells](src/Cells.php)
+- [Cells](src/Cells.php) | Extended class for a collection of many cells within a same row
 - [Cms](src/Cms)
     - [About](src/Cms/About.php) | Class for the about popup route of the CMS
     - [Account](src/Cms/Account.php) | Class for the account route of the CMS, by default redirects to the user's specific route
@@ -135,7 +135,7 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [_specific](src/Cms/_specific.php) | Trait that provides commonly used methods for the specific routes of the CMS
     - [_specificSubmit](src/Cms/_specificSubmit.php) | Trait that provides commonly used methods for the specific submit routes of the CMS
     - [_template](src/Cms/_template.php) | Trait that grants the methods to generate the CMS HTML template
-- [Col](src/Col.php)
+- [Col](src/Col.php) | Extended class to represent an existing column within a table
     - [Active](src/Col/Active.php) | Class for the active column - a simple yes checkbox
     - [Auto](src/Col/Auto.php) | Class for the auto column, generate itself automatically using the data from other cells
     - [Boolean](src/Col/Boolean.php) | Class for the boolean column - a simple yes/no enum relation
@@ -183,11 +183,11 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [Username](src/Col/Username.php) | Class for the username column of a user row
     - [Video](src/Col/Video.php) | Abstract class for a column containing a video from a third-party service
     - [Yes](src/Col/Yes.php) | Class for the yes column - a simple yes checkbox
-- [Cols](src/Cols.php)
-- [Com](src/Com.php)
-- [Db](src/Db.php)
-- [Error](src/Error.php)
-- [File](src/File.php)
+- [Cols](src/Cols.php) | Extended class for a collection of many columns within a same table
+- [Com](src/Com.php) | Extended class that provides the logic to store communication messages
+- [Db](src/Db.php) | Extended class used to query the database
+- [Error](src/Error.php) | Extended class used as an error handler
+- [File](src/File.php) | Extended class for a basic file object
     - [Audio](src/File/Audio.php) | Class for an audio file (like mp3)
     - [Binary](src/File/Binary.php) | Abstract class for a binary file
     - [Cache](src/File/Cache.php) | Class for a cache storage file
@@ -216,18 +216,18 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [Video](src/File/Video.php) | Class for a video file (like mp4)
     - [Xml](src/File/Xml.php) | Class for an xml file
     - [Zip](src/File/Zip.php) | Class for a zip file
-- [Files](src/Files.php)
-- [Flash](src/Flash.php)
-- [Lang](src/Lang.php)
+- [Files](src/Files.php) | Extended class for a collection containing many file objects
+- [Flash](src/Flash.php) | Extended class for a collection containing flash-like data (delete on read)
+- [Lang](src/Lang.php) | Extended class for a collection object containing language texts and translations
     - [En](src/Lang/En.php) | English language content used by this namespace
     - [Fr](src/Lang/Fr.php) | French language content used by this namespace
     - [_overload](src/Lang/_overload.php) | Trait which implements the overload logic for the lang classes
-- [Nav](src/Nav.php)
-- [Redirection](src/Redirection.php)
-- [Request](src/Request.php)
-- [RequestHistory](src/RequestHistory.php)
-- [Response](src/Response.php)
-- [Role](src/Role.php)
+- [Nav](src/Nav.php) | Class for storing route navigation related data
+- [Redirection](src/Redirection.php) | Extended class managing a URI redirection array
+- [Request](src/Request.php) | Extended class with methods to manage an HTTP request
+- [RequestHistory](src/RequestHistory.php) | Extended class for a collection containing an history of requests
+- [Response](src/Response.php) | Extended class with methods to manage an HTTP response
+- [Role](src/Role.php) | Extended abstract class that provides more advanced logic for a role
     - [Admin](src/Role/Admin.php) | Class which contains the default configuration for the admin role
     - [Contributor](src/Role/Contributor.php) | Class which contains the default configuration for the contributor role (disabled per default)
     - [Cron](src/Role/Cron.php) | Class which contains the default configuration for the cron role (disabled per default)
@@ -236,42 +236,42 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [Shared](src/Role/Shared.php) | Class that contains the default configuration for the shared role (disabled per default)
     - [SubAdmin](src/Role/SubAdmin.php) | Class that contains the default configuration for the subAdmin role (disabled per default)
     - [User](src/Role/User.php) | Class that contains the default configuration for the user role (disabled per default)
-- [Roles](src/Roles.php)
-- [Route](src/Route.php)
-    - [Account](src/Route/Account.php)
-    - [AccountChangePassword](src/Route/AccountChangePassword.php)
-    - [AccountChangePasswordSubmit](src/Route/AccountChangePasswordSubmit.php)
-    - [AccountSubmit](src/Route/AccountSubmit.php)
-    - [ActivatePassword](src/Route/ActivatePassword.php)
-    - [Error](src/Route/Error.php)
-    - [Home](src/Route/Home.php)
-    - [Login](src/Route/Login.php)
-    - [LoginSubmit](src/Route/LoginSubmit.php)
-    - [Logout](src/Route/Logout.php)
-    - [Register](src/Route/Register.php)
-    - [RegisterSubmit](src/Route/RegisterSubmit.php)
-    - [ResetPassword](src/Route/ResetPassword.php)
-    - [ResetPasswordSubmit](src/Route/ResetPasswordSubmit.php)
-    - [Robots](src/Route/Robots.php)
-    - [Sitemap](src/Route/Sitemap.php)
-    - [_calendar](src/Route/_calendar.php)
-    - [_colRelation](src/Route/_colRelation.php)
-    - [_download](src/Route/_download.php)
-    - [_formSubmit](src/Route/_formSubmit.php)
-    - [_general](src/Route/_general.php)
-    - [_generalPager](src/Route/_generalPager.php)
-    - [_generalRelation](src/Route/_generalRelation.php)
-    - [_generalSegment](src/Route/_generalSegment.php)
-    - [_nobody](src/Route/_nobody.php)
-    - [_relation](src/Route/_relation.php)
-    - [_search](src/Route/_search.php)
-    - [_specific](src/Route/_specific.php)
-    - [_specificNav](src/Route/_specificNav.php)
-    - [_specificPrimary](src/Route/_specificPrimary.php)
-    - [_specificRelation](src/Route/_specificRelation.php)
-    - [_tableRelation](src/Route/_tableRelation.php)
-- [Routes](src/Routes.php)
-- [Row](src/Row.php)
+- [Roles](src/Roles.php) | Extended class for a collection containing many roles
+- [Route](src/Route.php) | Extended abstract class for a route that acts as both a View and a Controller
+    - [Account](src/Route/Account.php) | Abstract class for an account route
+    - [AccountChangePassword](src/Route/AccountChangePassword.php) | Abstract class for an account change password route
+    - [AccountChangePasswordSubmit](src/Route/AccountChangePasswordSubmit.php) | Abstract class for an account change password submit route
+    - [AccountSubmit](src/Route/AccountSubmit.php) | Abstract class for an account submit route
+    - [ActivatePassword](src/Route/ActivatePassword.php) | Abstract class for a route that activates a password that was reset
+    - [Error](src/Route/Error.php) | Abstract class for an error route
+    - [Home](src/Route/Home.php) | Abstract class for an home route
+    - [Login](src/Route/Login.php) | Abstract class for a login route
+    - [LoginSubmit](src/Route/LoginSubmit.php) | Abstract class for a login submit route
+    - [Logout](src/Route/Logout.php) | Abstract class for a logout route
+    - [Register](src/Route/Register.php) | Abstract class for a register route
+    - [RegisterSubmit](src/Route/RegisterSubmit.php) | Abstract class for a register submit route
+    - [ResetPassword](src/Route/ResetPassword.php) | Abstract class for a reset password route
+    - [ResetPasswordSubmit](src/Route/ResetPasswordSubmit.php) | Abstract class for a reset password submit route
+    - [Robots](src/Route/Robots.php) | Abstract class for a robots route
+    - [Sitemap](src/Route/Sitemap.php) | Abstract class for a sitemap route
+    - [_calendar](src/Route/_calendar.php) | Trait that provides most methods to make a calendar route
+    - [_colRelation](src/Route/_colRelation.php) | Trait that provides methods related to a column relation route
+    - [_download](src/Route/_download.php) | Trait that provides most methods necessary to make a download route
+    - [_formSubmit](src/Route/_formSubmit.php) | Trait that provides methods and logic necessary to make a form submit route
+    - [_general](src/Route/_general.php) | Trait that provides most methods used for a general navigation route
+    - [_generalPager](src/Route/_generalPager.php) | Trait that provides a method to make a general page navigator
+    - [_generalRelation](src/Route/_generalRelation.php) | Trait that provides methods to make a filter from a relation
+    - [_generalSegment](src/Route/_generalSegment.php) | Trait that provides some methods for a general navigation page
+    - [_nobody](src/Route/_nobody.php) | Trait that provides a common method for a route when the user is not logged in
+    - [_relation](src/Route/_relation.php) | Trait that provides common methods related to a relation route
+    - [_search](src/Route/_search.php) | Trait that grants methods for search route
+    - [_specific](src/Route/_specific.php) | Trait that provides most methods used for a specific route
+    - [_specificNav](src/Route/_specificNav.php) | Trait that provides a method to make a specific siblings navigator
+    - [_specificPrimary](src/Route/_specificPrimary.php) | Trait that provides most methods used for a specific route using a primary segment
+    - [_specificRelation](src/Route/_specificRelation.php) | Trait that provides methods to make an enumSet input
+    - [_tableRelation](src/Route/_tableRelation.php) | Trait that provides methods to make a table relation route, used by some inputs
+- [Routes](src/Routes.php) | Extended class for a collection of many untriggered routes
+- [Row](src/Row.php) | Extended class to represent an existing row within a table
     - [Email](src/Row/Email.php) | Class to deal with a row of the email table, contains the emailModels
     - [Lang](src/Row/Lang.php) | Class to work with row of the lang table, contains the text and translations
     - [Log](src/Row/Log.php) | Class to represent a row of the log table, stores user activities
@@ -287,8 +287,8 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [_log](src/Row/_log.php) | Trait that adds log-related methods to a row
     - [_new](src/Row/_new.php) | That that grants access some methods which allows to create rows statically
     - [_queue](src/Row/_queue.php) | Trait that adds queuing-related methods to a row
-- [Rows](src/Rows.php)
-- [RowsIndex](src/RowsIndex.php)
+- [Rows](src/Rows.php) | Extended class for a collection of many rows within a same table
+- [RowsIndex](src/RowsIndex.php) | Extended class for a collection of many rows within different tables (keys are indexed)
 - [Segment](src/Segment)
     - [_boolean](src/Segment/_boolean.php) | Trait that issues a method to deal with boolean route segment (1 or 0)
     - [_col](src/Segment/_col.php) | Trait to manage a route segment which must contain a column name or object
@@ -312,27 +312,27 @@ All dependencies will be resolved by using the Composer](https://getcomposer.org
     - [_timestamp](src/Segment/_timestamp.php) | Trait to deal with a route segment which contains a timestamp
     - [_timestampMonth](src/Segment/_timestampMonth.php) | Trait to work with a route segment which contains the timestamp of a month
     - [_yes](src/Segment/_yes.php) | Trait that issues a method to deal with yes route segment (1)
-- [Service](src/Service.php)
+- [Service](src/Service.php) | Extended abstract class that provides basic methods to manage a third-party service
     - [ClassUpload](src/Service/ClassUpload.php) | Class that provides methods to use verot/class.upload.php for resizing images
     - [JShrink](src/Service/JShrink.php) | Class that provides methods to use tedivm/jshrink for minifying javascript
     - [Ldap](src/Service/Ldap.php) | Class that grants some methods to connect to a ldap server
     - [PhpConcatenator](src/Service/PhpConcatenator.php) | Class used for concatenating a bunch of php files within a single one
     - [PhpMailer](src/Service/PhpMailer.php) | Class that provides methods to use phpmailer/phpmailer in order to send emails
     - [ScssPhp](src/Service/ScssPhp.php) | Class that grants methods to use leafo/scssphp for compiling scss files
-- [ServiceMailer](src/ServiceMailer.php)
-- [ServiceRequest](src/ServiceRequest.php)
-- [ServiceVideo](src/ServiceVideo.php)
-- [Services](src/Services.php)
-- [Session](src/Session.php)
-- [Table](src/Table.php)
-- [Tables](src/Tables.php)
-- [Widget](src/Widget.php)
+- [ServiceMailer](src/ServiceMailer.php) | Extended abstract class with basic methods that needs to be extended by a mailing service
+- [ServiceRequest](src/ServiceRequest.php) | Extended abstract class with basic methods for a service that works with HTTP request
+- [ServiceVideo](src/ServiceVideo.php) | Extended abstract class with basic methods for a service that provides a video object after an HTTP request
+- [Services](src/Services.php) | Extended class for a collection containing many services objects
+- [Session](src/Session.php) | Extended class that adds session support for user
+- [Table](src/Table.php) | Extended class to represent an existing table within a database
+- [Tables](src/Tables.php) | Extended class for a collection of many tables within a same database
+- [Widget](src/Widget.php) | Extended abstract class that provides basic methods for a widget
     - [Calendar](src/Widget/Calendar.php) | Class that provides logic for the calendar widget
-- [_access](src/_access.php)
-- [_bootAccess](src/_bootAccess.php)
-- [_dbAccess](src/_dbAccess.php)
-- [_fullAccess](src/_fullAccess.php)
-- [_routeAttr](src/_routeAttr.php)
+- [_access](src/_access.php) | Trait that provides methods to usefull objects related to the Boot
+- [_bootAccess](src/_bootAccess.php) | Trait that provides methods to access the Boot object
+- [_dbAccess](src/_dbAccess.php) | Trait that provides a method to access the current database
+- [_fullAccess](src/_fullAccess.php) | Trait that provides all access methods related to the Boot
+- [_routeAttr](src/_routeAttr.php) | Trait that provides methods to work with route in the attributes property
 
 ## SCSS 
 

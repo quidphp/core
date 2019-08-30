@@ -12,6 +12,7 @@ use Quid\Main;
 use Quid\Base;
 
 // requestHistory
+// extended class for a collection containing a history of requests
 class RequestHistory extends Main\RequestHistory
 {
 	// trait

@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // _specificRelation
+// trait that provides methods to make an enumSet input
 trait _specificRelation
 {
 	// trait

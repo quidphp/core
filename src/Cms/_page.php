@@ -11,7 +11,7 @@ namespace Quid\Core\Cms;
 use Quid\Base\Html;
 
 // _page
-// trait that provides some pratical methods to work with page route within the CMS
+// trait that provides some practical methods to work with page route within the CMS
 trait _page
 {
 	// trait

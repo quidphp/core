@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Routing;
 
 // _bootAccess
+// trait that provides methods to access the Boot object
 trait _bootAccess
 {
 	// boot

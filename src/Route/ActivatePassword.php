@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // activatePassword
+// abstract class for a route that activates a password that was previously reset
 abstract class ActivatePassword extends Core\RouteAlias
 {
 	// trait

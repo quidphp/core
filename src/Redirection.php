@@ -11,6 +11,7 @@ namespace Quid\Core;
 use Quid\Main;
 
 // redirection
+// extended class managing a URI redirection array
 class Redirection extends Main\Redirection
 {
 	// trait

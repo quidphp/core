@@ -12,7 +12,7 @@ use Quid\Core;
 use Quid\Orm;
 
 // primary
-// class for dealing with a the cell of a column which has an auto increment primary key
+// class for dealing with a cell of a column which has an auto increment primary key
 class Primary extends Core\CellAlias
 {
 	// config

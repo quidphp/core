@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // resetPasswordSubmit
+// abstract class for a reset password submit route
 abstract class ResetPasswordSubmit extends Core\RouteAlias
 {
 	// trait

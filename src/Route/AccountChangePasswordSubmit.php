@@ -11,6 +11,7 @@ namespace Quid\Core\Route;
 use Quid\Core;
 
 // accountChangePasswordSubmit
+// abstract class for an account change password submit route
 abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 {
 	// trait

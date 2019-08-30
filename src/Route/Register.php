@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // register
+// abstract class for a register route
 abstract class Register extends Core\RouteAlias
 {
 	// trait

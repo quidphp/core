@@ -12,6 +12,7 @@ use Quid\Base\Html;
 use Quid\Core;
 
 // resetPassword
+// abstract class for a reset password route
 abstract class ResetPassword extends Core\RouteAlias
 {
 	// trait
