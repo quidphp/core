@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Orm;
 
 // relation
+// abstract class extendend by the enum and set cells
 abstract class Relation extends Core\CellAlias
 {
 	// config

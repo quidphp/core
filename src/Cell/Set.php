@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // set
+// class to manage a cell containing many relations separated by comma (set)
 class Set extends RelationAlias
 {
 	// config

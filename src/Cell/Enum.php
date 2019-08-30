@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // enum
+// class to manage a cell containing a single relation (enum)
 class Enum extends RelationAlias
 {
 	// config

@@ -13,6 +13,7 @@ use Quid\Orm;
 use Quid\Base;
 
 // files
+// abstract class extendend by the media and medias cells
 abstract class Files extends Core\CellAlias
 {
 	// config

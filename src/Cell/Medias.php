@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // medias
+// class to manage a cell containing a value which is a link to many files
 class Medias extends FilesAlias
 {
 	// config

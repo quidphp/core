@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // userPasswordReset
+// class to work with a password reset column within a user table 
 class UserPasswordReset extends Core\CellAlias
 {
 	// hashSet

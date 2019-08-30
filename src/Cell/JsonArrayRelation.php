@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // jsonArrayRelation
+// class to manage a cell containing a relation value to another cell containing a json array
 class JsonArrayRelation extends Core\CellAlias
 {
 	// config

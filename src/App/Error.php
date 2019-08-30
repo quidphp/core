@@ -11,6 +11,7 @@ namespace Quid\Core\App;
 use Quid\Core;
 
 // error
+// abstract class for the error route of the application
 abstract class Error extends Core\Route\Error
 {
 	// config

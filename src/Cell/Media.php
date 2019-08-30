@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // media
+// class to work with a cell containing a value which is a link to a file
 class Media extends FilesAlias
 {
 	// config

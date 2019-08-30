@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // integer
+// class to manage a cell containing an integer value
 class Integer extends Core\CellAlias
 {
 	// config

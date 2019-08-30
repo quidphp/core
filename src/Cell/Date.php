@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // date
+// class to work with a cell containing a date value
 class Date extends Core\CellAlias
 {
 	// config

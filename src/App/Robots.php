@@ -11,6 +11,7 @@ namespace Quid\Core\App;
 use Quid\Core;
 
 // robots
+// class for the robots.txt route of the application
 class Robots extends Core\Route\Robots
 {
 	// config

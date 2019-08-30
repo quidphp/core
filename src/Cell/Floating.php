@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Base;
 
 // floating
+// class to work with a cell containing a floating value
 class Floating extends Core\CellAlias
 {
 	// config

@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Core;
 
 // jsonArray
+// class to manage a cell containing a json array
 class JsonArray extends Core\CellAlias
 {
 	// config

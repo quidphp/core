@@ -12,6 +12,7 @@ use Quid\Core;
 use Quid\Main;
 
 // video
+// class to manage a cell containing a video from a third-party service
 class Video extends Core\CellAlias
 {
 	// config

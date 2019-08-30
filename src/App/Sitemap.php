@@ -11,6 +11,7 @@ namespace Quid\Core\App;
 use Quid\Core;
 
 // sitemap
+// class for the sitemap.xml route of the application
 class Sitemap extends Core\Route\Sitemap
 {
 	// config
