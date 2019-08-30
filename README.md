@@ -39,13 +39,22 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
 - [leafo/scssphp](https://github.com/scssphp/scssphp) | scsssphp - SCSS compiler written in PHP
 
-All dependencies will be resolved by using the Composer installation process.
+All dependencies will be resolved by using the Composer](https://getcomposer.org) installation process.
 
 ## Testing
 **QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
 
 ## Comment
 **QuidPHP/Core** code is commented and all methods are explained. However, the method and property comments are currently written in French.
+
+## JS 
+
+### Convention
+- Lorem ipsum
+
+### Overview
+**QuidPHP/Core** also contains 0 JavaScript files. Here is an overview:
+- Lorem ipsum
 
 ## PHP 
 
@@ -324,15 +333,6 @@ All dependencies will be resolved by using the Composer installation process.
 - [_dbAccess](src/_dbAccess.php)
 - [_fullAccess](src/_fullAccess.php)
 - [_routeAttr](src/_routeAttr.php)
-
-## JS 
-
-### Convention
-- Lorem ipsum
-
-### Overview
-**QuidPHP/Core** also contains 0 JavaScript files. Here is an overview:
-- Lorem ipsum
 
 ## SCSS 
 
