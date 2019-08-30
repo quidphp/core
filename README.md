@@ -24,9 +24,9 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Included
 **QuidPHP/Core** comes bundled with the following front-end packages:
-- [jquery/jquery](https://github.com/jquery/jquery) | jQuery, the popular JavaScript library is used for most behaviors
-- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI, only a  minimal version used for drag & drop sorting
-- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize, used has the base for all stylesheets
+- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library is used for most behaviors
+- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI - A minimal version is used for drag & drop sorting
+- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize.css - Used as the normalizing base for all stylesheets
 
 ## Dependency
 **QuidPHP/Core** has the following dependency:
