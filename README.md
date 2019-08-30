@@ -29,7 +29,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize.css - Used as the normalizing base for all stylesheets
 
 ## Dependency
-**QuidPHP/Core** has the following back-end dependencies:
+**QuidPHP/Core** has the following dependencies:
 - [quidphp/base](https://github.com/quidphp/base) | Quid\Base - PHP library that provides a large set of low-level static methods
 - [quidphp/main](https://github.com/quidphp/main) | Quid\Main - PHP library that provides a set of base objects and collections 
 - [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database access and a comprehensive Object-Relational Mapper
