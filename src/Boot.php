@@ -178,7 +178,7 @@ abstract class Boot extends Main\Root
 			'sessionVersionMatch'=>false,
 			'compileScss'=>[
 				'[publicCss]/app.css'=>[
-					0=>'[vendorCore]/scss/include/normalize.css',
+					0=>'[vendorCore]/scss/normalize/normalize.css',
 					1=>'[vendorCore]/scss/include/include.scss',
 					2=>'[vendorCore]/scss/include/component.scss',
 					50=>'[privateScss]/app/app.scss']],
@@ -190,7 +190,7 @@ abstract class Boot extends Main\Root
 				'logo'=>null],
 			'compileScss'=>[
 				'[publicCss]/cms.css'=>[
-					0=>'[vendorCore]/scss/include/normalize.css',
+					0=>'[vendorCore]/scss/normalize/normalize.css',
 					1=>'[vendorCore]/scss/include/include.scss',
 					2=>'[vendorCore]/scss/include/component.scss',
 					3=>'[vendorCore]/scss/cms/include.scss',

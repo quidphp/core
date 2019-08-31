@@ -5,7 +5,7 @@
  */
  
 // box
-// script with behaviors for a box widget (popup in a fixed div)
+// script with behaviours for a box widget (popup in a fixed div)
 (function ($, document, window) {
 	
 	// jsBox

@@ -24,9 +24,9 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Included
 **QuidPHP/Core** comes bundled with the following front-end packages:
-- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library is used for most behaviours
-- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI - A minimal version is used for drag & drop sorting
-- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize.css - Used as the normalizing base for all stylesheets
+- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library
+- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI - A minimal version of the library is used for drag & drop sorting
+- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize - Stylesheet for normalizing the default rules across browsers
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
@@ -34,10 +34,10 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [quidphp/main](https://github.com/quidphp/main) | Quid\Main - PHP library that provides a set of base objects and collections 
 - [quidphp/orm](https://github.com/quidphp/orm) | Quid\Orm - PHP library that provides database access and a comprehensive Object-Relational Mapper
 - [quidphp/routing](https://github.com/quidphp/routing) | Quid\Routing - PHP library that provides a simple route matching and triggering procedure
-- [verot/class.upload.php](https://github.com/verot/class.upload.php) | Class.upload.php - A popular PHP class used for resizing images
-- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PHPMailer - The classic email sending library for PHP
-- [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
-- [leafo/scssphp](https://github.com/scssphp/scssphp) | scsssphp - SCSS compiler written in PHP
+- [verot/class.upload.php](https://github.com/verot/class.upload.php) | Verot\Upload - A popular PHP class used for resizing images
+- [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PHPMailer\PHPMailer - The classic email sending library for PHP
+- [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
+- [leafo/scssphp](https://github.com/leafo/scssphp) | Leafo\ScssPhp - SCSS compiler written in PHP
 
 All dependencies will be resolved by using the [Composer](https://getcomposer.org) installation process.
 
@@ -60,10 +60,12 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within Quid\Core by classes within an application directory.
 
 ### JS
-- Lorem ipsum
+- *jQuery*: All behaviours and widgets are programmed on top of the jQuery library. Many functions are connected with jQuery.fn. Custom events are used across the board, a lot of calls to the jQuery [trigger](https://api.jquery.com/trigger/) and [triggerHandler](https://api.jquery.com/triggerHandler/) methods.
+- *Include*: Many scripts are in the include folder. These scripts are used for the CMS but can also be reused within the application.
 
 ### SCSS
-- Lorem ipsum
+- *Mixins*: Nesting, variables and mixins are used within the SCSS stylesheets.
+- *Include*: Some stylesheets are in the include folder. Those stylesheets are used for the CMS but can also be reused within the application.
 
 ## Overview
 
@@ -351,7 +353,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [addRemove.js](js/include/addRemove.js) | Script of behaviours for an add-remove input (like jsonArray)
     - [ajax.js](js/include/ajax.js) | Script with some additional logic over the jQuery ajax object
     - [appendContainer.js](js/include/appendContainer.js) | Script of behaviours for an appendContainer widget (load more)
-    - [box.js](js/include/box.js) | Script with behaviors for a box widget (popup in a fixed div)
+    - [box.js](js/include/box.js) | Script with behaviours for a box widget (popup in a fixed div)
     - [calendar.js](js/include/calendar.js) | Script with behaviours for a calendar and a date input
     - [clickOpen.js](js/include/clickOpen.js) | Script with some basic logic for a clickOpen widget (click trigger to show, click body to hide)
     - [dimension.js](js/include/dimension.js) | Script with a function related to window dimension
@@ -367,28 +369,29 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [search.js](js/include/search.js) | Script with behaviours for search inputs
     - [tab.js](js/include/tab.js) | Script with behaviours for a tab system and a slider
 - [jquery](js/jquery)
-    - [jquery-ui.js](js/jquery/jquery-ui.js) | A minimal version of jQuery-UI is used for drag & drop sorting
-    - [jquery.js](js/jquery/jquery.js) | The popular jQuery JavaScript library is used for most behaviours
+    - [jquery-ui.js](js/jquery/jquery-ui.js) | A minimal version of the library is used for drag & drop sorting
+    - [jquery.js](js/jquery/jquery.js) | The popular JavaScript library
 	
 ### SCSS 
 **QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
 - [cms](scss/cms)
-    - [box.scss](scss/cms/box.scss)
-    - [calendar.scss](scss/cms/calendar.scss)
-    - [clickOpen.scss](scss/cms/clickOpen.scss)
-    - [cms.scss](scss/cms/cms.scss)
-    - [error.scss](scss/cms/error.scss)
-    - [form.scss](scss/cms/form.scss)
-    - [general.scss](scss/cms/general.scss)
-    - [home.scss](scss/cms/home.scss)
-    - [icon.scss](scss/cms/icon.scss)
-    - [icon64.scss](scss/cms/icon64.scss)
-    - [include.scss](scss/cms/include.scss)
-    - [interface.scss](scss/cms/interface.scss)
-    - [nobody.scss](scss/cms/nobody.scss)
-    - [specific.scss](scss/cms/specific.scss)
-    - [style.scss](scss/cms/style.scss)
+    - [box.scss](scss/cms/box.scss) | Stylesheet for the various popup box route of the CMS
+    - [calendar.scss](scss/cms/calendar.scss) | Stylesheet for the calendar widget of the CMS
+    - [clickOpen.scss](scss/cms/clickOpen.scss) | Stylesheet for the various clickOpen components of the CMS
+    - [cms.scss](scss/cms/cms.scss) | Stylesheet that imports other stylesheets for the CMS
+    - [error.scss](scss/cms/error.scss) | Stylesheet for the error page of the CMS
+    - [form.scss](scss/cms/form.scss) | Stylesheet for the various form inputs of the CMS
+    - [general.scss](scss/cms/general.scss) | Stylesheet for the general navigation page of the CMS
+    - [home.scss](scss/cms/home.scss) | Stylesheet for the home page of the CMS
+    - [icon.scss](scss/cms/icon.scss) | Stylesheet containing the rules related to the icons of the CMS
+    - [icon64.scss](scss/cms/icon64.scss) | Stylesheet containing all CMS icons in base64
+    - [include.scss](scss/cms/include.scss) | Stylesheet that contains variables and mixins for the CMS
+    - [interface.scss](scss/cms/interface.scss) | Stylesheet for the main interface of the CMS
+    - [nobody.scss](scss/cms/nobody.scss) | Stylesheet for the routes where the user is not logged in the CMS
+    - [specific.scss](scss/cms/specific.scss) | Stylesheet for the specific form page of the CMS
+    - [style.scss](scss/cms/style.scss) | Stylesheet containing the root styling rules as well as common classes for the CMS
 - [include](scss/include)
-    - [component.scss](scss/include/component.scss)
-    - [include.scss](scss/include/include.scss)
-    - [normalize.css](scss/include/normalize.css)
+    - [component.scss](scss/include/component.scss) | Stylesheet containing various reusable component mixins
+    - [include.scss](scss/include/include.scss) | Stylesheet containing many helpers mixins
+- [normalize](scss/normalize)
+    - [normalize.css](scss/normalize/normalize.css) | Stylesheet for normalizing the default rules across browsers
