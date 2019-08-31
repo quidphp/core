@@ -339,37 +339,37 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 ### JS
 **QuidPHP/Core** contains 28 JavaScript scripts. Here is an overview:
 - [cms](js/cms)
-    - [cms.js](js/cms/cms.js) | Common behaviour file for the CMS
-    - [general.js](js/cms/general.js)
-    - [home.js](js/cms/home.js)
-    - [nobody.js](js/cms/nobody.js)
-    - [somebody.js](js/cms/somebody.js)
-    - [specific.js](js/cms/specific.js)
+    - [cms.js](js/cms/cms.js) | Script of common behaviours for all pages of the CMS
+    - [general.js](js/cms/general.js) | Script of behaviours for the general navigation page of the CMS
+    - [home.js](js/cms/home.js) | Script of behaviours for the homepage of the CMS
+    - [nobody.js](js/cms/nobody.js) | Script of behaviours for all pages where the user is not logged in the CMS
+    - [somebody.js](js/cms/somebody.js) | Script of behaviours for all pages where the user is logged in the CMS
+    - [specific.js](js/cms/specific.js) | Script of behaviours for the specific form page of the CMS
 - [include](js/include)
-    - [_helper.js](js/include/_helper.js)
-    - [accordeon.js](js/include/accordeon.js)
-    - [addRemove.js](js/include/addRemove.js)
-    - [ajax.js](js/include/ajax.js)
-    - [appendContainer.js](js/include/appendContainer.js)
-    - [box.js](js/include/box.js)
-    - [calendar.js](js/include/calendar.js)
-    - [clickOpen.js](js/include/clickOpen.js)
-    - [dimension.js](js/include/dimension.js)
-    - [dragDrop.js](js/include/dragDrop.js)
-    - [event.js](js/include/event.js)
-    - [expr.js](js/include/expr.js)
-    - [fn.js](js/include/fn.js)
-    - [form.js](js/include/form.js)
-    - [input.js](js/include/input.js)
-    - [navigation.js](js/include/navigation.js)
-    - [relation.js](js/include/relation.js)
-    - [scroll.js](js/include/scroll.js)
-    - [search.js](js/include/search.js)
-    - [tab.js](js/include/tab.js)
+    - [_helper.js](js/include/_helper.js) | Script with a set of helper functions appended to the jQuery object
+    - [accordeon.js](js/include/accordeon.js) | Script of behaviours for an accordeon-related widgets
+    - [addRemove.js](js/include/addRemove.js) | Script of behaviours for an add-remove input (like jsonArray)
+    - [ajax.js](js/include/ajax.js) | Script with some additional logic over the jQuery ajax object
+    - [appendContainer.js](js/include/appendContainer.js) | Script of behaviours for an appendContainer widget (load more)
+    - [box.js](js/include/box.js) | Script with behaviors for a box widget (popup in a fixed div)
+    - [calendar.js](js/include/calendar.js) | Script with behaviours for a calendar and a date input
+    - [clickOpen.js](js/include/clickOpen.js) | Script with some basic logic for a clickOpen widget (click trigger to show, click body to hide)
+    - [dimension.js](js/include/dimension.js) | Script with a function related to window dimension
+    - [dragDrop.js](js/include/dragDrop.js) | Script with a function to activate vertical sorting (using jquery-ui)
+    - [event.js](js/include/event.js) | Script containing custom events for jQuery
+    - [expr.js](js/include/expr.js) | Script containing custom expressions for jQuery
+    - [fn.js](js/include/fn.js) | Script with some common fn functions added to jQuery
+    - [form.js](js/include/form.js) | Script with behaviours related to form and field validation
+    - [input.js](js/include/input.js) | Script containing logic for some simple inputs
+    - [navigation.js](js/include/navigation.js) | Script containing the logic related to site navigation by using the HistoryAPI
+    - [relation.js](js/include/relation.js) | Script containing logic and methods for relation-related inputs (like enumSet and filters)
+    - [scroll.js](js/include/scroll.js) | Script containing logic related to window scrolling
+    - [search.js](js/include/search.js) | Script with behaviours for search inputs
+    - [tab.js](js/include/tab.js) | Script with behaviours for a tab system and a slider
 - [jquery](js/jquery)
-    - [jquery-ui.js](js/jquery/jquery-ui.js)
-    - [jquery.js](js/jquery/jquery.js)
-
+    - [jquery-ui.js](js/jquery/jquery-ui.js) | A minimal version of jQuery-UI is used for drag & drop sorting
+    - [jquery.js](js/jquery/jquery.js) | The popular jQuery JavaScript library is used for most behaviours
+	
 ### SCSS 
 **QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
 - [cms](scss/cms)

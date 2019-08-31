@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// specific
+// script of behaviours for the specific form page of the CMS
 $(document).ready(function() {
 	
 	// specific

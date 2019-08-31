@@ -1,6 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
 // cms
-// common behaviour file for the CMS
-
+// script of common behaviours for all pages of the CMS
 $(document).ready(function() {
 	
 	// window

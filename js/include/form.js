@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// form
+// script with behaviours related to form and field validation
 (function ($, document, window) {
 	
 	// validate

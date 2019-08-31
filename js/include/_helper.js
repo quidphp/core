@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// _helper
+// script with a set of helper functions appended to the jQuery object
 (function ($, document, window) {
 	
 	// isScalar

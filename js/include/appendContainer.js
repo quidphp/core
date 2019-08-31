@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// appendContainer
+// script of behaviours for an appendContainer widget (load more)
 (function ($, document, window) {
 	
 	// appendContainer

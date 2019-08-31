@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// scroll
+// script containing logic related to window scrolling
 (function ($, document, window) {
 	
 	// anchorScroll

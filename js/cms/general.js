@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// general
+// script of behaviours for the general navigation page of the CMS
 $(document).ready(function() {
 	
 	// generalCols

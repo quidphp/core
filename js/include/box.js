@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// box
+// script with behaviors for a box widget (popup in a fixed div)
 (function ($, document, window) {
 	
 	// jsBox

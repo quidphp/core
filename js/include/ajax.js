@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// ajax
+// script with some additional logic over the jQuery ajax object
 (function ($, document, window) {
 	
 	// ajax

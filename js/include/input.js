@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// input
+// script containing logic for some simple inputs
 (function ($, document, window) {
 	
 	// searchGeneralInput

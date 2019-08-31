@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// navigation
+// script containing the logic related to site navigation by using the HistoryAPI
 (function ($, document, window) {
 	
 	// navigation

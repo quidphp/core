@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// relation
+// script containing logic and methods for relation-related inputs (like enumSet and filters)
 (function ($, document, window) {
 	
 	// enumSet

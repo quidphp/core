@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// clickOpen
+// script with some basic logic for a clickOpen widget (click trigger to show, click body to hide)
 (function ($, document, window) {
 	
 	// clickOpen

@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// calendar
+// script with behaviours for a calendar and a date input
 (function ($, document, window) {
 	
 	// calendar

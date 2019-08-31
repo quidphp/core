@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// addRemove
+// script of behaviours for an add-remove input (like jsonArray)
 (function ($, document, window) {
 	
 	// addRemove

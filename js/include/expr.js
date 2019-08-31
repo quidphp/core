@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// expr
+// script containing custom expressions for jQuery
 (function ($, document, window) {
 	
 	// internal

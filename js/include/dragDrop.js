@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// dragDrop
+// script with a function to activate vertical sorting (using jquery-ui)
 (function ($, document, window) {
 	
 	// verticalSorting

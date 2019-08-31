@@ -1,3 +1,11 @@
+/*
+ * This file is part of the QuidPHP package.
+ * Website: https://quidphp.com
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
+ */
+ 
+// accordeon
+// script of behaviours for an accordeon-related widgets
 (function ($, document, window) {
 	
 	// carousel
