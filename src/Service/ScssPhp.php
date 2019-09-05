@@ -9,17 +9,16 @@ declare(strict_types=1);
 
 namespace Quid\Core\Service;
 use Quid\Core;
-use Leafo;
 
 // scssPhp
-// class that grants methods to use leafo/scssphp for compiling scss files
+// class that grants methods to use scssphp/scssphp for compiling scss files
 class ScssPhp extends Core\ServiceAlias
 {
 	// config
 	public static $config = [
 		'format'=>[
-			Leafo\ScssPhp\Formatter\Expanded::class, // si compress est false
-			Leafo\ScssPhp\Formatter\Crunched::class], // si compress est true
+			\ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
+			\ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
 		'option'=>[
 			'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
 			'format'=>null], // permet de spécifier un format, ne prend pas en compte l'option compress
@@ -35,7 +34,7 @@ class ScssPhp extends Core\ServiceAlias
 	public function __construct(string $key,?array $option=null)
 	{
 		parent::__construct($key,$option);
-		$this->compiler = new Leafo\ScssPhp\Compiler();
+		$this->compiler = new \ScssPhp\ScssPhp\Compiler();
 
 		return;
 	}
@@ -43,7 +42,7 @@ class ScssPhp extends Core\ServiceAlias
 
 	// getCompiler
 	// retourne l'objet compiler
-	public function getCompiler():Leafo\ScssPhp\Compiler
+	public function getCompiler():\ScssPhp\ScssPhp\Compiler
 	{
 		return $this->compiler;
 	}

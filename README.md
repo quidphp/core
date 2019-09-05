@@ -37,15 +37,12 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 - [verot/class.upload.php](https://github.com/verot/class.upload.php) | Verot\Upload - A popular PHP class used for resizing images
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) | PHPMailer\PHPMailer - The classic email sending library for PHP
 - [tedivm/jshrink](https://github.com/tedious/JShrink) | JShrink - Javascript Minifier built in PHP
-- [leafo/scssphp](https://github.com/leafo/scssphp) | Leafo\ScssPhp - SCSS compiler written in PHP
+- [scssphp/scssphp](https://github.com/scssphp/scssphp) | ScssPhp\ScssPhp - SCSS compiler written in PHP
 
 All dependencies will be resolved by using the [Composer](https://getcomposer.org) installation process.
 
 ## Comment
 **QuidPHP/Core** code is commented and all methods are explained. However, most of the comments are currently written in French.
-
-## Testing
-**QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project). All tests and assertions are part of the [quidphp/test](https://github.com/quidphp/test) repository.
 
 ## Convention
 **QuidPHP/Core** is built on the following conventions:
@@ -322,7 +319,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [Ldap](src/Service/Ldap.php) | Class that grants some methods to connect to a ldap server
     - [PhpConcatenator](src/Service/PhpConcatenator.php) | Class used for concatenating a bunch of php files within a single one
     - [PhpMailer](src/Service/PhpMailer.php) | Class that provides methods to use phpmailer/phpmailer in order to send emails
-    - [ScssPhp](src/Service/ScssPhp.php) | Class that grants methods to use leafo/scssphp for compiling scss files
+    - [ScssPhp](src/Service/ScssPhp.php) | Class that grants methods to use scssphp/scssphp for compiling scss files
 - [ServiceMailer](src/ServiceMailer.php) | Extended abstract class with basic methods that needs to be extended by a mailing service
 - [ServiceRequest](src/ServiceRequest.php) | Extended abstract class with basic methods for a service that works with HTTP request
 - [ServiceVideo](src/ServiceVideo.php) | Extended abstract class with methods for a service that provides a video object after an HTTP request
@@ -395,3 +392,42 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [include.scss](scss/include/include.scss) | Stylesheet containing many helpers mixins
 - [normalize](scss/normalize)
     - [normalize.css](scss/normalize/normalize.css) | Stylesheet for normalizing the default rules across browsers
+	
+## Testing
+**QuidPHP/Core** contains 34 test classes:
+- [Boot](test/Boot.php) | Class for testing Quid\Core\Boot
+- [BootException](test/BootException.php) | Class for testing Quid\Core\BootException
+- [Cell](test/Cell.php) | Class for testing Quid\Core\Cell
+- [Cells](test/Cells.php) | Class for testing Quid\Core\Cells
+- [Col](test/Col.php) | Class for testing Quid\Core\Col
+- [Cols](test/Cols.php) | Class for testing Quid\Core\Cols
+- [Com](test/Com.php) | Class for testing Quid\Core\Com
+- [Db](test/Db.php) | Class for testing Quid\Core\Db
+- [Error](test/Error.php) | Class for testing Quid\Core\Error
+- [File](test/File.php) | Class for testing Quid\Core\File
+- [Files](test/Files.php) | Class for testing Quid\Core\Files
+- [Flash](test/Flash.php) | Class for testing Quid\Core\Flash
+- [Lang](test/Lang.php) | Class for testing Quid\Core\Lang
+- [Nav](test/Nav.php) | Class for testing Quid\Core\Nav
+- [Redirection](test/Redirection.php) | Class for testing Quid\Core\Redirection
+- [Request](test/Request.php) | Class for testing Quid\Core\Request
+- [RequestHistory](test/RequestHistory.php) | Class for testing Quid\Core\RequestHistory
+- [Response](test/Response.php) | Class for testing Quid\Core\Response
+- [Role](test/Role.php) | Class for testing Quid\Core\Role
+- [Roles](test/Roles.php) | Class for testing Quid\Core\Roles
+- [Route](test/Route.php) | Class for testing Quid\Core\Route
+- [Routes](test/Routes.php) | Class for testing Quid\Core\Routes
+- [Row](test/Row.php) | Class for testing Quid\Core\Row
+- [Rows](test/Rows.php) | Class for testing Quid\Core\Rows
+- [RowsIndex](test/RowsIndex.php) | Class for testing Quid\Core\RowsIndex
+- [Service](test/Service.php) | Class for testing Quid\Core\Service
+- [ServiceMailer](test/ServiceMailer.php) | Class for testing Quid\Core\ServiceMailer
+- [ServiceRequest](test/ServiceRequest.php) | Class for testing Quid\Core\ServiceRequest
+- [ServiceVideo](test/ServiceVideo.php) | Class for testing Quid\Core\ServiceVideo
+- [Services](test/Services.php) | Class for testing Quid\Core\Services
+- [Session](test/Session.php) | Class for testing Quid\Core\Session
+- [Table](test/Table.php) | Class for testing Quid\Core\Table
+- [Tables](test/Tables.php) | Class for testing Quid\Core\Tables
+- [Widget](test/Widget.php) | Class for testing Quid\Core\Widget
+
+**QuidPHP/Core** testsuite can be run by creating a new [quidphp/project](https://github.com/quidphp/project).
