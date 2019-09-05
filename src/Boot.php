@@ -1726,7 +1726,7 @@ abstract class Boot extends Main\Root
 			{
 				$namespace[] = (!empty($key))? Base\Fqcn::append($value,$ucKey):$value;
 			}
-			
+
 			return $class::newOverload($namespace,$option);
 		};
 
