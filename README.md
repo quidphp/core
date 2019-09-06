@@ -6,7 +6,7 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/quidphp/core)](https://github.com/quidphp/core)
 
 ## About
-**QuidPHP/Core** provides PHP, JS and SCSS components for QuidPHP application and CMS. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
+**QuidPHP/Core** provides LOREM IPSUM. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
 
 ## License
 **QuidPHP/Core** is available as an open-source software under the [MIT license](LICENSE).
@@ -21,12 +21,6 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 ## Requirement
 **QuidPHP/Core** requires the following:
 - PHP 7.2+ with fileinfo, curl, openssl, posix, PDO and pdo_mysql
-
-## Included
-**QuidPHP/Core** comes bundled with the following front-end packages:
-- [jquery/jquery](https://github.com/jquery/jquery) | jQuery - The popular JavaScript library
-- [jquery/jquery-ui](https://github.com/jquery/jquery-ui) | jQuery-UI - A minimal version of the library is used for drag & drop sorting
-- [necolas/normalize.css](https://github.com/necolas/normalize.css) | Normalize - Stylesheet for normalizing the default rules across browsers
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
@@ -46,8 +40,6 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 
 ## Convention
 **QuidPHP/Core** is built on the following conventions:
-
-### PHP
 - *Traits*: Traits filenames start with an underscore (_).
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 - *Type*: Files, function arguments and return types are strict typed.
@@ -56,25 +48,9 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Class overloading*: It is possible to retrieve an overloaded class with the same name but higher in the directoir hierarchy. We do this by using the static method $class::getOverloadClass(). Exemple Quid\Orm\Col::getOverloadClass() will return Quid\Core\Col.
 - *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within Quid\Core by classes within an application directory.
 
-### JS
-- *jQuery*: All behaviours and widgets are programmed on top of the jQuery library. Many functions are connected with jQuery.fn. Custom events are used across the board, a lot of calls to the jQuery [trigger](https://api.jquery.com/trigger/) and [triggerHandler](https://api.jquery.com/triggerHandler/) methods.
-- *Include*: Many scripts are in the include folder. These scripts are used for the CMS but can also be reused within the application.
-
-### SCSS
-- *Mixins*: Nesting, variables and mixins are used within the SCSS stylesheets.
-- *Include*: Some stylesheets are in the include folder. Those stylesheets are used for the CMS but can also be reused within the application.
-
-## Overview
-
-### PHP 
-**QuidPHP/Core** contains 263 classes and traits. Here is an overview:
-- [App](src/App)
-    - [Error](src/App/Error.php) | Abstract class for the error route of the application
-    - [Home](src/App/Home.php) | Abstract class for the home route of the application
-    - [Robots](src/App/Robots.php) | Class for the robots.txt route of the application
-    - [Sitemap](src/App/Sitemap.php) | Class for the sitemap.xml route of the application
-- [Boot](src/Boot.php) | Abstract class for boot which is the object that bootstraps the application and CMS
-- [BootException](src/BootException.php) | Class for a bootException, a boot exception breaks the root matching loop
+### Overview
+**QuidPHP/Core** contains 211 classes and traits. Here is an overview:
+- [Boot](src/Boot.php) | Abstract class for boot which is the object that bootstraps the application
 - [Cell](src/Cell.php) | Extended class to represent an existing cell within a row
     - [Date](src/Cell/Date.php) | Class to work with a cell containing a date value
     - [Enum](src/Cell/Enum.php) | Class to manage a cell containing a single relation (enum)
@@ -91,57 +67,12 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [UserPasswordReset](src/Cell/UserPasswordReset.php) | Class to work with a password reset column within a user table
     - [Video](src/Cell/Video.php) | Class to manage a cell containing a video from a third-party service
 - [Cells](src/Cells.php) | Extended class for a collection of many cells within a same row
-- [Cms](src/Cms)
-    - [About](src/Cms/About.php) | Class for the about popup route of the CMS
-    - [Account](src/Cms/Account.php) | Class for the account route of the CMS, by default redirects to the user's specific route
-    - [AccountChangePassword](src/Cms/AccountChangePassword.php) | Class for the change password route in the CMS
-    - [AccountChangePasswordSubmit](src/Cms/AccountChangePasswordSubmit.php) | Class for the submit change password route in the CMS
-    - [ActivatePassword](src/Cms/ActivatePassword.php) | Class for the activate password in the CMS
-    - [Error](src/Cms/Error.php) | Class for the error route of the CMS
-    - [General](src/Cms/General.php) | Class for the general navigation route of the CMS
-    - [GeneralDelete](src/Cms/GeneralDelete.php) | Class for the route which allows deleting rows from the general navigation page of the CMS
-    - [GeneralExport](src/Cms/GeneralExport.php) | Class for the route which generates the CSV export for the CMS
-    - [GeneralExportDialog](src/Cms/GeneralExportDialog.php) | Class for the general export popup route of the CMS
-    - [GeneralRelation](src/Cms/GeneralRelation.php) | Class for the route which manages the filters for the general navigation page of the CMS
-    - [GeneralTruncate](src/Cms/GeneralTruncate.php) | Class for the route which allows truncating a table from the general page of the CMS
-    - [Home](src/Cms/Home.php) | Class for the home route of the CMS
-    - [HomeSearch](src/Cms/HomeSearch.php) | Class for the global search route accessible from the homepage of the CMS
-    - [Login](src/Cms/Login.php) | Class for the login route of the CMS
-    - [LoginSubmit](src/Cms/LoginSubmit.php) | Class for the login submit route of the CMS
-    - [Logout](src/Cms/Logout.php) | Class for the logout route of the CMS
-    - [Register](src/Cms/Register.php) | Class for the register route of the CMS
-    - [RegisterSubmit](src/Cms/RegisterSubmit.php) | Class for the register submit route of the CMS
-    - [ResetPassword](src/Cms/ResetPassword.php) | Class for the reset password route of the CMS
-    - [ResetPasswordSubmit](src/Cms/ResetPasswordSubmit.php) | Class for the submit reset password route of the CMS
-    - [Robots](src/Cms/Robots.php) | Class for the robots.txt route of the CMS
-    - [Sitemap](src/Cms/Sitemap.php) | Class for the sitemap.xml route of the CMS
-    - [Specific](src/Cms/Specific.php) | Class for the specific route of the CMS, generates the update form for a row
-    - [SpecificAdd](src/Cms/SpecificAdd.php) | Class for the specific add route of the CMS, generates the insert form for a row
-    - [SpecificAddSubmit](src/Cms/SpecificAddSubmit.php) | Class for the submit specific add route, to process the insertion of a new row in the CMS
-    - [SpecificCalendar](src/Cms/SpecificCalendar.php) | Class for the calendar widget route of the CMS
-    - [SpecificDelete](src/Cms/SpecificDelete.php) | Class for the specific delete route, to process a row deletion in the CMS
-    - [SpecificDispatch](src/Cms/SpecificDispatch.php) | Class for the specific dispatch route, directs to the proper dispatch route of the CMS
-    - [SpecificDownload](src/Cms/SpecificDownload.php) | Class for the file download route of the CMS
-    - [SpecificDuplicate](src/Cms/SpecificDuplicate.php) | Class for the specific duplicate route, to process a row duplication in the CMS
-    - [SpecificRelation](src/Cms/SpecificRelation.php) | Class for the route which manages specific relation - enumSet inputs in the specific form
-    - [SpecificSubmit](src/Cms/SpecificSubmit.php) | Class for the submit specific route, to process the update of a row in the CMS
-    - [SpecificTableRelation](src/Cms/SpecificTableRelation.php) | Class for the route which manages table relation, used by some inputs in the CMS
-    - [SpecificUserWelcome](src/Cms/SpecificUserWelcome.php) | Class for the specific user welcome route which can send a welcome email to the user
-    - [_common](src/Cms/_common.php) | Trait that provides commonly used methods for the CMS
-    - [_export](src/Cms/_export.php) | Trait that provides commonly used methods for exporting data from the CMS
-    - [_general](src/Cms/_general.php) | Trait that provides commonly used methods related to the general navigation route of the CMS
-    - [_module](src/Cms/_module.php) | Trait that provides some initial configuration for a CMS module route
-    - [_nobody](src/Cms/_nobody.php) | Trait which provides commonly used methods for routes where the user is not logged in the CMS
-    - [_page](src/Cms/_page.php) | Trait that provides some practical methods to work with page route within the CMS
-    - [_specific](src/Cms/_specific.php) | Trait that provides commonly used methods for the specific routes of the CMS
-    - [_specificSubmit](src/Cms/_specificSubmit.php) | Trait that provides commonly used methods for the specific submit routes of the CMS
-    - [_template](src/Cms/_template.php) | Trait that grants the methods to generate the CMS HTML template
 - [Col](src/Col.php) | Extended class to represent an existing column within a table
     - [Active](src/Col/Active.php) | Class for the active column - a simple yes checkbox
     - [Auto](src/Col/Auto.php) | Class for the auto column, generate itself automatically using the data from other cells
     - [Boolean](src/Col/Boolean.php) | Class for the boolean column - a simple yes/no enum relation
     - [Context](src/Col/Context.php) | Class for the context column, updates itself automatically on commit
-    - [ContextType](src/Col/ContextType.php) | Class for the contextType column, a checkbox set relation with all boot types (like app, cms)
+    - [ContextType](src/Col/ContextType.php) | Class for the contextType column, a checkbox set relation with all boot types
     - [CountCommit](src/Col/CountCommit.php) | Class for the countCommit column, increments itself automatically on commit
     - [Date](src/Col/Date.php) | Class for a date column, supports many date formats
     - [DateAdd](src/Col/DateAdd.php) | Class for the dateAdd column, current timestamp is added automatically on insert
@@ -223,20 +154,17 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [En](src/Lang/En.php) | English language content used by this namespace
     - [Fr](src/Lang/Fr.php) | French language content used by this namespace
     - [_overload](src/Lang/_overload.php) | Trait which implements the overload logic for the lang classes
-- [Nav](src/Nav.php) | Class for storing route navigation-related data
+- [Nav](src/Nav.php) | Extended class for storing route navigation-related data
 - [Redirection](src/Redirection.php) | Extended class managing a URI redirection array
 - [Request](src/Request.php) | Extended class with methods to manage an HTTP request
 - [RequestHistory](src/RequestHistory.php) | Extended class for a collection containing a history of requests
 - [Response](src/Response.php) | Extended class with methods to manage an HTTP response
 - [Role](src/Role.php) | Extended abstract class that provides more advanced logic for a role
     - [Admin](src/Role/Admin.php) | Class which contains the default configuration for the admin role
-    - [Contributor](src/Role/Contributor.php) | Class which contains the default configuration for the contributor role (disabled per default)
-    - [Cron](src/Role/Cron.php) | Class which contains the default configuration for the cron role (disabled per default)
-    - [Editor](src/Role/Editor.php) | Class which contains the default configuration for the editor role
+    - [Cron](src/Role/Cron.php) | Class which contains the default configuration for the cron role
     - [Nobody](src/Role/Nobody.php) | Class that issues default configuration for the nobody role
-    - [Shared](src/Role/Shared.php) | Class that contains the default configuration for the shared role (disabled per default)
-    - [SubAdmin](src/Role/SubAdmin.php) | Class that contains the default configuration for the subAdmin role (disabled per default)
-    - [User](src/Role/User.php) | Class that contains the default configuration for the user role (disabled per default)
+    - [Shared](src/Role/Shared.php) | Class that contains the default configuration for the shared role
+    - [User](src/Role/User.php) | Class that contains the default configuration for the user role
 - [Roles](src/Roles.php) | Extended class for a collection containing many roles
 - [Route](src/Route.php) | Extended abstract class for a route that acts as both a View and a Controller
     - [Account](src/Route/Account.php) | Abstract class for an account route
@@ -334,69 +262,10 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [_dbAccess](src/_dbAccess.php) | Trait that provides a method to access the current database
 - [_fullAccess](src/_fullAccess.php) | Trait that provides all access methods related to the Boot
 - [_routeAttr](src/_routeAttr.php) | Trait that provides methods to work with routes in the attributes property
-
-### JS
-**QuidPHP/Core** contains 28 JavaScript scripts. Here is an overview:
-- [cms](js/cms)
-    - [cms.js](js/cms/cms.js) | Script of common behaviours for all pages of the CMS
-    - [general.js](js/cms/general.js) | Script of behaviours for the general navigation page of the CMS
-    - [home.js](js/cms/home.js) | Script of behaviours for the homepage of the CMS
-    - [nobody.js](js/cms/nobody.js) | Script of behaviours for all pages where the user is not logged in the CMS
-    - [somebody.js](js/cms/somebody.js) | Script of behaviours for all pages where the user is logged in the CMS
-    - [specific.js](js/cms/specific.js) | Script of behaviours for the specific form page of the CMS
-- [include](js/include)
-    - [_helper.js](js/include/_helper.js) | Script with a set of helper functions appended to the jQuery object
-    - [accordeon.js](js/include/accordeon.js) | Script of behaviours for an accordeon-related widgets
-    - [addRemove.js](js/include/addRemove.js) | Script of behaviours for an add-remove input (like jsonArray)
-    - [ajax.js](js/include/ajax.js) | Script with some additional logic over the jQuery ajax object
-    - [appendContainer.js](js/include/appendContainer.js) | Script of behaviours for an appendContainer widget (load more)
-    - [box.js](js/include/box.js) | Script with behaviours for a box widget (popup in a fixed div)
-    - [calendar.js](js/include/calendar.js) | Script with behaviours for a calendar and a date input
-    - [clickOpen.js](js/include/clickOpen.js) | Script with some basic logic for a clickOpen widget (click trigger to show, click body to hide)
-    - [dimension.js](js/include/dimension.js) | Script with a function related to window dimension
-    - [dragDrop.js](js/include/dragDrop.js) | Script with a function to activate vertical sorting (using jquery-ui)
-    - [event.js](js/include/event.js) | Script containing custom events for jQuery
-    - [expr.js](js/include/expr.js) | Script containing custom expressions for jQuery
-    - [fn.js](js/include/fn.js) | Script with some common fn functions added to jQuery
-    - [form.js](js/include/form.js) | Script with behaviours related to form and field validation
-    - [input.js](js/include/input.js) | Script containing logic for some simple inputs
-    - [navigation.js](js/include/navigation.js) | Script containing the logic related to site navigation by using the HistoryAPI
-    - [relation.js](js/include/relation.js) | Script containing logic and methods for relation-related inputs (like enumSet and filters)
-    - [scroll.js](js/include/scroll.js) | Script containing logic related to window scrolling
-    - [search.js](js/include/search.js) | Script with behaviours for search inputs
-    - [tab.js](js/include/tab.js) | Script with behaviours for a tab system and a slider
-- [jquery](js/jquery)
-    - [jquery-ui.js](js/jquery/jquery-ui.js) | A minimal version of the library is used for drag & drop sorting
-    - [jquery.js](js/jquery/jquery.js) | The popular JavaScript library
-	
-### SCSS 
-**QuidPHP/Core** contains 18 SCSS stylesheets. Here is an overview:
-- [cms](scss/cms)
-    - [box.scss](scss/cms/box.scss) | Stylesheet for the various popup box route of the CMS
-    - [calendar.scss](scss/cms/calendar.scss) | Stylesheet for the calendar widget of the CMS
-    - [clickOpen.scss](scss/cms/clickOpen.scss) | Stylesheet for the various clickOpen components of the CMS
-    - [cms.scss](scss/cms/cms.scss) | Stylesheet that imports other stylesheets for the CMS
-    - [error.scss](scss/cms/error.scss) | Stylesheet for the error page of the CMS
-    - [form.scss](scss/cms/form.scss) | Stylesheet for the various form inputs of the CMS
-    - [general.scss](scss/cms/general.scss) | Stylesheet for the general navigation page of the CMS
-    - [home.scss](scss/cms/home.scss) | Stylesheet for the home page of the CMS
-    - [icon.scss](scss/cms/icon.scss) | Stylesheet containing the rules related to the icons of the CMS
-    - [icon64.scss](scss/cms/icon64.scss) | Stylesheet containing all CMS icons in base64
-    - [include.scss](scss/cms/include.scss) | Stylesheet that contains variables and mixins for the CMS
-    - [interface.scss](scss/cms/interface.scss) | Stylesheet for the main interface of the CMS
-    - [nobody.scss](scss/cms/nobody.scss) | Stylesheet for the routes where the user is not logged in the CMS
-    - [specific.scss](scss/cms/specific.scss) | Stylesheet for the specific form page of the CMS
-    - [style.scss](scss/cms/style.scss) | Stylesheet containing the root styling rules as well as common classes for the CMS
-- [include](scss/include)
-    - [component.scss](scss/include/component.scss) | Stylesheet containing various reusable component mixins
-    - [include.scss](scss/include/include.scss) | Stylesheet containing many helpers mixins
-- [normalize](scss/normalize)
-    - [normalize.css](scss/normalize/normalize.css) | Stylesheet for normalizing the default rules across browsers
 	
 ## Testing
-**QuidPHP/Core** contains 34 test classes:
+**QuidPHP/Core** contains 33 test classes:
 - [Boot](test/Boot.php) | Class for testing Quid\Core\Boot
-- [BootException](test/BootException.php) | Class for testing Quid\Core\BootException
 - [Cell](test/Cell.php) | Class for testing Quid\Core\Cell
 - [Cells](test/Cells.php) | Class for testing Quid\Core\Cells
 - [Col](test/Col.php) | Class for testing Quid\Core\Col

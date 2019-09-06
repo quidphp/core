@@ -11,15 +11,14 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // shared
-// class that contains the default configuration for the shared role (disabled per default)
+// class that contains the default configuration for the shared role 
 class Shared extends Core\RoleAlias
 {
 	// config
 	public static $config = [
-		'ignore'=>true,
 		'permission'=>10,
 		'can'=>[
-			'login'=>['app'=>true,'cms'=>false]]
+			'login'=>['app'=>true]]
 	];
 }
 

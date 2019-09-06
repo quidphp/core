@@ -25,13 +25,9 @@ class Request extends Base\Test
 		$uri = 'http://google.com/lavieestlaide?get=laol#lastchance';
 		$r = new Core\Request($uri);
 
-		// match
+		// routing
 		assert(is_array($specific->match($routes)));
-
-		// matchOne
 		assert(is_string($specific->matchOne($routes)));
-
-		// route
 		assert($specific->route($routes) instanceof Core\Route);
 
 		// main
@@ -50,7 +46,7 @@ class Request extends Base\Test
 		assert($r->unsetInst() === $r);
 		assert(!$r->isReadOnly());
 		$bootRequest->setInst();
-
+		
 		return true;
 	}
 }

@@ -16,13 +16,7 @@ class Nobody extends Core\RoleAlias
 {
 	// config
 	public static $config = [
-		'permission'=>1,
-		'db'=>[
-			'*'=>[
-				'view'=>false],
-			'contact'=>[
-				'insert'=>true]
-		]
+		'permission'=>1
 	];
 }
 

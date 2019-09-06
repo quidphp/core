@@ -27,8 +27,7 @@ class Date extends Core\ColAlias
 		'check'=>['kind'=>'int'],
 		'calendarFormat'=>'dateToDay', // custom
 		'formats'=>[true,'dateToDay','dateToMinute','dateToSecond'],
-		'@cms'=>[
-			'route'=>['calendar'=>Core\Cms\SpecificCalendar::class]]
+		'route'=>array('calendar'=>null) // route à ajouter
 	];
 
 

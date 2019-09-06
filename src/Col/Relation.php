@@ -28,10 +28,10 @@ abstract class Relation extends Core\ColAlias
 		'inRelation'=>true,
 		'excerpt'=>100,
 		'generalMax'=>3,
-		'@cms'=>[
-			'route'=>[
-				'specific'=>Core\Cms\Specific::class,
-				'specificRelation'=>Core\Cms\SpecificRelation::class]]
+		'sortable'=>null,
+		'route'=>[ // route à ajouter
+			'specific'=>null,
+			'specificRelation'=>null]
 	];
 
 
@@ -337,14 +337,12 @@ abstract class Relation extends Core\ColAlias
 
 	// formComplexPlain
 	// génère un élément de formulaire plain, c'est à dire sans balise de formulaire (comme une div)
-	// un callback est supporté si le contexte est cms:specific
 	public function formComplexPlain($value,?array $attr=null,?array $option=null):string
 	{
 		$return = '';
 		$tag = $this->complexTag($attr);
 		$value = $this->valueComplex($value,$option);
 		$relation = $this->relation();
-		$isCms = ($option['context'] === 'cms:specific')? true:false;
 
 		if($relation->isRelationTable())
 		{
@@ -403,7 +401,6 @@ abstract class Relation extends Core\ColAlias
 
 	// makeRelationPlainArray
 	// méthode utilisé pour préparer l'affichage des relations plains (sans formulaire)
-	// utilisé par specific et general dans cms
 	public function makeRelationPlainArray(array $array,?int $max=null,?string $route=null):array
 	{
 		$return = [];

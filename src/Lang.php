@@ -53,7 +53,21 @@ class Lang extends Main\Lang
 			'unique'=>'unique']
 	];
 
+	
+	// onChange
+	// ajout le shortcut dans orm/syntax
+	// méthode protégé
+	protected function onChange():void
+	{
+		parent::onChange();
+		
+		if($this->inInst())
+		Orm\Syntax::setShortcut('lang',$this->currentLang());
 
+		return;
+	}
+	
+	
 	// existsRelation
 	// retourne vrai si un élément de relation existe et est texte
 	public function existsRelation($value=null,?string $lang=null):bool

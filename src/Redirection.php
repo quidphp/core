@@ -8,11 +8,11 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
+use Quid\Routing;
 
 // redirection
 // extended class managing a URI redirection array
-class Redirection extends Main\Redirection
+class Redirection extends Routing\Redirection
 {
 	// trait
 	use _fullAccess;

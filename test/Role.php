@@ -73,11 +73,11 @@ class Role extends Base\Test
 		// main
 		$x = clone $admin;
 		assert($x !== $admin);
-		assert(count($admin->toArray()) === 7);
+		assert(count($admin->toArray()) === 6);
 		assert($admin->_cast() === 80);
 		assert(is_string($x = serialize($admin)));
 		assert(unserialize($x) instanceof Core\Role\Admin);
-		assert(Core\Role\Admin::can('login/cms'));
+		assert(!Core\Role\Admin::can('login/app'));
 		assert(Core\Role\Admin::validate(['>'=>70]));
 		assert(Core\Role\Admin::validate(['<'=>90]));
 		assert(!Core\Role\Admin::validate(['<'=>8]));

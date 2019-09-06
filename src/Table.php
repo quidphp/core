@@ -27,20 +27,7 @@ class Table extends Orm\Table
 			'colsExists'=>false],
 		'@app'=>[
 			'where'=>true,
-			'route'=>[
-				'cms'=>Cms\Specific::class],
-			'search'=>false],
-		'@cms'=>[
-			'homeTask'=>null, // pour cms, ajouter un lien vers la page d'ajout dans task
-			'specificAddNavLink'=>null, // pour le cms, permet de diviser le lien add et view en deux
-			'generalOperation'=>null, // pour le cms, méthode pour ajouter un bouton en haut à droite dans general
-			'specificOperation'=>null, // pour le cms, méthode pour ajouter un bouton en haut à droite dans specific
-			'order'=>['id'=>'desc'],
-			'relation'=>['appendPrimary'=>true],
-			'route'=>[
-				0=>Cms\Specific::class,
-				'general'=>Cms\General::class,
-				'cms'=>Cms\Specific::class]]
+			'search'=>false]
 	];
 
 

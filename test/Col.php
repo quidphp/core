@@ -86,9 +86,6 @@ class Col extends Base\Test
 		assert($date->valueComplex('08-08-1984') === '08-08-1984');
 		assert($date->valueComplex(true) === null);
 		assert($date->valueComplex(mktime(0,0,0,8,8,1984)) === '08-08-1984');
-		assert(strlen($date->formComplex()) === 260);
-		assert(strlen($date->formComplex('08-08-1984')) === 278);
-		assert(strlen($date->formComplex(mktime(0,0,0,8,8,1984))) === 278);
 		assert($date::makeDateFormat(true) === 'F j, Y');
 		assert($date::allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
 

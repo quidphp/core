@@ -22,7 +22,6 @@ class Cell extends Base\Test
 		// prepare
 		$db = Core\Boot::inst()->db();
 		$table = 'ormCell';
-		$tb = $db[$table];
 		assert($db->truncate($table) instanceof \PDOStatement);
 		assert($db->inserts($table,['id','date','name','dateAdd','userAdd','dateModify','userModify','integer','enum','set','user_ids'],[1,time(),'james',10,2,12,13,12,5,'2,3',[2,1]],[2,time(),'james2',10,11,12,13,12,5,'2,4','2,3']) === [1,2]);
 		$tb = $db[$table];
@@ -59,7 +58,6 @@ class Cell extends Base\Test
 		assert($date instanceof Core\Cell\Date);
 		assert($dateAdd->format('sql') === '2009-02-09 22:10:34');
 		assert($dateAdd->pair('sql') === $dateAdd->format('sql'));
-		assert(strlen($date->formComplex()) === 279);
 		assert($dateAdd->formComplex() === '<div>February 9, 2009 22:10:34</div>');
 		assert($dateAdd->reset());
 

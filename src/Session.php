@@ -140,8 +140,7 @@ class Session extends Main\Session
 
 
 	// canViewRow
-	// retourne vrai si la row peut être vu dans app
-	// utilisé dans cms pour déterminer si le bouton voir est accessible
+	// retourne vrai si la row peut être vu
 	public function canViewRow(Row $row)
 	{
 		return ($row->isUpdateable() === true)? true:false;

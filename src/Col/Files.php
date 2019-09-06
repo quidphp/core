@@ -43,8 +43,7 @@ abstract class Files extends Core\ColAlias
 			'height'=>null,
 			'autoRotate'=>false],
 		'fileUpload'=>true, // permet le chargement par fichier (input file)
-		'@cms'=>[
-			'route'=>['download'=>Core\Cms\SpecificDownload::class]]
+		'route'=>array('download'=>null) // route à ajouter
 	];
 
 

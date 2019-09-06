@@ -33,7 +33,6 @@ class Cols extends Base\Test
 
 		// orm
 		assert($db['session']->cols()->get(Core\Col\DateAdd::class) instanceof Core\Col\DateAdd);
-		assert(strlen($cols->formComplex()['date']) === 260);
 
 		return true;
 	}

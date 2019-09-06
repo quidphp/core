@@ -38,24 +38,23 @@ trait _bootAccess
 	}
 
 
-	// bootException
-	// lance une exception de boot
-	// ceci stop boot
-	public static function bootException(?array $option=null,...$values):void
-	{
-		$class = BootException::getOverloadClass();
-		static::throwCommon($class,$values,$option);
-
-		return;
-	}
-
-
 	// routeException
 	// lance une exception de route
-	// ceci force boot à passer à la prochaine route
+	// ceci force à passer à la prochaine route
 	public static function routeException(?array $option=null,...$values):void
 	{
 		static::throwCommon(Routing\Exception::class,$values,$option);
+
+		return;
+	}
+	
+	
+	// routeBreakException
+	// lance une exception de route
+	// ceci brise le loop des route
+	public static function routeBreakException(?array $option=null,...$values):void
+	{
+		static::throwCommon(Routing\BreakException::class,$values,$option);
 
 		return;
 	}

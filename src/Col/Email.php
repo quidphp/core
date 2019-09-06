@@ -19,9 +19,7 @@ class Email extends Core\ColAlias
 	public static $config = [
 		'validate'=>[1=>'email'],
 		'general'=>true,
-		'check'=>['kind'=>'char'],
-		'@cms'=>[
-			'generalExcerptMin'=>null]
+		'check'=>['kind'=>'char']
 	];
 
 

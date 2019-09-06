@@ -146,7 +146,7 @@ class Session extends Base\Test
 		assert(!$s->canLogin('app'));
 
 		// can
-		assert(!$s->can('login/cms'));
+		assert(!$s->can('login/app'));
 
 		// beforeLogin
 
@@ -158,22 +158,22 @@ class Session extends Base\Test
 		assert(strlen($s->com()->flush($lang)) === 59);
 		assert(!$s->loginProcess('okas','x',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 59);
-		assert(!$s->loginProcess('editorz','Test123',['com'=>true]));
+		assert(!$s->loginProcess('userz','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 67);
-		assert(!$s->loginProcess('editor@quid.com','Test12',['com'=>true]));
+		assert(!$s->loginProcess('user@quid.com','Test12',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 69);
-		assert(!$s->loginProcess('EDITOR@quid.COM','Test12',['com'=>true]));
+		assert(!$s->loginProcess('user@quid.COM','Test12',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 69);
 		assert(!$s->loginProcess('inactive@quid.com','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 64);
 		assert(!$s->loginProcess('nobody','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 65);
-		assert($s->loginProcess('editor','Test123',['com'=>true,'strict'=>true]));
+		assert($s->loginProcess('user','Test123',['com'=>true,'strict'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 52);
-		assert(!$s->loginProcess('editor','Test123',['com'=>true]));
+		assert(!$s->loginProcess('user','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 60);
 		assert($_SESSION['test'] === 'OK');
-		assert($s->remember() === ['credential'=>'editor']);
+		assert($s->remember() === ['credential'=>'user']);
 
 		// login
 
@@ -183,12 +183,12 @@ class Session extends Base\Test
 		assert(!$s->logoutProcess(['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 56);
 		assert($_SESSION['test'] === 'OK');
-		assert($s->remember('credential') === 'editor');
+		assert($s->remember('credential') === 'user');
 
 		// logout
 
 		// changePassword
-		assert($s->loginProcess('EDITOR','Test123',['com'=>true]));
+		assert($s->loginProcess('USER','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 52);
 		assert(!$s->changePassword('','peps',null,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 57);
@@ -225,19 +225,19 @@ class Session extends Base\Test
 		assert($user->isSomebody());
 		assert(!$user->isAdmin());
 		assert($user->role() instanceof Core\Role);
-		assert($user->permission() === 60);
+		assert($user->permission() === 20);
 		assert($user->hasEmail());
 		assert($user->hasUsername());
 		assert($user->canReceiveEmail());
 		assert(count($user->toEmail()) === 1);
-		assert($user->toSession() === ['uid'=>3,'permission'=>60]);
-		assert($user->can('login/cms'));
+		assert($user->toSession() === ['uid'=>3,'permission'=>20]);
+		assert($user->can('login/assert'));
 		assert($user->canLogin());
 		assert($user->canLogin('app'));
 		assert($user->canDb('insert','log'));
 		assert($user->username()->name() === 'username');
 		assert($user->email()->name() === 'email');
-		assert($user->email()(true) === 'editor@quid.com');
+		assert($user->email()(true) === 'user@quid.com');
 		assert($user->dateLogin()->name() === 'dateLogin');
 		assert($user->password()->name() === 'password');
 		assert($user->passwordReset()->name() === 'passwordReset');
@@ -247,10 +247,10 @@ class Session extends Base\Test
 		assert($user->loginValidate('login') === null);
 		assert($user->cellName()->name() === 'username');
 		assert($user::findNobody()->primary() === 1);
-		assert($user::findByCredentials('ÉDITOR@quid.COM')->primary() === 3);
+		assert($user::findByCredentials('USÉR@quid.COM')->primary() === 3);
 		assert($user::findByCredentials('zDITOR@quid.COM') === null);
-		assert($user::findByEmail('ÉDITOR@quid.COM')->primary() === 3);
-		assert($user::findByEmail('EDITOR@quid.COM')->primary() === 3);
+		assert($user::findByEmail('USÉR@quid.COM')->primary() === 3);
+		assert($user::findByEmail('USER@quid.COM')->primary() === 3);
 		assert($user::findByUsername('nobody')->primary() === 1);
 		assert($user::findByUid(1)->primary() === 1);
 		assert($user::getUsernameSecurity() === null);
@@ -264,18 +264,18 @@ class Session extends Base\Test
 		assert(strlen($s->com()->flush()) === 56);
 		assert(!$user::resetPasswordProcess('test@james.com',null,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 67);
-		assert(!$user::resetPasswordProcess('EDITOR',null,['com'=>true]));
+		assert(!$user::resetPasswordProcess('USER',null,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 56);
 		assert(!$user::resetPasswordProcess('inactive@quid.com',null,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 64);
 		assert(!$user::resetPasswordProcess('nobody@quid.com',null,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 65);
-		$password = $user::resetPasswordProcess('editor@quid.com',['subject'=>'lol','domain'=>'http://google.com'],['method'=>'queue','com'=>true]);
+		$password = $user::resetPasswordProcess('user@quid.com',['subject'=>'lol','domain'=>'http://google.com'],['method'=>'queue','com'=>true]);
 		assert(is_string($password));
 		assert(strlen($password) === 10);
 		assert(strlen($s->com()->flush()) === 93);
 		$hash = 'abcde';
-		assert($s->loginProcess('EDITOR','Test123',['strict'=>true]));
+		assert($s->loginProcess('USER','Test123',['strict'=>true]));
 		$good = Base\Crypt::passwordActivate($s->user()->passwordReset()->value(),1);
 		assert(!$user::activatePasswordProcess(4,$hash,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 99);
@@ -292,7 +292,7 @@ class Session extends Base\Test
 		assert(strlen($s->com()->flush()) === 72);
 		assert($user::activatePasswordProcess(3,$good,['com'=>true]));
 		assert(strlen($s->com()->flush()) === 74);
-		assert($s->loginProcess('EDITOR',$password,['com'=>true]));
+		assert($s->loginProcess('USER',$password,['com'=>true]));
 		assert(strlen($s->com()->flush($lang)) === 52);
 		assert($s->changePassword('Test123','Test123',$password,['onCommitted'=>true,'com'=>true]));
 		assert(strlen($s->com()->flush()) === 283);
@@ -306,9 +306,7 @@ class Session extends Base\Test
 		$row = $user::registerProcess($data,'test023',['com'=>true]);
 		assert($row instanceof Core\Row);
 		assert(strlen($s->com()->flush()) === 175);
-		assert($s->loginProcess('test@test.com','test023',['com'=>true]) === false);
-		assert(strlen($s->com()->flush()) === 65);
-		assert($s->loginProcess('EDITOR','Test123',['com'=>true]));
+		assert($s->loginProcess('USER','Test123',['com'=>true]));
 		assert(strlen($s->com()->flush()) === 52);
 
 		// row/session

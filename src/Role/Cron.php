@@ -11,15 +11,14 @@ namespace Quid\Core\Role;
 use Quid\Core;
 
 // cron
-// class which contains the default configuration for the cron role (disabled per default)
+// class which contains the default configuration for the cron role
 class Cron extends Core\RoleAlias
 {
 	// config
 	public static $config = [
-		'ignore'=>true,
 		'permission'=>90,
 		'can'=>[
-			'login'=>['app'=>false,'cms'=>false]],
+			'login'=>['app'=>false]],
 		'db'=>[
 			'*'=>[
 				'insert'=>true,

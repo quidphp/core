@@ -24,8 +24,7 @@ class Textarea extends Core\ColAlias
 		'check'=>['kind'=>'text'],
 		'relative'=>null, // custom, type pour absoluteReplace, utilise ceci pour ramener les liens absoluts dans leur version relative
 		'tableRelation'=>null, // custom, défini les tables en relation
-		'@cms'=>[
-			'route'=>['tableRelation'=>Core\Cms\SpecificTableRelation::class]]
+		'route'=>['tableRelation'=>null] // route à ajouter
 	];
 
 

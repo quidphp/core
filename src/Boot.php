@@ -14,7 +14,7 @@ use Quid\Main;
 use Quid\Base;
 
 // boot
-// abstract class for boot which is the object that bootstraps the application and CMS
+// abstract class for boot which is the object that bootstraps the application
 abstract class Boot extends Main\Root
 {
 	// trait
@@ -34,13 +34,12 @@ abstract class Boot extends Main\Root
 			'public'=>null,
 			'storage'=>null],
 		'envs'=>['dev','staging','prod'], // définis les environnements, ne peut pas être mis dans un @
-		'types'=>['app','cms'], // définis les types applicatif, ne peut pas être mis dans un @
+		'types'=>['app'], // définis les types applicatif, ne peut pas être mis dans un @
 		'climbChar'=>'@', // caractère à mettre avec une clé grimpable, ne peut pas être mis dans un @
 		'typeAs'=>[], // permet de spécifier des classes dont les types doivent utiliser un autre type, ne peut pas être mis dans un @
 		'request'=>null, // valeur par défaut pour la création de request, ne peut pas être mis dans un @
 		'finderShortcut'=>[ // shortcut pour finder
 			'vendor'=>'[vendor]',
-			'vendorCore'=>'[vendor]/quidphp/core',
 			'storage'=>'[storage]',
 			'storageCache'=>'[storage]/cache',
 			'storageLog'=>'[storage]/log',
@@ -85,8 +84,7 @@ abstract class Boot extends Main\Root
 			'public'=>'',
 			'media'=>'media'],
 		'symlink'=>[ // symlink à créer au chargement
-			'[storagePublic]/*'=>'[public]',
-			'[vendorCore]/js/jquery'=>'[publicJs]/jquery'],
+			'[storagePublic]/*'=>'[public]'],
 		'callable'=>[
 			'assertActive'=>[Base\Assert::class,'set',ASSERT_ACTIVE,true],
 			'assertBail'=>[Base\Assert::class,'set',ASSERT_BAIL,true],
@@ -134,8 +132,7 @@ abstract class Boot extends Main\Root
 			'cell'=>[Main\Extender::class,false]],
 		'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
 		'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
-		'concatenateJs'=>[ // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
-			'[publicJs]/include.js'=>[0=>'[vendorCore]/js/include']],
+		'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
 		'concatenateJsOption'=>null, // option pour la concatenation de js
 		'compileScss'=>null, // permet de lancer un encodage scss (fournir un tableau to => from)
 		'compileScssOption'=>null, // option pour le rendu du scss
@@ -176,32 +173,7 @@ abstract class Boot extends Main\Root
 		'redirectionRow'=>Row\Redirection::class, // row pour contenu additionnel de redirection
 		'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
 		'@app'=>[
-			'sessionVersionMatch'=>false,
-			'compileScss'=>[
-				'[publicCss]/app.css'=>[
-					0=>'[vendorCore]/scss/normalize/normalize.css',
-					1=>'[vendorCore]/scss/include/include.scss',
-					2=>'[vendorCore]/scss/include/component.scss',
-					50=>'[privateScss]/app/app.scss']],
-			'concatenateJs'=>[
-				'[publicJs]/app.js'=>'[privateJs]/app']],
-		'@cms'=>[
-			'option'=>[
-				'background'=>null,
-				'logo'=>null],
-			'compileScss'=>[
-				'[publicCss]/cms.css'=>[
-					0=>'[vendorCore]/scss/normalize/normalize.css',
-					1=>'[vendorCore]/scss/include/include.scss',
-					2=>'[vendorCore]/scss/include/component.scss',
-					3=>'[vendorCore]/scss/cms/include.scss',
-					4=>'[privateScss]/cms/include.scss',
-					20=>'[vendorCore]/scss/cms/cms.scss',
-					50=>'[privateScss]/cms/cms.scss']],
-			'concatenateJs'=>[
-				'[publicJs]/cms.js'=>[
-					0=>'[vendorCore]/js/cms',
-					10=>'[privateJs]/cms']]],
+			'sessionVersionMatch'=>false],
 		'@dev'=>[
 			'cache'=>false,
 			'umaskGroupWritable'=>true,
@@ -228,7 +200,7 @@ abstract class Boot extends Main\Root
 
 
 	// quidVersion
-	protected static $quidVersion = '5.26.0'; // version de quid
+	protected static $quidVersion = '5.27.0'; // version de quid
 
 
 	// quidCredit
@@ -1134,22 +1106,6 @@ abstract class Boot extends Main\Root
 	}
 
 
-	// isApp
-	// retourne vrai si la clé de l'application roulant présentement est app
-	public function isApp():bool
-	{
-		return ($this->type() === 'app')? true:false;
-	}
-
-
-	// isCms
-	// retourne vrai si la clé de l'application roulant présentement est cms
-	public function isCms():bool
-	{
-		return ($this->type() === 'cms')? true:false;
-	}
-
-
 	// typeAs
 	// retourne le ou les types à utiliser pour une classe, en plus du type courant
 	// les types à utiliser ont priorités
@@ -1591,7 +1547,7 @@ abstract class Boot extends Main\Root
 	{
 		$array = Base\Dir::fromToCatchAll($array);
 		$syms = Base\Symlink::sets($array,true,true);
-
+		
 		foreach ($syms as $to => $array)
 		{
 			if($array['status'] === false)
@@ -1691,15 +1647,18 @@ abstract class Boot extends Main\Root
 		{
 			if($extender instanceof Routes)
 			$extender->setType($key,false);
+			
+			if($key !== 'core')
+			$extender->extended()->alias(null,true,true);
 		}
-
+		
 		$roles = $extenders->get('role');
 		$roles->init($type);
 		$roles->readOnly(true);
 		$routes = $extenders->get($type);
 		$routes->init($type);
 		$routes->readOnly(true);
-
+		
 		$this->extenders = $extenders;
 
 		return $this;

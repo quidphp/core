@@ -22,10 +22,7 @@ class Col extends Orm\Col
 
 	// config
 	public static $config = [
-		'route'=>null, // permet de définir la route à utiliser en lien avec complex
-		'@cms'=>[
-			'sortable'=>null, // le champ est sortable dans le cms
-			'generalExcerptMin'=>100] // excerpt min pour l'affichage dans general
+		'route'=>null // permet de définir la route à utiliser en lien avec complex
 	];
 
 

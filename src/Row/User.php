@@ -48,11 +48,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 			'passwordHash'=>[ // configuration pour passwordHash
 				'algo'=>PASSWORD_DEFAULT,
 				'options'=>['cost'=>10]],
-			'passwordNew'=>10], // longueur d'un nouveau mot de passe
-		'@cms'=>[
-			'route'=>[
-				'userWelcome'=>Core\Cms\SpecificUserWelcome::class],
-			'specificOperation'=>[self::class,'specificOperation']],
+			'passwordNew'=>10] // longueur d'un nouveau mot de passe
 	];
 
 
@@ -1285,33 +1281,6 @@ class User extends Core\RowAlias implements Main\Contract\User
 		}
 
 		return $return;
-	}
-
-
-	// specificOperation
-	// utilisé dans le cms, permet d'envoyer un courriel de bienvenue à l'utilisateur
-	public static function specificOperation(self $row):string
-	{
-		$r = '';
-		$route = $row->routeClass('userWelcome');
-
-		if($row->table()->hasPermission('userWelcome'))
-		{
-			if($row->isActive() && $row->allowWelcomeEmail() && $row->isUpdateable() && $row->canReceiveEmail())
-			{
-				$route = $row->routeClass('userWelcome');
-
-				if(!empty($route))
-				{
-					$route = $route::makeOverload($row)->initSegment();
-					$data = ['confirm'=>static::langText('common/confirm')];
-					$attr = ['name'=>'--userWelcome--','value'=>1,'submit','icon','padLeft','email','data'=>$data];
-					$r .= $route->submitTitle(null,$attr);
-				}
-			}
-		}
-
-		return $r;
 	}
 
 

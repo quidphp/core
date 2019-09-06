@@ -8,11 +8,11 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
+use Quid\Routing;
 
 // request
 // extended class with methods to manage an HTTP request
-class Request extends Main\Request
+class Request extends Routing\Request
 {
 	// trait
 	use _bootAccess;
@@ -20,31 +20,6 @@ class Request extends Main\Request
 
 	// config
 	public static $config = [];
-
-
-	// match
-	// retourne un tableau avec toutes les routes qui matchs avec la requête
-	public function match(Routes $routes,?Session $session=null):?array
-	{
-		return $routes->match($this,$session);
-	}
-
-
-	// matchOne
-	// retourne la première route qui match avec la requête
-	public function matchOne(Routes $routes,?Session $session=null):?string
-	{
-		return $routes->matchOne($this,$session);
-	}
-
-
-	// route
-	// retourne la première route qui match avec la requête
-	// la route retourné est triggé
-	public function route(Routes $routes,?Session $session=null):?Route
-	{
-		return $routes->route($this,$session);
-	}
 }
 
 // config

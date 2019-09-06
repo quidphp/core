@@ -8,7 +8,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\TestSuite;
 use Quid\Core;
 use Quid\Main;
 use Quid\Base;
@@ -69,12 +68,6 @@ class Row extends Base\Test
 		assert(Core\Row\Session::getOverloadKeyPrepend() === 'Row');
 
 		// _route
-		assert($row2->routeAttr('contact') === TestSuite\Assert\Contact::class);
-		assert($row2->routeSafe() instanceof Core\Route);
-		assert($row2->route() instanceof Core\Route);
-		assert($row2->route() !== $row2->route());
-		assert($row2->route('contact')->uriRelative() === '/en/contact');
-		assert($row2->routeClass('contact') === TestSuite\Assert\Contact::class);
 
 		// access
 		$row3 = $tb->insert(['date'=>time(),'name_en'=>'sure']);

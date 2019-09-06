@@ -20,9 +20,7 @@ class Primary extends Core\ColAlias
 		'general'=>true,
 		'order'=>true,
 		'complex'=>'inputHidden',
-		'check'=>['kind'=>'int'],
-		'@cms'=>[
-			'search'=>true]
+		'check'=>['kind'=>'int']
 	];
 }
 

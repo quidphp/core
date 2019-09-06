@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Route;
 use Quid\Base\Html;
 use Quid\Core;
+use Quid\Orm;
 use Quid\Base;
 
 // _general
@@ -295,7 +296,7 @@ trait _general
 		{
 			$thAttr[] = 'orderable';
 			$active = ($col === $this->segment('order'));
-			$defaultDirection = strtolower(Base\Sql::invertOrderDirection($this->segment('direction')));
+			$defaultDirection = strtolower(Orm\Syntax::invertOrderDirection($this->segment('direction')));
 
 			if($active === true)
 			{

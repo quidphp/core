@@ -166,12 +166,6 @@ class Boot extends Base\Test
 		assert($boot->isType($type));
 		assert(!$boot->isType('app'));
 
-		// isApp
-		assert(!$boot->isApp());
-
-		// isCms
-		assert(!$boot->isCms());
-
 		// typeAs
 		assert($boot->typeAs('test','what') === null);
 
@@ -296,7 +290,7 @@ class Boot extends Base\Test
 
 		// services
 		assert($boot->services() instanceof Core\Services);
-		assert(count($boot->services()) === 2);
+		assert(count($boot->services()) >= 2);
 
 		// service
 		assert($boot->service('mailer') instanceof Core\Service\PhpMailer);
@@ -360,7 +354,7 @@ class Boot extends Base\Test
 		assert(strlen($boot::quidCredit()) > 100);
 
 		// extendersNamespaces
-		assert(count($boot::extendersNamespaces()) === 2);
+		assert(count($boot::extendersNamespaces()) >= 2);
 
 		// unclimbableKeys
 		assert(count($boot::unclimbableKeys()) === 7);

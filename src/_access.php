@@ -44,7 +44,7 @@ trait _access
 
 	// lang
 	// retourne l'objet lang
-	public static function lang():Lang
+	public static function lang():Main\Lang
 	{
 		return static::boot()->lang();
 	}

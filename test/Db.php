@@ -31,7 +31,7 @@ class Db extends Base\Test
 		assert($db['session']->classe()->row() === Core\Row\Session::class);
 		assert($db['ormCell']->classe()->row() === TestSuite\Row\OrmCell::class);
 		assert($tb->classe()->table() === TestSuite\Table\OrmDb::class);
-		assert($tb->classe()->col('id') === Core\Col\Primary::class);
+		assert(is_a($tb->classe()->col('id'),Core\Col\Primary::class,true));
 		assert($db['ormCell']->classe()->col($db['ormCell']['active']) === Core\Col\Active::class);
 		assert($tb->classe()->col('dateAdd') === Core\Col\DateAdd::class);
 		assert($db['ormCol']->classe()->col('myRelation') === Core\Col\Enum::class);

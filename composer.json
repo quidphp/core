@@ -1,8 +1,8 @@
 {
     "name": "quidphp/core",
     "type": "library",
-    "description": "QuidPHP - A modern framework and CMS",
-    "keywords": ["quidphp","quid","framework","cms"],
+    "description": "PHP library that provides an extendable base to create dynamic applications",
+    "keywords": ["quidphp","quid","framework"],
 	"homepage": "https://quidphp.com",
     "license": "MIT",
     "authors": [

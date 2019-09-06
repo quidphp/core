@@ -27,7 +27,9 @@ class Lang extends Base\Test
 		$fr = $boot->attr('assert/lang/fr');
 		$frFile = $boot->attr('assert/langFile/fr');
 		$en = $boot->attr('assert/lang/en');
-
+		
+		// onChange
+		
 		// existsRelation
 		assert($lang->existsRelation('contextType/app'));
 		assert(!$lang->existsRelation('activcontextTypeeVisible/appaa'));
@@ -64,14 +66,12 @@ class Lang extends Base\Test
 		assert($lang->tableLabel('user','en') === 'User');
 
 		// tableDescription
-		assert(!empty($lang->tableDescription('user')));
-
+		
 		// colLabel
 		assert($lang->colLabel('username','user') === "Nom d'utilisateur");
 		assert($lang->colLabel('session_id','user') === 'Session');
 
 		// colDescription
-		assert(!empty($lang->colDescription('metaKeywords_en')));
 
 		// rowLabel
 		assert($lang->rowLabel(2,'user') === 'Utilisateur #2');
@@ -83,7 +83,6 @@ class Lang extends Base\Test
 		// panelLabel
 
 		// panelDescription
-		assert(!empty($lang->panelDescription('default')));
 
 		// roleLabel
 		assert($lang->roleLabel(80) === 'Administrateur');
@@ -107,7 +106,7 @@ class Lang extends Base\Test
 
 		// relation
 		assert(Base\Arrs::is($lang->relation()));
-		assert(count($lang->relation('contextType')) === 2);
+		assert(!empty($lang->relation('contextType')));
 		assert($lang->relation('contextType/app') === 'Application');
 		assert($lang->relation('contextType/app','en') === 'Application');
 		assert($lang->relation('role/label/1','en') === 'Nobody');

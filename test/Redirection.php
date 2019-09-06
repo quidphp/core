@@ -17,8 +17,6 @@ class Redirection extends Base\Test
 	// trigger
 	public static function trigger(array $data):bool
 	{
-		// prepare
-
 		return true;
 	}
 }

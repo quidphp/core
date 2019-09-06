@@ -22,7 +22,7 @@ class Error extends Main\Error
 		'type'=>[ // description des types additionneles à boot
 			33=>['key'=>'dbException','name'=>'Database Exception'],
 			34=>['key'=>'routeException','name'=>'Route Exception'],
-			35=>['key'=>'bootException','name'=>'Boot Exception']]
+			35=>['key'=>'routeBreakException','name'=>'Route Break Exception']]
 	];
 
 

@@ -34,9 +34,6 @@ class Table extends Base\Test
 		assert(Core\Table::getOverloadKeyPrepend() === null);
 
 		// route
-		assert($tb->routeAttr() === [Core\Cms\Specific::class,'general'=>Core\Cms\General::class,'cms'=>Core\Cms\Specific::class]);
-		assert($tb->routeAttr(0) === Core\Cms\Specific::class);
-		assert($tb->routeAttr('general') === Core\Cms\General::class);
 		assert($tb->routeAttr('test') === null);
 
 		// rowLog

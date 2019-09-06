@@ -24,7 +24,7 @@ trait _direction
 		$return = (is_string($value) && !empty($value))? strtolower($value):false;
 
 		elseif($type === 'validate')
-		$return = (Base\Sql::isOrderDirection($value))? strtolower($value):false;
+		$return = (Syntax::isOrderDirection($value))? strtolower($value):false;
 
 		elseif($type === 'validateDefault')
 		{
