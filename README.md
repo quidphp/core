@@ -4,7 +4,7 @@
 [![PHP Version](https://img.shields.io/packagist/php-v/quidphp/core)](https://www.php.net)
 [![Style CI](https://styleci.io/repos/203755370/shield)](https://styleci.io)
 [![Code Size](https://img.shields.io/github/languages/code-size/quidphp/core)](https://github.com/quidphp/core)
-
+z
 ## About
 **QuidPHP/Core** provides LOREM IPSUM. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
 
