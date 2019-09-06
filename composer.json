@@ -1,7 +1,7 @@
 {
     "name": "quidphp/core",
     "type": "library",
-    "description": "PHP library that provides an extendable base to create dynamic applications",
+    "description": "PHP library that provides an extendable platform to create dynamic applications",
     "keywords": ["quidphp","quid","framework"],
 	"homepage": "https://quidphp.com",
     "license": "MIT",
