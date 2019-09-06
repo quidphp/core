@@ -46,7 +46,7 @@ class Request extends Base\Test
 		assert($r->unsetInst() === $r);
 		assert(!$r->isReadOnly());
 		$bootRequest->setInst();
-		
+
 		return true;
 	}
 }

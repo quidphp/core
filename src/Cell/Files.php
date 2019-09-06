@@ -485,7 +485,7 @@ abstract class Files extends Core\CellAlias
 		$col = $this->col();
 		$table = $this->table();
 		$download = $table->hasPermission('download');
-		
+
 		if($this->commonFileExists($index))
 		{
 			$hasVersion = $this->hasVersion();
@@ -496,13 +496,13 @@ abstract class Files extends Core\CellAlias
 			$file = $original = $this->commonCheckFile($index);
 
 			$return .= Base\Html::divOp('media');
-			
+
 			if($download === true)
 			{
 				$route = $this->downloadRoute($index);
 				$return .= $route->aOpen();
 			}
-			
+
 			if($isImage === true)
 			{
 				if($hasVersion === true)

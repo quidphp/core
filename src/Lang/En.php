@@ -141,7 +141,7 @@ class En extends Base\Lang\En
 		'register'=>[
 			'confirmPassword'=>'Password confirmation'
 		],
-		
+
 		// changePassword
 		'changePassword'=>[
 			'newPassword'=>'New password',

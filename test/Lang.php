@@ -27,9 +27,9 @@ class Lang extends Base\Test
 		$fr = $boot->attr('assert/lang/fr');
 		$frFile = $boot->attr('assert/langFile/fr');
 		$en = $boot->attr('assert/lang/en');
-		
+
 		// onChange
-		
+
 		// existsRelation
 		assert($lang->existsRelation('contextType/app'));
 		assert(!$lang->existsRelation('activcontextTypeeVisible/appaa'));
@@ -66,7 +66,7 @@ class Lang extends Base\Test
 		assert($lang->tableLabel('user','en') === 'User');
 
 		// tableDescription
-		
+
 		// colLabel
 		assert($lang->colLabel('username','user') === "Nom d'utilisateur");
 		assert($lang->colLabel('session_id','user') === 'Session');

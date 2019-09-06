@@ -11,7 +11,6 @@ namespace Quid\Test\Core;
 use Quid\TestSuite;
 use Quid\Core;
 use Quid\Routing;
-use Quid\Main;
 use Quid\Base;
 
 // route
@@ -24,40 +23,40 @@ class Route extends Base\Test
 		// prepare
 		$contact = TestSuite\Assert\Contact::class;
 		$contactMake = $contact::make();
-		
+
 		// onPreparaDoc
-		
+
 		// type
 		assert($contact::type() === 'assert');
-		
+
 		// getBaseReplace
-		
+
 		// prepareTitle
-		
+
 		// prepareDocServices
-		
+
 		// context
 		assert(count($contactMake->context()) === 4);
-		
+
 		// rowExists
 		assert($contactMake->rowExists() === false);
-		
+
 		// row
 		assert($contactMake->row() === null);
-		
+
 		// getOtherMeta
-		
+
 		// host
 		assert(is_string($contact::host()));
-		
+
 		// schemeHost
 		assert(is_string($contact::schemeHost()));
-		
+
 		// routes
 		assert($contact::routes() instanceof Core\Routes);
-		
+
 		// tableSegment
-		
+
 		// rowClass
 		assert($contact::rowClass() === TestSuite\Row\OrmCol::class);
 
@@ -66,13 +65,13 @@ class Route extends Base\Test
 
 		// routeBaseClasses
 		assert(count($contact::routeBaseClasses()) === 2);
-		
+
 		// getOverloadKeyPrepend
-		
+
 		// routing
 		assert($contact::inSitemap());
 		assert($contact::isRedirectable());
-		
+
 		return true;
 	}
 }

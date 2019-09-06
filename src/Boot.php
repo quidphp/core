@@ -1547,7 +1547,7 @@ abstract class Boot extends Main\Root
 	{
 		$array = Base\Dir::fromToCatchAll($array);
 		$syms = Base\Symlink::sets($array,true,true);
-		
+
 		foreach ($syms as $to => $array)
 		{
 			if($array['status'] === false)
@@ -1647,18 +1647,18 @@ abstract class Boot extends Main\Root
 		{
 			if($extender instanceof Routes)
 			$extender->setType($key,false);
-			
+
 			if($key !== 'core')
 			$extender->extended()->alias(null,true,true);
 		}
-		
+
 		$roles = $extenders->get('role');
 		$roles->init($type);
 		$roles->readOnly(true);
 		$routes = $extenders->get($type);
 		$routes->init($type);
 		$routes->readOnly(true);
-		
+
 		$this->extenders = $extenders;
 
 		return $this;

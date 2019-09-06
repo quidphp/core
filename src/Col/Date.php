@@ -27,7 +27,7 @@ class Date extends Core\ColAlias
 		'check'=>['kind'=>'int'],
 		'calendarFormat'=>'dateToDay', // custom
 		'formats'=>[true,'dateToDay','dateToMinute','dateToSecond'],
-		'route'=>array('calendar'=>null) // route à ajouter
+		'route'=>['calendar'=>null] // route à ajouter
 	];
 
 

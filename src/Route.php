@@ -333,10 +333,10 @@ abstract class Route extends Routing\Route
 	// retourne les classes bases de routes (donc abstraite)
 	public static function routeBaseClasses():array
 	{
-		return array(self::class,Routing\Route::class);
+		return [self::class,Routing\Route::class];
 	}
-	
-	
+
+
 	// getOverloadKeyPrepend
 	// retourne le prepend de la clé à utiliser pour le tableau overload
 	public static function getOverloadKeyPrepend():?string

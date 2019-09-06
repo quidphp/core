@@ -141,7 +141,7 @@ class Fr extends Base\Lang\Fr
 		'register'=>[
 			'confirmPassword'=>'Confirmation du mot de passe'
 		],
-		
+
 		// changePassword
 		'changePassword'=>[
 			'newPassword'=>'Nouveau mot de passe',

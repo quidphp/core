@@ -47,8 +47,8 @@ trait _bootAccess
 
 		return;
 	}
-	
-	
+
+
 	// routeBreakException
 	// lance une exception de route
 	// ceci brise le loop des route
