@@ -6,7 +6,7 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/quidphp/core)](https://github.com/quidphp/core)
 
 ## About
-**QuidPHP/Core** provides LOREM IPSUM. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
+**QuidPHP/Core** is a PHP library that provides an extendable platform to create dynamic applications. It is part of the [QuidPHP](https://github.com/quidphp/project) package. 
 
 ## License
 **QuidPHP/Core** is available as an open-source software under the [MIT license](LICENSE).
