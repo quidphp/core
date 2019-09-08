@@ -39,7 +39,7 @@ class Username extends Core\ColAlias
 			$validate .= $security;
 		}
 
-		if(!in_array($originalValidate,$return['validate']) && !in_array($security,$return['validate']))
+		if(!in_array($originalValidate,$return['validate'],true) && !in_array($security,$return['validate'],true))
 		$return['validate'][] = $validate;
 
 		return $return;

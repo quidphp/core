@@ -53,7 +53,7 @@ class UserPassword extends Core\ColAlias
 			$pattern .= $security;
 		}
 
-		if(!in_array($originalValidate,$return['validate']) && !in_array($validate,$return['validate']))
+		if(!in_array($originalValidate,$return['validate'],true) && !in_array($validate,$return['validate'],true))
 		$return['validate'][] = $validate;
 
 		if(!in_array($return['pattern'],[$originalPattern,$pattern],true))
