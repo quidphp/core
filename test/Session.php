@@ -143,10 +143,9 @@ class Session extends Base\Test
 
 		// canLogin
 		assert(!$s->canLogin());
-		assert(!$s->canLogin('app'));
 
 		// can
-		assert(!$s->can('login/app'));
+		assert(!$s->can('login/assert'));
 
 		// beforeLogin
 
@@ -233,7 +232,7 @@ class Session extends Base\Test
 		assert($user->toSession() === ['uid'=>3,'permission'=>20]);
 		assert($user->can('login/assert'));
 		assert($user->canLogin());
-		assert($user->canLogin('app'));
+		assert($user->canLogin('assert'));
 		assert($user->canDb('insert','log'));
 		assert($user->username()->name() === 'username');
 		assert($user->email()->name() === 'email');

@@ -16,9 +16,7 @@ class Shared extends Core\RoleAlias
 {
 	// config
 	public static $config = [
-		'permission'=>10,
-		'can'=>[
-			'login'=>['app'=>true]]
+		'permission'=>10
 	];
 }
 

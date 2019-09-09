@@ -17,8 +17,6 @@ class Cron extends Core\RoleAlias
 	// config
 	public static $config = [
 		'permission'=>90,
-		'can'=>[
-			'login'=>['app'=>false]],
 		'db'=>[
 			'*'=>[
 				'insert'=>true,

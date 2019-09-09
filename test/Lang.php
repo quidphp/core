@@ -31,10 +31,8 @@ class Lang extends Base\Test
 		// onChange
 
 		// existsRelation
-		assert($lang->existsRelation('contextType/app'));
+		assert($lang->existsRelation('role/label/1'));
 		assert(!$lang->existsRelation('activcontextTypeeVisible/appaa'));
-		assert($lang->existsRelation('contextType/app','en'));
-		assert(!$lang->existsRelation('contextType','en'));
 
 		// existsCom
 		assert($lang->existsCom('pos','insert/*/success'));
@@ -49,7 +47,6 @@ class Lang extends Base\Test
 		assert($lang->bootDescription() === 'Descr Boot');
 
 		// typeLabel
-		assert($lang->typeLabel('app') === 'Application');
 
 		// envLabel
 		assert($lang->envLabel('dev') === 'Développement');
@@ -106,9 +103,6 @@ class Lang extends Base\Test
 
 		// relation
 		assert(Base\Arrs::is($lang->relation()));
-		assert(!empty($lang->relation('contextType')));
-		assert($lang->relation('contextType/app') === 'Application');
-		assert($lang->relation('contextType/app','en') === 'Application');
 		assert($lang->relation('role/label/1','en') === 'Nobody');
 
 		// validate

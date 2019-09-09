@@ -51,9 +51,6 @@ class Request extends Core\ColAlias
 			{
 				$return = Base\Json::decode($return);
 				$return = Core\Request::newOverload($return);
-
-				if(!empty($option['context']) && $option['context'] === 'cms:specific')
-				$return = Base\Debug::export($return->safeInfo());
 			}
 		}
 

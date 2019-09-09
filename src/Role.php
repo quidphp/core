@@ -24,7 +24,7 @@ abstract class Role extends Main\Role
 		'label'=>null, // label du rôle
 		'description'=>null, // description du rôle
 		'can'=>[ // permission générale
-			'login'=>['app'=>false]],
+			'login'=>[]],
 		'db'=>[ // permission pour db
 			'*'=>[ // permission pour toutes les tables
 				'access'=>true,

@@ -77,6 +77,7 @@ class Row extends Base\Test
 		assert($row3::lang() instanceof Core\Lang);
 		assert($row3::langText('label') === 'Assert');
 		assert($row3::langPlural(2,'label') === 'Asserts');
+		assert($row3::services() instanceof Main\Services);
 		assert($row3::service('mailer') instanceof Main\Service);
 		assert($row3::serviceMailer() instanceof Core\ServiceMailer);
 

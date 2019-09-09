@@ -100,7 +100,7 @@ class Boot extends Base\Test
 		// getConfigFile
 
 		// makeFinderShortcut
-
+		
 		// makeRequest
 
 		// request
@@ -146,8 +146,11 @@ class Boot extends Base\Test
 		assert(is_string($boot->env()));
 
 		// type
-		assert(is_string($type));
-
+		assert(is_string($boot->type()));
+		
+		// typePrimary
+		assert(is_string($boot->typePrimary()));
+		
 		// envTypeFromHost
 
 		// isEnv
@@ -164,7 +167,7 @@ class Boot extends Base\Test
 
 		// isType
 		assert($boot->isType($type));
-		assert(!$boot->isType('app'));
+		assert(!$boot->isType('what'));
 
 		// typeAs
 		assert($boot->typeAs('test','what') === null);
@@ -178,9 +181,9 @@ class Boot extends Base\Test
 		// makeConfigClosure
 
 		// replaceSpecial
-		$array = ['@assert'=>['ok'=>true],'@app'=>['ok'=>false]];
-		$array2 = ['@assert'=>['ok2'=>true],'@app'=>['ok'=>false]];
-		assert($boot->replaceSpecial(null,[],$array,$array2) === ['@app'=>['ok'=>false],'ok'=>true,'ok2'=>true]);
+		$array = ['@assert'=>['ok'=>true],'@appz'=>['ok'=>false]];
+		$array2 = ['@assert'=>['ok2'=>true],'@appz'=>['ok'=>false]];
+		assert($boot->replaceSpecial(null,[],$array,$array2) === ['@appz'=>['ok'=>false],'ok'=>true,'ok2'=>true]);
 
 		// ini
 
@@ -215,7 +218,7 @@ class Boot extends Base\Test
 		assert(count($boot->schemeHostTypes()) === 1);
 
 		// schemeHostEnvs
-		assert($boot->schemeHostEnvs('app') === []);
+		assert($boot->schemeHostEnvs('what') === []);
 		assert(count($boot->schemeHostEnvs($type)) >= 1);
 
 		// setsUriShortcut
@@ -228,7 +231,9 @@ class Boot extends Base\Test
 		assert($boot->version($type) === $boot->version(true));
 		assert($boot->version($type,false) === '1.0.1');
 		assert($boot->version() === '1.0.1-'.QUID_VERSION);
-
+		
+		// manageSchemeRedirect
+		
 		// setsSymlink
 
 		// setsCallable
@@ -324,7 +329,9 @@ class Boot extends Base\Test
 		assert(count($boot->info()) === 9);
 
 		/* STATIC */
-
+		
+		// parseSchemeHost
+		
 		// envTypeFromValue
 		assert($boot->envTypeFromValue('test.com',['dev/'.$type=>'test.com'],$boot->envs(),$boot->types()) === ['env'=>'dev','type'=>$type]);
 		assert($boot->envTypeFromValue('test.com',['dev/appz'=>'test.com'],$boot->envs(),$boot->types()) === null);

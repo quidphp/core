@@ -27,18 +27,6 @@ abstract class Route extends Routing\Route
 	];
 
 
-	// onPrepareDoc
-	// prepareDoc renvoie vers prepareDocServices
-	// méthode protégé
-	protected function onPrepareDoc(string $type,array $return):array
-	{
-		$return = parent::onPrepareDoc($type,$return);
-		$return = $this->prepareDocServices($type,$return);
-
-		return $return;
-	}
-
-
 	// type
 	// retourne le type de la route
 	// si pas de type, utilise celui de boot
@@ -120,54 +108,6 @@ abstract class Route extends Routing\Route
 		{
 			$type = static::type();
 			$return[] = static::lang()->typeLabel($type);
-		}
-
-		return $return;
-	}
-
-
-	// prepareDocServices
-	// méthode utilisé après prepareDoc, lie les tags de services pour docOpen et docClose
-	// si un des éléments est false dans le tableau de config, à ce moment n'append pas le service (ça vaut dire que la route n'a pas de js/css/script)
-	// méthode protégé
-	protected function prepareDocServices(string $type,array $return):array
-	{
-		$boot = static::boot();
-		$services = $boot->services();
-
-		foreach ($services as $service)
-		{
-			$key = $service->getKey();
-
-			if($type === 'docOpen')
-			{
-				$return['head']['js'] = $return['head']['js'] ?? null;
-				if($return['head']['js'] !== false)
-				{
-					$js = $service->docOpenJs();
-					if(!empty($js))
-					$return['head']['js'] = Base\Arr::append($return['head']['js'] ?? [],[$key=>$js]);
-				}
-
-				$return['head']['script'] = $return['head']['script'] ?? null;
-				if($return['head']['script'] !== false)
-				{
-					$script = $service->docOpenScript();
-					if(!empty($script))
-					$return['head']['script'] = Base\Arr::append($return['head']['script'] ?? [],$script);
-				}
-			}
-
-			elseif($type === 'docClose')
-			{
-				$return['script'] = $return['script'] ?? null;
-				if($return['script'] !== false)
-				{
-					$script = $service->docCloseScript();
-					if(!empty($script))
-					$return['script'] = Base\Arr::append($return['script'] ?? [],$script);
-				}
-			}
 		}
 
 		return $return;

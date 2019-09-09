@@ -18,8 +18,7 @@ class ContextType extends SetAlias
 		'required'=>true,
 		'complex'=>'checkbox',
 		'relation'=>'contextType',
-		'sortable'=>false,
-		'default'=>'app'
+		'sortable'=>false
 	];
 }
 

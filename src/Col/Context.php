@@ -40,19 +40,6 @@ class Context extends Core\ColAlias
 
 		return $return;
 	}
-
-
-	// onGet
-	// format spécial si le contexte est cms (le type courant)
-	public function onGet($return,array $option)
-	{
-		$return = parent::onGet($return,$option);
-
-		if(is_array($return) && !empty($option['context']) && $option['type'] === 'cms')
-		$return = implode(' - ',$return);
-
-		return $return;
-	}
 }
 
 // config

@@ -710,9 +710,7 @@ class En extends Base\Lang\En
 			],
 
 			// contextType
-			'contextType'=>[
-				'app'=>'Application'
-			],
+			'contextType'=>[],
 
 			// contextEnv
 			'contextEnv'=>[

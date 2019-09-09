@@ -36,9 +36,6 @@ class Error extends Core\ColAlias
 			{
 				$return = Base\Json::decode($return);
 				$return = Core\Error::newOverload($return);
-
-				if(!empty($option['context']) && $option['context'] === 'cms:specific')
-				$return = Base\Debug::export($return);
 			}
 		}
 

@@ -61,9 +61,6 @@ abstract class Video extends Core\ColAlias
 			}
 		}
 
-		if(!empty($option['context']) && $option['context'] === 'cms:general' && $return instanceof Main\Video)
-		$return = Base\Html::a($return->absolute(),true);
-
 		return $return;
 	}
 

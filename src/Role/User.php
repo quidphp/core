@@ -16,9 +16,7 @@ class User extends Core\RoleAlias
 {
 	// config
 	public static $config = [
-		'permission'=>20,
-		'can'=>[
-			'login'=>['app'=>true]]
+		'permission'=>20
 	];
 }
 

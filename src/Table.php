@@ -24,10 +24,7 @@ class Table extends Orm\Table
 	public static $config = [
 		'route'=>null, // permet de lier une classe de route à la table
 		'@prod'=>[
-			'colsExists'=>false],
-		'@app'=>[
-			'where'=>true,
-			'search'=>false]
+			'colsExists'=>false]
 	];
 
 

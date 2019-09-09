@@ -286,22 +286,9 @@ abstract class Files extends Core\ColAlias
 
 	// onGet
 	// logique onGet pour un champ files
-	// affichage spéciale si le contexte est cms:general
 	public function onGet($return,array $option)
 	{
-		if($return instanceof Core\Cell\Files)
-		{
-			if(!empty($option['context']) && is_string($option['context']) && strpos($option['context'],':general') !== false)
-			$return = $return->generalOutput($option);
-
-			else
-			$return = parent::onGet($return,$option);
-		}
-
-		else
-		$return = null;
-
-		return $return;
+		return ($return instanceof Core\Cell\Files)? parent::onGet($return,$option):null;
 	}
 
 

@@ -24,8 +24,6 @@ class Route extends Base\Test
 		$contact = TestSuite\Assert\Contact::class;
 		$contactMake = $contact::make();
 
-		// onPreparaDoc
-
 		// type
 		assert($contact::type() === 'assert');
 

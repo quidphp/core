@@ -710,9 +710,7 @@ class Fr extends Base\Lang\Fr
 			],
 
 			// contextType
-			'contextType'=>[
-				'app'=>'Application'
-			],
+			'contextType'=>[],
 
 			// contextEnv
 			'contextEnv'=>[
