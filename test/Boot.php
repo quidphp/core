@@ -207,7 +207,7 @@ class Boot extends Base\Test
 		assert(!empty($boot->schemes()));
 
 		// scheme
-		assert($boot->scheme(null,null,false) !== $boot->scheme());
+		assert($boot->scheme(null,null,false) === $boot->scheme());
 		assert($boot->scheme('prod',$type) === 'https');
 		assert($boot->scheme(true,true) === Base\Request::scheme());
 
