@@ -15,30 +15,30 @@ use Quid\Main;
 // class to represent a row of the logCron table, stores cron jobs results
 class LogCron extends Core\RowAlias implements Main\Contract\Log
 {
-	// trait
-	use _log;
+    // trait
+    use _log;
 
 
-	// config
-	public static $config = [
-		'panel'=>false,
-		'search'=>false,
-		'parent'=>'system',
-		'priority'=>1005,
-		'cols'=>[
-			'context'=>['class'=>Core\Col\Context::class],
-			'type'=>['general'=>true,'relation'=>'logCronType'],
-			'json'=>['class'=>Core\Col\JsonExport::class]],
-		'deleteTrim'=>500 // custom
-	];
+    // config
+    public static $config = [
+        'panel'=>false,
+        'search'=>false,
+        'parent'=>'system',
+        'priority'=>1005,
+        'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class],
+            'type'=>['general'=>true,'relation'=>'logCronType'],
+            'json'=>['class'=>Core\Col\JsonExport::class]],
+        'deleteTrim'=>500 // custom
+    ];
 
 
-	// newData
-	// crée le tableau d'insertion
-	public static function newData():array
-	{
-		return [];
-	}
+    // newData
+    // crée le tableau d'insertion
+    public static function newData():array
+    {
+        return [];
+    }
 }
 
 // config

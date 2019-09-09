@@ -14,15 +14,15 @@ use Quid\Base;
 // class for the yes column - a simple yes checkbox
 class Yes extends EnumAlias
 {
-	// config
-	public static $config = [
-		'complex'=>'checkbox',
-		'required'=>false,
-		'relation'=>'yes',
-		'preValidate'=>['arrMaxCount'=>1],
-		'onSet'=>[Base\Set::class,'onSet'],
-		'check'=>['kind'=>'int']
-	];
+    // config
+    public static $config = [
+        'complex'=>'checkbox',
+        'required'=>false,
+        'relation'=>'yes',
+        'preValidate'=>['arrMaxCount'=>1],
+        'onSet'=>[Base\Set::class,'onSet'],
+        'check'=>['kind'=>'int']
+    ];
 }
 
 // config

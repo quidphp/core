@@ -14,28 +14,28 @@ use Quid\Core;
 // class which contains the default configuration for the admin role
 class Admin extends Core\RoleAlias
 {
-	// config
-	public static $config = [
-		'permission'=>80,
-		'db'=>[
-			'*'=>[
-				'insert'=>true,
-				'update'=>true,
-				'delete'=>true,
-				'create'=>true,
-				'alter'=>true,
-				'truncate'=>true,
-				'drop'=>true]
-		]
-	];
+    // config
+    public static $config = [
+        'permission'=>80,
+        'db'=>[
+            '*'=>[
+                'insert'=>true,
+                'update'=>true,
+                'delete'=>true,
+                'create'=>true,
+                'alter'=>true,
+                'truncate'=>true,
+                'drop'=>true]
+        ]
+    ];
 
 
-	// isAdmin
-	// retourne vrai comme c'est admin
-	public static function isAdmin():bool
-	{
-		return true;
-	}
+    // isAdmin
+    // retourne vrai comme c'est admin
+    public static function isAdmin():bool
+    {
+        return true;
+    }
 }
 
 // config

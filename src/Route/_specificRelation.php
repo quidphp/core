@@ -15,67 +15,67 @@ use Quid\Core;
 // trait that provides methods to make an enumSet input
 trait _specificRelation
 {
-	// trait
-	use _colRelation;
+    // trait
+    use _colRelation;
 
 
-	// trigger
-	// lance la route specificRelation
-	public function trigger():string
-	{
-		$r = '';
-		$results = $this->relationSearch();
+    // trigger
+    // lance la route specificRelation
+    public function trigger():string
+    {
+        $r = '';
+        $results = $this->relationSearch();
 
-		if(is_array($results) && !empty($results))
-		{
-			$col = $this->segment('col');
-			$selected = $this->segment('selected');
-			$loadMore = $this->loadMore();
-			$r .= static::makeResults($results,$col,$selected,$loadMore);
-		}
+        if(is_array($results) && !empty($results))
+        {
+            $col = $this->segment('col');
+            $selected = $this->segment('selected');
+            $loadMore = $this->loadMore();
+            $r .= static::makeResults($results,$col,$selected,$loadMore);
+        }
 
-		if(empty($r))
-		$r = Html::h3(static::langText('common/nothing'));
+        if(empty($r))
+        $r = Html::h3(static::langText('common/nothing'));
 
-		return $r;
-	}
-
-
-	// col
-	// retourne l'objet colonne
-	public function col():Core\Col
-	{
-		return $this->segment('col');
-	}
+        return $r;
+    }
 
 
-	// makeResults
-	// génère les résultats d'affichage pour les relations
-	public static function makeResults(array $array,Core\Col $col,array $selected=[],?string $loadMore=null):string
-	{
-		$r = '';
+    // col
+    // retourne l'objet colonne
+    public function col():Core\Col
+    {
+        return $this->segment('col');
+    }
 
-		if(!empty($array))
-		{
-			$r .= Html::ulOp();
-			$rel = $col->relation();
 
-			foreach ($array as $key => $value)
-			{
-				$html = $col->formComplexSearchChoices($key);
-				$class = (in_array($key,$selected,true))? 'selected':null;
-				$data = ['data-value'=>$key,'data-html'=>$html];
-				$value = Html::div($value,'label');
-				$r .= Html::li($value,[$class,'data'=>$data]);
-			}
+    // makeResults
+    // génère les résultats d'affichage pour les relations
+    public static function makeResults(array $array,Core\Col $col,array $selected=[],?string $loadMore=null):string
+    {
+        $r = '';
 
-			if(!empty($r) && is_string($loadMore))
-			$r .= $loadMore;
+        if(!empty($array))
+        {
+            $r .= Html::ulOp();
+            $rel = $col->relation();
 
-			$r .= Html::ulCl();
-		}
+            foreach ($array as $key => $value)
+            {
+                $html = $col->formComplexSearchChoices($key);
+                $class = (in_array($key,$selected,true))? 'selected':null;
+                $data = ['data-value'=>$key,'data-html'=>$html];
+                $value = Html::div($value,'label');
+                $r .= Html::li($value,[$class,'data'=>$data]);
+            }
 
-		return $r;
-	}
+            if(!empty($r) && is_string($loadMore))
+            $r .= $loadMore;
+
+            $r .= Html::ulCl();
+        }
+
+        return $r;
+    }
 }
 ?>

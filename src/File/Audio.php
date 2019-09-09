@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for an audio file (like mp3)
 class Audio extends BinaryAlias
 {
-	// config
-	public static $config = [
-		'group'=>'audio'
-	];
+    // config
+    public static $config = [
+        'group'=>'audio'
+    ];
 }
 
 // config

@@ -14,37 +14,37 @@ use Quid\Base;
 // trait to work with a route segment which contains the timestamp of a month
 trait _timestampMonth
 {
-	// structureSegmentTimestampMonth
-	// gère le segment d'uri pour un timestamp de mois, utile pour un calendrier
-	public static function structureSegmentTimestampMonth(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentTimestampMonth
+    // gère le segment d'uri pour un timestamp de mois, utile pour un calendrier
+    public static function structureSegmentTimestampMonth(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		{
-			if(is_string($value))
-			{
-				if(Base\Date::isFormat('ym',$value))
-				$return = $value;
+        if($type === 'make')
+        {
+            if(is_string($value))
+            {
+                if(Base\Date::isFormat('ym',$value))
+                $return = $value;
 
-				elseif(Base\Date::isFormat('dateToDay',$value))
-				$value = Base\Date::format('ym',$value,'dateToDay');
-			}
+                elseif(Base\Date::isFormat('dateToDay',$value))
+                $value = Base\Date::format('ym',$value,'dateToDay');
+            }
 
-			elseif(is_int($value))
-			$return = Base\Date::format('ym',$value);
-		}
+            elseif(is_int($value))
+            $return = Base\Date::format('ym',$value);
+        }
 
-		elseif($type === 'validate')
-		{
-			if(is_scalar($value))
-			$return = $value;
-		}
+        elseif($type === 'validate')
+        {
+            if(is_scalar($value))
+            $return = $value;
+        }
 
-		elseif($type === 'validateDefault')
-		$return = Base\Date::floorMonth();
+        elseif($type === 'validateDefault')
+        $return = Base\Date::floorMonth();
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

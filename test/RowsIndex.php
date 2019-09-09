@@ -14,10 +14,10 @@ use Quid\Base;
 // class for testing Quid\Core\RowsIndex
 class RowsIndex extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		return true;
-	}
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        return true;
+    }
 }
 ?>

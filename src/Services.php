@@ -14,11 +14,11 @@ use Quid\Main;
 // extended class for a collection containing many service objects
 class Services extends Main\Services
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 ?>

@@ -14,19 +14,19 @@ use Quid\Orm;
 // extended class for a collection of many tables within a same database
 class Tables extends Orm\Tables
 {
-	// trait
-	use _accessAlias;
+    // trait
+    use _accessAlias;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// keyClassExtends
-	// retourne un tableau utilisé par onPrepareKey
-	public static function keyClassExtends():array
-	{
-		return [Row::class,Table::class,Rows::class,Cells::class,Cols::class];
-	}
+    // keyClassExtends
+    // retourne un tableau utilisé par onPrepareKey
+    public static function keyClassExtends():array
+    {
+        return [Row::class,Table::class,Rows::class,Cells::class,Cols::class];
+    }
 }
 ?>

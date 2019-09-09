@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for an html file
 class Html extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'html'
-	];
+    // config
+    public static $config = [
+        'group'=>'html'
+    ];
 }
 
 // config

@@ -14,12 +14,12 @@ use Quid\Main;
 // class for a session storage file, which is serialized
 class Session extends SerializeAlias implements Main\Contract\Session, Main\Contract\FileStorage
 {
-	// trait
-	use Main\File\_session;
+    // trait
+    use Main\File\_session;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

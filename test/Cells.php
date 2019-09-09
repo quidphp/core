@@ -15,21 +15,21 @@ use Quid\Base;
 // class for testing Quid\Core\Cells
 class Cells extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
 
-		// getOverloadKeyPrepend
+        // getOverloadKeyPrepend
 
-		// tableFromFqcn
+        // tableFromFqcn
 
-		// keyClassExtends
+        // keyClassExtends
 
-		// orm
-		assert(Core\Boot::inst()->session()->storage()->cell(Core\Col\DateAdd::class)->name() === 'dateAdd');
+        // orm
+        assert(Core\Boot::inst()->session()->storage()->cell(Core\Col\DateAdd::class)->name() === 'dateAdd');
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

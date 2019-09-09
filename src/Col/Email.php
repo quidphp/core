@@ -14,12 +14,12 @@ use Quid\Core;
 // class for a column managing email
 class Email extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'validate'=>[1=>'email'],
-		'general'=>true,
-		'check'=>['kind'=>'char']
-	];
+    // config
+    public static $config = [
+        'validate'=>[1=>'email'],
+        'general'=>true,
+        'check'=>['kind'=>'char']
+    ];
 }
 
 // config

@@ -15,40 +15,40 @@ use Quid\Base;
 // extended class to represent an existing table within a database
 class Table extends Orm\Table
 {
-	// trait
-	use _routeAttr;
-	use _accessAlias;
+    // trait
+    use _routeAttr;
+    use _accessAlias;
 
 
-	// config
-	public static $config = [
-		'route'=>null, // permet de lier une classe de route à la table
-		'@prod'=>[
-			'colsExists'=>false]
-	];
+    // config
+    public static $config = [
+        'route'=>null, // permet de lier une classe de route à la table
+        '@prod'=>[
+            'colsExists'=>false]
+    ];
 
 
-	// tableFromFqcn
-	// retourne l'objet table à partir du fqcn de la classe
-	// utilise boot
-	// envoie une erreur si la table n'existe pas
-	public static function tableFromFqcn():self
-	{
-		$return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
+    // tableFromFqcn
+    // retourne l'objet table à partir du fqcn de la classe
+    // utilise boot
+    // envoie une erreur si la table n'existe pas
+    public static function tableFromFqcn():self
+    {
+        $return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
 
-		if(!$return instanceof self)
-		static::throw();
+        if(!$return instanceof self)
+        static::throw();
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Table':null;
-	}
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Table':null;
+    }
 }
 
 // config

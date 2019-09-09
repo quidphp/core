@@ -15,26 +15,26 @@ use Quid\Base;
 // class for testing Quid\Core\Cols
 class Cols extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$db = Core\Db::inst();
-		$table = 'ormCols';
-		$tb = $db[$table];
-		$cols = $tb->cols();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $db = Core\Db::inst();
+        $table = 'ormCols';
+        $tb = $db[$table];
+        $cols = $tb->cols();
 
-		// getOverloadKeyPrepend
-		assert($cols::getOverloadKeyPrepend() === null);
+        // getOverloadKeyPrepend
+        assert($cols::getOverloadKeyPrepend() === null);
 
-		// tableFromFqcn
+        // tableFromFqcn
 
-		// keyClassExtends
+        // keyClassExtends
 
-		// orm
-		assert($db['session']->cols()->get(Core\Col\DateAdd::class) instanceof Core\Col\DateAdd);
+        // orm
+        assert($db['session']->cols()->get(Core\Col\DateAdd::class) instanceof Core\Col\DateAdd);
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

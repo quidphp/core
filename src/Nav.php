@@ -14,11 +14,11 @@ use Quid\Routing;
 // extended class for storing route navigation-related data
 class Nav extends Routing\Nav
 {
-	// trait
-	use _bootAccess;
+    // trait
+    use _bootAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 ?>

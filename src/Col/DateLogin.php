@@ -14,14 +14,14 @@ use Quid\Base;
 // class for the dateLogin column, current timestamp is applied automatically when the user logs in
 class DateLogin extends DateAlias
 {
-	// config
-	public static $config = [
-		'general'=>false,
-		'complex'=>'div',
-		'date'=>'long',
-		'visible'=>['validate'=>'notEmpty'],
-		'onGet'=>[[Base\Date::class,'onGet'],'long'],
-	];
+    // config
+    public static $config = [
+        'general'=>false,
+        'complex'=>'div',
+        'date'=>'long',
+        'visible'=>['validate'=>'notEmpty'],
+        'onGet'=>[[Base\Date::class,'onGet'],'long'],
+    ];
 }
 
 // config

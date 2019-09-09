@@ -13,19 +13,19 @@ namespace Quid\Core\Segment;
 // trait that issues a method to deal with boolean route segment (1 or 0)
 trait _boolean
 {
-	// structureSegmentBoolean
-	// gère le segment d'uri booléen
-	public static function structureSegmentBoolean(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentBoolean
+    // gère le segment d'uri booléen
+    public static function structureSegmentBoolean(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		$return = (in_array($value,[0,1],true))? $value:false;
+        if($type === 'make')
+        $return = (in_array($value,[0,1],true))? $value:false;
 
-		elseif($type === 'validate')
-		$return = (in_array($value,[0,1],true))? $value:false;
+        elseif($type === 'validate')
+        $return = (in_array($value,[0,1],true))? $value:false;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

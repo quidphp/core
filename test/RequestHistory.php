@@ -14,11 +14,11 @@ use Quid\Base;
 // class for testing Quid\Core\RequestHistory
 class RequestHistory extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
+    // trigger
+    public static function trigger(array $data):bool
+    {
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

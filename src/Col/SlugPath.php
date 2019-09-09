@@ -14,18 +14,18 @@ use Quid\Base;
 // class for a column dealing with URI slug within a URI path
 class SlugPath extends SlugAlias
 {
-	// config
-	public static $config = [
-		'validate'=>[1=>'slugPath']
-	];
+    // config
+    public static $config = [
+        'validate'=>[1=>'slugPath']
+    ];
 
 
-	// slugMake
-	// gère l'appel à la classe base/slugPath
-	public static function slugMake($value,?array $option=null):string
-	{
-		return Base\SlugPath::str($value,['slug'=>$option]);
-	}
+    // slugMake
+    // gère l'appel à la classe base/slugPath
+    public static function slugMake($value,?array $option=null):string
+    {
+        return Base\SlugPath::str($value,['slug'=>$option]);
+    }
 }
 
 // config

@@ -13,27 +13,27 @@ namespace Quid\Core\Segment;
 // trait that issues a method to deal with a limit route segment (max per page)
 trait _limit
 {
-	// structureSegmentLimit
-	// gère le segment d'uri pour une limite, doit être un int plus grand que 0
-	public static function structureSegmentLimit(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentLimit
+    // gère le segment d'uri pour une limite, doit être un int plus grand que 0
+    public static function structureSegmentLimit(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		$return = (is_int($value) && $value > 0)? $value:false;
+        if($type === 'make')
+        $return = (is_int($value) && $value > 0)? $value:false;
 
-		elseif($type === 'validate')
-		$return = (is_int($value) && $value > 0)? $value:false;
+        elseif($type === 'validate')
+        $return = (is_int($value) && $value > 0)? $value:false;
 
-		elseif($type === 'validateDefault')
-		{
-			$table = static::tableSegment($keyValue);
+        elseif($type === 'validateDefault')
+        {
+            $table = static::tableSegment($keyValue);
 
-			if(!empty($table))
-			$return = $table->limit();
-		}
+            if(!empty($table))
+            $return = $table->limit();
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

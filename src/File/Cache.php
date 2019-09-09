@@ -14,14 +14,14 @@ use Quid\Main;
 // class for a cache storage file
 class Cache extends SerializeAlias implements Main\Contract\FileStorage
 {
-	// trait
-	use Main\File\_storage;
+    // trait
+    use Main\File\_storage;
 
 
-	// config
-	public static $config = [
-		'dirname'=>'[storageCache]'
-	];
+    // config
+    public static $config = [
+        'dirname'=>'[storageCache]'
+    ];
 }
 
 // config

@@ -14,46 +14,46 @@ use Quid\Core;
 // class for a column which the value is a pointer to another row in the database
 class Pointer extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'required'=>true,
-		'validate'=>['pointer'=>[self::class,'custom']]
-	];
+    // config
+    public static $config = [
+        'required'=>true,
+        'validate'=>['pointer'=>[self::class,'custom']]
+    ];
 
 
-	// onGet
-	// méthode appelé sur get, retourne la row ou null
-	public function onGet($return,array $option)
-	{
-		return static::getRow($this->value($return));
-	}
+    // onGet
+    // méthode appelé sur get, retourne la row ou null
+    public function onGet($return,array $option)
+    {
+        return static::getRow($this->value($return));
+    }
 
 
-	// getRow
-	// retourne la row ou null
-	public static function getRow($value):?Core\Row
-	{
-		$return = null;
+    // getRow
+    // retourne la row ou null
+    public static function getRow($value):?Core\Row
+    {
+        $return = null;
 
-		if(is_string($value) && strlen($value))
-		$return = static::boot()->db()->fromPointer($value);
+        if(is_string($value) && strlen($value))
+        $return = static::boot()->db()->fromPointer($value);
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// custom
-	// méthode de validation custom pour le champ pointeur
-	public static function custom($value)
-	{
-		$return = null;
-		$row = static::getRow($value);
+    // custom
+    // méthode de validation custom pour le champ pointeur
+    public static function custom($value)
+    {
+        $return = null;
+        $row = static::getRow($value);
 
-		if(!empty($row))
-		$return = true;
+        if(!empty($row))
+        $return = true;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

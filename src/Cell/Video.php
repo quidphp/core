@@ -15,44 +15,44 @@ use Quid\Main;
 // class to manage a cell containing a video from a third-party service
 class Video extends Core\CellAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// cast
-	// pour cast, retourne le lien absolut de la vidéo
-	public function _cast()
-	{
-		$return = null;
-		$video = $this->video();
+    // cast
+    // pour cast, retourne le lien absolut de la vidéo
+    public function _cast()
+    {
+        $return = null;
+        $video = $this->video();
 
-		if(!empty($video))
-		$return = $video->absolute();
+        if(!empty($video))
+        $return = $video->absolute();
 
-		return $return;
-	}
-
-
-	// video
-	// retourne l'objet video ou null
-	public function video():?Main\Video
-	{
-		return $this->get();
-	}
+        return $return;
+    }
 
 
-	// html
-	// output le html de la vidéo
-	public function html():?string
-	{
-		$return = null;
-		$video = $this->video();
+    // video
+    // retourne l'objet video ou null
+    public function video():?Main\Video
+    {
+        return $this->get();
+    }
 
-		if(!empty($video))
-		$return = $this->col()->html($video);
 
-		return $return;
-	}
+    // html
+    // output le html de la vidéo
+    public function html():?string
+    {
+        $return = null;
+        $video = $this->video();
+
+        if(!empty($video))
+        $return = $this->col()->html($video);
+
+        return $return;
+    }
 }
 
 // config

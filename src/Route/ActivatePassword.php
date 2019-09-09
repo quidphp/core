@@ -14,46 +14,46 @@ use Quid\Core;
 // abstract class for a route that activates a password that was previously reset
 abstract class ActivatePassword extends Core\RouteAlias
 {
-	// trait
-	use Core\Segment\_primary;
-	use Core\Segment\_str;
+    // trait
+    use Core\Segment\_primary;
+    use Core\Segment\_str;
 
 
-	// config
-	public static $config = [
-		'path'=>[
-			'fr'=>'mot-de-passe/activation/[primary]/[hash]',
-			'en'=>'password/activate/[primary]/[hash]'],
-		'segment'=>[
-			'primary'=>'structureSegmentPrimary',
-			'hash'=>'structureSegmentStr'],
-		'match'=>[
-			'role'=>'nobody'],
-		'parent'=>Login::class,
-		'sitemap'=>false,
-		'row'=>null // à spécifier dans la classe qui étend
-	];
+    // config
+    public static $config = [
+        'path'=>[
+            'fr'=>'mot-de-passe/activation/[primary]/[hash]',
+            'en'=>'password/activate/[primary]/[hash]'],
+        'segment'=>[
+            'primary'=>'structureSegmentPrimary',
+            'hash'=>'structureSegmentStr'],
+        'match'=>[
+            'role'=>'nobody'],
+        'parent'=>Login::class,
+        'sitemap'=>false,
+        'row'=>null // à spécifier dans la classe qui étend
+    ];
 
 
-	// trigger
-	// lance la route activatePassword
-	public function trigger()
-	{
-		$user = $this->segment('primary');
-		$primary = $user->primary();
-		$hash = $this->segment('hash');
-		$user::activatePasswordProcess($primary,$hash,['com'=>true]);
+    // trigger
+    // lance la route activatePassword
+    public function trigger()
+    {
+        $user = $this->segment('primary');
+        $primary = $user->primary();
+        $hash = $this->segment('hash');
+        $user::activatePasswordProcess($primary,$hash,['com'=>true]);
 
-		return;
-	}
+        return;
+    }
 
 
-	// afterRouteRedirect
-	// donne la route vers le parent
-	public function afterRouteRedirect():Core\Route
-	{
-		return static::makeParentOverload();
-	}
+    // afterRouteRedirect
+    // donne la route vers le parent
+    public function afterRouteRedirect():Core\Route
+    {
+        return static::makeParentOverload();
+    }
 }
 
 // config

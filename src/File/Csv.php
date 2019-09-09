@@ -14,12 +14,12 @@ use Quid\Main;
 // class for a csv file
 class Csv extends TextAlias implements Main\Contract\Import
 {
-	// trait
-	use Main\File\_csv;
+    // trait
+    use Main\File\_csv;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

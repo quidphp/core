@@ -13,8 +13,8 @@ namespace Quid\Core\File;
 // class for txt file (like txt)
 class Txt extends TextAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

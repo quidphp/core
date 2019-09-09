@@ -14,24 +14,24 @@ use Quid\Base;
 // class for the dateAdd column, current timestamp is added automatically on insert
 class DateAdd extends DateAlias
 {
-	// config
-	public static $config = [
-		'general'=>true,
-		'date'=>'long',
-		'complex'=>'div',
-		'visible'=>['validate'=>'notEmpty'],
-		'duplicate'=>false,
-		'editable'=>false,
-		'onGet'=>[[Base\Date::class,'onGet'],'long']
-	];
+    // config
+    public static $config = [
+        'general'=>true,
+        'date'=>'long',
+        'complex'=>'div',
+        'visible'=>['validate'=>'notEmpty'],
+        'duplicate'=>false,
+        'editable'=>false,
+        'onGet'=>[[Base\Date::class,'onGet'],'long']
+    ];
 
 
-	// onInsert
-	// sur insert retourne le timestamp
-	public function onInsert($value,array $row,array $option):int
-	{
-		return Base\Date::timestamp();
-	}
+    // onInsert
+    // sur insert retourne le timestamp
+    public function onInsert($value,array $row,array $option):int
+    {
+        return Base\Date::timestamp();
+    }
 }
 
 // config

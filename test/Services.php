@@ -14,12 +14,12 @@ use Quid\Base;
 // class for testing Quid\Core\Services
 class Services extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

@@ -14,11 +14,11 @@ use Quid\Orm;
 // extended class for a collection of many rows within different tables (keys are indexed)
 class RowsIndex extends Orm\RowsIndex
 {
-	// trait
-	use _accessAlias;
+    // trait
+    use _accessAlias;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 ?>

@@ -14,12 +14,12 @@ use Quid\Routing;
 // extended class for a collection of many untriggered routes
 class Routes extends Routing\Routes
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

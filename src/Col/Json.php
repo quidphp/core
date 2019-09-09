@@ -15,14 +15,14 @@ use Quid\Base;
 // class for a column which manages json values
 class Json extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'search'=>false,
-		'panel'=>'admin',
-		'onSet'=>[Base\Json::class,'onSet'],
-		'onGet'=>[Base\Json::class,'onGet'],
-		'check'=>['kind'=>'text']
-	];
+    // config
+    public static $config = [
+        'search'=>false,
+        'panel'=>'admin',
+        'onSet'=>[Base\Json::class,'onSet'],
+        'onGet'=>[Base\Json::class,'onGet'],
+        'check'=>['kind'=>'text']
+    ];
 }
 
 // config

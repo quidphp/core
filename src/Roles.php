@@ -14,19 +14,19 @@ use Quid\Main;
 // extended class for a collection containing many roles
 class Roles extends Main\Roles
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// init
-	// init l'objet roles
-	// simplement un sort default
-	public function init(string $type):self
-	{
-		$this->sortDefault();
+    // init
+    // init l'objet roles
+    // simplement un sort default
+    public function init(string $type):self
+    {
+        $this->sortDefault();
 
-		return $this;
-	}
+        return $this;
+    }
 }
 
 // config

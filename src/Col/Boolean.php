@@ -14,14 +14,14 @@ use Quid\Base;
 // class for the boolean column - a simple yes/no enum relation
 class Boolean extends EnumAlias
 {
-	// config
-	public static $config = [
-		'complex'=>'radio',
-		'required'=>true,
-		'relation'=>'bool',
-		'onSet'=>[Base\Set::class,'onSet'],
-		'check'=>['kind'=>'int']
-	];
+    // config
+    public static $config = [
+        'complex'=>'radio',
+        'required'=>true,
+        'relation'=>'bool',
+        'onSet'=>[Base\Set::class,'onSet'],
+        'check'=>['kind'=>'int']
+    ];
 }
 
 // config

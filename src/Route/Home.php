@@ -14,22 +14,22 @@ use Quid\Core;
 // abstract class for a home route
 abstract class Home extends Core\RouteAlias
 {
-	// config
-	public static $config = [
-		'path'=>'',
-		'group'=>'home',
-		'priority'=>1
-	];
+    // config
+    public static $config = [
+        'path'=>'',
+        'group'=>'home',
+        'priority'=>1
+    ];
 
 
-	// onReplace
-	// comme titre, met le bootLabel
-	protected function onReplace(array $return):array
-	{
-		$return['title'] = $return['bootLabel'];
+    // onReplace
+    // comme titre, met le bootLabel
+    protected function onReplace(array $return):array
+    {
+        $return['title'] = $return['bootLabel'];
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

@@ -14,10 +14,10 @@ use Quid\Core;
 // class for a column which deals with integer values
 class Integer extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'cell'=>Core\Cell\Integer::class
-	];
+    // config
+    public static $config = [
+        'cell'=>Core\Cell\Integer::class
+    ];
 }
 
 // config

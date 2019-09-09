@@ -15,59 +15,59 @@ use Quid\Orm;
 // class for dealing with a cell of a column which has an auto increment primary key
 class Primary extends Core\CellAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// set
-	// set pour cell primaire n'est pas permis
-	// aucune erreur envoyé si le id est le même qu'initial
-	public function set($value,?array $option=null):Orm\Cell
-	{
-		if(!(is_int($value) && !empty($this->value['initial']) && $this->value['initial'] === $value))
-		static::throw();
+    // set
+    // set pour cell primaire n'est pas permis
+    // aucune erreur envoyé si le id est le même qu'initial
+    public function set($value,?array $option=null):Orm\Cell
+    {
+        if(!(is_int($value) && !empty($this->value['initial']) && $this->value['initial'] === $value))
+        static::throw();
 
-		return $this;
-	}
-
-
-	// setInitial
-	// setInitial pour cell primaire est seulement permis si:
-	// il n'y pas de valeur initial ou si la valeur donné est la valeur initial
-	// onInit n'est pas appelé
-	public function setInitial($value):Orm\Cell
-	{
-		if(is_int($value) && (empty($this->value['initial']) || $this->value['initial'] === $value))
-		{
-			if(empty($this->value['initial']))
-			$this->value['initial'] = $value;
-		}
-
-		else
-		static::throw();
-
-		return $this;
-	}
+        return $this;
+    }
 
 
-	// reset
-	// reset pour cell primaire n'est pas permis
-	public function reset():Orm\Cell
-	{
-		static::throw();
+    // setInitial
+    // setInitial pour cell primaire est seulement permis si:
+    // il n'y pas de valeur initial ou si la valeur donné est la valeur initial
+    // onInit n'est pas appelé
+    public function setInitial($value):Orm\Cell
+    {
+        if(is_int($value) && (empty($this->value['initial']) || $this->value['initial'] === $value))
+        {
+            if(empty($this->value['initial']))
+            $this->value['initial'] = $value;
+        }
 
-		return $this;
-	}
+        else
+        static::throw();
+
+        return $this;
+    }
 
 
-	// unset
-	// unset pour cell primaire n'est pas permis
-	public function unset():Orm\Cell
-	{
-		static::throw();
+    // reset
+    // reset pour cell primaire n'est pas permis
+    public function reset():Orm\Cell
+    {
+        static::throw();
 
-		return $this;
-	}
+        return $this;
+    }
+
+
+    // unset
+    // unset pour cell primaire n'est pas permis
+    public function unset():Orm\Cell
+    {
+        static::throw();
+
+        return $this;
+    }
 }
 
 // config

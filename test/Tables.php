@@ -15,21 +15,21 @@ use Quid\Base;
 // class for testing Quid\Core\Tables
 class Tables extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$tables = Core\Boot::inst()->db()->tables();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $tables = Core\Boot::inst()->db()->tables();
 
-		// keyClassExtends
-		assert($tables::keyClassExtends() === [Core\Row::class,Core\Table::class,Core\Rows::class,Core\Cells::class,Core\Cols::class]);
+        // keyClassExtends
+        assert($tables::keyClassExtends() === [Core\Row::class,Core\Table::class,Core\Rows::class,Core\Cells::class,Core\Cols::class]);
 
-		// orm
-		assert($tables instanceof Core\Tables);
-		assert($tables->get(Core\Table::class) === null);
-		assert($tables->get(Table::class) === null);
+        // orm
+        assert($tables instanceof Core\Tables);
+        assert($tables->get(Core\Table::class) === null);
+        assert($tables->get(Table::class) === null);
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

@@ -17,158 +17,158 @@ use Quid\Base;
 // abstract class for an error route
 abstract class Error extends Core\RouteAlias
 {
-	// config
-	public static $config = [
-		'path'=>null,
-		'priority'=>999,
-		'group'=>'error',
-		'sitemap'=>false,
-		'response'=>[
-			'code'=>404]
-	];
+    // config
+    public static $config = [
+        'path'=>null,
+        'priority'=>999,
+        'group'=>'error',
+        'sitemap'=>false,
+        'response'=>[
+            'code'=>404]
+    ];
 
 
-	// onBefore
-	// avant la route, applique le code de réponse immédiatemment
-	// 404 est mis si le code d'erreur n'est pas déjà négatif
-	protected function onBefore()
-	{
-		$return = true;
-		static::setResponseCode();
+    // onBefore
+    // avant la route, applique le code de réponse immédiatemment
+    // 404 est mis si le code d'erreur n'est pas déjà négatif
+    protected function onBefore()
+    {
+        $return = true;
+        static::setResponseCode();
 
-		if(!$this->showHtml())
-		$return = false;
+        if(!$this->showHtml())
+        $return = false;
 
-		return $return;
-	}
-
-
-	// trigger
-	// méthode trigger par défaut
-	public function trigger()
-	{
-		return $this->html();
-	}
+        return $return;
+    }
 
 
-	// showHtml
-	// retourne vrai s'il faut générer le html
-	public function showHtml():bool
-	{
-		return ($this->request()->hasExtension())? false:true;
-	}
+    // trigger
+    // méthode trigger par défaut
+    public function trigger()
+    {
+        return $this->html();
+    }
 
 
-	// makeTitle
-	// génère le titre pour la route
-	protected function makeTitle(?string $lang=null):string
-	{
-		return static::label().' '.Base\Response::code();
-	}
+    // showHtml
+    // retourne vrai s'il faut générer le html
+    public function showHtml():bool
+    {
+        return ($this->request()->hasExtension())? false:true;
+    }
 
 
-	// makeSubTitle
-	// génère le sous-titre pour la route
-	protected function makeSubTitle(?string $lang=null):string
-	{
-		return static::lang()->headerResponseStatus(Base\Response::code());
-	}
+    // makeTitle
+    // génère le titre pour la route
+    protected function makeTitle(?string $lang=null):string
+    {
+        return static::label().' '.Base\Response::code();
+    }
 
 
-	// makeTitleBox
-	// génère le titre et sous-tire
-	protected function makeTitleBox():string
-	{
-		$r = '';
-		$r .= Html::h1($this->makeTitle());
-		$r .= Html::h2($this->makeSubTitle());
-
-		return $r;
-	}
+    // makeSubTitle
+    // génère le sous-titre pour la route
+    protected function makeSubTitle(?string $lang=null):string
+    {
+        return static::lang()->headerResponseStatus(Base\Response::code());
+    }
 
 
-	// html
-	// génère le html de la route error, version différente si la session est nobody ou somebody
-	public function html():string
-	{
-		$r = '';
+    // makeTitleBox
+    // génère le titre et sous-tire
+    protected function makeTitleBox():string
+    {
+        $r = '';
+        $r .= Html::h1($this->makeTitle());
+        $r .= Html::h2($this->makeSubTitle());
 
-		if($this->session()->isNobody())
-		$r = $this->nobody();
-
-		else
-		$r = $this->somebody();
-
-		return $r;
-	}
+        return $r;
+    }
 
 
-	// nobody
-	// rendu de la route si nobody
-	protected function nobody():string
-	{
-		return $this->makeTitleBox();
-	}
+    // html
+    // génère le html de la route error, version différente si la session est nobody ou somebody
+    public function html():string
+    {
+        $r = '';
+
+        if($this->session()->isNobody())
+        $r = $this->nobody();
+
+        else
+        $r = $this->somebody();
+
+        return $r;
+    }
 
 
-	// somebody
-	// rendu de la route si somebody
-	protected function somebody():string
-	{
-		return $this->detail();
-	}
+    // nobody
+    // rendu de la route si nobody
+    protected function nobody():string
+    {
+        return $this->makeTitleBox();
+    }
 
 
-	// makeContent
-	// génère le contenu pour l'explication du code erreur http
-	// peut retourner null
-	protected function makeContent():?string
-	{
-		$return = null;
-		$code = Base\Response::code();
-		$lang = static::lang();
-		$return = $lang->safe('error/page/content/'.$code);
-
-		return $return;
-	}
+    // somebody
+    // rendu de la route si somebody
+    protected function somebody():string
+    {
+        return $this->detail();
+    }
 
 
-	// detail
-	// retourne l'affichage de la page erreur pour somebody
-	// possibile de spécifier la route pour le retour et d'affiche ou non le titleBox
-	protected function detail(?Core\Route $route=null,bool $titleBox=true):string
-	{
-		$r = '';
-		static::setResponseCode();
+    // makeContent
+    // génère le contenu pour l'explication du code erreur http
+    // peut retourner null
+    protected function makeContent():?string
+    {
+        $return = null;
+        $code = Base\Response::code();
+        $lang = static::lang();
+        $return = $lang->safe('error/page/content/'.$code);
 
-		if($titleBox === true)
-		$r .= $this->makeTitleBox();
-
-		$r .= Html::h3Cond($this->makeContent());
-
-		if(!empty($route))
-		{
-			$r .= Html::divOp('back');
-			$link = $route->a(static::langText('lc|common/here'));
-			$r .= Html::span(static::langText('error/page/back',['link'=>$link]));
-			$r .= Html::divCl();
-		}
-
-		return $r;
-	}
+        return $return;
+    }
 
 
-	// fallback
-	// s'il y a une exception dans le fallback de la route error, affiche le html de l'exception
-	protected function fallback($context=null)
-	{
-		$return = parent::fallback($context);
+    // detail
+    // retourne l'affichage de la page erreur pour somebody
+    // possibile de spécifier la route pour le retour et d'affiche ou non le titleBox
+    protected function detail(?Core\Route $route=null,bool $titleBox=true):string
+    {
+        $r = '';
+        static::setResponseCode();
 
-		if($context instanceof Main\Exception)
-		$return = $context->html();
+        if($titleBox === true)
+        $r .= $this->makeTitleBox();
 
-		return $return;
-	}
+        $r .= Html::h3Cond($this->makeContent());
+
+        if(!empty($route))
+        {
+            $r .= Html::divOp('back');
+            $link = $route->a(static::langText('lc|common/here'));
+            $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
+            $r .= Html::divCl();
+        }
+
+        return $r;
+    }
+
+
+    // fallback
+    // s'il y a une exception dans le fallback de la route error, affiche le html de l'exception
+    protected function fallback($context=null)
+    {
+        $return = parent::fallback($context);
+
+        if($context instanceof Main\Exception)
+        $return = $context->html();
+
+        return $return;
+    }
 }
 
 // config

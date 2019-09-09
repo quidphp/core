@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for pdf file
 class Pdf extends BinaryAlias
 {
-	// config
-	public static $config = [
-		'group'=>'pdf'
-	];
+    // config
+    public static $config = [
+        'group'=>'pdf'
+    ];
 }
 
 // config

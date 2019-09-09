@@ -13,32 +13,32 @@ namespace Quid\Core\Col;
 // class for the userAdd column, user_id is added automatically on insert
 class UserAdd extends EnumAlias
 {
-	// config
-	public static $config = [
-		'required'=>false,
-		'general'=>true,
-		'complex'=>'div',
-		'visible'=>['validate'=>'notEmpty'],
-		'relation'=>'user',
-		'duplicate'=>false,
-		'editable'=>false,
-		'check'=>['kind'=>'int']
-	];
+    // config
+    public static $config = [
+        'required'=>false,
+        'general'=>true,
+        'complex'=>'div',
+        'visible'=>['validate'=>'notEmpty'],
+        'relation'=>'user',
+        'duplicate'=>false,
+        'editable'=>false,
+        'check'=>['kind'=>'int']
+    ];
 
 
-	// onInsert
-	// donne le user courant lors d'un insert
-	// il faut vérifier que boot hasSession car la row session à un champ userAdd
-	public function onInsert($value,array $row,array $option)
-	{
-		$return = 1;
-		$boot = static::bootReady();
+    // onInsert
+    // donne le user courant lors d'un insert
+    // il faut vérifier que boot hasSession car la row session à un champ userAdd
+    public function onInsert($value,array $row,array $option)
+    {
+        $return = 1;
+        $boot = static::bootReady();
 
-		if(!empty($boot) && $boot->hasSession())
-		$return = $boot->session()->user();
+        if(!empty($boot) && $boot->hasSession())
+        $return = $boot->session()->user();
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

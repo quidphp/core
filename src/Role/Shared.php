@@ -14,10 +14,10 @@ use Quid\Core;
 // class that contains the default configuration for the shared role
 class Shared extends Core\RoleAlias
 {
-	// config
-	public static $config = [
-		'permission'=>10
-	];
+    // config
+    public static $config = [
+        'permission'=>10
+    ];
 }
 
 // config

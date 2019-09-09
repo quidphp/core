@@ -14,14 +14,14 @@ use Quid\Base;
 // class for testing Quid\Core\ServiceRequest
 class ServiceRequest extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// getLangCode
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // getLangCode
 
-		// getOverloadKeyPrepend
+        // getOverloadKeyPrepend
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

@@ -15,31 +15,31 @@ use Quid\Base;
 // class for the context column, updates itself automatically on commit
 class Context extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'required'=>true,
-		'general'=>true,
-		'visible'=>['validate'=>'notEmpty'],
-		'complex'=>'div',
-		'onComplex'=>true,
-		'onGet'=>[Base\Json::class,'onGet'],
-		'onSet'=>[Base\Json::class,'onSet'],
-		'check'=>['kind'=>'char']
-	];
+    // config
+    public static $config = [
+        'required'=>true,
+        'general'=>true,
+        'visible'=>['validate'=>'notEmpty'],
+        'complex'=>'div',
+        'onComplex'=>true,
+        'onGet'=>[Base\Json::class,'onGet'],
+        'onSet'=>[Base\Json::class,'onSet'],
+        'check'=>['kind'=>'char']
+    ];
 
 
-	// onCommit
-	// ajoute le contexte sur insertion ou mise à jour
-	public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
-	{
-		$return = null;
-		$boot = static::bootReady();
+    // onCommit
+    // ajoute le contexte sur insertion ou mise à jour
+    public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
+    {
+        $return = null;
+        $boot = static::bootReady();
 
-		if(!empty($boot))
-		$return = $boot->context();
+        if(!empty($boot))
+        $return = $boot->context();
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

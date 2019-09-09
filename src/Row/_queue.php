@@ -14,21 +14,21 @@ use Quid\Main;
 // trait that adds queuing-related methods to a row
 trait _queue
 {
-	// trait
-	use Main\_queue;
-	use _new;
+    // trait
+    use Main\_queue;
+    use _new;
 
 
-	// getQueued
-	// retourne un objet rows avec toutes les rows queued
-	abstract public static function getQueued(?int $limit=null):?Main\Map;
+    // getQueued
+    // retourne un objet rows avec toutes les rows queued
+    abstract public static function getQueued(?int $limit=null):?Main\Map;
 
 
-	// queue
-	// créer une nouvelle entrée dans la queue
-	public static function queue(...$values):?Main\Contract\Queue
-	{
-		return static::new(...$values);
-	}
+    // queue
+    // créer une nouvelle entrée dans la queue
+    public static function queue(...$values):?Main\Contract\Queue
+    {
+        return static::new(...$values);
+    }
 }
 ?>

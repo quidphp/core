@@ -14,30 +14,30 @@ use Quid\Core;
 // trait to work with a route segment which must contain a table name or object
 trait _table
 {
-	// structureSegmentTable
-	// gère le segment d'uri pour une table
-	public static function structureSegmentTable(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentTable
+    // gère le segment d'uri pour une table
+    public static function structureSegmentTable(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		{
-			if($value instanceof Core\Row || $value instanceof Core\Col || $value instanceof Core\Cell)
-			$value = $value->table();
+        if($type === 'make')
+        {
+            if($value instanceof Core\Row || $value instanceof Core\Col || $value instanceof Core\Cell)
+            $value = $value->table();
 
-			if(is_string($value) || $value instanceof Core\Table)
-			$return = $value;
-		}
+            if(is_string($value) || $value instanceof Core\Table)
+            $return = $value;
+        }
 
-		elseif($type === 'validate')
-		{
-			$db = static::db();
+        elseif($type === 'validate')
+        {
+            $db = static::db();
 
-			if($db->hasTable($value))
-			$return = $db->table($value);
-		}
+            if($db->hasTable($value))
+            $return = $db->table($value);
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

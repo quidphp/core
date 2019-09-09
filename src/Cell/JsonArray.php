@@ -14,22 +14,22 @@ use Quid\Core;
 // class to manage a cell containing a json array
 class JsonArray extends Core\CellAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// index
-	// retourne un index de jsonArray
-	public function index(int $value)
-	{
-		$return = null;
-		$get = $this->get();
+    // index
+    // retourne un index de jsonArray
+    public function index(int $value)
+    {
+        $return = null;
+        $get = $this->get();
 
-		if(is_array($get) && array_key_exists($value,$get))
-		$return = $get[$value];
+        if(is_array($get) && array_key_exists($value,$get))
+        $return = $get[$value];
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

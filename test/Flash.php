@@ -15,15 +15,15 @@ use Quid\Base;
 // class for testing Quid\Core\Flash
 class Flash extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// construct
-		$f = new Core\Flash();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // construct
+        $f = new Core\Flash();
 
-		// setPost
+        // setPost
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

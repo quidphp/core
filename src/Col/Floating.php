@@ -14,10 +14,10 @@ use Quid\Core;
 // class for a column which deals with floating values
 class Floating extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'cell'=>Core\Cell\Floating::class
-	];
+    // config
+    public static $config = [
+        'cell'=>Core\Cell\Floating::class
+    ];
 }
 
 // config

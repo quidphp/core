@@ -14,14 +14,14 @@ use Quid\Core;
 // class for dealing with a column which has an auto increment primary key
 class Primary extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'cell'=>Core\Cell\Primary::class,
-		'general'=>true,
-		'order'=>true,
-		'complex'=>'inputHidden',
-		'check'=>['kind'=>'int']
-	];
+    // config
+    public static $config = [
+        'cell'=>Core\Cell\Primary::class,
+        'general'=>true,
+        'order'=>true,
+        'complex'=>'inputHidden',
+        'check'=>['kind'=>'int']
+    ];
 }
 
 // config

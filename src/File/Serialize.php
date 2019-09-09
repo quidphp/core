@@ -13,11 +13,11 @@ namespace Quid\Core\File;
 // class for a file with content that should be serialized
 class Serialize extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>null,
-		'type'=>'serialize'
-	];
+    // config
+    public static $config = [
+        'group'=>null,
+        'type'=>'serialize'
+    ];
 }
 
 // config

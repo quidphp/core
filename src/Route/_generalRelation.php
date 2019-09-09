@@ -16,238 +16,238 @@ use Quid\Base;
 // trait that provides methods to make a filter from a relation
 trait _generalRelation
 {
-	// trait
-	use _colRelation;
+    // trait
+    use _colRelation;
 
 
-	// getRoute
-	// retourne la route à utiliser
-	abstract protected function getRoute():Core\Route;
+    // getRoute
+    // retourne la route à utiliser
+    abstract protected function getRoute():Core\Route;
 
 
-	// col
-	// retourne l'objet colonne
-	public function col():Core\Col
-	{
-		return $this->segment('col');
-	}
+    // col
+    // retourne l'objet colonne
+    public function col():Core\Col
+    {
+        return $this->segment('col');
+    }
 
 
-	// trigger
-	// lance la route generalRelation
-	public function trigger():string
-	{
-		$r = '';
-		$results = $this->relationSearch();
-		$selected = $this->segment('selected');
+    // trigger
+    // lance la route generalRelation
+    public function trigger():string
+    {
+        $r = '';
+        $results = $this->relationSearch();
+        $selected = $this->segment('selected');
 
-		$r .= Html::divOp('relationWrap');
+        $r .= Html::divOp('relationWrap');
 
-		if(!empty($selected))
-		{
-			$selected = $this->relationKeyValue($selected);
-			$r .= $this->makeResults($selected,'selectedList');
-		}
+        if(!empty($selected))
+        {
+            $selected = $this->relationKeyValue($selected);
+            $r .= $this->makeResults($selected,'selectedList');
+        }
 
-		if(is_array($results) && !empty($results))
-		$r .= $this->makeResults($results,'list',true);
+        if(is_array($results) && !empty($results))
+        $r .= $this->makeResults($results,'list',true);
 
-		else
-		$r .= Base\Html::h3(static::langText('common/nothing'));
+        else
+        $r .= Base\Html::h3(static::langText('common/nothing'));
 
-		$r .= Html::divCl();
+        $r .= Html::divCl();
 
-		return $r;
-	}
-
-
-	// relationSearchNot
-	// retourne le not à utiliser pour relationSearch
-	protected function relationSearchNot()
-	{
-		return $this->segment('selected');
-	}
+        return $r;
+    }
 
 
-	// makeRoutes
-	// retourne un tableau avec toutes les routes de filtre à afficher
-	protected function makeRoutes(array $array):array
-	{
-		$return = [];
-
-		if(!empty($array))
-		{
-			$col = $this->segment('col');
-			$name = $col->name();
-			$route = $this->getRoute();
-
-			$selected = $this->segment('selected');
-			$current = $route->segment('filter');
-			$current = (is_array($current))? $current:[];
-			$currentName = (array_key_exists($name,$current))? $current[$name]:null;
-
-			foreach ($array as $v => $label)
-			{
-				if(is_scalar($label))
-				{
-					$r = [];
-					$label = Base\Str::cast($label);
-					$active = (in_array($v,$selected,true))? true:false;
-					$filter = $current;
-
-					$filter[$name] = [$v];
-					$route = $route->changeSegments(['filter'=>$filter,'page'=>1]);
-					$plus = null;
-					$minus = null;
-
-					if(!empty($current) && !empty($currentName))
-					{
-						$filter = $current;
-
-						if(!array_key_exists($name,$filter) || !is_array($filter[$name]))
-						$filter[$name] = [];
-
-						if(in_array($v,$filter[$name],true) && $active === true)
-						{
-							$filter[$name] = Base\Arr::valueStrip($v,$filter[$name]);
-							$minus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
-						}
-
-						else
-						{
-							$filter[$name][] = $v;
-							$plus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
-						}
-					}
-
-					$r['label'] = $label;
-					$r['active'] = $active;
-					$r['route'] = $route;
-					$r['plus'] = $plus;
-					$r['minus'] = $minus;
-					$return[$v] = $r;
-				}
-			}
-		}
-
-		return $return;
-	}
+    // relationSearchNot
+    // retourne le not à utiliser pour relationSearch
+    protected function relationSearchNot()
+    {
+        return $this->segment('selected');
+    }
 
 
-	// makeResults
-	// génère les résultats d'affichage de la relation
-	protected function makeResults(array $array,$attr=null,bool $loadMore=false):string
-	{
-		$r = '';
-		$routes = $this->makeRoutes($array);
-		$col = $this->segment('col');
-		$excerpt = $col->attr('excerpt');
+    // makeRoutes
+    // retourne un tableau avec toutes les routes de filtre à afficher
+    protected function makeRoutes(array $array):array
+    {
+        $return = [];
 
-		if(!empty($routes))
-		{
-			$r .= Html::ulOp($attr);
+        if(!empty($array))
+        {
+            $col = $this->segment('col');
+            $name = $col->name();
+            $route = $this->getRoute();
 
-			foreach ($routes as $key => $value)
-			{
-				if(is_array($value) && Base\Arr::keysAre(['label','active','route','plus','minus'],$value))
-				{
-					$label = $value['label'];
-					$selected = $value['active'];
-					$route = $value['route'];
-					$plus = $value['plus'];
-					$minus = $value['minus'];
+            $selected = $this->segment('selected');
+            $current = $route->segment('filter');
+            $current = (is_array($current))? $current:[];
+            $currentName = (array_key_exists($name,$current))? $current[$name]:null;
 
-					if(is_string($label) && strlen($label) && $route instanceof Core\Route && is_bool($selected))
-					{
-						$class = ($selected === true)? 'selected':null;
+            foreach ($array as $v => $label)
+            {
+                if(is_scalar($label))
+                {
+                    $r = [];
+                    $label = Base\Str::cast($label);
+                    $active = (in_array($v,$selected,true))? true:false;
+                    $filter = $current;
 
-						if(is_int($excerpt))
-						$label = Base\Str::excerpt($excerpt,$label);
+                    $filter[$name] = [$v];
+                    $route = $route->changeSegments(['filter'=>$filter,'page'=>1]);
+                    $plus = null;
+                    $minus = null;
 
-						$value = $route->a($label,[$class,'replace']);
+                    if(!empty($current) && !empty($currentName))
+                    {
+                        $filter = $current;
 
-						if(!empty($plus))
-						$value .= $plus->a(null,['icon','plus']);
+                        if(!array_key_exists($name,$filter) || !is_array($filter[$name]))
+                        $filter[$name] = [];
 
-						elseif(!empty($minus))
-						$value .= $minus->a(null,['icon','minus']);
+                        if(in_array($v,$filter[$name],true) && $active === true)
+                        {
+                            $filter[$name] = Base\Arr::valueStrip($v,$filter[$name]);
+                            $minus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
+                        }
 
-						$attr = (!empty($plus) || !empty($minus))? 'hasIcon':null;
-						$r .= Html::li($value,$attr);
-					}
-				}
-			}
+                        else
+                        {
+                            $filter[$name][] = $v;
+                            $plus = $route->changeSegments(['filter'=>$filter,'page'=>1]);
+                        }
+                    }
 
-			if(!empty($r) && $loadMore === true)
-			$r .= $this->loadMore();
+                    $r['label'] = $label;
+                    $r['active'] = $active;
+                    $r['route'] = $route;
+                    $r['plus'] = $plus;
+                    $r['minus'] = $minus;
+                    $return[$v] = $r;
+                }
+            }
+        }
 
-			$r .= Html::ulCl();
-		}
-
-		return $r;
-	}
+        return $return;
+    }
 
 
-	// makeFilter
-	// construit un input filter
-	public static function makeFilter(Core\Col $col,Core\Route $currentRoute,string $route,$filter,$class=null,$closeAttr=null,?string $label=null):string
-	{
-		$r = '';
-		$html = '';
-		$name = $col->name();
-		$table = $col->table();
-		$relation = $col->relation();
-		$size = $relation->size();
-		$active = false;
-		$selected = null;
-		$after = null;
+    // makeResults
+    // génère les résultats d'affichage de la relation
+    protected function makeResults(array $array,$attr=null,bool $loadMore=false):string
+    {
+        $r = '';
+        $routes = $this->makeRoutes($array);
+        $col = $this->segment('col');
+        $excerpt = $col->attr('excerpt');
 
-		if(is_array($filter) && array_key_exists($name,$filter))
-		{
-			$active = true;
-			$selected = $filter[$name];
-			$class[] = 'filtering';
-			$closeFilter = Base\Arr::unset($name,$filter);
-			$closeRoute = $currentRoute->changeSegments(['filter'=>$closeFilter]);
-			$after = $closeRoute->a(null,$closeAttr);
-		}
+        if(!empty($routes))
+        {
+            $r .= Html::ulOp($attr);
 
-		$route = $route::make(['table'=>$table,'col'=>$col,'selected'=>$selected]);
-		$limit = $route->limit();
-		$query = $route::getSearchQuery();
-		$data = ['query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment()];
-		if($route->hasOrder())
-		$route = $route->changeSegment('order',true);
-		$data['href'] = $route;
-		$order = $route->orderSelect();
+            foreach ($routes as $key => $value)
+            {
+                if(is_array($value) && Base\Arr::keysAre(['label','active','route','plus','minus'],$value))
+                {
+                    $label = $value['label'];
+                    $selected = $value['active'];
+                    $route = $value['route'];
+                    $plus = $value['plus'];
+                    $minus = $value['minus'];
 
-		if($size > $limit)
-		{
-			$searchMinLength = $table->searchMinLength();
-			$html .= Html::divOp('top');
-			$placeholder = static::langText('common/filter')." ($size)";
-			$html .= Html::inputText(null,['name'=>true,'data-pattern'=>['minLength'=>$searchMinLength],'placeholder'=>$placeholder]);
+                    if(is_string($label) && strlen($label) && $route instanceof Core\Route && is_bool($selected))
+                    {
+                        $class = ($selected === true)? 'selected':null;
 
-			if(!empty($order))
-			{
-				$html .= Html::div(null,'spacing');
-				$html .= $order;
-			}
+                        if(is_int($excerpt))
+                        $label = Base\Str::excerpt($excerpt,$label);
 
-			$html .= Html::divCl();
-		}
+                        $value = $route->a($label,[$class,'replace']);
 
-		elseif($size > 1 && !empty($order))
-		{
-			$html .= Html::divOp('top');
-			$html .= $route->orderSelect();
-			$html .= Html::divCl();
-		}
+                        if(!empty($plus))
+                        $value .= $plus->a(null,['icon','plus']);
 
-		$html .= Html::div(null,'result');
-		$r .= Html::clickOpen($html,$label,$after,[$class,'data'=>$data]);
+                        elseif(!empty($minus))
+                        $value .= $minus->a(null,['icon','minus']);
 
-		return $r;
-	}
+                        $attr = (!empty($plus) || !empty($minus))? 'hasIcon':null;
+                        $r .= Html::li($value,$attr);
+                    }
+                }
+            }
+
+            if(!empty($r) && $loadMore === true)
+            $r .= $this->loadMore();
+
+            $r .= Html::ulCl();
+        }
+
+        return $r;
+    }
+
+
+    // makeFilter
+    // construit un input filter
+    public static function makeFilter(Core\Col $col,Core\Route $currentRoute,string $route,$filter,$class=null,$closeAttr=null,?string $label=null):string
+    {
+        $r = '';
+        $html = '';
+        $name = $col->name();
+        $table = $col->table();
+        $relation = $col->relation();
+        $size = $relation->size();
+        $active = false;
+        $selected = null;
+        $after = null;
+
+        if(is_array($filter) && array_key_exists($name,$filter))
+        {
+            $active = true;
+            $selected = $filter[$name];
+            $class[] = 'filtering';
+            $closeFilter = Base\Arr::unset($name,$filter);
+            $closeRoute = $currentRoute->changeSegments(['filter'=>$closeFilter]);
+            $after = $closeRoute->a(null,$closeAttr);
+        }
+
+        $route = $route::make(['table'=>$table,'col'=>$col,'selected'=>$selected]);
+        $limit = $route->limit();
+        $query = $route::getSearchQuery();
+        $data = ['query'=>$query,'separator'=>static::getDefaultSegment(),'char'=>static::getReplaceSegment()];
+        if($route->hasOrder())
+        $route = $route->changeSegment('order',true);
+        $data['href'] = $route;
+        $order = $route->orderSelect();
+
+        if($size > $limit)
+        {
+            $searchMinLength = $table->searchMinLength();
+            $html .= Html::divOp('top');
+            $placeholder = static::langText('common/filter')." ($size)";
+            $html .= Html::inputText(null,['name'=>true,'data-pattern'=>['minLength'=>$searchMinLength],'placeholder'=>$placeholder]);
+
+            if(!empty($order))
+            {
+                $html .= Html::div(null,'spacing');
+                $html .= $order;
+            }
+
+            $html .= Html::divCl();
+        }
+
+        elseif($size > 1 && !empty($order))
+        {
+            $html .= Html::divOp('top');
+            $html .= $route->orderSelect();
+            $html .= Html::divCl();
+        }
+
+        $html .= Html::div(null,'result');
+        $r .= Html::clickOpen($html,$label,$after,[$class,'data'=>$data]);
+
+        return $r;
+    }
 }
 ?>

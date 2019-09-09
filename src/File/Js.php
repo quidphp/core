@@ -16,48 +16,48 @@ use Quid\Base;
 // class for a js file
 class Js extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'js',
-		'service'=>Core\Service\JShrink::class
-	];
+    // config
+    public static $config = [
+        'group'=>'js',
+        'service'=>Core\Service\JShrink::class
+    ];
 
 
-	// concatenateFrom
-	// écrit dans le fichier js le contenu d'un ou plusieurs dossiers contenant du javascript
-	// utilise la classe main/concatenator
-	public function concatenateFrom($values,?array $option=null):self
-	{
-		$option = Base\Arr::plus(['extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
+    // concatenateFrom
+    // écrit dans le fichier js le contenu d'un ou plusieurs dossiers contenant du javascript
+    // utilise la classe main/concatenator
+    public function concatenateFrom($values,?array $option=null):self
+    {
+        $option = Base\Arr::plus(['extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
 
-		$concatenatorOption = [];
-		if($option['compress'] === true)
-		$concatenatorOption['callable'] = [static::getServiceClass(),'staticTrigger'];
+        $concatenatorOption = [];
+        if($option['compress'] === true)
+        $concatenatorOption['callable'] = [static::getServiceClass(),'staticTrigger'];
 
-		$concatenator = Main\Concatenator::newOverload($concatenatorOption);
+        $concatenator = Main\Concatenator::newOverload($concatenatorOption);
 
-		if(!is_array($values))
-		$values = (array) $values;
-		ksort($values);
+        if(!is_array($values))
+        $values = (array) $values;
+        ksort($values);
 
-		foreach ($values as $value)
-		{
-			if(!empty($value))
-			$concatenator->add($value,$option);
-		}
+        foreach ($values as $value)
+        {
+            if(!empty($value))
+            $concatenator->add($value,$option);
+        }
 
-		$concatenator->triggerWrite($this);
+        $concatenator->triggerWrite($this);
 
-		return $this;
-	}
+        return $this;
+    }
 
 
-	// getServiceClass
-	// retourne la classe du service
-	public static function getServiceClass():string
-	{
-		return static::$config['service']::getOverloadClass();
-	}
+    // getServiceClass
+    // retourne la classe du service
+    public static function getServiceClass():string
+    {
+        return static::$config['service']::getOverloadClass();
+    }
 }
 
 // config

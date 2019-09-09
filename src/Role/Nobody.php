@@ -14,10 +14,10 @@ use Quid\Core;
 // class that issues default configuration for the nobody role
 class Nobody extends Core\RoleAlias
 {
-	// config
-	public static $config = [
-		'permission'=>1
-	];
+    // config
+    public static $config = [
+        'permission'=>1
+    ];
 }
 
 // config

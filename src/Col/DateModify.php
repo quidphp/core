@@ -15,22 +15,22 @@ use Quid\Base;
 // class for the dateModify column, current timestamp is updated automatically on update
 class DateModify extends DateAlias
 {
-	// config
-	public static $config = [
-		'complex'=>'div',
-		'visible'=>['validate'=>'notEmpty'],
-		'date'=>'long',
-		'duplicate'=>false,
-		'onGet'=>[[Base\Date::class,'onGet'],'long'],
-	];
+    // config
+    public static $config = [
+        'complex'=>'div',
+        'visible'=>['validate'=>'notEmpty'],
+        'date'=>'long',
+        'duplicate'=>false,
+        'onGet'=>[[Base\Date::class,'onGet'],'long'],
+    ];
 
 
-	// onUpdate
-	// sur mise à jour, retourne le timestamp
-	public function onUpdate(Core\Cell $cell,array $option):int
-	{
-		return Base\Date::timestamp();
-	}
+    // onUpdate
+    // sur mise à jour, retourne le timestamp
+    public function onUpdate(Core\Cell $cell,array $option):int
+    {
+        return Base\Date::timestamp();
+    }
 }
 
 // config

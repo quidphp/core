@@ -15,14 +15,14 @@ use Quid\Base;
 // class for a column which should serialize its value
 class Serialize extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'search'=>false,
-		'onSet'=>[Base\Crypt::class,'onSetSerialize'],
-		'onGet'=>[Base\Crypt::class,'onGetSerialize'],
-		'check'=>['kind'=>'text'],
-		'onComplex'=>true
-	];
+    // config
+    public static $config = [
+        'search'=>false,
+        'onSet'=>[Base\Crypt::class,'onSetSerialize'],
+        'onGet'=>[Base\Crypt::class,'onGetSerialize'],
+        'check'=>['kind'=>'text'],
+        'onComplex'=>true
+    ];
 }
 
 // config

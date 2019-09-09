@@ -14,15 +14,15 @@ use Quid\Main;
 // class for a log storage file
 class Log extends DumpAlias implements Main\Contract\Log, Main\Contract\FileStorage
 {
-	// trait
-	use Main\File\_log;
+    // trait
+    use Main\File\_log;
 
 
-	// config
-	public static $config = [
-		'dirname'=>'[storageLog]',
-		'deleteTrim'=>500
-	];
+    // config
+    public static $config = [
+        'dirname'=>'[storageLog]',
+        'deleteTrim'=>500
+    ];
 }
 
 // config

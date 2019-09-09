@@ -14,15 +14,15 @@ use Quid\Main;
 // trait which implements the overload logic for the lang classes
 trait _overload
 {
-	// trait
-	use Main\_overload;
+    // trait
+    use Main\_overload;
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return 'Lang';
-	}
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return 'Lang';
+    }
 }
 ?>

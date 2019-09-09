@@ -15,19 +15,19 @@ use Quid\Base;
 // extended abstract class that provides basic methods for a widget
 abstract class Widget extends Main\Widget
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Widget':null;
-	}
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Widget':null;
+    }
 }
 ?>

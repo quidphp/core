@@ -14,37 +14,37 @@ use Quid\Base;
 // trait that provides logic to deal with a route segment which represents a selected value
 trait _selected
 {
-	// structureSegmentSelected
-	// gère le segment d'uri pour une valeur sélectionné, la valeur peut être string ou numeric
-	public static function structureSegmentSelected(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentSelected
+    // gère le segment d'uri pour une valeur sélectionné, la valeur peut être string ou numeric
+    public static function structureSegmentSelected(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		{
-			if(is_object($value))
-			$value = Base\Obj::cast($value);
+        if($type === 'make')
+        {
+            if(is_object($value))
+            $value = Base\Obj::cast($value);
 
-			if(is_array($value))
-			$value = implode(static::getDefaultSegment(),$value);
+            if(is_array($value))
+            $value = implode(static::getDefaultSegment(),$value);
 
-			if(is_string($value) || is_numeric($value))
-			$return = $value;
-		}
+            if(is_string($value) || is_numeric($value))
+            $return = $value;
+        }
 
-		elseif($type === 'validate')
-		{
-			if(is_scalar($value))
-			{
-				$explode = Base\Str::explodeTrimClean(static::getDefaultSegment(),(string) $value);
-				$return = Base\Arr::cast($explode);
-			}
-		}
+        elseif($type === 'validate')
+        {
+            if(is_scalar($value))
+            {
+                $explode = Base\Str::explodeTrimClean(static::getDefaultSegment(),(string) $value);
+                $return = Base\Arr::cast($explode);
+            }
+        }
 
-		elseif($type === 'validateDefault')
-		$return = [];
+        elseif($type === 'validateDefault')
+        $return = [];
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

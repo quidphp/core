@@ -14,12 +14,12 @@ use Quid\Routing;
 // extended class with methods to manage an HTTP request
 class Request extends Routing\Request
 {
-	// trait
-	use _bootAccess;
+    // trait
+    use _bootAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

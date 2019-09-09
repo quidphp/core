@@ -16,273 +16,273 @@ use Quid\Base;
 // extended abstract class for a route that acts as both a View and a Controller
 abstract class Route extends Routing\Route
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [ // config pour la route
-		'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
-		'row'=>null // permet de spécifier la classe row en lien avec la route
-	];
+    // config
+    public static $config = [ // config pour la route
+        'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
+        'row'=>null // permet de spécifier la classe row en lien avec la route
+    ];
 
 
-	// type
-	// retourne le type de la route
-	// si pas de type, utilise celui de boot
-	// peut envoyer une exception
-	public static function type():string
-	{
-		$return = static::$config['type'] ?? null;
+    // type
+    // retourne le type de la route
+    // si pas de type, utilise celui de boot
+    // peut envoyer une exception
+    public static function type():string
+    {
+        $return = static::$config['type'] ?? null;
 
-		if(!is_string($return))
-		{
-			if(!is_string($return))
-			{
-				$boot = Boot::instReady();
-				$return = $boot->type();
-			}
+        if(!is_string($return))
+        {
+            if(!is_string($return))
+            {
+                $boot = Boot::instReady();
+                $return = $boot->type();
+            }
 
-			if(is_string($return))
-			static::setType($return);
+            if(is_string($return))
+            static::setType($return);
 
-			else
-			static::throw('noType');
-		}
+            else
+            static::throw('noType');
+        }
 
-		return $return;
-	}
-
-
-	// getBaseReplace
-	// retourne le tableau de remplacement de base
-	// utilisé par docOpen et docClose
-	public function getBaseReplace():array
-	{
-		$return = [];
-		$boot = static::boot();
-		$lang = $boot->lang();
-		$request = $this->request();
-		$parent = static::parent();
-		$description = $boot->description();
-		$lang = $this->lang();
-
-		$return['bootLabel'] = $boot->label();
-		$return['bootDescription'] = $description;
-		$return['lang'] = $lang->currentLang();
-		$return['label'] = $this->title();
-		$return['name'] = static::name();
-		$return['type'] = static::type();
-		$return['metaUri'] = $request->uri();
-		$return['group'] = static::group(true);
-		$return['parent'] = (!empty($parent))? $parent::name():null;
-		$return['title'] = $return['label'];
-		$return['metaKeywords'] = $lang->safe('meta/keywords');
-		$return['metaDescription'] = $lang->safe('meta/description') ?? $description;
-		$return['metaImage'] = $lang->safe('meta/image');
-		$return['bodyClass'] = null;
-		$return['bodyStyle'] = null;
-
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// prepareTitle
-	// prépare le titre après le onReplace
-	protected function prepareTitle($return,array $array):array
-	{
-		$titleConfig = static::$config['metaTitle'] ?? [];
+    // getBaseReplace
+    // retourne le tableau de remplacement de base
+    // utilisé par docOpen et docClose
+    public function getBaseReplace():array
+    {
+        $return = [];
+        $boot = static::boot();
+        $lang = $boot->lang();
+        $request = $this->request();
+        $parent = static::parent();
+        $description = $boot->description();
+        $lang = $this->lang();
 
-		if(!is_array($return))
-		$return = [$return];
+        $return['bootLabel'] = $boot->label();
+        $return['bootDescription'] = $description;
+        $return['lang'] = $lang->currentLang();
+        $return['label'] = $this->title();
+        $return['name'] = static::name();
+        $return['type'] = static::type();
+        $return['metaUri'] = $request->uri();
+        $return['group'] = static::group(true);
+        $return['parent'] = (!empty($parent))? $parent::name():null;
+        $return['title'] = $return['label'];
+        $return['metaKeywords'] = $lang->safe('meta/keywords');
+        $return['metaDescription'] = $lang->safe('meta/description') ?? $description;
+        $return['metaImage'] = $lang->safe('meta/image');
+        $return['bodyClass'] = null;
+        $return['bodyStyle'] = null;
 
-		$last = Base\Arr::valueLast($return);
-
-		if(!empty($titleConfig['bootLabel']))
-		{
-			if(!empty($array['bootLabel']) && $last !== $array['bootLabel'])
-			$return[] = $array['bootLabel'];
-		}
-
-		if(!empty($titleConfig['typeLabel']))
-		{
-			$type = static::type();
-			$return[] = static::lang()->typeLabel($type);
-		}
-
-		return $return;
-	}
-
-
-	// context
-	// retourne le tableau de contexte de la classe
-	// possible d'ajouter des éléments au tableau via arr/plus
-	public function context(?array $option=null):array
-	{
-		return $this->cache(__METHOD__,function() use($option) {
-			$return = [];
-			$boot = static::boot();
-			$type = $boot->type();
-			$env = $boot->env();
-			$className = static::className();
-			$context = $type.':'.lcfirst($className);
-			$return = ['class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context];
-
-			if(!empty($option))
-			$return = Base\Arr::plus($return,$option);
-
-			return $return;
-		});
-	}
+        return $return;
+    }
 
 
-	// rowExists
-	// retourne vrai s'il y a une row lié à la route
-	public function rowExists():bool
-	{
-		return false;
-	}
+    // prepareTitle
+    // prépare le titre après le onReplace
+    protected function prepareTitle($return,array $array):array
+    {
+        $titleConfig = static::$config['metaTitle'] ?? [];
+
+        if(!is_array($return))
+        $return = [$return];
+
+        $last = Base\Arr::valueLast($return);
+
+        if(!empty($titleConfig['bootLabel']))
+        {
+            if(!empty($array['bootLabel']) && $last !== $array['bootLabel'])
+            $return[] = $array['bootLabel'];
+        }
+
+        if(!empty($titleConfig['typeLabel']))
+        {
+            $type = static::type();
+            $return[] = static::lang()->typeLabel($type);
+        }
+
+        return $return;
+    }
 
 
-	// row
-	// retourne la row lié à la route
-	public function row():?Row
-	{
-		return null;
-	}
+    // context
+    // retourne le tableau de contexte de la classe
+    // possible d'ajouter des éléments au tableau via arr/plus
+    public function context(?array $option=null):array
+    {
+        return $this->cache(__METHOD__,function() use($option) {
+            $return = [];
+            $boot = static::boot();
+            $type = $boot->type();
+            $env = $boot->env();
+            $className = static::className();
+            $context = $type.':'.lcfirst($className);
+            $return = ['class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context];
+
+            if(!empty($option))
+            $return = Base\Arr::plus($return,$option);
+
+            return $return;
+        });
+    }
 
 
-	// getOtherMeta
-	// retourne la row meta lié à la route
-	// par défaut vérifie si la row a l'interface meta
-	public function getOtherMeta():?Main\Contract\Meta
-	{
-		$return = null;
-
-		if($this->rowExists())
-		{
-			$row = $this->row();
-
-			if($row instanceof Main\Contract\Meta)
-			$return = $row;
-		}
-
-		return $return;
-	}
+    // rowExists
+    // retourne vrai s'il y a une row lié à la route
+    public function rowExists():bool
+    {
+        return false;
+    }
 
 
-	// host
-	// retourne le host pour la route
-	// utilise le type de la route et la méthode host dans boot
-	public static function host():?string
-	{
-		$return = null;
-		$type = static::type();
-
-		if(is_string($type))
-		$return = static::boot()->host(true,$type);
-
-		return $return;
-	}
+    // row
+    // retourne la row lié à la route
+    public function row():?Row
+    {
+        return null;
+    }
 
 
-	// schemeHost
-	// retourne le schemeHost pour la route
-	// utilise le type de la route et la méthode schemeHost dans boot
-	public static function schemeHost():?string
-	{
-		$return = null;
-		$type = static::type();
+    // getOtherMeta
+    // retourne la row meta lié à la route
+    // par défaut vérifie si la row a l'interface meta
+    public function getOtherMeta():?Main\Contract\Meta
+    {
+        $return = null;
 
-		if(is_string($type))
-		$return = static::boot()->schemeHost(true,$type);
+        if($this->rowExists())
+        {
+            $row = $this->row();
 
-		return $return;
-	}
+            if($row instanceof Main\Contract\Meta)
+            $return = $row;
+        }
 
-
-	// routes
-	// retourne l'objet routes de boot ou un nom de classe de route contenu dans l'objet
-	public static function routes(bool $active=false,$get=null)
-	{
-		$boot = static::boot();
-		$type = static::type();
-		$return = ($active === true)? $boot->routesActive($type):$boot->routes($type);
-
-		if(is_string($get))
-		$return = $return->get($get);
-
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// tableSegment
-	// reourne un objet table à partir du tableau keyValue utilisé dans segment
-	// sinon, utilise la rowClass
-	// peut retourner null
-	// méthode protégé
-	protected static function tableSegment(array &$keyValue):?Table
-	{
-		$return = null;
-		$table = $keyValue['table'] ?? null;
+    // host
+    // retourne le host pour la route
+    // utilise le type de la route et la méthode host dans boot
+    public static function host():?string
+    {
+        $return = null;
+        $type = static::type();
 
-		if(!empty($table))
-		{
-			$db = static::db();
-			if($db->hasTable($table))
-			$return = $db->table($table);
-		}
+        if(is_string($type))
+        $return = static::boot()->host(true,$type);
 
-		if(empty($return))
-		{
-			$rowClass = static::rowClass();
-			if(!empty($rowClass))
-			$return = $rowClass::tableFromFqcn();
-		}
-
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// rowClass
-	// retourne la classe row lié à la route
-	public static function rowClass():?string
-	{
-		return static::$config['row'] ?? null;
-	}
+    // schemeHost
+    // retourne le schemeHost pour la route
+    // utilise le type de la route et la méthode schemeHost dans boot
+    public static function schemeHost():?string
+    {
+        $return = null;
+        $type = static::type();
+
+        if(is_string($type))
+        $return = static::boot()->schemeHost(true,$type);
+
+        return $return;
+    }
 
 
-	// tableFromRowClass
-	// retourne l'objet table à partir de la classe row lié à la route
-	// envoie une exception si pas de rowClass
-	public static function tableFromRowClass():Table
-	{
-		$return = null;
-		$row = static::rowClass();
+    // routes
+    // retourne l'objet routes de boot ou un nom de classe de route contenu dans l'objet
+    public static function routes(bool $active=false,$get=null)
+    {
+        $boot = static::boot();
+        $type = static::type();
+        $return = ($active === true)? $boot->routesActive($type):$boot->routes($type);
 
-		if(empty($row))
-		static::throw('noRowClass');
-		else
-		$return = static::db()->table($row);
+        if(is_string($get))
+        $return = $return->get($get);
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// routeBaseClasses
-	// retourne les classes bases de routes (donc abstraite)
-	public static function routeBaseClasses():array
-	{
-		return [self::class,Routing\Route::class];
-	}
+    // tableSegment
+    // reourne un objet table à partir du tableau keyValue utilisé dans segment
+    // sinon, utilise la rowClass
+    // peut retourner null
+    // méthode protégé
+    protected static function tableSegment(array &$keyValue):?Table
+    {
+        $return = null;
+        $table = $keyValue['table'] ?? null;
+
+        if(!empty($table))
+        {
+            $db = static::db();
+            if($db->hasTable($table))
+            $return = $db->table($table);
+        }
+
+        if(empty($return))
+        {
+            $rowClass = static::rowClass();
+            if(!empty($rowClass))
+            $return = $rowClass::tableFromFqcn();
+        }
+
+        return $return;
+    }
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Route':null;
-	}
+    // rowClass
+    // retourne la classe row lié à la route
+    public static function rowClass():?string
+    {
+        return static::$config['row'] ?? null;
+    }
+
+
+    // tableFromRowClass
+    // retourne l'objet table à partir de la classe row lié à la route
+    // envoie une exception si pas de rowClass
+    public static function tableFromRowClass():Table
+    {
+        $return = null;
+        $row = static::rowClass();
+
+        if(empty($row))
+        static::throw('noRowClass');
+        else
+        $return = static::db()->table($row);
+
+        return $return;
+    }
+
+
+    // routeBaseClasses
+    // retourne les classes bases de routes (donc abstraite)
+    public static function routeBaseClasses():array
+    {
+        return [self::class,Routing\Route::class];
+    }
+
+
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Route':null;
+    }
 }
 
 // config

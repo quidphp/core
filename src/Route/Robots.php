@@ -14,55 +14,55 @@ use Quid\Core;
 // abstract class for a robots.txt route
 abstract class Robots extends Core\RouteAlias
 {
-	// config
-	public static $config = [
-		'path'=>'robots.txt',
-		'priority'=>500,
-		'sitemap'=>false,
-		'group'=>'seo',
-		'response'=>[
-			'contentType'=>'txt'],
-		'allow'=>true
-	];
+    // config
+    public static $config = [
+        'path'=>'robots.txt',
+        'priority'=>500,
+        'sitemap'=>false,
+        'group'=>'seo',
+        'response'=>[
+            'contentType'=>'txt'],
+        'allow'=>true
+    ];
 
 
-	// trigger
-	// lance la route robots
-	public function trigger()
-	{
-		$r = '';
-		$allow = static::$config['allow'];
+    // trigger
+    // lance la route robots
+    public function trigger()
+    {
+        $r = '';
+        $allow = static::$config['allow'];
 
-		if($allow === true)
-		$r .= $this->robotsAllow();
+        if($allow === true)
+        $r .= $this->robotsAllow();
 
-		else
-		$r .= $this->robotsDeny();
+        else
+        $r .= $this->robotsDeny();
 
-		return $r;
-	}
-
-
-	// robotsAllow
-	// contenu si la navigation par les bots est permise
-	public function robotsAllow():string
-	{
-		$r = "User-agent: *\n";
-		$r .= 'Allow: /';
-
-		return $r;
-	}
+        return $r;
+    }
 
 
-	// robotsDeny
-	// contenu si la navigation par les bots est interdite
-	public function robotsDeny():string
-	{
-		$r = "User-agent: *\n";
-		$r .= 'Disallow: /';
+    // robotsAllow
+    // contenu si la navigation par les bots est permise
+    public function robotsAllow():string
+    {
+        $r = "User-agent: *\n";
+        $r .= 'Allow: /';
 
-		return $r;
-	}
+        return $r;
+    }
+
+
+    // robotsDeny
+    // contenu si la navigation par les bots est interdite
+    public function robotsDeny():string
+    {
+        $r = "User-agent: *\n";
+        $r .= 'Disallow: /';
+
+        return $r;
+    }
 }
 
 // config

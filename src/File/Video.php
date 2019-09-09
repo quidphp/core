@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for a video file (like mp4)
 class Video extends BinaryAlias
 {
-	// config
-	public static $config = [
-		'group'=>'video'
-	];
+    // config
+    public static $config = [
+        'group'=>'video'
+    ];
 }
 
 // config

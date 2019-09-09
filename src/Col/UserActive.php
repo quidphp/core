@@ -16,53 +16,53 @@ use Quid\Base;
 // class for the column which manages the active field for the user row
 class UserActive extends YesAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// formComplex
-	// génère le formComplex pour userActive
-	// retourne un input plain si c'est l'utilisateur courant
-	public function formComplex($value=true,?array $attr=null,?array $option=null):string
-	{
-		$return = null;
-		$session = static::boot()->session();
-		$user = $session->user();
+    // formComplex
+    // génère le formComplex pour userActive
+    // retourne un input plain si c'est l'utilisateur courant
+    public function formComplex($value=true,?array $attr=null,?array $option=null):string
+    {
+        $return = null;
+        $session = static::boot()->session();
+        $user = $session->user();
 
-		if($value instanceof Core\Cell && $value->row()->primary() === $user->primary())
-		$attr = Base\Arr::plus($attr,['tag'=>'div']);
+        if($value instanceof Core\Cell && $value->row()->primary() === $user->primary())
+        $attr = Base\Arr::plus($attr,['tag'=>'div']);
 
-		$return = parent::formComplex($value,$attr,$option);
+        $return = parent::formComplex($value,$attr,$option);
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// onSet
-	// sur changement de active
-	// une exception attrapable peut être envoyé
-	public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
-	{
-		$return = null;
-		$table = $this->table();
-		$primary = $table->primary();
-		$value = $this->value($value);
-		$session = static::boot()->session();
-		$user = $session->user();
-		$id = $row[$primary] ?? null;
-		$return = $user['active']->value();
+    // onSet
+    // sur changement de active
+    // une exception attrapable peut être envoyé
+    public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    {
+        $return = null;
+        $table = $this->table();
+        $primary = $table->primary();
+        $value = $this->value($value);
+        $session = static::boot()->session();
+        $user = $session->user();
+        $id = $row[$primary] ?? null;
+        $return = $user['active']->value();
 
-		if(is_array($value) && !empty($value))
-		$value = current($value);
+        if(is_array($value) && !empty($value))
+        $value = current($value);
 
-		if($id === $user->primary() && $value !== $return)
-		static::catchable(null,'userActiveSelf');
+        if($id === $user->primary() && $value !== $return)
+        static::catchable(null,'userActiveSelf');
 
-		else
-		$return = $value;
+        else
+        $return = $value;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

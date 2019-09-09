@@ -14,31 +14,31 @@ use Quid\Main;
 // extended class for a collection containing many file objects
 class Files extends Main\Files
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// zip
-	// permet d'archiver tous les fichiers dans un zip
-	// peut envoyer des exceptions
-	// retourne la resource zip
-	public function zip($value,?string $local=null,?array $option=null):File\Zip
-	{
-		$return = File\Zip::new($value,['create'=>true]);
+    // zip
+    // permet d'archiver tous les fichiers dans un zip
+    // peut envoyer des exceptions
+    // retourne la resource zip
+    public function zip($value,?string $local=null,?array $option=null):File\Zip
+    {
+        $return = File\Zip::new($value,['create'=>true]);
 
-		if(empty($return))
-		static::throw('cannotCreateZipArchive');
+        if(empty($return))
+        static::throw('cannotCreateZipArchive');
 
-		if(!$return->addFiles($this,$option))
-		static::throw('couldNotAddFilesToZipArchive');
+        if(!$return->addFiles($this,$option))
+        static::throw('couldNotAddFilesToZipArchive');
 
-		$return->commit();
+        $return->commit();
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

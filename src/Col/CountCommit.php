@@ -14,19 +14,19 @@ use Quid\Core;
 // class for the countCommit column, increments itself automatically on commit
 class CountCommit extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'required'=>true,
-		'check'=>['kind'=>'int']
-	];
+    // config
+    public static $config = [
+        'required'=>true,
+        'check'=>['kind'=>'int']
+    ];
 
 
-	// onCommit
-	// sur commit incrémente le count
-	public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):int
-	{
-		return (is_int($value))? ($value + 1):0;
-	}
+    // onCommit
+    // sur commit incrémente le count
+    public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):int
+    {
+        return (is_int($value))? ($value + 1):0;
+    }
 }
 
 // config

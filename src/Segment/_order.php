@@ -14,37 +14,37 @@ use Quid\Core;
 // trait to manage a route segment which must contain an orderable column
 trait _order
 {
-	// structureSegmentOrder
-	// gère le segment d'uri pour un ordre, similaire à colonne
-	public static function structureSegmentOrder(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentOrder
+    // gère le segment d'uri pour un ordre, similaire à colonne
+    public static function structureSegmentOrder(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		$return = (is_string($value) || $value instanceof Core\Col)? $value:false;
+        if($type === 'make')
+        $return = (is_string($value) || $value instanceof Core\Col)? $value:false;
 
-		else
-		{
-			$table = static::tableSegment($keyValue);
+        else
+        {
+            $table = static::tableSegment($keyValue);
 
-			if(!empty($table))
-			{
-				if($type === 'validate')
-				{
-					if($table->hasCol($value))
-					{
-						$col = $table->col($value);
-						if($col->isOrderable())
-						$return = $col;
-					}
-				}
+            if(!empty($table))
+            {
+                if($type === 'validate')
+                {
+                    if($table->hasCol($value))
+                    {
+                        $col = $table->col($value);
+                        if($col->isOrderable())
+                        $return = $col;
+                    }
+                }
 
-				elseif($type === 'validateDefault')
-				$return = $table->order('order');
-			}
-		}
+                elseif($type === 'validateDefault')
+                $return = $table->order('order');
+            }
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

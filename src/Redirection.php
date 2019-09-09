@@ -14,11 +14,11 @@ use Quid\Routing;
 // extended class managing a URI redirection array
 class Redirection extends Routing\Redirection
 {
-	// trait
-	use _fullAccess;
+    // trait
+    use _fullAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 ?>

@@ -13,11 +13,11 @@ namespace Quid\Core\Col;
 // class for a column which contains URI fragments
 class Fragment extends SlugAlias
 {
-	// config
-	public static $config = [
-		'unique'=>false,
-		'validate'=>[1=>'fragment']
-	];
+    // config
+    public static $config = [
+        'unique'=>false,
+        'validate'=>[1=>'fragment']
+    ];
 }
 
 // config

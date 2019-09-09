@@ -14,12 +14,12 @@ use Quid\Main;
 // class for a file which is an email (in json format)
 class Email extends JsonAlias implements Main\Contract\Email
 {
-	// trait
-	use Main\File\_email;
+    // trait
+    use Main\File\_email;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

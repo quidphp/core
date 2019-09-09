@@ -14,8 +14,8 @@ use Quid\Core;
 // abstract class for a binary file
 abstract class Binary extends Core\FileAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

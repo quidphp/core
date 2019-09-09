@@ -14,31 +14,31 @@ use Quid\Base;
 // class for testing Quid\Core\Service
 class Service extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$boot = $data['boot'];
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $boot = $data['boot'];
 
-		// getLangCode
+        // getLangCode
 
-		// getOverloadKeyPrepend
+        // getOverloadKeyPrepend
 
-		// classUpload
+        // classUpload
 
-		// jShrink
+        // jShrink
 
-		// ldap
-		$ldap = $boot->service('ldap');
-		assert($ldap->host() === 'james.com');
-		assert($ldap->port() === 388);
-		assert(is_resource($ldap->res()));
+        // ldap
+        $ldap = $boot->service('ldap');
+        assert($ldap->host() === 'james.com');
+        assert($ldap->port() === 388);
+        assert(is_resource($ldap->res()));
 
-		// phpConcatenator
+        // phpConcatenator
 
-		// scssPhp
+        // scssPhp
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

@@ -14,10 +14,10 @@ use Quid\Core;
 // abstract class for a text file
 abstract class Text extends Core\FileAlias
 {
-	// config
-	public static $config = [
-		'group'=>'text'
-	];
+    // config
+    public static $config = [
+        'group'=>'text'
+    ];
 }
 
 // config

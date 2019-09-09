@@ -14,25 +14,25 @@ use Quid\Base;
 // class for a json file
 class Json extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'json',
-		'type'=>'json'
-	];
+    // config
+    public static $config = [
+        'group'=>'json',
+        'type'=>'json'
+    ];
 
 
-	// readGet
-	// permet de faire une lecture et retourner seulement une valeur de l'objet json
-	public function readGet($key=null)
-	{
-		$return = null;
-		$source = $this->read();
+    // readGet
+    // permet de faire une lecture et retourner seulement une valeur de l'objet json
+    public function readGet($key=null)
+    {
+        $return = null;
+        $source = $this->read();
 
-		if(is_array($source))
-		$return = Base\Arrs::get($key,$source);
+        if(is_array($source))
+        $return = Base\Arrs::get($key,$source);
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

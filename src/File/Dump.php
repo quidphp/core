@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for file which contains an exported value (similar to var_export)
 class Dump extends HtmlAlias
 {
-	// config
-	public static $config = [
-		'type'=>'dump'
-	];
+    // config
+    public static $config = [
+        'type'=>'dump'
+    ];
 }
 
 // config

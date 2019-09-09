@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for a doc file, like microsoft word
 class Doc extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'doc'
-	];
+    // config
+    public static $config = [
+        'group'=>'doc'
+    ];
 }
 
 // config

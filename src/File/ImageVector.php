@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for a vector image file (like svg)
 class ImageVector extends ImageAlias
 {
-	// config
-	public static $config = [
-		'group'=>'imageVector'
-	];
+    // config
+    public static $config = [
+        'group'=>'imageVector'
+    ];
 }
 
 // config

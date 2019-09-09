@@ -15,21 +15,21 @@ use Quid\Base;
 // extended class to represent an existing cell within a row
 class Cell extends Orm\Cell
 {
-	// trait
-	use _routeAttr;
-	use _accessAlias;
+    // trait
+    use _routeAttr;
+    use _accessAlias;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Cell':null;
-	}
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Cell':null;
+    }
 }
 
 // config

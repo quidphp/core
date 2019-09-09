@@ -13,8 +13,8 @@ namespace Quid\Core;
 // trait that provides all access methods related to the Boot
 trait _fullAccess
 {
-	// trait
-	use _accessAlias;
-	use _dbAccess;
+    // trait
+    use _accessAlias;
+    use _dbAccess;
 }
 ?>

@@ -15,16 +15,16 @@ use Quid\Base;
 // class for testing Quid\Core\Com
 class Com extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$com = new Core\Com();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $com = new Core\Com();
 
-		// lang
-		assert(!empty($com->neutralPrepend('Row #1',['replace'=>'ok'],'#id',['pos','okidou'])->output()));
+        // lang
+        assert(!empty($com->neutralPrepend('Row #1',['replace'=>'ok'],'#id',['pos','okidou'])->output()));
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

@@ -13,31 +13,31 @@ namespace Quid\Core\Segment;
 // trait to manage a route segment which must contain an orderable table relation
 trait _orderTableRelation
 {
-	// structureSegmentOrderTableRelation
-	// gère le segment order pour une route relation
-	public static function structureSegmentOrderTableRelation(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentOrderTableRelation
+    // gère le segment order pour une route relation
+    public static function structureSegmentOrderTableRelation(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		$return = (is_scalar($value))? $value:false;
+        if($type === 'make')
+        $return = (is_scalar($value))? $value:false;
 
-		elseif($type === 'validate')
-		{
-			$db = static::db();
-			if($db->hasTable($keyValue['table']))
-			{
-				$table = $db->table($keyValue['table']);
+        elseif($type === 'validate')
+        {
+            $db = static::db();
+            if($db->hasTable($keyValue['table']))
+            {
+                $table = $db->table($keyValue['table']);
 
-				if(static::isValidOrder($value,$table->relation()))
-				$return = $value;
-			}
-		}
+                if(static::isValidOrder($value,$table->relation()))
+                $return = $value;
+            }
+        }
 
-		elseif($type === 'validateDefault')
-		$return = static::$config['order'] ?? false;
+        elseif($type === 'validateDefault')
+        $return = static::$config['order'] ?? false;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

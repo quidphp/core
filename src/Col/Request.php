@@ -15,47 +15,47 @@ use Quid\Base;
 // class for a column that manages a request object as a value
 class Request extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'general'=>true,
-		'complex'=>'div',
-		'onComplex'=>true,
-		'required'=>true,
-		'check'=>['kind'=>'text']
-	];
+    // config
+    public static $config = [
+        'general'=>true,
+        'complex'=>'div',
+        'onComplex'=>true,
+        'required'=>true,
+        'check'=>['kind'=>'text']
+    ];
 
 
-	// onInsert
-	// retourner la requête en json sur insertion
-	public function onInsert($value,array $row,array $option):?string
-	{
-		$return = null;
-		$boot = static::bootReady();
+    // onInsert
+    // retourner la requête en json sur insertion
+    public function onInsert($value,array $row,array $option):?string
+    {
+        $return = null;
+        $boot = static::bootReady();
 
-		if(!empty($boot))
-		$return = $boot->request()->toJson();
+        if(!empty($boot))
+        $return = $boot->request()->toJson();
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// onGet
-	// sur onGet recrée l'objet request
-	public function onGet($return,array $option)
-	{
-		if(!$return instanceof Core\Request)
-		{
-			$return = $this->value($return);
+    // onGet
+    // sur onGet recrée l'objet request
+    public function onGet($return,array $option)
+    {
+        if(!$return instanceof Core\Request)
+        {
+            $return = $this->value($return);
 
-			if(is_scalar($return))
-			{
-				$return = Base\Json::decode($return);
-				$return = Core\Request::newOverload($return);
-			}
-		}
+            if(is_scalar($return))
+            {
+                $return = Base\Json::decode($return);
+                $return = Core\Request::newOverload($return);
+            }
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

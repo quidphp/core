@@ -15,55 +15,55 @@ use Quid\Base;
 // trait to deal with a route segment which must contain many rows
 trait _primaries
 {
-	// structureSegmentPrimaries
-	// gère le segment d'uri pour plusieurs clés primaires (rows)
-	public static function structureSegmentPrimaries(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentPrimaries
+    // gère le segment d'uri pour plusieurs clés primaires (rows)
+    public static function structureSegmentPrimaries(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		{
-			if(!empty($value))
-			{
-				$default = static::getDefaultSegment();
+        if($type === 'make')
+        {
+            if(!empty($value))
+            {
+                $default = static::getDefaultSegment();
 
-				if($value instanceof Core\Row)
-				$value = $value->primary();
+                if($value instanceof Core\Row)
+                $value = $value->primary();
 
-				if($value instanceof Core\Rows)
-				$value = $value->primaries();
+                if($value instanceof Core\Rows)
+                $value = $value->primaries();
 
-				if(is_array($value))
-				$value = implode($default,$value);
+                if(is_array($value))
+                $value = implode($default,$value);
 
-				if(is_scalar($value) && !is_bool($value))
-				$return = (string) $value;
-			}
-		}
+                if(is_scalar($value) && !is_bool($value))
+                $return = (string) $value;
+            }
+        }
 
-		elseif($type === 'validate')
-		{
-			if($value instanceof Core\Row)
-			$value = $value->primary();
+        elseif($type === 'validate')
+        {
+            if($value instanceof Core\Row)
+            $value = $value->primary();
 
-			if(is_scalar($value) && !is_bool($value) && !empty($value))
-			{
-				$default = static::getDefaultSegment();
-				$value = (string) $value;
+            if(is_scalar($value) && !is_bool($value) && !empty($value))
+            {
+                $default = static::getDefaultSegment();
+                $value = (string) $value;
 
-				$array = Base\Str::explodeTrimClean($default,$value);
-				if(Base\Arr::onlyNumeric($array))
-				$return = Base\Arr::cast($array);
-			}
+                $array = Base\Str::explodeTrimClean($default,$value);
+                if(Base\Arr::onlyNumeric($array))
+                $return = Base\Arr::cast($array);
+            }
 
-			elseif($value instanceof Core\Rows)
-			$return = $value->primaries();
-		}
+            elseif($value instanceof Core\Rows)
+            $return = $value->primaries();
+        }
 
-		elseif($type === 'validateDefault')
-		$return = [];
+        elseif($type === 'validateDefault')
+        $return = [];
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

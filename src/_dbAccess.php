@@ -14,11 +14,11 @@ use Quid\Orm;
 // trait that provides a method to access the current database
 trait _dbAccess
 {
-	// db
-	// retourne l'objet db de boot
-	public static function db():Orm\Db
-	{
-		return static::boot()->db();
-	}
+    // db
+    // retourne l'objet db de boot
+    public static function db():Orm\Db
+    {
+        return static::boot()->db();
+    }
 }
 ?>

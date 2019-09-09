@@ -15,88 +15,88 @@ use Quid\Base;
 // trait that provides most methods to make a calendar route
 trait _calendar
 {
-	// config
-	public static $configCalendar = [
-		'widget'=>null // à spécifier, la classe du calendrier
-	];
+    // config
+    public static $configCalendar = [
+        'widget'=>null // à spécifier, la classe du calendrier
+    ];
 
 
-	// getTimestamp
-	// retourne le timestamp
-	public function getTimestamp():int
-	{
-		$return = null;
-		$value = $this->segment('timestamp');
+    // getTimestamp
+    // retourne le timestamp
+    public function getTimestamp():int
+    {
+        $return = null;
+        $value = $this->segment('timestamp');
 
-		if(is_string($value))
-		{
-			if(Base\Date::isFormat('ym',$value))
-			$value = Base\Date::time($value,'ym');
+        if(is_string($value))
+        {
+            if(Base\Date::isFormat('ym',$value))
+            $value = Base\Date::time($value,'ym');
 
-			elseif(Base\Date::isFormat('dateToDay',$value))
-			$value = Base\Date::time($value,'dateToDay');
-		}
+            elseif(Base\Date::isFormat('dateToDay',$value))
+            $value = Base\Date::time($value,'dateToDay');
+        }
 
-		if(!is_int($value))
-		$value = null;
+        if(!is_int($value))
+        $value = null;
 
-		$return = Base\Date::floorMonth($value);
+        $return = Base\Date::floorMonth($value);
 
-		return $return;
-	}
-
-
-	// calendar
-	// génère l'objet calendrier
-	public function calendar():Core\Widget
-	{
-		$class = static::$config['widget'];
-
-		if(empty($class))
-		static::throw('noWidgetClassProvided');
-
-		$timestamp = $this->getTimestamp();
-		$return = $class::newOverload($timestamp);
-		$timestamp = $return->timestamp();
-
-		if($this->hasSegment('format'))
-		{
-			$format = $this->segment('format');
-			if(!empty($format))
-			$return->setFormat($format);
-		}
-
-		if($this->hasSegment('selected'))
-		{
-			$selected = $this->segment('selected');
-			if(!empty($selected))
-			$return->setSelected($selected);
-		}
-
-		$return = $this->setCallback($return);
-
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// setCallback
-	// méthode abstraite pour ajouter des callback à l'objet calendrier
-	abstract public function setCallback(Core\Widget $value):Core\Widget;
+    // calendar
+    // génère l'objet calendrier
+    public function calendar():Core\Widget
+    {
+        $class = static::$config['widget'];
+
+        if(empty($class))
+        static::throw('noWidgetClassProvided');
+
+        $timestamp = $this->getTimestamp();
+        $return = $class::newOverload($timestamp);
+        $timestamp = $return->timestamp();
+
+        if($this->hasSegment('format'))
+        {
+            $format = $this->segment('format');
+            if(!empty($format))
+            $return->setFormat($format);
+        }
+
+        if($this->hasSegment('selected'))
+        {
+            $selected = $this->segment('selected');
+            if(!empty($selected))
+            $return->setSelected($selected);
+        }
+
+        $return = $this->setCallback($return);
+
+        return $return;
+    }
 
 
-	// html
-	// génère le html pour la page
-	public function html()
-	{
-		return $this->calendar()->output();
-	}
+    // setCallback
+    // méthode abstraite pour ajouter des callback à l'objet calendrier
+    abstract public function setCallback(Core\Widget $value):Core\Widget;
 
 
-	// trigger
-	// lance la route calendrier
-	public function trigger():string
-	{
-		return $this->html();
-	}
+    // html
+    // génère le html pour la page
+    public function html()
+    {
+        return $this->calendar()->output();
+    }
+
+
+    // trigger
+    // lance la route calendrier
+    public function trigger():string
+    {
+        return $this->html();
+    }
 }
 ?>

@@ -14,12 +14,12 @@ use Quid\Main;
 // extended class with methods to manage an HTTP response
 class Response extends Main\Response
 {
-	// trait
-	use _bootAccess;
+    // trait
+    use _bootAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

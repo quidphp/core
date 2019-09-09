@@ -16,40 +16,40 @@ use Quid\Base;
 // class for a column managing phone numbers, automatically formats the value
 class Phone extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'tag'=>'inputText',
-		'search'=>false,
-		'validate'=>[1=>'phone'],
-		'onComplex'=>true,
-		'check'=>['kind'=>'char'],
-		'phone'=>null // custom
-	];
+    // config
+    public static $config = [
+        'tag'=>'inputText',
+        'search'=>false,
+        'validate'=>[1=>'phone'],
+        'onComplex'=>true,
+        'check'=>['kind'=>'char'],
+        'phone'=>null // custom
+    ];
 
 
-	// onGet
-	// ramène le numéro de téléphone dans un format nord-américain
-	public function onGet($return,array $option)
-	{
-		$return = $this->value($return);
+    // onGet
+    // ramène le numéro de téléphone dans un format nord-américain
+    public function onGet($return,array $option)
+    {
+        $return = $this->value($return);
 
-		if(!empty($return))
-		$return = Base\Number::phoneFormat($return,null,$this->attr('phone'));
+        if(!empty($return))
+        $return = Base\Number::phoneFormat($return,null,$this->attr('phone'));
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// onSet
-	// gère la logique onSet pour un téléphone
-	// enlève tous les caractères non numérique
-	public function onSet($return,array $row,?Orm\Cell $cell=null,array $option)
-	{
-		if(is_string($return))
-		$return = Base\Str::keepNumber($return);
+    // onSet
+    // gère la logique onSet pour un téléphone
+    // enlève tous les caractères non numérique
+    public function onSet($return,array $row,?Orm\Cell $cell=null,array $option)
+    {
+        if(is_string($return))
+        $return = Base\Str::keepNumber($return);
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

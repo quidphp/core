@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for an xml file
 class Xml extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'xml'
-	];
+    // config
+    public static $config = [
+        'group'=>'xml'
+    ];
 }
 
 // config

@@ -16,25 +16,25 @@ use Quid\Base;
 // class for testing Quid\Core\Rows
 class Rows extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$db = Core\Boot::inst()->db();
-		$table = 'ormDb';
-		assert($db->truncate($table) instanceof \PDOStatement);
-		$tb = $db->table($table);
-		$rows = $tb->rows();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $db = Core\Boot::inst()->db();
+        $table = 'ormDb';
+        assert($db->truncate($table) instanceof \PDOStatement);
+        $tb = $db->table($table);
+        $rows = $tb->rows();
 
-		// getOverloadKeyPrepend
+        // getOverloadKeyPrepend
 
-		// tableFromFqcn
-		assert($rows::tableFromFqcn() instanceof TestSuite\Table\OrmDb);
+        // tableFromFqcn
+        assert($rows::tableFromFqcn() instanceof TestSuite\Table\OrmDb);
 
-		// orm
-		assert($db->truncate($table) instanceof \PDOStatement);
+        // orm
+        assert($db->truncate($table) instanceof \PDOStatement);
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

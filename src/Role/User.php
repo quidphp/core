@@ -14,10 +14,10 @@ use Quid\Core;
 // class that contains the default configuration for the user role
 class User extends Core\RoleAlias
 {
-	// config
-	public static $config = [
-		'permission'=>20
-	];
+    // config
+    public static $config = [
+        'permission'=>20
+    ];
 }
 
 // config

@@ -15,61 +15,61 @@ use Quid\Core;
 // abstract class for a reset password route
 abstract class ResetPassword extends Core\RouteAlias
 {
-	// trait
-	use _nobody;
+    // trait
+    use _nobody;
 
 
-	// config
-	public static $config = [
-		'path'=>[
-			'fr'=>'mot-de-passe/reinitialisation',
-			'en'=>'password/reset'],
-		'match'=>[
-			'role'=>'nobody',
-			'session'=>'allowResetPasswordEmail'],
-		'sitemap'=>false,
-		'parent'=>Login::class,
-		'group'=>'nobody'
-	];
+    // config
+    public static $config = [
+        'path'=>[
+            'fr'=>'mot-de-passe/reinitialisation',
+            'en'=>'password/reset'],
+        'match'=>[
+            'role'=>'nobody',
+            'session'=>'allowResetPasswordEmail'],
+        'sitemap'=>false,
+        'parent'=>Login::class,
+        'group'=>'nobody'
+    ];
 
 
-	// submitRoute
-	// route pour soumettre le formulaire
-	abstract public function submitRoute():ResetPasswordSubmit;
+    // submitRoute
+    // route pour soumettre le formulaire
+    abstract public function submitRoute():ResetPasswordSubmit;
 
 
-	// submitAttr
-	// attribut pour le bouton submit
-	public function submitAttr()
-	{
-		return;
-	}
+    // submitAttr
+    // attribut pour le bouton submit
+    public function submitAttr()
+    {
+        return;
+    }
 
 
-	// makeForm
-	// génère le formulaire pour réinitialiser le mot de passe
-	protected function makeForm():string
-	{
-		$r = '';
-		$route = $this->submitRoute();
-		$submit = static::langText('resetPassword/submit');
-		$attr = $this->submitAttr();
+    // makeForm
+    // génère le formulaire pour réinitialiser le mot de passe
+    protected function makeForm():string
+    {
+        $r = '';
+        $route = $this->submitRoute();
+        $submit = static::langText('resetPassword/submit');
+        $attr = $this->submitAttr();
 
-		$r .= $route->formOpen('validate');
-		$field = $this->db()->tables()->get('user')->col('email')->formPlaceholder(null,null,['data-required'=>true]);
+        $r .= $route->formOpen('validate');
+        $field = $this->db()->tables()->get('user')->col('email')->formPlaceholder(null,null,['data-required'=>true]);
 
-		$r .= Html::divOp('fields');
-		$r .= Html::divCond($field,'field');
-		$r .= Html::divCl();
+        $r .= Html::divOp('fields');
+        $r .= Html::divCond($field,'field');
+        $r .= Html::divCl();
 
-		$r .= Html::divOp('action');
-		$r .= Html::submit($submit,$attr);
-		$r .= Html::divCl();
+        $r .= Html::divOp('action');
+        $r .= Html::submit($submit,$attr);
+        $r .= Html::divCl();
 
-		$r .= Html::formClose();
+        $r .= Html::formClose();
 
-		return $r;
-	}
+        return $r;
+    }
 }
 
 // config

@@ -14,12 +14,12 @@ use Quid\Routing;
 // extended class for a collection containing a history of requests
 class RequestHistory extends Routing\RequestHistory
 {
-	// trait
-	use _bootAccess;
+    // trait
+    use _bootAccess;
 
 
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 }
 
 // config

@@ -13,28 +13,28 @@ namespace Quid\Core\Segment;
 // trait that issues a method to deal with a page route segment (page number)
 trait _page
 {
-	// structureSegmentPage
-	// gère le segment d'uri pour une page, doit être un int plus grand que 0
-	public static function structureSegmentPage(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentPage
+    // gère le segment d'uri pour une page, doit être un int plus grand que 0
+    public static function structureSegmentPage(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make')
-		$return = (is_int($value) && $value > 0)? $value:1;
+        if($type === 'make')
+        $return = (is_int($value) && $value > 0)? $value:1;
 
-		elseif($type === 'validate')
-		{
-			if(is_scalar($value))
-			$return = (is_int($value) && $value > 0)? $value:false;
+        elseif($type === 'validate')
+        {
+            if(is_scalar($value))
+            $return = (is_int($value) && $value > 0)? $value:false;
 
-			else
-			$return = 1;
-		}
+            else
+            $return = 1;
+        }
 
-		elseif($type === 'validateDefault')
-		$return = 1;
+        elseif($type === 'validateDefault')
+        $return = 1;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

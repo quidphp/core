@@ -13,22 +13,22 @@ namespace Quid\Core\Segment;
 // trait that issues a method to deal with yes route segment (1)
 trait _yes
 {
-	// structureSegmentYes
-	// gère le segment d'uri yes
-	public static function structureSegmentYes(string $type,$value,array &$keyValue)
-	{
-		$return = false;
+    // structureSegmentYes
+    // gère le segment d'uri yes
+    public static function structureSegmentYes(string $type,$value,array &$keyValue)
+    {
+        $return = false;
 
-		if($type === 'make' && $value === 1)
-		$return = $value;
+        if($type === 'make' && $value === 1)
+        $return = $value;
 
-		elseif($type === 'validate' && $value === 1)
-		$return = $value;
+        elseif($type === 'validate' && $value === 1)
+        $return = $value;
 
-		elseif($type === 'validateDefault')
-		$return = null;
+        elseif($type === 'validateDefault')
+        $return = null;
 
-		return $return;
-	}
+        return $return;
+    }
 }
 ?>

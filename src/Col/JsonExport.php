@@ -14,20 +14,20 @@ use Quid\Base;
 // class for a column that contains json which should be exported (similar to var_export)
 class JsonExport extends JsonAlias
 {
-	// config
-	public static $config = [
-		'complex'=>'div',
-		'onComplex'=>true,
-		'visible'=>['validate'=>'notEmpty']
-	];
+    // config
+    public static $config = [
+        'complex'=>'div',
+        'onComplex'=>true,
+        'visible'=>['validate'=>'notEmpty']
+    ];
 
 
-	// varExport
-	// permet d'envoyer un array dans var export
-	public static function varExport(array $return)
-	{
-		return Base\Debug::export($return);
-	}
+    // varExport
+    // permet d'envoyer un array dans var export
+    public static function varExport(array $return)
+    {
+        return Base\Debug::export($return);
+    }
 }
 
 // config

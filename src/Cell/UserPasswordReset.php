@@ -15,28 +15,28 @@ use Quid\Base;
 // class to work with a password reset column within a user table
 class UserPasswordReset extends Core\CellAlias
 {
-	// hashSet
-	// encrypte et set le nouveau mot de passe de réinitialisation
-	// peut envoyer une exception
-	public function hashSet(string $value):self
-	{
-		$hash = null;
-		$col = $this->col();
-		$table = $this->table();
-		$hashOption = $table->attr('crypt/passwordHash');
-		$security = $col->getSecurity();
+    // hashSet
+    // encrypte et set le nouveau mot de passe de réinitialisation
+    // peut envoyer une exception
+    public function hashSet(string $value):self
+    {
+        $hash = null;
+        $col = $this->col();
+        $table = $this->table();
+        $hashOption = $table->attr('crypt/passwordHash');
+        $security = $col->getSecurity();
 
-		if(Base\Validate::isPassword($value,$security))
-		$hash = Base\Crypt::passwordHash($value,$hashOption);
+        if(Base\Validate::isPassword($value,$security))
+        $hash = Base\Crypt::passwordHash($value,$hashOption);
 
-		if(!empty($hash))
-		$this->set($hash);
+        if(!empty($hash))
+        $this->set($hash);
 
-		else
-		static::throw('invalidPassword');
+        else
+        static::throw('invalidPassword');
 
-		return $this;
-	}
+        return $this;
+    }
 }
 
 // config

@@ -14,25 +14,25 @@ use Quid\Orm;
 // class for the active column - a simple yes checkbox
 class Active extends YesAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// onDuplicate
-	// callback sur duplication, retourne null
-	public function onDuplicate($return,array $row,Orm\Cell $cell,array $option)
-	{
-		return;
-	}
+    // onDuplicate
+    // callback sur duplication, retourne null
+    public function onDuplicate($return,array $row,Orm\Cell $cell,array $option)
+    {
+        return;
+    }
 
 
-	// classHtml
-	// retourne la classe à utiliser en html pour active
-	public function classHtml():string
-	{
-		$class = parent::class;
-		return $class::className(true);
-	}
+    // classHtml
+    // retourne la classe à utiliser en html pour active
+    public function classHtml():string
+    {
+        $class = parent::class;
+        return $class::className(true);
+    }
 }
 
 // config

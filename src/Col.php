@@ -15,23 +15,23 @@ use Quid\Base;
 // extended class to represent an existing column within a table
 class Col extends Orm\Col
 {
-	// trait
-	use _routeAttr;
-	use _accessAlias;
+    // trait
+    use _routeAttr;
+    use _accessAlias;
 
 
-	// config
-	public static $config = [
-		'route'=>null // permet de définir la route à utiliser en lien avec complex
-	];
+    // config
+    public static $config = [
+        'route'=>null // permet de définir la route à utiliser en lien avec complex
+    ];
 
 
-	// getOverloadKeyPrepend
-	// retourne le prepend de la clé à utiliser pour le tableau overload
-	public static function getOverloadKeyPrepend():?string
-	{
-		return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Col':null;
-	}
+    // getOverloadKeyPrepend
+    // retourne le prepend de la clé à utiliser pour le tableau overload
+    public static function getOverloadKeyPrepend():?string
+    {
+        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Col':null;
+    }
 }
 
 // config

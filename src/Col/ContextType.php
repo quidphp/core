@@ -13,13 +13,13 @@ namespace Quid\Core\Col;
 // class for the contextType column, a checkbox set relation with all boot types
 class ContextType extends SetAlias
 {
-	// config
-	public static $config = [
-		'required'=>true,
-		'complex'=>'checkbox',
-		'relation'=>'contextType',
-		'sortable'=>false
-	];
+    // config
+    public static $config = [
+        'required'=>true,
+        'complex'=>'checkbox',
+        'relation'=>'contextType',
+        'sortable'=>false
+    ];
 }
 
 // config

@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for a font file (like ttf)
 class Font extends BinaryAlias
 {
-	// config
-	public static $config = [
-		'group'=>'font'
-	];
+    // config
+    public static $config = [
+        'group'=>'font'
+    ];
 }
 
 // config

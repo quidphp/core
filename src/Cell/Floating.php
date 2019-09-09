@@ -15,33 +15,33 @@ use Quid\Base;
 // class to work with a cell containing a floating value
 class Floating extends Core\CellAlias
 {
-	// config
-	public static $config = [];
+    // config
+    public static $config = [];
 
 
-	// pair
-	// retourne la date formatté
-	// sinon renvoie à parent
-	public function pair($value=null,...$args)
-	{
-		$return = $this;
+    // pair
+    // retourne la date formatté
+    // sinon renvoie à parent
+    public function pair($value=null,...$args)
+    {
+        $return = $this;
 
-		if($value === '$')
-		$return = $this->moneyFormat(...$args);
+        if($value === '$')
+        $return = $this->moneyFormat(...$args);
 
-		elseif($value !== null)
-		$return = parent::pair($value,...$args);
+        elseif($value !== null)
+        $return = parent::pair($value,...$args);
 
-		return $return;
-	}
+        return $return;
+    }
 
 
-	// moneyFormat
-	// format le nombre flottant en argent
-	public function moneyFormat(?string $lang=null,?array $option=null):?string
-	{
-		return Base\Number::moneyFormat($this->value(),$lang,$option);
-	}
+    // moneyFormat
+    // format le nombre flottant en argent
+    public function moneyFormat(?string $lang=null,?array $option=null):?string
+    {
+        return Base\Number::moneyFormat($this->value(),$lang,$option);
+    }
 }
 
 // config

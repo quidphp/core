@@ -14,19 +14,19 @@ use Quid\Core;
 // class which contains the default configuration for the cron role
 class Cron extends Core\RoleAlias
 {
-	// config
-	public static $config = [
-		'permission'=>90,
-		'db'=>[
-			'*'=>[
-				'insert'=>true,
-				'update'=>true,
-				'delete'=>true,
-				'create'=>true,
-				'alter'=>true,
-				'truncate'=>true,
-				'drop'=>true]]
-	];
+    // config
+    public static $config = [
+        'permission'=>90,
+        'db'=>[
+            '*'=>[
+                'insert'=>true,
+                'update'=>true,
+                'delete'=>true,
+                'create'=>true,
+                'alter'=>true,
+                'truncate'=>true,
+                'drop'=>true]]
+    ];
 }
 
 // config

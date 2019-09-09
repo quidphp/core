@@ -17,60 +17,60 @@ use Quid\Base;
 // class for testing Quid\Core\Route
 class Route extends Base\Test
 {
-	// trigger
-	public static function trigger(array $data):bool
-	{
-		// prepare
-		$contact = TestSuite\Assert\Contact::class;
-		$contactMake = $contact::make();
+    // trigger
+    public static function trigger(array $data):bool
+    {
+        // prepare
+        $contact = TestSuite\Assert\Contact::class;
+        $contactMake = $contact::make();
 
-		// type
-		assert($contact::type() === 'assert');
+        // type
+        assert($contact::type() === 'assert');
 
-		// getBaseReplace
+        // getBaseReplace
 
-		// prepareTitle
+        // prepareTitle
 
-		// prepareDocServices
+        // prepareDocServices
 
-		// context
-		assert(count($contactMake->context()) === 4);
+        // context
+        assert(count($contactMake->context()) === 4);
 
-		// rowExists
-		assert($contactMake->rowExists() === false);
+        // rowExists
+        assert($contactMake->rowExists() === false);
 
-		// row
-		assert($contactMake->row() === null);
+        // row
+        assert($contactMake->row() === null);
 
-		// getOtherMeta
+        // getOtherMeta
 
-		// host
-		assert(is_string($contact::host()));
+        // host
+        assert(is_string($contact::host()));
 
-		// schemeHost
-		assert(is_string($contact::schemeHost()));
+        // schemeHost
+        assert(is_string($contact::schemeHost()));
 
-		// routes
-		assert($contact::routes() instanceof Core\Routes);
+        // routes
+        assert($contact::routes() instanceof Core\Routes);
 
-		// tableSegment
+        // tableSegment
 
-		// rowClass
-		assert($contact::rowClass() === TestSuite\Row\OrmCol::class);
+        // rowClass
+        assert($contact::rowClass() === TestSuite\Row\OrmCol::class);
 
-		// tableFromRowClass
-		assert($contact::tableFromRowClass() instanceof Core\Table);
+        // tableFromRowClass
+        assert($contact::tableFromRowClass() instanceof Core\Table);
 
-		// routeBaseClasses
-		assert(count($contact::routeBaseClasses()) === 2);
+        // routeBaseClasses
+        assert(count($contact::routeBaseClasses()) === 2);
 
-		// getOverloadKeyPrepend
+        // getOverloadKeyPrepend
 
-		// routing
-		assert($contact::inSitemap());
-		assert($contact::isRedirectable());
+        // routing
+        assert($contact::inSitemap());
+        assert($contact::isRedirectable());
 
-		return true;
-	}
+        return true;
+    }
 }
 ?>

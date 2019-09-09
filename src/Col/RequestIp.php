@@ -14,24 +14,24 @@ use Quid\Core;
 // class for a column which applies the current request ip as value on commit
 class RequestIp extends Core\ColAlias
 {
-	// config
-	public static $config = [
-		'general'=>true
-	];
+    // config
+    public static $config = [
+        'general'=>true
+    ];
 
 
-	// onCommit
-	// donne le ip de la requête courante lors d'un insert ou un update
-	public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?string
-	{
-		$return = null;
-		$boot = static::bootReady();
+    // onCommit
+    // donne le ip de la requête courante lors d'un insert ou un update
+    public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?string
+    {
+        $return = null;
+        $boot = static::bootReady();
 
-		if(!empty($boot))
-		$return = $boot->request()->ip();
+        if(!empty($boot))
+        $return = $boot->request()->ip();
 
-		return $return;
-	}
+        return $return;
+    }
 }
 
 // config

@@ -13,10 +13,10 @@ namespace Quid\Core\File;
 // class for a php file
 class Php extends TextAlias
 {
-	// config
-	public static $config = [
-		'group'=>'php'
-	];
+    // config
+    public static $config = [
+        'group'=>'php'
+    ];
 }
 
 // config
