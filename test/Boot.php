@@ -100,7 +100,7 @@ class Boot extends Base\Test
 		// getConfigFile
 
 		// makeFinderShortcut
-		
+
 		// makeRequest
 
 		// request
@@ -147,10 +147,10 @@ class Boot extends Base\Test
 
 		// type
 		assert(is_string($boot->type()));
-		
+
 		// typePrimary
 		assert(is_string($boot->typePrimary()));
-		
+
 		// envTypeFromHost
 
 		// isEnv
@@ -231,9 +231,9 @@ class Boot extends Base\Test
 		assert($boot->version($type) === $boot->version(true));
 		assert($boot->version($type,false) === '1.0.1');
 		assert($boot->version() === '1.0.1-'.QUID_VERSION);
-		
+
 		// manageSchemeRedirect
-		
+
 		// setsSymlink
 
 		// setsCallable
@@ -329,9 +329,9 @@ class Boot extends Base\Test
 		assert(count($boot->info()) === 9);
 
 		/* STATIC */
-		
+
 		// parseSchemeHost
-		
+
 		// envTypeFromValue
 		assert($boot->envTypeFromValue('test.com',['dev/'.$type=>'test.com'],$boot->envs(),$boot->types()) === ['env'=>'dev','type'=>$type]);
 		assert($boot->envTypeFromValue('test.com',['dev/appz'=>'test.com'],$boot->envs(),$boot->types()) === null);

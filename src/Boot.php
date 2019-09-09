@@ -365,7 +365,7 @@ abstract class Boot extends Main\Root
 
 		Main\Error::init();
 		Base\Response::serverError();
-				
+
 		$this->makeRequest();
 		$this->checkHost();
 		$this->makeEnvType();
@@ -844,7 +844,7 @@ abstract class Boot extends Main\Root
 		return $this;
 	}
 
-	
+
 	// makeRequest
 	// crée la requête et conserve dans l'objet
 	// méthode protégé
@@ -853,7 +853,7 @@ abstract class Boot extends Main\Root
 		$value = $this->attr('request');
 		$request = Request::newOverload($value);
 		$request->setInst();
-		
+
 		if($request->hasFiles())
 		$request->setLogData(['files'=>'youBET']);
 
@@ -1060,15 +1060,15 @@ abstract class Boot extends Main\Root
 		return $this->envType()['type'];
 	}
 
-	
+
 	// typePrimary
 	// retourne le type primaire de l'application
 	public function typePrimary():string
 	{
 		return current($this->types());
 	}
-	
-	
+
+
 	// envTypeFromHost
 	// retourne le context à partir du host fourni en argument
 	protected function envTypeFromHost(string $value):?array
@@ -1550,22 +1550,22 @@ abstract class Boot extends Main\Root
 		return $return;
 	}
 
-	
+
 	// manageSchemeRedirect
 	// redirige le host vers le bon scheme
-	public function manageSchemeRedirect():void 
+	public function manageSchemeRedirect():void
 	{
 		$request = $this->request();
 		$current = $request->schemeHost();
 		$shouldBe = $this->schemeHost();
-		
+
 		if(!empty($current) && !empty($shouldBe) && $current !== $shouldBe)
 		Base\Response::redirect($shouldBe);
-		
+
 		return;
 	}
-	
-	
+
+
 	// setsSymlink
 	// gère la création des symlinks
 	// envoie une exception en cas d'erreur
@@ -1812,7 +1812,7 @@ abstract class Boot extends Main\Root
 		{
 			if(is_string($to) && !empty($to) && !empty($from))
 			{
-				if(Base\Dir::isOlderThanFrom($to,$from,array('visible'=>true,'extension'=>'js')))
+				if(Base\Dir::isOlderThanFrom($to,$from,['visible'=>true,'extension'=>'js']))
 				{
 					$to = File::newCreate($to);
 
@@ -1840,7 +1840,7 @@ abstract class Boot extends Main\Root
 			if(is_string($to) && !empty($to) && !empty($from))
 			{
 				$fromDir = Base\Dir::getDirFromFileAndDir($from);
-				if(Base\Dir::isOlderThanFrom($to,$fromDir,array('visible'=>true,'extension'=>array('css','scss'))))
+				if(Base\Dir::isOlderThanFrom($to,$fromDir,['visible'=>true,'extension'=>['css','scss']]))
 				{
 					$to = File::newCreate($to);
 
@@ -2265,32 +2265,32 @@ abstract class Boot extends Main\Root
 	// permet de parse la valeur schemeHost du tableau d'attribut
 	// ajoute les scheme et les hosts dans leur clé de tableau
 	// vide l'entrée du tableau schemeHost pour éviter des désynchronisations
-	public static function parseSchemeHost(array $return):array 
+	public static function parseSchemeHost(array $return):array
 	{
 		if(!empty($return['schemeHost']) && is_array($return['schemeHost']))
 		{
-			foreach ($return['schemeHost'] as $envType => $value) 
+			foreach ($return['schemeHost'] as $envType => $value)
 			{
 				$scheme = Base\Uri::scheme($value);
 				$host = Base\Uri::host($value);
-				
+
 				if(!empty($scheme) && !empty($host))
 				{
 					$return['scheme'][$envType] = $scheme;
 					$return['host'][$envType] = $host;
 				}
-				
+
 				else
 				static::throw($envType,$value);
 			}
-			
-			$return['schemeHost'] = array();
+
+			$return['schemeHost'] = [];
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	// envTypeFromValue
 	// méthode utilisé par envTypeFromHost pour obtenir le env/type d'une valeur dans un tableau
 	// il faut fournir envs et types

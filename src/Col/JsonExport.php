@@ -24,7 +24,7 @@ class JsonExport extends JsonAlias
 
 	// varExport
 	// permet d'envoyer un array dans var export
-	public static function varExport(array $return) 
+	public static function varExport(array $return)
 	{
 		return Base\Debug::export($return);
 	}

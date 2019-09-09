@@ -72,8 +72,8 @@ trait _access
 	{
 		return static::boot()->services();
 	}
-	
-	
+
+
 	// service
 	// retourne un objet service, envoie une exception si n'existe pas
 	public static function service(string $key):Main\Service
