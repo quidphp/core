@@ -11,6 +11,9 @@
 ## License
 **QuidPHP/Core** is available as an open-source software under the [MIT license](LICENSE).
 
+## Documentation
+**QuidPHP/Core** documentation is being written. Once ready, it will be available at https://quidphp.github.io/project.
+
 ## Installation
 **QuidPHP/Core** can be easily installed with [Composer](https://getcomposer.org). It is available on [Packagist](https://packagist.org/packages/quidphp/core).
 ``` bash
@@ -20,7 +23,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Requirement
 **QuidPHP/Core** requires the following:
-- PHP 7.2+ with fileinfo, curl, openssl, posix, PDO and pdo_mysql
+- PHP 7.2+ with fileinfo, curl, openssl, PDO and pdo_mysql
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:

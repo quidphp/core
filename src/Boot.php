@@ -782,7 +782,7 @@ abstract class Boot extends Main\Root
         $attr = static::parseSchemeHost($attr);
         $this->makeAttr($attr);
         $this->makeFinderShortcut();
-
+        
         $configFile = $this->attr('configFile');
         $merge = [];
         if(!empty($configFile))
@@ -2335,15 +2335,15 @@ abstract class Boot extends Main\Root
     {
         $server = Base\Server::requirement();
         if(!empty($server))
-        static::throw($server);
+        static::throw('server',$server);
 
         $extension = Base\Extension::requirement();
         if(!empty($extension))
-        static::throw($server);
+        static::throw('extension',$extension);
 
         $ini = Base\Ini::requirement();
         if(!empty($ini))
-        static::throw($server);
+        static::throw('ini',$ini);
 
         return;
     }
