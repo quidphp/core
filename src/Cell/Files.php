@@ -28,7 +28,7 @@ abstract class Files extends Core\CellAlias
         $index = ($this->hasIndex())? 0:null;
         $version = ($this->hasVersion())? 1:null;
         $file = $this->commonFile($index,$version);
-        
+
         if(!empty($file))
         $return = $file->pathToUriOrBase64();
 
@@ -157,7 +157,7 @@ abstract class Files extends Core\CellAlias
 
         if($hasIndex && $index !== false)
         $array[] = $this->checkIndex($index);
-        
+
         $return = Base\Path::append($array);
 
         if(($hasIndex === false || $index !== false) && $version !== false)
@@ -207,10 +207,10 @@ abstract class Files extends Core\CellAlias
         return $return;
     }
 
-    
+
     // commonThrow
     // utilisé pour envoyer une exception avec l'index et la version
-    protected function commonThrow(?int $index=null,$version=null):void 
+    protected function commonThrow(?int $index=null,$version=null):void
     {
         $array = [$this->table(),$this->row(),$this->col()];
         if($this->hasIndex())
@@ -218,11 +218,11 @@ abstract class Files extends Core\CellAlias
 
         $array[] = $version;
         static::throw(...$array);
-        
+
         return;
     }
-    
-    
+
+
     // commonFileExists
     // retourne vrai si le fichier à l'index existe
     protected function commonFileExists(?int $index=null,$version=null):bool
@@ -270,7 +270,7 @@ abstract class Files extends Core\CellAlias
     protected function commonCheckFile(?int $index=null,$version=null):Core\File
     {
         $return = $this->commonFile($index,$version);
-        
+
         if(empty($return))
         $return = $this->commonThrow($index,$version);
 
@@ -375,7 +375,7 @@ abstract class Files extends Core\CellAlias
             {
                 $file = $this->commonCheckFile($index);
                 $isImage = ($file instanceof Core\File\Image)? true:false;
-                
+
                 $indexDirname = $this->commonBasePath($index,false);
                 $originalDirname = $this->commonBasePath($index,null);
 
@@ -472,7 +472,7 @@ abstract class Files extends Core\CellAlias
         $table = $this->table();
         $download = $table->hasPermission('download');
         $file = $original = $this->commonFile($index);
-        
+
         if(!empty($file))
         {
             $hasVersion = $this->hasVersion();
@@ -480,9 +480,9 @@ abstract class Files extends Core\CellAlias
             $value = $file->basename();
             $value = Base\Str::excerpt(35,$value);
             $legendLink = null;
-            
+
             $return .= Base\Html::divOp('media');
-            
+
             if($download === true)
             {
                 $route = $this->downloadRoute($index);

@@ -186,7 +186,7 @@ abstract class Files extends Core\ColAlias
     public function checkWritable():self
     {
         $tablePath = $this->tablePath();
-        
+
         if(!Base\Dir::isWritableOrCreatable($tablePath))
         static::catchable(null,'pathNotWritable',$tablePath);
 
