@@ -124,30 +124,6 @@ class Medias extends FilesAlias
     }
 
 
-    // isImage
-    // retourne vrai si la cellule contient un fichier image raster ou vector
-    public function isImage(?int $index=null):bool
-    {
-        return $this->commonIsImage($index);
-    }
-
-
-    // isImageRaster
-    // retourne vrai si la cellule contient un fichier image raster
-    public function isImageRaster(?int $index=null):bool
-    {
-        return $this->commonIsImageRaster($index);
-    }
-
-
-    // isImageVector
-    // retourne vrai si la cellule contient un fichier image vector
-    public function isImageVector(?int $index=null):bool
-    {
-        return $this->commonIsImageVector($index);
-    }
-
-
     // versionExtension
     // retourne l'extension a utilisé pour la version à l'index donné
     public function versionExtension(?int $index=null,$version=null,bool $exception=true):string

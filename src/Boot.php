@@ -29,8 +29,9 @@ abstract class Boot extends Main\Root
         'schemeHost'=>[], // tableau des schemeHosts, est parsed et transféré dans host et scheme
         'host'=>[], // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
         'path'=>[ // tableau des chemins, ne peut pas être mis dans un @
-            'private'=>null,
-            'testsuite'=>null,
+            'src'=>null,
+            'js'=>null,
+            'scss'=>null,
             'vendor'=>null,
             'public'=>null,
             'storage'=>null],
@@ -46,10 +47,9 @@ abstract class Boot extends Main\Root
             'storageLog'=>'[storage]/log',
             'storagePublic'=>'[storage]/public',
             'storagePrivate'=>'[storage]/private',
-            'private'=>'[private]',
-            'privateJs'=>'[private]/js',
-            'privatePhp'=>'[private]/php',
-            'privateScss'=>'[private]/scss',
+            'src'=>'[src]',
+            'js'=>'[js]',
+            'scss'=>'[scss]',
             'public'=>'[public]',
             'publicCss'=>'[public]/css',
             'publicJs'=>'[public]/js',
@@ -63,7 +63,7 @@ abstract class Boot extends Main\Root
             'symlink'=>false],
         'autoload'=>'composer', // type d'autoload utilisé peut être composer, internal ou preload
         'psr4'=>[ // psr4 pour autoload
-            '%key%'=>'[private]/php'],
+            '%key%'=>'[src]'],
         'composer'=>[ // paramètre pour composer
             'classMapAuthoritative'=>false], // défini si la classmap de composer est définitive, accélère de genre 2-3%
         'option'=>[], // défini les options liés à l'objet boot

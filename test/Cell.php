@@ -136,7 +136,7 @@ class Cell extends Base\Test
         assert($media->row()->updateChangedIncluded() === 1);
         assert(is_string($media->basename()));
         assert($media->file() instanceof Core\File\Txt);
-        assert(!$media->isImage());
+        assert(!$media->file()->isMimeFamily('image'));
         assert($media->file()->size() === 0);
         assert($media->file()->extension() === 'txt');
         assert($media->file()->mime() === 'inode/x-empty; charset=binary');
@@ -165,7 +165,7 @@ class Cell extends Base\Test
         $file = $medias->file(2);
         assert($file instanceof Core\File\Php);
         assert(!empty($file->pathToUri()));
-        assert(!$medias->isImage(2));
+        assert(!$medias->file(2)->isMimeFamily('image'));
         assert($medias->indexes()->isCount(2));
         assert($medias->all()->isCount(2));
         $files = Core\Files::newOverload();

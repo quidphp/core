@@ -27,9 +27,10 @@ abstract class Files extends Core\CellAlias
         $return = null;
         $index = ($this->hasIndex())? 0:null;
         $version = ($this->hasVersion())? 1:null;
-
-        if($this->commonFileExists($index,$version))
-        $return = $this->commonCheckFile($index,$version)->pathToUriOrBase64();
+        $file = $this->commonFile($index,$version);
+        
+        if(!empty($file))
+        $return = $file->pathToUriOrBase64();
 
         return $return;
     }
@@ -132,7 +133,7 @@ abstract class Files extends Core\CellAlias
         {
             $return = Base\Path::safeBasename($get);
 
-            if(is_scalar($version) && $this->hasVersion() && $this->commonIsImageRaster($index))
+            if(is_scalar($version) && $this->hasVersion())
             {
                 $extension = $this->commonVersionExtension($index,$version);
                 $return = Base\Path::changeBasenameExtension($extension,$return);
@@ -156,7 +157,7 @@ abstract class Files extends Core\CellAlias
 
         if($hasIndex && $index !== false)
         $array[] = $this->checkIndex($index);
-
+        
         $return = Base\Path::append($array);
 
         if(($hasIndex === false || $index !== false) && $version !== false)
@@ -206,7 +207,22 @@ abstract class Files extends Core\CellAlias
         return $return;
     }
 
+    
+    // commonThrow
+    // utilisé pour envoyer une exception avec l'index et la version
+    protected function commonThrow(?int $index=null,$version=null):void 
+    {
+        $array = [$this->table(),$this->row(),$this->col()];
+        if($this->hasIndex())
+        $array[] = $index;
 
+        $array[] = $version;
+        static::throw(...$array);
+        
+        return;
+    }
+    
+    
     // commonFileExists
     // retourne vrai si le fichier à l'index existe
     protected function commonFileExists(?int $index=null,$version=null):bool
@@ -226,14 +242,7 @@ abstract class Files extends Core\CellAlias
     protected function commonCheckFileExists(?int $index=null,$version=null):self
     {
         if(!$this->commonFileExists($index,$version))
-        {
-            $array = [$this->table(),$this->row(),$this->col()];
-            if($this->hasIndex())
-            $array[] = $index;
-
-            $array[] = $version;
-            static::throw(...$array);
-        }
+        $this->commonThrow($index,$version);
 
         return $this;
     }
@@ -260,35 +269,12 @@ abstract class Files extends Core\CellAlias
     // retourne l'objet fichier, envoie une exception si non existant
     protected function commonCheckFile(?int $index=null,$version=null):Core\File
     {
-        $return = null;
-        $this->commonCheckFileExists($index,$version);
         $return = $this->commonFile($index,$version);
+        
+        if(empty($return))
+        $return = $this->commonThrow($index,$version);
 
         return $return;
-    }
-
-
-    // commonIsImage
-    // retourne vrai si la cellule contient un fichier image raster ou vector
-    protected function commonIsImage(?int $index=null):bool
-    {
-        return ($this->commonIsImageRaster($index) || $this->commonIsImageVector($index))? true:false;
-    }
-
-
-    // commonIsImageRaster
-    // retourne vrai si la cellule contient un fichier image raster
-    protected function commonIsImageRaster(?int $index=null):bool
-    {
-        return ($this->commonFileExists($index))? Base\Mime::isGroup('imageRaster',$this->commonFilePath($index),true,true):false;
-    }
-
-
-    // commonIsImageVector
-    // retourne vrai si la cellule contient un fichier image vector
-    protected function commonIsImageVector(?int $index=null):bool
-    {
-        return ($this->commonFileExists($index))? Base\Mime::isGroup('imageVector',$this->commonFilePath($index),true,true):false;
     }
 
 
@@ -387,9 +373,9 @@ abstract class Files extends Core\CellAlias
         {
             foreach ($indexes as $index)
             {
-                $isImage = $this->commonIsImageRaster($index);
                 $file = $this->commonCheckFile($index);
-
+                $isImage = ($file instanceof Core\File\Image)? true:false;
+                
                 $indexDirname = $this->commonBasePath($index,false);
                 $originalDirname = $this->commonBasePath($index,null);
 
@@ -485,18 +471,18 @@ abstract class Files extends Core\CellAlias
         $col = $this->col();
         $table = $this->table();
         $download = $table->hasPermission('download');
-
-        if($this->commonFileExists($index))
+        $file = $original = $this->commonFile($index);
+        
+        if(!empty($file))
         {
             $hasVersion = $this->hasVersion();
-            $isImage = $this->commonIsImage($index);
-            $value = $this->commonBasename($index);
+            $isImage = ($file instanceof Core\File\Image)? true:false;
+            $value = $file->basename();
             $value = Base\Str::excerpt(35,$value);
             $legendLink = null;
-            $file = $original = $this->commonCheckFile($index);
-
+            
             $return .= Base\Html::divOp('media');
-
+            
             if($download === true)
             {
                 $route = $this->downloadRoute($index);
@@ -506,12 +492,7 @@ abstract class Files extends Core\CellAlias
             if($isImage === true)
             {
                 if($hasVersion === true)
-                {
-                    if($this->commonFileExists($index,-1))
-                    $file = $this->commonCheckFile($index,-1);
-                    else
-                    $file = null;
-                }
+                $file = $this->commonFile($index,-1);
 
                 if(!empty($file))
                 {

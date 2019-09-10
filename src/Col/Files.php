@@ -186,7 +186,7 @@ abstract class Files extends Core\ColAlias
     public function checkWritable():self
     {
         $tablePath = $this->tablePath();
-
+        
         if(!Base\Dir::isWritableOrCreatable($tablePath))
         static::catchable(null,'pathNotWritable',$tablePath);
 
@@ -383,9 +383,10 @@ abstract class Files extends Core\ColAlias
         $hasIndex = $this->hasIndex();
         $hasVersion = $this->hasVersion();
         $table = $this->table();
-        $exists = ($hasIndex === true)? $value->fileExists($index):$value->fileExists();
-        $isImage = ($hasIndex === true)? $value->isImage($index):$value->isImage();
-        $basename = ($hasIndex === true)? $value->basename($index):$value->basename();
+        $file = ($hasIndex === true)? $value->file($index):$value->file();
+        $exists = $file->isReadable();
+        $isImage = ($exists === true && $file instanceof Core\File\Image)? true:false;
+        $basename = ($exists === true)? $file->basename():false;
         $download = $table->hasPermission('download');
 
         if(is_string($basename))
@@ -396,7 +397,6 @@ abstract class Files extends Core\ColAlias
         {
             $html .= Html::span($basename,'filename');
 
-            $file = $value->file($index);
             if($file->isFilePathToUri())
             $html = Base\Html::a($file,$basename,'filename');
 
@@ -408,11 +408,11 @@ abstract class Files extends Core\ColAlias
 
             if($isImage === true)
             {
-                if($hasVersion === true && $hasIndex === true && $value->fileExists($index,1))
-                $thumbnail = $value->checkFile($index,1);
+                if($hasVersion === true && $hasIndex === true)
+                $thumbnail = $value->file($index,1);
 
-                elseif($hasVersion === true && $hasIndex === false && $value->fileExists(1))
-                $thumbnail = $value->checkFile(1);
+                elseif($hasVersion === true && $hasIndex === false)
+                $thumbnail = $value->file(1);
 
                 else
                 $thumbnail = $file;
