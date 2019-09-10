@@ -782,7 +782,7 @@ abstract class Boot extends Main\Root
         $attr = static::parseSchemeHost($attr);
         $this->makeAttr($attr);
         $this->makeFinderShortcut();
-        
+
         $configFile = $this->attr('configFile');
         $merge = [];
         if(!empty($configFile))
