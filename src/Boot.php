@@ -1335,7 +1335,7 @@ abstract class Boot extends Main\Root
 
             foreach ($paths as $key => $path)
             {
-                $paths[$key] = Base\Finder::shortcut($path);
+                $paths[$key] = Base\Finder::normalize($path);
             }
 
             if($value === true)
@@ -1865,7 +1865,7 @@ abstract class Boot extends Main\Root
         foreach (Base\Finder::allShortcuts() as $key => $value)
         {
             $key = 'finder'.ucfirst($key);
-            $return[$key] = Base\Finder::shortcut($value);
+            $return[$key] = Base\Finder::normalize($value);
         }
 
         foreach (Base\Uri::allShortcuts() as $key => $value)

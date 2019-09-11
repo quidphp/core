@@ -26,7 +26,7 @@ class Cell extends Base\Test
         assert($db->inserts($table,['id','date','name','dateAdd','userAdd','dateModify','userModify','integer','enum','set','user_ids'],[1,time(),'james',10,2,12,13,12,5,'2,3',[2,1]],[2,time(),'james2',10,11,12,13,12,5,'2,4','2,3']) === [1,2]);
         $tb = $db[$table];
         $row = $tb[1];
-        $_file_ = Base\Finder::shortcut('[assertCommon]/class.php');
+        $_file_ = Base\Finder::normalize('[assertCommon]/class.php');
         $public = '[storagePublic]/storage/ormCell';
         $mediaJpg = '[assertMedia]/jpg.jpg';
         $image = Core\File::new($mediaJpg);

@@ -23,7 +23,7 @@ class Files extends Base\Test
         $mediaJpg = '[assertMedia]/jpg.jpg';
         $zip2 = Core\File::new('[assertCurrent]/archive2.zip',['create'=>true]);
         $image = Core\File::new($mediaJpg);
-        $_file_ = Base\Finder::shortcut('[assertCommon]/class.php');
+        $_file_ = Base\Finder::normalize('[assertCommon]/class.php');
         $files2 = new Core\Files($_file_,$image);
 
         // zip

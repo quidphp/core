@@ -716,7 +716,7 @@ abstract class Files extends Core\ColAlias
             $return = $path;
 
             if($shortcut === true)
-            $return = Base\Finder::shortcut($return);
+            $return = Base\Finder::normalize($return);
         }
 
         if(empty($return))

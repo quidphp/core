@@ -304,12 +304,12 @@ class File extends Base\Test
         assert($f->sessionWrite(serialize([3,4,5])));
         assert($f->sessionUpdateTimestamp());
         assert($f->sessionDestroy());
-        assert(!empty(Core\File\Session::sessionDir(Base\Finder::shortcut($storageSession),'test')));
-        assert(!empty(Core\File\Session::sessionPath(Base\Finder::shortcut($storageSession),'test','abcde')));
-        assert(!Core\File\Session::sessionExists(Base\Finder::shortcut($storageSession),'test','abcde'));
-        assert(Core\File\Session::sessionCreate(Base\Finder::shortcut($storageSession),'test','abcde') instanceof Core\File\Session);
-        assert(Core\File\Session::sessionRead(Base\Finder::shortcut($storageSession),'test','abcde') instanceof Core\File\Session);
-        assert(Core\File\Session::sessionGarbageCollect(Base\Finder::shortcut($storageSession),'test',1000) === 0);
+        assert(!empty(Core\File\Session::sessionDir(Base\Finder::normalize($storageSession),'test')));
+        assert(!empty(Core\File\Session::sessionPath(Base\Finder::normalize($storageSession),'test','abcde')));
+        assert(!Core\File\Session::sessionExists(Base\Finder::normalize($storageSession),'test','abcde'));
+        assert(Core\File\Session::sessionCreate(Base\Finder::normalize($storageSession),'test','abcde') instanceof Core\File\Session);
+        assert(Core\File\Session::sessionRead(Base\Finder::normalize($storageSession),'test','abcde') instanceof Core\File\Session);
+        assert(Core\File\Session::sessionGarbageCollect(Base\Finder::normalize($storageSession),'test',1000) === 0);
         assert(Base\Dir::emptyAndUnlink($storageSession));
 
         // text

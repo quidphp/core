@@ -96,7 +96,7 @@ class Zip extends BinaryAlias
         if(!is_string($value))
         static::throw('invalidValue');
 
-        $value = Base\Finder::shortcut($value);
+        $value = Base\Finder::normalize($value);
 
         if(Base\File::isReadable($value))
         {
@@ -146,7 +146,7 @@ class Zip extends BinaryAlias
     // extrait l'archive vers une destination
     public function extract(string $value):bool
     {
-        return $this->archive()->extractTo(Base\Finder::shortcut($value));
+        return $this->archive()->extractTo(Base\Finder::normalize($value));
     }
 }
 
