@@ -27,13 +27,16 @@ class Files extends Base\Test
         $files2 = new Core\Files($_file_,$image);
 
         // zip
-        $zip = $files2->zip('[assertCurrent]/zip.zip');
-        assert($zip instanceof Core\File\Zip);
-        assert(count($zip->all()) === 2);
-        $zip3 = $files2->zip($zip2);
-        assert($zip3 === $zip2);
-        assert(count($zip3->all()) === 2);
-
+        if(!Base\Server::isWindows())
+        {
+            $zip = $files2->zip('[assertCurrent]/zip.zip');
+            assert($zip instanceof Core\File\Zip);
+            assert(count($zip->all()) === 2);
+            $zip3 = $files2->zip($zip2);
+            assert($zip3 === $zip2);
+            assert(count($zip3->all()) === 2);
+        }
+        
         // cleanup
         Base\Dir::empty('[assertCurrent]');
 

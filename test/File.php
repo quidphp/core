@@ -176,7 +176,7 @@ class File extends Base\Test
         assert(Base\Str::isStart($error->id(),Core\File\Error::storageFilename($error)));
         assert($new instanceof Core\File\Error);
         assert(Core\File\Error::logTrim() === 0);
-        assert(Base\Dir::emptyAndUnlink(Core\File\Error::storageDirname()));
+        Base\Dir::empty(Core\File\Error::storageDirname());
 
         // font
         assert($font instanceof Core\File\Font);
@@ -343,12 +343,16 @@ class File extends Base\Test
         assert($zip->archive() instanceof \ZipArchive);
         assert(count($zip->all()) === 9);
         assert($zip->extract($storage.'/extract'));
-        assert($newZip->all() === []);
-        assert($newZip->addFile($newXml));
-        assert($newZip->addFile($video));
-        assert(count($newZip->all()) === 2);
-        assert($newZip->commit());
-        assert($newZip->extract($storage.'/extract2'));
+        
+        if(!Base\Server::isWindows())
+        {
+            assert($newZip->all() === []);
+            assert($newZip->addFile($newXml));
+            assert($newZip->addFile($video));
+            assert(count($newZip->all()) === 2);
+            assert($newZip->commit());
+            assert($newZip->extract($storage.'/extract2'));
+        }
 
         // cleanup
         Base\Dir::empty('[assertCurrent]');
