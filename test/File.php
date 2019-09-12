@@ -278,7 +278,7 @@ class File extends Base\Test
         assert(Core\File\Queue::storageAll()->unlink() === 1);
         assert(Core\File\Queue::storageTrim(2) === 0);
         assert(Core\File\Queue::triggerUnqueue(1) === null);
-        assert(Base\Dir::emptyAndUnlink(Core\File\Queue::storageDirname()));
+        Base\Dir::empty(Core\File\Queue::storageDirname());
 
         // serialize
         $write = new Main\Map([2=>'ok','yes',4]);
