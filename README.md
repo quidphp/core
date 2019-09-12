@@ -23,7 +23,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Requirement
 **QuidPHP/Core** requires the following:
-- PHP 7.2+ with fileinfo, curl, openssl, PDO and pdo_mysql
+- PHP 7.3+
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
