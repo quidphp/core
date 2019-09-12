@@ -36,7 +36,7 @@ class Files extends Base\Test
             assert($zip3 === $zip2);
             assert(count($zip3->all()) === 2);
         }
-        
+
         // cleanup
         Base\Dir::empty('[assertCurrent]');
 

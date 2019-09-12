@@ -343,7 +343,7 @@ class File extends Base\Test
         assert($zip->archive() instanceof \ZipArchive);
         assert(count($zip->all()) === 9);
         assert($zip->extract($storage.'/extract'));
-        
+
         if(!Base\Server::isWindows())
         {
             assert($newZip->all() === []);
