@@ -146,13 +146,13 @@ class Cell extends Base\Test
         assert($media->file()->mimeFamily() === 'text');
         assert($media->file()->mimeFamilies(false) === null);
         assert($media->file()->mimeFamilies() === ['text']);
-        
+
         if(!Base\Server::isWindows())
         {
             assert($media->set($tmp2) === $media);
             assert($media->row()->updateChangedIncluded() === 1);
         }
-        
+
         assert($thumbnail->set($image) === $thumbnail);
         assert($thumbnail->row()->updateChangedIncluded() === 1);
         assert($medias instanceof Core\Cell\Medias);
