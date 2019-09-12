@@ -146,8 +146,13 @@ class Cell extends Base\Test
         assert($media->file()->mimeFamily() === 'text');
         assert($media->file()->mimeFamilies(false) === null);
         assert($media->file()->mimeFamilies() === ['text']);
-        assert($media->set($tmp2) === $media);
-        assert($media->row()->updateChangedIncluded() === 1);
+        
+        if(!Base\Server::isWindows())
+        {
+            assert($media->set($tmp2) === $media);
+            assert($media->row()->updateChangedIncluded() === 1);
+        }
+        
         assert($thumbnail->set($image) === $thumbnail);
         assert($thumbnail->row()->updateChangedIncluded() === 1);
         assert($medias instanceof Core\Cell\Medias);
@@ -215,7 +220,7 @@ class Cell extends Base\Test
         // video
 
         // cleanup
-        assert(Base\Dir::emptyAndUnlink($public));
+        Base\Dir::emptyAndUnlink($public);
         assert($db->truncate($table) instanceof \PDOStatement);
 
         return true;
