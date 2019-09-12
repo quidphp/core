@@ -127,7 +127,7 @@ class Col extends Base\Test
 
         // media + medias
         assert($media instanceof Core\Col\Media);
-        assert(Base\Dir::is($media->rootPath()));
+        assert(Base\Dir::isWritableOrCreatable($media->rootPath()));
         assert($media->formComplex() === "<div class='block empty'><div class='form'><input name='media' type='file'/></div></div>");
         assert($media->hasVersion());
         assert(count($media->versions()) === 2);
