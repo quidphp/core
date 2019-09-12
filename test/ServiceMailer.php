@@ -31,9 +31,9 @@ class ServiceMailer extends Base\Test
         $mailer = $boot->service('mailer');
         $from = $mailer->username();
         $to = 'test@exempla.la';
-        $msg = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$to];
-        $msg2 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user];
-        $msg3 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user['email']];
+        $msg = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$to,'from'=>$from];
+        $msg2 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user,'from'=>$from];
+        $msg3 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user['email'],'from'=>$from];
         $msg4 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>[$to=>'Pierre'],'from'=>['james@test.com'=>'NAME']];
 
         // getLangCode
@@ -56,7 +56,6 @@ class ServiceMailer extends Base\Test
         assert($mailer->queue($msg));
         assert($mailer->prepareMessage($msg2)['to'][0]['name'] === 'admin');
         assert($mailer->prepareMessage($msg3)['to'][0]['name'] === 'administrator');
-        assert($mailer->queueTest($msg));
         assert($mailer->queueLoop([$msg]) === [true]);
         $queue = $mailer::queueClass();
         assert(class_exists($queue));
