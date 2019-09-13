@@ -347,7 +347,7 @@ class File extends Base\Test
         assert($newZip->addFile($newXml));
         assert($newZip->addFile($video));
         assert(count($newZip->all()) === 2);
-        
+
         // problème avec commit du zip sous Windows
         if(!Base\Server::isWindows())
         {

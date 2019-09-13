@@ -146,7 +146,7 @@ class Cell extends Base\Test
         assert($media->file()->mimeFamily() === 'text');
         assert($media->file()->mimeFamilies(false) === null);
         assert($media->file()->mimeFamilies() === ['text']);
-        
+
         // la création de deux fois les mêmes directoires ne fonctionnent pas sous windows
         if(!Base\Server::isWindows())
         {
