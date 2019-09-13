@@ -343,14 +343,14 @@ class File extends Base\Test
         assert($zip->archive() instanceof \ZipArchive);
         assert(count($zip->all()) === 9);
         assert($zip->extract($storage.'/extract'));
-        assert($newZip->all() === []);
-        assert($newZip->addFile($newXml));
-        assert($newZip->addFile($video));
-        assert(count($newZip->all()) === 2);
-
+        
         // problème avec commit du zip sous Windows
         if(!Base\Server::isWindows())
         {
+            assert($newZip->all() === []);
+            assert($newZip->addFile($newXml));
+            assert($newZip->addFile($video));
+            assert(count($newZip->all()) === 2);
             assert($newZip->commit());
             assert($newZip->extract($storage.'/extract2'));
         }
