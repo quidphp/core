@@ -27,6 +27,7 @@ class Files extends Base\Test
         $files2 = new Core\Files($_file_,$image);
 
         // zip
+        // problème avec commit du zip sous Windows
         if(!Base\Server::isWindows())
         {
             $zip = $files2->zip('[assertCurrent]/zip.zip');

@@ -146,7 +146,8 @@ class Cell extends Base\Test
         assert($media->file()->mimeFamily() === 'text');
         assert($media->file()->mimeFamilies(false) === null);
         assert($media->file()->mimeFamilies() === ['text']);
-
+        
+        // la création de deux fois les mêmes directoires ne fonctionnent pas sous windows
         if(!Base\Server::isWindows())
         {
             assert($media->set($tmp2) === $media);
@@ -220,6 +221,7 @@ class Cell extends Base\Test
         // video
 
         // cleanup
+        Base\File::unlinks($tmp,$tmp2);
         Base\Dir::emptyAndUnlink($public);
         assert($db->truncate($table) instanceof \PDOStatement);
 

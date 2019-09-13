@@ -24,6 +24,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 ## Requirement
 **QuidPHP/Core** requires the following:
 - PHP 7.3+
+- All PHP extensions required by [quidphp/base](https://github.com/quidphp/base) and [quidphp/orm](https://github.com/quidphp/orm)
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
@@ -184,8 +185,8 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [RegisterSubmit](src/Route/RegisterSubmit.php) | Abstract class for a register submit route
     - [ResetPassword](src/Route/ResetPassword.php) | Abstract class for a reset password route
     - [ResetPasswordSubmit](src/Route/ResetPasswordSubmit.php) | Abstract class for a reset password submit route
-    - [Robots](src/Route/Robots.php) | Abstract class for a robots route
-    - [Sitemap](src/Route/Sitemap.php) | Abstract class for a sitemap route
+    - [Robots](src/Route/Robots.php) | Abstract class for a robots.txt route
+    - [Sitemap](src/Route/Sitemap.php) | Abstract class for automated sitemap.xml route
     - [_calendar](src/Route/_calendar.php) | Trait that provides most methods to make a calendar route
     - [_colRelation](src/Route/_colRelation.php) | Trait that provides methods related to a column relation route
     - [_download](src/Route/_download.php) | Trait that provides most methods necessary to make a download route
