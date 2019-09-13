@@ -107,7 +107,7 @@ class Boot extends Base\Test
         assert($boot->request() instanceof Core\Request);
 
         // paths
-        assert(count($boot->paths()) === 6);
+        assert(count($boot->paths()) >= 6);
 
         // path
         assert(is_string($boot->path('public')));

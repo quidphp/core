@@ -203,8 +203,8 @@ abstract class Boot extends Main\Root
 
 
     // quidCredit
-    protected static $quidCredit = [ // les crédits de quid
-        'name'=>'Quid',
+    protected static $quidCredit = [ // les crédits de quid php
+        'name'=>'QuidPHP',
         'author'=>'Pierre-Philippe Emond',
         'email'=>'emondpph@gmail.com',
         'github'=>'https://github.com/quidphp',
