@@ -112,7 +112,7 @@ abstract class Files extends Core\ColAlias
                 $return = true;
                 $extensionKey = $this->getValidateKey('extension');
                 $files = $this->getCommittedCallback('getNewFiles');
-
+                
                 if(!empty($files))
                 {
                     $files = $files();
@@ -122,7 +122,7 @@ abstract class Files extends Core\ColAlias
                         foreach ($files as $file)
                         {
                             $basename = $file->mimeBasename($file->getOption('uploadBasename'));
-
+                            
                             if(!Base\Path::isExtension($extension,$basename))
                             {
                                 $return = [$extensionKey=>$extension];
