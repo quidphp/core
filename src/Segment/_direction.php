@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Segment;
+use Quid\Orm;
 
 // _direction
 // trait to deal with a route segment which must contain a sorting direction
@@ -23,7 +24,7 @@ trait _direction
         $return = (is_string($value) && !empty($value))? strtolower($value):false;
 
         elseif($type === 'validate')
-        $return = (Syntax::isOrderDirection($value))? strtolower($value):false;
+        $return = (Orm\Syntax::isOrderDirection($value))? strtolower($value):false;
 
         elseif($type === 'validateDefault')
         {
