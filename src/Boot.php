@@ -442,7 +442,6 @@ abstract class Boot extends Main\Root
             $scheme = $this->getSchemeArray($scheme);
             if(!empty($scheme))
             Base\Uri::schemeStatic($scheme);
-            $this->manageSchemeRedirect();
         }
 
         $finderHost = $this->attr('finderHost');
@@ -1548,21 +1547,6 @@ abstract class Boot extends Main\Root
         }
 
         return $return;
-    }
-
-
-    // manageSchemeRedirect
-    // redirige le host vers le bon scheme
-    public function manageSchemeRedirect():void
-    {
-        $request = $this->request();
-        $current = $request->schemeHost();
-        $shouldBe = $this->schemeHost();
-
-        if(!empty($current) && !empty($shouldBe) && $current !== $shouldBe)
-        Base\Response::redirect($shouldBe);
-
-        return;
     }
 
 

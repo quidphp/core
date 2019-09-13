@@ -232,8 +232,6 @@ class Boot extends Base\Test
         assert($boot->version($type,false) === '1.0.1');
         assert($boot->version() === '1.0.1-'.QUID_VERSION);
 
-        // manageSchemeRedirect
-
         // setsSymlink
 
         // setsCallable
