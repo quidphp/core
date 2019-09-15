@@ -20,9 +20,9 @@ class File extends Main\File
 
 
     // config
-    public static $config = array();
-    
-    
+    public static $config = [];
+
+
     // param
     public static $param = [
         'types'=>[ // défini les options à mettre selon le type
