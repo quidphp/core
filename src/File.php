@@ -20,7 +20,11 @@ class File extends Main\File
 
 
     // config
-    public static $config = [
+    public static $config = array();
+    
+    
+    // param
+    public static $param = [
         'types'=>[ // défini les options à mettre selon le type
             'dump'=>[
                 'write'=>[

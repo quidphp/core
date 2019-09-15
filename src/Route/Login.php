@@ -20,7 +20,9 @@ abstract class Login extends Core\RouteAlias
 
     // config
     public static $config = [
-        'path'=>[null,''],
+        'path'=>[
+            'en'=>'login',
+            'fr'=>'connexion'],
         'priority'=>998,
         'match'=>[
             'role'=>'nobody'],
@@ -48,24 +50,6 @@ abstract class Login extends Core\RouteAlias
     public function submitAttr()
     {
         return;
-    }
-
-
-    // onBefore
-    // enregistre l'uri demandé si path n'est pas empty
-    protected function onBefore()
-    {
-        $return = true;
-
-        if(!$this->request()->isPathMatchEmpty())
-        {
-            $flash = $this->session()->flash();
-            $redirect = $this->request()->absolute();
-            $flash->set('login/redirect',$redirect);
-            $return = false;
-        }
-
-        return $return;
     }
 }
 

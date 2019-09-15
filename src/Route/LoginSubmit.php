@@ -21,8 +21,8 @@ abstract class LoginSubmit extends Core\RouteAlias
     // config
     public static $config = [
         'path'=>[
-            'en'=>'login',
-            'fr'=>'connexion'],
+            'en'=>'login/submit',
+            'fr'=>'connexion/soumettre'],
         'match'=>[
             'method'=>'post',
             'role'=>'nobody'],

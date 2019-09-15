@@ -51,6 +51,8 @@ class File extends Base\Test
         $core = Core\File::new(true);
         $text2 = Core\File::new(true,['mime'=>'txt']);
         $raster2 = Core\File::new(true,['mime'=>'jpg']);
+        $pngMime = Core\File::new(true,['mime'=>'image/png']);
+        $jpgBasename = Core\File::new(true,['basename'=>'test.jpg']);
         $csv2 = Core\File\Csv::new(true);
         $pngTemp = Core\File::new(Base\Res::temp('png','temp.png'));
         $png = Core\File::newCreate($mediaPng);
@@ -185,6 +187,8 @@ class File extends Base\Test
         assert($html instanceof Core\File\Html);
 
         // imageRaster
+        assert($pngMime instanceof Core\File\ImageRaster);
+        assert($jpgBasename instanceof Core\File\ImageRaster);
         assert($create instanceof Core\File\ImageRaster);
         assert(is_resource($create->resource()));
         assert($create->unlink());
