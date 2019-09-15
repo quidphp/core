@@ -347,7 +347,7 @@ class File extends Base\Test
         assert($zip->archive() instanceof \ZipArchive);
         assert(count($zip->all()) === 9);
         assert($zip->extract($storage.'/extract'));
-        
+
         // problème avec commit du zip sous Windows
         if(!Base\Server::isWindows())
         {
