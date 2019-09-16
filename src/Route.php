@@ -24,8 +24,8 @@ abstract class Route extends Routing\Route
     public static $config = [ // config pour la route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
         'row'=>null, // permet de spécifier la classe row en lien avec la route
-        '@dev'=>array(
-            'debug'=>1) // store dans debug
+        '@dev'=>[
+            'debug'=>1] // store dans debug
     ];
 
 

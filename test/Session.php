@@ -51,16 +51,16 @@ class Session extends Base\Test
 
         // isSomebody
         assert($s->isSomebody());
-        
+
         // isShared
         assert(!$s->isShared());
-        
+
         // isAdmin
         assert($s->isAdmin());
-        
+
         // isCron
         assert(!$s->isCron());
-        
+
         // isUserSynched
         assert($s->isUserSynched());
 

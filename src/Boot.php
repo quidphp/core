@@ -333,7 +333,7 @@ abstract class Boot extends Main\Root
         return $this;
     }
 
-    
+
     // onMatch
     // callback à chaque match de route
     // doit retourne true
@@ -341,8 +341,8 @@ abstract class Boot extends Main\Root
     {
         return true;
     }
-    
-    
+
+
     // onAfter
     // callback une fois tout fini
     protected function onAfter():self
@@ -593,10 +593,10 @@ abstract class Boot extends Main\Root
 
                 if($one['bool'] === true)
                 $this->setRoute($match);
-                
+
                 elseif($route::isDebug())
                 $route::debugDead();
-                
+
                 if($one['continue'] === true)
                 continue;
 
@@ -604,7 +604,7 @@ abstract class Boot extends Main\Root
                 break;
             }
         }
-        
+
         $this->setStatus(5);
         $this->onAfter();
 

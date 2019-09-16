@@ -47,9 +47,9 @@ class Boot extends Base\Test
         // onReady
 
         // onLaunch
-        
+
         // onMatch
-        
+
         // onAfter
 
         // prepare
