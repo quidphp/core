@@ -51,10 +51,16 @@ class Session extends Base\Test
 
         // isSomebody
         assert($s->isSomebody());
-
+        
+        // isShared
+        assert(!$s->isShared());
+        
         // isAdmin
         assert($s->isAdmin());
-
+        
+        // isCron
+        assert(!$s->isCron());
+        
         // isUserSynched
         assert($s->isUserSynched());
 
@@ -222,7 +228,9 @@ class Session extends Base\Test
         assert($user->uid() === $user->primary());
         assert(!$user->isNobody());
         assert($user->isSomebody());
+        assert(!$user->isShared());
         assert(!$user->isAdmin());
+        assert(!$user->isCron());
         assert($user->role() instanceof Core\Role);
         assert($user->permission() === 20);
         assert($user->hasEmail());

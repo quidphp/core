@@ -27,6 +27,14 @@ class Cron extends Core\RoleAlias
                 'truncate'=>true,
                 'drop'=>true]]
     ];
+    
+    
+    // isCron
+    // retourne vrai comme c'est cron
+    public static function isCron():bool
+    {
+        return true;
+    }
 }
 
 // config

@@ -105,7 +105,7 @@ class Session extends Main\Session
         return $this->user()->isNobody();
     }
 
-
+    
     // isSomebody
     // retourne vrai si le user est somebody
     public function isSomebody():bool
@@ -114,6 +114,14 @@ class Session extends Main\Session
     }
 
 
+    // isShared
+    // retourne vrai si le user est shared
+    public function isShared():bool
+    {
+        return $this->user()->isShared();
+    }
+    
+    
     // isAdmin
     // retourne vrai si le user est admin
     public function isAdmin():bool
@@ -121,7 +129,15 @@ class Session extends Main\Session
         return $this->user()->isAdmin();
     }
 
-
+    
+    // isCron
+    // retourne vrai si le user est cron
+    public function isCron():bool
+    {
+        return $this->user()->isCron();
+    }
+    
+    
     // isUserSynched
     // retourne vrai si le user est sync
     // c'est à dire que le user objet a le même id et permission que dans les data de session

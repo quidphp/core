@@ -333,7 +333,16 @@ abstract class Boot extends Main\Root
         return $this;
     }
 
-
+    
+    // onMatch
+    // callback à chaque match de route
+    // doit retourne true
+    protected function onMatch(string $route):bool
+    {
+        return true;
+    }
+    
+    
     // onAfter
     // callback une fois tout fini
     protected function onAfter():self
@@ -574,22 +583,28 @@ abstract class Boot extends Main\Root
         $match = null;
         $once = false;
 
-        while ($match = $routes->matchOne($request,$session,$match))
+        while ($match = $routes->matchOne($request,$session,$match,true))
         {
-            $once = true;
-            $route = new $match($request);
-            $one = $route->run(true);
+            if($this->onMatch($match) === true)
+            {
+                $once = true;
+                $route = new $match($request);
+                $one = $route->run(true);
 
-            if($one['bool'] === true)
-            $this->setRoute($match);
+                if($one['bool'] === true)
+                $this->setRoute($match);
+                
+                elseif($route::isDebug())
+                $route::debugDead();
+                
+                if($one['continue'] === true)
+                continue;
 
-            if($one['continue'] === true)
-            continue;
-
-            else
-            break;
+                else
+                break;
+            }
         }
-
+        
         $this->setStatus(5);
         $this->onAfter();
 
@@ -604,7 +619,7 @@ abstract class Boot extends Main\Root
     // match les routes avec la requête
     public function match():array
     {
-        return $this->routesActive()->match($this->request(),$this->session());
+        return $this->routesActive()->match($this->request(),$this->session(),true);
     }
 
 

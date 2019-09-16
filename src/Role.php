@@ -73,7 +73,15 @@ abstract class Role extends Main\Role
                 'delete'=>true]]
     ];
 
-
+    
+    // isShared
+    // retourne vrai si la permission est shared
+    public static function isShared():bool
+    {
+        return false;
+    }
+    
+    
     // isAdmin
     // retourne vrai si la permission est admin
     public static function isAdmin():bool
@@ -81,7 +89,15 @@ abstract class Role extends Main\Role
         return false;
     }
 
-
+    
+    // isCron
+    // retourne vrai si la permission est cron
+    public static function isCron():bool
+    {
+        return false;
+    }
+    
+    
     // validateReplace
     // retourne un tableau de remplacement en utilisant roles
     // méthode protégé, utilisé par validate

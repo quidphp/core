@@ -384,7 +384,7 @@ abstract class Files extends Core\ColAlias
         $hasVersion = $this->hasVersion();
         $table = $this->table();
         $file = ($hasIndex === true)? $value->file($index):$value->file();
-        $exists = $file->isReadable();
+        $exists = (!empty($file))? $file->isReadable():false;
         $isImage = ($exists === true && $file instanceof Core\File\Image)? true:false;
         $basename = ($exists === true)? $file->basename():false;
         $download = $table->hasPermission('download');

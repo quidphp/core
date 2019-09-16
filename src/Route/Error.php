@@ -76,7 +76,7 @@ abstract class Error extends Core\RouteAlias
 
 
     // makeTitleBox
-    // génère le titre et sous-tire
+    // génère le titre et sous-titre
     protected function makeTitleBox():string
     {
         $r = '';
