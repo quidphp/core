@@ -8,10 +8,10 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\TestSuite;
+use Quid\Base;
 use Quid\Core;
 use Quid\Routing;
-use Quid\Base;
+use Quid\TestSuite;
 
 // route
 // class for testing Quid\Core\Route

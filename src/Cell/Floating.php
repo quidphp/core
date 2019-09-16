@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Cell;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // floating
 // class to work with a cell containing a floating value

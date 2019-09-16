@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
-use Quid\Orm;
 use Quid\Base;
+use Quid\Orm;
 
 // _colRelation
 // trait that provides methods related to a column relation route

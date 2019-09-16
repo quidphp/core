@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Cell;
+use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // files
 // abstract class extended by the media and medias cells

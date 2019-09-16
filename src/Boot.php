@@ -8,10 +8,10 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Routing;
-use Quid\Orm;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
+use Quid\Orm;
+use Quid\Routing;
 
 // boot
 // abstract class for boot which is the object that bootstraps the application

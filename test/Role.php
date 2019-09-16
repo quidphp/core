@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // role
 // class for testing Quid\Core\Role

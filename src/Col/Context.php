@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // context
 // class for the context column, updates itself automatically on commit

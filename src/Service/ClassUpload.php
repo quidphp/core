@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 use Verot\Upload;
 
 // classUpload

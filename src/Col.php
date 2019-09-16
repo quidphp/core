@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Orm;
 use Quid\Base;
+use Quid\Orm;
 
 // col
 // extended class to represent an existing column within a table

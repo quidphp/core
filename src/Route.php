@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Routing;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
+use Quid\Routing;
 
 // route
 // extended abstract class for a route that acts as both a View and a Controller

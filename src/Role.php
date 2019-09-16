@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // role
 // extended abstract class that provides more advanced logic for a role

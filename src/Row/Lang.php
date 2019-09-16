@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Row;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // lang
 // class to work with a row of the lang table, contains the text and translations

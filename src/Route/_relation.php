@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
+use Quid\Base;
 use Quid\Base\Html;
 use Quid\Orm;
-use Quid\Base;
 
 // _relation
 // trait that provides common methods related to a relation route

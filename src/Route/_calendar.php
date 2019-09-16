@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // _calendar
 // trait that provides most methods to make a calendar route

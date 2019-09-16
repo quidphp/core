@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Orm;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
+use Quid\Orm;
 
 // lang
 // extended class for a collection object containing language texts and translations

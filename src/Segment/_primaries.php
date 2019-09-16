@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Segment;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // _primaries
 // trait to deal with a route segment which must contain many rows

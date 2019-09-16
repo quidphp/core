@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Widget;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // calendar
 // class that provides logic for the calendar widget
