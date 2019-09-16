@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Segment;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // _filter
 // trait to manage a complex route segment which contains filtering directive

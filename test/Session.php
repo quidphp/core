@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\TestSuite;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
+use Quid\TestSuite;
 
 // session
 // class for testing Quid\Core\Session
@@ -51,16 +51,16 @@ class Session extends Base\Test
 
         // isSomebody
         assert($s->isSomebody());
-        
+
         // isShared
         assert(!$s->isShared());
-        
+
         // isAdmin
         assert($s->isAdmin());
-        
+
         // isCron
         assert(!$s->isCron());
-        
+
         // isUserSynched
         assert($s->isUserSynched());
 

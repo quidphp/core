@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\TestSuite;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
+use Quid\TestSuite;
 
 // col
 // class for testing Quid\Core\Col

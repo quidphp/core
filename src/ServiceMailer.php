@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // serviceMailer
 // extended abstract class with basic methods that needs to be extended by a mailing service

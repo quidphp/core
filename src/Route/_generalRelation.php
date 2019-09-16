@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
+use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
-use Quid\Base;
 
 // _generalRelation
 // trait that provides methods to make a filter from a relation

@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Orm;
 use Quid\Base;
+use Quid\Orm;
 
 // cell
 // extended class to represent an existing cell within a row

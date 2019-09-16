@@ -18,8 +18,8 @@ class Shared extends Core\RoleAlias
     public static $config = [
         'permission'=>10
     ];
-    
-    
+
+
     // isShared
     // retourne vrai comme c'est shared
     public static function isShared():bool

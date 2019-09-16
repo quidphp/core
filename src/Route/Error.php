@@ -8,10 +8,10 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
+use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // error
 // abstract class for an error route

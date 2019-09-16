@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // dateModify
 // class for the dateModify column, current timestamp is updated automatically on update

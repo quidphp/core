@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // phpConcatenator
 // class used for concatenating a bunch of php files within a single one

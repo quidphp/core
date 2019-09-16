@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Orm;
 use Quid\Base;
+use Quid\Orm;
 
 // rows
 // extended class for a collection of many rows within a same table

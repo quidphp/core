@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // serialize
 // class for a column which should serialize its value

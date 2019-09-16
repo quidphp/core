@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // accountSubmit
 // abstract class for an account submit route

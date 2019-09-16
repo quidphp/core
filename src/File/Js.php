@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // js
 // class for a js file

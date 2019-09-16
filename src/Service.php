@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // service
 // extended abstract class that provides basic methods to manage a third-party service

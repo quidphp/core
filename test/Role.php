@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // role
 // class for testing Quid\Core\Role
@@ -29,17 +29,17 @@ class Role extends Base\Test
         // isSomebody
         assert(!Core\Role\Nobody::isSomebody());
         assert($admin->isSomebody());
-        
+
         // isShared
         assert(Core\Role\Shared::isShared());
-        
+
         // isAdmin
         assert(!Core\Role\Nobody::isAdmin());
         assert($admin->isAdmin());
-        
+
         // isCron
         assert(Core\Role\Cron::isCron());
-        
+
         // validateReplace
 
         // canLogin

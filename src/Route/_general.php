@@ -8,10 +8,10 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
+use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // _general
 // trait that provides most methods used for a general navigation route

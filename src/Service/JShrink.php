@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Core;
 use JShrink\Minifier;
+use Quid\Core;
 
 // jShrink
 // class that provides methods to use tedivm/jshrink for minifying JavaScript

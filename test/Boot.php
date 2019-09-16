@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Test\Core;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // boot
 // class for testing Quid\Core\Boot
@@ -47,9 +47,9 @@ class Boot extends Base\Test
         // onReady
 
         // onLaunch
-        
+
         // onMatch
-        
+
         // onAfter
 
         // prepare

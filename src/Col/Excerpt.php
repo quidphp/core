@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
+use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // excerpt
 // class for a column which contains an excerpt of a longer value

@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // serviceRequest
 // extended abstract class with basic methods for a service that works with HTTP request

@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
+use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // phone
 // class for a column managing phone numbers, automatically formats the value

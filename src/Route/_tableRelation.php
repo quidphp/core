@@ -8,10 +8,10 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
+use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // _tableRelation
 // trait that provides methods to make a table relation route, used by some inputs

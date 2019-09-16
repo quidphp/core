@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Segment;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // _cols
 // trait to manage a route segment which must contain many columns

@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // zip
 // class for a zip file

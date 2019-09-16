@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Core;
 use Quid\Base;
+use Quid\Core;
 
 // date
 // class for a date column, supports many date formats

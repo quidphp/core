@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Row;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // user
 // class for a row of the user table
@@ -256,15 +256,15 @@ class User extends Core\RowAlias implements Main\Contract\User
         return $this->role()->isSomebody();
     }
 
-    
+
     // isShared
     // retourne vrai si le user est de rôle shared
     public function isShared():bool
     {
         return $this->role()->isShared();
     }
-    
-    
+
+
     // isAdmin
     // retourne vrai si le user est de rôle admin
     public function isAdmin():bool
@@ -272,15 +272,15 @@ class User extends Core\RowAlias implements Main\Contract\User
         return $this->role()->isAdmin();
     }
 
-    
+
     // isCron
     // retourne vrai si le user est de rôle cron
     public function isCron():bool
     {
         return $this->role()->isCron();
     }
-    
-    
+
+
     // can
     // retourne vrai si le role permet de faire
     public function can($path):bool

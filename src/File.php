@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // file
 // extended class for a basic file object
