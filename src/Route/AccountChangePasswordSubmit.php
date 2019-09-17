@@ -36,7 +36,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
 
 
     // onFailure
-    // callback appelé lors d'un ajout avec erreur
+    // callback appelé lors d'un changement avec erreur
     protected function onFailure():void
     {
         $com = static::session()->com();
