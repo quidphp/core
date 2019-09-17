@@ -31,24 +31,56 @@ class Lang extends Core\RowAlias
             'content_en'=>['general'=>true,'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
     ];
 
+    
+    // getCacheIdentifier
+    // retourne l'identificateur de cache
+    public static function getCacheIdentifier(?string $type=null):array
+    {
+        $return = array();
+        $boot = static::boot();
+        $type = (is_string($type))? $type:$boot->type();
+        $return = array('lang',$type,$boot->version());
+        
+        return $return;
+    }
+    
+    
+    // onCommittedOrDeleted
+    // sur insert, update ou delete efface la cache de tous les types
+    protected function onCommittedOrDeleted(array $option)
+    {
+        $boot = static::boot();
 
+        foreach ($boot->types() as $type) 
+        {
+            static::cacheFile(static::getCacheIdentifier($type),null);
+        }
+
+        return $this;
+    }
+    
+    
     // grabContent
     // retourne un tableau de tous les contenus de langue pertinente
     // il faut fournir un code de langue et un type
+    // peut être mis en cache
     public static function grabContent(string $value,string $type):array
     {
-        $return = [];
-        $table = static::tableFromFqcn();
-        $typeCol = $table->col('type');
-        $keyCol = $table->colKey();
-        $contentCol = $table->col("content_$value");
-        $where = [true,[$typeCol,'findInSet',$type]];
-        $return = $table->keyValue($keyCol,$contentCol,false,$where);
+        $boot = static::boot();
+        return static::cacheFile(static::getCacheIdentifier(),function() use($value,$type) {
+            $return = [];
+            $table = static::tableFromFqcn();
+            $typeCol = $table->col('type');
+            $keyCol = $table->colKey();
+            $contentCol = $table->col("content_$value");
+            $where = [true,[$typeCol,'findInSet',$type]];
+            $return = $table->keyValue($keyCol,$contentCol,false,$where);
 
-        if(!empty($return))
-        $return = Base\Lang::content($return);
-
-        return $return;
+            if(!empty($return))
+            $return = Base\Lang::content($return);
+            
+            return $return;
+        },$boot->shouldCache());
     }
 
 
