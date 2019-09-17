@@ -28,15 +28,15 @@ abstract class Logout extends Core\RouteAlias
         'navigation'=>false
     ];
 
-    
+
     // onLogout
     // callback sur logout
-    protected function onLogout():void 
+    protected function onLogout():void
     {
         return;
     }
-    
-    
+
+
     // afterRouteRedirect
     // renvoie vers le parent en cas de succès
     public function afterRouteRedirect():Core\Route
@@ -51,7 +51,7 @@ abstract class Logout extends Core\RouteAlias
     {
         static::session()->logoutProcess(['com'=>true]);
         $this->onLogout();
-        
+
         return;
     }
 }
