@@ -101,10 +101,10 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
                 {
                     $shouldLog = (Base\Response::isCodePositive())? false:true;
                     $data = $request->getLogData();
-                    
+
                     if(!empty($data))
                     $shouldLog = true;
-                    
+
                     if($shouldLog === true)
                     {
                         $bool = true;
