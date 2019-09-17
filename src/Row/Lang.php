@@ -50,36 +50,36 @@ class Lang extends Core\RowAlias
 
         return $return;
     }
-    
-    
+
+
     // import
     // permet d'importer du contenu dans la table lang
-    public static function import(array $array,string $lang,$types=null):array 
+    public static function import(array $array,string $lang,$types=null):array
     {
-        $return = array();
+        $return = [];
         $table = static::tableFromFqcn();
         $col = $table->col('content_'.$lang);
         $colName = $col->name();
         $array = Base\Arrs::crush($array);
-        
-        foreach ($array as $key => $value) 
+
+        foreach ($array as $key => $value)
         {
             if(is_string($key) && is_scalar($value))
             {
                 $row = $table->row($key);
-                
+
                 if(empty($row))
                 {
-                    $set = array();
+                    $set = [];
                     $set['type'] = $types;
                     $set['key'] = $key;
                     $set[$colName] = (string) $value;
-                    $save = $table->insert($set,array('row'=>false));
+                    $save = $table->insert($set,['row'=>false]);
                     $return[$key] = $save;
                 }
             }
         }
-        
+
         return $return;
     }
 }
