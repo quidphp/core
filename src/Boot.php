@@ -868,9 +868,6 @@ abstract class Boot extends Main\Root
         $request = Request::newOverload($value);
         $request->setInst();
 
-        if($request->hasFiles())
-        $request->setLogData(['files'=>'youBET']);
-
         return $this;
     }
 
