@@ -26,6 +26,7 @@ class Session extends Main\Session
             'userClass'=>Row\User::class, // classe row de l'utilisateur
             'userDefault'=>1, // définit le user par défaut (à l'insertion)
             'nobody'=>1, // défini le user nobody
+            'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
             'loginLifetime'=>3600, // durée du login dans une session
             'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
             'log'=>[ // lit des événements à des classes de table
@@ -260,7 +261,7 @@ class Session extends Main\Session
             {
                 $user = $class::findByUid($value['uid']);
 
-                if($user->permission() === $value['permission'])
+                if(!$this->getOption('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
                 $return = $user;
             }
 
