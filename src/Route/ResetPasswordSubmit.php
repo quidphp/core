@@ -88,10 +88,10 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
         $option = $this->getOption();
         $post = $this->post();
         $post = $this->onBeforeCommit($post);
-        
+
         if($post !== null)
         $return = $class::resetPasswordProcess($post['email'],$replace,$option);
-        
+
         if(empty($return))
         $this->failureComplete();
 
