@@ -49,7 +49,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 **QuidPHP/Core** has the following dependencies:
 - [quidphp/base](https://github.com/quidphp/base) - Quid\Base - PHP library that provides a set of low-level static methods
 - [quidphp/main](https://github.com/quidphp/main) - Quid\Main - PHP library that provides a set of base objects and collections 
-- [quidphp/orm](https://github.com/quidphp/orm) - Quid\Orm - PHP library that provides database access and a comprehensive Object-Relational Mapper
+- [quidphp/orm](https://github.com/quidphp/orm) - Quid\Orm - PHP library that provides database access and a comprehensive ORM
 - [quidphp/routing](https://github.com/quidphp/routing) - Quid\Routing - PHP library that provides a simple route matching and triggering procedure
 - [verot/class.upload.php](https://github.com/verot/class.upload.php) - Verot\Upload - A popular PHP class used for resizing images
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) - PHPMailer\PHPMailer - The classic email sending library for PHP
