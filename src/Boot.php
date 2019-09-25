@@ -476,7 +476,7 @@ abstract class Boot extends Main\Root
         $callable = $this->attr('callable');
         if(is_array($callable) && !empty($callable))
         static::setsCallable($callable);
-
+        
         Error::init();
 
         $lang = $this->attr('lang');
@@ -535,11 +535,12 @@ abstract class Boot extends Main\Root
         $this->makeExtenders();
 
         $error = Error::getOverloadClass();
+        if($error !== Error::class)
         $error::init();
 
         if($this->shouldCompile())
         $this->compile();
-
+        
         $this->setStatus(4);
         $this->session();
         $this->manageRedirect();
