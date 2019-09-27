@@ -77,8 +77,9 @@ class En extends Base\Lang\En
                 31=>'Exception',
                 32=>'Catchable exception',
                 33=>'Database exception',
-                34=>'Route exception',
-                35=>'Route break exception'
+                34=>'Catchable database exception',
+                35=>'Route exception',
+                36=>'Route break exception'
             ],
 
             // page
@@ -87,7 +88,9 @@ class En extends Base\Lang\En
                 // content
                 'content'=>[
                     400=>'The request is invalid and cannot be processed.',
-                    404=>'This URL does not point to any valid content.'
+                    403=>'The request is invalid because access is forbidden.',
+                    404=>'This URL does not point to any valid content.',
+                    500=>'The request cannot be processed due to a server error.'
                 ],
 
                 'back'=>'Click [link] to go back.'
@@ -760,6 +763,7 @@ class En extends Base\Lang\En
                 301=>'301 - Moved Permanently',
                 302=>'302 - Found',
                 400=>'400 - Bad Request',
+                403=>'403 - Forbidden',
                 404=>'404 - Not Found',
                 500=>'500 - Internal Server Error'
             ],

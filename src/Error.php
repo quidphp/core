@@ -21,8 +21,9 @@ class Error extends Main\Error
             'log'=>[Row\LogError::class,File\Error::class]], // classe pour log, , s'il y a en plusieurs utilise seulement le premier qui fonctionne
         'type'=>[ // description des types additionneles à boot
             33=>['key'=>'dbException','name'=>'Database Exception'],
-            34=>['key'=>'routeException','name'=>'Route Exception'],
-            35=>['key'=>'routeBreakException','name'=>'Route Break Exception']]
+            34=>['key'=>'dbException','name'=>'Catchable database exception'],
+            35=>['key'=>'routeException','name'=>'Route Exception'],
+            36=>['key'=>'routeBreakException','name'=>'Route break exception']]
     ];
 
 

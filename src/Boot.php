@@ -101,6 +101,7 @@ abstract class Boot extends Main\Root
             'sessionStorage'=>[Base\Session::class,'setSavePath','[storage]/session'],
             'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','send'],
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
+            'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
             'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false]],
         'lang'=>'en', // lang à mettre dans setLang
@@ -120,17 +121,17 @@ abstract class Boot extends Main\Root
         'cache'=>true, // active ou désactive la cache globale
         'clearCache'=>true, // vide le dossier de cache si cache est false
         'extenders'=>[ // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
-            'role'=>Roles::class,
-            'lang'=>[Main\Extender::class,false],
-            'service'=>[Main\Extender::class,false],
-            'widget'=>[Main\Extender::class,false],
-            'table'=>[Main\Extender::class,false],
-            'rows'=>[Main\Extender::class,false],
-            'row'=>[Main\Extender::class,false],
-            'cols'=>[Main\Extender::class,false],
-            'col'=>[Main\Extender::class,false],
-            'cells'=>[Main\Extender::class,false],
-            'cell'=>[Main\Extender::class,false]],
+            'role'=>[Roles::class,Role::class],
+            'lang'=>[Main\Extender::class,Base\Config::class],
+            'service'=>[Main\Extender::class,Main\Service::class],
+            'widget'=>[Main\Extender::class,Widget::class],
+            'table'=>[Main\Extender::class,Table::class],
+            'rows'=>[Main\Extender::class,Rows::class],
+            'row'=>[Main\Extender::class,Row::class],
+            'cols'=>[Main\Extender::class,Cols::class],
+            'col'=>[Main\Extender::class,Col::class],
+            'cells'=>[Main\Extender::class,Cells::class],
+            'cell'=>[Main\Extender::class,Cell::class]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
         'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
         'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
@@ -183,6 +184,7 @@ abstract class Boot extends Main\Root
                 'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>true,'exists'=>true]],
                 'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
+                'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]],
             'concatenateJsOption'=>['compress'=>false],
@@ -328,9 +330,10 @@ abstract class Boot extends Main\Root
 
     // onLaunch
     // callback au début de launch
-    protected function onLaunch():self
+    // retourne un booléean, si false skip le process du match et trigger de la route
+    protected function onLaunch():bool
     {
-        return $this;
+        return true;
     }
 
 
@@ -577,45 +580,63 @@ abstract class Boot extends Main\Root
     protected function launch():self
     {
         $this->checkReady();
-        $this->onLaunch();
-        $request = $this->request();
-        $session = $this->session();
-        $routes = $this->routesActive();
-        $match = null;
-        $once = false;
-
-        while ($match = $routes->matchOne($request,$session,$match,true))
+        
+        if($this->onLaunch() === true)
         {
-            if($this->onMatch($match) === true)
+            $request = $this->request();
+            $session = $this->session();
+            $routes = $this->routesActive();
+            $match = null;
+            $firstMatch = $this->getFirstMatch() ?? $routes->matchOne($request,$session,$match,true);
+            $once = false;
+            
+            while (!empty($firstMatch) || ($match = $routes->matchOne($request,$session,$match,true)))
             {
-                $once = true;
-                $route = new $match($request);
-                $one = $route->run(true);
+                if(!empty($firstMatch))
+                {
+                    $match = $firstMatch;
+                    $firstMatch = null;
+                }
+                
+                if($this->onMatch($match) === true)
+                {
+                    $once = true;
+                    $route = new $match($request);
+                    $one = $route->run(true);
+                    
+                    if($one['bool'] === true)
+                    $this->setRoute($match);
 
-                if($one['bool'] === true)
-                $this->setRoute($match);
+                    elseif($route::isDebug())
+                    $route::debugDead();
 
-                elseif($route::isDebug())
-                $route::debugDead();
+                    if($one['continue'] === true)
+                    continue;
 
-                if($one['continue'] === true)
-                continue;
-
-                else
-                break;
+                    else
+                    break;
+                }
             }
-        }
 
+            if($once === false)
+            static::throw('noRouteMatch');
+        }
+        
         $this->setStatus(5);
         $this->onAfter();
-
-        if($once === false)
-        static::throw('noRouteMatch');
-
+        
         return $this;
     }
 
-
+    
+    // getFirstMatch
+    // retourne un premier match avant la boucle
+    protected function getFirstMatch():?string 
+    {
+        return null;
+    }
+    
+    
     // match
     // match les routes avec la requête
     public function match():array
@@ -1652,7 +1673,7 @@ abstract class Boot extends Main\Root
         $extenders = static::cacheFile($key,function() {
             $this->fromCache = false;
             $config = (array) $this->attr('extenders');
-            return static::newExtenders($config);
+            return $this->newExtenders($config);
         },$cache);
 
         if($this->isFromCache())
@@ -1672,12 +1693,28 @@ abstract class Boot extends Main\Root
             $extender->setType($key,false);
 
             if($key !== 'core')
-            $extender->extended()->alias(null,true,true);
+            {
+                $extender->extended()->alias(null,true,true);
+                
+                // vérifie que toutes les classes sont des sous-classe de celle défini dans configuration
+                if($cache === false)
+                {
+                    $subClass = $this->attr(array('extenders',$key,1));
+                    
+                    if(is_string($subClass))
+                    {
+                        $notSubClass = $extender->notSubClassOf($subClass);
+                        if(!empty($notSubClass))
+                        static::throw($notSubClass,'notSubClassOf',$subClass);
+                    }
+                }
+            }
         }
 
         $roles = $extenders->get('role');
         $roles->init($type);
         $roles->readOnly(true);
+        
         $routes = $extenders->get($type);
         $routes->init($type);
         $routes->readOnly(true);
@@ -1698,7 +1735,7 @@ abstract class Boot extends Main\Root
         $currentType = $this->type();
         $types = $this->types();
         $namespaces = static::extendersNamespaces();
-
+        
         $closure = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
             if(is_string($key))
             $ucKey = ucfirst($key);
@@ -1714,18 +1751,32 @@ abstract class Boot extends Main\Root
 
         // core
         $core = $closure(Main\Extender::class,null,$namespaces);
+        
+        // ici vérifie qu'il n'y a pas d'objet non désiré dans le dossier
+        foreach ($core as $key => $value) 
+        {
+            if(!is_subclass_of($value,self::class,true))
+            {
+                $parent = get_parent_class($value);
+                
+                if(empty($parent) || (Base\Fqcn::name($value) !== Base\Fqcn::name($parent)))
+                static::throw('namespaceIsForExtendingClass',$value,'shouldNotBeThere');
+            }
+        }
+        
         $core->extended()->alias(null,true);
         $core->overload();
         $return->set('core',$core);
 
         // routes
+        $routeOption = ['noSubDir'=>true];
         foreach ($types as $type)
         {
             $routeNamespace = $this->attr(['routeNamespace',$type]);
             if(!empty($routeNamespace))
-            $extender = $closure(Routes::class,null,$routeNamespace);
+            $extender = $closure(Routes::class,null,$routeNamespace,$routeOption);
             else
-            $extender = $closure(Routes::class,$type,$namespaces);
+            $extender = $closure(Routes::class,$type,$namespaces,$routeOption);
 
             if($type === $currentType)
             $extender->overload();
@@ -1742,11 +1793,12 @@ abstract class Boot extends Main\Root
             if(is_string($key) && is_array($value) && !empty($value))
             {
                 $class = current($value);
-                $option = Base\Arr::index(1,$value);
-
-                if($option === false)
-                $option = ['exists'=>false,'overloadKeyPrepend'=>ucfirst($key)];
-
+                $option = array();
+                $option['exists'] = false;
+                $option['subClass'] = null;
+                $option['noSubDir'] = true;
+                $option['overloadKeyPrepend'] = ucfirst($key);
+                
                 $extender = $closure($class,$key,$namespaces,$option);
                 $extender->overload();
                 $return->set($key,$extender);
@@ -1861,16 +1913,22 @@ abstract class Boot extends Main\Root
 
         foreach (Base\Finder::allShortcuts() as $key => $value)
         {
+            if(!Base\Lang::is($value))
+            $value = Base\Finder::normalize($value);
             $key = 'finder'.ucfirst($key);
-            $return[$key] = Base\Finder::normalize($value);
+            
+            $return[$key] = $value;
         }
 
         foreach (Base\Uri::allShortcuts() as $key => $value)
         {
+            if(!Base\Lang::is($value))
+            $value = Base\Uri::relative($value);
             $key = 'uri'.ucfirst($key);
-            $return[$key] = Base\Uri::relative($value);
+            
+            $return[$key] = $value;
         }
-
+        
         return $return;
     }
 

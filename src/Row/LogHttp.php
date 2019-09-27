@@ -45,6 +45,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
             301=>301,
             302=>302,
             400=>400,
+            403=>403,
             404=>404,
             500=>500]
     ];

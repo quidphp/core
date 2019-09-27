@@ -77,8 +77,9 @@ class Fr extends Base\Lang\Fr
                 31=>'Exception',
                 32=>'Exception attrapable',
                 33=>'Exception base de données',
-                34=>'Exception de route',
-                35=>'Exception fatale de route'
+                34=>'Exception attrapable de base de données',
+                35=>'Exception de route',
+                36=>'Exception fatale de route'
             ],
 
             // page
@@ -87,7 +88,9 @@ class Fr extends Base\Lang\Fr
                 // content
                 'content'=>[
                     400=>'La requête est invalide et ne peut pas être traitée.',
-                    404=>'Cette URL ne pointe pas vers un contenu valide.'
+                    403=>"La requête est invalide car l'accès est interdit.",
+                    404=>'Cette URL ne pointe pas vers un contenu valide.',
+                    500=>"La requête ne peut être traitée en raison d'une erreur de serveur."
                 ],
 
                 'back'=>'Cliquez [link] pour revenir.'
@@ -760,6 +763,7 @@ class Fr extends Base\Lang\Fr
                 301=>'301 - Déplacé en permanence',
                 302=>'302 - Trouvé',
                 400=>'400 - Mauvaise requête',
+                403=>'403 - Interdit',
                 404=>'404 - Pas trouvé',
                 500=>'500 - Erreur interne du serveur'
             ],
