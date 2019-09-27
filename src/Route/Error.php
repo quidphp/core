@@ -140,9 +140,9 @@ abstract class Error extends Core\RouteAlias
     {
         $r = '';
         static::setResponseCode();
-        
+
         $r .= Html::divOp('ajax-parse-error');
-        
+
         if($titleBox === true)
         $r .= $this->makeTitleBox();
 
@@ -155,9 +155,9 @@ abstract class Error extends Core\RouteAlias
             $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
             $r .= Html::divCl();
         }
-        
+
         $r .= Html::divCl();
-        
+
         return $r;
     }
 
