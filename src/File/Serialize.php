@@ -17,11 +17,11 @@ class Serialize extends TextAlias
     // config
     public static $config = [
         'group'=>null,
-        'option'=>array(
+        'option'=>[
             'read'=>[
                 'callback'=>[Base\Crypt::class,'unserialize']],
             'write'=>[
-                'callback'=>[Base\Crypt::class,'serialize']])
+                'callback'=>[Base\Crypt::class,'serialize']]]
     ];
 }
 

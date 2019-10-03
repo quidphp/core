@@ -16,9 +16,9 @@ class Dump extends HtmlAlias
 {
     // config
     public static $config = [
-        'option'=>array(
+        'option'=>[
             'write'=>[
-                'callback'=>[Base\Debug::class,'varGet']])
+                'callback'=>[Base\Debug::class,'varGet']]]
     ];
 }
 

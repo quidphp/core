@@ -2298,7 +2298,7 @@ abstract class Boot extends Main\Root
             if($manage['location'] !== null)
             Base\Response::redirect($manage['location'],$manage['code'],true);
         }
-        
+
         return $this;
     }
 
