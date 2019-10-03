@@ -133,6 +133,6 @@ class Set extends RelationAlias
     }
 }
 
-// config
-Set::__config();
+// init
+Set::__init();
 ?>

@@ -333,6 +333,6 @@ class Calendar extends Core\WidgetAlias
     }
 }
 
-// config
-Calendar::__config();
+// init
+Calendar::__init();
 ?>

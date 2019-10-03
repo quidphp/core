@@ -53,6 +53,6 @@ abstract class Login extends Core\RouteAlias
     }
 }
 
-// config
-Login::__config();
+// init
+Login::__init();
 ?>

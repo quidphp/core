@@ -25,20 +25,6 @@ class File extends Main\File
 
     // param
     public static $param = [
-        'types'=>[ // défini les options à mettre selon le type
-            'dump'=>[
-                'write'=>[
-                    'callback'=>[Base\Debug::class,'varGet']]],
-            'json'=>[
-                'read'=>[
-                    'callback'=>[Base\Json::class,'decode']],
-                'write'=>[
-                    'callback'=>[Base\Json::class,'encodePretty']]],
-            'serialize'=>[
-                'read'=>[
-                    'callback'=>[Base\Crypt::class,'unserialize']],
-                'write'=>[
-                    'callback'=>[Base\Crypt::class,'serialize']]]],
         'storageClass'=>[ // défini les classes storages, un dirname dans celui défini de la classe doit utilisé un objet particulier
             'cache'=>File\Cache::class,
             'error'=>File\Error::class,
@@ -78,6 +64,6 @@ class File extends Main\File
     }
 }
 
-// config
-File::__config();
+// init
+File::__init();
 ?>

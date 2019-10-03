@@ -125,6 +125,6 @@ class Db extends Orm\Db
     ];
 }
 
-// config
-Db::__config();
+// init
+Db::__init();
 ?>

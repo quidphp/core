@@ -35,6 +35,6 @@ class Active extends YesAlias
     }
 }
 
-// config
-Active::__config();
+// init
+Active::__init();
 ?>

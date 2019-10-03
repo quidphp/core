@@ -84,6 +84,6 @@ class Calendar extends TextAlias
     }
 }
 
-// config
-Calendar::__config();
+// init
+Calendar::__init();
 ?>

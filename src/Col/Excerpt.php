@@ -70,6 +70,6 @@ class Excerpt extends Core\ColAlias
     }
 }
 
-// config
-Excerpt::__config();
+// init
+Excerpt::__init();
 ?>

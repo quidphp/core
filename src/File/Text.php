@@ -20,6 +20,6 @@ abstract class Text extends Core\FileAlias
     ];
 }
 
-// config
-Text::__config();
+// init
+Text::__init();
 ?>

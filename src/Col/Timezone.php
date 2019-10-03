@@ -38,6 +38,6 @@ class Timezone extends EnumAlias
     }
 }
 
-// config
-Timezone::__config();
+// init
+Timezone::__init();
 ?>

@@ -370,6 +370,6 @@ class Slug extends Core\ColAlias
     }
 }
 
-// config
-Slug::__config();
+// init
+Slug::__init();
 ?>

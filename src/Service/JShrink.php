@@ -44,6 +44,6 @@ class JShrink extends Core\ServiceAlias
     }
 }
 
-// config
-JShrink::__config();
+// init
+JShrink::__init();
 ?>

@@ -58,6 +58,6 @@ class Request extends Core\ColAlias
     }
 }
 
-// config
-Request::__config();
+// init
+Request::__init();
 ?>

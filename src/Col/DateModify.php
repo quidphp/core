@@ -33,6 +33,6 @@ class DateModify extends DateAlias
     }
 }
 
-// config
-DateModify::__config();
+// init
+DateModify::__init();
 ?>

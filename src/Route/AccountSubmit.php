@@ -132,6 +132,6 @@ abstract class AccountSubmit extends Core\RouteAlias
     }
 }
 
-// config
-AccountSubmit::__config();
+// init
+AccountSubmit::__init();
 ?>

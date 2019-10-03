@@ -756,9 +756,8 @@ class En extends Base\Lang\En
             // logHttpType
             'logHttpType'=>[
                 1=>'Unsafe',
-                2=>'Redirection',
-                3=>'Request',
-                4=>'External POST',
+                2=>'Request',
+                3=>'External POST',
                 200=>'200 - OK',
                 301=>'301 - Moved Permanently',
                 302=>'302 - Found',
@@ -784,6 +783,6 @@ class En extends Base\Lang\En
     ];
 }
 
-// config
-En::__config();
+// init
+En::__init();
 ?>

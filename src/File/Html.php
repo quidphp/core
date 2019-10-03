@@ -19,6 +19,6 @@ class Html extends TextAlias
     ];
 }
 
-// config
-Html::__config();
+// init
+Html::__init();
 ?>

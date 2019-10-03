@@ -57,6 +57,6 @@ class Log extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-Log::__config();
+// init
+Log::__init();
 ?>

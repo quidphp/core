@@ -620,6 +620,6 @@ class Lang extends Main\Lang
     }
 }
 
-// config
-Lang::__config();
+// init
+Lang::__init();
 ?>

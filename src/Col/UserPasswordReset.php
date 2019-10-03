@@ -52,6 +52,6 @@ class UserPasswordReset extends Core\ColAlias
     }
 }
 
-// config
-UserPasswordReset::__config();
+// init
+UserPasswordReset::__init();
 ?>

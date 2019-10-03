@@ -30,6 +30,6 @@ class JsonExport extends JsonAlias
     }
 }
 
-// config
-JsonExport::__config();
+// init
+JsonExport::__init();
 ?>

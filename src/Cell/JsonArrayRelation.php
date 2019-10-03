@@ -95,6 +95,6 @@ class JsonArrayRelation extends Core\CellAlias
     }
 }
 
-// config
-JsonArrayRelation::__config();
+// init
+JsonArrayRelation::__init();
 ?>

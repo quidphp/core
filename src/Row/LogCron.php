@@ -41,6 +41,6 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-LogCron::__config();
+// init
+LogCron::__init();
 ?>

@@ -38,6 +38,6 @@ class Admin extends Core\RoleAlias
     }
 }
 
-// config
-Admin::__config();
+// init
+Admin::__init();
 ?>

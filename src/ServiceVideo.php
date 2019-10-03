@@ -39,6 +39,6 @@ abstract class ServiceVideo extends Main\ServiceVideo
     }
 }
 
-// config
-ServiceVideo::__config();
+// init
+ServiceVideo::__init();
 ?>

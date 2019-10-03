@@ -20,6 +20,6 @@ class Floating extends Core\ColAlias
     ];
 }
 
-// config
-Floating::__config();
+// init
+Floating::__init();
 ?>

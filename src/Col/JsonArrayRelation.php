@@ -73,6 +73,6 @@ class JsonArrayRelation extends Core\ColAlias
     }
 }
 
-// config
-JsonArrayRelation::__config();
+// init
+JsonArrayRelation::__init();
 ?>

@@ -25,6 +25,6 @@ class Log extends DumpAlias implements Main\Contract\Log, Main\Contract\FileStor
     ];
 }
 
-// config
-Log::__config();
+// init
+Log::__init();
 ?>

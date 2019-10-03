@@ -25,6 +25,6 @@ class Serialize extends Core\ColAlias
     ];
 }
 
-// config
-Serialize::__config();
+// init
+Serialize::__init();
 ?>

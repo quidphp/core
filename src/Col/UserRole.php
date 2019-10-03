@@ -124,6 +124,6 @@ class UserRole extends EnumAlias
     }
 }
 
-// config
-UserRole::__config();
+// init
+UserRole::__init();
 ?>

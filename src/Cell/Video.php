@@ -55,6 +55,6 @@ class Video extends Core\CellAlias
     }
 }
 
-// config
-Video::__config();
+// init
+Video::__init();
 ?>

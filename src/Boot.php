@@ -201,7 +201,7 @@ abstract class Boot extends Main\Root
 
 
     // quidVersion
-    protected static $quidVersion = '5.28.0'; // version de quid
+    protected static $quidVersion = '5.29.0'; // version de quid
 
 
     // quidCredit
@@ -383,7 +383,7 @@ abstract class Boot extends Main\Root
         $this->makeEnvType();
 
         $closure = $this->makeConfigClosure();
-        Base\Root::setConfigCallable($closure);
+        Base\Root::setInitCallable($closure);
         $this->makeFinalAttr();
 
         $this->autoload();
@@ -673,7 +673,7 @@ abstract class Boot extends Main\Root
     // commit la session si elle est toujours active
     public function terminate():self
     {
-        Base\Root::setConfigCallable(null);
+        Base\Root::setInitCallable(null);
 
         if($this->isReady())
         {
@@ -792,7 +792,7 @@ abstract class Boot extends Main\Root
     {
         $this->value = $value;
         $parent = get_parent_class(static::class);
-        $replaceMode = static::configReplaceMode();
+        $replaceMode = static::initReplaceMode();
         $keys = static::unclimbableKeys();
         $closure = function(...$values) use($replaceMode) {
             return Base\Arrs::replaceWithMode($replaceMode,...$values);
@@ -813,8 +813,8 @@ abstract class Boot extends Main\Root
     // gère aussi le configFile et live
     protected function makeFinalAttr():self
     {
-        static::__config();
-        $attr = $this->replaceSpecial(static::class,static::configReplaceMode(),static::$config,$this->value);
+        static::__init();
+        $attr = $this->replaceSpecial(static::class,static::initReplaceMode(),static::$config,$this->value);
         $attr = static::parseSchemeHost($attr);
         $this->makeAttr($attr);
         $this->makeFinderShortcut();
@@ -831,7 +831,7 @@ abstract class Boot extends Main\Root
 
         if(!empty($merge))
         {
-            $attr = $this->replaceSpecial(static::class,static::configReplaceMode(),$this->attr(),...$merge);
+            $attr = $this->replaceSpecial(static::class,static::initReplaceMode(),$this->attr(),...$merge);
             $attr = static::parseSchemeHost($attr);
             $this->makeAttr($attr);
         }
@@ -1194,7 +1194,7 @@ abstract class Boot extends Main\Root
     public function makeConfigClosure():\Closure
     {
         return function(string $class,...$values) {
-            return $this->replaceSpecial($class,$class::configReplaceMode(),...$values);
+            return $this->replaceSpecial($class,$class::initReplaceMode(),...$values);
         };
     }
 
@@ -1272,7 +1272,7 @@ abstract class Boot extends Main\Root
             if(!empty($psr4))
             {
                 $psr4 = $this->makePaths($psr4,true);
-                Main\Autoload::registerPsr4($psr4,true,'__config');
+                Main\Autoload::registerPsr4($psr4,true,'__init');
             }
 
             if($type === 'composer')
@@ -2290,9 +2290,15 @@ abstract class Boot extends Main\Root
         }
 
         // pour les codes non positif en fin au closeDown
+        // gère aussi l'objet redirection
         elseif(!empty($log))
-        $log::onCloseDown();
+        {
+            $log::onCloseDown();
 
+            if($manage['location'] !== null)
+            Base\Response::redirect($manage['location'],$manage['code'],true);
+        }
+        
         return $this;
     }
 
@@ -2573,9 +2579,9 @@ abstract class Boot extends Main\Root
     }
 
 
-    // configReplaceMode
+    // initReplaceMode
     // retourne le tableau des clés à ne pas merger recursivement
-    public static function configReplaceMode():array
+    public static function initReplaceMode():array
     {
         return static::$replaceMode;
     }
@@ -2589,10 +2595,10 @@ abstract class Boot extends Main\Root
     }
 
 
-    // __init
+    // initialize
     // initialise la racine de quid
     // attribue les constantes, initialise la classe server et charge les helpers de debug
-    public static function __init():void
+    public static function initialize():void
     {
         $version = static::quidVersion();
         Base\Constant::set('QUID_VERSION',$version);
@@ -2635,6 +2641,6 @@ abstract class Boot extends Main\Root
     }
 }
 
-// config
-Boot::__init();
+// initialize
+Boot::initialize();
 ?>

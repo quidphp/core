@@ -22,6 +22,6 @@ class Csv extends TextAlias implements Main\Contract\Import
     public static $config = [];
 }
 
-// config
-Csv::__config();
+// init
+Csv::__init();
 ?>

@@ -28,6 +28,6 @@ abstract class Image extends BinaryAlias
     }
 }
 
-// config
-Image::__config();
+// init
+Image::__init();
 ?>

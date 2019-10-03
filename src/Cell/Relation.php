@@ -123,6 +123,6 @@ abstract class Relation extends Core\CellAlias
     }
 }
 
-// config
-Relation::__config();
+// init
+Relation::__init();
 ?>

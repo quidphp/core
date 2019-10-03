@@ -20,6 +20,6 @@ class Nobody extends Core\RoleAlias
     ];
 }
 
-// config
-Nobody::__config();
+// init
+Nobody::__init();
 ?>

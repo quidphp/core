@@ -137,6 +137,6 @@ class Auto extends Core\ColAlias
     }
 }
 
-// config
-Auto::__config();
+// init
+Auto::__init();
 ?>

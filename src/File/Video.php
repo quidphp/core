@@ -19,6 +19,6 @@ class Video extends BinaryAlias
     ];
 }
 
-// config
-Video::__config();
+// init
+Video::__init();
 ?>

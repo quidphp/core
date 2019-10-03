@@ -177,6 +177,6 @@ class JsonArray extends JsonAlias
     }
 }
 
-// config
-JsonArray::__config();
+// init
+JsonArray::__init();
 ?>

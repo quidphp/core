@@ -17,7 +17,11 @@ class Json extends TextAlias
     // config
     public static $config = [
         'group'=>'json',
-        'type'=>'json'
+        'option'=>array(
+            'read'=>[
+                'callback'=>[Base\Json::class,'decode']],
+            'write'=>[
+                'callback'=>[Base\Json::class,'encodePretty']])
     ];
 
 
@@ -35,6 +39,6 @@ class Json extends TextAlias
     }
 }
 
-// config
-Json::__config();
+// init
+Json::__init();
 ?>

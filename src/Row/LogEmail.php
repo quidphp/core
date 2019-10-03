@@ -42,6 +42,6 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-LogEmail::__config();
+// init
+LogEmail::__init();
 ?>

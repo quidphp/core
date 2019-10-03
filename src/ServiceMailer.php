@@ -42,6 +42,6 @@ abstract class ServiceMailer extends Main\ServiceMailer
     }
 }
 
-// config
-ServiceMailer::__config();
+// init
+ServiceMailer::__init();
 ?>

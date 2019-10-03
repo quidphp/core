@@ -42,6 +42,6 @@ class Context extends Core\ColAlias
     }
 }
 
-// config
-Context::__config();
+// init
+Context::__init();
 ?>

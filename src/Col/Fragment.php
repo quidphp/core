@@ -20,6 +20,6 @@ class Fragment extends SlugAlias
     ];
 }
 
-// config
-Fragment::__config();
+// init
+Fragment::__init();
 ?>

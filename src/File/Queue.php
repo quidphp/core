@@ -84,6 +84,6 @@ class Queue extends SerializeAlias implements Main\Contract\Queue, Main\Contract
     }
 }
 
-// config
-Queue::__config();
+// init
+Queue::__init();
 ?>

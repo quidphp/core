@@ -19,6 +19,6 @@ class Php extends TextAlias
     ];
 }
 
-// config
-Php::__config();
+// init
+Php::__init();
 ?>

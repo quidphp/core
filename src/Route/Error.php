@@ -175,6 +175,6 @@ abstract class Error extends Core\RouteAlias
     }
 }
 
-// config
-Error::__config();
+// init
+Error::__init();
 ?>

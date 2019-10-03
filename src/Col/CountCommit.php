@@ -29,6 +29,6 @@ class CountCommit extends Core\ColAlias
     }
 }
 
-// config
-CountCommit::__config();
+// init
+CountCommit::__init();
 ?>

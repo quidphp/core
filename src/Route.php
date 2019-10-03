@@ -287,6 +287,6 @@ abstract class Route extends Routing\Route
     }
 }
 
-// config
-Route::__config();
+// init
+Route::__init();
 ?>

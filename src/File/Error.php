@@ -49,6 +49,6 @@ class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileSt
     }
 }
 
-// config
-Error::__config();
+// init
+Error::__init();
 ?>

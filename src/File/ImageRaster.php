@@ -42,6 +42,6 @@ class ImageRaster extends ImageAlias
     }
 }
 
-// config
-ImageRaster::__config();
+// init
+ImageRaster::__init();
 ?>

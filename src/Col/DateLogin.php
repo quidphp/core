@@ -24,6 +24,6 @@ class DateLogin extends DateAlias
     ];
 }
 
-// config
-DateLogin::__config();
+// init
+DateLogin::__init();
 ?>

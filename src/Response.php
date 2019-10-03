@@ -22,6 +22,6 @@ class Response extends Main\Response
     public static $config = [];
 }
 
-// config
-Response::__config();
+// init
+Response::__init();
 ?>

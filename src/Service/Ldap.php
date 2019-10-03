@@ -84,6 +84,6 @@ class Ldap extends Core\ServiceAlias
     }
 }
 
-// config
-Ldap::__config();
+// init
+Ldap::__init();
 ?>

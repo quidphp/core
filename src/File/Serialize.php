@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
+use Quid\Base;
 
 // serialize
 // class for a file with content that should be serialized
@@ -16,10 +17,14 @@ class Serialize extends TextAlias
     // config
     public static $config = [
         'group'=>null,
-        'type'=>'serialize'
+        'option'=>array(
+            'read'=>[
+                'callback'=>[Base\Crypt::class,'unserialize']],
+            'write'=>[
+                'callback'=>[Base\Crypt::class,'serialize']])
     ];
 }
 
-// config
-Serialize::__config();
+// init
+Serialize::__init();
 ?>

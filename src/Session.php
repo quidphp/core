@@ -828,6 +828,6 @@ class Session extends Main\Session
     }
 }
 
-// config
-Session::__config();
+// init
+Session::__init();
 ?>

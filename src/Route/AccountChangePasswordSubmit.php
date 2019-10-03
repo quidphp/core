@@ -101,6 +101,6 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
     }
 }
 
-// config
-AccountChangePasswordSubmit::__config();
+// init
+AccountChangePasswordSubmit::__init();
 ?>

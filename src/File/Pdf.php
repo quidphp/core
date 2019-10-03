@@ -19,6 +19,6 @@ class Pdf extends BinaryAlias
     ];
 }
 
-// config
-Pdf::__config();
+// init
+Pdf::__init();
 ?>

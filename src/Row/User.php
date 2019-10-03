@@ -1353,6 +1353,6 @@ class User extends Core\RowAlias implements Main\Contract\User
     }
 }
 
-// config
-User::__config();
+// init
+User::__init();
 ?>

@@ -37,6 +37,6 @@ class Cron extends Core\RoleAlias
     }
 }
 
-// config
-Cron::__config();
+// init
+Cron::__init();
 ?>

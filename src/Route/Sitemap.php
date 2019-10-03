@@ -45,6 +45,6 @@ abstract class Sitemap extends Core\RouteAlias
     }
 }
 
-// config
-Sitemap::__config();
+// init
+Sitemap::__init();
 ?>

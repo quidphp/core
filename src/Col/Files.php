@@ -905,6 +905,6 @@ abstract class Files extends Core\ColAlias
     }
 }
 
-// config
-Files::__config();
+// init
+Files::__init();
 ?>

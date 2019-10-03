@@ -51,6 +51,6 @@ class Table extends Orm\Table
     }
 }
 
-// config
-Table::__config();
+// init
+Table::__init();
 ?>

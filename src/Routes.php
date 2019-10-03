@@ -22,6 +22,6 @@ class Routes extends Routing\Routes
     public static $config = [];
 }
 
-// config
-Routes::__config();
+// init
+Routes::__init();
 ?>

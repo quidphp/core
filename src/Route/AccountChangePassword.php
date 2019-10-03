@@ -80,6 +80,6 @@ abstract class AccountChangePassword extends Core\RouteAlias
     }
 }
 
-// config
-AccountChangePassword::__config();
+// init
+AccountChangePassword::__init();
 ?>

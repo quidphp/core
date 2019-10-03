@@ -24,6 +24,6 @@ class Cache extends SerializeAlias implements Main\Contract\FileStorage
     ];
 }
 
-// config
-Cache::__config();
+// init
+Cache::__init();
 ?>

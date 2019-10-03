@@ -214,6 +214,6 @@ class PhpConcatenator extends Core\ServiceAlias
     }
 }
 
-// config
-PhpConcatenator::__config();
+// init
+PhpConcatenator::__init();
 ?>

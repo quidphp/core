@@ -116,6 +116,6 @@ class Lang extends Core\RowAlias
     }
 }
 
-// config
-Lang::__config();
+// init
+Lang::__init();
 ?>

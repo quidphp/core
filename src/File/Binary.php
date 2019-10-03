@@ -18,6 +18,6 @@ abstract class Binary extends Core\FileAlias
     public static $config = [];
 }
 
-// config
-Binary::__config();
+// init
+Binary::__init();
 ?>

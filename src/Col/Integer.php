@@ -20,6 +20,6 @@ class Integer extends Core\ColAlias
     ];
 }
 
-// config
-Integer::__config();
+// init
+Integer::__init();
 ?>

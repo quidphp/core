@@ -144,6 +144,6 @@ abstract class Video extends Core\ColAlias
     }
 }
 
-// config
-Video::__config();
+// init
+Video::__init();
 ?>

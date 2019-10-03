@@ -67,6 +67,6 @@ class Email extends Core\RowAlias implements Main\Contract\Email
     }
 }
 
-// config
-Email::__config();
+// init
+Email::__init();
 ?>

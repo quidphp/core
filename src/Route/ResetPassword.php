@@ -72,6 +72,6 @@ abstract class ResetPassword extends Core\RouteAlias
     }
 }
 
-// config
-ResetPassword::__config();
+// init
+ResetPassword::__init();
 ?>

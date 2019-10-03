@@ -756,9 +756,8 @@ class Fr extends Base\Lang\Fr
             // logHttpType
             'logHttpType'=>[
                 1=>'Non sécuritaire',
-                2=>'Redirection',
-                3=>'Requête',
-                4=>'POST externe',
+                2=>'Requête',
+                3=>'POST externe',
                 200=>'200 - OK',
                 301=>'301 - Déplacé en permanence',
                 302=>'302 - Trouvé',
@@ -784,6 +783,6 @@ class Fr extends Base\Lang\Fr
     ];
 }
 
-// config
-Fr::__config();
+// init
+Fr::__init();
 ?>

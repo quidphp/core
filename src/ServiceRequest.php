@@ -39,6 +39,6 @@ abstract class ServiceRequest extends Main\ServiceRequest
     }
 }
 
-// config
-ServiceRequest::__config();
+// init
+ServiceRequest::__init();
 ?>

@@ -19,6 +19,6 @@ class Doc extends TextAlias
     ];
 }
 
-// config
-Doc::__config();
+// init
+Doc::__init();
 ?>

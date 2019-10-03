@@ -40,6 +40,6 @@ class Error extends Main\Error
     }
 }
 
-// config
-Error::__config();
+// init
+Error::__init();
 ?>

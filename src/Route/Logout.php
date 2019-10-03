@@ -56,6 +56,6 @@ abstract class Logout extends Core\RouteAlias
     }
 }
 
-// config
-Logout::__config();
+// init
+Logout::__init();
 ?>

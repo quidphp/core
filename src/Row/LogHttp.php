@@ -38,7 +38,6 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
             'autodiscover.xml'],
         'type'=>[ // type de logHttp
             1=>'unsafe',
-            2=>'redirection',
             3=>'request',
             4=>'externalPost',
             200=>200,
@@ -100,7 +99,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
                 if(static::shouldLog($request))
                 {
-                    $shouldLog = (Base\Response::isCodePositive())? false:true;
+                    $shouldLog = Base\Response::isCodeLoggable();
                     $data = $request->getLogData();
 
                     if(!empty($data))
@@ -129,6 +128,6 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-LogHttp::__config();
+// init
+LogHttp::__init();
 ?>

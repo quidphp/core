@@ -65,6 +65,6 @@ class UserActive extends YesAlias
     }
 }
 
-// config
-UserActive::__config();
+// init
+UserActive::__init();
 ?>

@@ -54,6 +54,6 @@ class Username extends Core\ColAlias
     }
 }
 
-// config
-Username::__config();
+// init
+Username::__init();
 ?>

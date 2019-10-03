@@ -121,7 +121,8 @@ class File extends Base\Test
         assert($csv instanceof Core\File\Csv);
         assert($csv2 instanceof Core\File\Csv);
         assert(is_resource($csv->resource()));
-        assert(is_string($csv->read()));
+        assert(is_array($csv->read()));
+        assert(is_string($csv->readRaw()));
         assert(Base\Column::is($csv->lines()));
         assert($csv->line() === null);
         assert($csv->seek(0) === $csv);

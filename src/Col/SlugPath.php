@@ -28,6 +28,6 @@ class SlugPath extends SlugAlias
     }
 }
 
-// config
-SlugPath::__config();
+// init
+SlugPath::__init();
 ?>

@@ -24,6 +24,6 @@ class Primary extends Core\ColAlias
     ];
 }
 
-// config
-Primary::__config();
+// init
+Primary::__init();
 ?>

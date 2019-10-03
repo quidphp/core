@@ -150,6 +150,6 @@ class Zip extends BinaryAlias
     }
 }
 
-// config
-Zip::__config();
+// init
+Zip::__init();
 ?>

@@ -22,6 +22,6 @@ class Request extends Routing\Request
     public static $config = [];
 }
 
-// config
-Request::__config();
+// init
+Request::__init();
 ?>

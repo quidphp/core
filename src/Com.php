@@ -39,6 +39,6 @@ class Com extends Main\Com
     }
 }
 
-// config
-Com::__config();
+// init
+Com::__init();
 ?>

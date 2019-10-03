@@ -25,6 +25,6 @@ class Yes extends EnumAlias
     ];
 }
 
-// config
-Yes::__config();
+// init
+Yes::__init();
 ?>

@@ -34,6 +34,6 @@ class RequestIp extends Core\ColAlias
     }
 }
 
-// config
-RequestIp::__config();
+// init
+RequestIp::__init();
 ?>

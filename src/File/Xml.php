@@ -19,6 +19,6 @@ class Xml extends TextAlias
     ];
 }
 
-// config
-Xml::__config();
+// init
+Xml::__init();
 ?>

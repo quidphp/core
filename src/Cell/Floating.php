@@ -44,6 +44,6 @@ class Floating extends Core\CellAlias
     }
 }
 
-// config
-Floating::__config();
+// init
+Floating::__init();
 ?>

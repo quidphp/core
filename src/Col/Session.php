@@ -44,6 +44,6 @@ class Session extends EnumAlias
     }
 }
 
-// config
-Session::__config();
+// init
+Session::__init();
 ?>

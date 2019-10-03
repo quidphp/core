@@ -104,6 +104,6 @@ class ScssPhp extends Core\ServiceAlias
     }
 }
 
-// config
-ScssPhp::__config();
+// init
+ScssPhp::__init();
 ?>

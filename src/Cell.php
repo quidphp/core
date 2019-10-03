@@ -32,6 +32,6 @@ class Cell extends Orm\Cell
     }
 }
 
-// config
-Cell::__config();
+// init
+Cell::__init();
 ?>

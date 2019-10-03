@@ -32,6 +32,6 @@ abstract class Home extends Core\RouteAlias
     }
 }
 
-// config
-Home::__config();
+// init
+Home::__init();
 ?>

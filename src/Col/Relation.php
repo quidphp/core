@@ -445,6 +445,6 @@ abstract class Relation extends Core\ColAlias
     }
 }
 
-// config
-Relation::__config();
+// init
+Relation::__init();
 ?>

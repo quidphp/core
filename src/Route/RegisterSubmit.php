@@ -172,6 +172,6 @@ abstract class RegisterSubmit extends Core\RouteAlias
     }
 }
 
-// config
-RegisterSubmit::__config();
+// init
+RegisterSubmit::__init();
 ?>

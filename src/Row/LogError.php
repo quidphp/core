@@ -46,6 +46,6 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-LogError::__config();
+// init
+LogError::__init();
 ?>

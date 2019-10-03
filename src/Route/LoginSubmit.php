@@ -158,6 +158,6 @@ abstract class LoginSubmit extends Core\RouteAlias
     }
 }
 
-// config
-LoginSubmit::__config();
+// init
+LoginSubmit::__init();
 ?>

@@ -39,6 +39,6 @@ class UserPasswordReset extends Core\CellAlias
     }
 }
 
-// config
-UserPasswordReset::__config();
+// init
+UserPasswordReset::__init();
 ?>

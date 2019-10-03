@@ -29,6 +29,6 @@ class Roles extends Main\Roles
     }
 }
 
-// config
-Roles::__config();
+// init
+Roles::__init();
 ?>

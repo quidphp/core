@@ -19,6 +19,6 @@ class Font extends BinaryAlias
     ];
 }
 
-// config
-Font::__config();
+// init
+Font::__init();
 ?>

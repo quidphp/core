@@ -24,6 +24,6 @@ class Boolean extends EnumAlias
     ];
 }
 
-// config
-Boolean::__config();
+// init
+Boolean::__init();
 ?>

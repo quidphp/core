@@ -82,6 +82,6 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
     }
 }
 
-// config
-LogSql::__config();
+// init
+LogSql::__init();
 ?>

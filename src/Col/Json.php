@@ -25,6 +25,6 @@ class Json extends Core\ColAlias
     ];
 }
 
-// config
-Json::__config();
+// init
+Json::__init();
 ?>

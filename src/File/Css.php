@@ -88,6 +88,6 @@ class Css extends TextAlias
     }
 }
 
-// config
-Css::__config();
+// init
+Css::__init();
 ?>

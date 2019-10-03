@@ -41,6 +41,6 @@ class UserAdd extends EnumAlias
     }
 }
 
-// config
-UserAdd::__config();
+// init
+UserAdd::__init();
 ?>

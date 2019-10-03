@@ -159,6 +159,6 @@ abstract class Register extends Core\RouteAlias
     }
 }
 
-// config
-Register::__config();
+// init
+Register::__init();
 ?>

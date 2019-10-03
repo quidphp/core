@@ -52,6 +52,6 @@ class Phone extends Core\ColAlias
     }
 }
 
-// config
-Phone::__config();
+// init
+Phone::__init();
 ?>

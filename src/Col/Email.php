@@ -22,6 +22,6 @@ class Email extends Core\ColAlias
     ];
 }
 
-// config
-Email::__config();
+// init
+Email::__init();
 ?>

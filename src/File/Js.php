@@ -60,6 +60,6 @@ class Js extends TextAlias
     }
 }
 
-// config
-Js::__config();
+// init
+Js::__init();
 ?>

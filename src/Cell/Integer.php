@@ -42,6 +42,6 @@ class Integer extends Core\CellAlias
     }
 }
 
-// config
-Integer::__config();
+// init
+Integer::__init();
 ?>

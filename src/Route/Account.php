@@ -65,6 +65,6 @@ abstract class Account extends Core\RouteAlias
     }
 }
 
-// config
-Account::__config();
+// init
+Account::__init();
 ?>

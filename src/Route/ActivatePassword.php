@@ -56,6 +56,6 @@ abstract class ActivatePassword extends Core\RouteAlias
     }
 }
 
-// config
-ActivatePassword::__config();
+// init
+ActivatePassword::__init();
 ?>

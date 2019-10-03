@@ -19,6 +19,6 @@ class Audio extends BinaryAlias
     ];
 }
 
-// config
-Audio::__config();
+// init
+Audio::__init();
 ?>

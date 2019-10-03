@@ -70,6 +70,6 @@ class Primary extends Core\CellAlias
     }
 }
 
-// config
-Primary::__config();
+// init
+Primary::__init();
 ?>

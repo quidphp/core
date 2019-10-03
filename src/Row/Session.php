@@ -235,6 +235,6 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     }
 }
 
-// config
-Session::__config();
+// init
+Session::__init();
 ?>

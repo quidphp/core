@@ -38,6 +38,6 @@ class UserModify extends EnumAlias
     }
 }
 
-// config
-UserModify::__config();
+// init
+UserModify::__init();
 ?>

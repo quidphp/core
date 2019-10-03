@@ -19,6 +19,6 @@ class ImageVector extends ImageAlias
     ];
 }
 
-// config
-ImageVector::__config();
+// init
+ImageVector::__init();
 ?>

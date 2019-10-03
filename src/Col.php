@@ -34,6 +34,6 @@ class Col extends Orm\Col
     }
 }
 
-// config
-Col::__config();
+// init
+Col::__init();
 ?>

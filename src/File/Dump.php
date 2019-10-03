@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
+use Quid\Base;
 
 // dump
 // class for file which contains an exported value (similar to var_export)
@@ -15,10 +16,12 @@ class Dump extends HtmlAlias
 {
     // config
     public static $config = [
-        'type'=>'dump'
+        'option'=>array(
+            'write'=>[
+                'callback'=>[Base\Debug::class,'varGet']])
     ];
 }
 
-// config
-Dump::__config();
+// init
+Dump::__init();
 ?>

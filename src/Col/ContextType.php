@@ -22,6 +22,6 @@ class ContextType extends SetAlias
     ];
 }
 
-// config
-ContextType::__config();
+// init
+ContextType::__init();
 ?>

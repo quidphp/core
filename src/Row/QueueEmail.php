@@ -146,6 +146,6 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     }
 }
 
-// config
-QueueEmail::__config();
+// init
+QueueEmail::__init();
 ?>

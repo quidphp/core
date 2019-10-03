@@ -368,13 +368,13 @@ class Boot extends Base\Test
         // unclimbableKeys
         assert(count($boot::unclimbableKeys()) === 7);
 
-        // configReplaceMode
-        assert(count($boot::configReplaceMode()) === 3);
+        // initReplaceMode
+        assert(count($boot::initReplaceMode()) === 3);
 
         // isInit
         assert($boot::isInit());
 
-        // __init
+        // initialize
 
         // nameFromClass
 

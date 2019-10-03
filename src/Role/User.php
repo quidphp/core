@@ -20,6 +20,6 @@ class User extends Core\RoleAlias
     ];
 }
 
-// config
-User::__config();
+// init
+User::__init();
 ?>

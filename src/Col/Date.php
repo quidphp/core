@@ -195,6 +195,6 @@ class Date extends Core\ColAlias
     }
 }
 
-// config
-Date::__config();
+// init
+Date::__init();
 ?>

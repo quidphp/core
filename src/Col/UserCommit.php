@@ -40,6 +40,6 @@ class UserCommit extends EnumAlias
     }
 }
 
-// config
-UserCommit::__config();
+// init
+UserCommit::__init();
 ?>

@@ -22,6 +22,6 @@ class Session extends SerializeAlias implements Main\Contract\Session, Main\Cont
     public static $config = [];
 }
 
-// config
-Session::__config();
+// init
+Session::__init();
 ?>

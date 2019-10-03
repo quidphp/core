@@ -17,6 +17,6 @@ class Txt extends TextAlias
     public static $config = [];
 }
 
-// config
-Txt::__config();
+// init
+Txt::__init();
 ?>

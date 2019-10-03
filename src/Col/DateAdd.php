@@ -34,6 +34,6 @@ class DateAdd extends DateAlias
     }
 }
 
-// config
-DateAdd::__config();
+// init
+DateAdd::__init();
 ?>

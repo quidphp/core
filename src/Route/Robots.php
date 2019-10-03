@@ -65,6 +65,6 @@ abstract class Robots extends Core\RouteAlias
     }
 }
 
-// config
-Robots::__config();
+// init
+Robots::__init();
 ?>

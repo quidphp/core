@@ -47,6 +47,6 @@ class Redirection extends Core\RowAlias
     }
 }
 
-// config
-Redirection::__config();
+// init
+Redirection::__init();
 ?>

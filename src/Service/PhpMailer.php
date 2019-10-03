@@ -232,6 +232,6 @@ class PhpMailer extends Core\ServiceMailerAlias
     }
 }
 
-// config
-PhpMailer::__config();
+// init
+PhpMailer::__init();
 ?>

@@ -88,6 +88,6 @@ class Date extends Core\CellAlias
     }
 }
 
-// config
-Date::__config();
+// init
+Date::__init();
 ?>

@@ -233,6 +233,6 @@ class Medias extends FilesAlias
     }
 }
 
-// config
-Medias::__config();
+// init
+Medias::__init();
 ?>

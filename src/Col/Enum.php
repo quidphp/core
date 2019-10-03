@@ -32,6 +32,6 @@ class Enum extends RelationAlias
     }
 }
 
-// config
-Enum::__config();
+// init
+Enum::__init();
 ?>

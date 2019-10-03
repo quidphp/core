@@ -203,6 +203,6 @@ class UserPassword extends Core\ColAlias
     }
 }
 
-// config
-UserPassword::__config();
+// init
+UserPassword::__init();
 ?>

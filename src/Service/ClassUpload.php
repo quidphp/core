@@ -279,6 +279,6 @@ class ClassUpload extends Core\ServiceAlias
     }
 }
 
-// config
-ClassUpload::__config();
+// init
+ClassUpload::__init();
 ?>

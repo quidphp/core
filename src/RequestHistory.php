@@ -22,6 +22,6 @@ class RequestHistory extends Routing\RequestHistory
     public static $config = [];
 }
 
-// config
-RequestHistory::__config();
+// init
+RequestHistory::__init();
 ?>

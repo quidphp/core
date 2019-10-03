@@ -244,6 +244,6 @@ abstract class Role extends Main\Role
     }
 }
 
-// config
-Role::__config();
+// init
+Role::__init();
 ?>

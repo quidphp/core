@@ -28,6 +28,6 @@ class Shared extends Core\RoleAlias
     }
 }
 
-// config
-Shared::__config();
+// init
+Shared::__init();
 ?>

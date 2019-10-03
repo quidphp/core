@@ -648,6 +648,6 @@ abstract class Files extends Core\CellAlias
     }
 }
 
-// config
-Files::__config();
+// init
+Files::__init();
 ?>

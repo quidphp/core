@@ -43,6 +43,6 @@ class Error extends Core\ColAlias
     }
 }
 
-// config
-Error::__config();
+// init
+Error::__init();
 ?>

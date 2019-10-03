@@ -130,6 +130,6 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
     }
 }
 
-// config
-ResetPasswordSubmit::__config();
+// init
+ResetPasswordSubmit::__init();
 ?>

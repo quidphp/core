@@ -56,6 +56,6 @@ class Pointer extends Core\ColAlias
     }
 }
 
-// config
-Pointer::__config();
+// init
+Pointer::__init();
 ?>

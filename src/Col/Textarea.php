@@ -135,6 +135,6 @@ class Textarea extends Core\ColAlias
     }
 }
 
-// config
-Textarea::__config();
+// init
+Textarea::__init();
 ?>
