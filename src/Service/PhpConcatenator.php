@@ -65,7 +65,7 @@ class PhpConcatenator extends Core\ServiceAlias
 
         if(!empty($credit))
         $concatenator->addStr($credit,$this->getOption('concatenator/credit'));
-        
+
         foreach ($namespaces as $namespace => $value)
         {
             if(is_string($namespace))
@@ -118,8 +118,8 @@ class PhpConcatenator extends Core\ServiceAlias
         $registerClosure = $this->getOption('registerClosure');
         $bootPreload = $this->getOption('bootPreload');
         $initMethod = $this->getOption('initMethod');
-        $initMethodStr = (is_string($initMethod))? "'$initMethod'":"null";
-        
+        $initMethodStr = (is_string($initMethod))? "'$initMethod'":'null';
+
         $start = '<?php';
         $start .= PHP_EOL;
         if($strictType === true)
@@ -158,7 +158,7 @@ class PhpConcatenator extends Core\ServiceAlias
             'lineEnd'=>1,
             'extension'=>'php'
         ];
-        
+
         return $return;
     }
 
@@ -201,15 +201,15 @@ class PhpConcatenator extends Core\ServiceAlias
 
                     $newLine = ['\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',''];
                     $lines = Base\Arr::insert($key,$newLine,$lines);
-                    
+
                     if(is_string($initMethod))
                     {
-                        $initMethodStr = "::".$initMethod."();";
+                        $initMethodStr = '::'.$initMethod.'();';
                         $last = Base\Arr::valueLast($lines);
                         if(is_string($last) && Base\Str::isEnd($initMethodStr,$last))
                         $lines = Base\Arr::spliceIndex(-3,3,$lines);
                     }
-                    
+
                     $lines[] = '});';
 
                     break;

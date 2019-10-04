@@ -58,8 +58,8 @@ class Js extends TextAlias
     {
         return static::$config['service']::getOverloadClass();
     }
-    
-    
+
+
     // concatenate
     // permet de concatener un ou plusieurs dossiers avec fichiers js
     // possible aussi de minifier

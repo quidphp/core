@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // css
 // class for a css or scss file
@@ -87,8 +87,8 @@ class Css extends TextAlias
 
         return $return;
     }
-    
-    
+
+
     // compileMany
     // permet de compiler un ou plusieurs fichiers css/scss
     public static function compileMany(array $value,?array $option=null):Core\Files
@@ -116,7 +116,7 @@ class Css extends TextAlias
         return $return;
     }
 
-    
+
     // getScssVariables
     // génère un tableau de variable à injecter dans la feuille de style scss
     public static function getScssVariables():array

@@ -141,9 +141,9 @@ abstract class Boot extends Main\Root
         'compileScssOption'=>null, // option pour le rendu du scss
         'concatenatePhp'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
             'quid'=>[
-                'target'=>"/Server/php/render.php",
+                'target'=>'/Server/php/render.php',
                 'option'=>[
-                    'credit'=>array(self::class,'quidCredit'),
+                    'credit'=>[self::class,'quidCredit'],
                     'registerClosure'=>true,
                     'bootPreload'=>true,
                     'initMethod'=>'__init',
@@ -575,11 +575,11 @@ abstract class Boot extends Main\Root
         $php = $this->attr('concatenatePhp');
         if(is_array($php) && !empty($php))
         {
-            $replace = array('%key%'=>$this->name(true));
+            $replace = ['%key%'=>$this->name(true)];
             $php = Base\Arrs::keysReplace($replace,$php);
             File\Php::concatenateMany($php);
         }
-        
+
         return $this;
     }
 
@@ -1273,10 +1273,10 @@ abstract class Boot extends Main\Root
         if(in_array($type,['internal','composer','preload'],true))
         {
             $initMethod = '__init';
-            
+
             if(!Main\Autoload::isRegistered('closure'))
             Main\Autoload::registerClosure(false,$initMethod);
-            
+
             if(!Main\Autoload::isRegistered('alias'))
             Main\Autoload::registerAlias();
 

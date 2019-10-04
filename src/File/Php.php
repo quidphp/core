@@ -18,8 +18,8 @@ class Php extends TextAlias
     public static $config = [
         'group'=>'php'
     ];
-    
-    
+
+
     // concatenateMany
     // permet de concatener du php à partir de namespace
     // ceci ne peut pas être fait si le autoload est en mode preload
