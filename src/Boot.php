@@ -141,7 +141,7 @@ abstract class Boot extends Main\Root
         'compileScssOption'=>null, // option pour le rendu du scss
         'concatenatePhp'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
             'quid'=>[
-                'target'=>'/Server/php/render.php',
+                'target'=>null,
                 'option'=>[
                     'credit'=>[self::class,'quidCredit'],
                     'registerClosure'=>true,
