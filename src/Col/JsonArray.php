@@ -73,7 +73,7 @@ class JsonArray extends JsonAlias
     // retourne la classe additionnelle à utiliser
     public function classHtml():array
     {
-        return [parent::classHtml(),'addRemove'];
+        return [parent::classHtml(),'add-remove'];
     }
 
 

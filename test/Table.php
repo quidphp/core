@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // table
 // class for testing Quid\Core\Table
@@ -63,7 +63,7 @@ class Table extends Base\Test
         assert($tb->rowsClass() === Core\Rows::class);
         assert($db->classe()->default('row') === Core\Row::class);
         assert($tb->rowClass() === Core\Row::class);
-        assert($tb->classFqcn() === TestSuite\Table\OrmTable::class);
+        assert($tb->classFqcn() === Suite\Table\OrmTable::class);
 
         // cleanup
         assert($db->truncate($table) instanceof \PDOStatement);

@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // db
 // class for testing Quid\Core\Db
@@ -27,16 +27,16 @@ class Db extends Base\Test
         $db['ormCol']->cols();
 
         // orm
-        assert($tb->classe()->rows() === TestSuite\Rows\OrmDb::class);
+        assert($tb->classe()->rows() === Suite\Rows\OrmDb::class);
         assert($db['session']->classe()->row() === Core\Row\Session::class);
-        assert($db['ormCell']->classe()->row() === TestSuite\Row\OrmCell::class);
-        assert($tb->classe()->table() === TestSuite\Table\OrmDb::class);
+        assert($db['ormCell']->classe()->row() === Suite\Row\OrmCell::class);
+        assert($tb->classe()->table() === Suite\Table\OrmDb::class);
         assert(is_a($tb->classe()->col('id'),Core\Col\Primary::class,true));
         assert($db['ormCell']->classe()->col($db['ormCell']['active']) === Core\Col\Active::class);
         assert($tb->classe()->col('dateAdd') === Core\Col\DateAdd::class);
         assert($db['ormCol']->classe()->col('myRelation') === Core\Col\Enum::class);
         assert($db['ormCol']->classe()->col('user_id') === Core\Col\Enum::class);
-        assert($db['ormCol']->classe()->col('user_ids') === TestSuite\Col\UserIds::class);
+        assert($db['ormCol']->classe()->col('user_ids') === Suite\Col\UserIds::class);
         assert($tb->classe()->cell($tb['id']) === Core\Cell\Primary::class);
         assert($db['user']->classe()->cell('role') === Core\Cell\Enum::class);
         assert($db['ormCol']->classe()->cell('myRelation') === Core\Cell\Enum::class);

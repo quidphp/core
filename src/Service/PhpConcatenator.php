@@ -21,9 +21,11 @@ class PhpConcatenator extends Core\ServiceAlias
         'option'=>[
             'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
             'registerClosure'=>false, // s'il faut register la closure
+            'bootPreload'=>false, // s'il faut mettre preload dans core/boot
             'concatenator'=>[], // option pour le compileur, voir la méthode statique concatenatorOption
             'credit'=>null, // permet de mettre un texte de crédit en haut du fichier
-            'namespace'=>[]]// spécifie les namespace pour la compilation, closure, closureinitMethod et priority sont supportés
+            'initMethod'=>null, // permet de spécifier la init méthode
+            'namespace'=>[]]// spécifie les namespace pour la compilation, closure et priority sont supportés
     ];
 
 
@@ -63,7 +65,7 @@ class PhpConcatenator extends Core\ServiceAlias
 
         if(!empty($credit))
         $concatenator->addStr($credit,$this->getOption('concatenator/credit'));
-
+        
         foreach ($namespaces as $namespace => $value)
         {
             if(is_string($namespace))
@@ -95,13 +97,10 @@ class PhpConcatenator extends Core\ServiceAlias
     {
         $return = Base\Arrs::replace($this->getOption('concatenator/entry'),$return);
         $closure = $return['closure'] ?? false;
+        $initMethod = $this->getOption('initMethod');
 
         if($closure === true)
-        {
-            $closureinitMethod = $return['closureinitMethod'] ?? null;
-            $namespaceAccoladeAutoloadClosure = static::namespaceAccoladeAutoloadClosure($closureinitMethod);
-            $return['content'] = $namespaceAccoladeAutoloadClosure;
-        }
+        $return['content'] = static::namespaceAccoladeAutoloadClosure($initMethod);
 
         else
         $return['content'] = static::namespaceAccoladeClosure();
@@ -117,8 +116,12 @@ class PhpConcatenator extends Core\ServiceAlias
         $return = [];
         $strictType = $this->getOption('strictType');
         $registerClosure = $this->getOption('registerClosure');
-
-        $start = '<?php'.PHP_EOL;
+        $bootPreload = $this->getOption('bootPreload');
+        $initMethod = $this->getOption('initMethod');
+        $initMethodStr = (is_string($initMethod))? "'$initMethod'":"null";
+        
+        $start = '<?php';
+        $start .= PHP_EOL;
         if($strictType === true)
         $start .= 'declare(strict_types=1);'.PHP_EOL;
 
@@ -126,7 +129,13 @@ class PhpConcatenator extends Core\ServiceAlias
         if($registerClosure === true)
         {
             $end .= PHP_EOL."namespace Quid\Main {";
-            $end .= PHP_EOL.'Autoload::registerClosure();';
+            $end .= PHP_EOL.'Autoload::registerClosure(false,'.$initMethodStr.');';
+            $end .= PHP_EOL.'}'.PHP_EOL;
+        }
+        if($bootPreload === true)
+        {
+            $end .= PHP_EOL."namespace Quid\Core {";
+            $end .= PHP_EOL.'Boot::$config["autoload"] = "preload";';
             $end .= PHP_EOL.'}'.PHP_EOL;
         }
         $end .= PHP_EOL.'?>'.PHP_EOL;
@@ -145,11 +154,11 @@ class PhpConcatenator extends Core\ServiceAlias
 
         $return['entry'] = [
             'separator'=>PHP_EOL.PHP_EOL,
-            'lineStart'=>2,
+            'lineStart'=>9,
             'lineEnd'=>1,
             'extension'=>'php'
         ];
-
+        
         return $return;
     }
 
@@ -177,7 +186,7 @@ class PhpConcatenator extends Core\ServiceAlias
     // namespaceAccoladeAutoloadClosure
     // comme namespaceAccoladeClosure mais en plus la classe est storé dans main/autoload setClosure
     // possible d'init la classe si une initMethod est fourni en argument
-    public static function namespaceAccoladeAutoloadClosure(?string $initMethod):\Closure
+    public static function namespaceAccoladeAutoloadClosure(?string $initMethod=null):\Closure
     {
         return function(string $return) use($initMethod) {
             $namespaceAccoladeClosure = static::namespaceAccoladeClosure();
@@ -192,14 +201,15 @@ class PhpConcatenator extends Core\ServiceAlias
 
                     $newLine = ['\Quid\Main\Autoload::setClosure("'.$namespace.'","'.$class.'",function() {',''];
                     $lines = Base\Arr::insert($key,$newLine,$lines);
-
+                    
                     if(is_string($initMethod))
                     {
-                        $lines[] = '';
-                        $lines[] = "//$initMethod";
-                        $lines[] = "$class::$initMethod();";
+                        $initMethodStr = "::".$initMethod."();";
+                        $last = Base\Arr::valueLast($lines);
+                        if(is_string($last) && Base\Str::isEnd($initMethodStr,$last))
+                        $lines = Base\Arr::spliceIndex(-3,3,$lines);
                     }
-
+                    
                     $lines[] = '});';
 
                     break;

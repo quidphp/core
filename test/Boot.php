@@ -266,14 +266,6 @@ class Boot extends Base\Test
         // roles
         assert($boot->roles() instanceof Core\Roles);
 
-        // concatenateJs
-
-        // compileScss
-
-        // getScssVariables
-
-        // concatenatePhp
-
         // lang
         assert($boot->lang() instanceof Core\Lang);
 

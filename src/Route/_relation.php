@@ -93,7 +93,7 @@ trait _relation
         {
             $route = $this->changeSegment('page',$pageNext);
             $data = ['href'=>$route];
-            $r .= Html::liOp(['loadMore','data'=>$data]);
+            $r .= Html::liOp(['load-more','data'=>$data]);
             $r .= Html::div(static::langText('common/loadMore'),'text');
             $r .= Html::liCl();
         }

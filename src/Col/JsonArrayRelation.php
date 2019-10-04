@@ -60,9 +60,9 @@ class JsonArrayRelation extends Core\ColAlias
 
                 $label = $cell->relationIndex($value);
                 if(is_string($label))
-                $return .= Html::div($label,'underInput');
+                $return .= Html::div($label,'under-input');
                 else
-                $return .= Html::div($lang->text('common/nothing'),['underInput','nothing']);
+                $return .= Html::div($lang->text('common/nothing'),['under-input','nothing']);
             }
         }
 

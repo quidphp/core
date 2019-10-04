@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // rows
 // class for testing Quid\Core\Rows
@@ -29,7 +29,7 @@ class Rows extends Base\Test
         // getOverloadKeyPrepend
 
         // tableFromFqcn
-        assert($rows::tableFromFqcn() instanceof TestSuite\Table\OrmDb);
+        assert($rows::tableFromFqcn() instanceof Suite\Table\OrmDb);
 
         // orm
         assert($db->truncate($table) instanceof \PDOStatement);

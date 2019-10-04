@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // col
 // class for testing Quid\Core\Col
@@ -48,7 +48,7 @@ class Col extends Base\Test
 
         // orm
         assert($col instanceof Core\Col);
-        assert($row instanceof TestSuite\Row\OrmCol);
+        assert($row instanceof Suite\Row\OrmCol);
 
         // route
 

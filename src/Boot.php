@@ -12,6 +12,7 @@ use Quid\Base;
 use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
+use Quid\Test;
 
 // boot
 // abstract class for boot which is the object that bootstraps the application
@@ -140,27 +141,31 @@ abstract class Boot extends Main\Root
         'compileScssOption'=>null, // option pour le rendu du scss
         'concatenatePhp'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
             'quid'=>[
-                'target'=>null,
+                'target'=>"/Server/php/render.php",
                 'option'=>[
+                    'credit'=>array(self::class,'quidCredit'),
                     'registerClosure'=>true,
+                    'bootPreload'=>true,
+                    'initMethod'=>'__init',
                     'namespace'=>[
                         Base::class=>[
                             'closure'=>false,
-                            'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php']],
-                        Base\Test::class=>['closure'=>false],
+                            'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php','Path.php']],
+                        Test\Base::class=>['closure'=>false],
                         Main::class=>[
                             'closure'=>false,
                             'priority'=>['_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php']],
-                        Main\Test::class=>['closure'=>false],
+                        Test\Main::class=>['closure'=>false],
                         Orm::class=>[
                             'closure'=>false,
-                            'priority'=>['_tableAccess.php','Relation.php']],
-                        Orm\Test::class=>[
+                            'priority'=>['_tableAccess.php','Relation.php','Exception.php','Pdo.php']],
+                        Test\Orm::class=>[
                             'closure'=>false],
                         Routing::class=>['closure'=>true],
-                        Routing\Test::class=>['closure'=>false],
+                        Test\Routing::class=>['closure'=>false],
                         __NAMESPACE__=>['closure'=>true],
-                        Test::class=>['closure'=>false]]]]],
+                        Test\Core::class=>['closure'=>false],
+                        '%key%'=>['closure'=>true]]]]],
         'onReady'=>null, // possible de mettre une callable sur onReady
         'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
         'langOption'=>null, // option pour lang, peut être une callable
@@ -560,17 +565,21 @@ abstract class Boot extends Main\Root
         $js = $this->attr('concatenateJs');
         $jsOption = $this->attr('concatenateJsOption');
         if(is_array($js) && !empty($js))
-        $this->concatenateJs($js,$jsOption);
+        File\Js::concatenateMany($js,$jsOption);
 
         $scss = $this->attr('compileScss');
         $scssOption = $this->attr('compileScssOption');
         if(is_array($scss) && !empty($scss))
-        $this->compileScss($scss,$scssOption);
+        File\Css::compileMany($scss,$scssOption);
 
         $php = $this->attr('concatenatePhp');
-        if(is_array($php) && !empty($php) && !$this->isPreload())
-        $this->concatenatePhp($php);
-
+        if(is_array($php) && !empty($php))
+        {
+            $replace = array('%key%'=>$this->name(true));
+            $php = Base\Arrs::keysReplace($replace,$php);
+            File\Php::concatenateMany($php);
+        }
+        
         return $this;
     }
 
@@ -1263,16 +1272,19 @@ abstract class Boot extends Main\Root
 
         if(in_array($type,['internal','composer','preload'],true))
         {
-            if($type !== 'preload')
-            Main\Autoload::registerClosure();
-
+            $initMethod = '__init';
+            
+            if(!Main\Autoload::isRegistered('closure'))
+            Main\Autoload::registerClosure(false,$initMethod);
+            
+            if(!Main\Autoload::isRegistered('alias'))
             Main\Autoload::registerAlias();
 
             $psr4 = $this->attr('psr4');
             if(!empty($psr4))
             {
                 $psr4 = $this->makePaths($psr4,true);
-                Main\Autoload::registerPsr4($psr4,true,'__init');
+                Main\Autoload::registerPsr4($psr4,true,$initMethod);
             }
 
             if($type === 'composer')
@@ -1647,7 +1659,7 @@ abstract class Boot extends Main\Root
         $return = false;
         $request = $this->request();
 
-        if($request->isStandard())
+        if($request->isStandard() && !$this->isPreload())
         {
             $return = $this->attr('compile');
 
@@ -1847,124 +1859,6 @@ abstract class Boot extends Main\Root
     public function roles():Roles
     {
         return $this->extenders()->get('role');
-    }
-
-
-    // concatenateJs
-    // permet de concatener un ou plusieurs dossiers avec fichiers js
-    // possible aussi de minifier
-    public function concatenateJs(array $value,?array $option=null):Files
-    {
-        $return = Files::newOverload();
-
-        foreach ($value as $to => $from)
-        {
-            if(is_string($to) && !empty($to) && !empty($from))
-            {
-                if(Base\Dir::isOlderThanFrom($to,$from,['visible'=>true,'extension'=>'js']))
-                {
-                    $to = File::newCreate($to);
-
-                    if($to instanceof File\Js)
-                    $to->concatenateFrom($from,$option);
-
-                    $return->add($to);
-                }
-            }
-        }
-
-        return $return;
-    }
-
-
-    // compileScss
-    // permet de compiler un ou plusieurs fichiers css/scss
-    public function compileScss(array $value,?array $option=null):Files
-    {
-        $return = Files::newOverload();
-        $variables = $this->getScssVariables();
-
-        foreach ($value as $to => $from)
-        {
-            if(is_string($to) && !empty($to) && !empty($from))
-            {
-                $fromDir = Base\Dir::getDirFromFileAndDir($from);
-                if(Base\Dir::isOlderThanFrom($to,$fromDir,['visible'=>true,'extension'=>['css','scss']]))
-                {
-                    $to = File::newCreate($to);
-
-                    if($to instanceof File\Css)
-                    $to->compileFrom($from,null,$variables,10,$option);
-
-                    $return->add($to);
-                }
-            }
-        }
-
-        return $return;
-    }
-
-
-    // getScssVariables
-    // génère un tableau de variable à injecter dans la feuille de style scss
-    public function getScssVariables():array
-    {
-        $return = [];
-
-        foreach (Base\Finder::allShortcuts() as $key => $value)
-        {
-            if(!Base\Lang::is($value))
-            $value = Base\Finder::normalize($value);
-            $key = 'finder'.ucfirst($key);
-
-            $return[$key] = $value;
-        }
-
-        foreach (Base\Uri::allShortcuts() as $key => $value)
-        {
-            if(!Base\Lang::is($value))
-            $value = Base\Uri::relative($value);
-            $key = 'uri'.ucfirst($key);
-
-            $return[$key] = $value;
-        }
-
-        return $return;
-    }
-
-
-    // concatenatePhp
-    // permet de concatener du php à partir de namespace
-    // ceci ne peut pas être fait si le autoload est en mode preload
-    public function concatenatePhp(array $array):Files
-    {
-        $return = Files::newOverload();
-        $service = Service\PhpConcatenator::class;
-
-        if($this->isPreload())
-        static::throw('cannotCompile','autoloadIsPreload');
-
-        foreach ($array as $arr)
-        {
-            if(is_array($arr) && count($arr) === 2)
-            {
-                $target = $arr['target'] ?? null;
-                $option = $arr['option'] ?? null;
-
-                if(!empty($target))
-                {
-                    $target = File::newCreate($target);
-                    if($target instanceof File\Php)
-                    {
-                        $compiler = new $service(__METHOD__,$option);
-                        $target = $compiler->triggerWrite($target);
-                        $return->add($target);
-                    }
-                }
-            }
-        }
-
-        return $return;
     }
 
 
@@ -2540,10 +2434,10 @@ abstract class Boot extends Main\Root
 
         if(Base\Arr::keysExists($keys,$credit))
         {
-            $return = 'Software: '.$credit['name'];
+            $return = 'Framework: '.$credit['name'];
             $return .= "\nVersion: ".$version;
             $return .= "\nAuthor: ".$credit['author'].' / '.$credit['email'];
-            $return .= "\nRequires: PHP 7.2 (compatible PHP 7.3)";
+            $return .= "\nRequires: PHP 7.3";
             $return .= "\nGithub: ".$credit['github'];
             $return .= "\nLicense: ".$credit['license'];
             $return .= "\nReadme: ".$credit['readme'];

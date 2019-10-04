@@ -46,7 +46,7 @@ trait _generalRelation
         if(!empty($selected))
         {
             $selected = $this->relationKeyValue($selected);
-            $r .= $this->makeResults($selected,'selectedList');
+            $r .= $this->makeResults($selected,'selected-list');
         }
 
         if(is_array($results) && !empty($results))
@@ -172,7 +172,7 @@ trait _generalRelation
                         elseif(!empty($minus))
                         $value .= $minus->a(null,['icon','minus']);
 
-                        $attr = (!empty($plus) || !empty($minus))? 'hasIcon':null;
+                        $attr = (!empty($plus) || !empty($minus))? 'has-icon':null;
                         $r .= Html::li($value,$attr);
                     }
                 }

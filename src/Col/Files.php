@@ -420,7 +420,7 @@ abstract class Files extends Core\ColAlias
                 $return .= Base\Html::img($thumbnail);
             }
             else
-            $return .= Html::div(null,'mediaPlaceholder');
+            $return .= Html::div(null,'media-placeholder');
 
             if($download === true)
             $return .= Html::aCl();

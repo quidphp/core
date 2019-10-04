@@ -11,7 +11,7 @@ namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
 use Quid\Routing;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // route
 // class for testing Quid\Core\Route
@@ -21,7 +21,7 @@ class Route extends Base\Test
     public static function trigger(array $data):bool
     {
         // prepare
-        $contact = TestSuite\Assert\Contact::class;
+        $contact = Suite\Assert\Contact::class;
         $contactMake = $contact::make();
 
         // type
@@ -56,7 +56,7 @@ class Route extends Base\Test
         // tableSegment
 
         // rowClass
-        assert($contact::rowClass() === TestSuite\Row\OrmCol::class);
+        assert($contact::rowClass() === Suite\Row\OrmCol::class);
 
         // tableFromRowClass
         assert($contact::tableFromRowClass() instanceof Core\Table);

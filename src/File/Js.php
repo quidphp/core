@@ -58,6 +58,33 @@ class Js extends TextAlias
     {
         return static::$config['service']::getOverloadClass();
     }
+    
+    
+    // concatenate
+    // permet de concatener un ou plusieurs dossiers avec fichiers js
+    // possible aussi de minifier
+    public static function concatenateMany(array $value,?array $option=null):Core\Files
+    {
+        $return = Core\Files::newOverload();
+
+        foreach ($value as $to => $from)
+        {
+            if(is_string($to) && !empty($to) && !empty($from))
+            {
+                if(Base\Dir::isOlderThanFrom($to,$from,['visible'=>true,'extension'=>'js']))
+                {
+                    $to = Core\File::newCreate($to);
+
+                    if($to instanceof self)
+                    $to->concatenateFrom($from,$option);
+
+                    $return->add($to);
+                }
+            }
+        }
+
+        return $return;
+    }
 }
 
 // init

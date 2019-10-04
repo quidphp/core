@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // roles
 // class for testing Quid\Core\Roles
@@ -20,8 +20,8 @@ class Roles extends Base\Test
     public static function trigger(array $data):bool
     {
         // prepare
-        $user = new TestSuite\Role\User();
-        $roles = new Core\Roles([Core\Role::class,TestSuite\Role::class]);
+        $user = new Suite\Role\User();
+        $roles = new Core\Roles([Core\Role::class,Suite\Role::class]);
         $roles2 = new Core\Roles();
 
         // main
@@ -42,23 +42,23 @@ class Roles extends Base\Test
         assert($roles->sortBy('permission',false) !== $roles);
         assert(is_a($roles->sortBy('permission',false)->first(),Core\Role\Cron::class,true));
         assert(is_a($roles->sortDefault()->first(),Core\Role\Nobody::class,true));
-        assert($roles->getObject(20) instanceof TestSuite\Role\User);
+        assert($roles->getObject(20) instanceof Suite\Role\User);
 
         // map
         $user2 = $roles->get(20);
-        assert(is_a($roles->get(20),TestSuite\Role\User::class,true));
+        assert(is_a($roles->get(20),Suite\Role\User::class,true));
         assert($roles->get($user) !== $user);
-        assert($roles->get(TestSuite\Role\User::class) === $user2);
+        assert($roles->get(Suite\Role\User::class) === $user2);
         assert(!$roles->in($user));
         assert($roles->in($user2));
         assert(!$roles->in(2));
-        assert($roles->in(TestSuite\Role\User::class));
-        assert(!$roles->in(new TestSuite\Role\User()));
+        assert($roles->in(Suite\Role\User::class));
+        assert(!$roles->in(new Suite\Role\User()));
         assert($roles->exists($user2));
         assert($roles->exists($user));
         assert($roles->exists(20));
-        assert($roles->exists(TestSuite\Role\User::class));
-        assert($roles->exists(new TestSuite\Role\User()));
+        assert($roles->exists(Suite\Role\User::class));
+        assert($roles->exists(new Suite\Role\User()));
 
         return true;
     }

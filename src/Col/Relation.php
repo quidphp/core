@@ -224,7 +224,7 @@ abstract class Relation extends Core\ColAlias
         if(is_array($attr) && array_key_exists('id',$attr))
         unset($attr['id']);
 
-        $return .= Html::divOp(['searchEnumSet',$mode,'data-mode'=>$mode]);
+        $return .= Html::divOp(['search-enumset',$mode,'data-mode'=>$mode]);
         $return .= Html::divOp('input');
         $return .= Html::inputText(null,['placeholder'=>$placeholder,'name'=>true,'data'=>$data,'id'=>$id]);
 
@@ -377,7 +377,7 @@ abstract class Relation extends Core\ColAlias
 
         foreach ($array as $value)
         {
-            $return .= Html::divCond($value,'relationPlain');
+            $return .= Html::divCond($value,'relation-plain');
         }
 
         return $return;

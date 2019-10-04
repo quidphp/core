@@ -506,7 +506,7 @@ abstract class Files extends Core\CellAlias
             else
             {
                 $legendLink = $file->pathToUri();
-                $return .= Base\Html::div(null,'mediaPlaceholder');
+                $return .= Base\Html::div(null,'media-placeholder');
             }
 
             if($download === true)

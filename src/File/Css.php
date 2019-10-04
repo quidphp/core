@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\File;
 use Quid\Core;
 use Quid\Main;
+use Quid\Base;
 
 // css
 // class for a css or scss file
@@ -83,6 +84,62 @@ class Css extends TextAlias
     {
         $service = static::getServiceClass();
         $return = new $service(__METHOD__,$option);
+
+        return $return;
+    }
+    
+    
+    // compileMany
+    // permet de compiler un ou plusieurs fichiers css/scss
+    public static function compileMany(array $value,?array $option=null):Core\Files
+    {
+        $return = Core\Files::newOverload();
+        $variables = static::getScssVariables();
+
+        foreach ($value as $to => $from)
+        {
+            if(is_string($to) && !empty($to) && !empty($from))
+            {
+                $fromDir = Base\Dir::getDirFromFileAndDir($from);
+                if(Base\Dir::isOlderThanFrom($to,$fromDir,['visible'=>true,'extension'=>['css','scss']]))
+                {
+                    $to = Core\File::newCreate($to);
+
+                    if($to instanceof self)
+                    $to->compileFrom($from,null,$variables,10,$option);
+
+                    $return->add($to);
+                }
+            }
+        }
+
+        return $return;
+    }
+
+    
+    // getScssVariables
+    // génère un tableau de variable à injecter dans la feuille de style scss
+    public static function getScssVariables():array
+    {
+        $return = [];
+
+        foreach (Base\Finder::allShortcuts() as $key => $value)
+        {
+            if(!Base\Lang::is($value))
+            $value = Base\Finder::normalize($value);
+            $key = 'finder'.ucfirst($key);
+
+            $return[$key] = $value;
+        }
+
+        foreach (Base\Uri::allShortcuts() as $key => $value)
+        {
+            if(!Base\Lang::is($value))
+            $value = Base\Uri::relative($value);
+            $key = 'uri'.ucfirst($key);
+
+            $return[$key] = $value;
+        }
 
         return $return;
     }

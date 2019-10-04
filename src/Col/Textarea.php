@@ -63,7 +63,7 @@ class Textarea extends Core\ColAlias
         $return = [parent::classHtml()];
 
         if($this->hasTableRelation())
-        $return[] = 'tableRelation';
+        $return[] = 'table-relation';
 
         return $return;
     }
@@ -99,7 +99,7 @@ class Textarea extends Core\ColAlias
         foreach ($tables as $table)
         {
             $route = $this->route('tableRelation',['table'=>$table]);
-            $r .= $route::makeClickOpen($table,$route,['clickOpen','filter','anchorCorner']);
+            $r .= $route::makeClickOpen($table,$route,['click-open','filter','anchor-corner']);
         }
 
         return $r;

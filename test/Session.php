@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\TestSuite;
+use Quid\Suite;
 
 // session
 // class for testing Quid\Core\Session
@@ -79,7 +79,7 @@ class Session extends Base\Test
         assert(!$s->allowWelcomeEmail());
 
         // getUserClass
-        assert($s->getUserClass() === TestSuite\Row\User::class);
+        assert($s->getUserClass() === Suite\Row\User::class);
 
         // getDefaultUserPrimary
         assert($s->getDefaultUserPrimary() === 2);
