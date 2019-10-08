@@ -32,11 +32,11 @@ trait _direction
                 if(!empty($table))
                 $return = $table->order('direction');
             }
-            
+
             else
             $return = (Orm\Syntax::isOrderDirection($value))? strtolower($value):false;
         }
-        
+
         return $return;
     }
 }

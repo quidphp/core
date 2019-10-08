@@ -21,9 +21,9 @@ abstract class Error extends Core\RouteAlias
     public static $config = [
         'path'=>null,
         'priority'=>999,
-        'match'=>array(
+        'match'=>[
             'cli'=>null,
-            'method'=>null),
+            'method'=>null],
         'group'=>'error',
         'sitemap'=>false,
         'response'=>[
@@ -69,7 +69,7 @@ abstract class Error extends Core\RouteAlias
         $route = static::$config['route'];
         $titleBox = static::$config['titleBox'];
         static::setResponseCode();
-        
+
         $r .= Html::divOp('ajax-parse-error');
 
         if($titleBox === true)
@@ -87,11 +87,11 @@ abstract class Error extends Core\RouteAlias
         }
 
         $r .= Html::divCl();
-        
+
         return $r;
     }
-    
-    
+
+
     // makeTitleBox
     // génère le titre et sous-titre
     protected function makeTitleBox():string
@@ -102,8 +102,8 @@ abstract class Error extends Core\RouteAlias
 
         return $r;
     }
-    
-    
+
+
     // makeTitle
     // génère le titre pour la route
     protected function makeTitle(?string $lang=null):string

@@ -36,7 +36,7 @@ trait _selected
         {
             if($value === null)
             $return = [];
-            
+
             elseif(is_scalar($value))
             {
                 $explode = Base\Str::explodeTrimClean(static::getDefaultSegment(),(string) $value);

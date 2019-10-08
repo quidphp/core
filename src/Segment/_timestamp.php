@@ -26,7 +26,7 @@ trait _timestamp
         {
             if($value === null)
             $return = null;
-            
+
             else
             $return = (is_int($value) && $value > 0)? $value:false;
         }

@@ -31,7 +31,7 @@ trait _limit
                 if(!empty($table))
                 $return = $table->limit();
             }
-            
+
             else
             $return = (is_int($value) && $value > 0)? $value:false;
         }

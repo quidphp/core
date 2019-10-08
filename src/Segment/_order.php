@@ -31,7 +31,7 @@ trait _order
             {
                 if($value === null)
                 $return = $table->order('order');
-                
+
                 elseif($table->hasCol($value))
                 {
                     $col = $table->col($value);

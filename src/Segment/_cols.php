@@ -46,7 +46,7 @@ trait _cols
             {
                 if($value === null)
                 $return = $table->cols()->general()->filter(['isVisibleGeneral'=>true]);
-                
+
                 elseif(is_string($value) && !empty($value))
                 {
                     $default = static::getDefaultSegment();

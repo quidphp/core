@@ -32,15 +32,15 @@ trait _formSubmit
         return $this->fallbackRouteRedirect($context);
     }
 
-    
+
     // fallbackRouteRedirect
     // permet de spécifier une route de redirection en cas de fallback
     protected function fallbackRouteRedirect($context=null)
     {
         return;
     }
-    
-    
+
+
     // onSuccess
     // callback appelé lors d'un succès
     protected function onSuccess():void

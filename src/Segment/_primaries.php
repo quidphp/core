@@ -45,7 +45,7 @@ trait _primaries
         {
             if($value === null)
             $return = [];
-            
+
             else
             {
                 if($value instanceof Core\Row)

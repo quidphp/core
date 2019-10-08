@@ -30,8 +30,8 @@ trait _filter
             elseif($type === 'match')
             {
                 if($value === null)
-                $return = array();
-                
+                $return = [];
+
                 else
                 $return = static::matchSegmentFilter($value,$table);
             }

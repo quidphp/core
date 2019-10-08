@@ -229,7 +229,7 @@ class File extends Base\Test
         assert($raster->safeBasename() === 'jpg.jpg');
         assert(strlen($rasterStorage->img()) > 2500);
         assert(strlen($captcha->captcha('test','[assertCommon]/ttf.ttf')->img()) > 2000);
-        
+
         // imageVector
         assert($vector instanceof Core\File\Image);
         assert($vector instanceof Core\File\ImageVector);

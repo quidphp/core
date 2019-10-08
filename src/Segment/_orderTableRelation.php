@@ -26,7 +26,7 @@ trait _orderTableRelation
         {
             if($value === null)
             $return = static::$config['order'] ?? false;
-            
+
             else
             {
                 $db = static::db();

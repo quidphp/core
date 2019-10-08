@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Core;
-use Quid\Base;
 use Composer\Autoload;
+use Quid\Base;
+use Quid\Core;
 
 // composer
 // class that grants some methods related to the composer autoloader
@@ -18,16 +18,16 @@ class Composer extends Core\ServiceAlias
 {
     // config
     public static $config = [];
-    
-    
+
+
     // construct
     // constructeur privé
-    private function __construct() 
+    private function __construct()
     {
         return;
     }
-    
-    
+
+
     // get
     // retourne l'objet composer à partir du pool de callable autoload
     public static function get():Autoload\ClassLoader
@@ -70,8 +70,8 @@ class Composer extends Core\ServiceAlias
 
         return $return;
     }
-    
-    
+
+
     // setPsr4
     // enregistre les psr4 de composer dans base/autoload
     public static function setPsr4():void
@@ -82,14 +82,14 @@ class Composer extends Core\ServiceAlias
         return;
     }
 
-    
+
     // setClassMapAuthoritative
     // active ou désactive la fonctionnalitée class map authoritative de composer
     public static function setClassMapAuthoritative(bool $value):void
     {
         $composer = static::get();
         $composer->setClassMapAuthoritative($value);
-        
+
         return;
     }
 }

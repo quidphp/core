@@ -42,7 +42,7 @@ trait _pointer
         {
             if($value === null)
             $return = static::structureSegmentPointerValidateDefault();
-            
+
             elseif(is_string($value) && !empty($value))
             {
                 $db = static::db();

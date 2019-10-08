@@ -27,7 +27,7 @@ trait _int
         {
             if($value === null)
             $return = $default;
-            
+
             else
             {
                 $return = (is_int($value) && $value >= 0)? $value:false;

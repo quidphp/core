@@ -26,11 +26,11 @@ trait _yes
         {
             if($value === null)
             $return = null;
-            
+
             elseif($value === 1)
             $return = $value;
         }
-        
+
         return $return;
     }
 }

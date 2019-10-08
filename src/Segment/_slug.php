@@ -40,7 +40,7 @@ trait _slug
             {
                 if($value === null)
                 $return = static::structureSegmentSlugValidateDefault();
-                
+
                 elseif(is_string($value) && !empty($value))
                 $return = $table->row($value) ?? false;
 

@@ -473,11 +473,11 @@ abstract class Boot extends Main\Root
         $uriShortcut = $this->attr('uriShortcut');
         if(is_array($uriShortcut) && !empty($uriShortcut))
         $this->setsUriShortcut($uriShortcut);
-        
+
         $uriAbsolute = $this->attr('uriAbsolute');
         if(is_bool($uriAbsolute))
         Base\Uri::setAllAbsolute($uriAbsolute);
-        
+
         $symlink = $this->attr('symlink');
         if(is_array($symlink) && !empty($symlink))
         static::setsSymlink($symlink);
@@ -590,7 +590,7 @@ abstract class Boot extends Main\Root
     protected function launch():self
     {
         $this->checkReady();
-        
+
         if($this->onLaunch() === true)
         {
             $request = $this->request();
@@ -2154,7 +2154,7 @@ abstract class Boot extends Main\Root
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
         $log = $this->attr('redirectLog');
-        
+
         if($manage['type'] === 'blocked')
         $log = null;
 

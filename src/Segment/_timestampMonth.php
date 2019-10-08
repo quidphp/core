@@ -39,7 +39,7 @@ trait _timestampMonth
         {
             if($value === null)
             $return = Base\Date::floorMonth();
-            
+
             elseif(is_scalar($value))
             $return = $value;
         }
