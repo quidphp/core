@@ -22,7 +22,7 @@ trait _str
         if($type === 'make' && is_string($value) && strlen($value))
         $return = $value;
 
-        elseif($type === 'validate' && is_string($value) && strlen($value))
+        elseif($type === 'match' && is_string($value) && strlen($value))
         $return = $value;
 
         return $return;

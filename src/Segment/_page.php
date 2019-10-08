@@ -22,7 +22,7 @@ trait _page
         if($type === 'make')
         $return = (is_int($value) && $value > 0)? $value:1;
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
             if(is_scalar($value))
             $return = (is_int($value) && $value > 0)? $value:false;
@@ -30,9 +30,6 @@ trait _page
             else
             $return = 1;
         }
-
-        elseif($type === 'validateDefault')
-        $return = 1;
 
         return $return;
     }

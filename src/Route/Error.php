@@ -21,10 +21,15 @@ abstract class Error extends Core\RouteAlias
     public static $config = [
         'path'=>null,
         'priority'=>999,
+        'match'=>array(
+            'cli'=>null,
+            'method'=>null),
         'group'=>'error',
         'sitemap'=>false,
         'response'=>[
-            'code'=>404]
+            'code'=>404],
+        'route'=>Home::class,
+        'titleBox'=>true
     ];
 
 
@@ -33,13 +38,9 @@ abstract class Error extends Core\RouteAlias
     // 404 est mis si le code d'erreur n'est pas déjà négatif
     protected function onBefore()
     {
-        $return = true;
         static::setResponseCode();
 
-        if(!$this->showHtml())
-        $return = false;
-
-        return $return;
+        return true;
     }
 
 
@@ -47,18 +48,62 @@ abstract class Error extends Core\RouteAlias
     // méthode trigger par défaut
     public function trigger()
     {
-        return $this->html();
+        return ($this->showErrorHtml())? $this->html():null;
     }
 
 
-    // showHtml
+    // showErrorHtml
     // retourne vrai s'il faut générer le html
-    public function showHtml():bool
+    public function showErrorHtml():bool
     {
         return ($this->request()->hasExtension())? false:true;
     }
 
 
+    // html
+    // génère le html de la route error
+    // peut retourner null
+    public function html():?string
+    {
+        $r = '';
+        $route = static::$config['route'];
+        $titleBox = static::$config['titleBox'];
+        static::setResponseCode();
+        
+        $r .= Html::divOp('ajax-parse-error');
+
+        if($titleBox === true)
+        $r .= $this->makeTitleBox();
+
+        $r .= Html::h3Cond($this->makeContent());
+
+        if(!empty($route))
+        {
+            $route = $route::makeOverload();
+            $r .= Html::divOp('back');
+            $link = $route->a(static::langText('lc|common/here'));
+            $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
+            $r .= Html::divCl();
+        }
+
+        $r .= Html::divCl();
+        
+        return $r;
+    }
+    
+    
+    // makeTitleBox
+    // génère le titre et sous-titre
+    protected function makeTitleBox():string
+    {
+        $r = '';
+        $r .= Html::h1($this->makeTitle());
+        $r .= Html::h2($this->makeSubTitle());
+
+        return $r;
+    }
+    
+    
     // makeTitle
     // génère le titre pour la route
     protected function makeTitle(?string $lang=null):string
@@ -75,50 +120,6 @@ abstract class Error extends Core\RouteAlias
     }
 
 
-    // makeTitleBox
-    // génère le titre et sous-titre
-    protected function makeTitleBox():string
-    {
-        $r = '';
-        $r .= Html::h1($this->makeTitle());
-        $r .= Html::h2($this->makeSubTitle());
-
-        return $r;
-    }
-
-
-    // html
-    // génère le html de la route error, version différente si la session est nobody ou somebody
-    public function html():string
-    {
-        $r = '';
-
-        if($this->session()->isNobody())
-        $r = $this->nobody();
-
-        else
-        $r = $this->somebody();
-
-        return $r;
-    }
-
-
-    // nobody
-    // rendu de la route si nobody
-    protected function nobody():string
-    {
-        return $this->makeTitleBox();
-    }
-
-
-    // somebody
-    // rendu de la route si somebody
-    protected function somebody():string
-    {
-        return $this->detail();
-    }
-
-
     // makeContent
     // génère le contenu pour l'explication du code erreur http
     // peut retourner null
@@ -130,35 +131,6 @@ abstract class Error extends Core\RouteAlias
         $return = $lang->safe('error/page/content/'.$code);
 
         return $return;
-    }
-
-
-    // detail
-    // retourne l'affichage de la page erreur pour somebody
-    // possibile de spécifier la route pour le retour et d'affiche ou non le titleBox
-    protected function detail(?Core\Route $route=null,bool $titleBox=true):string
-    {
-        $r = '';
-        static::setResponseCode();
-
-        $r .= Html::divOp('ajax-parse-error');
-
-        if($titleBox === true)
-        $r .= $this->makeTitleBox();
-
-        $r .= Html::h3Cond($this->makeContent());
-
-        if(!empty($route))
-        {
-            $r .= Html::divOp('back');
-            $link = $route->a(static::langText('lc|common/here'));
-            $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
-            $r .= Html::divCl();
-        }
-
-        $r .= Html::divCl();
-
-        return $r;
     }
 
 

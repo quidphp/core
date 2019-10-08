@@ -22,25 +22,28 @@ trait _orderColRelation
         if($type === 'make')
         $return = (is_scalar($value))? $value:false;
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            $db = static::db();
-            if($db->hasTable($keyValue['table']))
+            if($value === null)
+            $return = static::$config['order'] ?? false;
+            
+            else
             {
-                $table = $db->table($keyValue['table']);
-
-                if($table->hasCol($keyValue['col']))
+                $db = static::db();
+                if($db->hasTable($keyValue['table']))
                 {
-                    $col = $table->col($keyValue['col']);
+                    $table = $db->table($keyValue['table']);
 
-                    if(static::isValidOrder($value,$col->relation()))
-                    $return = $value;
+                    if($table->hasCol($keyValue['col']))
+                    {
+                        $col = $table->col($keyValue['col']);
+
+                        if(static::isValidOrder($value,$col->relation()))
+                        $return = $value;
+                    }
                 }
             }
         }
-
-        elseif($type === 'validateDefault')
-        $return = static::$config['order'] ?? false;
 
         return $return;
     }

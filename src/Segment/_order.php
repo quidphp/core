@@ -23,24 +23,21 @@ trait _order
         if($type === 'make')
         $return = (is_string($value) || $value instanceof Core\Col)? $value:false;
 
-        else
+        elseif($type === 'match')
         {
             $table = static::tableSegment($keyValue);
 
             if(!empty($table))
             {
-                if($type === 'validate')
-                {
-                    if($table->hasCol($value))
-                    {
-                        $col = $table->col($value);
-                        if($col->isOrderable())
-                        $return = $col;
-                    }
-                }
-
-                elseif($type === 'validateDefault')
+                if($value === null)
                 $return = $table->order('order');
+                
+                elseif($table->hasCol($value))
+                {
+                    $col = $table->col($value);
+                    if($col->isOrderable())
+                    $return = $col;
+                }
             }
         }
 

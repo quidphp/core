@@ -76,7 +76,7 @@ abstract class Route extends Routing\Route
         $return['name'] = static::name();
         $return['type'] = static::type();
         $return['metaUri'] = $request->uri();
-        $return['group'] = static::group(true);
+        $return['group'] = static::group();
         $return['parent'] = (!empty($parent))? $parent::name():null;
         $return['title'] = $return['label'];
         $return['metaKeywords'] = $lang->safe('meta/keywords');

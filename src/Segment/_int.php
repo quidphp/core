@@ -23,17 +23,20 @@ trait _int
         if($type === 'make')
         $return = (is_int($value) && $value >= 0)? $value:false;
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            $return = (is_int($value) && $value >= 0)? $value:false;
+            if($value === null)
+            $return = $default;
+            
+            else
+            {
+                $return = (is_int($value) && $value >= 0)? $value:false;
 
-            $possible = static::structureSegmentIntPossible();
-            if($return !== false && !empty($possible))
-            $return = (in_array($value,$possible,true))? $value:false;
+                $possible = static::structureSegmentIntPossible();
+                if($return !== false && !empty($possible))
+                $return = (in_array($value,$possible,true))? $value:false;
+            }
         }
-
-        elseif($type === 'validateDefault')
-        $return = $default;
 
         return $return;
     }

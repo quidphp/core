@@ -32,17 +32,17 @@ trait _selected
             $return = $value;
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            if(is_scalar($value))
+            if($value === null)
+            $return = [];
+            
+            elseif(is_scalar($value))
             {
                 $explode = Base\Str::explodeTrimClean(static::getDefaultSegment(),(string) $value);
                 $return = Base\Arr::cast($explode);
             }
         }
-
-        elseif($type === 'validateDefault')
-        $return = [];
 
         return $return;
     }

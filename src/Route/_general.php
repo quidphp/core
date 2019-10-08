@@ -80,7 +80,7 @@ trait _general
         else
         {
             $not = (array) $not;
-            $segments = $this->segment(null,true);
+            $segments = $this->segments(true);
             $segments = Base\Arr::keysStrip($not,$segments);
 
             if(array_key_exists('page',$segments) && $segments['page'] === '1')

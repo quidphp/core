@@ -22,7 +22,7 @@ trait _boolean
         if($type === 'make')
         $return = (in_array($value,[0,1],true))? $value:false;
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         $return = (in_array($value,[0,1],true))? $value:false;
 
         return $return;

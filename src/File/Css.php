@@ -135,7 +135,7 @@ class Css extends TextAlias
         foreach (Base\Uri::allShortcuts() as $key => $value)
         {
             if(!Base\Lang::is($value))
-            $value = Base\Uri::relative($value);
+            $value = Base\Uri::output($value);
             $key = 'uri'.ucfirst($key);
 
             $return[$key] = $value;

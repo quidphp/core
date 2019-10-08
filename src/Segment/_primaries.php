@@ -41,27 +41,30 @@ trait _primaries
             }
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            if($value instanceof Core\Row)
-            $value = $value->primary();
-
-            if(is_scalar($value) && !is_bool($value) && !empty($value))
+            if($value === null)
+            $return = [];
+            
+            else
             {
-                $default = static::getDefaultSegment();
-                $value = (string) $value;
+                if($value instanceof Core\Row)
+                $value = $value->primary();
 
-                $array = Base\Str::explodeTrimClean($default,$value);
-                if(Base\Arr::onlyNumeric($array))
-                $return = Base\Arr::cast($array);
+                if(is_scalar($value) && !is_bool($value) && !empty($value))
+                {
+                    $default = static::getDefaultSegment();
+                    $value = (string) $value;
+
+                    $array = Base\Str::explodeTrimClean($default,$value);
+                    if(Base\Arr::onlyNumeric($array))
+                    $return = Base\Arr::cast($array);
+                }
+
+                elseif($value instanceof Core\Rows)
+                $return = $value->primaries();
             }
-
-            elseif($value instanceof Core\Rows)
-            $return = $value->primaries();
         }
-
-        elseif($type === 'validateDefault')
-        $return = [];
 
         return $return;
     }

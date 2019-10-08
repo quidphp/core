@@ -23,17 +23,20 @@ trait _direction
         if($type === 'make')
         $return = (is_string($value) && !empty($value))? strtolower($value):false;
 
-        elseif($type === 'validate')
-        $return = (Orm\Syntax::isOrderDirection($value))? strtolower($value):false;
-
-        elseif($type === 'validateDefault')
+        elseif($type === 'match')
         {
-            $table = static::tableSegment($keyValue);
+            if($value === null)
+            {
+                $table = static::tableSegment($keyValue);
 
-            if(!empty($table))
-            $return = $table->order('direction');
+                if(!empty($table))
+                $return = $table->order('direction');
+            }
+            
+            else
+            $return = (Orm\Syntax::isOrderDirection($value))? strtolower($value):false;
         }
-
+        
         return $return;
     }
 }

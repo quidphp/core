@@ -22,11 +22,14 @@ trait _timestamp
         if($type === 'make')
         $return = (is_int($value) && $value > 0)? $value:false;
 
-        elseif($type === 'validate')
-        $return = (is_int($value) && $value > 0)? $value:false;
-
-        elseif($type === 'validateDefault')
-        $return = null;
+        elseif($type === 'match')
+        {
+            if($value === null)
+            $return = null;
+            
+            else
+            $return = (is_int($value) && $value > 0)? $value:false;
+        }
 
         return $return;
     }

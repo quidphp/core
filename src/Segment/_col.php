@@ -29,7 +29,7 @@ trait _col
             $return = $value->col();
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
             $table = static::tableSegment($keyValue);
 

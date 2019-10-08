@@ -29,7 +29,7 @@ trait _table
             $return = $value;
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
             $db = static::db();
 

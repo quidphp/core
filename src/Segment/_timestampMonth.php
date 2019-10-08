@@ -35,14 +35,14 @@ trait _timestampMonth
             $return = Base\Date::format('ym',$value);
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            if(is_scalar($value))
+            if($value === null)
+            $return = Base\Date::floorMonth();
+            
+            elseif(is_scalar($value))
             $return = $value;
         }
-
-        elseif($type === 'validateDefault')
-        $return = Base\Date::floorMonth();
 
         return $return;
     }

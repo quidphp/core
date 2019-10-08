@@ -21,7 +21,7 @@ class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileSt
     // config
     public static $config = [
         'dirname'=>'[storage]/error',
-        'deleteTrim'=>500
+        'deleteTrim'=>50
     ];
 
 
@@ -45,7 +45,7 @@ class Error extends DumpAlias implements Main\Contract\Log, Main\Contract\FileSt
     // retourne le filename de l'error, par défaut utilise le id de l'erreur
     public static function storageFilename(...$values):string
     {
-        return (static::isStorageDataValid(...$values))? $values[0]->id(static::$config['inc']):null;
+        return (static::isStorageDataValid(...$values))? $values[0]->basename(static::$config['inc']):null;
     }
 }
 

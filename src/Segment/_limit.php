@@ -22,15 +22,18 @@ trait _limit
         if($type === 'make')
         $return = (is_int($value) && $value > 0)? $value:false;
 
-        elseif($type === 'validate')
-        $return = (is_int($value) && $value > 0)? $value:false;
-
-        elseif($type === 'validateDefault')
+        elseif($type === 'match')
         {
-            $table = static::tableSegment($keyValue);
+            if($value === null)
+            {
+                $table = static::tableSegment($keyValue);
 
-            if(!empty($table))
-            $return = $table->limit();
+                if(!empty($table))
+                $return = $table->limit();
+            }
+            
+            else
+            $return = (is_int($value) && $value > 0)? $value:false;
         }
 
         return $return;

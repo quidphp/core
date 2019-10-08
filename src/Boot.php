@@ -85,6 +85,7 @@ abstract class Boot extends Main\Root
         'uriShortcut'=>[ // shortcut pour uri, pas besoin de mettre le slash avant
             'public'=>'',
             'media'=>'media'],
+        'uriAbsolute'=>null, // force toutes les uris générés via uri output à être absolute
         'symlink'=>[ // symlink à créer au chargement
             '[storagePublic]/*'=>'[public]'],
         'callable'=>[
@@ -199,10 +200,6 @@ abstract class Boot extends Main\Root
             'composer'=>[
                 'classMapAuthoritative'=>true]]
     ];
-
-
-    // map
-    protected static $allow = ['sort','set','unset','remove','empty','replace','overwrite']; // méthodes permises pour map
 
 
     // quidVersion
@@ -476,7 +473,11 @@ abstract class Boot extends Main\Root
         $uriShortcut = $this->attr('uriShortcut');
         if(is_array($uriShortcut) && !empty($uriShortcut))
         $this->setsUriShortcut($uriShortcut);
-
+        
+        $uriAbsolute = $this->attr('uriAbsolute');
+        if(is_bool($uriAbsolute))
+        Base\Uri::setAllAbsolute($uriAbsolute);
+        
         $symlink = $this->attr('symlink');
         if(is_array($symlink) && !empty($symlink))
         static::setsSymlink($symlink);
@@ -589,7 +590,7 @@ abstract class Boot extends Main\Root
     protected function launch():self
     {
         $this->checkReady();
-
+        
         if($this->onLaunch() === true)
         {
             $request = $this->request();
@@ -1288,29 +1289,15 @@ abstract class Boot extends Main\Root
             }
 
             if($type === 'composer')
-            $this->autoloadComposer();
+            {
+                $authoritative = $this->attr(['composer','classMapAuthoritative']);
+                Service\Composer::setPsr4();
+                Service\Composer::setClassMapAuthoritative($authoritative);
+            }
         }
 
         else
         static::errorKill('invalidAutoloadType',$type);
-
-        return $this;
-    }
-
-
-    // autoloadComposer
-    // complete l'initialization avec l'autoload de composer
-    protected function autoloadComposer():self
-    {
-        $psr4 = static::getPsr4FromComposer();
-        Base\Autoload::setsPsr4($psr4);
-
-        $authoritative = $this->attr(['composer','classMapAuthoritative']);
-        if(is_bool($authoritative))
-        {
-            $composer = static::composer();
-            $composer->setClassMapAuthoritative($authoritative);
-        }
 
         return $this;
     }
@@ -2167,7 +2154,7 @@ abstract class Boot extends Main\Root
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
         $log = $this->attr('redirectLog');
-
+        
         if($manage['type'] === 'blocked')
         $log = null;
 
@@ -2301,50 +2288,6 @@ abstract class Boot extends Main\Root
         static::throw('ini',$ini);
 
         return;
-    }
-
-
-    // composer
-    // retourne l'objet composer à partir du pool de callable autoload
-    public static function composer():\Composer\Autoload\ClassLoader
-    {
-        $return = null;
-
-        foreach (Base\Autoload::all() as $key => $value)
-        {
-            if(is_array($value) && !empty($value[0]) && $value[0] instanceof \Composer\Autoload\ClassLoader)
-            {
-                $return = $value[0];
-                break;
-            }
-        }
-
-        return $return;
-    }
-
-
-    // getPsr4FromComposer
-    // retourne un tableau avec tous les psr4 de composer
-    protected static function getPsr4FromComposer():array
-    {
-        $return = [];
-        $composer = static::composer();
-        $psr4 = $composer->getPrefixesPsr4();
-
-        if(!empty($psr4))
-        {
-            foreach ($psr4 as $namespace => $path)
-            {
-                if(is_string($namespace) && is_array($path) && !empty($path))
-                {
-                    $v = current($path);
-                    $namespace = rtrim($namespace,'\\');
-                    $return[$namespace] = $v;
-                }
-            }
-        }
-
-        return $return;
     }
 
 

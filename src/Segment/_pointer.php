@@ -38,17 +38,17 @@ trait _pointer
             $return = $value;
         }
 
-        elseif($type === 'validate')
+        elseif($type === 'match')
         {
-            if(is_string($value) && !empty($value))
+            if($value === null)
+            $return = static::structureSegmentPointerValidateDefault();
+            
+            elseif(is_string($value) && !empty($value))
             {
                 $db = static::db();
                 $return = $db->fromPointer($value,'-',$valid) ?? false;
             }
         }
-
-        elseif($type === 'validateDefault')
-        $return = static::structureSegmentPointerValidateDefault();
 
         return $return;
     }

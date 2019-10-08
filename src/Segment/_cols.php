@@ -38,32 +38,29 @@ trait _cols
             }
         }
 
-        else
+        elseif($type === 'match')
         {
             $table = static::tableSegment($keyValue);
 
             if(!empty($table))
             {
-                if($type === 'validate')
+                if($value === null)
+                $return = $table->cols()->general()->filter(['isVisibleGeneral'=>true]);
+                
+                elseif(is_string($value) && !empty($value))
                 {
-                    if(is_string($value) && !empty($value))
-                    {
-                        $default = static::getDefaultSegment();
+                    $default = static::getDefaultSegment();
 
-                        $array = Base\Str::explodeTrimClean($default,$value);
-                        $count = count($array);
-                        $value = $table->cols(...$array)->filter(['isVisibleGeneral'=>true]);
+                    $array = Base\Str::explodeTrimClean($default,$value);
+                    $count = count($array);
+                    $value = $table->cols(...$array)->filter(['isVisibleGeneral'=>true]);
 
-                        if($value->isCount($count))
-                        $return = $value;
-                    }
-
-                    elseif($value instanceof Core\Cols)
+                    if($value->isCount($count))
                     $return = $value;
                 }
 
-                elseif($type === 'validateDefault')
-                $return = $table->cols()->general()->filter(['isVisibleGeneral'=>true]);
+                elseif($value instanceof Core\Cols)
+                $return = $value;
             }
         }
 

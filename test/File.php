@@ -46,6 +46,7 @@ class File extends Base\Test
         $pdf = Core\File::new($mediaPdf);
         $calendar = Core\File::new($storage.'/ics.ics',['create'=>true]);
         $calendarTemp = Core\File\Calendar::new(true);
+        $captcha = Core\File::new(true,['mime'=>'jpg']);
         $res = Base\Res::temp('csv','ok.csv');
         $tempCsv = Core\File\Csv::new($res);
         $core = Core\File::new(true);
@@ -122,6 +123,13 @@ class File extends Base\Test
         assert($csv2 instanceof Core\File\Csv);
         assert(is_resource($csv->resource()));
         assert(is_array($csv->read()));
+        assert($csv->read()[0][0] === 'Item Code');
+        assert($csv->writeBom() === true);
+        assert($csv->read()[0][0] === 'm Code');
+        assert($csv->same());
+        assert($csv->read() !== $csv->clean());
+        assert(is_string($csv->assoc()[0]['m Code']));
+        assert($csv->assoc() !== $csv->assoc(true));
         assert(is_string($csv->readRaw()));
         assert(Base\Column::is($csv->lines()));
         assert($csv->line() === null);
@@ -176,7 +184,6 @@ class File extends Base\Test
         assert(Core\File\Error::isStorageDataValid($error));
         assert(!Core\File\Error::isStorageDataValid('lol'));
         assert(is_array(Core\File\Error::storageData($error)));
-        assert(Base\Str::isStart($error->id(),Core\File\Error::storageFilename($error)));
         assert($new instanceof Core\File\Error);
         assert(Core\File\Error::logTrim() === 0);
         Base\Dir::empty(Core\File\Error::storageDirname());
@@ -221,7 +228,8 @@ class File extends Base\Test
         assert(Base\Html::aOpen($raster) === "<a href='".$mediaJpgUri."'>");
         assert($raster->safeBasename() === 'jpg.jpg');
         assert(strlen($rasterStorage->img()) > 2500);
-
+        assert(strlen($captcha->captcha('test','[assertCommon]/ttf.ttf')->img()) > 2000);
+        
         // imageVector
         assert($vector instanceof Core\File\Image);
         assert($vector instanceof Core\File\ImageVector);

@@ -22,12 +22,15 @@ trait _yes
         if($type === 'make' && $value === 1)
         $return = $value;
 
-        elseif($type === 'validate' && $value === 1)
-        $return = $value;
-
-        elseif($type === 'validateDefault')
-        $return = null;
-
+        elseif($type === 'match')
+        {
+            if($value === null)
+            $return = null;
+            
+            elseif($value === 1)
+            $return = $value;
+        }
+        
         return $return;
     }
 }

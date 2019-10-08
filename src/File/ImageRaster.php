@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\File;
 use Quid\Core;
+use Quid\Base;
 
 // imageRaster
 // class for a pixelated image file
@@ -20,7 +21,17 @@ class ImageRaster extends ImageAlias
         'service'=>Core\Service\ClassUpload::class
     ];
 
-
+    
+    // captcha
+    // écrit un captcha dans le fichier image
+    public function captcha(string $value,?string $font=null,?array $option=null):self 
+    {
+        Base\ImageRaster::captcha($value,$font,$this->resource(),$option);
+        
+        return $this;
+    }
+    
+    
     // getServiceClass
     // retourne la classe du service
     public static function getServiceClass():string
@@ -28,7 +39,7 @@ class ImageRaster extends ImageAlias
         return static::$config['service']::getOverloadClass();
     }
 
-
+    
     // compress
     // comprime le fichier image avec le service spécifié dans config
     public function compress(string $dirname,?string $filename=null,?array $option=null)

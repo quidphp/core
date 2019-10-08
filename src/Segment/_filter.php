@@ -20,21 +20,20 @@ trait _filter
     public static function structureSegmentFilter(string $type,$value,array &$keyValue)
     {
         $return = false;
+        $table = static::tableSegment($keyValue);
 
-        if($type === 'validateDefault')
-        $return = [];
-
-        else
+        if(!empty($table))
         {
-            $table = static::tableSegment($keyValue);
+            if($type === 'make')
+            $return = static::makeSegmentFilter($value,$table);
 
-            if(!empty($table))
+            elseif($type === 'match')
             {
-                if($type === 'make')
-                $return = static::makeSegmentFilter($value,$table);
-
-                elseif($type === 'validate')
-                $return = static::validateSegmentFilter($value,$table);
+                if($value === null)
+                $return = array();
+                
+                else
+                $return = static::matchSegmentFilter($value,$table);
             }
         }
 
@@ -93,9 +92,9 @@ trait _filter
     }
 
 
-    // validateSegmentFilter
+    // matchSegmentFilter
     // gère le segment filter lors de la validation d'une uri
-    protected static function validateSegmentFilter($value,Core\Table $table)
+    protected static function matchSegmentFilter($value,Core\Table $table)
     {
         $return = false;
 

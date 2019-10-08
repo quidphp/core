@@ -36,17 +36,17 @@ trait _slug
                 $return = $value;
             }
 
-            elseif($type === 'validate')
+            elseif($type === 'match')
             {
-                if(is_string($value) && !empty($value))
+                if($value === null)
+                $return = static::structureSegmentSlugValidateDefault();
+                
+                elseif(is_string($value) && !empty($value))
                 $return = $table->row($value) ?? false;
 
                 elseif(is_a($value,$rowClass,true))
                 $return = $value;
             }
-
-            elseif($type === 'validateDefault')
-            $return = static::structureSegmentSlugValidateDefault();
         }
 
         return $return;

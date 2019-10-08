@@ -199,8 +199,6 @@ class Boot extends Base\Test
 
         // autoload
 
-        // autoloadComposer
-
         // checkIp
 
         // getSchemeArray
@@ -335,10 +333,6 @@ class Boot extends Base\Test
         assert($boot->envTypeFromString('dev/appz',$boot->envs(),$boot->types()) === null);
 
         // requirement
-
-        // composer
-
-        // getPsr4FromComposer
 
         // setErrorLog
 

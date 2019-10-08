@@ -23,16 +23,24 @@ trait _formSubmit
     abstract protected function routeSuccess();
 
 
-    // onFallbackRedirect
-    // sur redirection lors du fallback, set flash
-    protected function onFallbackRedirect()
+    // onFallback
+    // sur fallback, set flash
+    protected function onFallback($context=null)
     {
         $this->setFlash();
 
-        return;
+        return $this->fallbackRouteRedirect($context);
     }
 
-
+    
+    // fallbackRouteRedirect
+    // permet de spécifier une route de redirection en cas de fallback
+    protected function fallbackRouteRedirect($context=null)
+    {
+        return;
+    }
+    
+    
     // onSuccess
     // callback appelé lors d'un succès
     protected function onSuccess():void
