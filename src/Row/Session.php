@@ -227,17 +227,17 @@ class Session extends Core\RowAlias implements Main\Contract\Session
                 $where[] = [$primary,'!=',$not];
                 $where[] = ['dateAdd','>',$dateAdd];
             }
-            
+
             if(!empty($context))
             $where[] = ['context',$context];
-            
+
             $return = $table->select($where,['dateAdd'=>'desc'],1);
         }
 
         return $return;
     }
-    
-    
+
+
     // sessionDestroyOther
     // efface toutes les sessions sauf la courante
     public static function sessionDestroyOther(string $name,Main\Contract\User $user,?self $not=null,?array $context=null):?int
@@ -254,10 +254,10 @@ class Session extends Core\RowAlias implements Main\Contract\Session
                 $primary = $table->primary();
                 $where[] = [$primary,'!=',$not];
             }
-            
+
             if(!empty($context))
             $where[] = ['context',$context];
-            
+
             $return = $table->delete($where);
         }
 

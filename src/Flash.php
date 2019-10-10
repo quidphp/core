@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Main;
 use Quid\Base;
+use Quid\Main;
 
 // flash
 // extended class for a collection containing flash-like data (delete on read)
@@ -31,16 +31,16 @@ class Flash extends Main\Flash
         if($return instanceof Route)
         {
             $route = $return;
-            $return = array();
+            $return = [];
             $return[] = $route::classFqcn();
-            
+
             if($route::isSegmentClass())
             {
                 $segments = array_values($route->segments());
                 $return = Base\Arr::append($return,$segments);
             }
         }
-        
+
         return parent::onPrepareKey($return);
     }
 

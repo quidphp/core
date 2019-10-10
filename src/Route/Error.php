@@ -11,7 +11,6 @@ namespace Quid\Core\Route;
 use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
-use Quid\Main;
 
 // error
 // abstract class for an error route
@@ -40,7 +39,7 @@ abstract class Error extends Core\RouteAlias
     protected function onBefore()
     {
         static::setResponseCode();
-        
+
         return true;
     }
 

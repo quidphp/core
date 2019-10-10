@@ -14,11 +14,11 @@ namespace Quid\Core\Route;
 trait _formSubmit
 {
     // config
-    public static $configFormSubmit = array(
+    public static $configFormSubmit = [
         'flashPost'=>false // si on flash post automatiquement lors d'une failure ou fallback
-    );
-    
-    
+    ];
+
+
     // dynamique
     protected $success = false; // défini si l'utilisateur a soumis le formulaire avec succès
 
@@ -61,8 +61,8 @@ trait _formSubmit
 
         return $return;
     }
-    
-    
+
+
     // onSuccess
     // callback appelé lors d'un succès
     protected function onSuccess():void

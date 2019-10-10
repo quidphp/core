@@ -298,15 +298,15 @@ class Session extends Main\Session
         return $return;
     }
 
-    
+
     // context
     // retourne le contexte de boot
     public function context():array
     {
         return static::boot()->context();
     }
-    
-    
+
+
     // primary
     // retourne la clé primaire de la row de la session
     public function primary():int
@@ -760,7 +760,7 @@ class Session extends Main\Session
         $pos = null;
         $user = $this->user();
         $storage = $this->storage();
-        
+
         if(!$this->canLogin() || $this->isNobody())
         $neg = 'logout/notConnected';
 
@@ -768,7 +768,7 @@ class Session extends Main\Session
         {
             if($this->isLoginSinglePerUser() && method_exists($storage,'sessionDestroyOther'))
             $storage::sessionDestroyOther($this->name(),$user,$storage,$this->context());
-            
+
             $return = true;
             $pos = 'logout/success';
 

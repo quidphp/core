@@ -597,12 +597,12 @@ abstract class Boot extends Main\Root
         {
             $request = $this->request();
             $routes = $this->routes();
-            
+
             $match = null;
-            
+
             $firstMatch = $this->getFirstMatch() ?? $routes->route($request,$match,true,true);
             $once = false;
-            
+
             while (!empty($firstMatch) || ($match = $routes->route($request,$match,true,true)))
             {
                 if(!empty($firstMatch))
@@ -616,13 +616,13 @@ abstract class Boot extends Main\Root
                     $once = true;
                     $run = $match->launch();
                     ['bool'=>$bool,'continue'=>$continue,'output'=>$output] = $run;
-                    
+
                     if($bool === true)
                     {
                         $return = $output;
                         $this->setRoute($match);
                     }
-                    
+
                     if($continue === true)
                     continue;
 
@@ -637,11 +637,11 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(5);
         $this->onAfter();
-        
+
         return $return;
     }
 
-    
+
     // getFirstMatch
     // retourne un premier match avant la boucle
     // doit retourner un objet route
@@ -686,7 +686,7 @@ abstract class Boot extends Main\Root
     {
         Base\Root::setInitCallable(null);
         Base\Response::closeDown();
-        
+
         if($this->isReady())
         {
             $insts = [Lang::class,Services::class,Redirection::class,Session::class,Request::class];
@@ -711,9 +711,9 @@ abstract class Boot extends Main\Root
 
         if($this->inInst())
         $this->unsetInst();
-        
+
         static::$init = false;
-        
+
         return $this;
     }
 
@@ -1717,7 +1717,7 @@ abstract class Boot extends Main\Root
         $roles = $extenders->get('role');
         $roles->init($type);
         $roles->readOnly(true);
-        
+
         $routes = $extenders->get($type);
         $routes->init($type);
         $routes->readOnly(true);
@@ -2465,13 +2465,13 @@ abstract class Boot extends Main\Root
     public static function start(?array $value=null,bool $terminate=true):?string
     {
         $return = null;
-        
+
         $boot = static::new($value);
         $boot->prepare();
         $boot->dispatch();
         $boot->core();
         $return = $boot->launch();
-        
+
         if($terminate === true)
         $boot->terminate();
 
