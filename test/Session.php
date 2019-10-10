@@ -93,7 +93,10 @@ class Session extends Base\Test
         // structureNav
 
         // structureUser
-
+        
+        // context
+        assert(count($s->context()) === 3);
+        
         // primary
         assert(is_int($s->primary()));
 

@@ -13,6 +13,12 @@ namespace Quid\Core\Route;
 // trait that provides methods and logic necessary to make a form submit route
 trait _formSubmit
 {
+    // config
+    public static $configFormSubmit = array(
+        'flashPost'=>false // si on flash post automatiquement lors d'une failure ou fallback
+    );
+    
+    
     // dynamique
     protected $success = false; // défini si l'utilisateur a soumis le formulaire avec succès
 
@@ -41,6 +47,22 @@ trait _formSubmit
     }
 
 
+    // onAfter
+    // retourne la route vers laquelle il faut rediriger, différent si c'est succès ou non
+    protected function onAfter()
+    {
+        $return = null;
+
+        if($this->isSuccess())
+        $return = $this->routeSuccess();
+
+        else
+        $return = $this->routeFailure();
+
+        return $return;
+    }
+    
+    
     // onSuccess
     // callback appelé lors d'un succès
     protected function onSuccess():void
@@ -97,22 +119,6 @@ trait _formSubmit
     }
 
 
-    // afterRouteRedirect
-    // retourne la route vers laquelle redirigé, différent si c'est succès ou non
-    public function afterRouteRedirect()
-    {
-        $return = null;
-
-        if($this->isSuccess())
-        $return = $this->routeSuccess();
-
-        else
-        $return = $this->routeFailure();
-
-        return $return;
-    }
-
-
     // isSuccess
     // retourne vrai si le formulaire est un succès
     public function isSuccess()
@@ -133,8 +139,10 @@ trait _formSubmit
 
     // setFlash
     // conserve les données flash, par défaut utilise la méthode flashPost de session
+    // ceci peut être désactiver via config
     protected function setFlash():void
     {
+        if(static::$config['flashPost'] === true)
         $this->session()->flashPost($this);
 
         return;

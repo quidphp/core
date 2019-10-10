@@ -25,8 +25,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
             'en'=>'my-account/change-password/submit'],
         'match'=>[
             'method'=>'post',
-            'role'=>['>='=>20]],
-        'verify'=>[
+            'role'=>['>='=>20],
             'post'=>['oldPassword','newPassword','newPasswordConfirm'],
             'genuine'=>true,
             'csrf'=>true],
@@ -97,7 +96,7 @@ abstract class AccountChangePasswordSubmit extends Core\RouteAlias
     // retourne le nom des champs pour le formulaire
     public static function getFields():array
     {
-        return static::$config['verify']['post'] ?? [];
+        return static::$config['match']['post'] ?? [];
     }
 }
 

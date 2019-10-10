@@ -738,13 +738,6 @@ class En extends Base\Lang\En
                 6=>'Register'
             ],
 
-            // logCronType
-            'logCronType'=>[
-                1=>'Minute',
-                2=>'Hour',
-                3=>'Day'
-            ],
-
             // queueEmailStatus
             'queueEmailStatus'=>[
                 1=>'To send',

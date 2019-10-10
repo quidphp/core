@@ -738,13 +738,6 @@ class Fr extends Base\Lang\Fr
                 6=>'Enregistrement'
             ],
 
-            // logCronType
-            'logCronType'=>[
-                1=>'Minute',
-                2=>'Heure',
-                3=>'Jour'
-            ],
-
             // queueEmailStatus
             'queueEmailStatus'=>[
                 1=>'À envoyer',

@@ -37,9 +37,9 @@ abstract class Logout extends Core\RouteAlias
     }
 
 
-    // afterRouteRedirect
-    // renvoie vers le parent en cas de succès
-    public function afterRouteRedirect():Core\Route
+    // onAfter
+    // renvoie vers le parent
+    protected function onAfter():Core\Route
     {
         return static::makeParentOverload();
     }

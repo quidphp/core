@@ -26,8 +26,7 @@ abstract class ResetPasswordSubmit extends Core\RouteAlias
         'match'=>[
             'method'=>'post',
             'session'=>'allowResetPasswordEmail',
-            'role'=>'nobody'],
-        'verify'=>[
+            'role'=>'nobody',
             'post'=>['email'],
             'timeout'=>true,
             'csrf'=>true,

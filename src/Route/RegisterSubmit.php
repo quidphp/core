@@ -28,8 +28,7 @@ abstract class RegisterSubmit extends Core\RouteAlias
         'match'=>[
             'method'=>'post',
             'role'=>'nobody',
-            'session'=>'allowRegister'],
-        'verify'=>[
+            'session'=>'allowRegister',
             'post'=>['username','email','password','passwordConfirm'],
             'timeout'=>true,
             'csrf'=>true,
@@ -43,7 +42,8 @@ abstract class RegisterSubmit extends Core\RouteAlias
         'passwordFields'=>[
             'password'=>'password',
             'passwordConfirm'=>'passwordConfirm'],
-        'group'=>'submit'
+        'group'=>'submit',
+        'flashPost'=>true
     ];
 
 

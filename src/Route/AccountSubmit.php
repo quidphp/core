@@ -26,8 +26,7 @@ abstract class AccountSubmit extends Core\RouteAlias
             'en'=>'my-account/submit'],
         'match'=>[
             'method'=>'post',
-            'role'=>['>='=>20]],
-        'verify'=>[
+            'role'=>['>='=>20],
             'post'=>['email'],
             'timeout'=>true,
             'genuine'=>true,

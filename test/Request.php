@@ -27,7 +27,6 @@ class Request extends Base\Test
 
         // routing
         assert(is_array($specific->match($routes)));
-        assert(is_string($specific->matchOne($routes)));
         assert($specific->route($routes) instanceof Core\Route);
 
         // main

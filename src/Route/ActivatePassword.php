@@ -48,9 +48,9 @@ abstract class ActivatePassword extends Core\RouteAlias
     }
 
 
-    // afterRouteRedirect
+    // onAfter
     // donne la route vers le parent
-    public function afterRouteRedirect():Core\Route
+    protected function onAfter():Core\Route
     {
         return static::makeParentOverload();
     }

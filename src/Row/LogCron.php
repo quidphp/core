@@ -27,7 +27,6 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
         'priority'=>1005,
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
-            'type'=>['general'=>true,'relation'=>'logCronType'],
             'json'=>['class'=>Core\Col\JsonExport::class]],
         'deleteTrim'=>500 // custom
     ];

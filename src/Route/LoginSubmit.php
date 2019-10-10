@@ -25,8 +25,7 @@ abstract class LoginSubmit extends Core\RouteAlias
             'fr'=>'connexion/soumettre'],
         'match'=>[
             'method'=>'post',
-            'role'=>'nobody'],
-        'verify'=>[
+            'role'=>'nobody',
             'post'=>['username','password'],
             'timeout'=>true,
             'genuine'=>true,

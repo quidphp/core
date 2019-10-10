@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\Route;
 use Quid\Base;
-use Quid\Core;
+use Quid\Main;
 
 // _calendar
 // trait that provides most methods to make a calendar route
@@ -17,7 +17,7 @@ trait _calendar
 {
     // config
     public static $configCalendar = [
-        'widget'=>null // à spécifier, la classe du calendrier
+        'calendar'=>Main\Calendar::class // classe du calendrier
     ];
 
 
@@ -48,12 +48,12 @@ trait _calendar
 
     // calendar
     // génère l'objet calendrier
-    public function calendar():Core\Widget
+    public function calendar():Main\Calendar
     {
-        $class = static::$config['widget'];
+        $class = static::$config['calendar'];
 
         if(empty($class))
-        static::throw('noWidgetClassProvided');
+        static::throw('noCalendarClassProvided');
 
         $timestamp = $this->getTimestamp();
         $return = $class::newOverload($timestamp);
@@ -81,7 +81,7 @@ trait _calendar
 
     // setCallback
     // méthode abstraite pour ajouter des callback à l'objet calendrier
-    abstract public function setCallback(Core\Widget $value):Core\Widget;
+    abstract public function setCallback(Main\Calendar $value):Main\Calendar;
 
 
     // html

@@ -31,6 +31,7 @@ abstract class Boot extends Main\Root
         'host'=>[], // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
         'path'=>[ // tableau des chemins, ne peut pas être mis dans un @
             'src'=>null,
+            'boot'=>null,
             'js'=>null,
             'scss'=>null,
             'vendor'=>null,
@@ -104,7 +105,7 @@ abstract class Boot extends Main\Root
             'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','send'],
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
-            'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',false],
+            'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
@@ -126,7 +127,6 @@ abstract class Boot extends Main\Root
             'role'=>[Roles::class,Role::class],
             'lang'=>[Main\Extender::class,Base\Config::class],
             'service'=>[Main\Extender::class,Main\Service::class],
-            'widget'=>[Main\Extender::class,Widget::class],
             'table'=>[Main\Extender::class,Table::class],
             'rows'=>[Main\Extender::class,Rows::class],
             'row'=>[Main\Extender::class,Row::class],
@@ -191,7 +191,7 @@ abstract class Boot extends Main\Root
                 'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
-                'errorHtmlDepth'=>[Error::class,'setDefaultHtmlDepth',true],
+                'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]],
             'concatenateJsOption'=>['compress'=>false],
             'compileScssOption'=>['compress'=>false]],
@@ -342,7 +342,7 @@ abstract class Boot extends Main\Root
     // onMatch
     // callback à chaque match de route
     // doit retourne true
-    protected function onMatch(string $route):bool
+    protected function onMatch(Route $value):bool
     {
         return true;
     }
@@ -587,20 +587,23 @@ abstract class Boot extends Main\Root
 
     // launch
     // match la route avec la request et lance la route
-    protected function launch():self
+    // retourne le contenu du match
+    protected function launch()
     {
+        $return = null;
         $this->checkReady();
 
         if($this->onLaunch() === true)
         {
             $request = $this->request();
-            $session = $this->session();
-            $routes = $this->routesActive();
+            $routes = $this->routes();
+            
             $match = null;
-            $firstMatch = $this->getFirstMatch() ?? $routes->matchOne($request,$session,$match,true);
+            
+            $firstMatch = $this->getFirstMatch() ?? $routes->route($request,$match,true,true);
             $once = false;
-
-            while (!empty($firstMatch) || ($match = $routes->matchOne($request,$session,$match,true)))
+            
+            while (!empty($firstMatch) || ($match = $routes->route($request,$match,true,true)))
             {
                 if(!empty($firstMatch))
                 {
@@ -611,16 +614,16 @@ abstract class Boot extends Main\Root
                 if($this->onMatch($match) === true)
                 {
                     $once = true;
-                    $route = new $match($request);
-                    $one = $route->run(true);
-
-                    if($one['bool'] === true)
-                    $this->setRoute($match);
-
-                    elseif($route::isDebug())
-                    $route::debugDead();
-
-                    if($one['continue'] === true)
+                    $run = $match->launch();
+                    ['bool'=>$bool,'continue'=>$continue,'output'=>$output] = $run;
+                    
+                    if($bool === true)
+                    {
+                        $return = $output;
+                        $this->setRoute($match);
+                    }
+                    
+                    if($continue === true)
                     continue;
 
                     else
@@ -634,14 +637,15 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(5);
         $this->onAfter();
-
-        return $this;
+        
+        return $return;
     }
 
-
+    
     // getFirstMatch
     // retourne un premier match avant la boucle
-    protected function getFirstMatch():?string
+    // doit retourner un objet route
+    protected function getFirstMatch():?Route
     {
         return null;
     }
@@ -649,22 +653,19 @@ abstract class Boot extends Main\Root
 
     // match
     // match les routes avec la requête
-    public function match():array
+    public function match(bool $fallback=false,bool $debug=true):array
     {
-        return $this->routesActive()->match($this->request(),$this->session(),true);
+        return $this->routesActive()->match($this->request(),$fallback,$debug);
     }
 
 
     // setRoute
     // garde en mémoire la dernière classe de la route qui a été triggé
+    // doit fournir un objet, le nom de la classe est gardé
     // méthode protégé
-    protected function setRoute(string $value):self
+    protected function setRoute(Route $value):self
     {
-        if(is_subclass_of($value,Route::class,true))
-        $this->route = $value;
-
-        else
-        static::throw();
+        $this->route = get_class($value);
 
         return $this;
     }
@@ -684,7 +685,8 @@ abstract class Boot extends Main\Root
     public function terminate():self
     {
         Base\Root::setInitCallable(null);
-
+        Base\Response::closeDown();
+        
         if($this->isReady())
         {
             $insts = [Lang::class,Services::class,Redirection::class,Session::class,Request::class];
@@ -709,7 +711,9 @@ abstract class Boot extends Main\Root
 
         if($this->inInst())
         $this->unsetInst();
-
+        
+        static::$init = false;
+        
         return $this;
     }
 
@@ -1713,7 +1717,7 @@ abstract class Boot extends Main\Root
         $roles = $extenders->get('role');
         $roles->init($type);
         $roles->readOnly(true);
-
+        
         $routes = $extenders->get($type);
         $routes->init($type);
         $routes->readOnly(true);
@@ -2457,13 +2461,19 @@ abstract class Boot extends Main\Root
 
     // start
     // crée un objet quid et fait tous le processus
-    public static function start(?array $value=null):self
+    // retourne le contenu à output
+    public static function start(?array $value=null,bool $terminate=true):?string
     {
-        $return = static::new($value);
-        $return->prepare();
-        $return->dispatch();
-        $return->core();
-        $return->launch();
+        $return = null;
+        
+        $boot = static::new($value);
+        $boot->prepare();
+        $boot->dispatch();
+        $boot->core();
+        $return = $boot->launch();
+        
+        if($terminate === true)
+        $boot->terminate();
 
         return $return;
     }

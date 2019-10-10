@@ -211,7 +211,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionMostRecent
     // retourne la session la plus récente pour l'utilisateur donné
-    public static function sessionMostRecent(string $name,Main\Contract\User $user,?object $not=null):?Main\Contract\Session
+    public static function sessionMostRecent(string $name,Main\Contract\User $user,?self $not=null,?array $context=null):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -220,15 +220,45 @@ class Session extends Core\RowAlias implements Main\Contract\Session
         {
             $where = ['name'=>$name,'user_id'=>$user];
 
-            if(!empty($not) && $not instanceof self)
+            if(!empty($not))
             {
                 $dateAdd = $not['dateAdd'];
                 $primary = $table->primary();
                 $where[] = [$primary,'!=',$not];
                 $where[] = ['dateAdd','>',$dateAdd];
             }
-
+            
+            if(!empty($context))
+            $where[] = ['context',$context];
+            
             $return = $table->select($where,['dateAdd'=>'desc'],1);
+        }
+
+        return $return;
+    }
+    
+    
+    // sessionDestroyOther
+    // efface toutes les sessions sauf la courante
+    public static function sessionDestroyOther(string $name,Main\Contract\User $user,?self $not=null,?array $context=null):?int
+    {
+        $return = null;
+        $table = static::tableFromFqcn();
+
+        if(!empty($name))
+        {
+            $where = ['name'=>$name,'user_id'=>$user];
+
+            if(!empty($not))
+            {
+                $primary = $table->primary();
+                $where[] = [$primary,'!=',$not];
+            }
+            
+            if(!empty($context))
+            $where[] = ['context',$context];
+            
+            $return = $table->delete($where);
         }
 
         return $return;

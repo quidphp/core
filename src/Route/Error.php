@@ -21,6 +21,7 @@ abstract class Error extends Core\RouteAlias
     public static $config = [
         'path'=>null,
         'priority'=>999,
+        'debug'=>true,
         'match'=>[
             'cli'=>null,
             'method'=>null],
@@ -39,7 +40,7 @@ abstract class Error extends Core\RouteAlias
     protected function onBefore()
     {
         static::setResponseCode();
-
+        
         return true;
     }
 
@@ -48,22 +49,22 @@ abstract class Error extends Core\RouteAlias
     // méthode trigger par défaut
     public function trigger()
     {
-        return ($this->showErrorHtml())? $this->html():null;
+        return ($this->showErrorOutput())? $this->output():null;
     }
 
 
-    // showErrorHtml
-    // retourne vrai s'il faut générer le html
-    public function showErrorHtml():bool
+    // showErrorOutput
+    // retourne vrai s'il faut générer le output
+    public function showErrorOutput():bool
     {
         return ($this->request()->hasExtension())? false:true;
     }
 
 
-    // html
-    // génère le html de la route error
+    // output
+    // génère le output de la route error
     // peut retourner null
-    public function html():?string
+    public function output():?string
     {
         $r = '';
         $route = static::$config['route'];
@@ -129,19 +130,6 @@ abstract class Error extends Core\RouteAlias
         $code = Base\Response::code();
         $lang = static::lang();
         $return = $lang->safe('error/page/content/'.$code);
-
-        return $return;
-    }
-
-
-    // fallback
-    // s'il y a une exception dans le fallback de la route error, affiche le html de l'exception
-    protected function fallback($context=null)
-    {
-        $return = parent::fallback($context);
-
-        if($context instanceof Main\Exception)
-        $return = $context->html();
 
         return $return;
     }
