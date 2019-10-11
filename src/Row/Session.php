@@ -229,7 +229,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             }
 
             if(!empty($context))
-            $where[] = ['context',$context];
+            $where[] = ['context','=',$context];
 
             $return = $table->select($where,['dateAdd'=>'desc'],1);
         }
@@ -256,7 +256,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             }
 
             if(!empty($context))
-            $where[] = ['context',$context];
+            $where[] = ['context','=',$context];
 
             $return = $table->delete($where);
         }

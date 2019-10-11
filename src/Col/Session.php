@@ -35,11 +35,11 @@ class Session extends EnumAlias
         {
             $session = $boot->session();
             $storage = $session->storage();
-
+            
             if($storage instanceof Core\Row)
             $return = $storage;
         }
-
+        
         return $return;
     }
 }

@@ -406,7 +406,7 @@ class Fr extends Base\Lang\Fr
                 10=>'Compte public',
                 20=>'Utilisateur',
                 80=>'Administrateur',
-                90=>'Cron'
+                90=>'Cli'
             ],
 
             // description
@@ -748,8 +748,8 @@ class Fr extends Base\Lang\Fr
 
             // logHttpType
             'logHttpType'=>[
-                1=>'Non sécuritaire',
-                2=>'Requête',
+                1=>'Requête non sécuritaire',
+                2=>'Requête invalide',
                 3=>'POST externe',
                 200=>'200 - OK',
                 301=>'301 - Déplacé en permanence',

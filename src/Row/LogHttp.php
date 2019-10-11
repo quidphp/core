@@ -37,9 +37,9 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
             'browserconfig.xml',
             'autodiscover.xml'],
         'type'=>[ // type de logHttp
-            1=>'unsafe',
-            3=>'request',
-            4=>'externalPost',
+            1=>'requestUnsafe',
+            2=>'requestInvalid',
+            3=>'externalPost',
             200=>200,
             301=>301,
             302=>302,

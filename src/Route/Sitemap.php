@@ -20,9 +20,7 @@ abstract class Sitemap extends Core\RouteAlias
         'path'=>'sitemap.xml',
         'priority'=>500,
         'sitemap'=>false,
-        'group'=>'seo',
-        'response'=>[
-            'contentType'=>'xml']
+        'group'=>'seo'
     ];
 
 

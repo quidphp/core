@@ -273,17 +273,17 @@ abstract class Boot extends Main\Root
 
     // onPrepare
     // callback au début de prepare
-    protected function onPrepare():self
+    protected function onPrepare():void
     {
-        return $this;
+        return;
     }
 
 
     // onDispatch
     // callback au début de dispatch
-    protected function onDispatch():self
+    protected function onDispatch():void
     {
-        return $this;
+        return;
     }
 
 
@@ -313,20 +313,20 @@ abstract class Boot extends Main\Root
 
     // onCore
     // callback au début de core
-    protected function onCore():self
+    protected function onCore():void
     {
-        return $this;
+        return;
     }
 
 
     // onReady
     // callback étant appelé une fois le status à ready (4)
     // possible d'avoir une callable dans les attributs
-    protected function onReady():self
+    protected function onReady():void
     {
         $this->attrCall('onReady');
 
-        return $this;
+        return;
     }
 
 
@@ -350,9 +350,9 @@ abstract class Boot extends Main\Root
 
     // onAfter
     // callback une fois tout fini
-    protected function onAfter():self
+    protected function onAfter():void
     {
-        return $this;
+        return;
     }
 
 
@@ -374,12 +374,12 @@ abstract class Boot extends Main\Root
 
         if(static::isInit() === true)
         static::throw('bootAlreadyPrepared');
-
+        
         $this->onPrepare();
 
         Main\Error::init();
         Base\Response::serverError();
-
+        
         $this->makeRequest();
         $this->checkHost();
         $this->makeEnvType();
@@ -395,7 +395,7 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(2);
         static::$init = true;
-
+        
         return $this;
     }
 
@@ -552,7 +552,9 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(4);
         $this->session();
+        
         $this->manageRedirect();
+        
         $this->onReady();
 
         return $this;
@@ -901,9 +903,13 @@ abstract class Boot extends Main\Root
     protected function makeRequest():self
     {
         $value = $this->attr('request');
-        $request = Request::newOverload($value);
+        
+        if(is_array($value) && !empty($value))
+        Base\Request::change($value,true);
+        
+        $request = Request::newOverload();
         $request->setInst();
-
+        
         return $this;
     }
 
@@ -2158,15 +2164,15 @@ abstract class Boot extends Main\Root
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
         $log = $this->attr('redirectLog');
-
+        
         if($manage['type'] === 'blocked')
         $log = null;
-
+        
         if(!empty($manage['type']))
         {
             if(!empty($log))
             $log::logOnCloseDown($manage['type'],Base\Arr::unset('type',$manage));
-
+            
             if($manage['location'] !== null)
             Base\Response::redirect($manage['location'],$manage['code'],true);
 
@@ -2465,7 +2471,7 @@ abstract class Boot extends Main\Root
     public static function start(?array $value=null,bool $terminate=true):?string
     {
         $return = null;
-
+        
         $boot = static::new($value);
         $boot->prepare();
         $boot->dispatch();
@@ -2473,8 +2479,15 @@ abstract class Boot extends Main\Root
         $return = $boot->launch();
 
         if($terminate === true)
-        $boot->terminate();
-
+        {
+            Base\Buffer::flushEcho($return);
+            
+            if(Base\Server::isCli())
+            Base\Cli::flushEol();
+            
+            $boot->terminate();
+        }
+        
         return $return;
     }
 

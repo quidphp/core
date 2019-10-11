@@ -33,42 +33,45 @@ abstract class Error extends Core\RouteAlias
     ];
 
 
-    // onBefore
-    // avant la route, applique le code de réponse immédiatemment
-    // 404 est mis si le code d'erreur n'est pas déjà négatif
-    protected function onBefore()
-    {
-        static::setResponseCode();
-
-        return true;
-    }
-
-
     // trigger
     // méthode trigger par défaut
     public function trigger()
     {
-        return ($this->showErrorOutput())? $this->output():null;
+        return $this->output('outputHtml');
     }
 
 
-    // showErrorOutput
+    // showOutputHtml
     // retourne vrai s'il faut générer le output
-    public function showErrorOutput():bool
+    protected function showOutputHtml():bool
     {
-        return ($this->request()->hasExtension())? false:true;
+        return ($this->request()->hasExtension() || Base\Server::isCli())? false:true;
     }
 
-
+    
     // output
-    // génère le output de la route error
-    // peut retourner null
-    public function output():?string
+    // génère le output, il faut fournir un nom de méthode à appeler si c'est outputHtml
+    protected function output(string $method):string
+    {
+        $r = '';
+        
+        if($this->showOutputHtml())
+        $r .= $this->$method();
+        
+        elseif(Base\Server::isCli())
+        $r .= $this->outputCli();
+        
+        return $r;
+    }
+    
+    
+    // outputHtml
+    // génère le output html de la route error
+    protected function outputHtml():string 
     {
         $r = '';
         $route = static::$config['route'];
         $titleBox = static::$config['titleBox'];
-        static::setResponseCode();
 
         $r .= Html::divOp('ajax-parse-error');
 
@@ -90,8 +93,24 @@ abstract class Error extends Core\RouteAlias
 
         return $r;
     }
+    
+    
+    // outputCli
+    // génère le output cli de la route error
+    protected function outputCli():string 
+    {
+        $return = '';
+        $boot = static::boot();
 
-
+        $return .= Base\Cli::neg($this->makeTitle());
+        $return .= Base\Cli::neg($this->makeSubTitle());
+        $return .= Base\Cli::neutral($this->makeContent());
+        $return .= Base\Cli::neutral($boot->typeEnvLabel());
+        
+        return $return;
+    }
+    
+    
     // makeTitleBox
     // génère le titre et sous-titre
     protected function makeTitleBox():string

@@ -406,7 +406,7 @@ class En extends Base\Lang\En
                 10=>'Shared',
                 20=>'User',
                 80=>'Admin',
-                90=>'Cron'
+                90=>'Cli'
             ],
 
             // description
@@ -748,8 +748,8 @@ class En extends Base\Lang\En
 
             // logHttpType
             'logHttpType'=>[
-                1=>'Unsafe',
-                2=>'Request',
+                1=>'Unsafe request',
+                2=>'Invalid request',
                 3=>'External POST',
                 200=>'200 - OK',
                 301=>'301 - Moved Permanently',
