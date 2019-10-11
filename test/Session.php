@@ -37,7 +37,7 @@ class Session extends Base\Test
 
         // main
         assert($s->version() === '1.0.1-'.QUID_VERSION);
-        
+
         // onStart
 
         // onEnd
@@ -89,9 +89,9 @@ class Session extends Base\Test
 
         // getLoginLifetime
         assert(is_int($s->getLoginLifetime()));
-        
+
         // getSidDefault
-        
+
         // structureNav
 
         // structureUser
@@ -226,10 +226,10 @@ class Session extends Base\Test
         assert(strlen($s->com()->flush()) === 283);
         assert(!$s->changePassword(' ','',null,['onCommitted'=>true,'com'=>true]));
         assert(strlen($s->com()->flush()) === 135);
-        
+
         // userDefault
         assert(is_int(Core\Session::userDefault()));
-        
+
         // row/user
         $user = $s->user();
         $role = $user->role();

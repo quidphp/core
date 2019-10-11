@@ -24,7 +24,7 @@ class Session extends Main\Session
     public static $config = [
         'option'=>[
             'userClass'=>Row\User::class, // classe row de l'utilisateur
-            'userDefault'=>array(self::class,'userDefault'), // définit le user par défaut (à l'insertion), différent pour cli
+            'userDefault'=>[self::class,'userDefault'], // définit le user par défaut (à l'insertion), différent pour cli
             'nobody'=>1, // défini le user nobody
             'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
             'loginLifetime'=>3600, // durée du login dans une session
@@ -44,7 +44,7 @@ class Session extends Main\Session
     // dynamique
     protected $user = null; // objet user de la session
 
-    
+
     // onStart
     // callback une fois que la session a été démarré
     // lie l'objet com à db et trigge le role
@@ -227,24 +227,24 @@ class Session extends Main\Session
         return $this->getOption('loginLifetime');
     }
 
-    
+
     // getSidDefault
     // retourne le sid à utiliser par défaut
     // pour cli, ça permet de continuer toujours sur la même session
     public function getSidDefault():?string
     {
         $return = null;
-        
+
         if(Base\Server::isCli())
         {
             $storage = $this->getStorageClass();
-            
+
             if(method_exists($storage,'sessionMostRecent'))
             {
                 $userClass = $this->getUserClass();
                 $uid = static::userDefault();
                 $user = $userClass::findByUid($uid);
-                
+
                 if(!empty($user))
                 {
                     $session = $storage::sessionMostRecent($this->name(),$user,null,$this->context());
@@ -253,11 +253,11 @@ class Session extends Main\Session
                 }
             }
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // structureNav
     // gère le champ structure nav de la session
     // mode insert, update ou is
@@ -868,8 +868,8 @@ class Session extends Main\Session
 
         return $return;
     }
-    
-    
+
+
     // userDefault
     // retourne le user par défaut (lors d'une insertion)
     // par défaut si c'est cli, utilise 3, sinon utilise 1

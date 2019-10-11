@@ -374,12 +374,12 @@ abstract class Boot extends Main\Root
 
         if(static::isInit() === true)
         static::throw('bootAlreadyPrepared');
-        
+
         $this->onPrepare();
 
         Main\Error::init();
         Base\Response::serverError();
-        
+
         $this->makeRequest();
         $this->checkHost();
         $this->makeEnvType();
@@ -395,7 +395,7 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(2);
         static::$init = true;
-        
+
         return $this;
     }
 
@@ -552,9 +552,9 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(4);
         $this->session();
-        
+
         $this->manageRedirect();
-        
+
         $this->onReady();
 
         return $this;
@@ -903,13 +903,13 @@ abstract class Boot extends Main\Root
     protected function makeRequest():self
     {
         $value = $this->attr('request');
-        
+
         if(is_array($value) && !empty($value))
         Base\Request::change($value,true);
-        
+
         $request = Request::newOverload();
         $request->setInst();
-        
+
         return $this;
     }
 
@@ -2164,15 +2164,15 @@ abstract class Boot extends Main\Root
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
         $log = $this->attr('redirectLog');
-        
+
         if($manage['type'] === 'blocked')
         $log = null;
-        
+
         if(!empty($manage['type']))
         {
             if(!empty($log))
             $log::logOnCloseDown($manage['type'],Base\Arr::unset('type',$manage));
-            
+
             if($manage['location'] !== null)
             Base\Response::redirect($manage['location'],$manage['code'],true);
 
@@ -2471,7 +2471,7 @@ abstract class Boot extends Main\Root
     public static function start(?array $value=null,bool $terminate=true):?string
     {
         $return = null;
-        
+
         $boot = static::new($value);
         $boot->prepare();
         $boot->dispatch();
@@ -2481,13 +2481,13 @@ abstract class Boot extends Main\Root
         if($terminate === true)
         {
             Base\Buffer::flushEcho($return);
-            
+
             if(Base\Server::isCli())
             Base\Cli::flushEol();
-            
+
             $boot->terminate();
         }
-        
+
         return $return;
     }
 

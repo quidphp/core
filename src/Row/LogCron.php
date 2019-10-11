@@ -26,7 +26,7 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
         'parent'=>'system',
         'priority'=>1005,
         'cols'=>[
-            'route'=>array('required'=>true,'general'=>true),
+            'route'=>['required'=>true,'general'=>true],
             'context'=>['class'=>Core\Col\Context::class],
             'json'=>['class'=>Core\Col\JsonExport::class,'required'=>true]],
         'deleteTrim'=>500 // custom

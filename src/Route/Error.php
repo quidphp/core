@@ -48,26 +48,26 @@ abstract class Error extends Core\RouteAlias
         return ($this->request()->hasExtension() || Base\Server::isCli())? false:true;
     }
 
-    
+
     // output
     // génère le output, il faut fournir un nom de méthode à appeler si c'est outputHtml
     protected function output(string $method):string
     {
         $r = '';
-        
+
         if($this->showOutputHtml())
         $r .= $this->$method();
-        
+
         elseif(Base\Server::isCli())
         $r .= $this->outputCli();
-        
+
         return $r;
     }
-    
-    
+
+
     // outputHtml
     // génère le output html de la route error
-    protected function outputHtml():string 
+    protected function outputHtml():string
     {
         $r = '';
         $route = static::$config['route'];
@@ -93,11 +93,11 @@ abstract class Error extends Core\RouteAlias
 
         return $r;
     }
-    
-    
+
+
     // outputCli
     // génère le output cli de la route error
-    protected function outputCli():string 
+    protected function outputCli():string
     {
         $return = '';
         $boot = static::boot();
@@ -106,11 +106,11 @@ abstract class Error extends Core\RouteAlias
         $return .= Base\Cli::neg($this->makeSubTitle());
         $return .= Base\Cli::neutral($this->makeContent());
         $return .= Base\Cli::neutral($boot->typeEnvLabel());
-        
+
         return $return;
     }
-    
-    
+
+
     // makeTitleBox
     // génère le titre et sous-titre
     protected function makeTitleBox():string
