@@ -31,7 +31,7 @@ abstract class Sitemap extends Core\RouteAlias
         $r = '';
         $xml = Main\Xml::newOverload('sitemap');
         $lang = $this->lang();
-        $routes = $this->routes(true)->sortDefault();
+        $routes = static::routes(true)->sortDefault();
         $uris = $routes->sitemap($lang->allLang());
 
         if(!empty($uris))

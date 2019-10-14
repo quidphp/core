@@ -120,12 +120,12 @@ class Lang extends Base\Test
         assert($lang->validate(['reallyEmpty']) === 'Doit être vide (0 permis)');
         assert($lang->validate(['closure']) === 'Doit passer le test de la fonction anynonyme');
         assert($lang->validate(['instance'=>\DateTime::class]) === 'Doit être une instance de DateTime');
-        assert($lang->validate(['path'],'en') === 'Must be a valid path (A-a 0-9 _-./*)');
+        assert($lang->validate(['uriPath'],'en') === 'Must be a valid uri path');
         assert($lang->validate(['numberWholeNotEmpty']) === 'Doit être un chiffre entier non vide');
         assert($lang->validate(['scalarNotBool']) === 'Doit être chaîne scalaire non booléenne');
         assert($lang->validate(['extension'=>['jpg','png']]) === "L'extension du fichier doit être: jpg, png");
         assert($lang->validate(['maxFilesize'=>'5 Ko']) === 'La taille du fichier doit être plus petite que 5 Ko');
-        assert(count($lang->validate()) === 115);
+        assert(count($lang->validate()) === 116);
 
         // validates
         assert($lang->validates(['alpha','!'=>3,'>'=>2])[1] === 'Ne doit pas être égal à 3');
@@ -165,7 +165,7 @@ class Lang extends Base\Test
         assert($lang->pathAlternate('required',null) === 'required');
 
         // pathAlternateTake
-        assert(count($lang->pathAlternateTake('validate')) === 115);
+        assert(count($lang->pathAlternateTake('validate')) === 116);
         assert(count($lang->pathAlternateTake('compare')) === 11);
         assert(count($lang->pathAlternateTake('compare',null,['table','what'])) === 11);
         assert(count($lang->pathAlternateTake('required')) === 2);

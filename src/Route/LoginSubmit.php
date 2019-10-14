@@ -74,7 +74,7 @@ abstract class LoginSubmit extends Core\RouteAlias
 
         if(!empty($post['redirect']))
         {
-            $routes = $this->routes();
+            $routes = static::routes();
             $request = Core\Request::newOverload($post['redirect']);
             $route = $request->route($routes);
             $role = $this->session()->role();

@@ -92,8 +92,8 @@ class Db extends Orm\Db
                 'metaImage_en'=>['class'=>Col\Media::class,'panel'=>'en','general'=>false,'version'=>['large'=>[80,'jpg','crop',1200,630]],'extension'=>['jpg','png']],
                 'metaSearch_fr'=>['class'=>Col\Auto::class],
                 'metaSearch_en'=>['class'=>Col\Auto::class],
-                'name_en'=>['general'=>true,'required'=>true],
-                'name_fr'=>['general'=>true,'required'=>true],
+                'name_en'=>['general'=>array(Col::class,'generalCurrentLang'),'required'=>true],
+                'name_fr'=>['general'=>array(Col::class,'generalCurrentLang'),'required'=>true],
                 'name'=>['general'=>true,'required'=>true],
                 'order'=>['class'=>Col\Enum::class,'complex'=>'select','general'=>true,'order'=>true,'relation'=>20],
                 'phone'=>['class'=>Col\Phone::class,'search'=>false],
@@ -121,7 +121,10 @@ class Db extends Orm\Db
                 'background'=>['class'=>Col\Media::class,'extension'=>'jpg'],
                 'video'=>['class'=>Col\Media::class,'extension'=>'mp4'],
                 'thumbnail'=>['class'=>Col\Media::class,'general'=>true,'extension'=>['jpg','png']],
-                'pointer'=>['class'=>Col\Pointer::class]]]
+                'pointer'=>['class'=>Col\Pointer::class],
+                'uri_fr'=>['class'=>Col\Uri::class],
+                'uri_en'=>['class'=>Col\Uri::class],
+                'website'=>['class'=>Col\UriAbsolute::class]]]
     ];
 }
 

@@ -58,6 +58,12 @@ class Table extends Base\Test
         $rowLogEmail = Core\Row\LogEmail::class;
         assert($rowLogEmail::new(false,['what'=>'ok'])['status']->value() === 0);
         assert($rowLogEmail::new(true,['what'=>'ok'])['status']->value() === 1);
+        $array = array('test'=>Base\Str::loremIpsum(30));
+        $sql = Core\Row\LogSql::log('insert',$array);
+        assert(!$sql['json']->isInvalidValue());
+        $array = array('test'=>Base\Str::loremIpsum(3000));
+        $tooLong = Core\Row\LogSql::log('insert',$array);
+        assert($tooLong['json']->isInvalidValue());
 
         // orm
         assert($tb->rowsClass() === Core\Rows::class);

@@ -81,9 +81,10 @@ trait _general
         {
             $not = (array) $not;
             $segments = $this->segments(true);
+            $segments = Base\Arr::cast($segments);
             $segments = Base\Arr::keysStrip($not,$segments);
 
-            if(array_key_exists('page',$segments) && $segments['page'] === '1')
+            if(array_key_exists('page',$segments) && $segments['page'] === 1)
             $segments['page'] = $default;
 
             foreach ($segments as $key => $value)

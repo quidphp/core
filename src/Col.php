@@ -26,6 +26,21 @@ class Col extends Orm\Col
     ];
 
 
+    // generalCurrentLang
+    // retourne vrai si le nom de la colonne a un pattern de la langue courante
+    public static function generalCurrentLang(self $col):bool
+    {
+        $return = false;
+        $boot = static::boot();
+        $langCode = $col->langCode();
+        
+        if($boot->lang()->currentLang() === $langCode)
+        $return = true;
+        
+        return $return;
+    }
+    
+
     // getOverloadKeyPrepend
     // retourne le prepend de la clé à utiliser pour le tableau overload
     public static function getOverloadKeyPrepend():?string

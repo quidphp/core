@@ -43,33 +43,28 @@ class Date extends Core\CellAlias
         return Base\Date::format($format,$this);
     }
 
-
+    
     // isBefore
-    // retourne vrai si le temps est avant maintenant ou le temps donné en argument
-    // retourne vrai si empty, si allowEmpty est true
-    public function isBefore(bool $allowEmpty=false,$time=null)
-    {
-        $return = false;
-        $time = Base\Date::time($time);
-        $value = $this->value();
-
-        if(is_int($value))
-        {
-            if($value >= $time)
-            $return = true;
-        }
-
-        elseif($allowEmpty === true)
-        $return = true;
-
-        return $return;
-    }
-
-
-    // isAfter
     // retourne vrai si le temps est après maintenant ou le temps donné en argument
-    // retourne vrai si empty, si allowEmpty est true
-    public function isAfter(bool $allowEmpty=false,$time=null)
+    // retourne vrai si empty si allowEmpty est true
+    public function isBefore($time=null,bool $allowEmpty=false):bool
+    {
+        return $this->isBeforeAfter('<=',$time,$allowEmpty);
+    }
+    
+    
+    // isAfter
+    // retourne vrai si le temps est avant maintenant ou le temps donné en argument
+    // retourne vrai si empty si allowEmpty est true
+    public function isAfter($time=null,bool $allowEmpty=false):bool
+    {
+        return $this->isBeforeAfter('>=',$time,$allowEmpty);
+    }
+    
+    
+    // isBeforeAfter
+    // méthode protégé utilisé par isBefore et isAfter
+    protected function isBeforeAfter(string $symbol,$time=null,bool $allowEmpty=false):bool
     {
         $return = false;
         $time = Base\Date::time($time);
@@ -77,7 +72,7 @@ class Date extends Core\CellAlias
 
         if(is_int($value))
         {
-            if($value <= $time)
+            if(Base\Validate::compare($value,$symbol,$time))
             $return = true;
         }
 

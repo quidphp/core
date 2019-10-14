@@ -50,7 +50,7 @@ trait _log
                     {
                         $currentLog = $db->getOption('log');
                         $db->off();
-                        $return = $table->deleteTrim(static::$config['deleteTrim'],true);
+                        $return = $table->deleteTrim(static::$config['deleteTrim']);
                         $db->on();
                     }
                 }

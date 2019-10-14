@@ -28,7 +28,7 @@ trait _pointer
                 $tableName = $value->tableName();
 
                 if(empty($valid) || in_array($tableName,$valid,true))
-                $value = $value->pointer('-');
+                $value = $value->pointer();
 
                 else
                 $return = false;
@@ -46,7 +46,7 @@ trait _pointer
             elseif(is_string($value) && !empty($value))
             {
                 $db = static::db();
-                $return = $db->fromPointer($value,'-',$valid) ?? false;
+                $return = $db->fromPointer($value,$valid) ?? false;
             }
         }
 

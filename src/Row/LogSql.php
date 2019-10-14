@@ -55,30 +55,11 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
     }
 
 
-    // prepareJson
-    // prépare le tableau, retourne une chaine json
-    // efface les données si le tableau est trop long pour la colonne
-    public static function prepareJson(array $value):string
-    {
-        $return = Base\Json::encode($value);
-        $table = static::tableFromFqcn();
-        $col = $table->col('json');
-
-        if($col->validate($return) !== true)
-        {
-            $value = ['truncated'=>true];
-            $return = Base\Json::encode($value);
-        }
-
-        return $return;
-    }
-
-
     // newData
     // crée le tableau d'insertion
     public static function newData(string $type,array $json):array
     {
-        return ['type'=>static::getTypeCode($type),'json'=>static::prepareJson($json)];
+        return ['type'=>static::getTypeCode($type),'json'=>$json];
     }
 }
 

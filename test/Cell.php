@@ -60,7 +60,9 @@ class Cell extends Base\Test
         assert($dateAdd->pair('sql') === $dateAdd->format('sql'));
         assert($dateAdd->formComplex() === '<div>February 9, 2009 22:10:34</div>');
         assert($dateAdd->reset());
-
+        assert($dateAdd->isBefore(time()));
+        assert(!$dateAdd->isAfter(time()));
+        
         // enum
         $enum->row()['user_id']->set(1);
         assert($enum->colRelation() instanceof Orm\ColRelation);
