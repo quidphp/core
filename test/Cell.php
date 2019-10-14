@@ -62,7 +62,7 @@ class Cell extends Base\Test
         assert($dateAdd->reset());
         assert($dateAdd->isBefore(time()));
         assert(!$dateAdd->isAfter(time()));
-        
+
         // enum
         $enum->row()['user_id']->set(1);
         assert($enum->colRelation() instanceof Orm\ColRelation);

@@ -142,10 +142,10 @@ class JsonArray extends JsonAlias
         $return = '';
         $tag = $this->complexTag($attr);
         $value = $this->prepareValueForm($value,$option);
-        
+
         if(Base\Html::isFormTag($tag,true))
         {
-            $value = (empty($value))? array(null):$value;
+            $value = (empty($value))? [null]:$value;
             $cell = ($value instanceof Core\Cell)? $value:null;
             $lang = $this->db()->lang();
             $attr = (!is_array($attr))? (array) $attr:$attr;
@@ -154,7 +154,7 @@ class JsonArray extends JsonAlias
             $model = $this->makeModel(null,$attr,null,$option);
             $data = ['html'=>$model];
             $return .= Html::divOp('container');
-            
+
             foreach ($value as $i => $v)
             {
                 $return .= $this->makeModel($v,$attr,$cell,Base\Arr::plus($option,['index'=>$i]));

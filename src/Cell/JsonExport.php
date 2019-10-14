@@ -20,7 +20,7 @@ class JsonExport extends Core\CellAlias
 
     // isInvalidValue
     // retourne vrai si la valeur est invalide, donc trop longue pour la colonne
-    public function isInvalidValue():bool 
+    public function isInvalidValue():bool
     {
         return ($this->get() === $this->col()->invalidValue())? true:false;
     }

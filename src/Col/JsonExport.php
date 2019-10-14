@@ -8,9 +8,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
+use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
-use Quid\Base;
 
 // jsonExport
 // class for a column that contains json which should be exported (similar to var_export)
@@ -31,22 +31,22 @@ class JsonExport extends JsonAlias
     {
         return Base\Debug::export($return);
     }
-    
-    
+
+
     // onSet
     // gère la logique onSet pour jsonExport
     // si la valeur est trop longue, n'envoie pas d'erreur mais retourne un tableau avec la clé incomplete à true
     public function onSet($return,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = parent::onSet($return,$row,$cell,$option);
-        
+
         if(!empty($return) && $this->validate($return) !== true)
         $return = parent::onSet(static::invalidValue(),$row,$cell,$option);
-        
+
         return $return;
     }
-    
-    
+
+
     // invalidValue
     // retourne la valeur pour représenter que la valeur enregistrée est invalide (trop longue)
     public static function invalidValue():array

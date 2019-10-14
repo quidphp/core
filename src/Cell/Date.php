@@ -43,7 +43,7 @@ class Date extends Core\CellAlias
         return Base\Date::format($format,$this);
     }
 
-    
+
     // isBefore
     // retourne vrai si le temps est après maintenant ou le temps donné en argument
     // retourne vrai si empty si allowEmpty est true
@@ -51,8 +51,8 @@ class Date extends Core\CellAlias
     {
         return $this->isBeforeAfter('<=',$time,$allowEmpty);
     }
-    
-    
+
+
     // isAfter
     // retourne vrai si le temps est avant maintenant ou le temps donné en argument
     // retourne vrai si empty si allowEmpty est true
@@ -60,8 +60,8 @@ class Date extends Core\CellAlias
     {
         return $this->isBeforeAfter('>=',$time,$allowEmpty);
     }
-    
-    
+
+
     // isBeforeAfter
     // méthode protégé utilisé par isBefore et isAfter
     protected function isBeforeAfter(string $symbol,$time=null,bool $allowEmpty=false):bool

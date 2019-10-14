@@ -43,10 +43,10 @@ class Col extends Base\Test
         $row = $tb[1];
         $medias = $tb['medias'];
         $jsonArray = $tb['json'];
-        
+
         // generalCurrentLang
         assert(Core\Col::generalCurrentLang($col) === false);
-        
+
         // getOverloadKeyPrepend
         assert($password::getOverloadKeyPrepend() === 'Col');
 
@@ -126,13 +126,13 @@ class Col extends Base\Test
         // jsonArray
         assert($jsonArray instanceof Core\Col\JsonArray);
         assert($jsonArray->required(null) === 'required');
-        assert($jsonArray->required(array()) === 'required');
+        assert($jsonArray->required([]) === 'required');
         assert($jsonArray->required('') === 'required');
-        assert($jsonArray->completeValidation(null) === array('required'));
-        assert(count($jsonArray->completeValidation(array())) === 3);
-        assert($jsonArray->completeValidation('') === array('required'));
-        assert($jsonArray->completeValidation(Base\Json::encode(array('test'))) === true);
-        
+        assert($jsonArray->completeValidation(null) === ['required']);
+        assert(count($jsonArray->completeValidation([])) === 3);
+        assert($jsonArray->completeValidation('') === ['required']);
+        assert($jsonArray->completeValidation(Base\Json::encode(['test'])) === true);
+
         // jsonArrayRelation
 
         // jsonExport

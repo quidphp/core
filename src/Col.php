@@ -33,13 +33,13 @@ class Col extends Orm\Col
         $return = false;
         $boot = static::boot();
         $langCode = $col->langCode();
-        
+
         if($boot->lang()->currentLang() === $langCode)
         $return = true;
-        
+
         return $return;
     }
-    
+
 
     // getOverloadKeyPrepend
     // retourne le prepend de la clé à utiliser pour le tableau overload

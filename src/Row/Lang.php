@@ -27,8 +27,8 @@ class Lang extends Core\RowAlias
             'active'=>true,
             'type'=>['class'=>Core\Col\ContextType::class],
             'key'=>true,
-            'content_fr'=>['general'=>array(Core\Col::class,'generalCurrentLang'),'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false],
-            'content_en'=>['general'=>array(Core\Col::class,'generalCurrentLang'),'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
+            'content_fr'=>['general'=>[Core\Col::class,'generalCurrentLang'],'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false],
+            'content_en'=>['general'=>[Core\Col::class,'generalCurrentLang'],'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
     ];
 
 
