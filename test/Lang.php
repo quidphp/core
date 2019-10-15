@@ -144,8 +144,6 @@ class Lang extends Base\Test
         // required
         assert($lang->required(true) === 'Ne peut pas être vide');
         assert($lang->required(true,'en') === 'Cannot be empty');
-        assert($lang->required(true,null,['path'=>['tables','formSubmit','json']]) === 'Le formulaire est invalide.');
-        assert($lang->required(true,'en',['path'=>['tables','formSubmit','json']]) === 'The form is invalid.');
         assert(count($lang->required()) === 2);
 
         // unique
@@ -161,7 +159,6 @@ class Lang extends Base\Test
         assert(count($lang->editable()) === 2);
 
         // pathAlternate
-        assert(count($lang->pathAlternate('required',['tables','formSubmit','json'])) === 4);
         assert($lang->pathAlternate('required',null) === 'required');
 
         // pathAlternateTake
@@ -169,12 +166,9 @@ class Lang extends Base\Test
         assert(count($lang->pathAlternateTake('compare')) === 11);
         assert(count($lang->pathAlternateTake('compare',null,['table','what'])) === 11);
         assert(count($lang->pathAlternateTake('required')) === 2);
-        assert($lang->pathAlternateTake('required',null,['tables','formSubmit','json']) === 'Le formulaire est invalide.');
         assert(count($lang->pathAlternateTake('unique')) === 2);
 
         // pathAlternateValue
-        assert(count($lang->pathAlternateValue('required','common',false,['tables','formSubmit','json'])) === 4);
-        assert(count($lang->pathAlternateValue('required','common',true,['tables','formSubmit','json'])) === 2);
 
         // main
         assert(Core\Lang::getPath('colLabel','test') === 'col/label/*/test');

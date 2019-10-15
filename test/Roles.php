@@ -40,7 +40,7 @@ class Roles extends Base\Test
         assert($roles->filter(['canDb'=>true],'insert')->isCount(2));
         assert(count($roles->group('name')) === 5);
         assert($roles->sortBy('permission',false) !== $roles);
-        assert(is_a($roles->sortBy('permission',false)->first(),Core\Role\Cron::class,true));
+        assert(is_a($roles->sortBy('permission',false)->first(),Core\Role\Cli::class,true));
         assert(is_a($roles->sortDefault()->first(),Core\Role\Nobody::class,true));
         assert($roles->getObject(20) instanceof Suite\Role\User);
 

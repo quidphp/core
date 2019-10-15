@@ -80,21 +80,19 @@ trait _general
         else
         {
             $not = (array) $not;
-            $segments = $this->segments(true);
-            $segments = Base\Arr::cast($segments);
+            
+            $segments = $this->segments();
+            $notSegment = Base\Arr::gets($not,$segments);
             $segments = Base\Arr::keysStrip($not,$segments);
-
-            if(array_key_exists('page',$segments) && $segments['page'] === 1)
-            $segments['page'] = $default;
-
-            foreach ($segments as $key => $value)
-            {
-                if($value !== $default)
-                {
-                    $return = true;
-                    break;
-                }
-            }
+            $segments = Base\Obj::cast($segments);
+            
+            $new = static::make($notSegment);
+            $newSegments = $new->segments();
+            $newSegments = Base\Arr::keysStrip($not,$newSegments);
+            $newSegments = Base\Obj::cast($newSegments);
+            
+            if($segments !== $newSegments)
+            $return = true;
         }
 
         return $return;

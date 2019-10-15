@@ -32,7 +32,6 @@ class User extends Core\RowAlias implements Main\Contract\User
             'email'=>true,
             'dateLogin'=>true],
         'priority'=>900,
-        'nobody'=>['role'=>1], // custom, pour trouver utilisateur nobody
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
@@ -273,11 +272,11 @@ class User extends Core\RowAlias implements Main\Contract\User
     }
 
 
-    // isCron
+    // isCli
     // retourne vrai si le user est de rôle cron
-    public function isCron():bool
+    public function isCli():bool
     {
-        return $this->role()->isCron();
+        return $this->role()->isCli();
     }
 
 
@@ -1203,30 +1202,49 @@ class User extends Core\RowAlias implements Main\Contract\User
     }
 
 
-    // findNobody
-    // retourne l'utilisateur nobody
+    // findByRole
+    // retourne un utilisateur par un rôle
     // envoie une exception si la méthode ne retourne pas une row
-    public static function findNobody():Main\Contract\User
+    public static function findByRole($role,?array $order=null):Main\Contract\User
     {
         $return = null;
         $table = static::tableFromFqcn();
-        $nobody = $table->attr('nobody');
-
-        if(is_array($nobody) && !empty($nobody))
+        $permission = $role;
+        
+        if(is_subclass_of($role,Core\Role::class,true) || $role instanceof Core\Role)
+        $permission = $role::permission();
+        
+        if(is_int($permission))
         {
-            $rows = $table->rows($nobody);
-
-            if($rows->isCount(1))
-            $return = $rows->first();
+            $primary = $table->primary();
+            $where = array('role'=>$permission);
+            $order = (is_array($order))? $order:array($primary=>'asc');
+            $return = $table->select($where,$order);
         }
 
         if(!$return instanceof self)
-        static::throw();
+        static::throw($role);
 
         return $return;
     }
 
-
+    
+    // findNobody
+    // retourne le premier utilisateur avec le rôle nobody
+    public static function findNobody(?array $order=null):Main\Contract\User 
+    {
+        return static::findByRole(static::boot()->roles()->filter(array('isNobody'=>true))->first(),$order);
+    }
+    
+    
+    // findCli
+    // retourne le premier utilisateur avec le rôle cli
+    public static function findCli(?array $order=null):Main\Contract\User 
+    {
+        return static::findByRole(static::boot()->roles()->filter(array('isCli'=>true))->first(),$order);
+    }
+    
+    
     // findByCredentials
     // retourne un utilisateur à partir des champs valides pour la connexion
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case

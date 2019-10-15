@@ -451,11 +451,7 @@ class Fr extends Base\Lang\Fr
 
         // required
         'required'=>[
-            'tables'=>[
-                'formSubmit'=>[
-                    'json'=>'Le formulaire est invalide.'
-                ]
-            ]
+            'tables'=>[]
         ],
 
         // unique
@@ -525,6 +521,7 @@ class Fr extends Base\Lang\Fr
 
                 // logout
                 'logout'=>[
+                    'cannotBeLogin'=>"Cet utilisateur ne peut pas être connecté.",
                     'notConnected'=>'Pas connecté'
                 ],
 
@@ -565,11 +562,6 @@ class Fr extends Base\Lang\Fr
                     'welcome'=>[
                         'failure'=>"Le courriel de bienvenue n'a pas pu être envoyé."
                     ]
-                ],
-
-                // form
-                'form'=>[
-                    'invalid'=>'Le formulaire est invalide'
                 ],
 
                 // insert

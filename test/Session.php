@@ -29,7 +29,7 @@ class Session extends Base\Test
         $class = Core\Row\Session::class;
         $s->setUser(2);
         $db->update('user',['password'=>'$2y$11$8nFxo4CJfdzkT3ljRTrnAeYVsRIWDNlb/UDh.yRyuA9DN0GqZzMfe'],3);
-        $db->delete('user',[['id','>',4]]);
+        $db->delete('user',[['id','>',5]]);
         $db->table('user')->alterAutoIncrement();
         $s->terminate(true,true);
         $s = $boot->session();
@@ -58,8 +58,8 @@ class Session extends Base\Test
         // isAdmin
         assert($s->isAdmin());
 
-        // isCron
-        assert(!$s->isCron());
+        // isCli
+        assert(!$s->isCli());
 
         // isUserSynched
         assert($s->isUserSynched());
@@ -81,12 +81,15 @@ class Session extends Base\Test
         // getUserClass
         assert($s->getUserClass() === Suite\Row\User::class);
 
-        // getDefaultUserPrimary
-        assert($s->getDefaultUserPrimary() === 2);
+        // getUserDefault
+        assert($s->getUserDefault()->primary() === 2);
 
-        // getNobodyPrimary
-        assert($s->getNobodyPrimary() === 1);
-
+        // getUserNobody
+        assert($s->getUserNobody()->primary() === 1);
+        
+        // getUserCli
+        assert($s->getUserCli()->primary() === 5);
+        
         // getLoginLifetime
         assert(is_int($s->getLoginLifetime()));
 
@@ -227,9 +230,6 @@ class Session extends Base\Test
         assert(!$s->changePassword(' ','',null,['onCommitted'=>true,'com'=>true]));
         assert(strlen($s->com()->flush()) === 135);
 
-        // userDefault
-        assert(is_int(Core\Session::userDefault()));
-
         // row/user
         $user = $s->user();
         $role = $user->role();
@@ -238,7 +238,7 @@ class Session extends Base\Test
         assert($user->isSomebody());
         assert(!$user->isShared());
         assert(!$user->isAdmin());
-        assert(!$user->isCron());
+        assert(!$user->isCli());
         assert($user->role() instanceof Core\Role);
         assert($user->permission() === 20);
         assert($user->hasEmail());
@@ -342,7 +342,7 @@ class Session extends Base\Test
 
         // cleanup
         assert($s->setUser(2) === $s);
-        $db->delete('user',[['id','>',4]]);
+        $db->delete('user',[['id','>',5]]);
         $db->table('user')->alterAutoIncrement();
         assert($db->truncate($table) instanceof \PDOStatement);
 

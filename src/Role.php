@@ -90,9 +90,9 @@ abstract class Role extends Main\Role
     }
 
 
-    // isCron
-    // retourne vrai si la permission est cron
-    public static function isCron():bool
+    // isCli
+    // retourne vrai si la permission est cli
+    public static function isCli():bool
     {
         return false;
     }

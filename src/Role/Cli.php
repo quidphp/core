@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Quid\Core\Role;
 use Quid\Core;
 
-// cron
-// class which contains the default configuration for the cron role
-class Cron extends Core\RoleAlias
+// cli
+// class which contains the default configuration for the cli role
+class Cli extends Core\RoleAlias
 {
     // config
     public static $config = [
@@ -29,14 +29,14 @@ class Cron extends Core\RoleAlias
     ];
 
 
-    // isCron
-    // retourne vrai comme c'est cron
-    public static function isCron():bool
+    // isCli
+    // retourne vrai comme c'est cli
+    public static function isCli():bool
     {
         return true;
     }
 }
 
 // init
-Cron::__init();
+Cli::__init();
 ?>

@@ -37,8 +37,8 @@ class Role extends Base\Test
         assert(!Core\Role\Nobody::isAdmin());
         assert($admin->isAdmin());
 
-        // isCron
-        assert(Core\Role\Cron::isCron());
+        // isCli
+        assert(Core\Role\Cli::isCli());
 
         // validateReplace
 

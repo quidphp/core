@@ -451,11 +451,7 @@ class En extends Base\Lang\En
 
         // required
         'required'=>[
-            'tables'=>[
-                'formSubmit'=>[
-                    'json'=>'The form is invalid.'
-                ]
-            ]
+            'tables'=>[]
         ],
 
         // unique
@@ -525,6 +521,7 @@ class En extends Base\Lang\En
 
                 // logout
                 'logout'=>[
+                    'cannotBeLogin'=>'This user cannot be logged in.',
                     'notConnected'=>'Not logged in'
                 ],
 
@@ -565,11 +562,6 @@ class En extends Base\Lang\En
                     'welcome'=>[
                         'failure'=>'The welcome email was not sent.'
                     ]
-                ],
-
-                // form
-                'form'=>[
-                    'invalid'=>'The form is invalid'
                 ],
 
                 // insert

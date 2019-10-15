@@ -24,8 +24,7 @@ class Session extends Main\Session
     public static $config = [
         'option'=>[
             'userClass'=>Row\User::class, // classe row de l'utilisateur
-            'userDefault'=>[self::class,'userDefault'], // définit le user par défaut (à l'insertion), différent pour cli
-            'nobody'=>1, // défini le user nobody
+            'userDefault'=>null, // définit le user par défaut (à l'insertion)
             'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
             'loginLifetime'=>3600, // durée du login dans une session
             'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
@@ -131,11 +130,11 @@ class Session extends Main\Session
     }
 
 
-    // isCron
+    // isCli
     // retourne vrai si le user est cron
-    public function isCron():bool
+    public function isCli():bool
     {
-        return $this->user()->isCron();
+        return $this->user()->isCli();
     }
 
 
@@ -204,22 +203,47 @@ class Session extends Main\Session
     }
 
 
-    // getDefaultUserPrimary
-    // retourne l'id de l'utilisateur par défaut (lors de l'insertion)
-    public function getDefaultUserPrimary():int
+    // getUserDefault
+    // retourne la row l'utilisateur par défaut (lors de l'insertion)
+    // sinon utilise le storage de user pour aller chercher le nobody ou cli
+    public function getUserDefault():Main\Contract\User
     {
-        return $this->getOptionCall('userDefault');
+        $return = $this->getOptionCall('userDefault');
+        
+        if(is_int($return))
+        {
+            $class = $this->getUserClass();
+            $return = $class::findByUid($return);
+        }
+        
+        if(!$return instanceof Main\Contract\User)
+        {
+            if(Base\Server::isCli())
+            $return = $this->getUserCli();
+            else
+            $return = $this->getUserNobody();
+        }
+        
+        return $return;
     }
 
 
-    // getNobodyPrimary
-    // retourne l'id de l'utilisateur nobody
-    public function getNobodyPrimary():int
+    // getUserNobody
+    // retourne l'utilisateur nobody
+    public function getUserNobody():Main\Contract\User
     {
-        return $this->getOption('nobody');
+        return $this->getUserClass()::findNobody();
     }
 
-
+    
+    // getUserCli
+    // retourne l'utilisateur cli
+    public function getUserCli():Main\Contract\User
+    {
+        return $this->getUserClass()::findCli();
+    }
+    
+    
     // getLoginLifetime
     // returne la durée de vie du login ou null
     public function getLoginLifetime():?int
@@ -241,16 +265,10 @@ class Session extends Main\Session
 
             if(method_exists($storage,'sessionMostRecent'))
             {
-                $userClass = $this->getUserClass();
-                $uid = static::userDefault();
-                $user = $userClass::findByUid($uid);
-
-                if(!empty($user))
-                {
-                    $session = $storage::sessionMostRecent($this->name(),$user,null,$this->context());
-                    if(!empty($session))
-                    $return = $session->sessionSid();
-                }
+                $user = $this->getUserDefault();
+                $session = $storage::sessionMostRecent($this->name(),$user,null,$this->context());
+                if(!empty($session))
+                $return = $session->sessionSid();
             }
         }
 
@@ -283,7 +301,6 @@ class Session extends Main\Session
     {
         $return = null;
         $class = $this->getUserClass();
-        $default = $this->getDefaultUserPrimary();
 
         if($mode === 'init')
         {
@@ -305,8 +322,8 @@ class Session extends Main\Session
         elseif($mode === 'insert' || $mode === 'update')
         {
             if($mode === 'insert')
-            $value = $class::findByUid($default);
-
+            $value = $this->getUserDefault();
+            
             if($value instanceof $class)
             {
                 $this->user = $value;
@@ -547,7 +564,7 @@ class Session extends Main\Session
     // attribue le user nobody
     public function setUserNobody():self
     {
-        return $this->setUser($this->getNobodyPrimary());
+        return $this->setUser($this->getUserNobody());
     }
 
 
@@ -555,7 +572,7 @@ class Session extends Main\Session
     // attribue le user par défaut (dans option)
     public function setUserDefault():self
     {
-        return $this->setUser($this->getDefaultUserPrimary());
+        return $this->setUser($this->getUserDefault());
     }
 
 
@@ -625,7 +642,7 @@ class Session extends Main\Session
         if(empty($return) || !$return->isValidSegment())
         {
             $segments = [$segment=>$table];
-            $return = $routeClass::make($segments)->initSegment(true);
+            $return = $routeClass::make($segments)->checkValidSegment();
         }
 
         return $return;
@@ -790,10 +807,13 @@ class Session extends Main\Session
         $pos = null;
         $user = $this->user();
         $storage = $this->storage();
-
-        if(!$this->canLogin() || $this->isNobody())
+        
+        if($this->isNobody())
         $neg = 'logout/notConnected';
-
+        
+        elseif(!$this->canLogin())
+        $neg = 'logout/cannotBeLogin';
+        
         else
         {
             if($this->isLoginSinglePerUser() && method_exists($storage,'sessionDestroyOther'))
@@ -805,9 +825,9 @@ class Session extends Main\Session
             $user->onLogout();
             $this->logout($option);
         }
-
+        
         $this->com()->posNegLogStrict('logout',$return,$pos,$neg,$this->getOption('log/logout'),$option);
-
+        
         return $return;
     }
 
@@ -867,15 +887,6 @@ class Session extends Main\Session
         }
 
         return $return;
-    }
-
-
-    // userDefault
-    // retourne le user par défaut (lors d'une insertion)
-    // par défaut si c'est cli, utilise 3, sinon utilise 1
-    public static function userDefault():int
-    {
-        return (Base\Server::isCli() === true)? 3:1;
     }
 }
 
