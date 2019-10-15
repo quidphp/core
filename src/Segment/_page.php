@@ -18,7 +18,7 @@ trait _page
     public static function structureSegmentPage(string $type,$value,array &$keyValue)
     {
         $return = false;
-        
+
         if($type === 'make')
         $return = (is_int($value) && $value > 0)? $value:1;
 

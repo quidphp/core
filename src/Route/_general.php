@@ -80,17 +80,17 @@ trait _general
         else
         {
             $not = (array) $not;
-            
+
             $segments = $this->segments();
             $notSegment = Base\Arr::gets($not,$segments);
             $segments = Base\Arr::keysStrip($not,$segments);
             $segments = Base\Obj::cast($segments);
-            
+
             $new = static::make($notSegment);
             $newSegments = $new->segments();
             $newSegments = Base\Arr::keysStrip($not,$newSegments);
             $newSegments = Base\Obj::cast($newSegments);
-            
+
             if($segments !== $newSegments)
             $return = true;
         }

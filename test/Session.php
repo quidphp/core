@@ -86,10 +86,10 @@ class Session extends Base\Test
 
         // getUserNobody
         assert($s->getUserNobody()->primary() === 1);
-        
+
         // getUserCli
         assert($s->getUserCli()->primary() === 5);
-        
+
         // getLoginLifetime
         assert(is_int($s->getLoginLifetime()));
 

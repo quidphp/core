@@ -521,7 +521,7 @@ class Fr extends Base\Lang\Fr
 
                 // logout
                 'logout'=>[
-                    'cannotBeLogin'=>"Cet utilisateur ne peut pas être connecté.",
+                    'cannotBeLogin'=>'Cet utilisateur ne peut pas être connecté.',
                     'notConnected'=>'Pas connecté'
                 ],
 

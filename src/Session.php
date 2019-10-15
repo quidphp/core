@@ -209,13 +209,13 @@ class Session extends Main\Session
     public function getUserDefault():Main\Contract\User
     {
         $return = $this->getOptionCall('userDefault');
-        
+
         if(is_int($return))
         {
             $class = $this->getUserClass();
             $return = $class::findByUid($return);
         }
-        
+
         if(!$return instanceof Main\Contract\User)
         {
             if(Base\Server::isCli())
@@ -223,7 +223,7 @@ class Session extends Main\Session
             else
             $return = $this->getUserNobody();
         }
-        
+
         return $return;
     }
 
@@ -235,15 +235,15 @@ class Session extends Main\Session
         return $this->getUserClass()::findNobody();
     }
 
-    
+
     // getUserCli
     // retourne l'utilisateur cli
     public function getUserCli():Main\Contract\User
     {
         return $this->getUserClass()::findCli();
     }
-    
-    
+
+
     // getLoginLifetime
     // returne la durée de vie du login ou null
     public function getLoginLifetime():?int
@@ -323,7 +323,7 @@ class Session extends Main\Session
         {
             if($mode === 'insert')
             $value = $this->getUserDefault();
-            
+
             if($value instanceof $class)
             {
                 $this->user = $value;
@@ -807,13 +807,13 @@ class Session extends Main\Session
         $pos = null;
         $user = $this->user();
         $storage = $this->storage();
-        
+
         if($this->isNobody())
         $neg = 'logout/notConnected';
-        
+
         elseif(!$this->canLogin())
         $neg = 'logout/cannotBeLogin';
-        
+
         else
         {
             if($this->isLoginSinglePerUser() && method_exists($storage,'sessionDestroyOther'))
@@ -825,9 +825,9 @@ class Session extends Main\Session
             $user->onLogout();
             $this->logout($option);
         }
-        
+
         $this->com()->posNegLogStrict('logout',$return,$pos,$neg,$this->getOption('log/logout'),$option);
-        
+
         return $return;
     }
 
