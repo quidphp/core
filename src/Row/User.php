@@ -32,12 +32,12 @@ class User extends Core\RowAlias implements Main\Contract\User
                 'class'=>Core\Col\UserPasswordReset::class,'export'=>false,'exists'=>false],
             'email'=>true,
             'dateLogin'=>true],
-        'permission'=>array(
-            'nobody'=>array('update'=>true),
-            'shared'=>array('update'=>true),
-            'user'=>array('update'=>true),
-            'contributor'=>array('update'=>true),
-            'editor'=>array('update'=>true)),
+        'permission'=>[
+            'nobody'=>['update'=>true],
+            'shared'=>['update'=>true],
+            'user'=>['update'=>true],
+            'contributor'=>['update'=>true],
+            'editor'=>['update'=>true]],
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,

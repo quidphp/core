@@ -89,28 +89,28 @@ abstract class Role extends Main\Role
         return $return;
     }
 
-    
+
     // db
     // retourne un tableau multidimensionnel avec toutes les permissions pour chaque table
     // possible de retourner la booléean can pour une même action dans chaque tableau
-    public static function db($key=null):array 
+    public static function db($key=null):array
     {
-        $return = array();
+        $return = [];
         $db = static::boot()->db();
-        
-        foreach ($db->tables() as $name => $table) 
+
+        foreach ($db->tables() as $name => $table)
         {
             if($key !== null)
             $return[$name] = $table->permissionCan($key,static::class);
-            
+
             else
             $return[$name] = $table->permissionRole(static::class);
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // label
     // retourne le label du rôle
     // envoie une exception si lang/inst n'existe pas
@@ -129,23 +129,23 @@ abstract class Role extends Main\Role
         return $return;
     }
 
-    
+
     // labelPermission
     // retourne le label du rôle avec la permission entre paranthèse
-    public static function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string 
+    public static function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string
     {
         $return = static::label($pattern,$lang,$option);
-        
+
         if(is_string($return))
         {
             $permission = static::permission();
             $return .= " ($permission)";
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // description
     // retourne la description du rôle
     // envoie une exception si lang/inst n'existe pas

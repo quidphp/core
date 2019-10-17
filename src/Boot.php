@@ -1470,20 +1470,20 @@ abstract class Boot extends Main\Root
     // méthode qui retourne tous les schemeHosts du boot
     public function schemeHosts($scheme=null):array
     {
-        $return = array();
-        
+        $return = [];
+
         foreach ($this->envs() as $env)
         {
-            foreach ($this->schemeHostTypes($env,$scheme) as $type => $schemeHost) 
+            foreach ($this->schemeHostTypes($env,$scheme) as $type => $schemeHost)
             {
                 $key = "$env/$type";
                 $return[$key] = $schemeHost;
             }
         }
-        
+
         return $return;
     }
-    
+
 
     // schemeHostTypes
     // retourne le schemeHost pour tous les types d'un même environnement
@@ -1502,7 +1502,7 @@ abstract class Boot extends Main\Root
         return $return;
     }
 
-    
+
     // schemeHostEnvs
     // retourne le schemeHost pour tous les environnements d'un type
     public function schemeHostEnvs($type=true,$scheme=null):array

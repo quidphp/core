@@ -35,12 +35,12 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             'userModify'=>['general'=>false],
             'dateModify'=>['general'=>true]],
         'inRelation'=>false,
-        'permission'=>array(
-            'nobody'=>array('insert'=>true,'update'=>true,'delete'=>true),
-            'shared'=>array('update'=>true,'delete'=>true),
-            'user'=>array('update'=>true,'delete'=>true),
-            'contributor'=>array('update'=>true,'delete'=>true),
-            'editor'=>array('update'=>true,'delete'=>true))
+        'permission'=>[
+            'nobody'=>['insert'=>true,'update'=>true,'delete'=>true],
+            'shared'=>['update'=>true,'delete'=>true],
+            'user'=>['update'=>true,'delete'=>true],
+            'contributor'=>['update'=>true,'delete'=>true],
+            'editor'=>['update'=>true,'delete'=>true]]
     ];
 
 
@@ -154,7 +154,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             $data = [];
             $data['name'] = $name;
             $data['sid'] = $sid;
-            
+
             $db->off();
             $row = $table->insert($data,['reservePrimary'=>false]);
             $db->on();

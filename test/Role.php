@@ -45,12 +45,12 @@ class Role extends Base\Test
         // canLogin
         assert($admin->canLogin());
         assert(!Core\Role\Nobody::canLogin());
-        
+
         // db
         assert(Base\Arrs::is($admin->db()));
         assert($admin->db('update')['log'] === false);
         assert($admin->db('update')['ormCell'] === true);
-        
+
         // permission
         assert(Core\Role\Nobody::permission() === 1);
 
@@ -60,10 +60,10 @@ class Role extends Base\Test
         // label
         assert(Core\Role\Nobody::label() === 'Nobody');
         assert(Core\Role\Admin::label('%:','fr') === 'Administrateur:');
-        
+
         // labelPermission
         assert(Core\Role\Nobody::labelPermission() === 'Nobody (1)');
-        
+
         // description
         assert(Core\Role\Nobody::description() === null);
 

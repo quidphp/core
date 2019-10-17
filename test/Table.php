@@ -70,7 +70,7 @@ class Table extends Base\Test
         assert($db->classe()->default('row') === Core\Row::class);
         assert($tb->rowClass() === Core\Row::class);
         assert($tb->classFqcn() === Suite\Table\OrmTable::class);
-        
+
         // permission
         assert(Base\Arrs::is($tb->permissionAll()));
         assert(count($tb->permissionRole('nobody')) > 10);
@@ -81,7 +81,7 @@ class Table extends Base\Test
         assert(!$tb->permissionCan('insert','nobody'));
         assert($tb->hasPermission('insert','update'));
         assert($tb->checkPermission('insert','update') === $tb);
-        
+
         // cleanup
         assert($db->truncate($table) instanceof \PDOStatement);
         assert($db->truncate($rowLogEmail::tableFromFqcn()) instanceof \PDOStatement);

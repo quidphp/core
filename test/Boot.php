@@ -215,10 +215,10 @@ class Boot extends Base\Test
 
         // shemeHost
         assert($boot->schemeHost() === Base\Request::schemeHost());
-        
+
         // schemeHosts
         assert(count($boot->schemeHosts()) === 2);
-        
+
         // schemeHostTypes
         assert(count($boot->schemeHostTypes()) === 1);
 

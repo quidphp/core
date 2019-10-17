@@ -707,13 +707,13 @@ class En extends Base\Lang\En
                 'staging'=>'Staging',
                 'prod'=>'Production'
             ],
-            
+
             // lang
             'lang'=>[
                 'fr'=>'French',
                 'en'=>'English'
             ],
-            
+
             // emailType
             'emailType'=>[
                 1=>'Text',

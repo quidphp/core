@@ -72,7 +72,7 @@ class Session extends Main\Session
     {
         parent::onEnd();
         $nobody = static::boot()->roles()->nobody();
-        
+
         $this->user = null;
         $db = $this->db();
         $db->setCom(null);

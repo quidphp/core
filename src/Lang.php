@@ -129,15 +129,15 @@ class Lang extends Main\Lang
         return $this->text(static::getPath('envLabel',$env),null,$lang,$option);
     }
 
-    
+
     // langLabel
     // retourne le label d'une langue
     public function langLabel(string $value,?string $lang=null,?array $option=null):?string
     {
         return $this->text(static::getPath('langLabel',$value),null,$lang,$option);
     }
-    
-    
+
+
     // dbLabel
     // retourne le label d'une base de donnée
     // si la db n'existe pas, utilise def
