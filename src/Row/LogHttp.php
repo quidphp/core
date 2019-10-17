@@ -31,6 +31,14 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'logHttpType'],
             'json'=>['class'=>Core\Col\JsonExport::class]],
+        'permission'=>array(
+            'nobody'=>array('insert'=>true),
+            'shared'=>array('insert'=>true),
+            'user'=>array('insert'=>true),
+            'contributor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'editor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'subAmin'=>array('update'=>false),
+            'admin'=>array('update'=>false)),
         'deleteTrim'=>500, // custom
         'block'=>[ // liste des patterns de chemins à ne pas logger, insensible à la case
             'apple-touch-icon',

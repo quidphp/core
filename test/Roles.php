@@ -36,8 +36,6 @@ class Roles extends Base\Test
         assert($roles->pair('label','%:','fr')[80] === 'Administrateur:');
         assert($roles->filter(['permission'=>80])->isCount(1));
         assert($roles->filter(['permission'=>80]) !== $roles);
-        assert($roles->filter(['canDb'=>true],'select')->isCount(5));
-        assert($roles->filter(['canDb'=>true],'insert')->isCount(2));
         assert(count($roles->group('name')) === 5);
         assert($roles->sortBy('permission',false) !== $roles);
         assert(is_a($roles->sortBy('permission',false)->first(),Core\Role\Cli::class,true));

@@ -20,6 +20,7 @@ class User extends Core\RowAlias implements Main\Contract\User
     public static $config = [
         'key'=>['username'], // colonne utilisé pour key
         'name'=>['name','username'], // colonne(s) utilisé pour le nom d'une ligne
+        'priority'=>900,
         'relation'=>['what'=>['username','email'],'output'=>'username'],
         'cols'=>[
             'active'=>['class'=>Core\Col\UserActive::class,'general'=>true],
@@ -31,7 +32,12 @@ class User extends Core\RowAlias implements Main\Contract\User
                 'class'=>Core\Col\UserPasswordReset::class,'export'=>false,'exists'=>false],
             'email'=>true,
             'dateLogin'=>true],
-        'priority'=>900,
+        'permission'=>array(
+            'nobody'=>array('update'=>true),
+            'shared'=>array('update'=>true),
+            'user'=>array('update'=>true),
+            'contributor'=>array('update'=>true),
+            'editor'=>array('update'=>true)),
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
@@ -273,7 +279,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
 
     // isCli
-    // retourne vrai si le user est de rôle cron
+    // retourne vrai si le user est de rôle cli
     public function isCli():bool
     {
         return $this->role()->isCli();
@@ -293,14 +299,6 @@ class User extends Core\RowAlias implements Main\Contract\User
     public function canLogin(?string $type=null):bool
     {
         return $this->role()->canLogin($type);
-    }
-
-
-    // canDb
-    // retourne une permission en lien avec une table dans l'objet base de donnée
-    public function canDb(string $action,$table=null):bool
-    {
-        return $this->role()->canDb($action,$table);
     }
 
 

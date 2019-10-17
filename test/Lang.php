@@ -50,7 +50,10 @@ class Lang extends Base\Test
 
         // envLabel
         assert($lang->envLabel('dev') === 'Développement');
-
+        
+        // langLabel
+        assert($lang->langLabel('fr') === 'Français');
+        
         // dbLabel
         assert($lang->replace($frFile) === $lang);
         assert($lang->dbLabel('assert') === 'Well');

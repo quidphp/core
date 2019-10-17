@@ -45,20 +45,12 @@ class Role extends Base\Test
         // canLogin
         assert($admin->canLogin());
         assert(!Core\Role\Nobody::canLogin());
-
-        // canDb
-        assert($admin->canDb('select'));
-        assert($admin->canDb('insert','user'));
-        assert($admin->canDb('truncate','ormDb'));
-
-        // getDb
-        assert($admin->getDb('select'));
-
-        // table
-        assert(Core\Role\Nobody::table()['insert'] === false);
-        assert(count($admin->table('user')) >= 10);
-        assert(Core\Role\Nobody::table('log')['insert'] === true);
-
+        
+        // db
+        assert(Base\Arrs::is($admin->db()));
+        assert($admin->db('update')['log'] === false);
+        assert($admin->db('update')['ormCell'] === true);
+        
         // permission
         assert(Core\Role\Nobody::permission() === 1);
 
@@ -68,7 +60,10 @@ class Role extends Base\Test
         // label
         assert(Core\Role\Nobody::label() === 'Nobody');
         assert(Core\Role\Admin::label('%:','fr') === 'Administrateur:');
-
+        
+        // labelPermission
+        assert(Core\Role\Nobody::labelPermission() === 'Nobody (1)');
+        
         // description
         assert(Core\Role\Nobody::description() === null);
 
@@ -79,7 +74,7 @@ class Role extends Base\Test
         // main
         $x = clone $admin;
         assert($x !== $admin);
-        assert(count($admin->toArray()) === 6);
+        assert(count($admin->toArray()) === 5);
         assert($admin->_cast() === 80);
         assert(is_string($x = serialize($admin)));
         assert(unserialize($x) instanceof Core\Role\Admin);

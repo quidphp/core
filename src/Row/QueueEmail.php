@@ -29,7 +29,15 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'status'=>['general'=>true,'relation'=>'queueEmailStatus'],
-            'json'=>['class'=>Core\Col\JsonExport::class]]
+            'json'=>['class'=>Core\Col\JsonExport::class]],
+        'permission'=>array(
+            'nobody'=>array('insert'=>true),
+            'shared'=>array('insert'=>true),
+            'user'=>array('insert'=>true),
+            'contributor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'editor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'subAmin'=>array('update'=>false),
+            'admin'=>array('update'=>false))
     ];
 
 

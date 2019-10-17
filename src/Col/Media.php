@@ -154,7 +154,7 @@ class Media extends FilesAlias
         $return = $this->commonFormComplexUpdate(null,$value,$attr,$option);
 
         if(empty($return))
-        $return = $this->formComplexNothing();
+        $return = $this->formComplexEmptyPlaceholder($value);
 
         return $return;
     }

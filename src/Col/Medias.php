@@ -227,7 +227,7 @@ class Medias extends FilesAlias
         }
 
         if(empty($return))
-        $return = $this->formComplexNothing();
+        $return = $this->formComplexEmptyPlaceholder($value);
 
         return $return;
     }

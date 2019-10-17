@@ -16,16 +16,7 @@ class Cli extends Core\RoleAlias
 {
     // config
     public static $config = [
-        'permission'=>90,
-        'db'=>[
-            '*'=>[
-                'insert'=>true,
-                'update'=>true,
-                'delete'=>true,
-                'create'=>true,
-                'alter'=>true,
-                'truncate'=>true,
-                'drop'=>true]]
+        'permission'=>90
     ];
 
 

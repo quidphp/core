@@ -360,7 +360,7 @@ abstract class Relation extends Core\ColAlias
         }
 
         if(empty($return))
-        $return = $this->formComplexNothing();
+        $return = $this->formComplexEmptyPlaceholder($value);
 
         return $return;
     }

@@ -97,12 +97,6 @@ class Fr extends Base\Lang\Fr
             ]
         ],
 
-        // lang
-        'lang'=>[
-            'fr'=>'Français',
-            'en'=>'Anglais'
-        ],
-
         // langSwitch
         'langSwitch'=>[
             'fr'=>'Français',
@@ -191,7 +185,7 @@ class Fr extends Base\Lang\Fr
         ],
 
         // label
-        'label'=>'Quid',
+        'label'=>'QuidPHP',
 
         // db
         'db'=>[
@@ -713,7 +707,13 @@ class Fr extends Base\Lang\Fr
                 'staging'=>'Test',
                 'prod'=>'Production'
             ],
-
+            
+            // lang
+            'lang'=>[
+                'fr'=>'Français',
+                'en'=>'Anglais'
+            ],
+            
             // emailType
             'emailType'=>[
                 1=>'Texte',

@@ -23,6 +23,24 @@ class Table extends Orm\Table
     // config
     public static $config = [
         'route'=>null, // permet de lier une classe de route à la table
+        'permission'=>array(
+            'admin'=>array(
+                'insert'=>true,
+                'update'=>true,
+                'delete'=>true,
+                'create'=>true,
+                'alter'=>true,
+                'truncate'=>true,
+                'drop'=>true,
+                'nullPlaceholder'=>true),
+            'cli'=>array(
+                'insert'=>true,
+                'update'=>true,
+                'delete'=>true,
+                'create'=>true,
+                'alter'=>true,
+                'truncate'=>true,
+                'drop'=>true)),
         '@prod'=>[
             'colsExists'=>false]
     ];

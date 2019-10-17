@@ -36,7 +36,7 @@ class Session extends Main\Session
                 'user'=>'structureUser']],
         '@dev'=>[
             'option'=>[
-                'loginLifetime'=>(3600 * 24 * 30)]]
+                'loginLifetime'=>(3600 * 24 * 25)]]
     ];
 
 
@@ -71,11 +71,12 @@ class Session extends Main\Session
     protected function onEnd():parent
     {
         parent::onEnd();
-
+        $nobody = static::boot()->roles()->nobody();
+        
         $this->user = null;
         $db = $this->db();
         $db->setCom(null);
-        $db->setRole(null);
+        $db->setRole($nobody);
         Base\Timezone::reset(true);
 
         return $this;

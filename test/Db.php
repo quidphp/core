@@ -28,7 +28,7 @@ class Db extends Base\Test
 
         // orm
         assert($tb->classe()->rows() === Suite\Rows\OrmDb::class);
-        assert($db['session']->classe()->row() === Core\Row\Session::class);
+        assert(is_a($db['session']->classe()->row(),Core\Row\Session::class,true));
         assert($db['ormCell']->classe()->row() === Suite\Row\OrmCell::class);
         assert($tb->classe()->table() === Suite\Table\OrmDb::class);
         assert(is_a($tb->classe()->col('id'),Core\Col\Primary::class,true));

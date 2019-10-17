@@ -30,6 +30,14 @@ class Log extends Core\RowAlias implements Main\Contract\Log
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'logType'],
             'json'=>['class'=>Core\Col\JsonExport::class]],
+        'permission'=>array(
+            'nobody'=>array('insert'=>true),
+            'shared'=>array('insert'=>true),
+            'user'=>array('insert'=>true),
+            'contributor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'editor'=>array('insert'=>true,'update'=>false,'delete'=>false),
+            'subAmin'=>array('update'=>false),
+            'admin'=>array('update'=>false)),
         'deleteTrim'=>500, // custom
         'type'=>[ // type de log
             1=>'login',

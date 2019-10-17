@@ -249,7 +249,6 @@ class Session extends Base\Test
         assert($user->can('login/assert'));
         assert($user->canLogin());
         assert($user->canLogin('assert'));
-        assert($user->canDb('insert','log'));
         assert($user->username()->name() === 'username');
         assert($user->email()->name() === 'email');
         assert($user->email()(true) === 'user@quid.com');

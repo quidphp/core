@@ -16,17 +16,7 @@ class Admin extends Core\RoleAlias
 {
     // config
     public static $config = [
-        'permission'=>80,
-        'db'=>[
-            '*'=>[
-                'insert'=>true,
-                'update'=>true,
-                'delete'=>true,
-                'create'=>true,
-                'alter'=>true,
-                'truncate'=>true,
-                'drop'=>true]
-        ]
+        'permission'=>80
     ];
 
 

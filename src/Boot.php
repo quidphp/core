@@ -1466,6 +1466,25 @@ abstract class Boot extends Main\Root
     }
 
 
+    // schemeHosts
+    // méthode qui retourne tous les schemeHosts du boot
+    public function schemeHosts($scheme=null):array
+    {
+        $return = array();
+        
+        foreach ($this->envs() as $env)
+        {
+            foreach ($this->schemeHostTypes($env,$scheme) as $type => $schemeHost) 
+            {
+                $key = "$env/$type";
+                $return[$key] = $schemeHost;
+            }
+        }
+        
+        return $return;
+    }
+    
+
     // schemeHostTypes
     // retourne le schemeHost pour tous les types d'un même environnement
     public function schemeHostTypes($env=true,$scheme=null):array
@@ -1483,7 +1502,7 @@ abstract class Boot extends Main\Root
         return $return;
     }
 
-
+    
     // schemeHostEnvs
     // retourne le schemeHost pour tous les environnements d'un type
     public function schemeHostEnvs($type=true,$scheme=null):array
@@ -2093,7 +2112,8 @@ abstract class Boot extends Main\Root
 
                 $lang = $this->lang();
                 $extenders = $this->extenders();
-                $values = Base\Arr::push($credentials,$extenders,$option);
+                $nobody = $this->roles()->nobody();
+                $values = Base\Arr::push($credentials,$extenders,$nobody,$option);
                 $return = Db::newOverload(...array_values($values));
                 $return->setLang($lang);
 

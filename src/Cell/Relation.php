@@ -93,9 +93,9 @@ abstract class Relation extends Core\CellAlias
 
     // generalOutput
     // génère le output pour général
-    public function generalOutput(?array $option=null):string
+    public function generalOutput(?array $option=null):?string
     {
-        $return = '';
+        $return = null;
         $relation = $this->relationKeyValue();
 
         if(!empty($relation))

@@ -24,53 +24,7 @@ abstract class Role extends Main\Role
         'label'=>null, // label du rôle
         'description'=>null, // description du rôle
         'can'=>[ // permission générale
-            'login'=>[]],
-        'db'=>[ // permission pour db
-            '*'=>[ // permission pour toutes les tables
-                'access'=>true,
-                'select'=>true,
-                'show'=>true,
-                'insert'=>false,
-                'update'=>false,
-                'delete'=>false,
-                'create'=>false,
-                'alter'=>false,
-                'truncate'=>false,
-                'drop'=>false],
-            'user'=>[
-                'update'=>true],
-            'session'=>[
-                'insert'=>true,
-                'update'=>true,
-                'delete'=>true],
-            'log'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'queueEmail'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'logEmail'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'logCron'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'logError'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'logHttp'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true],
-            'logSql'=>[
-                'insert'=>true,
-                'update'=>false,
-                'delete'=>true]]
+            'login'=>[]]
     ];
 
 
@@ -135,69 +89,28 @@ abstract class Role extends Main\Role
         return $return;
     }
 
-
-    // canDb
-    // retourne une permission en lien avec une table dans l'objet base de donnée
-    // envoie une exception si le retour n'est pas booléean
-    public static function canDb(string $action,$table=null):bool
+    
+    // db
+    // retourne un tableau multidimensionnel avec toutes les permissions pour chaque table
+    // possible de retourner la booléean can pour une même action dans chaque tableau
+    public static function db($key=null):array 
     {
-        $return = static::getDb($action,$table);
-
-        if(!is_bool($return))
-        static::throw('invalidReturn',$action);
-
-        return $return;
-    }
-
-
-    // getDb
-    // retourne une permission ou un tableau de données en lien avec une table dans l'objet base de donnée
-    public static function getDb(string $action,$table=null)
-    {
-        $return = null;
-
-        if(!empty(static::$config['db']['*']) && array_key_exists($action,static::$config['db']['*']))
-        $return = static::$config['db']['*'][$action];
-
-        if($table instanceof Table)
-        $table = $table->name();
-
-        if(is_string($table) && !empty(static::$config['db'][$table]) && array_key_exists($action,static::$config['db'][$table]))
-        $return = static::$config['db'][$table][$action];
-
-        return $return;
-    }
-
-
-    // table
-    // retourne les permissions par défaut et pour une table
-    // envoie une exception si l'argument table n'est pas utilisable
-    public static function table($table=null):array
-    {
-        $return = [];
-
-        if(!empty(static::$config['db']['*']) && is_array(static::$config['db']['*']))
-        $return = static::$config['db']['*'];
-
-        if(!empty($table))
+        $return = array();
+        $db = static::boot()->db();
+        
+        foreach ($db->tables() as $name => $table) 
         {
-            if($table instanceof Table)
-            $table = $table->name();
-
-            if(is_string($table))
-            {
-                if(!empty(static::$config['db'][$table]) && is_array(static::$config['db'][$table]))
-                $return = Base\Arr::replace($return,static::$config['db'][$table]);
-            }
-
+            if($key !== null)
+            $return[$name] = $table->permissionCan($key,static::class);
+            
             else
-            static::throw('invalidTable');
+            $return[$name] = $table->permissionRole(static::class);
         }
-
+        
         return $return;
     }
-
-
+    
+    
     // label
     // retourne le label du rôle
     // envoie une exception si lang/inst n'existe pas
@@ -216,7 +129,23 @@ abstract class Role extends Main\Role
         return $return;
     }
 
-
+    
+    // labelPermission
+    // retourne le label du rôle avec la permission entre paranthèse
+    public static function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string 
+    {
+        $return = static::label($pattern,$lang,$option);
+        
+        if(is_string($return))
+        {
+            $permission = static::permission();
+            $return .= " ($permission)";
+        }
+        
+        return $return;
+    }
+    
+    
     // description
     // retourne la description du rôle
     // envoie une exception si lang/inst n'existe pas
