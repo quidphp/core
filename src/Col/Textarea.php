@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Quid\Core\Col;
 use Quid\Base;
-use Quid\Base\Html;
 use Quid\Core;
 use Quid\Orm;
 

@@ -227,7 +227,7 @@ abstract class Boot extends Main\Root
 
     // dynamique
     protected $name = null; // nom du boot
-    protected $attr = array(); // tableau des attributs
+    protected $attr = []; // tableau des attributs
     protected $value = []; // argument de départ
     protected $status = 0; // niveau de préparation de l'objet
     protected $envType = null; // garde en mémoire le envType
@@ -364,7 +364,7 @@ abstract class Boot extends Main\Root
         return $this->context();
     }
 
-    
+
     // attrAll
     // retourne le tableau des attributs
     // doit retourner une référence
@@ -372,8 +372,8 @@ abstract class Boot extends Main\Root
     {
         return $this->attr;
     }
-    
-    
+
+
     // prepare
     // prépare l'objet
     // init error, le code de réponse, crée la request, génère le envType, ensuite merge les attr, finalement autoload
@@ -1773,7 +1773,7 @@ abstract class Boot extends Main\Root
         $currentType = $this->type();
         $types = $this->types();
         $namespaces = static::extendersNamespaces();
-        
+
         $closure = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
             if(is_string($key))
             $ucKey = ucfirst($key);
@@ -2441,7 +2441,7 @@ abstract class Boot extends Main\Root
             if(is_a($class,self::class,true))
             $return[] = Base\Fqcn::namespace($class);
         }
-        
+
         return array_reverse($return);
     }
 

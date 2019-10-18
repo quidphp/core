@@ -38,10 +38,10 @@ class Video extends Core\CellAlias
     public function video():?Main\Video
     {
         $return = $this->get();
-        
+
         if(empty($return))
         $return = null;
-        
+
         return $return;
     }
 

@@ -390,7 +390,7 @@ class Session extends Main\Session
         return $this->get('user/permission');
     }
 
-    
+
     // hasPermission
     // retourne vrai si toutes les permissions sont accordés par l'utilisateur
     public function hasPermission(...$keys):bool
@@ -404,11 +404,11 @@ class Session extends Main\Session
     public function checkPermission(...$keys):self
     {
         $this->user()->checkPermission(...$keys);
-        
+
         return $this;
     }
-    
-    
+
+
     // triggerUser
     // lie un objet user et trigge celui-ci
     // méthode protégé

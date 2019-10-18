@@ -19,7 +19,7 @@ class Cell extends Orm\Cell
     // trait
     use _accessAlias;
     use Routing\_route;
-    
+
 
     // config
     public static $config = [];

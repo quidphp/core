@@ -87,7 +87,7 @@ class Role extends Base\Test
         assert(!Core\Role\Admin::validate(['!='=>'admin']));
         assert(Core\Role\Admin::validate(['!='=>'nobody']));
         assert(Core\Role\Admin::validate('admin'));
-        
+
         // roles
         $user = new Suite\Role\User();
         $roles = new Main\Roles([Core\Role::class,Suite\Role::class]);
@@ -120,7 +120,7 @@ class Role extends Base\Test
         assert($roles->exists(20));
         assert($roles->exists(Suite\Role\User::class));
         assert($roles->exists(new Suite\Role\User()));
-        
+
         return true;
     }
 }

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Suite;
 use Quid\Routing;
+use Quid\Suite;
 
 // session
 // class for testing Quid\Core\Session
@@ -114,13 +114,13 @@ class Session extends Base\Test
 
         // userPermission
         assert($s->userPermission() === 80);
-        
+
         // hasPermission
         assert($s->hasPermission('assertLogin'));
-        
+
         // checkPermission
         assert($s->checkPermission('assertLogin') === $s);
-        
+
         // triggerUser
 
         // syncUser

@@ -285,28 +285,28 @@ class User extends Core\RowAlias implements Main\Contract\User
         return $this->role()->isCli();
     }
 
-    
+
     // permissionDefaultRole
     // retourne le role par défaut à utiliser, soit le rôle de l'utilisateur courant
     protected function permissionDefaultRole():Main\Role
     {
         return $this->role();
     }
-    
-    
+
+
     // canLogin
     // retourne vrai si le role permet le login
     public function canLogin(?string $type=null):bool
     {
         $return = false;
         $role = $this->role();
-        
+
         if($type === null)
         $type = static::boot()->type();
-        
-        $key = $type."Login";
+
+        $key = $type.'Login';
         $return = $this->hasPermission($key);
-        
+
         return $return;
     }
 
@@ -468,10 +468,10 @@ class User extends Core\RowAlias implements Main\Contract\User
     {
         $return = null;
         $key = $this->attr(['emailModel',$name]);
-        
+
         if(!empty($key))
         $return = Email::find($key);
-        
+
         return $return;
     }
 

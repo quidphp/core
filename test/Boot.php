@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Routing;
 use Quid\Main;
+use Quid\Routing;
 
 // boot
 // class for testing Quid\Core\Boot
@@ -49,12 +49,12 @@ class Boot extends Base\Test
         // onMatch
 
         // onAfter
-        
+
         // cast
         assert(count($boot->_cast()) === 3);
-        
+
         // attrAll
-        
+
         // prepare
 
         // dispatch

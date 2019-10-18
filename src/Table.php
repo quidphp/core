@@ -19,17 +19,17 @@ class Table extends Orm\Table
     // trait
     use _accessAlias;
     use Routing\_route;
-    
+
 
     // config
     public static $config = [
         'route'=>null, // permet de lier une classe de route à la table
         'permission'=>[
-            '*'=>array(
+            '*'=>[
                 'view'=>true, // pouvoir voir le contenu de la table
                 'mediaDownload'=>true, // pouvoir télécharger un média
                 'mediaDelete'=>true, // permettre d'effacer un média
-                'mediaRegenerate'=>false), // permettre de regénérer un média
+                'mediaRegenerate'=>false], // permettre de regénérer un média
             'admin'=>[
                 'insert'=>true,
                 'update'=>true,
