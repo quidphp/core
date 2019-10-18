@@ -10,15 +10,16 @@ declare(strict_types=1);
 namespace Quid\Core;
 use Quid\Base;
 use Quid\Orm;
+use Quid\Routing;
 
 // cell
 // extended class to represent an existing cell within a row
 class Cell extends Orm\Cell
 {
     // trait
-    use _routeAttr;
     use _accessAlias;
-
+    use Routing\_route;
+    
 
     // config
     public static $config = [];

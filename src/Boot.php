@@ -124,7 +124,7 @@ abstract class Boot extends Main\Root
         'cache'=>true, // active ou désactive la cache globale
         'clearCache'=>true, // vide le dossier de cache si cache est false
         'extenders'=>[ // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
-            'role'=>[Roles::class,Role::class],
+            'role'=>[Main\Roles::class,Role::class],
             'lang'=>[Main\Extender::class,Base\Config::class],
             'service'=>[Main\Extender::class,Main\Service::class],
             'table'=>[Main\Extender::class,Table::class],
@@ -227,6 +227,7 @@ abstract class Boot extends Main\Root
 
     // dynamique
     protected $name = null; // nom du boot
+    protected $attr = array(); // tableau des attributs
     protected $value = []; // argument de départ
     protected $status = 0; // niveau de préparation de l'objet
     protected $envType = null; // garde en mémoire le envType
@@ -363,7 +364,16 @@ abstract class Boot extends Main\Root
         return $this->context();
     }
 
-
+    
+    // attrAll
+    // retourne le tableau des attributs
+    // doit retourner une référence
+    protected function &attrAll():array
+    {
+        return $this->attr;
+    }
+    
+    
     // prepare
     // prépare l'objet
     // init error, le code de réponse, crée la request, génère le envType, ensuite merge les attr, finalement autoload
@@ -691,7 +701,7 @@ abstract class Boot extends Main\Root
 
         if($this->isReady())
         {
-            $insts = [Lang::class,Services::class,Redirection::class,Session::class,Request::class];
+            $insts = [Lang::class,Main\Services::class,Routing\Redirection::class,Session::class,Request::class];
             foreach ($insts as $class)
             {
                 $obj = $class::instSafe();
@@ -1763,7 +1773,7 @@ abstract class Boot extends Main\Root
         $currentType = $this->type();
         $types = $this->types();
         $namespaces = static::extendersNamespaces();
-
+        
         $closure = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
             if(is_string($key))
             $ucKey = ucfirst($key);
@@ -1872,7 +1882,7 @@ abstract class Boot extends Main\Root
 
     // roles
     // retourne l'objet roles de boot
-    public function roles():Roles
+    public function roles():Main\Roles
     {
         return $this->extenders()->get('role');
     }
@@ -1980,12 +1990,12 @@ abstract class Boot extends Main\Root
     public function services():Main\Services
     {
         $this->checkReady();
-        $return = Services::instSafe();
+        $return = Main\Services::instSafe();
 
         if(empty($return))
         {
             $services = $this->attr('service');
-            $return = Services::newOverload($services);
+            $return = Main\Services::newOverload($services);
             $return->setInst();
             $return->readOnly(true);
         }
@@ -2044,10 +2054,10 @@ abstract class Boot extends Main\Root
 
     // redirection
     // retourne ou crée l'objet redirection
-    public function redirection():Redirection
+    public function redirection():Routing\Redirection
     {
         $this->checkReady();
-        $return = Redirection::instSafe();
+        $return = Routing\Redirection::instSafe();
 
         if(empty($return))
         {
@@ -2061,7 +2071,7 @@ abstract class Boot extends Main\Root
                 $redirection = Base\Arr::replace($redirection,$content);
             }
 
-            $return = Redirection::newOverload($redirection);
+            $return = Routing\Redirection::newOverload($redirection);
             $return->setInst();
             $return->readOnly(true);
         }
@@ -2104,7 +2114,6 @@ abstract class Boot extends Main\Root
                         return static::cacheFile($key,function() use($db) {
                             $schema = Orm\Schema::newOverload(null,$db);
                             $schema->all();
-
                             return $schema->toArray();
                         });
                     };
@@ -2432,7 +2441,7 @@ abstract class Boot extends Main\Root
             if(is_a($class,self::class,true))
             $return[] = Base\Fqcn::namespace($class);
         }
-
+        
         return array_reverse($return);
     }
 

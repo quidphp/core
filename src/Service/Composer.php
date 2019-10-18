@@ -54,7 +54,7 @@ class Composer extends Core\ServiceAlias
         $return = [];
         $composer = static::get();
         $psr4 = $composer->getPrefixesPsr4();
-
+        
         if(!empty($psr4))
         {
             foreach ($psr4 as $namespace => $path)
@@ -89,7 +89,7 @@ class Composer extends Core\ServiceAlias
     {
         $composer = static::get();
         $composer->setClassMapAuthoritative($value);
-
+        
         return;
     }
 }

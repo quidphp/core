@@ -10,14 +10,15 @@ declare(strict_types=1);
 namespace Quid\Core;
 use Quid\Base;
 use Quid\Orm;
+use Quid\Routing;
 
 // row
 // extended class to represent an existing row within a table
 class Row extends Orm\Row
 {
     // trait
-    use _routeAttr;
     use _accessAlias;
+    use Routing\_route;
 
 
     // config

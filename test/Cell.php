@@ -49,6 +49,7 @@ class Cell extends Base\Test
         assert($dateAdd::getOverloadKeyPrepend() === 'Cell');
 
         // orm
+        assert(is_array($dateAdd->permissionRole(new Core\Role\Admin())));
         assert($primary instanceof Core\Cell\Primary);
         assert($integer instanceof Core\Cell\Integer);
         assert($dateAdd->set(1234235434) === $dateAdd);

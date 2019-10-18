@@ -10,20 +10,26 @@ declare(strict_types=1);
 namespace Quid\Core;
 use Quid\Base;
 use Quid\Orm;
+use Quid\Routing;
 
 // table
 // extended class to represent an existing table within a database
 class Table extends Orm\Table
 {
     // trait
-    use _routeAttr;
     use _accessAlias;
-
+    use Routing\_route;
+    
 
     // config
     public static $config = [
         'route'=>null, // permet de lier une classe de route à la table
         'permission'=>[
+            '*'=>array(
+                'view'=>true, // pouvoir voir le contenu de la table
+                'mediaDownload'=>true, // pouvoir télécharger un média
+                'mediaDelete'=>true, // permettre d'effacer un média
+                'mediaRegenerate'=>false), // permettre de regénérer un média
             'admin'=>[
                 'insert'=>true,
                 'update'=>true,
@@ -32,6 +38,7 @@ class Table extends Orm\Table
                 'alter'=>true,
                 'truncate'=>true,
                 'drop'=>true,
+                'mediaRegenerate'=>true,
                 'nullPlaceholder'=>true],
             'cli'=>[
                 'insert'=>true,
@@ -40,7 +47,8 @@ class Table extends Orm\Table
                 'create'=>true,
                 'alter'=>true,
                 'truncate'=>true,
-                'drop'=>true]],
+                'drop'=>true,
+                'mediaRegenerate'=>true]],
         '@prod'=>[
             'colsExists'=>false]
     ];

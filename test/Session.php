@@ -11,6 +11,7 @@ namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
 use Quid\Suite;
+use Quid\Routing;
 
 // session
 // class for testing Quid\Core\Session
@@ -113,7 +114,13 @@ class Session extends Base\Test
 
         // userPermission
         assert($s->userPermission() === 80);
-
+        
+        // hasPermission
+        assert($s->hasPermission('assertLogin'));
+        
+        // checkPermission
+        assert($s->checkPermission('assertLogin') === $s);
+        
         // triggerUser
 
         // syncUser
@@ -146,7 +153,7 @@ class Session extends Base\Test
         // setLang
 
         // nav
-        assert($s->nav() instanceof Core\Nav);
+        assert($s->nav() instanceof Routing\Nav);
 
         // navEmpty
         assert($s->navEmpty() === $s);
@@ -157,9 +164,6 @@ class Session extends Base\Test
 
         // canLogin
         assert(!$s->canLogin());
-
-        // can
-        assert(!$s->can('login/assert'));
 
         // beforeLogin
 
@@ -246,7 +250,6 @@ class Session extends Base\Test
         assert($user->canReceiveEmail());
         assert(count($user->toEmail()) === 1);
         assert($user->toSession() === ['uid'=>3,'permission'=>20]);
-        assert($user->can('login/assert'));
         assert($user->canLogin());
         assert($user->canLogin('assert'));
         assert($user->username()->name() === 'username');

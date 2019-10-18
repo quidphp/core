@@ -412,20 +412,8 @@ class En extends Base\Lang\En
 
             // label
             'label'=>[
-                'account'=>'My account',
-                'accountSubmit'=>'My account - Submit',
-                'accountChangePassword'=>'Change my password',
-                'accountChangePasswordSubmit'=>'Change my password - Submit',
-                'activatePassword'=>'Activate password',
                 'error'=>'Error',
                 'home'=>'Home',
-                'login'=>'Login',
-                'loginSubmit'=>'Login - Submit',
-                'logout'=>'Logout',
-                'register'=>'Register',
-                'registerSubmit'=>'Register - Submit',
-                'resetPassword'=>'Reset password',
-                'resetPasswordSubmit'=>'Reset password - Submit',
                 'robots'=>'Robots',
                 'sitemap'=>'Sitemap'
             ],

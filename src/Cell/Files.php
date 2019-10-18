@@ -470,7 +470,7 @@ abstract class Files extends Core\CellAlias
         $return = '';
         $col = $this->col();
         $table = $this->table();
-        $download = $table->hasPermission('download');
+        $download = $table->hasPermission('mediaDownload');
         $file = $original = $this->commonFile($index);
 
         if(!empty($file))

@@ -285,20 +285,29 @@ class User extends Core\RowAlias implements Main\Contract\User
         return $this->role()->isCli();
     }
 
-
-    // can
-    // retourne vrai si le role permet de faire
-    public function can($path):bool
+    
+    // permissionDefaultRole
+    // retourne le role par défaut à utiliser, soit le rôle de l'utilisateur courant
+    protected function permissionDefaultRole():Main\Role
     {
-        return $this->role()->can($path);
+        return $this->role();
     }
-
-
+    
+    
     // canLogin
     // retourne vrai si le role permet le login
     public function canLogin(?string $type=null):bool
     {
-        return $this->role()->canLogin($type);
+        $return = false;
+        $role = $this->role();
+        
+        if($type === null)
+        $type = static::boot()->type();
+        
+        $key = $type."Login";
+        $return = $this->hasPermission($key);
+        
+        return $return;
     }
 
 
@@ -459,10 +468,10 @@ class User extends Core\RowAlias implements Main\Contract\User
     {
         $return = null;
         $key = $this->attr(['emailModel',$name]);
-
+        
         if(!empty($key))
         $return = Email::find($key);
-
+        
         return $return;
     }
 
@@ -557,7 +566,7 @@ class User extends Core\RowAlias implements Main\Contract\User
     // retourne la route à utiliser pour activer le mot de passe
     public function activatePasswordRoute():?string
     {
-        return Core\Route\ActivatePassword::class;
+        return null;
     }
 
 

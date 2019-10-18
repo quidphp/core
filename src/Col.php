@@ -10,15 +10,16 @@ declare(strict_types=1);
 namespace Quid\Core;
 use Quid\Base;
 use Quid\Orm;
+use Quid\Routing;
 
 // col
 // extended class to represent an existing column within a table
 class Col extends Orm\Col
 {
     // trait
-    use _routeAttr;
     use _accessAlias;
-
+    use Routing\_route;
+    
 
     // config
     public static $config = [

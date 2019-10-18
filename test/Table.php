@@ -68,17 +68,16 @@ class Table extends Base\Test
         // orm
         assert($tb->rowsClass() === Core\Rows::class);
         assert($db->classe()->default('row') === Core\Row::class);
-        assert($tb->rowClass() === Core\Row::class);
+        assert(is_a($tb->rowClass(),Core\Row::class,true));
         assert($tb->classFqcn() === Suite\Table\OrmTable::class);
 
         // permission
         assert(Base\Arrs::is($tb->permissionAll()));
-        assert(count($tb->permissionRole('nobody')) > 10);
-        assert($tb->permissionRole(Core\Role\Nobody::class) === $tb->permissionRole('nobody'));
-        assert($tb->permissionRole(new Core\Role\Nobody()) === $tb->permissionRole('nobody'));
-        assert($tb->permissionRole(Core\Role\Admin::class) !== $tb->permissionRole('nobody'));
-        assert($tb->permissionCan('insert','admin'));
-        assert(!$tb->permissionCan('insert','nobody'));
+        assert(count($tb->permissionRole(Core\Role\Nobody::class)) > 10);
+        assert($tb->permissionRole(new Core\Role\Nobody()) === $tb->permissionRole(Core\Role\Nobody::class));
+        assert($tb->permissionRole(Core\Role\Admin::class) !== $tb->permissionRole(Core\Role\Nobody::class));
+        assert($tb->permissionCan('insert',Core\Role\Admin::class));
+        assert(!$tb->permissionCan('insert',Core\Role\Nobody::class));
         assert($tb->hasPermission('insert','update'));
         assert($tb->checkPermission('insert','update') === $tb);
 

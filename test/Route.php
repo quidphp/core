@@ -67,6 +67,7 @@ class Route extends Base\Test
         // getOverloadKeyPrepend
 
         // routing
+        assert(is_array($contactMake->permissionRole(Core\Role\Admin::class)));
         assert($contact::inSitemap());
         assert($contact::isRedirectable());
 

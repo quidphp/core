@@ -284,7 +284,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [_bootAccess](src/_bootAccess.php) - Trait that provides methods to access the Boot object
 - [_dbAccess](src/_dbAccess.php) - Trait that provides a method to access the current database
 - [_fullAccess](src/_fullAccess.php) - Trait that provides all access methods related to the Boot
-- [_routeAttr](src/_routeAttr.php) - Trait that provides methods to work with routes in the attributes property
+- [_route](src/_route.php) - Trait that provides methods to work with routes in the attributes property
 	
 ## Testing
 **QuidPHP/Core** contains 33 test classes:

@@ -37,7 +37,12 @@ class Video extends Core\CellAlias
     // retourne l'objet video ou null
     public function video():?Main\Video
     {
-        return $this->get();
+        $return = $this->get();
+        
+        if(empty($return))
+        $return = null;
+        
+        return $return;
     }
 
 

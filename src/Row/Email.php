@@ -61,9 +61,16 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // find
     // retourne un objet email, à partir d'une clé
+    // doit être actif
     public static function find(string $key):?self
     {
-        return static::tableFromFqcn()->rowVisible($key);
+        $return = null;
+        $row = static::tableFromFqcn()->row($key);
+        
+        if($row->isActive())
+        $return = $row;
+        
+        return $return;
     }
 }
 

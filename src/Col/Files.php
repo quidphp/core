@@ -387,7 +387,7 @@ abstract class Files extends Core\ColAlias
         $exists = (!empty($file))? $file->isReadable():false;
         $isImage = ($exists === true && $file instanceof Core\File\Image)? true:false;
         $basename = ($exists === true)? $file->basename():false;
-        $download = $table->hasPermission('download');
+        $download = $table->hasPermission('mediaDownload');
 
         if(is_string($basename))
         $basename = Base\Str::excerpt(50,$basename);

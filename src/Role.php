@@ -22,9 +22,7 @@ abstract class Role extends Main\Role
     // config
     public static $config = [
         'label'=>null, // label du rôle
-        'description'=>null, // description du rôle
-        'can'=>[ // permission générale
-            'login'=>[]]
+        'description'=>null // description du rôle
     ];
 
 
@@ -72,42 +70,6 @@ abstract class Role extends Main\Role
 
             return $return;
         });
-    }
-
-
-    // canLogin
-    // retourne vrai si le role permet le login dans le type
-    public static function canLogin(?string $type=null):bool
-    {
-        $return = false;
-
-        if($type === null)
-        $type = static::boot()->type();
-
-        $return = static::can(['login',$type]);
-
-        return $return;
-    }
-
-
-    // db
-    // retourne un tableau multidimensionnel avec toutes les permissions pour chaque table
-    // possible de retourner la booléean can pour une même action dans chaque tableau
-    public static function db($key=null):array
-    {
-        $return = [];
-        $db = static::boot()->db();
-
-        foreach ($db->tables() as $name => $table)
-        {
-            if($key !== null)
-            $return[$name] = $table->permissionCan($key,static::class);
-
-            else
-            $return[$name] = $table->permissionRole(static::class);
-        }
-
-        return $return;
     }
 
 

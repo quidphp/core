@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core;
 use Quid\Base;
 use Quid\Main;
+use Quid\Routing;
 
 // session
 // extended class that adds session support for user
@@ -285,10 +286,10 @@ class Session extends Main\Session
         $return = $value;
 
         if($mode === 'insert')
-        $return = Nav::newOverload();
+        $return = Routing\Nav::newOverload();
 
         elseif($mode === 'is')
-        $return = ($value instanceof Nav)? true:false;
+        $return = ($value instanceof Routing\Nav)? true:false;
 
         return $return;
     }
@@ -389,7 +390,25 @@ class Session extends Main\Session
         return $this->get('user/permission');
     }
 
+    
+    // hasPermission
+    // retourne vrai si toutes les permissions sont accordés par l'utilisateur
+    public function hasPermission(...$keys):bool
+    {
+        return $this->user()->hasPermission(...$keys);
+    }
 
+
+    // checkPermission
+    // envoie une exception si la ou les permissions ne sont pas accordés par l'utilisateur
+    public function checkPermission(...$keys):self
+    {
+        $this->user()->checkPermission(...$keys);
+        
+        return $this;
+    }
+    
+    
     // triggerUser
     // lie un objet user et trigge celui-ci
     // méthode protégé
@@ -609,7 +628,7 @@ class Session extends Main\Session
 
     // nav
     // retourne l'objet nav
-    public function nav():Nav
+    public function nav():Routing\Nav
     {
         return $this->get('nav');
     }
@@ -660,27 +679,13 @@ class Session extends Main\Session
 
 
     // canLogin
-    // retourne vrai si le role permet le login dans le type
+    // retourne vrai si le user permet le login dans le type
     public function canLogin(?string $key=null):bool
     {
         $return = false;
-        $role = $this->role();
+        $user = $this->user();
 
-        if($role->isSomebody() && $role->canLogin($key))
-        $return = true;
-
-        return $return;
-    }
-
-
-    // can
-    // retourne vrai si le role permet de faire
-    public function can($value)
-    {
-        $return = false;
-        $role = $this->role();
-
-        if($role->can($value))
+        if($user->isSomebody() && $user->canLogin($key))
         $return = true;
 
         return $return;

@@ -86,6 +86,7 @@ class Row extends Base\Test
         assert($row3::bootReady() instanceof Core\Boot);
 
         // orm
+        assert(is_array($row->permissionRole(new Core\Role\Admin())));
         assert($user->hasRelationChilds());
         assert(!empty($user->relationChilds()));
         assert(Core\Row\Session::className(true) === 'session');

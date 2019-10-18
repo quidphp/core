@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
+use Quid\Routing;
 use Quid\Main;
 
 // boot
@@ -28,9 +29,6 @@ class Boot extends Base\Test
         // toString
 
         // destruct
-
-        // cast
-        assert(count($boot->_cast()) === 3);
 
         // onPrepare
 
@@ -51,7 +49,12 @@ class Boot extends Base\Test
         // onMatch
 
         // onAfter
-
+        
+        // cast
+        assert(count($boot->_cast()) === 3);
+        
+        // attrAll
+        
         // prepare
 
         // dispatch
@@ -265,7 +268,7 @@ class Boot extends Base\Test
         assert($boot->routesActive($type)->isCount(4));
 
         // roles
-        assert($boot->roles() instanceof Core\Roles);
+        assert($boot->roles() instanceof Main\Roles);
 
         // lang
         assert($boot->lang() instanceof Core\Lang);
@@ -289,7 +292,7 @@ class Boot extends Base\Test
         assert(is_string($boot->typeEnvLabel()));
 
         // services
-        assert($boot->services() instanceof Core\Services);
+        assert($boot->services() instanceof Main\Services);
         assert(count($boot->services()) >= 2);
 
         // service
@@ -305,7 +308,7 @@ class Boot extends Base\Test
         assert($boot->checkServiceMailer() instanceof Core\ServiceMailer);
 
         // redirection
-        assert($boot->redirection() instanceof Core\Redirection);
+        assert($boot->redirection() instanceof Routing\Redirection);
 
         // db
         assert($boot->db() instanceof Core\Db);
