@@ -40,7 +40,7 @@ class Col extends Base\Test
         $storage = $tb['storage'];
         $row = $tb[1];
         $medias = $tb['medias'];
-        
+
         // generalCurrentLang
         assert(Core\Col::generalCurrentLang($col) === false);
 
@@ -48,7 +48,7 @@ class Col extends Base\Test
         assert($col instanceof Core\Col);
         assert($row instanceof Suite\Row\OrmCol);
         assert($password::getOverloadKeyPrepend() === 'Col');
-        
+
         // route
 
         // colCell
@@ -89,9 +89,9 @@ class Col extends Base\Test
         assert($date->dateMax() === null);
         assert($date->dateDaysDiff() === null);
         assert($date->dateDaysDiffFilterMethod() === 'or|day');
-        assert($date->daysIn() === array());
-        assert($date->monthsIn() === array());
-        assert($date->yearsIn() === array());
+        assert($date->daysIn() === []);
+        assert($date->monthsIn() === []);
+        assert($date->yearsIn() === []);
         assert($dateAdd->dateMin() === 10);
         assert($dateAdd->dateMax() === 20);
         assert($dateAdd->dateDaysDiff() === 0);
@@ -99,7 +99,7 @@ class Col extends Base\Test
         assert(count($dateAdd->daysIn()) === 1);
         assert(count($dateAdd->monthsIn()) === 1);
         assert(count($dateAdd->yearsIn()) === 1);
-        
+
         // dateAdd
         assert($dateAdd->date() === 'long');
 
@@ -178,13 +178,13 @@ class Col extends Base\Test
         assert(strlen($multi->formComplex([2,5])) === 185);
 
         // timezone
-        
+
         // uri
-        
+
         // uriAbsolute
-        
+
         // uriRelative
-        
+
         // userActive
 
         // userAdd

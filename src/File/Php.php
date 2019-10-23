@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
-use Quid\Main;
 use Quid\Core;
+use Quid\Main;
 
 // php
 // class for a php file

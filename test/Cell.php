@@ -52,7 +52,7 @@ class Cell extends Base\Test
         assert($integer instanceof Core\Cell\Integer);
         assert($dateAdd->set(1234235434) === $dateAdd);
         assert($dateAdd::getOverloadKeyPrepend() === 'Cell');
-        
+
         // date
         assert($dateAdd instanceof Core\Cell\Date);
         assert($date instanceof Core\Cell\Date);
@@ -118,7 +118,7 @@ class Cell extends Base\Test
         assert($integer->set(null)->increment()->value() === 1);
         assert($integer->set(true) === $integer);
         assert($integer->value() === 1);
-        
+
         // media + medias
         assert($media instanceof Core\Cell\Media);
         assert(is_string($media->rootPath()));
@@ -151,7 +151,7 @@ class Cell extends Base\Test
             assert($media->set($tmp2) === $media);
             assert($media->row()->updateChangedIncluded() === 1);
         }
-        
+
         assert($thumbnail->set($image) === $thumbnail);
         assert($thumbnail->row()->updateChangedIncluded() === 1);
         assert($medias instanceof Core\Cell\Medias);

@@ -151,16 +151,16 @@ class Boot extends Base\Test
 
         // env
         assert(is_string($boot->env()));
-        
+
         // envIndex
         assert($boot->envIndex() === 0);
-        
+
         // type
         assert(is_string($boot->type()));
-        
+
         // typeIndex
         assert($boot->typeIndex() === 0);
-        
+
         // typePrimary
         assert(is_string($boot->typePrimary()));
 
@@ -262,13 +262,13 @@ class Boot extends Base\Test
         // makeExtenders
 
         // newExtenders
-        
+
         // newExtendersClosure
-        
+
         // extenders
         assert($boot->extenders() instanceof Main\Extenders);
         assert($boot->extenders()->count() === 13);
-        
+
         // routes
         assert($boot->routes() instanceof Routing\Routes);
         assert($boot->routes($type) === $boot->routes());

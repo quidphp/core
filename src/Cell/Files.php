@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Quid\Core\Cell;
 use Quid\Base;
 use Quid\Core;
-use Quid\Orm;
 use Quid\Main;
+use Quid\Orm;
 
 // files
 // abstract class extended by the media and medias cells
@@ -230,7 +230,7 @@ abstract class Files extends Core\CellAlias
     {
         $return = false;
         $path = $this->commonFilePath($index,$version);
-        
+
         if(!empty($path) && Base\File::is($path))
         $return = true;
 
@@ -451,7 +451,7 @@ abstract class Files extends Core\CellAlias
 
         if(Base\Dir::is($dirname))
         Base\Dir::emptyAndUnlink($dirname);
-        
+
         $this->copyOriginal($dirname,$new);
 
         if($deleteSource === true)
@@ -584,7 +584,7 @@ abstract class Files extends Core\CellAlias
         $basename = $file->mimeBasename($file->getOption('uploadBasename'));
         $basename = Base\Path::safeBasename($basename);
         $target = Base\Path::append($dirname,$basename);
-        
+
         if($file instanceof Core\File\ImageRaster)
         {
             $filename = Base\Path::filename($target);

@@ -653,13 +653,13 @@ class Session extends Main\Session
     {
         $return = null;
         $routeClass = $table->routeClass($key,true);
-        
+
         if($nav === true)
         {
             $nav = $this->nav();
             $return = $nav->route([$routeClass,$table]);
         }
-        
+
         if(empty($return) || !$return->isValidSegment())
         {
             $segments = [$segment=>$table];

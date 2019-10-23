@@ -77,7 +77,7 @@ abstract class Relation extends Core\ColAlias
         };
     }
 
-    
+
     // isSortable
     // retourne vrai si la relation est sortable
     public function isSortable():bool
@@ -197,7 +197,7 @@ abstract class Relation extends Core\ColAlias
         $mode = $rel->mode();
         $size = $rel->size();
         $lang = $this->db()->lang();
-        
+
         $route = $this->route('specificRelation',['table'=>$this->table(),'col'=>$this,'selected'=>true]);
         $query = $route::getSearchQuery();
 
@@ -283,7 +283,7 @@ abstract class Relation extends Core\ColAlias
         $option = Base\Arr::plus($option,['value'=>$value]);
         $relation = $this->prepareStandardRelation($value);
         $relation = $this->valueExcerpt($relation);
-        
+
         if($tag === 'select' && !array_key_exists('title',$option))
         $option['title'] = true;
 
@@ -292,7 +292,7 @@ abstract class Relation extends Core\ColAlias
             $option = $this->prepareChoiceOption($option,true);
             $relation = $this->prepareRelationRadioCheckbox($relation);
         }
-        
+
         $return .= $this->formComplexOutput($relation,$attr,$option);
 
         return $return;
@@ -318,7 +318,7 @@ abstract class Relation extends Core\ColAlias
     {
         $return['autoHidden'] = $autoHidden;
         $return['html'] = $this->attr('relationHtml');
-        
+
         return $return;
     }
 
@@ -385,15 +385,15 @@ abstract class Relation extends Core\ColAlias
         return $return;
     }
 
-    
+
     // prepareRelationRadioCheckbox
     // méthode utilisé lors de la préparation d'une valeur relation radio ou checkbox, incluant search
-    protected function prepareRelationRadioCheckbox(array $return):array 
+    protected function prepareRelationRadioCheckbox(array $return):array
     {
         return $return;
     }
-    
-    
+
+
     // prepareRelationPlainGeneral
     // méthode utilisé pour préparer l'affichage des relations plains (sans formulaire)
     // retourne au maximum le generalMax
@@ -402,7 +402,7 @@ abstract class Relation extends Core\ColAlias
         $return = [];
         $max = $this->attr('generalMax');
         $i = 0;
-        
+
         foreach ($array as $key => $value)
         {
             if(is_scalar($value))
@@ -412,12 +412,12 @@ abstract class Relation extends Core\ColAlias
                     $return[$key] = $value;
                     $i++;
                 }
-                
+
                 else
                 break;
             }
         }
-        
+
         return $return;
     }
 }

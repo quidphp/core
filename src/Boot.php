@@ -1116,15 +1116,15 @@ abstract class Boot extends Main\Root
         return $this->envType()['env'];
     }
 
-    
+
     // envIndex
     // retourne l'index de l'environnement courant
     public function envIndex():int
     {
         return Base\Arr::search($this->env(),$this->envs());
     }
-    
-    
+
+
     // type
     // retourne le type courant de l'application
     public function type():string
@@ -1132,15 +1132,15 @@ abstract class Boot extends Main\Root
         return $this->envType()['type'];
     }
 
-    
+
     // typeIndex
     // retourne l'index du type courant de l'application
     public function typeIndex():int
     {
         return Base\Arr::search($this->type(),$this->types());
     }
-    
-    
+
+
     // typePrimary
     // retourne le type primaire de l'application
     public function typePrimary():string
@@ -1730,7 +1730,7 @@ abstract class Boot extends Main\Root
             $config = (array) $this->attr('extenders');
             return $this->newExtenders($config);
         },$cache);
-        
+
         if($this->isFromCache())
         {
             $core = $extenders->get('core');
@@ -1748,16 +1748,16 @@ abstract class Boot extends Main\Root
 
             if($key === 'file')
             $extender->pair('registerClass');
-                
+
             if($cache === false)
             {
                 // ici vérifie qu'il n'y a pas d'objet non désiré dans le dossier core
                 if($key === 'core')
                 $extender->checkParentSameName();
-                
+
                 // vérifie l'extension des classes
                 $extender->checkExtend();
-                
+
                 // vérifie que toutes les classes sont des sous-classe de celle défini dans configuration
                 $subClass = $this->attr(['extenders',$key,1]);
                 if(is_string($subClass))
@@ -1821,7 +1821,7 @@ abstract class Boot extends Main\Root
             if(is_string($key) && is_array($value) && !empty($value))
             {
                 $class = current($value);
-                $option = array('noSubDir'=>true,'overloadKeyPrepend'=>ucfirst($key));
+                $option = ['noSubDir'=>true,'overloadKeyPrepend'=>ucfirst($key)];
                 $extender = $closure($class,$key,$namespaces,$option);
                 $extender->overload();
                 $return->set($key,$extender);
@@ -1831,10 +1831,10 @@ abstract class Boot extends Main\Root
         return $return;
     }
 
-    
+
     // newExtendersClosure
     // retourne la closure pour l'objet extenders
-    protected function newExtendersClosure():\Closure 
+    protected function newExtendersClosure():\Closure
     {
         $currentKey = $this->name(true);
         $return = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
@@ -1849,11 +1849,11 @@ abstract class Boot extends Main\Root
 
             return $class::newOverload($namespace,$option);
         };
-        
+
         return $return;
     }
-    
-    
+
+
     // extenders
     // retourne l'objet extenders
     public function extenders():Main\Extenders

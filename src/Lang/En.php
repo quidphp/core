@@ -61,7 +61,7 @@ class En extends Base\Lang\En
             'captcha'=>'Enter the characters in the image',
             'accessDenied'=>'Access Denied',
             'isEmpty'=>'Is empty',
-            'isNotEmpty'=>"Is not empty"
+            'isNotEmpty'=>'Is not empty'
         ],
 
         // error
