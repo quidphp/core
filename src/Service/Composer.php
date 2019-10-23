@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Quid\Core\Service;
 use Composer\Autoload;
 use Quid\Base;
-use Quid\Core;
+use Quid\Main;
 
 // composer
 // class that grants some methods related to the composer autoloader
-class Composer extends Core\ServiceAlias
+class Composer extends Main\Service
 {
     // config
     public static $config = [];

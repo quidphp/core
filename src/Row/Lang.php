@@ -27,8 +27,8 @@ class Lang extends Core\RowAlias
             'active'=>true,
             'type'=>['class'=>Core\Col\ContextType::class],
             'key'=>true,
-            'content_fr'=>['general'=>[Core\Col::class,'generalCurrentLang'],'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false],
-            'content_en'=>['general'=>[Core\Col::class,'generalCurrentLang'],'class'=>Core\Col\Textarea::class,'required'=>true,'exists'=>false]]
+            'content_fr'=>['general'=>[Core\Col::class,'generalCurrentLang'],'required'=>true,'exists'=>false],
+            'content_en'=>['general'=>[Core\Col::class,'generalCurrentLang'],'required'=>true,'exists'=>false]]
     ];
 
 
@@ -62,9 +62,9 @@ class Lang extends Core\RowAlias
 
     // grabContent
     // retourne un tableau de tous les contenus de langue pertinente
-    // il faut fournir un code de langue et un type
+    // il faut fournir un code de langue et un type (index)
     // peut être mis en cache
-    public static function grabContent(string $value,string $type):array
+    public static function grabContent(string $value,int $type):array
     {
         $boot = static::boot();
         return static::cacheFile(static::getCacheIdentifier(),function() use($value,$type) {

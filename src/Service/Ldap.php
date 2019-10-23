@@ -8,11 +8,11 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Core;
+use Quid\Main;
 
 // ldap
 // class that grants some methods to connect to a ldap server
-class Ldap extends Core\ServiceAlias
+class Ldap extends Main\Service
 {
     // config
     public static $config = [

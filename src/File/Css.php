@@ -14,11 +14,10 @@ use Quid\Main;
 
 // css
 // class for a css or scss file
-class Css extends TextAlias
+class Css extends Main\File\Css
 {
     // config
     public static $config = [
-        'group'=>'css',
         'service'=>Core\Service\ScssPhp::class
     ];
 
@@ -91,9 +90,9 @@ class Css extends TextAlias
 
     // compileMany
     // permet de compiler un ou plusieurs fichiers css/scss
-    public static function compileMany(array $value,?array $option=null):Core\Files
+    public static function compileMany(array $value,?array $option=null):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
         $variables = static::getScssVariables();
 
         foreach ($value as $to => $from)
@@ -103,7 +102,7 @@ class Css extends TextAlias
                 $fromDir = Base\Dir::getDirFromFileAndDir($from);
                 if(Base\Dir::isOlderThanFrom($to,$fromDir,['visible'=>true,'extension'=>['css','scss']]))
                 {
-                    $to = Core\File::newCreate($to);
+                    $to = Main\File::newCreate($to);
 
                     if($to instanceof self)
                     $to->compileFrom($from,null,$variables,10,$option);

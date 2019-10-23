@@ -60,10 +60,6 @@ class Role extends Base\Test
         // description
         assert(Core\Role\Nobody::description() === null);
 
-        // getOverloadKeyPrepend
-        assert(Core\Role::getOverloadKeyPrepend() === null);
-        assert(Core\Role\Nobody::getOverloadKeyPrepend() === 'Role');
-
         // main
         $x = clone $admin;
         assert($x !== $admin);

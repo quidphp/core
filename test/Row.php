@@ -63,10 +63,6 @@ class Row extends Base\Test
 
         // insert
 
-        // getOverloadKeyPrepend
-        assert(Core\Row::getOverloadKeyPrepend() === null);
-        assert(Core\Row\Session::getOverloadKeyPrepend() === 'Row');
-
         // _route
 
         // access
@@ -92,6 +88,8 @@ class Row extends Base\Test
         assert(Core\Row\Session::className(true) === 'session');
         assert(Core\Row\Session::className() === 'Session');
         assert($row->attr('priority') === 150);
+        assert(Core\Row::getOverloadKeyPrepend() === null);
+        assert(Core\Row\Session::getOverloadKeyPrepend() === 'Row');
 
         // cleanup
         assert($db->truncate($table) instanceof \PDOStatement);

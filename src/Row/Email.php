@@ -30,8 +30,8 @@ class Email extends Core\RowAlias implements Main\Contract\Email
             'key'=>true,
             'name_fr'=>false,
             'name_en'=>false,
-            'content_fr'=>['class'=>Core\Col\Textarea::class,'exists'=>false],
-            'content_en'=>['class'=>Core\Col\Textarea::class,'exists'=>false]]
+            'content_fr'=>['exists'=>false],
+            'content_en'=>['exists'=>false]]
     ];
 
 

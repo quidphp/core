@@ -11,6 +11,7 @@ namespace Quid\Core\Cell;
 use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
+use Quid\Main;
 
 // files
 // abstract class extended by the media and medias cells
@@ -229,7 +230,7 @@ abstract class Files extends Core\CellAlias
     {
         $return = false;
         $path = $this->commonFilePath($index,$version);
-
+        
         if(!empty($path) && Base\File::is($path))
         $return = true;
 
@@ -251,13 +252,13 @@ abstract class Files extends Core\CellAlias
     // commonFile
     // retourne l'objet fichier
     // peut retourner null
-    protected function commonFile(?int $index=null,$version=null):?Core\File
+    protected function commonFile(?int $index=null,$version=null):?Main\File
     {
         $return = null;
 
         if($this->commonFileExists($index,$version))
         {
-            $return = Core\File::new($this->commonFilePath($index,$version));
+            $return = Main\File::new($this->commonFilePath($index,$version));
             $return->setOption('defaultAlt',$this->row()->cellName());
         }
 
@@ -267,7 +268,7 @@ abstract class Files extends Core\CellAlias
 
     // commonCheckFile
     // retourne l'objet fichier, envoie une exception si non existant
-    protected function commonCheckFile(?int $index=null,$version=null):Core\File
+    protected function commonCheckFile(?int $index=null,$version=null):Main\File
     {
         $return = $this->commonFile($index,$version);
 
@@ -308,13 +309,13 @@ abstract class Files extends Core\CellAlias
     // commonVersion
     // retourne un objet files avec toutes les versions pour un index
     // retourne null si pas de version
-    protected function commonVersion(?int $index=null):?Core\Files
+    protected function commonVersion(?int $index=null):?Main\Files
     {
         $return = null;
 
         if($this->isNotEmpty() && $this->hasVersion())
         {
-            $return = Core\Files::newOverload();
+            $return = Main\Files::newOverload();
             $col = $this->col();
 
             foreach ($col->versions() as $key => $value)
@@ -374,7 +375,7 @@ abstract class Files extends Core\CellAlias
             foreach ($indexes as $index)
             {
                 $file = $this->commonCheckFile($index);
-                $isImage = ($file instanceof Core\File\Image)? true:false;
+                $isImage = ($file instanceof Main\File\Image)? true:false;
 
                 $indexDirname = $this->commonBasePath($index,false);
                 $originalDirname = $this->commonBasePath($index,null);
@@ -425,7 +426,7 @@ abstract class Files extends Core\CellAlias
     // utilisé à deux endroits pour faire la copie d'un fichier
     // peut envoyer une exception si dirname n'est pas writable ou créable
     // méthode protégé
-    protected function commonCopy(Core\File $file,string $path,string $dirname):bool
+    protected function commonCopy(Main\File $file,string $path,string $dirname):bool
     {
         $return = false;
 
@@ -442,7 +443,7 @@ abstract class Files extends Core\CellAlias
     // commonProcess
     // lance le process de déplacement du média lié
     // efface le dossier de l'original avant de le recréer
-    protected function commonProcess(?int $index=null,Core\File $new):void
+    protected function commonProcess(?int $index=null,Main\File $new):void
     {
         $this->col()->checkWritable();
         $dirname = $this->commonBasePath($index);
@@ -450,7 +451,7 @@ abstract class Files extends Core\CellAlias
 
         if(Base\Dir::is($dirname))
         Base\Dir::emptyAndUnlink($dirname);
-
+        
         $this->copyOriginal($dirname,$new);
 
         if($deleteSource === true)
@@ -476,7 +477,7 @@ abstract class Files extends Core\CellAlias
         if(!empty($file))
         {
             $hasVersion = $this->hasVersion();
-            $isImage = ($file instanceof Core\File\Image)? true:false;
+            $isImage = ($file instanceof Main\File\Image)? true:false;
             $value = $file->basename();
             $value = Base\Str::excerpt(35,$value);
             $legendLink = null;
@@ -578,12 +579,12 @@ abstract class Files extends Core\CellAlias
     // copyOriginal
     // copie l'original au chemin target
     // méthode protégé
-    protected function copyOriginal(string $dirname,Core\File $file):self
+    protected function copyOriginal(string $dirname,Main\File $file):self
     {
         $basename = $file->mimeBasename($file->getOption('uploadBasename'));
         $basename = Base\Path::safeBasename($basename);
         $target = Base\Path::append($dirname,$basename);
-
+        
         if($file instanceof Core\File\ImageRaster)
         {
             $filename = Base\Path::filename($target);
@@ -603,7 +604,7 @@ abstract class Files extends Core\CellAlias
     // possible de fournir un objet files en premier argument (utilisé pour les committed callback)
     // utilise unlinkWhileEmpty pour effacer le maximum de dossier vide dans la hiérarchie
     // retourne le nombre de fichiers effacés
-    public function unlinks(?Core\Files $all=null,?array $option=null):int
+    public function unlinks(?Main\Files $all=null,?array $option=null):int
     {
         $return = 0;
         $option = Base\Arr::plus(['unsetWhileEmpty'=>true,'com'=>false],$option);

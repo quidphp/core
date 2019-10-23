@@ -20,11 +20,7 @@ class Cells extends Base\Test
     {
         // prepare
 
-        // getOverloadKeyPrepend
-
         // tableFromFqcn
-
-        // keyClassExtends
 
         // orm
         assert(Core\Boot::inst()->session()->storage()->cell(Core\Col\DateAdd::class)->name() === 'dateAdd');

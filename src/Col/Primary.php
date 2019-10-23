@@ -18,6 +18,7 @@ class Primary extends Core\ColAlias
     public static $config = [
         'cell'=>Core\Cell\Primary::class,
         'general'=>true,
+        'searchMinLength'=>1,
         'order'=>true,
         'complex'=>'inputHidden',
         'check'=>['kind'=>'int']

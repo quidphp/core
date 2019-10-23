@@ -59,7 +59,9 @@ class En extends Base\Lang\En
             'ago'=>'[value] ago',
             'loadMore'=>'Load more...',
             'captcha'=>'Enter the characters in the image',
-            'accessDenied'=>'Access Denied'
+            'accessDenied'=>'Access Denied',
+            'isEmpty'=>'Is empty',
+            'isNotEmpty'=>"Is not empty"
         ],
 
         // error

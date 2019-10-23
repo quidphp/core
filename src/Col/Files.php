@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
+use Quid\Main;
 
 // files
 // abstract class extended by the media and medias cols
@@ -318,7 +319,7 @@ abstract class Files extends Core\ColAlias
 
         if($allowFileUpload === true || $isEmpty === false)
         {
-            $class = ($isEmpty === true)? 'empty':'notEmpty';
+            $class = ($isEmpty === true)? 'empty':'not-empty';
             $return .= Html::divOp(['block',$class]);
 
             if(is_int($i))
@@ -385,7 +386,7 @@ abstract class Files extends Core\ColAlias
         $table = $this->table();
         $file = ($hasIndex === true)? $value->file($index):$value->file();
         $exists = (!empty($file))? $file->isReadable():false;
-        $isImage = ($exists === true && $file instanceof Core\File\Image)? true:false;
+        $isImage = ($exists === true && $file instanceof Main\File\Image)? true:false;
         $basename = ($exists === true)? $file->basename():false;
         $download = $table->hasPermission('mediaDownload');
 
@@ -795,7 +796,7 @@ abstract class Files extends Core\ColAlias
     // checkFilesIndex
     // vérifier que les index du fichier files sont bien valides
     // l'exception est attrapable
-    public function checkFilesIndex(Core\Files $files):self
+    public function checkFilesIndex(Main\Files $files):self
     {
         $amount = $this->getAmount();
 

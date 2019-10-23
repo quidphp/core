@@ -59,7 +59,9 @@ class Fr extends Base\Lang\Fr
             'ago'=>'Il y a [value]',
             'loadMore'=>'Charger plus...',
             'captcha'=>"Entrer les caractères dans l'image",
-            'accessDenied'=>'Accès interdit'
+            'accessDenied'=>'Accès interdit',
+            'isEmpty'=>'Est vide',
+            'isNotEmpty'=>"N'est pas vide"
         ],
 
         // error

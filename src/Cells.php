@@ -35,21 +35,5 @@ class Cells extends Orm\Cells
 
         return $return;
     }
-
-
-    // getOverloadKeyPrepend
-    // retourne le prepend de la clé à utiliser pour le tableau overload
-    public static function getOverloadKeyPrepend():?string
-    {
-        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Cells':null;
-    }
-
-
-    // keyClassExtends
-    // retourne un tableau utilisé par onPrepareKey
-    public static function keyClassExtends():array
-    {
-        return [Cell::class,Col::class];
-    }
 }
 ?>

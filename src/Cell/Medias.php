@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\Cell;
 use Quid\Core;
+use Quid\Main;
 
 // medias
 // class to manage a cell containing a value which is a link to many files
@@ -110,7 +111,7 @@ class Medias extends FilesAlias
 
     // file
     // retourne l'objet fichier, peut retourner null
-    public function file(?int $index=null,$version=null):?Core\File
+    public function file(?int $index=null,$version=null):?Main\File
     {
         return $this->commonFile($index,$version);
     }
@@ -118,7 +119,7 @@ class Medias extends FilesAlias
 
     // checkFile
     // retourne l'objet fichier, envoie une exception si non existant
-    public function checkFile(?int $index=null,$version=null):Core\File
+    public function checkFile(?int $index=null,$version=null):Main\File
     {
         return $this->commonCheckFile($index,$version);
     }
@@ -134,7 +135,7 @@ class Medias extends FilesAlias
 
     // version
     // retourne un objet files avec toutes les versions pour un index, retourne null si pas de version
-    public function version(int $index):?Core\Files
+    public function version(int $index):?Main\Files
     {
         return $this->commonVersion($index);
     }
@@ -177,7 +178,7 @@ class Medias extends FilesAlias
 
     // process
     // lance le process de déplacement des médias lié
-    public function process(Core\Files $olds,Core\Files $news,array $regenerate,?array $option=null):void
+    public function process(Main\Files $olds,Main\Files $news,array $regenerate,?array $option=null):void
     {
         $this->unlinks($olds,$option);
 
@@ -219,9 +220,9 @@ class Medias extends FilesAlias
     // indexes
     // retourne un objet files avec tous les index de l'objet
     // possible de spécifier une version
-    public function indexes($version=null):Core\Files
+    public function indexes($version=null):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
         $indexes = $this->indexesExists($version);
 
         foreach ($indexes as $index)
@@ -256,9 +257,9 @@ class Medias extends FilesAlias
     // all
     // retourne un objet files avec toutes les index, les versions et l'original
     // possible d'exclure les versions
-    public function all(bool $addVersion=true):Core\Files
+    public function all(bool $addVersion=true):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
         $indexes = $this->indexes();
 
         foreach ($indexes as $index => $file)

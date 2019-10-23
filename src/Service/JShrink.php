@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Quid\Core\Service;
 use JShrink\Minifier;
-use Quid\Core;
+use Quid\Main;
 
 // jShrink
 // class that provides methods to use tedivm/jshrink for minifying JavaScript
-class JShrink extends Core\ServiceAlias
+class JShrink extends Main\Service
 {
     // config
     public static $config = [

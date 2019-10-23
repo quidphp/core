@@ -126,6 +126,7 @@ abstract class Boot extends Main\Root
         'extenders'=>[ // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
             'role'=>[Main\Roles::class,Role::class],
             'lang'=>[Main\Extender::class,Base\Config::class],
+            'file'=>[Main\Extender::class,Main\File::class],
             'service'=>[Main\Extender::class,Main\Service::class],
             'table'=>[Main\Extender::class,Table::class],
             'rows'=>[Main\Extender::class,Rows::class],
@@ -1115,7 +1116,15 @@ abstract class Boot extends Main\Root
         return $this->envType()['env'];
     }
 
-
+    
+    // envIndex
+    // retourne l'index de l'environnement courant
+    public function envIndex():int
+    {
+        return Base\Arr::search($this->env(),$this->envs());
+    }
+    
+    
     // type
     // retourne le type courant de l'application
     public function type():string
@@ -1123,7 +1132,15 @@ abstract class Boot extends Main\Root
         return $this->envType()['type'];
     }
 
-
+    
+    // typeIndex
+    // retourne l'index du type courant de l'application
+    public function typeIndex():int
+    {
+        return Base\Arr::search($this->type(),$this->types());
+    }
+    
+    
     // typePrimary
     // retourne le type primaire de l'application
     public function typePrimary():string
@@ -1713,39 +1730,38 @@ abstract class Boot extends Main\Root
             $config = (array) $this->attr('extenders');
             return $this->newExtenders($config);
         },$cache);
-
+        
         if($this->isFromCache())
         {
             $core = $extenders->get('core');
-            $core->extended()->alias(null,true);
-
-            foreach ($extenders as $extender)
-            {
-                $extender->overloadSync();
-            }
+            $core->extended()->alias();
+            $extenders->pair('overloadSync');
         }
 
         foreach ($extenders as $key => $extender)
         {
-            if($extender instanceof Routes)
+            if($extender instanceof Routing\Routes)
             $extender->setType($key,false);
 
             if($key !== 'core')
+            $extender->extended()->alias();
+
+            if($key === 'file')
+            $extender->pair('registerClass');
+                
+            if($cache === false)
             {
-                $extender->extended()->alias(null,true,true);
-
+                // ici vérifie qu'il n'y a pas d'objet non désiré dans le dossier core
+                if($key === 'core')
+                $extender->checkParentSameName();
+                
+                // vérifie l'extension des classes
+                $extender->checkExtend();
+                
                 // vérifie que toutes les classes sont des sous-classe de celle défini dans configuration
-                if($cache === false)
-                {
-                    $subClass = $this->attr(['extenders',$key,1]);
-
-                    if(is_string($subClass))
-                    {
-                        $notSubClass = $extender->notSubClassOf($subClass);
-                        if(!empty($notSubClass))
-                        static::throw($notSubClass,'notSubClassOf',$subClass);
-                    }
-                }
+                $subClass = $this->attr(['extenders',$key,1]);
+                if(is_string($subClass))
+                $extender->checkSubClassOf($subClass);
             }
         }
 
@@ -1769,40 +1785,14 @@ abstract class Boot extends Main\Root
     protected function newExtenders(array $config):Main\Extenders
     {
         $return = Main\Extenders::newOverload();
-        $currentKey = $this->name(true);
         $currentType = $this->type();
         $types = $this->types();
         $namespaces = static::extendersNamespaces();
-
-        $closure = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
-            if(is_string($key))
-            $ucKey = ucfirst($key);
-            $namespace = [];
-
-            foreach ($namespaces as $value)
-            {
-                $namespace[] = (!empty($key))? Base\Fqcn::append($value,$ucKey):$value;
-            }
-
-            return $class::newOverload($namespace,$option);
-        };
+        $closure = $this->newExtendersClosure();
 
         // core
         $core = $closure(Main\Extender::class,null,$namespaces);
-
-        // ici vérifie qu'il n'y a pas d'objet non désiré dans le dossier
-        foreach ($core as $key => $value)
-        {
-            if(!is_subclass_of($value,self::class,true))
-            {
-                $parent = get_parent_class($value);
-
-                if(empty($parent) || (Base\Fqcn::name($value) !== Base\Fqcn::name($parent)))
-                static::throw('namespaceIsForExtendingClass',$value,'shouldNotBeThere');
-            }
-        }
-
-        $core->extended()->alias(null,true);
+        $core->extended()->alias();
         $core->overload();
         $return->set('core',$core);
 
@@ -1812,9 +1802,9 @@ abstract class Boot extends Main\Root
         {
             $routeNamespace = $this->attr(['routeNamespace',$type]);
             if(!empty($routeNamespace))
-            $extender = $closure(Routes::class,null,$routeNamespace,$routeOption);
+            $extender = $closure(Routing\Routes::class,null,$routeNamespace,$routeOption);
             else
-            $extender = $closure(Routes::class,$type,$namespaces,$routeOption);
+            $extender = $closure(Routing\Routes::class,$type,$namespaces,$routeOption);
 
             if($type === $currentType)
             $extender->overload();
@@ -1831,12 +1821,7 @@ abstract class Boot extends Main\Root
             if(is_string($key) && is_array($value) && !empty($value))
             {
                 $class = current($value);
-                $option = [];
-                $option['exists'] = false;
-                $option['subClass'] = null;
-                $option['noSubDir'] = true;
-                $option['overloadKeyPrepend'] = ucfirst($key);
-
+                $option = array('noSubDir'=>true,'overloadKeyPrepend'=>ucfirst($key));
                 $extender = $closure($class,$key,$namespaces,$option);
                 $extender->overload();
                 $return->set($key,$extender);
@@ -1846,7 +1831,29 @@ abstract class Boot extends Main\Root
         return $return;
     }
 
+    
+    // newExtendersClosure
+    // retourne la closure pour l'objet extenders
+    protected function newExtendersClosure():\Closure 
+    {
+        $currentKey = $this->name(true);
+        $return = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
+            if(is_string($key))
+            $ucKey = ucfirst($key);
+            $namespace = [];
 
+            foreach ($namespaces as $value)
+            {
+                $namespace[] = (!empty($key))? Base\Fqcn::append($value,$ucKey):$value;
+            }
+
+            return $class::newOverload($namespace,$option);
+        };
+        
+        return $return;
+    }
+    
+    
     // extenders
     // retourne l'objet extenders
     public function extenders():Main\Extenders
@@ -1858,7 +1865,7 @@ abstract class Boot extends Main\Root
     // routes
     // retourne l'objet routes de boot
     // peut retourner l'objet d'un type différent si fourni en argument
-    public function routes(?string $type=null):Routes
+    public function routes(?string $type=null):Routing\Routes
     {
         $return = null;
 
@@ -1874,7 +1881,7 @@ abstract class Boot extends Main\Root
     // routesActive
     // retourne l'objet routes de boot
     // mais seuls les routes actives sont incluses dans l'objet de retour
-    public function routesActive(?string $type=null):Routes
+    public function routesActive(?string $type=null):Routing\Routes
     {
         return $this->routes($type)->active();
     }
@@ -1911,7 +1918,7 @@ abstract class Boot extends Main\Root
 
                     if($table->isColsReady())
                     {
-                        $content = $langRow::grabContent($value,$this->type());
+                        $content = $langRow::grabContent($value,$this->typeIndex());
                         if(!empty($content))
                         $return = Base\Arrs::replace($return,$content);
                     }
@@ -2066,7 +2073,7 @@ abstract class Boot extends Main\Root
             $redirectionRow = $this->attr('redirectionRow');
             if(is_string($redirectionRow) && $this->hasDb() && $this->db()->hasTable($redirectionRow))
             {
-                $content = $redirectionRow::grabContent($this->type());
+                $content = $redirectionRow::grabContent($this->typeIndex());
                 if(!empty($content))
                 $redirection = Base\Arr::replace($redirection,$content);
             }

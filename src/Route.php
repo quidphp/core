@@ -277,14 +277,6 @@ abstract class Route extends Routing\Route
     {
         return [self::class,Routing\Route::class];
     }
-
-
-    // getOverloadKeyPrepend
-    // retourne le prepend de la clé à utiliser pour le tableau overload
-    public static function getOverloadKeyPrepend():?string
-    {
-        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Route':null;
-    }
 }
 
 // init

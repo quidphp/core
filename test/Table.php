@@ -29,10 +29,6 @@ class Table extends Base\Test
         // tableFromFqcn
         assert($tb::tableFromFqcn() === $tb);
 
-        // getOverloadKeyPrepend
-        assert($tb::getOverloadKeyPrepend() === 'Table');
-        assert(Core\Table::getOverloadKeyPrepend() === null);
-
         // route
         assert($tb->routeAttr('test') === null);
 
@@ -58,18 +54,14 @@ class Table extends Base\Test
         $rowLogEmail = Core\Row\LogEmail::class;
         assert($rowLogEmail::new(false,['what'=>'ok'])['status']->value() === 0);
         assert($rowLogEmail::new(true,['what'=>'ok'])['status']->value() === 1);
-        $array = ['test'=>Base\Str::loremIpsum(30)];
-        $sql = Core\Row\LogSql::log('insert',$array);
-        assert(!$sql['json']->isInvalidValue());
-        $array = ['test'=>Base\Str::loremIpsum(3000)];
-        $tooLong = Core\Row\LogSql::log('insert',$array);
-        assert($tooLong['json']->isInvalidValue());
 
         // orm
         assert($tb->rowsClass() === Core\Rows::class);
         assert($db->classe()->default('row') === Core\Row::class);
         assert(is_a($tb->rowClass(),Core\Row::class,true));
         assert($tb->classFqcn() === Suite\Table\OrmTable::class);
+        assert($tb::getOverloadKeyPrepend() === 'Table');
+        assert(Core\Table::getOverloadKeyPrepend() === null);
 
         // permission
         assert(Base\Arrs::is($tb->permissionAll()));

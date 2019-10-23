@@ -29,8 +29,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
-            'type'=>['general'=>true,'relation'=>'logHttpType'],
-            'json'=>['class'=>Core\Col\JsonExport::class]],
+            'type'=>['general'=>true,'relation'=>'logHttpType']],
         'permission'=>[
             'nobody'=>['insert'=>true],
             'shared'=>['insert'=>true],

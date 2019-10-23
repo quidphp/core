@@ -34,8 +34,8 @@ class Db extends Base\Test
         assert(is_a($tb->classe()->col('id'),Core\Col\Primary::class,true));
         assert($db['ormCell']->classe()->col($db['ormCell']['active']) === Core\Col\Active::class);
         assert($tb->classe()->col('dateAdd') === Core\Col\DateAdd::class);
-        assert($db['ormCol']->classe()->col('myRelation') === Core\Col\Enum::class);
-        assert($db['ormCol']->classe()->col('user_id') === Core\Col\Enum::class);
+        assert(is_a($db['ormCol']->classe()->col('myRelation'),Core\Col\Enum::class,true));
+        assert(is_a($db['ormCol']->classe()->col('user_id'),Core\Col\Enum::class,true));
         assert($db['ormCol']->classe()->col('user_ids') === Suite\Col\UserIds::class);
         assert($tb->classe()->cell($tb['id']) === Core\Cell\Primary::class);
         assert($db['user']->classe()->cell('role') === Core\Cell\Enum::class);

@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
+use Quid\Main;
 
 // medias
 // class to work with a column containing a value which is a link to many files
@@ -91,16 +92,16 @@ class Medias extends FilesAlias
         if(is_array($value) && $this->allowFileUpload())
         $value = $this->onSetFileUpload($value,$indexes);
 
-        if($value instanceof Core\Files)
+        if($value instanceof Main\Files)
         {
             $this->checkFilesIndex($value);
-            $news = Core\Files::newOverload();
-            $olds = Core\Files::newOverload();
+            $news = Main\Files::newOverload();
+            $olds = Main\Files::newOverload();
             $regenerate = [];
 
             if(!empty($cell))
             {
-                $return = Core\Files::newOverload();
+                $return = Main\Files::newOverload();
 
                 foreach($this->indexRange() as $i)
                 {
@@ -177,14 +178,14 @@ class Medias extends FilesAlias
 
     // onSetFileUpload
     // gère le onSet si c'est upload fichier (array dans $_FILES)
-    protected function onSetFileUpload(array $array,?Core\Files $indexes):?Core\Files
+    protected function onSetFileUpload(array $array,?Main\Files $indexes):?Main\Files
     {
         $return = null;
         $value = null;
 
         if(Base\Column::is($array) && Base\File::isUploadArray(...array_values($array)))
         {
-            $return = Core\Files::newOverload();
+            $return = Main\Files::newOverload();
 
             foreach ($array as $k => $v)
             {

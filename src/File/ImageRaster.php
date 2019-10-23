@@ -8,28 +8,17 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
-use Quid\Base;
+use Quid\Main;
 use Quid\Core;
 
 // imageRaster
 // class for a pixelated image file
-class ImageRaster extends ImageAlias
+class ImageRaster extends Main\File\ImageRaster
 {
     // config
     public static $config = [
-        'group'=>'imageRaster',
         'service'=>Core\Service\ClassUpload::class
     ];
-
-
-    // captcha
-    // écrit un captcha dans le fichier image
-    public function captcha(string $value,?string $font=null,?array $option=null):self
-    {
-        Base\ImageRaster::captcha($value,$font,$this->resource(),$option);
-
-        return $this;
-    }
 
 
     // getServiceClass

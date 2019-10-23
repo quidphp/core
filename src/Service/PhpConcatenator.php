@@ -14,7 +14,7 @@ use Quid\Main;
 
 // phpConcatenator
 // class used for concatenating a bunch of php files within a single one
-class PhpConcatenator extends Core\ServiceAlias
+class PhpConcatenator extends Main\Service
 {
     // config
     public static $config = [

@@ -26,8 +26,6 @@ class Rows extends Base\Test
         $tb = $db->table($table);
         $rows = $tb->rows();
 
-        // getOverloadKeyPrepend
-
         // tableFromFqcn
         assert($rows::tableFromFqcn() instanceof Suite\Table\OrmDb);
 

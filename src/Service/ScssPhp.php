@@ -9,10 +9,11 @@ declare(strict_types=1);
 
 namespace Quid\Core\Service;
 use Quid\Core;
+use Quid\Main;
 
 // scssPhp
 // class that grants methods to use scssphp/scssphp for compiling scss files
-class ScssPhp extends Core\ServiceAlias
+class ScssPhp extends Main\ServiceAlias
 {
     // config
     public static $config = [

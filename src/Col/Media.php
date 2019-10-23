@@ -11,6 +11,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
 use Quid\Orm;
+use Quid\Main;
 
 // media
 // class to work with a column containing a value which is a link to a file
@@ -71,9 +72,9 @@ class Media extends FilesAlias
             $value = $array['value'];
         }
 
-        if($value instanceof Core\File)
+        if($value instanceof Main\File)
         {
-            $old = Core\Files::newOverload();
+            $old = Main\Files::newOverload();
             $regenerate = false;
             $basename = $value->mimeBasename($value->getOption('uploadBasename'));
             $return = Base\Path::safeBasename($basename);
@@ -95,7 +96,7 @@ class Media extends FilesAlias
                     elseif($action === 'regenerate')
                     {
                         $cell->checkCanBeRegenerated();
-                        $old = Core\Files::newOverload();
+                        $old = Main\Files::newOverload();
                         $value = null;
                         $regenerate = true;
                         $return = $cell->value();
@@ -104,7 +105,7 @@ class Media extends FilesAlias
             }
 
             $this->setCommittedCallback('getNewFiles',function() use($value) {
-                return Core\Files::newOverload($value);
+                return Main\Files::newOverload($value);
             });
 
             $this->setCommittedCallback('onCommitted',function(Core\Cell $cell) use($old,$value,$regenerate,$option) {
@@ -129,7 +130,7 @@ class Media extends FilesAlias
         {
             $action = $array['action'] ?? null;
             $name = Base\File::uploadBasename($array);
-            $value = Core\File::new($array);
+            $value = Main\File::new($array);
             $value->setOption('uploadBasename',$name);
             $value->setOption('uploadDeleteSource',true);
 

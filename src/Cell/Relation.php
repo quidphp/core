@@ -101,11 +101,10 @@ abstract class Relation extends Core\CellAlias
         if(!empty($relation))
         {
             $col = $this->col();
-            $max = $this->attr('generalMax');
-            $route = $this->routeClassSafe('specific');
+            $max = $col->attr('generalMax');
             $total = count($relation);
             $separator = ', ';
-            $array = $col->makeRelationPlainArray($relation,$max,$route);
+            $array = $col->prepareRelationPlainGeneral($relation);
 
             if(!empty($array))
             {

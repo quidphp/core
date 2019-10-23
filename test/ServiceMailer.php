@@ -36,9 +36,6 @@ class ServiceMailer extends Base\Test
         $msg3 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>$user['email'],'from'=>$from];
         $msg4 = ['subject'=>'Test','body'=>'<b>what</b>','to'=>[$to=>'Pierre'],'from'=>['james@test.com'=>'NAME']];
 
-        // getLangCode
-        assert($mailer->getLangCode() === 'en');
-
         // getOverloadKeyPrepend
 
         // phpMailer

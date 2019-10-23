@@ -24,11 +24,10 @@ abstract class Relation extends Core\ColAlias
         'onSet'=>[Base\Set::class,'onSet'],
         'generalExcerptMin'=>null,
         'check'=>['null'=>true], // les relations doivent être nullables
-        'relationSearchRequired'=>false, // custom
         'inRelation'=>true,
-        'excerpt'=>100,
         'generalMax'=>3,
         'sortable'=>null,
+        'relationHtml'=>"<div class='choice'><div class='choice-in'>%</div></div>", // html pour la relation
         'route'=>[ // route à ajouter
             'specific'=>null,
             'specificRelation'=>null]
@@ -78,7 +77,7 @@ abstract class Relation extends Core\ColAlias
         };
     }
 
-
+    
     // isSortable
     // retourne vrai si la relation est sortable
     public function isSortable():bool
@@ -198,7 +197,7 @@ abstract class Relation extends Core\ColAlias
         $mode = $rel->mode();
         $size = $rel->size();
         $lang = $this->db()->lang();
-
+        
         $route = $this->route('specificRelation',['table'=>$this->table(),'col'=>$this,'selected'=>true]);
         $query = $route::getSearchQuery();
 
@@ -257,13 +256,14 @@ abstract class Relation extends Core\ColAlias
         $relation = $rel->getKeyValue($value);
         $option = (array) $option;
         $option = $this->prepareChoiceOption($option,false);
-        $isSet = $this->isSet();
 
         if(is_array($relation) && !empty($relation))
         {
-            $attr = Base\Arr::plus($attr,['tag'=>'checkbox']);
+            $tag = ($this->isSet())? 'checkbox':'radio';
+            $attr = Base\Arr::plus($attr,['tag'=>$tag]);
             $option = Base\Arr::plus($option,['value'=>$value]);
-            $relation = $this->valueComplexExcerpt($relation);
+            $relation = $this->valueExcerpt($relation);
+            $relation = $this->prepareRelationRadioCheckbox($relation);
             $return = $this->formComplexOutput($relation,$attr,$option);
         }
 
@@ -282,14 +282,17 @@ abstract class Relation extends Core\ColAlias
         $attr = Base\Arr::plus($attr,['tag'=>$tag]);
         $option = Base\Arr::plus($option,['value'=>$value]);
         $relation = $this->prepareStandardRelation($value);
-
+        $relation = $this->valueExcerpt($relation);
+        
         if($tag === 'select' && !array_key_exists('title',$option))
         $option['title'] = true;
 
-        elseif(in_array($tag,['radio','checkbox'],true))
-        $option = $this->prepareChoiceOption($option,true);
-
-        $relation = $this->valueComplexExcerpt($relation);
+        if(in_array($tag,['radio','checkbox'],true))
+        {
+            $option = $this->prepareChoiceOption($option,true);
+            $relation = $this->prepareRelationRadioCheckbox($relation);
+        }
+        
         $return .= $this->formComplexOutput($relation,$attr,$option);
 
         return $return;
@@ -314,8 +317,8 @@ abstract class Relation extends Core\ColAlias
     protected function prepareChoiceOption(array $return,bool $autoHidden=false):array
     {
         $return['autoHidden'] = $autoHidden;
-        $return['html'] = ['div','choice'];
-
+        $return['html'] = $this->attr('relationHtml');
+        
         return $return;
     }
 
@@ -336,9 +339,8 @@ abstract class Relation extends Core\ColAlias
 
             if(!empty($value))
             {
-                $route = $this->routeClassSafe('specific',true);
-                $value = $this->valueComplexExcerpt($value);
-                $value = $this->makeRelationPlainArray($value,null,$route);
+                $value = $this->valueExcerpt($value);
+                $value = $this->prepareRelationPlainGeneral($value);
                 $value = $this->relationPlainHtml($value);
                 $return .= $this->formComplexOutput($value,$attr,$option);
             }
@@ -350,7 +352,7 @@ abstract class Relation extends Core\ColAlias
 
             if($value !== null)
             {
-                $value = $this->valueComplexExcerpt($value);
+                $value = $this->valueExcerpt($value);
 
                 if(!Base\Html::isFormTag($tag))
                 $value = $this->relationPlainHtml($value);
@@ -383,64 +385,39 @@ abstract class Relation extends Core\ColAlias
         return $return;
     }
 
-
-    // makeRelationPlainArray
-    // méthode utilisé pour préparer l'affichage des relations plains (sans formulaire)
-    public function makeRelationPlainArray(array $array,?int $max=null,?string $route=null):array
+    
+    // prepareRelationRadioCheckbox
+    // méthode utilisé lors de la préparation d'une valeur relation radio ou checkbox, incluant search
+    protected function prepareRelationRadioCheckbox(array $return):array 
     {
-        $return = [];
-
-        if(!empty($array))
-        {
-            $relation = $this->relation();
-            $table = null;
-            $i = 0;
-
-            if($relation->isRelationTable())
-            $table = $relation->relationTable();
-
-            foreach ($array as $key => $value)
-            {
-                if(is_scalar($value))
-                {
-                    if($max === null || $i < $max)
-                    {
-                        if(is_int($key) && !empty($table) && !empty($route) && $table->hasPermission('view'))
-                        {
-                            $route = $route::makeOverload(['table'=>$table,'primary'=>$key]);
-                            $return[] = $route->a($value);
-                        }
-
-                        else
-                        $return[] = $value;
-
-                        $i++;
-                    }
-
-                    else
-                    break;
-                }
-            }
-        }
-
         return $return;
     }
-
-
-    // valueComplexExcerpt
-    // créer une version résumé de chaque relation si la longueur dépasse l'attribut excerpt
-    public function valueComplexExcerpt($return)
+    
+    
+    // prepareRelationPlainGeneral
+    // méthode utilisé pour préparer l'affichage des relations plains (sans formulaire)
+    // retourne au maximum le generalMax
+    public function prepareRelationPlainGeneral(array $array):array
     {
-        $excerpt = $this->attr('excerpt');
-        if(is_int($excerpt))
+        $return = [];
+        $max = $this->attr('generalMax');
+        $i = 0;
+        
+        foreach ($array as $key => $value)
         {
-            if(is_array($return))
-            $return = Base\Arr::valuesExcerpt($excerpt,$return);
-
-            elseif(is_string($return))
-            $return = Base\Str::excerpt($excerpt,$return,['mb'=>true]);
+            if(is_scalar($value))
+            {
+                if($max === null || $i < $max)
+                {
+                    $return[$key] = $value;
+                    $i++;
+                }
+                
+                else
+                break;
+            }
         }
-
+        
         return $return;
     }
 }

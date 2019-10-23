@@ -10,11 +10,12 @@ declare(strict_types=1);
 namespace Quid\Core\Service;
 use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 use Verot\Upload;
 
 // classUpload
 // class that provides methods to use verot/class.upload.php for resizing images
-class ClassUpload extends Core\ServiceAlias
+class ClassUpload extends Main\Service
 {
     // config
     public static $config = [
@@ -40,7 +41,7 @@ class ClassUpload extends Core\ServiceAlias
         $return = false;
         $option = Base\Arr::plus($this->option(),$option);
 
-        if($source instanceof Core\File\Image && $source->isFileExists())
+        if($source instanceof Main\File\Image && $source->isFileExists())
         $source = $source->path();
 
         if(!is_string($source) || !Base\File::is($source))

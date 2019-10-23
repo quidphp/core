@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Cell;
 use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 
 // media
 // class to work with a cell containing a value which is a link to a file
@@ -103,7 +104,7 @@ class Media extends FilesAlias
 
     // file
     // retourne l'objet fichier
-    public function file($version=null):?Core\File
+    public function file($version=null):?Main\File
     {
         return $this->commonFile(null,$version);
     }
@@ -111,7 +112,7 @@ class Media extends FilesAlias
 
     // checkFile
     // retourne l'objet fichier, envoie une exception si non existant
-    public function checkFile($version=null):Core\File
+    public function checkFile($version=null):Main\File
     {
         return $this->commonCheckFile(null,$version);
     }
@@ -127,7 +128,7 @@ class Media extends FilesAlias
 
     // version
     // retourne un objet files avec toutes les versions, retourne null si pas de version
-    public function version():?Core\Files
+    public function version():?Main\Files
     {
         return $this->commonVersion();
     }
@@ -159,7 +160,7 @@ class Media extends FilesAlias
 
     // process
     // lance le process de déplacement du média lié
-    public function process(Core\Files $olds,?Core\File $new=null,bool $regenerate=false,?array $option=null):void
+    public function process(Main\Files $olds,?Main\File $new=null,bool $regenerate=false,?array $option=null):void
     {
         $this->unlinks($olds,$option);
 
@@ -175,9 +176,9 @@ class Media extends FilesAlias
 
     // all
     // retourne un objet files avec toutes les versions et l'original, possible d'exclure les versions
-    public function all(bool $addVersion=true):Core\Files
+    public function all(bool $addVersion=true):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
         $path = $this->filePath();
 
         if(is_string($path) && Base\File::is($path))

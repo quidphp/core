@@ -28,8 +28,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
         'parent'=>'system',
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
-            'status'=>['general'=>true,'relation'=>'queueEmailStatus'],
-            'json'=>['class'=>Core\Col\JsonExport::class]],
+            'status'=>['general'=>true,'relation'=>'queueEmailStatus']],
         'permission'=>[
             'nobody'=>['insert'=>true],
             'shared'=>['insert'=>true],

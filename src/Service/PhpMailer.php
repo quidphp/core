@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Quid\Core\Service;
 use Quid\Base;
-use Quid\Core;
 use Quid\Main;
+use Quid\Core;
 
 // phpMailer
 // class that provides methods to use phpmailer/phpmailer in order to send emails

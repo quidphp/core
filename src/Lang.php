@@ -324,7 +324,7 @@ class Lang extends Main\Lang
     // envoie une exception si le retour est toujours null
     // le tableau des relations est maintenant sort par valeur de clé
     // possible de sort le résultat, par défaut true
-    public function relation($value=null,?string $lang=null,bool $sort=true)
+    public function relation($value=null,?string $lang=null,bool $sort=false)
     {
         $return = $this->take(static::getPath('relation',$value),$lang);
 

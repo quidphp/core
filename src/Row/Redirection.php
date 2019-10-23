@@ -32,8 +32,8 @@ class Redirection extends Core\RowAlias
 
     // grabContent
     // retourne un tableau de tous les contenus de redirection pertinente
-    // il faut fournir un un type
-    public static function grabContent(string $type):array
+    // il faut fournir un un type (index)
+    public static function grabContent(int $type):array
     {
         $return = [];
         $table = static::tableFromFqcn();

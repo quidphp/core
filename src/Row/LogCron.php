@@ -28,7 +28,7 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
         'cols'=>[
             'route'=>['required'=>true,'general'=>true],
             'context'=>['class'=>Core\Col\Context::class],
-            'json'=>['class'=>Core\Col\JsonExport::class,'required'=>true]],
+            'json'=>['required'=>true]],
         'permission'=>[
             'nobody'=>['insert'=>true],
             'shared'=>['insert'=>true],

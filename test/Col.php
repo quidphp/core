@@ -36,24 +36,19 @@ class Col extends Base\Test
         $multi = $tb['multi'];
         $check = $tb['check'];
         $media = $tb['media'];
-        $phone = $tb['phone'];
         $passwordReset = $db['user']['passwordReset'];
-        $slug = $tb['slug_fr'];
         $storage = $tb['storage'];
         $row = $tb[1];
         $medias = $tb['medias'];
-        $jsonArray = $tb['json'];
-
+        
         // generalCurrentLang
         assert(Core\Col::generalCurrentLang($col) === false);
-
-        // getOverloadKeyPrepend
-        assert($password::getOverloadKeyPrepend() === 'Col');
 
         // orm
         assert($col instanceof Core\Col);
         assert($row instanceof Suite\Row\OrmCol);
-
+        assert($password::getOverloadKeyPrepend() === 'Col');
+        
         // route
 
         // colCell
@@ -72,9 +67,7 @@ class Col extends Base\Test
         // active
         assert($active->onGet(1,[]) === 1);
         assert($active->complexTag() === 'checkbox');
-        assert(strlen($active->formComplex()) === 175);
-
-        // auto
+        assert(strlen($active->formComplex()) === 204);
 
         // boolean
 
@@ -92,7 +85,21 @@ class Col extends Base\Test
         assert($date->valueComplex(mktime(0,0,0,8,8,1984)) === '08-08-1984');
         assert($date::makeDateFormat(true) === 'F j, Y');
         assert($date::allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
-
+        assert($date->dateMin() === null);
+        assert($date->dateMax() === null);
+        assert($date->dateDaysDiff() === null);
+        assert($date->dateDaysDiffFilterMethod() === 'or|day');
+        assert($date->daysIn() === array());
+        assert($date->monthsIn() === array());
+        assert($date->yearsIn() === array());
+        assert($dateAdd->dateMin() === 10);
+        assert($dateAdd->dateMax() === 20);
+        assert($dateAdd->dateDaysDiff() === 0);
+        assert($dateAdd->dateDaysDiffFilterMethod() === 'or|day');
+        assert(count($dateAdd->daysIn()) === 1);
+        assert(count($dateAdd->monthsIn()) === 1);
+        assert(count($dateAdd->yearsIn()) === 1);
+        
         // dateAdd
         assert($dateAdd->date() === 'long');
 
@@ -106,36 +113,18 @@ class Col extends Base\Test
 
         // enum
         assert($lang->complexTag() === 'radio');
-        assert(strlen($lang->formComplex()) === 555);
-        assert(strlen($lang->formComplex(3)) === 573);
+        assert(strlen($lang->formComplex()) === 642);
+        assert(strlen($lang->formComplex(3)) === 660);
 
         // error
-
-        // excerpt
 
         // files
 
         // floating
 
-        // fragment
-
         // integer
 
         // json
-
-        // jsonArray
-        assert($jsonArray instanceof Core\Col\JsonArray);
-        assert($jsonArray->required(null) === 'required');
-        assert($jsonArray->required([]) === 'required');
-        assert($jsonArray->required('') === 'required');
-        assert($jsonArray->completeValidation(null) === ['required']);
-        assert(count($jsonArray->completeValidation([])) === 3);
-        assert($jsonArray->completeValidation('') === ['required']);
-        assert($jsonArray->completeValidation(Base\Json::encode(['test'])) === true);
-
-        // jsonArrayRelation
-
-        // jsonExport
 
         // media + medias
         assert($media instanceof Core\Col\Media);
@@ -166,10 +155,6 @@ class Col extends Base\Test
         assert($media::defaultVersionExtension() === ['jpg','png']);
         assert($media::defaultConvertExtension() === 'jpg');
 
-        // phone
-        assert($phone instanceof Core\Col\Phone);
-        assert($phone->onGet(5144839999,[]) === '(514) 483-9999');
-
         // pointer
 
         // primary
@@ -192,25 +177,14 @@ class Col extends Base\Test
         assert(strlen($multi->formComplex(2)) === 165);
         assert(strlen($multi->formComplex([2,5])) === 185);
 
-        // slug
-        assert($slug instanceof Core\Col\Slug);
-        assert($slug->onSet('dasasd dsaasd asddas',[],null,[]) === 'dasasd dsaasd asddas');
-        assert($slug->onSet(null,['name_en'=>'OK'],null,[]) === null);
-        assert(is_array($slug->slugAttr()));
-        assert($slug->slugDateConvert('date','12-05-2018') === '2018-12-05');
-        assert($slug->slugDo('lol') === false);
-        assert($slug->slugUnique('blabla'));
-        assert($slug->slugKeyFromArr(['name'=>'james']) === 'james');
-        assert($slug->slugKeyFromArr(['name_fr'=>'jamesFr','name_en'=>'jamesEn']) === 'jamesFr');
-        assert($slug->slugAddNow('blabla') !== 'blabla');
-        assert($slug->slugDateFirst() === 'ymd');
-
-        // slugPath
-
-        // textarea
-
         // timezone
-
+        
+        // uri
+        
+        // uriAbsolute
+        
+        // uriRelative
+        
         // userActive
 
         // userAdd
@@ -231,8 +205,6 @@ class Col extends Base\Test
         assert(strlen($passwordReset->onGet('dssddsa',[])) === 40);
 
         // userRole
-
-        // video
 
         // yes
 

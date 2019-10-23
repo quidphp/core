@@ -24,15 +24,6 @@ class Active extends YesAlias
     {
         return;
     }
-
-
-    // classHtml
-    // retourne la classe à utiliser en html pour active
-    public function classHtml():string
-    {
-        $class = parent::class;
-        return $class::className(true);
-    }
 }
 
 // init

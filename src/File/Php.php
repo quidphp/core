@@ -8,24 +8,23 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
+use Quid\Main;
 use Quid\Core;
 
 // php
 // class for a php file
-class Php extends TextAlias
+class Php extends Main\File\Php
 {
     // config
-    public static $config = [
-        'group'=>'php'
-    ];
+    public static $config = [];
 
 
     // concatenateMany
     // permet de concatener du php à partir de namespace
     // ceci ne peut pas être fait si le autoload est en mode preload
-    public static function concatenateMany(array $array):Core\Files
+    public static function concatenateMany(array $array):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
 
         foreach ($array as $arr)
         {
@@ -37,7 +36,7 @@ class Php extends TextAlias
                 if(!empty($target))
                 {
                     $service = Core\Service\PhpConcatenator::class;
-                    $target = Core\File::newCreate($target);
+                    $target = Main\File::newCreate($target);
                     if($target instanceof self)
                     {
                         $compiler = new $service(__METHOD__,$option);

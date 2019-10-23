@@ -28,8 +28,7 @@ class Log extends Core\RowAlias implements Main\Contract\Log
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
-            'type'=>['general'=>true,'relation'=>'logType'],
-            'json'=>['class'=>Core\Col\JsonExport::class]],
+            'type'=>['general'=>true,'relation'=>'logType']],
         'permission'=>[
             'nobody'=>['insert'=>true],
             'shared'=>['insert'=>true],

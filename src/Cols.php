@@ -35,21 +35,5 @@ class Cols extends Orm\Cols
 
         return $return;
     }
-
-
-    // getOverloadKeyPrepend
-    // retourne le prepend de la clé à utiliser pour le tableau overload
-    public static function getOverloadKeyPrepend():?string
-    {
-        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Cols':null;
-    }
-
-
-    // keyClassExtends
-    // retourne un tableau utilisé par onPrepareKey
-    public static function keyClassExtends():array
-    {
-        return [Col::class,Cell::class];
-    }
 }
 ?>

@@ -24,22 +24,6 @@ abstract class ServiceMailer extends Main\ServiceMailer
         'queue'=>Row\QueueEmail::class,
         'log'=>Row\LogEmail::class
     ];
-
-
-    // getLangCode
-    // retourne le code courant de la langue
-    public static function getLangCode():string
-    {
-        return static::lang()->currentLang();
-    }
-
-
-    // getOverloadKeyPrepend
-    // retourne le prepend de la clé à utiliser pour le tableau overload
-    public static function getOverloadKeyPrepend():?string
-    {
-        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Service':null;
-    }
 }
 
 // init

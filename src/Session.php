@@ -25,6 +25,7 @@ class Session extends Main\Session
     public static $config = [
         'option'=>[
             'userClass'=>Row\User::class, // classe row de l'utilisateur
+            'historyClass'=>Routing\RequestHistory::class, // classe de l'historique de requête
             'userDefault'=>null, // définit le user par défaut (à l'insertion)
             'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
             'loginLifetime'=>3600, // durée du login dans une session
@@ -652,13 +653,13 @@ class Session extends Main\Session
     {
         $return = null;
         $routeClass = $table->routeClass($key,true);
-
+        
         if($nav === true)
         {
             $nav = $this->nav();
             $return = $nav->route([$routeClass,$table]);
         }
-
+        
         if(empty($return) || !$return->isValidSegment())
         {
             $segments = [$segment=>$table];

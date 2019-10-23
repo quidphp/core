@@ -51,7 +51,7 @@ class Route extends Base\Test
         assert(is_string($contact::schemeHost()));
 
         // routes
-        assert($contact::routes() instanceof Core\Routes);
+        assert($contact::routes() instanceof Routing\Routes);
 
         // tableSegment
 
@@ -63,8 +63,6 @@ class Route extends Base\Test
 
         // routeBaseClasses
         assert(count($contact::routeBaseClasses()) === 2);
-
-        // getOverloadKeyPrepend
 
         // routing
         assert(is_array($contactMake->permissionRole(Core\Role\Admin::class)));

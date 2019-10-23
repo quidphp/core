@@ -14,11 +14,10 @@ use Quid\Main;
 
 // js
 // class for a js file
-class Js extends TextAlias
+class Js extends Main\File\Js
 {
     // config
     public static $config = [
-        'group'=>'js',
         'service'=>Core\Service\JShrink::class
     ];
 
@@ -63,9 +62,9 @@ class Js extends TextAlias
     // concatenate
     // permet de concatener un ou plusieurs dossiers avec fichiers js
     // possible aussi de minifier
-    public static function concatenateMany(array $value,?array $option=null):Core\Files
+    public static function concatenateMany(array $value,?array $option=null):Main\Files
     {
-        $return = Core\Files::newOverload();
+        $return = Main\Files::newOverload();
 
         foreach ($value as $to => $from)
         {
@@ -73,7 +72,7 @@ class Js extends TextAlias
             {
                 if(Base\Dir::isOlderThanFrom($to,$from,['visible'=>true,'extension'=>'js']))
                 {
-                    $to = Core\File::newCreate($to);
+                    $to = Main\File::newCreate($to);
 
                     if($to instanceof self)
                     $to->concatenateFrom($from,$option);

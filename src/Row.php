@@ -119,13 +119,5 @@ class Row extends Orm\Row
     {
         return static::tableFromFqcn()->insert($set,$option);
     }
-
-
-    // getOverloadKeyPrepend
-    // retourne le prepend de la clé à utiliser pour le tableau overload
-    public static function getOverloadKeyPrepend():?string
-    {
-        return (static::class !== self::class && !Base\Fqcn::sameName(static::class,self::class))? 'Row':null;
-    }
 }
 ?>

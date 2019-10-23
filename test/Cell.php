@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 use Quid\Orm;
 
 // cell
@@ -29,7 +30,7 @@ class Cell extends Base\Test
         $_file_ = Base\Finder::normalize('[assertCommon]/class.php');
         $public = '[storagePublic]/storage/ormCell';
         $mediaJpg = '[assertMedia]/jpg.jpg';
-        $image = Core\File::new($mediaJpg);
+        $image = Main\File::new($mediaJpg);
         assert(Base\Dir::reset($public));
         $primary = $row->cell('id');
         $integer = $row->cell('integer');
@@ -45,15 +46,13 @@ class Cell extends Base\Test
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
 
-        // getOverloadKeyPrepend
-        assert($dateAdd::getOverloadKeyPrepend() === 'Cell');
-
         // orm
         assert(is_array($dateAdd->permissionRole(new Core\Role\Admin())));
         assert($primary instanceof Core\Cell\Primary);
         assert($integer instanceof Core\Cell\Integer);
         assert($dateAdd->set(1234235434) === $dateAdd);
-
+        assert($dateAdd::getOverloadKeyPrepend() === 'Cell');
+        
         // date
         assert($dateAdd instanceof Core\Cell\Date);
         assert($date instanceof Core\Cell\Date);
@@ -119,11 +118,7 @@ class Cell extends Base\Test
         assert($integer->set(null)->increment()->value() === 1);
         assert($integer->set(true) === $integer);
         assert($integer->value() === 1);
-
-        // jsonArray
-
-        // jsonArrayRelation
-
+        
         // media + medias
         assert($media instanceof Core\Cell\Media);
         assert(is_string($media->rootPath()));
@@ -133,12 +128,12 @@ class Cell extends Base\Test
         assert(is_string($media->basePath()));
         assert($media->filePath() === null);
         assert($media->fileExists() === false);
-        $tmp = Core\File::new(Base\File::prefix(null));
-        $tmp2 = Core\File::new(Base\File::prefix(null));
+        $tmp = Main\File::new(Base\File::prefix(null));
+        $tmp2 = Main\File::new(Base\File::prefix(null));
         assert($media->set($tmp) === $media);
         assert($media->row()->updateChangedIncluded() === 1);
         assert(is_string($media->basename()));
-        assert($media->file() instanceof Core\File\Txt);
+        assert($media->file() instanceof Main\File\Txt);
         assert(!$media->file()->isMimeFamily('image'));
         assert($media->file()->size() === 0);
         assert($media->file()->extension() === 'txt');
@@ -156,11 +151,11 @@ class Cell extends Base\Test
             assert($media->set($tmp2) === $media);
             assert($media->row()->updateChangedIncluded() === 1);
         }
-
+        
         assert($thumbnail->set($image) === $thumbnail);
         assert($thumbnail->row()->updateChangedIncluded() === 1);
         assert($medias instanceof Core\Cell\Medias);
-        $files = Core\Files::newOverload();
+        $files = Main\Files::newOverload();
         $files->sets([2=>$_file_,3=>$_file_]);
         assert($medias->set($files));
         assert($medias->basename(2) === 'class.php');
@@ -177,7 +172,7 @@ class Cell extends Base\Test
         assert(!$medias->file(2)->isMimeFamily('image'));
         assert($medias->indexes()->isCount(2));
         assert($medias->all()->isCount(2));
-        $files = Core\Files::newOverload();
+        $files = Main\Files::newOverload();
         $files->sets([2=>$image,4=>$image]);
         assert($thumbnails->set($files) === $thumbnails);
         assert($thumbnails->row()->updateChangedIncluded() === 1);
@@ -220,8 +215,6 @@ class Cell extends Base\Test
         assert($userIds->relationTable() instanceof Core\Table);
 
         // userPasswordReset
-
-        // video
 
         // cleanup
         Base\File::unlinks($tmp,$tmp2);

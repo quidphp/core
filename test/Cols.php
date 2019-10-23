@@ -24,12 +24,7 @@ class Cols extends Base\Test
         $tb = $db[$table];
         $cols = $tb->cols();
 
-        // getOverloadKeyPrepend
-        assert($cols::getOverloadKeyPrepend() === null);
-
         // tableFromFqcn
-
-        // keyClassExtends
 
         // orm
         assert($db['session']->cols()->get(Core\Col\DateAdd::class) instanceof Core\Col\DateAdd);

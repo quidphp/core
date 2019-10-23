@@ -28,8 +28,7 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
-            'status'=>['class'=>Core\Col\Boolean::class],
-            'json'=>['class'=>Core\Col\JsonExport::class]],
+            'status'=>['class'=>Core\Col\Boolean::class]],
         'permission'=>[
             'nobody'=>['insert'=>true],
             'shared'=>['insert'=>true],
