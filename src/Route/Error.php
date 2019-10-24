@@ -40,7 +40,20 @@ abstract class Error extends Core\RouteAlias
         return $this->output('outputHtml');
     }
 
-
+    
+    // onFallback
+    // sur fallback de la route error, il y a un problème
+    // ça indique que même la page erreur ne peut pas s'afficher
+    // ne trigger pas l'erreur car le log a probablement déjà été fait dans route/start
+    protected function onFallback($context=null) 
+    {
+        if($context instanceof \Exception)
+        $context->echoOutput();
+        
+        return;
+    }
+    
+    
     // showOutputHtml
     // retourne vrai s'il faut générer le output
     protected function showOutputHtml():bool
