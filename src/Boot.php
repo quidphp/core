@@ -605,7 +605,7 @@ abstract class Boot extends Main\Root
     {
         $return = null;
         $this->checkReady();
-        
+
         if($this->onLaunch() === true)
         {
             $request = $this->request();
@@ -629,7 +629,7 @@ abstract class Boot extends Main\Root
                     $once = true;
                     $run = $match->launch();
                     ['bool'=>$bool,'continue'=>$continue,'output'=>$output] = $run;
-                    
+
                     if($bool === true)
                     {
                         $return = $output;
