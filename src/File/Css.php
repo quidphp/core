@@ -100,7 +100,7 @@ class Css extends Main\File\Css
             if(is_string($to) && !empty($to) && !empty($from))
             {
                 $fromDir = Base\Dir::getDirFromFileAndDir($from);
-                if(Base\Dir::isOlderThanFrom($to,$fromDir,['visible'=>true,'extension'=>['css','scss']]))
+                if(Base\Dir::isOlderThanFrom($to,$fromDir,true,['visible'=>true,'extension'=>['css','scss']]))
                 {
                     $to = Main\File::newCreate($to);
 

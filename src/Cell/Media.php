@@ -142,14 +142,6 @@ class Media extends FilesAlias
     }
 
 
-    // generalOutput
-    // génère le output pour général
-    public function generalOutput(?array $option=null):string
-    {
-        return $this->commonGeneralOutput(null,$option);
-    }
-
-
     // downloadRoute
     // retourne la route pour le téléchargement
     public function downloadRoute():Core\Route

@@ -149,25 +149,6 @@ class Medias extends FilesAlias
     }
 
 
-    // generalOutput
-    // génère le output pour général, retourne seulement la première image de la cellule
-    public function generalOutput(?array $option=null):string
-    {
-        $return = '';
-        $col = $this->col();
-
-        foreach($col->indexRange() as $index)
-        {
-            $return .= $this->commonGeneralOutput($index,$option);
-
-            if(!empty($return))
-            break;
-        }
-
-        return $return;
-    }
-
-
     // downloadRoute
     // retourne la route pour le téléchargement
     public function downloadRoute(int $index):Core\Route

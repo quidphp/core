@@ -463,67 +463,6 @@ abstract class Files extends Core\CellAlias
     }
 
 
-    // commonGeneralOutput
-    // génère le output pour général
-    // retourne seulement la première image de la cellule
-    protected function commonGeneralOutput(?int $index=null,?array $option=null):string
-    {
-        $return = '';
-        $col = $this->col();
-        $table = $this->table();
-        $download = $table->hasPermission('mediaDownload');
-        $file = $original = $this->commonFile($index);
-
-        if(!empty($file))
-        {
-            $hasVersion = $this->hasVersion();
-            $isImage = ($file instanceof Main\File\Image)? true:false;
-            $value = $file->basename();
-            $value = Base\Str::excerpt(35,$value);
-            $legendLink = null;
-
-            $return .= Base\Html::divOp('media');
-
-            if($download === true)
-            {
-                $route = $this->downloadRoute($index);
-                $return .= $route->aOpen();
-            }
-
-            if($isImage === true)
-            {
-                if($hasVersion === true)
-                $file = $this->commonFile($index,-1);
-
-                if(!empty($file))
-                {
-                    $legendLink = $original->pathToUri();
-                    $img = Base\Html::img($file);
-                    if(!empty($img))
-                    $return .= Base\Html::div($img,'thumbnail');
-                }
-            }
-
-            else
-            {
-                $legendLink = $file->pathToUri();
-                $return .= Base\Html::div(null,'media-placeholder');
-            }
-
-            if($download === true)
-            $return .= Base\Html::aCl();
-
-            $return .= Base\Html::divOp('legend');
-            $return .= Base\Html::spanOr($legendLink,$value);
-            $return .= Base\Html::divCl();
-
-            $return .= Base\Html::divCl();
-        }
-
-        return $return;
-    }
-
-
     // export
     // retourne la valeur pour l'exportation de cellules media/medias
     public function export(?array $option=null):array

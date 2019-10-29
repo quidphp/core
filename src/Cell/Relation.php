@@ -89,37 +89,6 @@ abstract class Relation extends Core\CellAlias
     {
         return $this->colRelation()->relationTable();
     }
-
-
-    // generalOutput
-    // génère le output pour général
-    public function generalOutput(?array $option=null):?string
-    {
-        $return = null;
-        $relation = $this->relationKeyValue();
-
-        if(!empty($relation))
-        {
-            $col = $this->col();
-            $max = $col->attr('generalMax');
-            $total = count($relation);
-            $separator = ', ';
-            $array = $col->prepareRelationPlainGeneral($relation);
-
-            if(!empty($array))
-            {
-                $return = implode($separator,$array);
-
-                if($total > $max)
-                {
-                    $diff = ($total - $max);
-                    $return .= " (+$diff)";
-                }
-            }
-        }
-
-        return $return;
-    }
 }
 
 // init

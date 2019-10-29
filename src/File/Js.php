@@ -70,7 +70,7 @@ class Js extends Main\File\Js
         {
             if(is_string($to) && !empty($to) && !empty($from))
             {
-                if(Base\Dir::isOlderThanFrom($to,$from,['visible'=>true,'extension'=>'js']))
+                if(Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>'js']))
                 {
                     $to = Main\File::newCreate($to);
 
