@@ -18,6 +18,7 @@ class Json extends Core\ColAlias
     // config
     public static $config = [
         'search'=>false,
+        'filter'=>false,
         'panel'=>'admin',
         'onSet'=>[Base\Json::class,'onSet'],
         'onGet'=>[Base\Json::class,'onGet'],

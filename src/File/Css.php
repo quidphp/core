@@ -28,7 +28,7 @@ class Css extends Main\File\Css
     public function compile(?array $importPaths=null,?array $variables=null,?array $option=null):?string
     {
         $return = null;
-        $scssPhp = static::getServiceObj($option);
+        $scssPhp = $this->getServiceObj($option);
         $return = $scssPhp->trigger($this,$importPaths,$variables);
 
         return $return;
@@ -71,17 +71,17 @@ class Css extends Main\File\Css
 
     // getServiceClass
     // retourne la classe du service
-    public static function getServiceClass():string
+    public function getServiceClass():string
     {
-        return static::$config['service']::getOverloadClass();
+        return $this->getAttr('service')::getOverloadClass();
     }
 
 
     // getServiceObj
     // retourne l'objet du service
-    public static function getServiceObj(?array $option=null):Main\Service
+    public function getServiceObj(?array $option=null):Main\Service
     {
-        $service = static::getServiceClass();
+        $service = $this->getServiceClass();
         $return = new $service(__METHOD__,$option);
 
         return $return;

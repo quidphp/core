@@ -93,7 +93,7 @@ abstract class Route extends Routing\Route
     // prépare le titre après le onReplace
     protected function prepareTitle($return,array $array):array
     {
-        $titleConfig = static::$config['metaTitle'] ?? [];
+        $titleConfig = $this->getAttr('metaTitle') ?? array();
 
         if(!is_array($return))
         $return = [$return];

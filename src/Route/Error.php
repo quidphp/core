@@ -83,9 +83,9 @@ abstract class Error extends Core\RouteAlias
     protected function outputHtml():string
     {
         $r = '';
-        $route = static::$config['route'];
-        $titleBox = static::$config['titleBox'];
-
+        $route = $this->getAttr('route');
+        $titleBox = $this->getAttr('titleBox');
+        
         $r .= Html::divOp('ajax-parse-error');
 
         if($titleBox === true)

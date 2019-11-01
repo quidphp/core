@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Suite;
+use Quid\Test\Suite;
 
 // table
 // class for testing Quid\Core\Table
@@ -20,12 +20,15 @@ class Table extends Base\Test
     public static function trigger(array $data):bool
     {
         // prepare
-        $db = Core\Boot::inst()->db();
+        $boot = Core\Boot::inst();
+        $db = $boot->db();
         $table = 'ormTable';
         assert($db->truncate($table) instanceof \PDOStatement);
         assert($db->inserts($table,['id','active','name_en','dateAdd','userAdd','dateModify','userModify','name_fr','email','date'],[1,1,'james',10,11,12,13,'james_fr','james@james.com',123312213],[2,2,'james2',20,21,22,23,'james_fr','james@james.com',123312213]) === [1,2]);
         $tb = $db[$table];
-
+        $nobody = $boot->roles()->nobody();
+        $admin = $boot->roles()->get(80);
+        
         // tableFromFqcn
         assert($tb::tableFromFqcn() === $tb);
 
@@ -64,12 +67,10 @@ class Table extends Base\Test
         assert(Core\Table::getOverloadKeyPrepend() === null);
 
         // permission
-        assert(Base\Arrs::is($tb->permissionAll()));
-        assert(count($tb->permissionRole(Core\Role\Nobody::class)) > 10);
-        assert($tb->permissionRole(new Core\Role\Nobody()) === $tb->permissionRole(Core\Role\Nobody::class));
-        assert($tb->permissionRole(Core\Role\Admin::class) !== $tb->permissionRole(Core\Role\Nobody::class));
-        assert($tb->permissionCan('insert',Core\Role\Admin::class));
-        assert(!$tb->permissionCan('insert',Core\Role\Nobody::class));
+        assert(count($tb->getPermission($nobody)) > 10);
+        assert($tb->getPermission($admin) !== $tb->getPermission($nobody));
+        assert($tb->roleHasPermission('insert',$admin));
+        assert(!$tb->roleHasPermission('insert',$nobody));
         assert($tb->hasPermission('insert','update'));
         assert($tb->checkPermission('insert','update') === $tb);
 

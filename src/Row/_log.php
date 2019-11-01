@@ -48,7 +48,7 @@ trait _log
 
                     if($table->hasPermission('delete'))
                     {
-                        $currentLog = $db->getOption('log');
+                        $currentLog = $db->getAttr('log');
                         $db->off();
                         $return = $table->deleteTrim(static::$config['deleteTrim']);
                         $db->on();

@@ -113,7 +113,7 @@ class Medias extends FilesAlias
                     if($value->exists($i))
                     {
                         $new = $value->get($i);
-                        $action = $new->getOption('uploadAction');
+                        $action = $new->getAttr('uploadAction');
 
                         if(empty($action) || $action === 'delete')
                         {
@@ -157,7 +157,7 @@ class Medias extends FilesAlias
             $array = [];
             foreach ($return as $key => $file)
             {
-                $basename = $file->mimeBasename($file->getOption('uploadBasename'));
+                $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
                 $array[$key] = Base\Path::safeBasename($basename);
             }
 
@@ -199,11 +199,11 @@ class Medias extends FilesAlias
                     if(!empty($file))
                     {
                         $name = Base\File::uploadBasename($v);
-                        $file->setOption('uploadBasename',$name);
-                        $file->setOption('uploadDeleteSource',true);
+                        $file->setAttr('uploadBasename',$name);
+                        $file->setAttr('uploadDeleteSource',true);
 
                         if($error === 9 && !empty($v['action']))
-                        $file->setOption('uploadAction',$v['action']);
+                        $file->setAttr('uploadAction',$v['action']);
                     }
                 }
 

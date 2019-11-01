@@ -76,7 +76,7 @@ class ClassUpload extends Main\Service
     // setClassUpload
     // créer instance de l'objet upload après avoir paramétré et lie à l'objet courant
     // méthode protégé
-    protected function setClassUpload(string $source,?string $filename=null,array $option):self
+    protected function setClassUpload(string $source,?string $filename=null,array $option):void
     {
         $this->upload = new Upload\Upload($source);
         $filename = (is_string($filename))? $filename:Base\Path::filename($source);
@@ -84,7 +84,7 @@ class ClassUpload extends Main\Service
         $this->reset($filename);
         $this->prepareImage($option);
 
-        return $this;
+        return;
     }
 
 
@@ -139,7 +139,7 @@ class ClassUpload extends Main\Service
     // reset
     // applique les paramètres par défaut à l'objet upload
     // méthode protégé
-    protected function reset(string $filename):self
+    protected function reset(string $filename):void
     {
         $upload = $this->getClassUpload();
         $upload->dir_auto_create = false;
@@ -150,14 +150,14 @@ class ClassUpload extends Main\Service
         $upload->file_force_extension = true;
         $upload->file_new_name_body = $filename;
 
-        return $this;
+        return;
     }
 
 
     // prepareImage
     // paramètre pour image
     // méthode protégé
-    protected function prepareImage(array $option):self
+    protected function prepareImage(array $option):void
     {
         if($this->isImage())
         {
@@ -185,14 +185,14 @@ class ClassUpload extends Main\Service
             $this->prepareResize($option['width'],$option['height'],$option['action']);
         }
 
-        return $this;
+        return;
     }
 
 
     // prepareResize
     // méthode pour paramétrer un resize dans l'objet upload
     // méthode protégé
-    protected function prepareResize(?int $width=null,?int $height=null,?string $action=null):self
+    protected function prepareResize(?int $width=null,?int $height=null,?string $action=null):void
     {
         if(is_int($width) || is_int($height))
         {
@@ -251,7 +251,7 @@ class ClassUpload extends Main\Service
             }
         }
 
-        return $this;
+        return;
     }
 
 

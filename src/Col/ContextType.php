@@ -17,8 +17,7 @@ class ContextType extends SetAlias
     public static $config = [
         'required'=>true,
         'complex'=>'checkbox',
-        'relation'=>'contextType',
-        'sortable'=>false
+        'relation'=>'contextType'
     ];
 }
 

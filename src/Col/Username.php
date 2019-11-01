@@ -50,7 +50,7 @@ class Username extends Core\ColAlias
     // retourne le niveau de sécurité du mot de passe
     public function getSecurity():?string
     {
-        return $this->attr('security');
+        return $this->getAttr('security');
     }
 }
 

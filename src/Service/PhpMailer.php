@@ -49,21 +49,21 @@ class PhpMailer extends Core\ServiceMailerAlias
     // prépare l'objet et créer l'instance de l'objet mailer
     // une exception peut être envoyé si les options ne sont pas valides
     // méthode protégé
-    protected function prepare():Main\ServiceMailer
+    protected function prepare():void
     {
         $this->checkReady(false);
         $option = $this->option();
         $mailer = new \PHPMailer\PHPMailer\PHPMailer();
         $this->mailer = $mailer;
 
-        return $this;
+        return;
     }
 
 
     // prepareMailer
     // met à jour l'objet du mailer à partir d'un tableau de configuration
     // méthode protégé
-    protected function prepareMailer(array $value):self
+    protected function prepareMailer(array $value):void
     {
         $mailer = $this->mailer();
         $mailer->clearAllRecipients();
@@ -110,14 +110,14 @@ class PhpMailer extends Core\ServiceMailerAlias
             $this->setDebug($value['debug'] ?? null,$value['output'] ?? null);
         }
 
-        return $this;
+        return;
     }
 
 
     // prepareMailerMessage
     // prépare le message et met à jour l'objet du mailer à partir d'un tableau
     // méthode protégé
-    protected function prepareMailerMessage(array $value):self
+    protected function prepareMailerMessage(array $value):void
     {
         $mailer = $this->mailer();
         $keyMethods = ['bcc'=>'addBCC','cc'=>'addCC','replyTo'=>'addReplyTo','to'=>'addAddress','from'=>'setFrom'];
@@ -157,7 +157,7 @@ class PhpMailer extends Core\ServiceMailerAlias
             }
         }
 
-        return $this;
+        return;
     }
 
 

@@ -57,11 +57,16 @@ class ScssPhp extends Main\ServiceAlias
 
         if(empty($return))
         {
-            $return = static::$config['format'][0];
+            $formats = $this->getAttr('format');
+            
+            if(is_array($formats))
+            {
+                $return = $formats[0];
 
-            $compress = $this->getOption('compress');
-            if($compress === true)
-            $return = static::$config['format'][1];
+                $compress = $this->getOption('compress');
+                if($compress === true)
+                $return = $formats[1];
+            }
         }
 
         return $return;

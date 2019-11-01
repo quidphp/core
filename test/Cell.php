@@ -21,7 +21,9 @@ class Cell extends Base\Test
     public static function trigger(array $data):bool
     {
         // prepare
-        $db = Core\Boot::inst()->db();
+        $boot = Core\Boot::inst();
+        $db = $boot->db();
+        $admin = $boot->roles()->get(80);
         $table = 'ormCell';
         assert($db->truncate($table) instanceof \PDOStatement);
         assert($db->inserts($table,['id','date','name','dateAdd','userAdd','dateModify','userModify','integer','enum','set','user_ids'],[1,time(),'james',10,2,12,13,12,5,'2,3',[2,1]],[2,time(),'james2',10,11,12,13,12,5,'2,4','2,3']) === [1,2]);
@@ -45,9 +47,9 @@ class Cell extends Base\Test
         $medias = $row->cell('medias');
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
-
+        
         // orm
-        assert(is_array($dateAdd->permissionRole(new Core\Role\Admin())));
+        assert(is_array($dateAdd->getPermission($admin)));
         assert($primary instanceof Core\Cell\Primary);
         assert($integer instanceof Core\Cell\Integer);
         assert($dateAdd->set(1234235434) === $dateAdd);

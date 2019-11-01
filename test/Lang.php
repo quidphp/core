@@ -24,9 +24,9 @@ class Lang extends Base\Test
         $lang = $bootLang = $boot->lang();
         $tb = $boot->db()->table('ormCol');
         $bootLang->changeLang('fr');
-        $fr = $boot->attr('assert/lang/fr');
-        $frFile = $boot->attr('assert/langFile/fr');
-        $en = $boot->attr('assert/lang/en');
+        $fr = $boot->getAttr('assert/lang/fr');
+        $frFile = $boot->getAttr('assert/langFile/fr');
+        $en = $boot->getAttr('assert/lang/en');
 
         // onChange
 
@@ -174,7 +174,7 @@ class Lang extends Base\Test
         // pathAlternateValue
 
         // main
-        assert(Core\Lang::getPath('colLabel','test') === 'col/label/*/test');
+        assert($lang->getPath('colLabel','test') === 'col/label/*/test');
         assert($lang->take(['table','label',$tb]) === 'Meh');
         assert($lang->exists(['table','label',$tb]));
         assert($lang->existsAppend('table','label',$tb));

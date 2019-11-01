@@ -13,7 +13,7 @@ use Quid\Main;
 
 // role
 // extended abstract class that provides more advanced logic for a role
-abstract class Role extends Main\Role
+class Role extends Main\Role
 {
     // trait
     use _fullAccess;
@@ -22,50 +22,92 @@ abstract class Role extends Main\Role
     // config
     public static $config = [
         'label'=>null, // label du rôle
-        'description'=>null // description du rôle
+        'description'=>null, // description du rôle
+        'isShared'=>false, // si le rôle est partagé
+        'isAdmin'=>false, // si le rôle est admin
+        'isCli'=>false // si le rôle est cli
     ];
 
 
     // isShared
-    // retourne vrai si la permission est shared
-    public static function isShared():bool
+    // retourne vrai si le role est shared
+    public function isShared():bool
     {
-        return false;
+        return ($this->getAttr('isShared') === true)? true:false;
     }
 
 
     // isAdmin
-    // retourne vrai si la permission est admin
-    public static function isAdmin():bool
+    // retourne vrai si le role est admin
+    public function isAdmin():bool
     {
-        return false;
+        return ($this->getAttr('isAdmin') === true)? true:false;
     }
 
 
     // isCli
-    // retourne vrai si la permission est cli
-    public static function isCli():bool
+    // retourne vrai si le role est cli
+    public function isCli():bool
     {
-        return false;
+        return ($this->getAttr('isCli') === true)? true:false;
     }
 
-
-    // validateReplace
-    // retourne un tableau de remplacement en utilisant roles
-    // méthode protégé, utilisé par validate
-    protected static function validateReplace():?array
+    
+    // validate
+    // permet de faire une validation sur l'objet role
+    public function validate($value):bool
     {
-        return static::cacheStatic(__METHOD__,function() {
-            $return = null;
-            $roles = static::boot()->roles();
+        $return = false;
+        $permission = $this->permission();
+        $name = $this->name();
 
-            if(!empty($roles))
+        if(is_scalar($value))
+        $value = [$value];
+
+        if(is_array($value))
+        {
+            if(Base\Arr::isIndexed($value))
             {
-                foreach ($roles as $permission => $role)
+                if(in_array($permission,$value,true) || in_array($name,$value,true))
+                $return = true;
+            }
+
+            else
+            {
+                $replace = $this->validateReplace();
+
+                if(!empty($replace))
                 {
-                    $name = $role::name();
-                    $return[$name] = $permission;
+                    $array = array();
+                    
+                    foreach (Base\Arr::valuesReplace($replace,$value) as $k => $v) 
+                    {
+                        if(is_numeric($v))
+                        $array[$k] = (int) $v;
+                    }
+                    
+                    if(!empty($array) && Base\Validate::isAnd($array,$permission))
+                    $return = true;
                 }
+            }
+        }
+
+        return $return;
+    }
+    
+    
+    // validateReplace
+    // retourne un tableau de remplacement en utilisant roles dans boot
+    // méthode protégé, utilisé par validate
+    protected function validateReplace():?array
+    {
+        return $this->cache(__METHOD__,function() {
+            $return = null;
+
+            foreach (static::boot()->roles() as $permission => $role)
+            {
+                $name = $role->name();
+                $return[$name] = $permission;
             }
 
             return $return;
@@ -76,11 +118,11 @@ abstract class Role extends Main\Role
     // label
     // retourne le label du rôle
     // envoie une exception si lang/inst n'existe pas
-    public static function label($pattern=null,?string $lang=null,?array $option=null):?string
+    public function label($pattern=null,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $obj = static::lang();
-        $path = (!empty(static::$config['label']))? static::$config['label']:null;
+        $path = $this->getAttr('label');
         $option = Base\Arr::plus($option,['pattern'=>$pattern]);
 
         if(!empty($path))
@@ -94,7 +136,7 @@ abstract class Role extends Main\Role
 
     // labelPermission
     // retourne le label du rôle avec la permission entre paranthèse
-    public static function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string
+    public function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string
     {
         $return = static::label($pattern,$lang,$option);
 
@@ -111,11 +153,11 @@ abstract class Role extends Main\Role
     // description
     // retourne la description du rôle
     // envoie une exception si lang/inst n'existe pas
-    public static function description($pattern=null,?array $replace=null,?string $lang=null,?array $option=null):?string
+    public function description($pattern=null,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $obj = static::lang();
-        $path = (!empty(static::$config['description']))? static::$config['description']:null;
+        $path = $this->getAttr('description');
         $option = Base\Arr::plus($option,['pattern'=>$pattern]);
 
         if(!empty($path))

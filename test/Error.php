@@ -31,9 +31,9 @@ class Error extends Base\Test
         // exception
         assert("Quid\Main\Error::__construct" === $fatal->getTraceLastCall());
         assert('Warning (#22)' === $warning->title());
-        $warning->setOption('lang','fr');
+        $warning->setAttr('lang','fr');
         assert($warning->title() === 'Avertissement (#22)');
-        $warning->setOption('lang','en');
+        $warning->setAttr('lang','en');
         assert($warning::getCom() instanceof Core\Com);
         assert($arg->_cast() === 'What !!! [1] numero1 james [4]');
         assert($arg->getMessage() === 'What !!! [1] numero1 james [4]');

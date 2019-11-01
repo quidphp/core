@@ -17,7 +17,7 @@ class Col extends Orm\Col
 {
     // trait
     use _accessAlias;
-    use Routing\_route;
+    use Routing\_attrRoute;
 
 
     // config

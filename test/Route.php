@@ -11,7 +11,7 @@ namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
 use Quid\Routing;
-use Quid\Suite;
+use Quid\Test\Suite;
 
 // route
 // class for testing Quid\Core\Route
@@ -21,9 +21,11 @@ class Route extends Base\Test
     public static function trigger(array $data):bool
     {
         // prepare
+        $boot = Core\Boot::inst();
         $contact = Suite\Assert\Contact::class;
         $contactMake = $contact::make();
-
+        $admin = $boot->roles()->get(80);
+        
         // type
         assert($contact::type() === 'assert');
 
@@ -65,7 +67,7 @@ class Route extends Base\Test
         assert(count($contact::routeBaseClasses()) === 2);
 
         // routing
-        assert(is_array($contactMake->permissionRole(Core\Role\Admin::class)));
+        assert(is_array($contactMake->getPermission($admin)));
         assert($contact::inSitemap());
         assert($contact::isRedirectable());
 

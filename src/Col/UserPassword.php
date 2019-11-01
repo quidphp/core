@@ -91,7 +91,7 @@ class UserPassword extends Core\ColAlias
         if(is_array($value))
         {
             $table = $this->table();
-            $hashOption = $table->attr('crypt/passwordHash');
+            $hashOption = $table->getAttr('crypt/passwordHash');
             $security = $this->getSecurity();
 
             $newPassword = Base\Arr::index(0,$value);
@@ -135,7 +135,7 @@ class UserPassword extends Core\ColAlias
 
         if(!empty($option['log']) && $option['log'] === true)
         {
-            $log = static::$config['log'];
+            $log = $this->getAttr('log');
 
             if(!empty($log))
             $log::logOnCloseDown('changePassword',['key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null]);
@@ -199,7 +199,7 @@ class UserPassword extends Core\ColAlias
     // retourne le niveau de sécurité du mot de passe
     public function getSecurity():?string
     {
-        return $this->attr('security');
+        return $this->getAttr('security');
     }
 }
 

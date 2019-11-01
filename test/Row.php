@@ -29,7 +29,8 @@ class Row extends Base\Test
         assert($db->inserts($table,['id','active','name_en','dateAdd','userAdd','dateModify','userModify'],[1,1,'james',1521762409,2,12,2],[2,2,'james2',20,2,22,2]) === [1,2]);
         $row = $tb->row(1);
         $row2 = $tb->row(2);
-
+        $admin = $boot->roles()->get(80);
+        
         // inAllSegment
         assert($row->inAllSegment() === false);
         assert($row->cellClass($tb['id']) === Core\Cell\Primary::class);
@@ -82,12 +83,12 @@ class Row extends Base\Test
         assert($row3::bootReady() instanceof Core\Boot);
 
         // orm
-        assert(is_array($row->permissionRole(new Core\Role\Admin())));
+        assert(is_array($row->getPermission($admin)));
         assert($user->hasRelationChilds());
         assert(!empty($user->relationChilds()));
         assert(Core\Row\Session::className(true) === 'session');
         assert(Core\Row\Session::className() === 'Session');
-        assert($row->attr('priority') === 150);
+        assert($row->getAttr('priority') === 150);
         assert(Core\Row::getOverloadKeyPrepend() === null);
         assert(Core\Row\Session::getOverloadKeyPrepend() === 'Row');
 

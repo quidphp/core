@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Suite;
+use Quid\Test\Suite;
 
 // col
 // class for testing Quid\Core\Col
@@ -84,7 +84,7 @@ class Col extends Base\Test
         assert($date->valueComplex(true) === null);
         assert($date->valueComplex(mktime(0,0,0,8,8,1984)) === '08-08-1984');
         assert($date::makeDateFormat(true) === 'F j, Y');
-        assert($date::allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
+        assert($date->allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
         assert($date->dateMin() === null);
         assert($date->dateMax() === null);
         assert($date->dateDaysDiff() === null);
@@ -151,9 +151,9 @@ class Col extends Base\Test
         assert($storage->getAmount() === 1);
         assert($medias->hasIndex());
         assert($medias->getAmount() === 6);
-        assert(count($medias::defaultVersion()) === 6);
-        assert($media::defaultVersionExtension() === ['jpg','png']);
-        assert($media::defaultConvertExtension() === 'jpg');
+        assert(count($medias->defaultVersion()) === 6);
+        assert($media->defaultVersionExtension() === ['jpg','png']);
+        assert($media->defaultConvertExtension() === 'jpg');
 
         // pointer
 

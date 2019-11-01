@@ -73,7 +73,7 @@ class Lang extends Main\Lang
     // retourne vrai si un élément de relation existe et est texte
     public function existsRelation($value=null,?string $lang=null):bool
     {
-        $return = $this->existsText(static::getPath('relation',$value),$lang);
+        $return = $this->existsText($this->getPath('relation',$value),$lang);
 
         if($return === false)
         $return = $this->existsText($value,$lang);
@@ -86,7 +86,7 @@ class Lang extends Main\Lang
     // retourne vrai si un élément de com existe pour le type et la valeur spécifié
     public function existsCom(string $type,$path,?string $lang=null):bool
     {
-        return $this->existsText(static::getPath('com',[$type,$path]),$lang);
+        return $this->existsText($this->getPath('com',[$type,$path]),$lang);
     }
 
 
@@ -94,7 +94,7 @@ class Lang extends Main\Lang
     // retourne le texte pour une direction, asc ou desc
     public function direction(string $key,$lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('direction',strtolower($key),null,$lang,$option));
+        return $this->text($this->getPath('direction',strtolower($key),null,$lang,$option));
     }
 
 
@@ -102,7 +102,7 @@ class Lang extends Main\Lang
     // retourne le label du boot courant
     public function bootLabel(?string $lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('bootLabel'),null,$lang,$option);
+        return $this->text($this->getPath('bootLabel'),null,$lang,$option);
     }
 
 
@@ -110,7 +110,7 @@ class Lang extends Main\Lang
     // retourne la description du boot courant
     public function bootDescription(?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('bootDescription'),null,$lang,$option);
+        return $this->safe($this->getPath('bootDescription'),null,$lang,$option);
     }
 
 
@@ -118,7 +118,7 @@ class Lang extends Main\Lang
     // retourne le label du type de context
     public function typeLabel(string $type,?string $lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('typeLabel',$type),null,$lang,$option);
+        return $this->text($this->getPath('typeLabel',$type),null,$lang,$option);
     }
 
 
@@ -126,7 +126,7 @@ class Lang extends Main\Lang
     // retourne le label de l'env de context
     public function envLabel(string $env,?string $lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('envLabel',$env),null,$lang,$option);
+        return $this->text($this->getPath('envLabel',$env),null,$lang,$option);
     }
 
 
@@ -134,7 +134,7 @@ class Lang extends Main\Lang
     // retourne le label d'une langue
     public function langLabel(string $value,?string $lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('langLabel',$value),null,$lang,$option);
+        return $this->text($this->getPath('langLabel',$value),null,$lang,$option);
     }
 
 
@@ -143,7 +143,7 @@ class Lang extends Main\Lang
     // si la db n'existe pas, utilise def
     public function dbLabel(string $tables,?string $lang=null,?array $option=null):?string
     {
-        return $this->def(static::getPath('dbLabel',$tables),null,$lang,$option);
+        return $this->def($this->getPath('dbLabel',$tables),null,$lang,$option);
     }
 
 
@@ -152,7 +152,7 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
     public function dbDescription(string $tables,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('dbDescription',$tables),$replace,$lang,$option);
+        return $this->safe($this->getPath('dbDescription',$tables),$replace,$lang,$option);
     }
 
 
@@ -161,7 +161,7 @@ class Lang extends Main\Lang
     // si la table n'existe pas, utilise def
     public function tableLabel(string $table,?string $lang=null,?array $option=null):?string
     {
-        return $this->def(static::getPath('tableLabel',$table),null,$lang,$option);
+        return $this->def($this->getPath('tableLabel',$table),null,$lang,$option);
     }
 
 
@@ -170,7 +170,7 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est plas lancé et retournera null si aucune description
     public function tableDescription(string $table,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('tableDescription',$table),$replace,$lang,$option);
+        return $this->safe($this->getPath('tableDescription',$table),$replace,$lang,$option);
     }
 
 
@@ -181,11 +181,11 @@ class Lang extends Main\Lang
     // si toujours introuvable, utilise def
     public function colLabel(string $col,?string $table=null,?string $lang=null,?array $option=null):?string
     {
-        $colLabel = static::getPath('colLabel',$col);
+        $colLabel = $this->getPath('colLabel',$col);
 
         if(is_string($table))
         {
-            $return = $this->safe(static::getPath('colTableLabel',[$table,$col]),null,$lang,$option);
+            $return = $this->safe($this->getPath('colTableLabel',[$table,$col]),null,$lang,$option);
             if(empty($return))
             {
                 $return = $this->safe($colLabel,null,$lang,$option);
@@ -213,10 +213,10 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est plas lancé et la méthode retournera null si aucune description
     public function colDescription(string $col,?string $table=null,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        $colDescription = static::getPath('colDescription',$col);
+        $colDescription = $this->getPath('colDescription',$col);
 
         if(is_string($table))
-        $return = $this->alt(static::getPath('colTableDescription',[$table,$col]),$colDescription,$replace,$lang,Base\Arr::plus(['error'=>false],$option));
+        $return = $this->alt($this->getPath('colTableDescription',[$table,$col]),$colDescription,$replace,$lang,Base\Arr::plus(['error'=>false],$option));
         else
         $return = $this->safe($colDescription,null,$lang,$option);
 
@@ -233,7 +233,7 @@ class Lang extends Main\Lang
         $return = null;
         $tableLabel = $this->tableLabel($table,$lang);
         $replace = ['primary'=>$primary,'table'=>$tableLabel];
-        $return = $this->alt(static::getPath('rowLabel',$table),static::getPath('rowLabel','*'),$replace,$lang,$option);
+        $return = $this->alt($this->getPath('rowLabel',$table),$this->getPath('rowLabel','*'),$replace,$lang,$option);
 
         return $return;
     }
@@ -249,7 +249,7 @@ class Lang extends Main\Lang
         $tableLabel = $this->tableLabel($table,$lang);
         $replace['primary'] = $primary;
         $replace['table'] = $tableLabel;
-        $return = $this->alt(static::getPath('rowDescription',$table),static::getPath('rowDescription','*'),$replace,$lang,Base\Arr::plus(['error'=>false],$option));
+        $return = $this->alt($this->getPath('rowDescription',$table),$this->getPath('rowDescription','*'),$replace,$lang,Base\Arr::plus(['error'=>false],$option));
 
         return $return;
     }
@@ -260,7 +260,7 @@ class Lang extends Main\Lang
     // si le panel n'existe pas, utilise def
     public function panelLabel(string $panel,?string $lang=null,?array $option=null):?string
     {
-        return $this->def(static::getPath('panelLabel',$panel),null,$lang,$option);
+        return $this->def($this->getPath('panelLabel',$panel),null,$lang,$option);
     }
 
 
@@ -269,7 +269,7 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
     public function panelDescription(string $panel,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('panelDescription',$panel),$replace,$lang,$option);
+        return $this->safe($this->getPath('panelDescription',$panel),$replace,$lang,$option);
     }
 
 
@@ -278,7 +278,7 @@ class Lang extends Main\Lang
     // une erreur sera envoyé si le role n'existe pas
     public function roleLabel(int $role,?string $lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('roleLabel',$role),null,$lang,$option);
+        return $this->text($this->getPath('roleLabel',$role),null,$lang,$option);
     }
 
 
@@ -287,7 +287,7 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
     public function roleDescription(int $role,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('roleDescription',$role),$replace,$lang,$option);
+        return $this->safe($this->getPath('roleDescription',$role),$replace,$lang,$option);
     }
 
 
@@ -296,7 +296,7 @@ class Lang extends Main\Lang
     // si la route n'existe pas, utilise def
     public function routeLabel(string $route,?string $lang=null,?array $option=null):?string
     {
-        return $this->def(static::getPath('routeLabel',$route),null,$lang,$option);
+        return $this->def($this->getPath('routeLabel',$route),null,$lang,$option);
     }
 
 
@@ -305,7 +305,7 @@ class Lang extends Main\Lang
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
     public function routeDescription(string $route,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
-        return $this->safe(static::getPath('routeDescription',$route),$replace,$lang,$option);
+        return $this->safe($this->getPath('routeDescription',$route),$replace,$lang,$option);
     }
 
 
@@ -313,7 +313,7 @@ class Lang extends Main\Lang
     // retourne le texte pour un booléean, true ou false, 0 ou 1
     public function bool($key,$lang=null,?array $option=null):?string
     {
-        return $this->text(static::getPath('bool',(is_scalar($key))? (int) $key:$key),null,$lang,$option);
+        return $this->text($this->getPath('bool',(is_scalar($key))? (int) $key:$key),null,$lang,$option);
     }
 
 
@@ -326,7 +326,7 @@ class Lang extends Main\Lang
     // possible de sort le résultat, par défaut true
     public function relation($value=null,?string $lang=null,bool $sort=false)
     {
-        $return = $this->take(static::getPath('relation',$value),$lang);
+        $return = $this->take($this->getPath('relation',$value),$lang);
 
         if($return === null)
         {
@@ -561,7 +561,7 @@ class Lang extends Main\Lang
 
         if(!empty($type))
         {
-            $base = static::getPath($type);
+            $base = $this->getPath($type);
 
             if(!empty($alternate))
             {
@@ -600,7 +600,7 @@ class Lang extends Main\Lang
 
         if(!empty($value) && !empty($type))
         {
-            $base = static::getPath($type);
+            $base = $this->getPath($type);
 
             if(!empty($alternate))
             {

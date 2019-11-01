@@ -259,7 +259,7 @@ abstract class Files extends Core\CellAlias
         if($this->commonFileExists($index,$version))
         {
             $return = Main\File::new($this->commonFilePath($index,$version));
-            $return->setOption('defaultAlt',$this->row()->cellName());
+            $return->setAttr('defaultAlt',$this->row()->cellName());
         }
 
         return $return;
@@ -300,7 +300,7 @@ abstract class Files extends Core\CellAlias
         }
 
         if(empty($return))
-        $return = $col::defaultConvertExtension();
+        $return = $col->defaultConvertExtension();
 
         return $return;
     }
@@ -447,7 +447,7 @@ abstract class Files extends Core\CellAlias
     {
         $this->col()->checkWritable();
         $dirname = $this->commonBasePath($index);
-        $deleteSource = $new->getOption('uploadDeleteSource');
+        $deleteSource = $new->getAttr('uploadDeleteSource');
 
         if(Base\Dir::is($dirname))
         Base\Dir::emptyAndUnlink($dirname);
@@ -518,9 +518,9 @@ abstract class Files extends Core\CellAlias
     // copyOriginal
     // copie l'original au chemin target
     // méthode protégé
-    protected function copyOriginal(string $dirname,Main\File $file):self
+    protected function copyOriginal(string $dirname,Main\File $file):void
     {
-        $basename = $file->mimeBasename($file->getOption('uploadBasename'));
+        $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
         $basename = Base\Path::safeBasename($basename);
         $target = Base\Path::append($dirname,$basename);
 
@@ -534,7 +534,7 @@ abstract class Files extends Core\CellAlias
         else
         $this->commonCopy($file,$target,$dirname);
 
-        return $this;
+        return;
     }
 
 

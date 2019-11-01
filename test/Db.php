@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Suite;
+use Quid\Test\Suite;
 
 // db
 // class for testing Quid\Core\Db
@@ -38,7 +38,7 @@ class Db extends Base\Test
         assert(is_a($db['ormCol']->classe()->col('user_id'),Core\Col\Enum::class,true));
         assert($db['ormCol']->classe()->col('user_ids') === Suite\Col\UserIds::class);
         assert($tb->classe()->cell($tb['id']) === Core\Cell\Primary::class);
-        assert($db['user']->classe()->cell('role') === Core\Cell\Enum::class);
+        assert($db['user']->classe()->cell('role') === Core\Cell\Set::class);
         assert($db['ormCol']->classe()->cell('myRelation') === Core\Cell\Enum::class);
         assert($db['ormCol']->classe()->cell('user_id') === Core\Cell\Enum::class);
         assert($db['ormCol']->classe()->cell('user_ids') === Core\Cell\Set::class);

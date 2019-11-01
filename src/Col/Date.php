@@ -45,8 +45,8 @@ class Date extends Core\ColAlias
 
         if(!is_string($format))
         static::throw($this->table(),$this->name(),'invalidDateFormat');
-
-        $allowedFormats = static::allowedFormats();
+        
+        $allowedFormats = $return['formats'] ?? array();
 
         if(empty($return['onGet']))
         $return['onGet'] = [[Base\Date::class,'onGet'],$format];
@@ -87,7 +87,7 @@ class Date extends Core\ColAlias
     {
         $format = $this->date();
 
-        if(!in_array($format,static::allowedFormats(),true))
+        if(!in_array($format,$this->allowedFormats(),true))
         static::throw('invalidDateFormat',$format);
 
         $placeholder = Base\Date::placeholder($format);
@@ -126,7 +126,7 @@ class Date extends Core\ColAlias
 
             $route = static::route('calendar',['timestamp'=>true,'format'=>$format]);
 
-            $formatCalendar = strtolower(Base\Date::placeholder(static::$config['calendarFormat']));
+            $formatCalendar = strtolower(Base\Date::placeholder($this->attr['calendarFormat']));
             $placeholderMaxLength = strlen($placeholder);
             $attr = Base\Attr::append($attr,['placeholder'=>$placeholder,'maxlength'=>$placeholderMaxLength]);
             $return .= $this->form($value,$attr,$option);
@@ -180,7 +180,7 @@ class Date extends Core\ColAlias
     {
         $return = null;
         $diff = $this->dateDaysDiff() ?? 0;
-        $filterFormat = $this->attr('filterFormat');
+        $filterFormat = $this->getAttr('filterFormat');
 
         foreach ($filterFormat as $array)
         {
@@ -202,7 +202,7 @@ class Date extends Core\ColAlias
     // retourne le format de la date si disponible
     public function date(bool $make=false)
     {
-        $return = $this->attr('date');
+        $return = $this->getAttr('date');
 
         if($make === true)
         $return = static::makeDateFormat($return);
@@ -216,7 +216,7 @@ class Date extends Core\ColAlias
     protected function daysMonthsIn(string $key):array
     {
         $return = [];
-        $filterFormat = $this->attr('filterFormat');
+        $filterFormat = $this->getAttr('filterFormat');
 
         if(array_key_exists($key,$filterFormat) && is_array($filterFormat[$key]))
         {
@@ -271,7 +271,7 @@ class Date extends Core\ColAlias
     {
         $return = null;
         $filterMethod = $this->filterMethod();
-        $filterFormat = $this->attr('filterFormat');
+        $filterFormat = $this->getAttr('filterFormat');
 
         if(is_string($filterMethod))
         {
@@ -301,6 +301,14 @@ class Date extends Core\ColAlias
     }
 
 
+    // allowedFormats
+    // retourne les formats de date permis
+    public function allowedFormats():array
+    {
+        return $this->getAttr('formats');
+    }
+    
+    
     // makeDateFormat
     // retourne le format de date en string, gère la valeur est un true (donc par défaut)
     public static function makeDateFormat($value):?string
@@ -317,14 +325,6 @@ class Date extends Core\ColAlias
         $return = $value;
 
         return $return;
-    }
-
-
-    // allowedFormats
-    // retourne les formats de date permis
-    public static function allowedFormats():array
-    {
-        return static::$config['formats'];
     }
 
 

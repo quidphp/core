@@ -60,11 +60,11 @@ abstract class Files extends Core\ColAlias
             $iniMaxFilesize = Base\Ini::uploadMaxFilesize(1);
             if($maxFilesize > $iniMaxFilesize)
             static::throw('maxFilesizeCannotBeLargetThanIni');
-            $maxFilesizeKey = static::$config['validateKeys']['maxFilesize'];
+            $maxFilesizeKey = $return['validateKeys']['maxFilesize'];
             $return['validate'][$maxFilesizeKey] = $this->maxFilesizeClosure();
         }
 
-        $extensionKey = static::$config['validateKeys']['extension'];
+        $extensionKey = $return['validateKeys']['extension'];
         $return['validate'][$extensionKey] = $this->extensionClosure();
 
         $required = $return['required'] ?? null;
@@ -85,7 +85,7 @@ abstract class Files extends Core\ColAlias
     // retourne vrai si le chargement par fichier est permis
     public function allowFileUpload():bool
     {
-        return ($this->attr('fileUpload') === true)? true:false;
+        return ($this->getAttr('fileUpload') === true)? true:false;
     }
 
 
@@ -122,7 +122,7 @@ abstract class Files extends Core\ColAlias
                     {
                         foreach ($files as $file)
                         {
-                            $basename = $file->mimeBasename($file->getOption('uploadBasename'));
+                            $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
 
                             if(!Base\Path::isExtension($extension,$basename))
                             {
@@ -199,7 +199,7 @@ abstract class Files extends Core\ColAlias
     // retourne une clé de validation dans les attributs
     public function getValidateKey(string $key):string
     {
-        return $this->attr(['validateKeys',$key]);
+        return $this->getAttr(['validateKeys',$key]);
     }
 
 
@@ -216,10 +216,10 @@ abstract class Files extends Core\ColAlias
     // si extension est vide et qu'il a y a une version, utilise defaultVersionExtension
     public function extension():array
     {
-        $return = $this->attr('extension');
+        $return = $this->getAttr('extension');
 
         if(empty($return) && $this->hasVersion())
-        $return = static::defaultVersionExtension();
+        $return = $this->defaultVersionExtension();
 
         if(!is_array($return))
         $return = (array) $return;
@@ -247,7 +247,7 @@ abstract class Files extends Core\ColAlias
     // retourne le max filesize pour la colonne
     public function maxFilesize():int
     {
-        return static::makeMaxFilesize($this->attr('maxFilesize'));
+        return static::makeMaxFilesize($this->getAttr('maxFilesize'));
     }
 
 
@@ -264,7 +264,7 @@ abstract class Files extends Core\ColAlias
     // peut envoyer une exception
     public function getAmount():int
     {
-        $return = $this->attr('media');
+        $return = $this->getAttr('media');
         $hasIndex = $this->hasIndex();
 
         if(!is_int($return) || $return <= 0)
@@ -302,7 +302,7 @@ abstract class Files extends Core\ColAlias
         $table = $this->table();
         $tag = $this->complexTag($attr);
         $allowFileUpload = ($this->allowFileUpload() && Html::isFormTag($tag,true))? true:false;
-        $attr['tag'] = $this->attr('complex');
+        $attr['tag'] = $this->getAttr('complex');
         $lang = $this->db()->lang();
         $i = null;
 
@@ -495,7 +495,7 @@ abstract class Files extends Core\ColAlias
     // retourne vrai si l'image a des versions
     public function hasVersion():bool
     {
-        return Base\Arrs::is($this->attr('version'));
+        return Base\Arrs::is($this->getAttr('version'));
     }
 
 
@@ -511,11 +511,11 @@ abstract class Files extends Core\ColAlias
             {
                 $return = [];
 
-                foreach ($this->attr('version') as $key => $value)
+                foreach ($this->getAttr('version') as $key => $value)
                 {
                     if(is_string($key) && !empty($value))
                     {
-                        $v = static::defaultVersion();
+                        $v = $this->defaultVersion();
                         $keys = array_keys($v);
                         $value = Base\Arr::keysChange($keys,$value);
                         $v = Base\Arr::plus($v,$value);
@@ -551,7 +551,7 @@ abstract class Files extends Core\ColAlias
         }
 
         $action = (is_array($value['action']))? current($value['action']):$value['action'];
-        if($action !== null && !in_array($action,static::$config['compressAction'],true))
+        if($action !== null && !in_array($action,$this->getAttr('compressAction'),true))
         $throw[] = 'action';
 
         if(!is_string($value['convert']) && $value['convert'] !== true && $value['convert'] !== null)
@@ -639,9 +639,9 @@ abstract class Files extends Core\ColAlias
     public function fileSizeDetails(bool $lang=true)
     {
         $return = null;
-        $maxFilesizeKey = $this->attr('validateKeys/maxFilesize');
+        $maxFilesizeKey = $this->getAttr('validateKeys/maxFilesize');
 
-        if($this->attr('maxFilesize') !== false)
+        if($this->getAttr('maxFilesize') !== false)
         {
             $maxFilesize = $this->maxFilesizeFormat();
             $return = [$maxFilesizeKey=>$maxFilesize];
@@ -663,7 +663,7 @@ abstract class Files extends Core\ColAlias
     {
         $return = null;
         $extension = $this->extension();
-        $extensionKey = $this->attr('validateKeys/extension');
+        $extensionKey = $this->getAttr('validateKeys/extension');
 
         if(is_string($extensionKey) && !empty($extension))
         {
@@ -710,7 +710,7 @@ abstract class Files extends Core\ColAlias
     public function rootPath(bool $shortcut=true):string
     {
         $return = null;
-        $path = $this->attr('path');
+        $path = $this->getAttr('path');
 
         if(is_string($path))
         {
@@ -768,7 +768,7 @@ abstract class Files extends Core\ColAlias
         if($this->allowFileUpload())
         {
             $hasMultiple = $this->hasIndex();
-            $attr['tag'] = $this->attr('complex');
+            $attr['tag'] = $this->getAttr('complex');
             $option['multi'] = $hasMultiple;
 
             foreach($this->indexRange() as $i)
@@ -812,12 +812,28 @@ abstract class Files extends Core\ColAlias
 
     // defaultVersion
     // retourne les config par défaut pour une version
-    public static function defaultVersion():array
+    public function defaultVersion():array
     {
-        return static::$config['defaultVersion'];
+        return $this->getAttr('defaultVersion');
+    }
+
+    
+    // defaultVersionExtension
+    // retourne l'extension par défaut si non spécifié et qu'il y a une version
+    public function defaultVersionExtension():array
+    {
+        return $this->getAttr('defaultVersionExtension');
     }
 
 
+    // defaultConvertExtension
+    // retourne l'extension de conversion par défaut pour une version
+    public function defaultConvertExtension():string
+    {
+        return current($this->defaultVersionExtension());
+    }
+    
+    
     // versionDetail
     // génère la string de détail à partir d'un tableau de version
     public static function versionDetail(string $key,array $value):string
@@ -887,22 +903,6 @@ abstract class Files extends Core\ColAlias
         $return = Base\Ini::uploadMaxFilesize(1);
 
         return $return;
-    }
-
-
-    // defaultVersionExtension
-    // retourne l'extension par défaut si non spécifié et qu'il y a une version
-    public static function defaultVersionExtension():array
-    {
-        return static::$config['defaultVersionExtension'];
-    }
-
-
-    // defaultConvertExtension
-    // retourne l'extension de conversion par défaut pour une version
-    public static function defaultConvertExtension():string
-    {
-        return current(static::defaultVersionExtension());
     }
 }
 

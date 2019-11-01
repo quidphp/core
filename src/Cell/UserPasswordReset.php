@@ -23,7 +23,7 @@ class UserPasswordReset extends Core\CellAlias
         $hash = null;
         $col = $this->col();
         $table = $this->table();
-        $hashOption = $table->attr('crypt/passwordHash');
+        $hashOption = $table->getAttr('crypt/passwordHash');
         $security = $col->getSecurity();
 
         if(Base\Validate::isPassword($value,$security))

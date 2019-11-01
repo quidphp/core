@@ -14,7 +14,7 @@ use Quid\Main;
 
 // user
 // class for a row of the user table
-class User extends Core\RowAlias implements Main\Contract\User
+class User extends Core\RowAlias
 {
     // config
     public static $config = [
@@ -33,11 +33,8 @@ class User extends Core\RowAlias implements Main\Contract\User
             'email'=>true,
             'dateLogin'=>true],
         'permission'=>[
-            'nobody'=>['update'=>true],
-            'shared'=>['update'=>true],
-            'user'=>['update'=>true],
-            'contributor'=>['update'=>true],
-            'editor'=>['update'=>true]],
+            '*'=>array('fakeRoles'=>false),
+            'nobody'=>['update'=>true]],
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
@@ -58,7 +55,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
 
     // dynamique
-    protected $role = null; // garde une copie de l'objet role
+    protected $roles = null; // garde une copie de l'objet roles
 
 
     // onInserted
@@ -71,7 +68,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
     // onRegister
     // lors de l'enregistrement d'un nouvel utilisateur
-    public function onRegister():Main\Contract\User
+    public function onRegister():void
     {
         if($this->allowRegisterConfirmEmail())
         $this->sendRegisterConfirmEmail();
@@ -79,13 +76,13 @@ class User extends Core\RowAlias implements Main\Contract\User
         if($this->allowRegisterAdminEmail())
         $this->sendRegisterAdminEmail();
 
-        return $this;
+        return;
     }
 
 
     // onLogin
     // callback lorsque l'utilisateur login
-    public function onLogin():Main\Contract\User
+    public function onLogin():void
     {
         $db = $this->db();
         $timestamp = Base\Date::timestamp();
@@ -95,72 +92,72 @@ class User extends Core\RowAlias implements Main\Contract\User
         $this->updateChanged();
         $db->on();
 
-        return $this;
+        return;
     }
 
 
     // onLogout
     // callback lorsque l'utilisateur logout
-    public function onLogout():Main\Contract\User
+    public function onLogout():void
     {
-        return $this;
+        return;
     }
 
 
     // onChangePassword
     // lorsque l'utilisateur a changé son mot de passe
-    public function onChangePassword():Main\Contract\User
+    public function onChangePassword():void
     {
-        return $this;
+        return;
     }
 
 
     // onResetPassword
     // lorsque l'utilisateur a son mot de passe reset
     // le nouveau mot de passe est donné en argument
-    public function onResetPassword(string $password):Main\Contract\User
+    public function onResetPassword(string $password):void
     {
-        return $this;
+        return;
     }
 
 
     // onActivatePassword
     // lorsque l'utilisateur a activé son mot de passe reset
-    public function onActivatePassword():Main\Contract\User
+    public function onActivatePassword():void
     {
-        return $this;
+        return;
     }
 
 
     // onRegisterConfirmEmailSent
     // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'utilisateur
-    protected function onRegisterConfirmEmailSent():Main\Contract\User
+    protected function onRegisterConfirmEmailSent():void
     {
-        return $this;
+        return;
     }
 
 
     // onRegisterAdminEmailSent
     // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'administrateur
-    protected function onRegisterAdminEmailSent():Main\Contract\User
+    protected function onRegisterAdminEmailSent():void
     {
-        return $this;
+        return;
     }
 
 
     // onResetPasswordEmailSent
     // lorsque le courriel de regénération de mot de passe a été envoyé à l'utilisateur
-    protected function onResetPasswordEmailSent():Main\Contract\User
+    protected function onResetPasswordEmailSent():void
     {
-        return $this;
+        return;
     }
 
 
     // onWelcomeEmailSent
     // lorsque le courriel de bienvenue a été envoyé à l'utilisateur
-    protected function onWelcomeEmailSent():Main\Contract\User
+    protected function onWelcomeEmailSent():void
     {
-        return $this;
+        return;
     }
 
 
@@ -286,11 +283,11 @@ class User extends Core\RowAlias implements Main\Contract\User
     }
 
 
-    // permissionDefaultRole
-    // retourne le role par défaut à utiliser, soit le rôle de l'utilisateur courant
-    protected function permissionDefaultRole():Main\Role
+    // attrPermissionRolesObject
+    // retourne les roles par défaut à utiliser, soit les rôles de l'utilisateur courant
+    protected function attrPermissionRolesObject():Main\Roles
     {
-        return $this->role();
+        return $this->roles();
     }
 
 
@@ -408,29 +405,45 @@ class User extends Core\RowAlias implements Main\Contract\User
     }
 
 
-    // setRole
-    // change le role du user
-    public function setRole(Main\Role $value):Main\Contract\User
+    // setRoles
+    // change les roles du user
+    public function setRoles(Main\Roles $value):void
     {
-        $this->role = $value;
+        $this->roles = $value;
 
-        return $this;
+        return;
     }
 
-
+    
+    // roles
+    // retourne les roles du user
+    public function roles():Main\Roles
+    {
+        return $this->roles;
+    }
+    
+    
     // role
-    // retourne le role de la row user
+    // retourne le role principal de la row user
     public function role():Main\Role
     {
-        return $this->role;
+        return $this->roles()->main();
     }
 
-
+    
+    // allowFakeRoles
+    // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
+    public function allowFakeRoles():bool 
+    {
+        return $this->hasPermission('fakeRoles');
+    }
+    
+    
     // permission
     // retourne la permission du role
     public function permission():int
     {
-        return $this->role()::permission();
+        return $this->role()->permission();
     }
 
 
@@ -467,7 +480,7 @@ class User extends Core\RowAlias implements Main\Contract\User
     protected function getEmailModel(string $name):?Main\Contract\Email
     {
         $return = null;
-        $key = $this->attr(['emailModel',$name]);
+        $key = $this->getAttr(['emailModel',$name]);
 
         if(!empty($key))
         $return = Email::find($key);
@@ -771,7 +784,7 @@ class User extends Core\RowAlias implements Main\Contract\User
     {
         $return = null;
         $option = Base\Arr::plus($option,['onChange'=>false]);
-        $hashOption = $this->attr('crypt/passwordHash');
+        $hashOption = $this->getAttr('crypt/passwordHash');
         $password = $this->password()->value();
 
         if(Base\Crypt::passwordNeedsRehash($password,$hashOption))
@@ -795,7 +808,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
         if(empty($neg))
         {
-            $newOption = $this->attr('crypt/passwordNew');
+            $newOption = $this->getAttr('crypt/passwordNew');
             $newPassword = Base\Crypt::passwordNew($newOption);
 
             if(!empty($newPassword))
@@ -821,8 +834,8 @@ class User extends Core\RowAlias implements Main\Contract\User
 
         if($return === null && empty($neg))
         $neg = 'resetPassword/error';
-
-        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,static::$config['log']['resetPassword'] ?? null,$option);
+        
+        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,$this->getAttr(array('log','resetPassword')),$option);
 
         return $return;
     }
@@ -830,7 +843,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
     // validateSend
     // méthode protégé qui valide que le user et le modèle de courriel sont valides
-    protected function validateSend(Main\Contract\Email $model,?array $option=null):Main\Contract\User
+    protected function validateSend(Main\Contract\Email $model,?array $option=null):void
     {
         $option = Base\Arr::plus(['method'=>'dispatch'],$option);
 
@@ -843,7 +856,7 @@ class User extends Core\RowAlias implements Main\Contract\User
         if(!is_string($option['method']) || !method_exists($model,$option['method']))
         static::throw('invalidMethod',$option['method']);
 
-        return $this;
+        return;
     }
 
 
@@ -948,7 +961,7 @@ class User extends Core\RowAlias implements Main\Contract\User
         $closure = function(array $return) {
             if(empty($return['password']) || !is_string($return['password']))
             {
-                $newOption = $this->attr('crypt/passwordNew');
+                $newOption = $this->getAttr('crypt/passwordNew');
                 $password = Base\Crypt::passwordNew($newOption);
 
                 if($this->setPassword([$password]) !== 1)
@@ -1022,7 +1035,7 @@ class User extends Core\RowAlias implements Main\Contract\User
         if($return === false && empty($neg))
         $neg = 'activatePassword/error';
 
-        $com->posNegLogStrict('activatePassword',$return,$pos,$neg,static::$config['log']['activatePassword'] ?? null,$option);
+        $com->posNegLogStrict('activatePassword',$return,$pos,$neg,$this->getAttr(array('log','activatePassword')),$option);
 
         return $return;
     }
@@ -1212,14 +1225,13 @@ class User extends Core\RowAlias implements Main\Contract\User
     // findByRole
     // retourne un utilisateur par un rôle
     // envoie une exception si la méthode ne retourne pas une row
-    public static function findByRole($role,?array $order=null):Main\Contract\User
+    public static function findByRole($permission,?array $order=null):self
     {
         $return = null;
         $table = static::tableFromFqcn();
-        $permission = $role;
 
-        if(is_subclass_of($role,Core\Role::class,true) || $role instanceof Core\Role)
-        $permission = $role::permission();
+        if($permission instanceof Core\Role)
+        $permission = $permission->permission();
 
         if(is_int($permission))
         {
@@ -1230,7 +1242,7 @@ class User extends Core\RowAlias implements Main\Contract\User
         }
 
         if(!$return instanceof self)
-        static::throw($role);
+        static::throw($permission);
 
         return $return;
     }
@@ -1238,7 +1250,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
     // findNobody
     // retourne le premier utilisateur avec le rôle nobody
-    public static function findNobody(?array $order=null):Main\Contract\User
+    public static function findNobody(?array $order=null):self
     {
         return static::findByRole(static::boot()->roles()->filter(['isNobody'=>true])->first(),$order);
     }
@@ -1246,7 +1258,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
     // findCli
     // retourne le premier utilisateur avec le rôle cli
-    public static function findCli(?array $order=null):Main\Contract\User
+    public static function findCli(?array $order=null):self
     {
         return static::findByRole(static::boot()->roles()->filter(['isCli'=>true])->first(),$order);
     }
@@ -1255,11 +1267,11 @@ class User extends Core\RowAlias implements Main\Contract\User
     // findByCredentials
     // retourne un utilisateur à partir des champs valides pour la connexion
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByCredentials(string $value):?Main\Contract\User
+    public static function findByCredentials(string $value):?self
     {
         $return = null;
         $table = static::tableFromFqcn();
-        $credentials = $table->attr('credentials');
+        $credentials = $table->getAttr('credentials');
 
         if(is_array($credentials))
         {
@@ -1292,7 +1304,7 @@ class User extends Core\RowAlias implements Main\Contract\User
     // findByUsername
     // retourne un utilisateur à partir d'un username
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByUsername(string $value):?Main\Contract\User
+    public static function findByUsername(string $value):?self
     {
         return static::tableFromFqcn()->row($value);
     }
@@ -1300,7 +1312,7 @@ class User extends Core\RowAlias implements Main\Contract\User
 
     // findByUid
     // retourne un utilisateur à partir d'un uid
-    public static function findByUid(int $value):?Main\Contract\User
+    public static function findByUid(int $value):?self
     {
         return static::tableFromFqcn()->row($value);
     }
@@ -1309,11 +1321,11 @@ class User extends Core\RowAlias implements Main\Contract\User
     // findByEmail
     // retourne un utilisateur à partir d'un email
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByEmail(string $value):?Main\Contract\User
+    public static function findByEmail(string $value):?self
     {
         $return = null;
         $table = static::tableFromFqcn();
-        $credentials = $table->attr('credentials');
+        $credentials = $table->getAttr('credentials');
 
         if(is_array($credentials) && !empty($credentials['email']))
         {
@@ -1333,7 +1345,7 @@ class User extends Core\RowAlias implements Main\Contract\User
         $col = $cell->col();
         $relation = $col->relation();
         $table = $relation->relationTable();
-        $cols = $table->cols()->filter(['attrNotEmpty'=>true],'relationExport');
+        $cols = $table->cols()->filter(['isAttrNotEmpty'=>true],'relationExport');
         $cols = $cols->sortBy('attr',true,'relationExport');
 
         if($type === 'col')

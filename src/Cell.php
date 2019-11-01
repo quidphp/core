@@ -17,7 +17,7 @@ class Cell extends Orm\Cell
 {
     // trait
     use _accessAlias;
-    use Routing\_route;
+    use Routing\_attrRoute;
 
 
     // config

@@ -217,7 +217,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionMostRecent
     // retourne la session la plus récente pour l'utilisateur donné
-    public static function sessionMostRecent(string $name,Main\Contract\User $user,?self $not=null,?array $context=null):?Main\Contract\Session
+    public static function sessionMostRecent(string $name,User $user,?self $not=null,?array $context=null):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -246,7 +246,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionDestroyOther
     // efface toutes les sessions sauf la courante
-    public static function sessionDestroyOther(string $name,Main\Contract\User $user,?self $not=null,?array $context=null):?int
+    public static function sessionDestroyOther(string $name,User $user,?self $not=null,?array $context=null):?int
     {
         $return = null;
         $table = static::tableFromFqcn();

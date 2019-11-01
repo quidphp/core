@@ -10,17 +10,18 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 use Quid\Orm;
 
 // userRole
 // class for the column which manages the role field for the user row
-class UserRole extends EnumAlias
+class UserRole extends SetAlias
 {
     // config
     public static $config = [
         'required'=>true,
         'relation'=>[self::class,'getRoles'],
-        'check'=>['kind'=>'int']
+        'check'=>['kind'=>'text']
     ];
 
 
@@ -31,19 +32,19 @@ class UserRole extends EnumAlias
     {
         $role = null;
         $roles = static::boot()->roles();
-        $permission = $cell->value();
+        $permissions = $cell->get();
+        
+        if(!empty($permissions))
+        $userRoles = $roles->only(...$permissions);
+        
+        if(empty($userRoles) || $userRoles->isEmpty())
+        $userRoles = $roles->nobody()->roles();
 
-        if(is_int($permission))
-        $role = $roles->getObject($permission);
-
-        if(empty($role))
-        $role = $roles->nobody();
-
-        if($role instanceof Core\Role)
-        $cell->row()->setRole($role);
+        if($userRoles instanceof Main\Roles)
+        $cell->row()->setRoles($userRoles);
 
         else
-        static::throw('invalidRoleObject');
+        static::throw('invalidRolesObject');
 
         return $this;
     }
@@ -73,43 +74,55 @@ class UserRole extends EnumAlias
     // un utilisateur ne peut pas changer sa propre permission
     // si c'est un insert et que la valeur est default, accepte dans tous les cas
     // des exceptions attrapables peuvent être envoyés
-    public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    public function onSet($values,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = null;
-        $table = $this->table();
-        $primary = $table->primary();
-        $value = $this->value($value);
-        $boot = static::boot();
-        $session = $boot->session();
-        $roles = $boot->roles();
-        $nobody = $roles->nobody();
-        $user = $session->user();
-        $role = $session->role();
-        $permission = $role::permission();
-        $isAdmin = $role::isAdmin();
-        $isInsert = (empty($cell))? true:false;
-        $isDefault = ($value === $this->default())? true:false;
-        $id = $row[$primary] ?? null;
-
-        if(is_int($value))
+        $values = $this->value($values);
+        
+        if(is_scalar($values))
+        $values = array($values);
+        
+        if(is_array($values) && !empty($values))
         {
-            if($isDefault === true && $isInsert === true)
-            $return = $value;
+            $values = Base\Arr::cast($values);
+            asort($values);
+            $table = $this->table();
+            $primary = $table->primary();
+            $isInsert = (empty($cell))? true:false;
+            $id = $row[$primary] ?? null;
+            
+            $boot = static::boot();
+            $session = $boot->session();
+            $sessionUser = $session->user();
+            $sessionRoles = $session->roles();
+            $sessionRole = $session->role();
+            $permission = $sessionRole->permission();
+            $isNobody = (!empty($sessionRoles->nobody()))? true:false;
+            $isAdmin = $sessionRole->isAdmin();
+            $isInsertNobody = ($isInsert === true && $isNobody === true)? true:false;
 
-            elseif($value === $nobody::permission())
-            static::catchable(null,'userRoleNobody');
-
-            elseif($value >= $permission && $isAdmin === false)
-            static::catchable(null,'userRoleUpperEqual');
-
-            elseif($value > $permission && $isAdmin === true)
-            static::catchable(null,'userRoleUpper');
-
-            elseif($id === $user->primary() && $permission !== $value)
+            $roles = $boot->roles();
+            $rolesNobody = $roles->nobody();
+            
+            if(!$roles->exists(...$values))
+            static::throw(null,'rolesNotFound');
+            
+            if($id === $sessionUser->primary() && $sessionRoles->keys() !== $values)
             static::catchable(null,'userRoleSelf');
+            
+            foreach ($values as $value) 
+            {
+                if($value === $rolesNobody->permission() && $isAdmin === false)
+                static::catchable(null,'userRoleNobody');
 
-            else
-            $return = $value;
+                elseif($value >= $permission && $isAdmin === false && $isInsertNobody === false)
+                static::catchable(null,'userRoleUpperEqual');
+
+                elseif($value > $permission && $isAdmin === true)
+                static::catchable(null,'userRoleUpper');
+
+                $return[] = $value;
+            }
         }
 
         return $return;
@@ -120,7 +133,7 @@ class UserRole extends EnumAlias
     // retourne les roles actifs
     public static function getRoles():array
     {
-        return static::boot()->roles()->pair('label');
+        return static::boot()->roles()->pair('labelPermission');
     }
 }
 

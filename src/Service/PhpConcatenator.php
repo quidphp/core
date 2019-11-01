@@ -60,7 +60,7 @@ class PhpConcatenator extends Main\Service
     {
         $return = null;
         $concatenator = $this->getConcatenator();
-        $credit = $this->getOptionCall('credit');
+        $credit = $this->getOption('credit',true);
         $namespaces = $this->getOption('namespace');
 
         if(!empty($credit))

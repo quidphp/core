@@ -76,13 +76,13 @@ class Media extends FilesAlias
         {
             $old = Main\Files::newOverload();
             $regenerate = false;
-            $basename = $value->mimeBasename($value->getOption('uploadBasename'));
+            $basename = $value->mimeBasename($value->getAttr('uploadBasename'));
             $return = Base\Path::safeBasename($basename);
 
             if(!empty($cell))
             {
                 $old = $cell->all();
-                $action = $value->getOption('uploadAction');
+                $action = $value->getAttr('uploadAction');
 
                 if(!empty($action))
                 {
@@ -131,11 +131,11 @@ class Media extends FilesAlias
             $action = $array['action'] ?? null;
             $name = Base\File::uploadBasename($array);
             $value = Main\File::new($array);
-            $value->setOption('uploadBasename',$name);
-            $value->setOption('uploadDeleteSource',true);
+            $value->setAttr('uploadBasename',$name);
+            $value->setAttr('uploadDeleteSource',true);
 
             if($error === 9 && !empty($action))
-            $value->setOption('uploadAction',$action);
+            $value->setAttr('uploadAction',$action);
         }
 
         elseif($error === 9)

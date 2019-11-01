@@ -11,7 +11,8 @@ namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
 use Quid\Routing;
-use Quid\Suite;
+use Quid\Main;
+use Quid\Test\Suite;
 
 // session
 // class for testing Quid\Core\Session
@@ -99,7 +100,9 @@ class Session extends Base\Test
         // structureNav
 
         // structureUser
-
+        
+        // structureFakeRoles
+        
         // context
         assert(count($s->context()) === 3);
 
@@ -124,7 +127,7 @@ class Session extends Base\Test
         // triggerUser
 
         // syncUser
-
+        
         // syncLang
 
         // syncTimezone
@@ -143,7 +146,10 @@ class Session extends Base\Test
         assert($s->isNobody());
 
         // setUserDefault
-
+        
+        // roles
+        assert($s->roles() instanceof Main\Roles);
+        
         // role
         assert($s->role() instanceof Core\Role);
 
@@ -157,7 +163,18 @@ class Session extends Base\Test
 
         // navEmpty
         assert($s->navEmpty() === $s);
-
+        
+        // allowFakeRoles
+        assert($s->allowFakeRoles() === false);
+        
+        // setFakeRoles
+        
+        // getFakeRoles
+        assert($s->getFakeRoles() === null);
+        
+        // fakeRolesEmpty
+        assert($s->fakeRolesEmpty() === null);
+        
         // routeTableGeneral
 
         // flashPost
@@ -313,7 +330,7 @@ class Session extends Base\Test
         assert(strlen($s->com()->flush($lang)) === 52);
         assert($s->changePassword('Test123','Test123',$password,['onCommitted'=>true,'com'=>true]));
         assert(strlen($s->com()->flush()) === 283);
-        $data = ['username'=>'test','active'=>1,'email'=>'test@test.com','password'=>'test023'];
+        $data = ['username'=>'test','role'=>20,'active'=>1,'email'=>'test@test.com','password'=>'test023'];
         assert($user::registerValidate($data,'bla') === 'register/alreadyConnected');
         assert($s->logoutProcess());
         assert($user::registerValidate($data,'bla') === 'register/passwordConfirm');
@@ -325,7 +342,8 @@ class Session extends Base\Test
         assert(strlen($s->com()->flush()) === 175);
         assert($s->loginProcess('USER','Test123',['com'=>true]));
         assert(strlen($s->com()->flush()) === 52);
-
+        assert($user->allowFakeRoles() === false);
+        
         // row/session
         $row = $s->storage();
         assert($s->storage() instanceof Core\Row);
@@ -340,7 +358,7 @@ class Session extends Base\Test
         assert($row::sessionGarbageCollect('','QUID',12231312) === 0);
 
         // main
-        assert(count($s->getStructure()) === 19);
+        assert(count($s->getStructure()) === 20);
 
         // cleanup
         assert($s->setUser(2) === $s);

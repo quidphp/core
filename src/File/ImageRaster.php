@@ -23,9 +23,9 @@ class ImageRaster extends Main\File\ImageRaster
 
     // getServiceClass
     // retourne la classe du service
-    public static function getServiceClass():string
+    public function getServiceClass():string
     {
-        return static::$config['service']::getOverloadClass();
+        return $this->getAttr('service')::getOverloadClass();
     }
 
 
@@ -34,7 +34,7 @@ class ImageRaster extends Main\File\ImageRaster
     public function compress(string $dirname,?string $filename=null,?array $option=null)
     {
         $return = null;
-        $class = static::getServiceClass();
+        $class = $this->getServiceClass();
         $upload = new $class(__METHOD__,$option);
         $return = $upload->trigger($this,$dirname,$filename);
 

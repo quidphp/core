@@ -26,7 +26,6 @@ abstract class Relation extends Core\ColAlias
         'check'=>['null'=>true], // les relations doivent être nullables
         'inRelation'=>true,
         'generalMax'=>3,
-        'sortable'=>null,
         'relationHtml'=>"<div class='choice'><div class='choice-in'>%</div></div>", // html pour la relation
         'route'=>[ // route à ajouter
             'specific'=>null,
@@ -40,7 +39,7 @@ abstract class Relation extends Core\ColAlias
     {
         $table = $this->table();
 
-        if($table->attr('inRelation') === true && !empty($return['inRelation']))
+        if($table->getAttr('inRelation') === true && !empty($return['inRelation']))
         $return['validate']['inRelation'] = $this->inRelationClosure();
 
         return $return;
@@ -57,7 +56,7 @@ abstract class Relation extends Core\ColAlias
             if($context === 'validate')
             {
                 $return = true;
-
+                
                 if(is_scalar($value) || is_array($value))
                 {
                     $relation = $this->relation();
@@ -75,14 +74,6 @@ abstract class Relation extends Core\ColAlias
 
             return $return;
         };
-    }
-
-
-    // isSortable
-    // retourne vrai si la relation est sortable
-    public function isSortable():bool
-    {
-        return false;
     }
 
 
@@ -127,7 +118,7 @@ abstract class Relation extends Core\ColAlias
 
         if(empty($attr['tag']) && $complex === true)
         {
-            $complex = $this->attr('complex');
+            $complex = $this->getAttr('complex');
 
             if(is_array($complex) && !empty($complex))
             {
@@ -199,7 +190,7 @@ abstract class Relation extends Core\ColAlias
         $lang = $this->db()->lang();
 
         $route = $this->route('specificRelation',['table'=>$this->table(),'col'=>$this,'selected'=>true]);
-        $query = $route::getSearchQuery();
+        $query = $route->getSearchQuery();
 
         $placeholder = $attr['placeholder'] ?? $lang->text('common/search');
         if(is_array($attr) && array_key_exists('placeholder',$attr))
@@ -212,7 +203,7 @@ abstract class Relation extends Core\ColAlias
         $placeholder .= " ($size)";
 
         $searchMinLength = ($rel->isRelationTable())? $rel->relationTable()->searchMinLength():$this->table()->searchMinLength();
-        $required = ($this->attr('relationSearchRequired') === true)? true:null;
+        $required = ($this->getAttr('relationSearchRequired') === true)? true:null;
 
         $data = ['query'=>$query,'separator'=>$route::getDefaultSegment(),'required'=>$required,'char'=>$route::getReplaceSegment(),'pattern'=>['minLength'=>$searchMinLength]];
         if($route->hasOrder())
@@ -317,7 +308,7 @@ abstract class Relation extends Core\ColAlias
     protected function prepareChoiceOption(array $return,bool $autoHidden=false):array
     {
         $return['autoHidden'] = $autoHidden;
-        $return['html'] = $this->attr('relationHtml');
+        $return['html'] = $this->getAttr('relationHtml');
 
         return $return;
     }
@@ -400,7 +391,7 @@ abstract class Relation extends Core\ColAlias
     public function prepareRelationPlainGeneral(array $array):array
     {
         $return = [];
-        $max = $this->attr('generalMax');
+        $max = $this->getAttr('generalMax');
         $i = 0;
 
         foreach ($array as $key => $value)

@@ -31,8 +31,8 @@ abstract class Robots extends Core\RouteAlias
     public function trigger()
     {
         $r = '';
-        $allow = static::$config['allow'];
-
+        $allow = $this->getAttr('allow');
+        
         if($allow === true)
         $r .= $this->robotsAllow();
 

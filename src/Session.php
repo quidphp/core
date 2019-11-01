@@ -35,7 +35,8 @@ class Session extends Main\Session
                 'logout'=>Row\Log::class],
             'structure'=>[ // callables de structure additionnelles dans data, se merge à celle dans base/session
                 'nav'=>'structureNav',
-                'user'=>'structureUser']],
+                'user'=>'structureUser',
+                'fakeRoles'=>'structureFakeRoles']],
         '@dev'=>[
             'option'=>[
                 'loginLifetime'=>(3600 * 24 * 25)]]
@@ -49,7 +50,7 @@ class Session extends Main\Session
     // onStart
     // callback une fois que la session a été démarré
     // lie l'objet com à db et trigge le role
-    protected function onStart():parent
+    protected function onStart():void
     {
         parent::onStart();
 
@@ -57,47 +58,47 @@ class Session extends Main\Session
         $this->userSession();
         $this->syncLang();
         $this->syncTimezone();
-        $db = $this->db();
         $com = $this->com();
-        $role = $this->role();
-        $db->setCom($com);
-        $db->setRole($role);
-
-        return $this;
+        $this->db()->setCom($com);
+        $roles = $this->roles(true);
+        $this->setRoles($roles);
+        
+        return;
     }
 
 
     // onEnd
     // callback une fois que la session est terminé
     // reset le timezone
-    protected function onEnd():parent
+    protected function onEnd():void
     {
         parent::onEnd();
-        $nobody = static::boot()->roles()->nobody();
-
+        
         $this->user = null;
         $db = $this->db();
         $db->setCom(null);
-        $db->setRole($nobody);
+        $roles = static::boot()->roles();
+        $nobody = $roles->nobody()->roles();
+        $this->setRoles($nobody);
         Base\Timezone::reset(true);
 
-        return $this;
+        return;
     }
 
 
     // onLogin
     // callback lors d'un login
-    protected function onLogin():self
+    protected function onLogin():void
     {
-        return $this;
+        return;
     }
 
 
     // onLogout
     // callback lors d'une logout
-    protected function onLogout():self
+    protected function onLogout():void
     {
-        return $this;
+        return;
     }
 
 
@@ -150,7 +151,7 @@ class Session extends Main\Session
         $userUid = $this->userUid();
         $userPermission = $this->userPermission();
         $row = $this->user;
-
+        
         if(!empty($row) && $userUid === $row->uid() && $userPermission === $row->permission())
         $return = true;
 
@@ -209,9 +210,9 @@ class Session extends Main\Session
     // getUserDefault
     // retourne la row l'utilisateur par défaut (lors de l'insertion)
     // sinon utilise le storage de user pour aller chercher le nobody ou cli
-    public function getUserDefault():Main\Contract\User
+    public function getUserDefault():Row\User
     {
-        $return = $this->getOptionCall('userDefault');
+        $return = $this->getOption('userDefault',true);
 
         if(is_int($return))
         {
@@ -219,7 +220,7 @@ class Session extends Main\Session
             $return = $class::findByUid($return);
         }
 
-        if(!$return instanceof Main\Contract\User)
+        if(!$return instanceof Row\User)
         {
             if(Base\Server::isCli())
             $return = $this->getUserCli();
@@ -233,7 +234,7 @@ class Session extends Main\Session
 
     // getUserNobody
     // retourne l'utilisateur nobody
-    public function getUserNobody():Main\Contract\User
+    public function getUserNobody():Row\User
     {
         return $this->getUserClass()::findNobody();
     }
@@ -241,7 +242,7 @@ class Session extends Main\Session
 
     // getUserCli
     // retourne l'utilisateur cli
-    public function getUserCli():Main\Contract\User
+    public function getUserCli():Row\User
     {
         return $this->getUserClass()::findCli();
     }
@@ -315,7 +316,7 @@ class Session extends Main\Session
                 $return = $user;
             }
 
-            elseif($value instanceof $class && $value instanceof Main\Contract\User)
+            elseif($value instanceof $class && $value instanceof Row\User)
             $return = $value;
 
             else
@@ -341,14 +342,30 @@ class Session extends Main\Session
         {
             $return = false;
 
-            if($value instanceof $class && $value instanceof Main\Contract\User)
+            if($value instanceof $class && $value instanceof Row\User)
             $return = true;
         }
 
         return $return;
     }
 
+    
+    // structureFakeRoles
+    // gère le champ structure fake roles de la session
+    public function structureFakeRoles(string $mode,$value=null)
+    {
+        $return = $value;
 
+        if($mode === 'insert')
+        $return = null;
+
+        elseif($mode === 'is')
+        $return = ($value === null || $value instanceof Main\Roles)? true:false;
+
+        return $return;
+    }
+    
+    
     // context
     // retourne le contexte de boot
     public function context():array
@@ -367,7 +384,7 @@ class Session extends Main\Session
 
     // user
     // retourne l'objet session user
-    public function user():Main\Contract\User
+    public function user():Row\User
     {
         if(!$this->isUserSynched())
         static::throw('userOutOfSync');
@@ -413,14 +430,14 @@ class Session extends Main\Session
     // triggerUser
     // lie un objet user et trigge celui-ci
     // méthode protégé
-    protected function triggerUser(Main\Contract\User $value):self
+    protected function triggerUser(Row\User $value):void
     {
         $this->user = $value;
         $this->set('user',$value->toSession());
-        $role = $value->role();
-        $this->db()->setRole($role);
+        $roles = $value->roles();
+        $this->setRoles($roles);
 
-        return $this;
+        return;
     }
 
 
@@ -428,7 +445,7 @@ class Session extends Main\Session
     // tente de resynchroniser le user objet avec le user dans les data de session
     // il faut resynchroniser pour le regenerateId (onEnd annule le user)
     // méthode protégé
-    protected function syncUser():self
+    protected function syncUser():void
     {
         if(!$this->isUserSynched())
         {
@@ -452,32 +469,32 @@ class Session extends Main\Session
             $this->logout();
         }
 
-        return $this;
+        return;
     }
 
-
+    
     // syncLang
     // synchronise la langue de la session avec celle de l'objet lang
-    protected function syncLang():self
+    protected function syncLang():void
     {
         $lang = $this->db()->lang();
         $current = $this->lang();
         $current = ($lang->isLang($current))? $current:$lang->defaultLang();
         $this->setLang($current);
 
-        return $this;
+        return;
     }
 
 
     // syncTimezone
     // synchronise le timezone de la session avec celle courante de php
-    protected function syncTimezone():self
+    protected function syncTimezone():void
     {
         $timezone = $this->timezone();
         if(is_string($timezone))
         Base\Timezone::set($timezone);
 
-        return $this;
+        return;
     }
 
 
@@ -501,7 +518,7 @@ class Session extends Main\Session
     // la timestamp différence ne doit pas être plus grande que le login lifetime, sinon logout
     // si loginSingleUser est true et qu'une session plus récente existe, alors loguout
     // lors du logout ne regénère pas le id de la session
-    protected function userSession():self
+    protected function userSession():void
     {
         $logout = false;
         $neg = null;
@@ -550,7 +567,7 @@ class Session extends Main\Session
         if($logout === true)
         $this->logout(['neg'=>$neg]);
 
-        return $this;
+        return;
     }
 
 
@@ -596,20 +613,51 @@ class Session extends Main\Session
         return $this->setUser($this->getUserDefault());
     }
 
-
-    // role
-    // retourne l'objet role de l'user
-    public function role():Role
+    
+    // setRoles
+    // permet de changer les rôles de la session
+    // lie à la base de donnée
+    protected function setRoles(Main\Roles $roles):void 
     {
-        return $this->user()->role();
+        if($roles->isEmpty())
+        static::throw('rolesEmpty');
+        
+        $this->db()->setRoles($roles);
+
+        return;
+    }
+    
+    
+    // roles
+    // retourne l'objet roles de l'user
+    // possible de retourner les fake roles
+    public function roles(bool $fake=false):Main\Roles
+    {
+        $return = null;
+        
+        if($fake === true && $this->allowFakeRoles())
+        $return = $this->getFakeRoles();
+        
+        if(empty($return))
+        $return = $this->user()->roles();
+        
+        return $return;
+    }
+    
+    
+    // role
+    // retourne l'objet role de l'user (le rôle principal)
+    public function role(bool $fake=false):Role
+    {
+        return $this->roles($fake)->main();
     }
 
 
     // permission
     // retourne le code de permission du rôle
-    public function permission():int
+    public function permission(bool $fake=false):int
     {
-        return $this->user()->permission();
+        return $this->role($fake)->permission();
     }
 
 
@@ -644,7 +692,54 @@ class Session extends Main\Session
         return $this;
     }
 
-
+    
+    // allowFakeRoles
+    // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
+    public function allowFakeRoles():bool 
+    {
+        return $this->user()->allowFakeRoles();
+    }
+    
+    
+    // setFakeRoles
+    // applique des fakes rôles si l'utilisateur peut en avoir
+    public function setFakeRoles(?Main\Roles $roles):void
+    {
+        if(!$this->allowFakeRoles() && !empty($roles))
+        static::throw('fakeRolesNotAllowed');
+        
+        if(!empty($roles) && $roles->isEmpty())
+        $roles = null;
+        
+        $this->set('fakeRoles',$roles);
+        
+        if($roles === null)
+        $roles = $this->user()->roles();
+        
+        $this->setRoles($roles);
+        
+        return;
+    }
+    
+    
+    // getFakeRoles
+    // retourne les fake roles si l'utilisateur peut en avoir
+    public function getFakeRoles():?Main\Roles
+    {
+        return ($this->allowFakeRoles())? $this->get('fakeRoles'):null;
+    }
+    
+    
+    // fakeRolesEmpty
+    // vide la valeur fakeRoles de la session
+    public function fakeRolesEmpty():void 
+    {
+        $this->setFakeRoles(null);
+        
+        return;
+    }
+    
+    
     // routeTableGeneral
     // retourne une route general à partir d'un objet table
     // la session peut générer la route à partir de la dernière route de la même table conservé dans l'objet nav de session
@@ -788,10 +883,11 @@ class Session extends Main\Session
         $return = 'login/success';
         $this->regenerateId();
         $this->setUser($user);
+        $this->rememberEmpty();
+        $this->fakeRolesEmpty();
         $this->onLogin();
         $user->onLogin();
-        $this->emptyRemember();
-
+        
         if($remember === true)
         $remember = ['credential'=>$connect];
 
@@ -844,7 +940,7 @@ class Session extends Main\Session
     // par défaut regenerateId est false
     public function logout(?array $option=null):self
     {
-        $option = Base\Arr::plus(['regenerateId'=>false,'history'=>true,'nav'=>true,'flash'=>true,'pos'=>null,'neg'=>null],$option);
+        $option = Base\Arr::plus(['regenerateId'=>false,'history'=>true,'nav'=>true,'flash'=>true,'fakeRoles'=>true,'pos'=>null,'neg'=>null],$option);
 
         if($option['regenerateId'] === true)
         $this->regenerateId();
@@ -860,7 +956,10 @@ class Session extends Main\Session
 
         if($option['flash'] === true)
         $this->flashEmpty();
-
+        
+        if($option['fakeRoles'] === true)
+        $this->fakeRolesEmpty();
+        
         if($option['pos'] !== null)
         $this->com()->pos($option['pos']);
 

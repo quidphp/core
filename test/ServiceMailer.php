@@ -54,8 +54,10 @@ class ServiceMailer extends Base\Test
         assert($mailer->prepareMessage($msg2)['to'][0]['name'] === 'admin');
         assert($mailer->prepareMessage($msg3)['to'][0]['name'] === 'administrator');
         assert($mailer->queueLoop([$msg]) === [true]);
-        $queue = $mailer::queueClass();
+        $queue = $mailer->queueClass();
         assert(class_exists($queue));
+        $log = $mailer->logClass();
+        assert(class_exists($log));
         $rows = $queue::getQueued(10);
         assert($rows->isNotEmpty());
         $row = $rows->first();

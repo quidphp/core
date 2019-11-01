@@ -20,8 +20,7 @@ abstract class Boot extends Main\Root
 {
     // trait
     use Main\_inst;
-    use Main\_option;
-    use Main\_attr;
+    use Main\_attrOption;
 
 
     // config
@@ -124,7 +123,6 @@ abstract class Boot extends Main\Root
         'cache'=>true, // active ou désactive la cache globale
         'clearCache'=>true, // vide le dossier de cache si cache est false
         'extenders'=>[ // paramètres pour l'étendeurs de classe, si c'est un tableau et que la deuxième valeur est false, quid va tenter de ne pas charger la classe lors du extend
-            'role'=>[Main\Roles::class,Role::class],
             'lang'=>[Main\Extender::class,Base\Config::class],
             'file'=>[Main\Extender::class,Main\File::class],
             'service'=>[Main\Extender::class,Main\Service::class],
@@ -135,6 +133,10 @@ abstract class Boot extends Main\Root
             'col'=>[Main\Extender::class,Col::class],
             'cells'=>[Main\Extender::class,Cells::class],
             'cell'=>[Main\Extender::class,Cell::class]],
+        'roles'=>array(
+            'nobody'=>array(1),
+            'admin'=>array(80,array('isAdmin'=>true)),
+            'cli'=>array(90,array('isAdmin'=>true,'isCli'=>true))),
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
         'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
         'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
@@ -228,11 +230,11 @@ abstract class Boot extends Main\Root
 
     // dynamique
     protected $name = null; // nom du boot
-    protected $attr = []; // tableau des attributs
     protected $value = []; // argument de départ
     protected $status = 0; // niveau de préparation de l'objet
     protected $envType = null; // garde en mémoire le envType
     protected $extenders = null; // garde l'objet extenders
+    protected $roles = null; // garde l'objet roles
     protected $route = null; // classe de la dernière route qui a été trigger
     protected $fromCache = false; // détermine si la cache pour extenders est utilisé
 
@@ -326,7 +328,7 @@ abstract class Boot extends Main\Root
     // possible d'avoir une callable dans les attributs
     protected function onReady():void
     {
-        $this->attrCall('onReady');
+        $this->getAttr('onReady',true);
 
         return;
     }
@@ -366,19 +368,10 @@ abstract class Boot extends Main\Root
     }
 
 
-    // attrAll
-    // retourne le tableau des attributs
-    // doit retourner une référence
-    protected function &attrAll():array
-    {
-        return $this->attr;
-    }
-
-
     // prepare
     // prépare l'objet
     // init error, le code de réponse, crée la request, génère le envType, ensuite merge les attr, finalement autoload
-    public function prepare():self
+    protected function prepare():void
     {
         $this->setInst();
         $this->checkStatus(1);
@@ -400,68 +393,65 @@ abstract class Boot extends Main\Root
         $this->makeFinalAttr();
 
         $this->autoload();
-
-        $option = $this->attr('option');
-        $this->option($option);
-
+        
         $this->setStatus(2);
         static::$init = true;
 
-        return $this;
+        return;
     }
 
 
     // dispatch
     // prépare l'objet
     // plusieurs changements sont envoyés, ceci affecte php et les classes statiques
-    public function dispatch():self
+    protected function dispatch():void
     {
         $this->checkStatus(2);
         $this->onDispatch();
 
-        if($this->attr('requirement') === true)
+        if($this->getAttr('requirement') === true)
         static::requirement();
 
         $this->ini();
         $this->makeFinderShortcut();
 
-        $umaskGroupWritable = $this->attr('umaskGroupWritable');
+        $umaskGroupWritable = $this->getAttr('umaskGroupWritable');
         if(is_bool($umaskGroupWritable))
         Base\Finder::umaskGroupWritable($umaskGroupWritable);
 
-        $errorLog = $this->attr('errorLog');
+        $errorLog = $this->getAttr('errorLog');
         if($errorLog !== null)
         static::setErrorLog($errorLog);
 
-        $phpInfo = $this->attr('phpInfo');
+        $phpInfo = $this->getAttr('phpInfo');
         if(!empty($phpInfo))
         Base\Server::phpInfo($phpInfo);
 
-        $kill = $this->attr('kill');
+        $kill = $this->getAttr('kill');
         if(!empty($kill))
         Base\Response::kill($kill);
 
-        $ip = $this->attr('ip');
+        $ip = $this->getAttr('ip');
         if($ip !== null)
         $this->checkIp($ip);
 
-        $writable = $this->attr('writable');
+        $writable = $this->getAttr('writable');
         if($writable !== null)
         static::checkWritable($writable);
 
-        $timeLimit = $this->attr('timelimit');
+        $timeLimit = $this->getAttr('timelimit');
         if(is_int($timeLimit))
         Base\Response::timeLimit($timeLimit);
 
-        $alias = $this->attr('alias');
+        $alias = $this->getAttr('alias');
         if(is_array($alias) && !empty($alias))
         Main\Autoload::setsAlias($alias);
 
-        $overload = $this->attr('overload');
+        $overload = $this->getAttr('overload');
         if(is_array($overload) && !empty($overload))
         Base\Autoload::setsOverload($overload);
 
-        $scheme = $this->attr('scheme');
+        $scheme = $this->getAttr('scheme');
         if(is_array($scheme) && !empty($scheme))
         {
             $scheme = $this->getSchemeArray($scheme);
@@ -469,11 +459,11 @@ abstract class Boot extends Main\Root
             Base\Uri::schemeStatic($scheme);
         }
 
-        $finderHost = $this->attr('finderHost');
+        $finderHost = $this->getAttr('finderHost');
         if(is_array($finderHost) && !empty($finderHost))
         Base\Finder::host($finderHost);
 
-        $finderHostTypes = $this->attr('finderHostTypes');
+        $finderHostTypes = $this->getAttr('finderHostTypes');
         if(!empty($finderHostTypes))
         {
             $finderHostTypes = $this->getFinderHostTypes(true,$finderHostTypes);
@@ -481,33 +471,33 @@ abstract class Boot extends Main\Root
             Base\Finder::host($finderHostTypes);
         }
 
-        $uriShortcut = $this->attr('uriShortcut');
+        $uriShortcut = $this->getAttr('uriShortcut');
         if(is_array($uriShortcut) && !empty($uriShortcut))
         $this->setsUriShortcut($uriShortcut);
 
-        $uriAbsolute = $this->attr('uriAbsolute');
+        $uriAbsolute = $this->getAttr('uriAbsolute');
         if(is_bool($uriAbsolute))
         Base\Uri::setAllAbsolute($uriAbsolute);
 
-        $symlink = $this->attr('symlink');
+        $symlink = $this->getAttr('symlink');
         if(is_array($symlink) && !empty($symlink))
         static::setsSymlink($symlink);
 
-        $callable = $this->attr('callable');
+        $callable = $this->getAttr('callable');
         if(is_array($callable) && !empty($callable))
         static::setsCallable($callable);
 
         Error::init();
 
-        $lang = $this->attr('lang');
+        $lang = $this->getAttr('lang');
         if(!empty($lang))
         Base\Lang::set(null,$lang);
 
-        $response = $this->attr('response');
+        $response = $this->getAttr('response');
         $response = Base\Call::digStaticMethod($response);
         Base\Response::prepare($response);
 
-        $speed = $this->attr('speed');
+        $speed = $this->getAttr('speed');
         if($speed === true)
         Base\Response::speedOnCloseBody();
 
@@ -523,11 +513,11 @@ abstract class Boot extends Main\Root
         if(!empty($shutDown))
         Base\Response::onShutDown($shutDown);
 
-        $config = $this->attr('config');
+        $config = $this->getAttr('config');
         if(is_array($config) && !empty($config))
         static::setsConfig($config);
 
-        $configUnset = $this->attr('configUnset');
+        $configUnset = $this->getAttr('configUnset');
         if(is_array($configUnset) && !empty($configUnset))
         static::unsetsConfig($configUnset);
 
@@ -537,23 +527,26 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(3);
 
-        return $this;
+        return;
     }
 
 
     // core
     // gère l'extension du core
     // une fois que le statut est à 4, les objets lang, services, db et session peuvent être crées
-    protected function core():self
+    protected function core():void
     {
         $this->checkStatus(3);
         $this->onCore();
 
-        if($this->attr('clearCache') === true && !$this->shouldCache())
+        if($this->getAttr('clearCache') === true && !$this->shouldCache())
         static::emptyCacheFile();
 
         $this->makeExtenders();
-
+        
+        $roles = $this->getAttr('roles');
+        $this->setRoles($roles);
+        
         $error = Error::getOverloadClass();
         if($error !== Error::class)
         $error::init();
@@ -568,25 +561,25 @@ abstract class Boot extends Main\Root
 
         $this->onReady();
 
-        return $this;
+        return;
     }
 
 
     // compile
     // permet de compile le js, scss et php
-    protected function compile():self
+    protected function compile():void
     {
-        $js = $this->attr('concatenateJs');
-        $jsOption = $this->attr('concatenateJsOption');
+        $js = $this->getAttr('concatenateJs');
+        $jsOption = $this->getAttr('concatenateJsOption');
         if(is_array($js) && !empty($js))
         File\Js::concatenateMany($js,$jsOption);
 
-        $scss = $this->attr('compileScss');
-        $scssOption = $this->attr('compileScssOption');
+        $scss = $this->getAttr('compileScss');
+        $scssOption = $this->getAttr('compileScssOption');
         if(is_array($scss) && !empty($scss))
         File\Css::compileMany($scss,$scssOption);
 
-        $php = $this->attr('concatenatePhp');
+        $php = $this->getAttr('concatenatePhp');
         if(is_array($php) && !empty($php))
         {
             $replace = ['%key%'=>$this->name(true)];
@@ -594,7 +587,7 @@ abstract class Boot extends Main\Root
             File\Php::concatenateMany($php);
         }
 
-        return $this;
+        return;
     }
 
 
@@ -676,11 +669,11 @@ abstract class Boot extends Main\Root
     // garde en mémoire la dernière classe de la route qui a été triggé
     // doit fournir un objet, le nom de la classe est gardé
     // méthode protégé
-    protected function setRoute(Route $value):self
+    protected function setRoute(Route $value):void
     {
         $this->route = get_class($value);
 
-        return $this;
+        return;
     }
 
 
@@ -695,7 +688,7 @@ abstract class Boot extends Main\Root
     // terminate
     // termine et détruit l'objet boot
     // commit la session si elle est toujours active
-    public function terminate():self
+    public function terminate():void
     {
         Base\Root::setInitCallable(null);
         Base\Response::closeDown();
@@ -716,7 +709,6 @@ abstract class Boot extends Main\Root
         }
 
         $this->setStatus(0);
-        $this->option = [];
         $this->attr = [];
         $this->name = null;
         $this->envType = null;
@@ -727,7 +719,7 @@ abstract class Boot extends Main\Root
 
         static::$init = false;
 
-        return $this;
+        return;
     }
 
 
@@ -740,11 +732,11 @@ abstract class Boot extends Main\Root
 
     // setStatus
     // change le numéro de statut de boot
-    protected function setStatus(int $value):self
+    protected function setStatus(int $value):void
     {
         $this->status = $value;
 
-        return $this;
+        return;
     }
 
 
@@ -792,11 +784,11 @@ abstract class Boot extends Main\Root
 
     // setName
     // attribue un nom à l'objet boot
-    protected function setName(string $value):self
+    protected function setName(string $value):void
     {
         $this->name = lcfirst($value);
 
-        return $this;
+        return;
     }
 
 
@@ -815,7 +807,7 @@ abstract class Boot extends Main\Root
 
     // makeInitialAttr
     // génère les attributs, merge le tableau avec la static config
-    protected function makeInitialAttr(array $value):self
+    protected function makeInitialAttr(array $value):void
     {
         $this->value = $value;
         $parent = get_parent_class(static::class);
@@ -831,14 +823,14 @@ abstract class Boot extends Main\Root
         $value = static::parseSchemeHost($value);
         $this->makeAttr($value);
 
-        return $this;
+        return;
     }
 
 
     // makeFinalAttr
     // génère les attributds finaux, maintenant que le envType et la closure pour merge les config sont sets
     // gère aussi le configFile et live
-    protected function makeFinalAttr():self
+    protected function makeFinalAttr():void
     {
         static::__init();
         $attr = $this->replaceSpecial(static::class,static::initReplaceMode(),static::$config,$this->value);
@@ -846,13 +838,13 @@ abstract class Boot extends Main\Root
         $this->makeAttr($attr);
         $this->makeFinderShortcut();
 
-        $configFile = $this->attr('configFile');
+        $configFile = $this->getAttr('configFile');
         $merge = [];
         if(!empty($configFile))
         $merge = $this->getConfigFile((array) $configFile);
 
-        $live = $this->attr('live');
-        $liveConfig = $this->attr('configLive');
+        $live = $this->getAttr('live');
+        $liveConfig = $this->getAttr('configLive');
         if($live === true && is_array($liveConfig) && !empty($liveConfig))
         $merge[] = $liveConfig;
 
@@ -863,7 +855,7 @@ abstract class Boot extends Main\Root
             $this->makeAttr($attr);
         }
 
-        return $this;
+        return;
     }
 
 
@@ -895,25 +887,25 @@ abstract class Boot extends Main\Root
 
     // makeFinderShortcut
     // génère les finder shortcut
-    protected function makeFinderShortcut():self
+    protected function makeFinderShortcut():void
     {
-        $finderShortcut = $this->attr('finderShortcut');
+        $finderShortcut = $this->getAttr('finderShortcut');
         if(is_array($finderShortcut) && !empty($finderShortcut))
         {
             $finderShortcut = $this->makePaths($finderShortcut);
             Base\Finder::setsShortcut($finderShortcut);
         }
 
-        return $this;
+        return;
     }
 
 
     // makeRequest
     // crée la requête et conserve dans l'objet
     // méthode protégé
-    protected function makeRequest():self
+    protected function makeRequest():void
     {
-        $value = $this->attr('request');
+        $value = $this->getAttr('request');
 
         if(is_array($value) && !empty($value))
         Base\Request::change($value,true);
@@ -921,7 +913,7 @@ abstract class Boot extends Main\Root
         $request = Request::newOverload();
         $request->setInst();
 
-        return $this;
+        return;
     }
 
 
@@ -937,7 +929,7 @@ abstract class Boot extends Main\Root
     // retourne tous les environnements
     public function envs():array
     {
-        return $this->attr('envs');
+        return $this->getAttr('envs');
     }
 
 
@@ -945,7 +937,7 @@ abstract class Boot extends Main\Root
     // retournes tous les types d'applications
     public function types():array
     {
-        return $this->attr('types');
+        return $this->getAttr('types');
     }
 
 
@@ -953,7 +945,7 @@ abstract class Boot extends Main\Root
     // retourne tous les chemins
     public function paths():array
     {
-        return $this->attr('path');
+        return $this->getAttr('path');
     }
 
 
@@ -961,7 +953,7 @@ abstract class Boot extends Main\Root
     // retourne un chemin
     public function path(string $key):string
     {
-        return $this->attr(['path',$key]);
+        return $this->getAttr(['path',$key]);
     }
 
 
@@ -1033,7 +1025,7 @@ abstract class Boot extends Main\Root
     // retournes tous les hosts pour le boot
     public function hosts():array
     {
-        return $this->attr('host');
+        return $this->getAttr('host');
     }
 
 
@@ -1057,7 +1049,7 @@ abstract class Boot extends Main\Root
     // checkHost
     // vérifie si le host est valide avec le tableau de host
     // sinon envoie une exception
-    protected function checkHost():self
+    protected function checkHost():void
     {
         $hosts = $this->hosts();
         $request = $this->request();
@@ -1066,14 +1058,14 @@ abstract class Boot extends Main\Root
         if(!is_string($host) || !is_array($hosts) || !in_array($host,$hosts,true))
         static::throw($host,$hosts);
 
-        return $this;
+        return;
     }
 
 
     // makeEnvType
     // génère le envType à partir des tableaux hosts, envs et types
     // la valeur est mise en cache
-    protected function makeEnvType():self
+    protected function makeEnvType():void
     {
         $request = $this->request();
         $host = $request->host();
@@ -1085,7 +1077,7 @@ abstract class Boot extends Main\Root
         else
         $this->envType = $envType;
 
-        return $this;
+        return;
     }
 
 
@@ -1202,7 +1194,7 @@ abstract class Boot extends Main\Root
     // les types à utiliser ont priorités
     public function typeAs(string $class,string $type)
     {
-        return $this->attr(['typeAs',$class,$type]);
+        return $this->getAttr(['typeAs',$class,$type]);
     }
 
 
@@ -1232,7 +1224,7 @@ abstract class Boot extends Main\Root
     // enrobe les clés à gauche du caractère pour climb
     public function valuesWrapClimb(array $return):array
     {
-        return Base\Arr::valuesWrap($this->attr('climbChar'),'',$return);
+        return Base\Arr::valuesWrap($this->getAttr('climbChar'),'',$return);
     }
 
 
@@ -1274,7 +1266,7 @@ abstract class Boot extends Main\Root
     // ini
     // initialise les ini
     // les include paths sont le résultat de la méthode paths
-    protected function ini():self
+    protected function ini():void
     {
         $charset = Base\Encoding::getCharset();
         $timezone = Base\Timezone::get();
@@ -1282,7 +1274,7 @@ abstract class Boot extends Main\Root
         Base\Ini::setIncludePath(['public'=>$this->path('public')]);
         Base\Ini::setDefault(['default_charset'=>$charset,'date.timezone'=>$timezone]);
 
-        return $this;
+        return;
     }
 
 
@@ -1298,13 +1290,13 @@ abstract class Boot extends Main\Root
     // retourne le type d'autoload, peut être internal, composer ou preload
     public function autoloadType():string
     {
-        return $this->attr('autoload');
+        return $this->getAttr('autoload');
     }
 
 
     // autoload
     // renvoie vers la bonne méthode d'autoload, selon le type
-    protected function autoload():self
+    protected function autoload():void
     {
         $type = $this->autoloadType();
 
@@ -1318,7 +1310,7 @@ abstract class Boot extends Main\Root
             if(!Main\Autoload::isRegistered('alias'))
             Main\Autoload::registerAlias();
 
-            $psr4 = $this->attr('psr4');
+            $psr4 = $this->getAttr('psr4');
             if(!empty($psr4))
             {
                 $psr4 = $this->makePaths($psr4,true);
@@ -1327,7 +1319,7 @@ abstract class Boot extends Main\Root
 
             if($type === 'composer')
             {
-                $authoritative = $this->attr(['composer','classMapAuthoritative']);
+                $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
                 Service\Composer::setPsr4();
                 Service\Composer::setClassMapAuthoritative($authoritative);
             }
@@ -1336,14 +1328,14 @@ abstract class Boot extends Main\Root
         else
         static::errorKill('invalidAutoloadType',$type);
 
-        return $this;
+        return;
     }
 
 
     // checkIp
     // vérifie si le ip est valide pour accéder
     // sinon tue le script
-    protected function checkIp($value):self
+    protected function checkIp($value):void
     {
         if(is_string($value))
         $value = [$value];
@@ -1357,7 +1349,7 @@ abstract class Boot extends Main\Root
             static::throw($ip);
         }
 
-        return $this;
+        return;
     }
 
 
@@ -1441,7 +1433,7 @@ abstract class Boot extends Main\Root
     // si convert est true, le scheme est converti de boolean/port vers la string http/https
     public function schemes(bool $convert=true):array
     {
-        $return = $this->attr('scheme');
+        $return = $this->getAttr('scheme');
 
         if($convert === true)
         $return = $this->getSchemeArray($return);
@@ -1551,7 +1543,7 @@ abstract class Boot extends Main\Root
     // setsUriShortcut
     // permet de lier plusieurs shortcuts à la classe uri
     // si un shortcut est un tableau, passe dans schemeHost
-    public function setsUriShortcut(array $shortcut):self
+    public function setsUriShortcut(array $shortcut):void
     {
         foreach ($shortcut as $key => $value)
         {
@@ -1561,7 +1553,7 @@ abstract class Boot extends Main\Root
 
         Base\Uri::setsShortcut($shortcut);
 
-        return $this;
+        return;
     }
 
 
@@ -1570,7 +1562,7 @@ abstract class Boot extends Main\Root
     // si quid est true, retourne aussi celle de quid
     public function versions(bool $quid=true):?array
     {
-        $return = $this->attr('version');
+        $return = $this->getAttr('version');
 
         if($quid === true)
         {
@@ -1642,7 +1634,7 @@ abstract class Boot extends Main\Root
     // setsSymlink
     // gère la création des symlinks
     // envoie une exception en cas d'erreur
-    public function setsSymlink(array $array):self
+    public function setsSymlink(array $array):void
     {
         $array = Base\Dir::fromToCatchAll($array);
         $syms = Base\Symlink::sets($array,true,true);
@@ -1653,13 +1645,13 @@ abstract class Boot extends Main\Root
             static::throw('from',$array['from'],'to',$to);
         }
 
-        return $this;
+        return;
     }
 
 
     // setsCallable
     // fait les appels au callable pour configuration plus poussée
-    public function setsCallable(array $array):self
+    protected function setsCallable(array $array):void
     {
         if(!empty($array))
         {
@@ -1675,7 +1667,7 @@ abstract class Boot extends Main\Root
             }
         }
 
-        return $this;
+        return;
     }
 
 
@@ -1691,7 +1683,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si la cache globale est activé
     public function shouldCache():bool
     {
-        return $this->attr('cache');
+        return $this->getAttr('cache');
     }
 
 
@@ -1704,7 +1696,7 @@ abstract class Boot extends Main\Root
 
         if($request->isStandard() && !$this->isPreload())
         {
-            $return = $this->attr('compile');
+            $return = $this->getAttr('compile');
 
             if(!is_bool($return))
             $return = ($this->isFromCache())? false:true;
@@ -1717,7 +1709,7 @@ abstract class Boot extends Main\Root
     // makeExtenders
     // peut créer un nouveau ou utiliser celui de la cache
     // l'extenders est garder comme propriété de l'objet
-    protected function makeExtenders():self
+    protected function makeExtenders():void
     {
         $cache = $this->shouldCache();
         $type = $this->type();
@@ -1727,7 +1719,7 @@ abstract class Boot extends Main\Root
         $this->fromCache = true;
         $extenders = static::cacheFile($key,function() {
             $this->fromCache = false;
-            $config = (array) $this->attr('extenders');
+            $config = (array) $this->getAttr('extenders');
             return $this->newExtenders($config);
         },$cache);
 
@@ -1759,15 +1751,11 @@ abstract class Boot extends Main\Root
                 $extender->checkExtend();
 
                 // vérifie que toutes les classes sont des sous-classe de celle défini dans configuration
-                $subClass = $this->attr(['extenders',$key,1]);
+                $subClass = $this->getAttr(['extenders',$key,1]);
                 if(is_string($subClass))
                 $extender->checkSubClassOf($subClass);
             }
         }
-
-        $roles = $extenders->get('role');
-        $roles->init($type);
-        $roles->readOnly(true);
 
         $routes = $extenders->get($type);
         $routes->init($type);
@@ -1775,7 +1763,7 @@ abstract class Boot extends Main\Root
 
         $this->extenders = $extenders;
 
-        return $this;
+        return;
     }
 
 
@@ -1800,7 +1788,7 @@ abstract class Boot extends Main\Root
         $routeOption = ['noSubDir'=>true];
         foreach ($types as $type)
         {
-            $routeNamespace = $this->attr(['routeNamespace',$type]);
+            $routeNamespace = $this->getAttr(['routeNamespace',$type]);
             if(!empty($routeNamespace))
             $extender = $closure(Routing\Routes::class,null,$routeNamespace,$routeOption);
             else
@@ -1886,12 +1874,25 @@ abstract class Boot extends Main\Root
         return $this->routes($type)->active();
     }
 
-
+    
+    // setRoles
+    // génère l'objet roles
+    protected function setRoles(array $array):void 
+    {
+        $this->roles = $roles = Main\Roles::makeFromArray($array);
+        $roles->sortDefault();
+        $roles->readOnly(true);
+        $roles->setInst();
+        
+        return;
+    }
+    
+    
     // roles
     // retourne l'objet roles de boot
     public function roles():Main\Roles
     {
-        return $this->extenders()->get('role');
+        return $this->roles;
     }
 
 
@@ -1906,12 +1907,12 @@ abstract class Boot extends Main\Root
         if(empty($return))
         {
             $all = Base\Lang::all();
-            $option = (array) $this->attrCall('langOption');
+            $option = (array) $this->getAttr('langOption',true);
             $option['onLoad'] = function(string $value) {
                 $fqcn = $this->langContentClass($value);
                 $return = Base\Lang::content($fqcn::config());
 
-                $langRow = $this->attr('langRow');
+                $langRow = $this->getAttr('langRow');
                 if(is_string($langRow) && $this->hasDb() && $this->db()->hasTable($langRow))
                 {
                     $table = $this->db()->table($langRow);
@@ -2001,7 +2002,7 @@ abstract class Boot extends Main\Root
 
         if(empty($return))
         {
-            $services = $this->attr('service');
+            $services = $this->getAttr('service');
             $return = Main\Services::newOverload($services);
             $return->setInst();
             $return->readOnly(true);
@@ -2037,7 +2038,7 @@ abstract class Boot extends Main\Root
     public function serviceMailer(?string $key=null):?Main\ServiceMailer
     {
         $return = null;
-        $key = ($key === null)? $this->attr('serviceMailer'):$key;
+        $key = ($key === null)? $this->getAttr('serviceMailer'):$key;
 
         if(is_string($key))
         $return = $this->service($key);
@@ -2068,9 +2069,9 @@ abstract class Boot extends Main\Root
 
         if(empty($return))
         {
-            $redirection = (array) $this->attrCall('redirection');
+            $redirection = (array) $this->getAttr('redirection',true);
 
-            $redirectionRow = $this->attr('redirectionRow');
+            $redirectionRow = $this->getAttr('redirectionRow');
             if(is_string($redirectionRow) && $this->hasDb() && $this->db()->hasTable($redirectionRow))
             {
                 $content = $redirectionRow::grabContent($this->typeIndex());
@@ -2096,11 +2097,11 @@ abstract class Boot extends Main\Root
 
         if(empty($return))
         {
-            $credentials = $this->attr('db');
+            $credentials = $this->getAttr('db');
 
             if(is_array($credentials) && count($credentials) === 3)
             {
-                $option = (array) $this->attrCall('dbOption');
+                $option = (array) $this->getAttr('dbOption',true);
 
                 if($this->shouldCache())
                 {
@@ -2110,7 +2111,7 @@ abstract class Boot extends Main\Root
                     $option['classeClosure'] = function(Main\Extenders $extenders) use($type,$version) {
                         $key = ['classe',$type,$version];
                         return static::cacheFile($key,function() use($extenders) {
-                            $this->classe = Orm\Classe::newOverload($extenders,$this->getOption('classe'));
+                            $this->classe = Orm\Classe::newOverload($extenders,$this->getAttr('classe'));
                             $this->tablesColsLoad();
                             return $this->classe;
                         });
@@ -2128,12 +2129,12 @@ abstract class Boot extends Main\Root
 
                 $lang = $this->lang();
                 $extenders = $this->extenders();
-                $nobody = $this->roles()->nobody();
+                $nobody = $this->roles()->nobody()->roles();
                 $values = Base\Arr::push($credentials,$extenders,$nobody,$option);
                 $return = Db::newOverload(...array_values($values));
                 $return->setLang($lang);
 
-                $langRow = $this->attr('langRow');
+                $langRow = $this->getAttr('langRow');
                 if(!empty($langRow))
                 $return->table($langRow)->cols();
             }
@@ -2163,9 +2164,9 @@ abstract class Boot extends Main\Root
 
         if(empty($return))
         {
-            $storage = $this->attr('sessionStorage');
-            $versionMatch = $this->attr('sessionVersionMatch');
-            $option = (array) $this->attrCall('sessionOption');
+            $storage = $this->getAttr('sessionStorage');
+            $versionMatch = $this->getAttr('sessionVersionMatch');
+            $option = (array) $this->getAttr('sessionOption',true);
 
             if(is_bool($versionMatch))
             $option['versionMatch'] = $versionMatch;
@@ -2194,12 +2195,12 @@ abstract class Boot extends Main\Root
     // certaines errors vont générer un code http 400 plutôt que 404 (bad request)
     // crée aussi un callback au closeDown dans la classe de log, une entrée sera ajouté si le code de réponse n'est pas positif
     // méthode protégé
-    protected function manageRedirect():self
+    protected function manageRedirect():void
     {
         $request = $this->request();
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
-        $log = $this->attr('redirectLog');
+        $log = $this->getAttr('redirectLog');
 
         if($manage['type'] === 'blocked')
         $log = null;
@@ -2226,7 +2227,7 @@ abstract class Boot extends Main\Root
             Base\Response::redirect($manage['location'],$manage['code'],true);
         }
 
-        return $this;
+        return;
     }
 
 
@@ -2497,7 +2498,7 @@ abstract class Boot extends Main\Root
     // retourne le root a utilisé par boot dans le constructeur
     public static function nameFromClass():string
     {
-        return static::classRoot();
+        return Base\Fqcn::root(static::class);
     }
 
 

@@ -53,8 +53,6 @@ class Boot extends Base\Test
         // cast
         assert(count($boot->_cast()) === 3);
 
-        // attrAll
-
         // prepare
 
         // dispatch
@@ -267,7 +265,7 @@ class Boot extends Base\Test
 
         // extenders
         assert($boot->extenders() instanceof Main\Extenders);
-        assert($boot->extenders()->count() === 13);
+        assert($boot->extenders()->count() === 12);
 
         // routes
         assert($boot->routes() instanceof Routing\Routes);
@@ -275,7 +273,9 @@ class Boot extends Base\Test
 
         // routesActive
         assert($boot->routesActive($type)->isCount(4));
-
+        
+        // setRoles
+        
         // roles
         assert($boot->roles() instanceof Main\Roles);
 

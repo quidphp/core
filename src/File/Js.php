@@ -31,7 +31,7 @@ class Js extends Main\File\Js
 
         $concatenatorOption = [];
         if($option['compress'] === true)
-        $concatenatorOption['callable'] = [static::getServiceClass(),'staticTrigger'];
+        $concatenatorOption['callable'] = [$this->getServiceClass(),'staticTrigger'];
 
         $concatenator = Main\Concatenator::newOverload($concatenatorOption);
 
@@ -53,9 +53,9 @@ class Js extends Main\File\Js
 
     // getServiceClass
     // retourne la classe du service
-    public static function getServiceClass():string
+    public function getServiceClass():string
     {
-        return static::$config['service']::getOverloadClass();
+        return $this->getAttr('service')::getOverloadClass();
     }
 
 
