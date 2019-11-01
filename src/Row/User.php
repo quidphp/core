@@ -33,7 +33,7 @@ class User extends Core\RowAlias
             'email'=>true,
             'dateLogin'=>true],
         'permission'=>[
-            '*'=>array('fakeRoles'=>false),
+            '*'=>['fakeRoles'=>false],
             'nobody'=>['update'=>true]],
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
@@ -414,15 +414,15 @@ class User extends Core\RowAlias
         return;
     }
 
-    
+
     // roles
     // retourne les roles du user
     public function roles():Main\Roles
     {
         return $this->roles;
     }
-    
-    
+
+
     // role
     // retourne le role principal de la row user
     public function role():Main\Role
@@ -430,15 +430,15 @@ class User extends Core\RowAlias
         return $this->roles()->main();
     }
 
-    
+
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
-    public function allowFakeRoles():bool 
+    public function allowFakeRoles():bool
     {
         return $this->hasPermission('fakeRoles');
     }
-    
-    
+
+
     // permission
     // retourne la permission du role
     public function permission():int
@@ -834,8 +834,8 @@ class User extends Core\RowAlias
 
         if($return === null && empty($neg))
         $neg = 'resetPassword/error';
-        
-        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,$this->getAttr(array('log','resetPassword')),$option);
+
+        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,$this->getAttr(['log','resetPassword']),$option);
 
         return $return;
     }
@@ -1035,7 +1035,7 @@ class User extends Core\RowAlias
         if($return === false && empty($neg))
         $neg = 'activatePassword/error';
 
-        $com->posNegLogStrict('activatePassword',$return,$pos,$neg,$this->getAttr(array('log','activatePassword')),$option);
+        $com->posNegLogStrict('activatePassword',$return,$pos,$neg,$this->getAttr(['log','activatePassword']),$option);
 
         return $return;
     }

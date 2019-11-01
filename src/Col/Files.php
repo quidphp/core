@@ -817,7 +817,7 @@ abstract class Files extends Core\ColAlias
         return $this->getAttr('defaultVersion');
     }
 
-    
+
     // defaultVersionExtension
     // retourne l'extension par défaut si non spécifié et qu'il y a une version
     public function defaultVersionExtension():array
@@ -832,8 +832,8 @@ abstract class Files extends Core\ColAlias
     {
         return current($this->defaultVersionExtension());
     }
-    
-    
+
+
     // versionDetail
     // génère la string de détail à partir d'un tableau de version
     public static function versionDetail(string $key,array $value):string

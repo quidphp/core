@@ -47,7 +47,7 @@ class Cell extends Base\Test
         $medias = $row->cell('medias');
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
-        
+
         // orm
         assert(is_array($dateAdd->getPermission($admin)));
         assert($primary instanceof Core\Cell\Primary);

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Routing;
 use Quid\Main;
+use Quid\Routing;
 use Quid\Test\Suite;
 
 // session
@@ -100,9 +100,9 @@ class Session extends Base\Test
         // structureNav
 
         // structureUser
-        
+
         // structureFakeRoles
-        
+
         // context
         assert(count($s->context()) === 3);
 
@@ -127,7 +127,7 @@ class Session extends Base\Test
         // triggerUser
 
         // syncUser
-        
+
         // syncLang
 
         // syncTimezone
@@ -146,10 +146,10 @@ class Session extends Base\Test
         assert($s->isNobody());
 
         // setUserDefault
-        
+
         // roles
         assert($s->roles() instanceof Main\Roles);
-        
+
         // role
         assert($s->role() instanceof Core\Role);
 
@@ -163,18 +163,18 @@ class Session extends Base\Test
 
         // navEmpty
         assert($s->navEmpty() === $s);
-        
+
         // allowFakeRoles
         assert($s->allowFakeRoles() === false);
-        
+
         // setFakeRoles
-        
+
         // getFakeRoles
         assert($s->getFakeRoles() === null);
-        
+
         // fakeRolesEmpty
         assert($s->fakeRolesEmpty() === null);
-        
+
         // routeTableGeneral
 
         // flashPost
@@ -343,7 +343,7 @@ class Session extends Base\Test
         assert($s->loginProcess('USER','Test123',['com'=>true]));
         assert(strlen($s->com()->flush()) === 52);
         assert($user->allowFakeRoles() === false);
-        
+
         // row/session
         $row = $s->storage();
         assert($s->storage() instanceof Core\Row);

@@ -58,7 +58,7 @@ class ScssPhp extends Main\ServiceAlias
         if(empty($return))
         {
             $formats = $this->getAttr('format');
-            
+
             if(is_array($formats))
             {
                 $return = $formats[0];

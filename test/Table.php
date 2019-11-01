@@ -28,7 +28,7 @@ class Table extends Base\Test
         $tb = $db[$table];
         $nobody = $boot->roles()->nobody();
         $admin = $boot->roles()->get(80);
-        
+
         // tableFromFqcn
         assert($tb::tableFromFqcn() === $tb);
 

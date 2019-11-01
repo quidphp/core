@@ -56,7 +56,7 @@ abstract class Relation extends Core\ColAlias
             if($context === 'validate')
             {
                 $return = true;
-                
+
                 if(is_scalar($value) || is_array($value))
                 {
                     $relation = $this->relation();

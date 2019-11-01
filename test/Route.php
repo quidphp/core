@@ -25,7 +25,7 @@ class Route extends Base\Test
         $contact = Suite\Assert\Contact::class;
         $contactMake = $contact::make();
         $admin = $boot->roles()->get(80);
-        
+
         // type
         assert($contact::type() === 'assert');
 

@@ -52,7 +52,7 @@ class Role extends Main\Role
         return ($this->getAttr('isCli') === true)? true:false;
     }
 
-    
+
     // validate
     // permet de faire une validation sur l'objet role
     public function validate($value):bool
@@ -78,14 +78,14 @@ class Role extends Main\Role
 
                 if(!empty($replace))
                 {
-                    $array = array();
-                    
-                    foreach (Base\Arr::valuesReplace($replace,$value) as $k => $v) 
+                    $array = [];
+
+                    foreach (Base\Arr::valuesReplace($replace,$value) as $k => $v)
                     {
                         if(is_numeric($v))
                         $array[$k] = (int) $v;
                     }
-                    
+
                     if(!empty($array) && Base\Validate::isAnd($array,$permission))
                     $return = true;
                 }
@@ -94,8 +94,8 @@ class Role extends Main\Role
 
         return $return;
     }
-    
-    
+
+
     // validateReplace
     // retourne un tableau de remplacement en utilisant roles dans boot
     // méthode protégé, utilisé par validate

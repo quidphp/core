@@ -273,9 +273,9 @@ class Boot extends Base\Test
 
         // routesActive
         assert($boot->routesActive($type)->isCount(4));
-        
+
         // setRoles
-        
+
         // roles
         assert($boot->roles() instanceof Main\Roles);
 

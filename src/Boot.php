@@ -133,10 +133,10 @@ abstract class Boot extends Main\Root
             'col'=>[Main\Extender::class,Col::class],
             'cells'=>[Main\Extender::class,Cells::class],
             'cell'=>[Main\Extender::class,Cell::class]],
-        'roles'=>array(
-            'nobody'=>array(1),
-            'admin'=>array(80,array('isAdmin'=>true)),
-            'cli'=>array(90,array('isAdmin'=>true,'isCli'=>true))),
+        'roles'=>[
+            'nobody'=>[1],
+            'admin'=>[80,['isAdmin'=>true]],
+            'cli'=>[90,['isAdmin'=>true,'isCli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
         'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
         'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
@@ -393,7 +393,7 @@ abstract class Boot extends Main\Root
         $this->makeFinalAttr();
 
         $this->autoload();
-        
+
         $this->setStatus(2);
         static::$init = true;
 
@@ -543,10 +543,10 @@ abstract class Boot extends Main\Root
         static::emptyCacheFile();
 
         $this->makeExtenders();
-        
+
         $roles = $this->getAttr('roles');
         $this->setRoles($roles);
-        
+
         $error = Error::getOverloadClass();
         if($error !== Error::class)
         $error::init();
@@ -1874,20 +1874,20 @@ abstract class Boot extends Main\Root
         return $this->routes($type)->active();
     }
 
-    
+
     // setRoles
     // génère l'objet roles
-    protected function setRoles(array $array):void 
+    protected function setRoles(array $array):void
     {
         $this->roles = $roles = Main\Roles::makeFromArray($array);
         $roles->sortDefault();
         $roles->readOnly(true);
         $roles->setInst();
-        
+
         return;
     }
-    
-    
+
+
     // roles
     // retourne l'objet roles de boot
     public function roles():Main\Roles

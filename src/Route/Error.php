@@ -85,7 +85,7 @@ abstract class Error extends Core\RouteAlias
         $r = '';
         $route = $this->getAttr('route');
         $titleBox = $this->getAttr('titleBox');
-        
+
         $r .= Html::divOp('ajax-parse-error');
 
         if($titleBox === true)

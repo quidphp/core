@@ -32,7 +32,7 @@ abstract class Robots extends Core\RouteAlias
     {
         $r = '';
         $allow = $this->getAttr('allow');
-        
+
         if($allow === true)
         $r .= $this->robotsAllow();
 

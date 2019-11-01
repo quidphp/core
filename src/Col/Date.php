@@ -45,8 +45,8 @@ class Date extends Core\ColAlias
 
         if(!is_string($format))
         static::throw($this->table(),$this->name(),'invalidDateFormat');
-        
-        $allowedFormats = $return['formats'] ?? array();
+
+        $allowedFormats = $return['formats'] ?? [];
 
         if(empty($return['onGet']))
         $return['onGet'] = [[Base\Date::class,'onGet'],$format];
@@ -307,8 +307,8 @@ class Date extends Core\ColAlias
     {
         return $this->getAttr('formats');
     }
-    
-    
+
+
     // makeDateFormat
     // retourne le format de date en string, gère la valeur est un true (donc par défaut)
     public static function makeDateFormat($value):?string

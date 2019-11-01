@@ -33,10 +33,10 @@ class UserRole extends SetAlias
         $role = null;
         $roles = static::boot()->roles();
         $permissions = $cell->get();
-        
+
         if(!empty($permissions))
         $userRoles = $roles->only(...$permissions);
-        
+
         if(empty($userRoles) || $userRoles->isEmpty())
         $userRoles = $roles->nobody()->roles();
 
@@ -78,10 +78,10 @@ class UserRole extends SetAlias
     {
         $return = null;
         $values = $this->value($values);
-        
+
         if(is_scalar($values))
-        $values = array($values);
-        
+        $values = [$values];
+
         if(is_array($values) && !empty($values))
         {
             $values = Base\Arr::cast($values);
@@ -90,7 +90,7 @@ class UserRole extends SetAlias
             $primary = $table->primary();
             $isInsert = (empty($cell))? true:false;
             $id = $row[$primary] ?? null;
-            
+
             $boot = static::boot();
             $session = $boot->session();
             $sessionUser = $session->user();
@@ -103,14 +103,14 @@ class UserRole extends SetAlias
 
             $roles = $boot->roles();
             $rolesNobody = $roles->nobody();
-            
+
             if(!$roles->exists(...$values))
             static::throw(null,'rolesNotFound');
-            
+
             if($id === $sessionUser->primary() && $sessionRoles->keys() !== $values)
             static::catchable(null,'userRoleSelf');
-            
-            foreach ($values as $value) 
+
+            foreach ($values as $value)
             {
                 if($value === $rolesNobody->permission() && $isAdmin === false)
                 static::catchable(null,'userRoleNobody');

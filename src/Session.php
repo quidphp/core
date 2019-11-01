@@ -62,7 +62,7 @@ class Session extends Main\Session
         $this->db()->setCom($com);
         $roles = $this->roles(true);
         $this->setRoles($roles);
-        
+
         return;
     }
 
@@ -73,7 +73,7 @@ class Session extends Main\Session
     protected function onEnd():void
     {
         parent::onEnd();
-        
+
         $this->user = null;
         $db = $this->db();
         $db->setCom(null);
@@ -151,7 +151,7 @@ class Session extends Main\Session
         $userUid = $this->userUid();
         $userPermission = $this->userPermission();
         $row = $this->user;
-        
+
         if(!empty($row) && $userUid === $row->uid() && $userPermission === $row->permission())
         $return = true;
 
@@ -349,7 +349,7 @@ class Session extends Main\Session
         return $return;
     }
 
-    
+
     // structureFakeRoles
     // gère le champ structure fake roles de la session
     public function structureFakeRoles(string $mode,$value=null)
@@ -364,8 +364,8 @@ class Session extends Main\Session
 
         return $return;
     }
-    
-    
+
+
     // context
     // retourne le contexte de boot
     public function context():array
@@ -472,7 +472,7 @@ class Session extends Main\Session
         return;
     }
 
-    
+
     // syncLang
     // synchronise la langue de la session avec celle de l'objet lang
     protected function syncLang():void
@@ -613,38 +613,38 @@ class Session extends Main\Session
         return $this->setUser($this->getUserDefault());
     }
 
-    
+
     // setRoles
     // permet de changer les rôles de la session
     // lie à la base de donnée
-    protected function setRoles(Main\Roles $roles):void 
+    protected function setRoles(Main\Roles $roles):void
     {
         if($roles->isEmpty())
         static::throw('rolesEmpty');
-        
+
         $this->db()->setRoles($roles);
 
         return;
     }
-    
-    
+
+
     // roles
     // retourne l'objet roles de l'user
     // possible de retourner les fake roles
     public function roles(bool $fake=false):Main\Roles
     {
         $return = null;
-        
+
         if($fake === true && $this->allowFakeRoles())
         $return = $this->getFakeRoles();
-        
+
         if(empty($return))
         $return = $this->user()->roles();
-        
+
         return $return;
     }
-    
-    
+
+
     // role
     // retourne l'objet role de l'user (le rôle principal)
     public function role(bool $fake=false):Role
@@ -692,54 +692,54 @@ class Session extends Main\Session
         return $this;
     }
 
-    
+
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
-    public function allowFakeRoles():bool 
+    public function allowFakeRoles():bool
     {
         return $this->user()->allowFakeRoles();
     }
-    
-    
+
+
     // setFakeRoles
     // applique des fakes rôles si l'utilisateur peut en avoir
     public function setFakeRoles(?Main\Roles $roles):void
     {
         if(!$this->allowFakeRoles() && !empty($roles))
         static::throw('fakeRolesNotAllowed');
-        
+
         if(!empty($roles) && $roles->isEmpty())
         $roles = null;
-        
+
         $this->set('fakeRoles',$roles);
-        
+
         if($roles === null)
         $roles = $this->user()->roles();
-        
+
         $this->setRoles($roles);
-        
+
         return;
     }
-    
-    
+
+
     // getFakeRoles
     // retourne les fake roles si l'utilisateur peut en avoir
     public function getFakeRoles():?Main\Roles
     {
         return ($this->allowFakeRoles())? $this->get('fakeRoles'):null;
     }
-    
-    
+
+
     // fakeRolesEmpty
     // vide la valeur fakeRoles de la session
-    public function fakeRolesEmpty():void 
+    public function fakeRolesEmpty():void
     {
         $this->setFakeRoles(null);
-        
+
         return;
     }
-    
-    
+
+
     // routeTableGeneral
     // retourne une route general à partir d'un objet table
     // la session peut générer la route à partir de la dernière route de la même table conservé dans l'objet nav de session
@@ -887,7 +887,7 @@ class Session extends Main\Session
         $this->fakeRolesEmpty();
         $this->onLogin();
         $user->onLogin();
-        
+
         if($remember === true)
         $remember = ['credential'=>$connect];
 
@@ -956,10 +956,10 @@ class Session extends Main\Session
 
         if($option['flash'] === true)
         $this->flashEmpty();
-        
+
         if($option['fakeRoles'] === true)
         $this->fakeRolesEmpty();
-        
+
         if($option['pos'] !== null)
         $this->com()->pos($option['pos']);
 

@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
-use Quid\Main;
-use Quid\Test\Suite;
 
 // role
 // class for testing Quid\Core\Role
@@ -26,21 +24,21 @@ class Role extends Base\Test
         $nobody = $roles->nobody();
         $admin = $roles->get(80);
         $cli = $roles->main();
-        
+
         // isShared
         assert(!$admin->isShared());
-        
+
         // isAdmin
         assert($admin->isAdmin());
         assert($cli->isAdmin());
-        
+
         // isCli
         assert(!$admin->isCli());
         assert($cli->isCli());
-        
+
         // validate
         assert($admin->validate(['='=>'admin']));
-        
+
         assert($admin->validate([80]));
         assert($admin->validate(['admin']));
         assert(!$admin->validate([70]));
@@ -55,19 +53,19 @@ class Role extends Base\Test
         assert($admin->validate(['='=>'admin']));
         assert(!$admin->validate(['!='=>'admin']));
         assert($admin->validate(['!='=>'nobody']));
-        
+
         // validateReplace
-        
+
         // label
         assert($nobody->label() === 'Nobody');
         assert($admin->label('%:','fr') === 'Administrateur:');
 
         // labelPermission
         assert($nobody->labelPermission() === 'Nobody (1)');
-        
+
         // description
         assert($nobody->description() === null);
-        
+
         return true;
     }
 }
