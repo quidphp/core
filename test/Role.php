@@ -24,19 +24,19 @@ class Role extends Base\Test
         $nobody = $roles->nobody();
         $admin = $roles->get(80);
         $cli = $roles->main();
-        
+
         // isAdmin
         assert($admin->isAdmin());
         assert($cli->isAdmin());
         assert($admin->is('admin'));
         assert($cli->is('admin'));
-        
+
         // isCli
         assert(!$admin->isCli());
         assert($cli->isCli());
         assert(!$admin->is('cli'));
         assert($cli->is('cli'));
-        
+
         // validate
         assert($admin->validate(['='=>'admin']));
 

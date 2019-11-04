@@ -242,15 +242,15 @@ class User extends Core\RowAlias
         return $return;
     }
 
-    
+
     // is
     // retourne vrai si le role du user a l'attribut à true
     public function is($value):bool
     {
         return $this->roles()->isOne($value);
     }
-    
-    
+
+
     // isNobody
     // retourne vrai si le user est nobody
     public function isNobody():bool

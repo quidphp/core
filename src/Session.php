@@ -106,8 +106,8 @@ class Session extends Main\Session
     {
         return $this->roles($fake)->isOne($value);
     }
-    
-    
+
+
     // isNobody
     // retourne vrai si le user est nobody
     public function isNobody(bool $fake=true):bool
@@ -690,15 +690,15 @@ class Session extends Main\Session
         return $this;
     }
 
-    
+
     // hasFakeRoles
     // retourne vrai si la session a des fake roles
     public function hasFakeRoles():bool
     {
         return (!empty($this->getFakeRoles()))? true:false;
     }
-    
-    
+
+
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
     public function allowFakeRoles():bool

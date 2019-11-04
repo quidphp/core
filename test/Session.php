@@ -163,10 +163,10 @@ class Session extends Base\Test
 
         // navEmpty
         assert($s->navEmpty() === $s);
-        
+
         // hasFakeRoles
         assert($s->hasFakeRoles() === false);
-        
+
         // allowFakeRoles
         assert($s->allowFakeRoles() === false);
 

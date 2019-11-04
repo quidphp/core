@@ -27,23 +27,23 @@ class Role extends Main\Role
         'cli'=>false // si le rôle est cli
     ];
 
-    
+
     // isAdmin
     // retourne vrai si le role est admin
     public function isAdmin():bool
     {
         return $this->is('admin');
     }
-    
-    
+
+
     // isCli
     // retourne vrai si le role est cli
     public function isCli():bool
     {
         return $this->is('cli');
     }
-    
-    
+
+
     // validate
     // permet de faire une validation sur l'objet role
     public function validate($value):bool

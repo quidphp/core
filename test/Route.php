@@ -70,11 +70,11 @@ class Route extends Base\Test
         assert(is_array($contactMake->getPermission($admin)));
         assert($contact::inSitemap());
         assert($contact::isRedirectable());
-        
+
         // request
-        $class = new class extends Core\Route\Robots { };
+        $class = new class() extends Core\Route\Robots { };
         assert(count(Routing\Request::fromRoute($class)) === 3);
-        
+
         return true;
     }
 }

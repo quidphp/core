@@ -362,23 +362,23 @@ abstract class Boot extends Main\Root
         return;
     }
 
-    
+
     // onTerminate
     // callback au début de terminate
     protected function onTerminate():void
     {
         return;
     }
-    
-    
+
+
     // onCleanup
     // callback au début de cleanup
     protected function onCleanup():void
     {
         return;
     }
-    
-    
+
+
     // cast
     // retourne la valeur cast, le tableau contexte
     public function _cast():array
@@ -394,7 +394,7 @@ abstract class Boot extends Main\Root
     {
         $this->setInst();
         $this->checkStatus(1);
-        
+
         if(static::isInit() === true)
         static::throw('bootAlreadyPrepared');
 
@@ -738,7 +738,7 @@ abstract class Boot extends Main\Root
         return;
     }
 
-    
+
     // cleanup
     // inverse de dispatch, nettoie un maximum de changements static
     protected function cleanup():void
@@ -754,11 +754,11 @@ abstract class Boot extends Main\Root
 
         return;
     }
-    
-    
+
+
     // end
     // termine le boot, flush les données terminate + cleanup
-    public function end($return=null) 
+    public function end($return=null)
     {
         Base\Buffer::flushEcho($return);
 
@@ -767,11 +767,11 @@ abstract class Boot extends Main\Root
 
         $this->terminate();
         $this->cleanup();
-        
+
         return $return;
     }
-    
-    
+
+
     // isStatus
     public function isStatus($value):bool
     {
@@ -2219,7 +2219,7 @@ abstract class Boot extends Main\Root
             $option['env'] = $this->env();
             $option['type'] = $this->type();
             $option['version'] = $this->version();
-            
+
             if(is_bool($versionMatch))
             $option['versionMatch'] = $versionMatch;
 
@@ -2282,15 +2282,15 @@ abstract class Boot extends Main\Root
         return;
     }
 
-    
+
     // getOption
     // retourne la valeur d'une option dans les attributs
-    public function getOption($value) 
+    public function getOption($value)
     {
         return Base\Arrs::get($value,$this->getAttr('option'));
     }
-    
-    
+
+
     // info
     // retourne un tableau d'informations sur boot
     public function info():array
