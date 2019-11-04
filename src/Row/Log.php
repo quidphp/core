@@ -31,11 +31,6 @@ class Log extends Core\RowAlias implements Main\Contract\Log
             'type'=>['general'=>true,'relation'=>'logType']],
         'permission'=>[
             'nobody'=>['insert'=>true],
-            'shared'=>['insert'=>true],
-            'user'=>['insert'=>true],
-            'contributor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'editor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'subAmin'=>['update'=>false],
             'admin'=>['update'=>false]],
         'deleteTrim'=>500, // custom
         'type'=>[ // type de log
@@ -44,7 +39,8 @@ class Log extends Core\RowAlias implements Main\Contract\Log
             3=>'resetPassword',
             4=>'activatePassword',
             5=>'changePassword',
-            6=>'register']
+            6=>'register',
+            7=>'form']
     ];
 
 

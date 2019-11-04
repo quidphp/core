@@ -32,11 +32,6 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
             'type'=>['general'=>true,'relation'=>'logHttpType']],
         'permission'=>[
             'nobody'=>['insert'=>true],
-            'shared'=>['insert'=>true],
-            'user'=>['insert'=>true],
-            'contributor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'editor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'subAmin'=>['update'=>false],
             'admin'=>['update'=>false]],
         'deleteTrim'=>500, // custom
         'block'=>[ // liste des patterns de chemins à ne pas logger, insensible à la case

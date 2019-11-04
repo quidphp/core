@@ -242,12 +242,20 @@ class User extends Core\RowAlias
         return $return;
     }
 
-
+    
+    // is
+    // retourne vrai si le role du user a l'attribut à true
+    public function is($value):bool
+    {
+        return $this->roles()->isOne($value);
+    }
+    
+    
     // isNobody
     // retourne vrai si le user est nobody
     public function isNobody():bool
     {
-        return $this->role()->isNobody();
+        return $this->roles()->isNobody();
     }
 
 
@@ -255,15 +263,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user est de rôle somebody
     public function isSomebody():bool
     {
-        return $this->role()->isSomebody();
-    }
-
-
-    // isShared
-    // retourne vrai si le user est de rôle shared
-    public function isShared():bool
-    {
-        return $this->role()->isShared();
+        return $this->roles()->isSomebody();
     }
 
 
@@ -271,7 +271,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user est de rôle admin
     public function isAdmin():bool
     {
-        return $this->role()->isAdmin();
+        return $this->roles()->isOne('admin');
     }
 
 
@@ -279,7 +279,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user est de rôle cli
     public function isCli():bool
     {
-        return $this->role()->isCli();
+        return $this->roles()->isOne('cli');
     }
 
 
@@ -296,7 +296,6 @@ class User extends Core\RowAlias
     public function canLogin(?string $type=null):bool
     {
         $return = false;
-        $role = $this->role();
 
         if($type === null)
         $type = static::boot()->type();

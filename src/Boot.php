@@ -20,7 +20,6 @@ abstract class Boot extends Main\Root
 {
     // trait
     use Main\_inst;
-    use Main\_attrOption;
 
 
     // config
@@ -135,8 +134,8 @@ abstract class Boot extends Main\Root
             'cell'=>[Main\Extender::class,Cell::class]],
         'roles'=>[
             'nobody'=>[1],
-            'admin'=>[80,['isAdmin'=>true]],
-            'cli'=>[90,['isAdmin'=>true,'isCli'=>true]]],
+            'admin'=>[80,['admin'=>true]],
+            'cli'=>[90,['admin'=>true,'cli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
         'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
         'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
@@ -269,7 +268,11 @@ abstract class Boot extends Main\Root
     // détruit l'objet boot
     public function __destruct()
     {
-        $this->terminate();
+        if($this->status() > 0)
+        {
+            $this->terminate();
+            $this->cleanup();
+        }
 
         return;
     }
@@ -359,7 +362,23 @@ abstract class Boot extends Main\Root
         return;
     }
 
-
+    
+    // onTerminate
+    // callback au début de terminate
+    protected function onTerminate():void
+    {
+        return;
+    }
+    
+    
+    // onCleanup
+    // callback au début de cleanup
+    protected function onCleanup():void
+    {
+        return;
+    }
+    
+    
     // cast
     // retourne la valeur cast, le tableau contexte
     public function _cast():array
@@ -375,7 +394,7 @@ abstract class Boot extends Main\Root
     {
         $this->setInst();
         $this->checkStatus(1);
-
+        
         if(static::isInit() === true)
         static::throw('bootAlreadyPrepared');
 
@@ -449,7 +468,7 @@ abstract class Boot extends Main\Root
 
         $overload = $this->getAttr('overload');
         if(is_array($overload) && !empty($overload))
-        Base\Autoload::setsOverload($overload);
+        Main\Autoload::setsOverload($overload);
 
         $scheme = $this->getAttr('scheme');
         if(is_array($scheme) && !empty($scheme))
@@ -520,10 +539,6 @@ abstract class Boot extends Main\Root
         $configUnset = $this->getAttr('configUnset');
         if(is_array($configUnset) && !empty($configUnset))
         static::unsetsConfig($configUnset);
-
-        Base\Session::setStaticEnv($this->env());
-        Base\Session::setStaticType($this->type());
-        Base\Session::setStaticVersion($this->version());
 
         $this->setStatus(3);
 
@@ -688,8 +703,9 @@ abstract class Boot extends Main\Root
     // terminate
     // termine et détruit l'objet boot
     // commit la session si elle est toujours active
-    public function terminate():void
+    protected function terminate():void
     {
+        $this->onTerminate();
         Base\Root::setInitCallable(null);
         Base\Response::closeDown();
 
@@ -722,7 +738,40 @@ abstract class Boot extends Main\Root
         return;
     }
 
+    
+    // cleanup
+    // inverse de dispatch, nettoie un maximum de changements static
+    protected function cleanup():void
+    {
+        Base\Finder::emptyShortcut();
+        Base\Uri::emptyShortcut();
+        Main\Autoload::emptyAlias();
+        Main\Autoload::emptyOverload();
+        Base\Uri::emptySchemeStatic();
+        Base\Finder::emptyHost();
+        Base\Uri::setAllAbsolute(false);
+        Base\Lang::set(null,true);
 
+        return;
+    }
+    
+    
+    // end
+    // termine le boot, flush les données terminate + cleanup
+    public function end($return=null) 
+    {
+        Base\Buffer::flushEcho($return);
+
+        if(Base\Server::isCli())
+        Base\Cli::flushEol();
+
+        $this->terminate();
+        $this->cleanup();
+        
+        return $return;
+    }
+    
+    
     // isStatus
     public function isStatus($value):bool
     {
@@ -2167,7 +2216,10 @@ abstract class Boot extends Main\Root
             $storage = $this->getAttr('sessionStorage');
             $versionMatch = $this->getAttr('sessionVersionMatch');
             $option = (array) $this->getAttr('sessionOption',true);
-
+            $option['env'] = $this->env();
+            $option['type'] = $this->type();
+            $option['version'] = $this->version();
+            
             if(is_bool($versionMatch))
             $option['versionMatch'] = $versionMatch;
 
@@ -2230,7 +2282,15 @@ abstract class Boot extends Main\Root
         return;
     }
 
-
+    
+    // getOption
+    // retourne la valeur d'une option dans les attributs
+    public function getOption($value) 
+    {
+        return Base\Arrs::get($value,$this->getAttr('option'));
+    }
+    
+    
     // info
     // retourne un tableau d'informations sur boot
     public function info():array
@@ -2505,7 +2565,7 @@ abstract class Boot extends Main\Root
     // start
     // crée un objet quid et fait tous le processus
     // retourne le contenu à output
-    public static function start(?array $value=null,bool $terminate=true):?string
+    public static function start(?array $value=null,bool $end=true):?string
     {
         $return = null;
 
@@ -2515,15 +2575,8 @@ abstract class Boot extends Main\Root
         $boot->core();
         $return = $boot->launch();
 
-        if($terminate === true)
-        {
-            Base\Buffer::flushEcho($return);
-
-            if(Base\Server::isCli())
-            Base\Cli::flushEol();
-
-            $boot->terminate();
-        }
+        if($end === true)
+        $return = $boot->end($return);
 
         return $return;
     }

@@ -23,23 +23,21 @@ class Session extends Main\Session
 
     // config
     public static $config = [
-        'option'=>[
-            'userClass'=>Row\User::class, // classe row de l'utilisateur
-            'historyClass'=>Routing\RequestHistory::class, // classe de l'historique de requête
-            'userDefault'=>null, // définit le user par défaut (à l'insertion)
-            'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
-            'loginLifetime'=>3600, // durée du login dans une session
-            'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
-            'log'=>[ // lit des événements à des classes de table
-                'login'=>Row\Log::class,
-                'logout'=>Row\Log::class],
-            'structure'=>[ // callables de structure additionnelles dans data, se merge à celle dans base/session
-                'nav'=>'structureNav',
-                'user'=>'structureUser',
-                'fakeRoles'=>'structureFakeRoles']],
+        'userClass'=>Row\User::class, // classe row de l'utilisateur
+        'historyClass'=>Routing\RequestHistory::class, // classe de l'historique de requête
+        'userDefault'=>null, // définit le user par défaut (à l'insertion)
+        'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
+        'loginLifetime'=>3600, // durée du login dans une session
+        'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
+        'log'=>[ // lit des événements à des classes de table
+            'login'=>Row\Log::class,
+            'logout'=>Row\Log::class],
+        'structure'=>[ // callables de structure additionnelles dans data, se merge à celle dans base/session
+            'nav'=>'structureNav',
+            'user'=>'structureUser',
+            'fakeRoles'=>'structureFakeRoles'],
         '@dev'=>[
-            'option'=>[
-                'loginLifetime'=>(3600 * 24 * 25)]]
+            'loginLifetime'=>(3600 * 24 * 25)]
     ];
 
 
@@ -60,7 +58,7 @@ class Session extends Main\Session
         $this->syncTimezone();
         $com = $this->com();
         $this->db()->setCom($com);
-        $roles = $this->roles(true);
+        $roles = $this->roles();
         $this->setRoles($roles);
 
         return;
@@ -102,43 +100,43 @@ class Session extends Main\Session
     }
 
 
+    // is
+    // retourne vrai si le role a l'attribut à true
+    public function is($value,bool $fake=true):bool
+    {
+        return $this->roles($fake)->isOne($value);
+    }
+    
+    
     // isNobody
     // retourne vrai si le user est nobody
-    public function isNobody():bool
+    public function isNobody(bool $fake=true):bool
     {
-        return $this->user()->isNobody();
+        return $this->roles($fake)->isNobody();
     }
 
 
     // isSomebody
     // retourne vrai si le user est somebody
-    public function isSomebody():bool
+    public function isSomebody(bool $fake=true):bool
     {
-        return $this->user()->isSomebody();
-    }
-
-
-    // isShared
-    // retourne vrai si le user est shared
-    public function isShared():bool
-    {
-        return $this->user()->isShared();
+        return $this->roles($fake)->isSomebody();
     }
 
 
     // isAdmin
     // retourne vrai si le user est admin
-    public function isAdmin():bool
+    public function isAdmin(bool $fake=true):bool
     {
-        return $this->user()->isAdmin();
+        return $this->roles($fake)->isOne('admin');
     }
 
 
     // isCli
-    // retourne vrai si le user est cron
-    public function isCli():bool
+    // retourne vrai si le user est cli
+    public function isCli(bool $fake=true):bool
     {
-        return $this->user()->isCli();
+        return $this->roles($fake)->isOne('cli');
     }
 
 
@@ -171,7 +169,7 @@ class Session extends Main\Session
     // returne vrai si un utilisateur ne peut avoir qu'une session ouverte
     public function isLoginSinglePerUser():bool
     {
-        return $this->getOption('loginSinglePerUser');
+        return $this->getAttr('loginSinglePerUser');
     }
 
 
@@ -203,7 +201,7 @@ class Session extends Main\Session
     // retourne la classe à utiliser pour utilisateur
     public function getUserClass():string
     {
-        return $this->getOption('userClass')::getOverloadClass();
+        return $this->getAttr('userClass')::getOverloadClass();
     }
 
 
@@ -212,7 +210,7 @@ class Session extends Main\Session
     // sinon utilise le storage de user pour aller chercher le nobody ou cli
     public function getUserDefault():Row\User
     {
-        $return = $this->getOption('userDefault',true);
+        $return = $this->getAttr('userDefault',true);
 
         if(is_int($return))
         {
@@ -252,7 +250,7 @@ class Session extends Main\Session
     // returne la durée de vie du login ou null
     public function getLoginLifetime():?int
     {
-        return $this->getOption('loginLifetime');
+        return $this->getAttr('loginLifetime');
     }
 
 
@@ -312,7 +310,7 @@ class Session extends Main\Session
             {
                 $user = $class::findByUid($value['uid']);
 
-                if(!$this->getOption('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
+                if(!$this->getAttr('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
                 $return = $user;
             }
 
@@ -607,7 +605,7 @@ class Session extends Main\Session
 
 
     // setUserDefault
-    // attribue le user par défaut (dans option)
+    // attribue le user par défaut
     public function setUserDefault():self
     {
         return $this->setUser($this->getUserDefault());
@@ -631,7 +629,7 @@ class Session extends Main\Session
     // roles
     // retourne l'objet roles de l'user
     // possible de retourner les fake roles
-    public function roles(bool $fake=false):Main\Roles
+    public function roles(bool $fake=true):Main\Roles
     {
         $return = null;
 
@@ -647,7 +645,7 @@ class Session extends Main\Session
 
     // role
     // retourne l'objet role de l'user (le rôle principal)
-    public function role(bool $fake=false):Role
+    public function role(bool $fake=true):Role
     {
         return $this->roles($fake)->main();
     }
@@ -655,7 +653,7 @@ class Session extends Main\Session
 
     // permission
     // retourne le code de permission du rôle
-    public function permission(bool $fake=false):int
+    public function permission(bool $fake=true):int
     {
         return $this->role($fake)->permission();
     }
@@ -692,7 +690,15 @@ class Session extends Main\Session
         return $this;
     }
 
-
+    
+    // hasFakeRoles
+    // retourne vrai si la session a des fake roles
+    public function hasFakeRoles():bool
+    {
+        return (!empty($this->getFakeRoles()))? true:false;
+    }
+    
+    
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
     public function allowFakeRoles():bool
@@ -870,7 +876,7 @@ class Session extends Main\Session
             }
         }
 
-        $this->com()->posNegLogStrict('login',$return,$pos,$neg,$this->getOption('log/login'),$option);
+        $this->com()->posNegLogStrict('login',$return,$pos,$neg,$this->getAttr('log/login'),$option);
 
         return $return;
     }
@@ -929,7 +935,7 @@ class Session extends Main\Session
             $this->logout($option);
         }
 
-        $this->com()->posNegLogStrict('logout',$return,$pos,$neg,$this->getOption('log/logout'),$option);
+        $this->com()->posNegLogStrict('logout',$return,$pos,$neg,$this->getAttr('log/logout'),$option);
 
         return $return;
     }

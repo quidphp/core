@@ -17,8 +17,7 @@ class JShrink extends Main\Service
 {
     // config
     public static $config = [
-        'option'=>[
-            'flaggedComments'=>false]
+        'flaggedComments'=>false
     ];
 
 
@@ -27,17 +26,17 @@ class JShrink extends Main\Service
     // retourne le js minify
     public function trigger(string $value):string
     {
-        return Minifier::minify($value,$this->option());
+        return Minifier::minify($value,$this->attr());
     }
 
 
     // staticTrigger
     // méthode statique pour créer l'objet et minify la string
     // retourne une string
-    public static function staticTrigger(string $value,?array $option=null):string
+    public static function staticTrigger(string $value,?array $attr=null):string
     {
         $return = null;
-        $minifier = new static(__METHOD__,$option);
+        $minifier = new static(__METHOD__,$attr);
         $return = $minifier->trigger($value);
 
         return $return;

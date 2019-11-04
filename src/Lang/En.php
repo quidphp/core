@@ -717,7 +717,8 @@ class En extends Base\Lang\En
                 3=>'Password reset',
                 4=>'Activate password',
                 5=>'Change password',
-                6=>'Register'
+                6=>'Register',
+                7=>'Form'
             ],
 
             // queueEmailStatus

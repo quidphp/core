@@ -48,14 +48,14 @@ class Session extends Base\Test
 
         // onLogout
 
+        // is
+        assert(!$s->is('bla'));
+
         // isNobody
         assert(!$s->isNobody());
 
         // isSomebody
         assert($s->isSomebody());
-
-        // isShared
-        assert(!$s->isShared());
 
         // isAdmin
         assert($s->isAdmin());
@@ -163,7 +163,10 @@ class Session extends Base\Test
 
         // navEmpty
         assert($s->navEmpty() === $s);
-
+        
+        // hasFakeRoles
+        assert($s->hasFakeRoles() === false);
+        
         // allowFakeRoles
         assert($s->allowFakeRoles() === false);
 
@@ -257,7 +260,7 @@ class Session extends Base\Test
         assert($user->uid() === $user->primary());
         assert(!$user->isNobody());
         assert($user->isSomebody());
-        assert(!$user->isShared());
+        assert(!$user->is('bla'));
         assert(!$user->isAdmin());
         assert(!$user->isCli());
         assert($user->role() instanceof Core\Role);

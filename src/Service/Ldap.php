@@ -16,10 +16,9 @@ class Ldap extends Main\Service
 {
     // config
     public static $config = [
-        'option'=>[
-            'ping'=>2,
-            'host'=>null,
-            'port'=>389] // port par défaut
+        'ping'=>2,
+        'host'=>null,
+        'port'=>389
     ];
 
 
@@ -31,7 +30,7 @@ class Ldap extends Main\Service
     // retourne le host de l'objet ldap
     public function host():string
     {
-        return $this->getOption('host');
+        return $this->getAttr('host');
     }
 
 
@@ -39,7 +38,7 @@ class Ldap extends Main\Service
     // retourne le port de l'objet ldap
     public function port():int
     {
-        return $this->getOption('port');
+        return $this->getAttr('port');
     }
 
 
@@ -49,15 +48,15 @@ class Ldap extends Main\Service
     public function res(bool $ping=false)
     {
         $return = $this->res;
-        $option = $this->option();
+        $attr = $this->attr();
 
         if(empty($return))
         {
             $host = $this->host();
             $port = $this->port();
 
-            if($ping === true && is_int($option['ping']))
-            static::checkPing($host,$port,$option['ping']);
+            if($ping === true && is_int($attr['ping']))
+            static::checkPing($host,$port,$attr['ping']);
 
             $return = ldap_connect($host,$port);
         }

@@ -18,13 +18,12 @@ class ClassUpload extends Main\Service
 {
     // config
     public static $config = [
-        'option'=>[
-            'quality'=>null,
-            'convert'=>null,
-            'action'=>null,
-            'width'=>null,
-            'height'=>null,
-            'autoRotate'=>null]
+        'quality'=>null,
+        'convert'=>null,
+        'action'=>null,
+        'width'=>null,
+        'height'=>null,
+        'autoRotate'=>null
     ];
 
 
@@ -35,10 +34,10 @@ class ClassUpload extends Main\Service
     // trigger
     // compresse une version du fichier image en utilisant la librairie class.upload
     // si le retour est string, c'est une exception, sinon retourne true/false
-    public function trigger($source,string $dirname,?string $filename=null,?array $option=null)
+    public function trigger($source,string $dirname,?string $filename=null,?array $attr=null)
     {
         $return = false;
-        $option = Base\Arr::plus($this->option(),$option);
+        $attr = Base\Arr::plus($this->attr(),$attr);
 
         if($source instanceof Main\File\Image && $source->isFileExists())
         $source = $source->path();
@@ -51,7 +50,7 @@ class ClassUpload extends Main\Service
 
         else
         {
-            $this->setClassUpload($source,$filename,$option);
+            $this->setClassUpload($source,$filename,$attr);
             $upload = $this->getClassUpload();
 
             if(!$this->isImage())

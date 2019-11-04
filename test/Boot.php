@@ -49,7 +49,11 @@ class Boot extends Base\Test
         // onMatch
 
         // onAfter
-
+        
+        // onTerminate
+        
+        // onCleanup
+        
         // cast
         assert(count($boot->_cast()) === 3);
 
@@ -74,7 +78,11 @@ class Boot extends Base\Test
         assert($boot->route() === null);
 
         // terminate
-
+        
+        // cleanup
+        
+        // end
+        
         // isStatus
         assert($boot->isStatus($boot->status()));
 
@@ -331,7 +339,10 @@ class Boot extends Base\Test
         // hasSession
 
         // manageRedirect
-
+        
+        // getOption
+        assert($boot->getOption('logo') === null);
+        
         // info
         assert(count($boot->info()) === 9);
 

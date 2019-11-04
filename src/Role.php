@@ -23,36 +23,27 @@ class Role extends Main\Role
     public static $config = [
         'label'=>null, // label du rôle
         'description'=>null, // description du rôle
-        'isShared'=>false, // si le rôle est partagé
-        'isAdmin'=>false, // si le rôle est admin
-        'isCli'=>false // si le rôle est cli
+        'admin'=>false, // si le rôle est admin
+        'cli'=>false // si le rôle est cli
     ];
 
-
-    // isShared
-    // retourne vrai si le role est shared
-    public function isShared():bool
-    {
-        return ($this->getAttr('isShared') === true)? true:false;
-    }
-
-
+    
     // isAdmin
     // retourne vrai si le role est admin
     public function isAdmin():bool
     {
-        return ($this->getAttr('isAdmin') === true)? true:false;
+        return $this->is('admin');
     }
-
-
+    
+    
     // isCli
     // retourne vrai si le role est cli
     public function isCli():bool
     {
-        return ($this->getAttr('isCli') === true)? true:false;
+        return $this->is('cli');
     }
-
-
+    
+    
     // validate
     // permet de faire une validation sur l'objet role
     public function validate($value):bool

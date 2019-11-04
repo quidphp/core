@@ -31,11 +31,6 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
             'status'=>['general'=>true,'relation'=>'queueEmailStatus']],
         'permission'=>[
             'nobody'=>['insert'=>true],
-            'shared'=>['insert'=>true],
-            'user'=>['insert'=>true],
-            'contributor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'editor'=>['insert'=>true,'update'=>false,'delete'=>false],
-            'subAmin'=>['update'=>false],
             'admin'=>['update'=>false]]
     ];
 

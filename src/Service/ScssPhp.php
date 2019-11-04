@@ -17,12 +17,11 @@ class ScssPhp extends Main\ServiceAlias
 {
     // config
     public static $config = [
-        'format'=>[
+        'formatsPossible'=>[
             \ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
             \ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
-        'option'=>[
-            'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
-            'format'=>null], // permet de spécifier un format, ne prend pas en compte l'option compress
+        'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
+        'format'=>null // permet de spécifier un format, ne prend pas en compte l'option compress
     ];
 
 
@@ -32,9 +31,9 @@ class ScssPhp extends Main\ServiceAlias
 
     // construct
     // construit le service et lit l'objet scssPhp
-    public function __construct(string $key,?array $option=null)
+    public function __construct(string $key,?array $attr=null)
     {
-        parent::__construct($key,$option);
+        parent::__construct($key,$attr);
         $this->compiler = new \ScssPhp\ScssPhp\Compiler();
 
         return;
@@ -53,17 +52,17 @@ class ScssPhp extends Main\ServiceAlias
     // retourne le format à utiliser
     public function getFormat():string
     {
-        $return = $this->getOption('format');
+        $return = $this->getAttr('format');
 
         if(empty($return))
         {
-            $formats = $this->getAttr('format');
+            $formats = $this->getAttr('formatsPossible');
 
             if(is_array($formats))
             {
                 $return = $formats[0];
 
-                $compress = $this->getOption('compress');
+                $compress = $this->getAttr('compress');
                 if($compress === true)
                 $return = $formats[1];
             }

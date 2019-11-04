@@ -18,14 +18,13 @@ class PhpConcatenator extends Main\Service
 {
     // config
     public static $config = [
-        'option'=>[
-            'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
-            'registerClosure'=>false, // s'il faut register la closure
-            'bootPreload'=>false, // s'il faut mettre preload dans core/boot
-            'concatenator'=>[], // option pour le compileur, voir la méthode statique concatenatorOption
-            'credit'=>null, // permet de mettre un texte de crédit en haut du fichier
-            'initMethod'=>null, // permet de spécifier la init méthode
-            'namespace'=>[]]// spécifie les namespace pour la compilation, closure et priority sont supportés
+        'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
+        'registerClosure'=>false, // s'il faut register la closure
+        'bootPreload'=>false, // s'il faut mettre preload dans core/boot
+        'concatenator'=>[], // option pour le compileur, voir la méthode statique concatenatorOption
+        'credit'=>null, // permet de mettre un texte de crédit en haut du fichier
+        'initMethod'=>null, // permet de spécifier la init méthode
+        'namespace'=>[]// spécifie les namespace pour la compilation, closure et priority sont supportés
     ];
 
 
@@ -35,12 +34,11 @@ class PhpConcatenator extends Main\Service
 
     // construct
     // construit le service et et lie le concatenator
-    public function __construct(string $key,?array $option=null)
+    public function __construct(string $key,?array $attr=null)
     {
-        parent::__construct($key,$option);
-        $concatenator = ['concatenator'=>$this->concatenatorOption()];
-        $this->option($concatenator);
-        $this->concatenator = Main\Concatenator::newOverload($this->getOption('concatenator/base'));
+        parent::__construct($key,$attr);
+        $this->setAttr('concatenator',$this->concatenatorOption());
+        $this->concatenator = Main\Concatenator::newOverload($this->getAttr('concatenator/base'));
 
         return;
     }
@@ -60,11 +58,11 @@ class PhpConcatenator extends Main\Service
     {
         $return = null;
         $concatenator = $this->getConcatenator();
-        $credit = $this->getOption('credit',true);
-        $namespaces = $this->getOption('namespace');
+        $credit = $this->getAttr('credit',true);
+        $namespaces = $this->getAttr('namespace');
 
         if(!empty($credit))
-        $concatenator->addStr($credit,$this->getOption('concatenator/credit'));
+        $concatenator->addStr($credit,$this->getAttr('concatenator/credit'));
 
         foreach ($namespaces as $namespace => $value)
         {
@@ -95,9 +93,9 @@ class PhpConcatenator extends Main\Service
     // retourne le tableau d'option pour le namespace
     protected function entryOption(array $return):array
     {
-        $return = Base\Arrs::replace($this->getOption('concatenator/entry'),$return);
+        $return = Base\Arrs::replace($this->getAttr('concatenator/entry'),$return);
         $closure = $return['closure'] ?? false;
-        $initMethod = $this->getOption('initMethod');
+        $initMethod = $this->getAttr('initMethod');
 
         if($closure === true)
         $return['content'] = static::namespaceAccoladeAutoloadClosure($initMethod);
@@ -114,10 +112,10 @@ class PhpConcatenator extends Main\Service
     public function concatenatorOption():array
     {
         $return = [];
-        $strictType = $this->getOption('strictType');
-        $registerClosure = $this->getOption('registerClosure');
-        $bootPreload = $this->getOption('bootPreload');
-        $initMethod = $this->getOption('initMethod');
+        $strictType = $this->getAttr('strictType');
+        $registerClosure = $this->getAttr('registerClosure');
+        $bootPreload = $this->getAttr('bootPreload');
+        $initMethod = $this->getAttr('initMethod');
         $initMethodStr = (is_string($initMethod))? "'$initMethod'":'null';
 
         $start = '<?php';

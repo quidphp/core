@@ -717,7 +717,8 @@ class Fr extends Base\Lang\Fr
                 3=>'Réinitialisation du mot de passe',
                 4=>'Activation du mot de passe',
                 5=>'Changement du mot de passe',
-                6=>'Enregistrement'
+                6=>'Enregistrement',
+                7=>'Formulaire'
             ],
 
             // queueEmailStatus
