@@ -20,24 +20,6 @@ class UserActive extends YesAlias
     public static $config = [];
 
 
-    // formComplex
-    // génère le formComplex pour userActive
-    // retourne un input plain si c'est l'utilisateur courant
-    public function formComplex($value=true,?array $attr=null,?array $option=null):string
-    {
-        $return = null;
-        $session = static::boot()->session();
-        $user = $session->user();
-
-        if($value instanceof Core\Cell && $value->row()->primary() === $user->primary())
-        $attr = Base\Arr::plus($attr,['tag'=>'div']);
-
-        $return = parent::formComplex($value,$attr,$option);
-
-        return $return;
-    }
-
-
     // onSet
     // sur changement de active
     // une exception attrapable peut être envoyé

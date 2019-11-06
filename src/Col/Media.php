@@ -146,19 +146,6 @@ class Media extends FilesAlias
 
         return $return;
     }
-
-
-    // formComplexUpdate
-    // génère l'élément de formulaire complexe média lors d'une mise à jour
-    protected function formComplexUpdate(Core\Cell $value,array $attr,array $option):string
-    {
-        $return = $this->commonFormComplexUpdate(null,$value,$attr,$option);
-
-        if(empty($return))
-        $return = $this->formComplexEmptyPlaceholder($value);
-
-        return $return;
-    }
 }
 
 // init

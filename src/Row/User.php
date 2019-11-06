@@ -1336,31 +1336,6 @@ class User extends Core\RowAlias
     }
 
 
-    // userExport
-    // méthode utilisé pour exporter les colonnes et cellules d'un utilisateur
-    public static function userExport(array $value,string $type,Core\Cell $cell,array $option):array
-    {
-        $return = [];
-        $col = $cell->col();
-        $relation = $col->relation();
-        $table = $relation->relationTable();
-        $cols = $table->cols()->filter(['isAttrNotEmpty'=>true],'relationExport');
-        $cols = $cols->sortBy('attr',true,'relationExport');
-
-        if($type === 'col')
-        $return = $cols->label();
-
-        else
-        {
-            $row = $cell->relationRow();
-            $cells = $row->cells($cols);
-            $return = $cells->pair('exportOne',$option);
-        }
-
-        return $return;
-    }
-
-
     // getUsernameSecurity
     // retourne la sécurité utilisé pour le champ username
     // peut être null

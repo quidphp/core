@@ -414,6 +414,8 @@ class En extends Base\Lang\En
 
             // label
             'label'=>[
+                'cliSessionGc'=>'Session garbage collect',
+                'cliVersion'=>'Version',
                 'error'=>'Error',
                 'home'=>'Home',
                 'robots'=>'Robots',
@@ -539,15 +541,6 @@ class En extends Base\Lang\En
                     'invalidValues'=>'Invalid values'
                 ],
 
-                // user
-                'user'=>[
-
-                    // welcome
-                    'welcome'=>[
-                        'failure'=>'The welcome email was not sent.'
-                    ]
-                ],
-
                 // insert
                 'insert'=>[
                     '*'=>[
@@ -581,11 +574,6 @@ class En extends Base\Lang\En
                         'exception'=>'[message]',
                         'system'=>'Error system'
                     ]
-                ],
-
-                // duplicate
-                'duplicate'=>[
-                    'failure'=>'Duplicate has failed'
                 ]
             ],
 

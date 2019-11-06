@@ -18,10 +18,10 @@ class DateAdd extends DateAlias
     public static $config = [
         'general'=>true,
         'date'=>'long',
-        'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],
         'duplicate'=>false,
         'editable'=>false,
+        'complex'=>'div',
         'onGet'=>[[Base\Date::class,'onGet'],'long']
     ];
 

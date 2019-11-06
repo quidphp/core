@@ -182,6 +182,7 @@ abstract class Boot extends Main\Root
         'redirection'=>null, // tableau redirection par défaut, peut être une callable
         'redirectionRow'=>Row\Redirection::class, // row pour contenu additionnel de redirection
         'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
+        'pathOverviewExtension'=>['php','js','scss'], // extension pour pathOverview si extension est null
         '@dev'=>[
             'cache'=>false,
             'umaskGroupWritable'=>true,
@@ -997,7 +998,7 @@ abstract class Boot extends Main\Root
         return $this->getAttr('path');
     }
 
-
+    
     // path
     // retourne un chemin
     public function path(string $key):string
@@ -1007,28 +1008,20 @@ abstract class Boot extends Main\Root
 
 
     // pathOverview
-    // retourne le total des lignes et size pour les paths
+    // retourne le total des lignes et size pour un path
     // possible de filtrer par extension
-    public function pathOverview($path=null,$extension=null):array
+    public function pathOverview(string $path,$extension=null):array
     {
         $return = [];
-        $extension = ($extension === null)? [Base\Finder::phpExtension(),'js','scss']:$extension;
-        $return['size'] = 0;
-        $return['format'] = null;
+        $extension = ($extension === null)? $this->getAttr('pathOverviewExtension'):$extension;
+        $path = $this->path($path);
         $return['line'] = 0;
-
-        if(is_string($path))
-        $paths = (array) static::path($path);
-        else
-        $paths = $this->paths();
-
-        foreach ($paths as $key => $value)
-        {
-            $return['line'] += Base\Dir::line($value,$extension);
-            $return['size'] += Base\Dir::size($value,false,$extension);
-            $return['format'] = Base\Number::sizeFormat($return['size']);
-            $return['path'][$key] = Base\Dir::subDirLine($value,null,$extension);
-        }
+        $size = 0;
+        $size += Base\Dir::size($path,false,$extension);
+        
+        $return['size'] = Base\Number::sizeFormat($size);
+        $return['line'] += Base\Dir::line($path,$extension);
+        $return['path'] = Base\Dir::subDirLine($path,null,$extension);
 
         return $return;
     }

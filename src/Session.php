@@ -690,7 +690,21 @@ class Session extends Main\Session
         return $this;
     }
 
-
+    
+    // historyPreviousRoute
+    // retourne la route de la requête précédente ou un fallback
+    // ne peut pas retourner vide
+    public function historyPreviousRoute($fallback=null,bool $hasExtra=true):Route
+    {
+        $return = null;
+        $routes = static::boot()->routes();
+        $requestHistory = $this->history();
+        $return = $requestHistory->previousRoute($routes,$fallback,$hasExtra);
+        
+        return $return;
+    }
+    
+    
     // hasFakeRoles
     // retourne vrai si la session a des fake roles
     public function hasFakeRoles():bool
@@ -709,11 +723,14 @@ class Session extends Main\Session
 
     // setFakeRoles
     // applique des fakes rôles si l'utilisateur peut en avoir
-    public function setFakeRoles(?Main\Roles $roles):void
+    public function setFakeRoles($roles):void
     {
         if(!$this->allowFakeRoles() && !empty($roles))
         static::throw('fakeRolesNotAllowed');
-
+        
+        if(is_array($roles))
+        $roles = static::boot()->roles()->only(...array_values($roles));
+        
         if(!empty($roles) && $roles->isEmpty())
         $roles = null;
 

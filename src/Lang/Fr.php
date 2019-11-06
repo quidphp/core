@@ -414,6 +414,8 @@ class Fr extends Base\Lang\Fr
 
             // label
             'label'=>[
+                'cliSessionGc'=>'Nettoyer les sessions',
+                'cliVersion'=>'Version',
                 'error'=>'Erreur',
                 'home'=>'Accueil',
                 'robots'=>'Robots',
@@ -539,15 +541,6 @@ class Fr extends Base\Lang\Fr
                     'invalidValues'=>'Valeurs fournies invalides'
                 ],
 
-                // user
-                'user'=>[
-
-                    // welcome
-                    'welcome'=>[
-                        'failure'=>"Le courriel de bienvenue n'a pas pu être envoyé."
-                    ]
-                ],
-
                 // insert
                 'insert'=>[
                     '*'=>[
@@ -581,11 +574,6 @@ class Fr extends Base\Lang\Fr
                         'exception'=>'[message]',
                         'system'=>'Erreur système'
                     ]
-                ],
-
-                // duplicate
-                'duplicate'=>[
-                    'failure'=>'La duplication a échouée'
                 ]
             ],
 

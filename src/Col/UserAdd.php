@@ -17,11 +17,11 @@ class UserAdd extends EnumAlias
     public static $config = [
         'required'=>false,
         'general'=>true,
-        'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],
         'relation'=>'user',
         'duplicate'=>false,
         'editable'=>false,
+        'complex'=>'div',
         'check'=>['kind'=>'int']
     ];
 

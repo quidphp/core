@@ -169,32 +169,6 @@ class UserPassword extends Core\ColAlias
     }
 
 
-    // formComplex
-    // génère le formulaire complex pour password
-    public function formComplex($value=true,?array $attr=null,?array $option=null):string
-    {
-        $return = '';
-        $tag = $this->complexTag($attr);
-
-        if(Base\Html::isFormTag($tag))
-        {
-            $value = $this->value($value);
-            $required = (empty($value))? true:false;
-            $inputs = $this->inputs($attr,$required);
-
-            foreach ($inputs as $attr)
-            {
-                $return .= Base\Html::inputPassword(null,$attr);
-            }
-        }
-
-        else
-        $return = $this->formComplexNothing();
-
-        return $return;
-    }
-
-
     // getSecurity
     // retourne le niveau de sécurité du mot de passe
     public function getSecurity():?string

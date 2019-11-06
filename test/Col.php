@@ -31,10 +31,7 @@ class Col extends Base\Test
         $email = $tb->cols()->get('email');
         $password = $tb->cols()->get('password');
         $date = $tb['date'];
-        $array = $tb['myRelation'];
         $lang = $tb['relationLang'];
-        $multi = $tb['multi'];
-        $check = $tb['check'];
         $media = $tb['media'];
         $passwordReset = $db['user']['passwordReset'];
         $storage = $tb['storage'];
@@ -66,8 +63,6 @@ class Col extends Base\Test
 
         // active
         assert($active->onGet(1,[]) === 1);
-        assert($active->complexTag() === 'checkbox');
-        assert(strlen($active->formComplex()) === 204);
 
         // boolean
 
@@ -80,9 +75,6 @@ class Col extends Base\Test
         // date
         assert($date instanceof Core\Col\Date);
         assert($date->date() === 'dateToDay');
-        assert($date->valueComplex('08-08-1984') === '08-08-1984');
-        assert($date->valueComplex(true) === null);
-        assert($date->valueComplex(mktime(0,0,0,8,8,1984)) === '08-08-1984');
         assert($date::makeDateFormat(true) === 'F j, Y');
         assert($date->allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
         assert($date->dateMin() === null);
@@ -112,9 +104,6 @@ class Col extends Base\Test
         assert(is_string($email->get()));
 
         // enum
-        assert($lang->complexTag() === 'radio');
-        assert(strlen($lang->formComplex()) === 642);
-        assert(strlen($lang->formComplex(3)) === 660);
 
         // error
 
@@ -129,7 +118,6 @@ class Col extends Base\Test
         // media + medias
         assert($media instanceof Core\Col\Media);
         assert(Base\Dir::isWritableOrCreatable($media->rootPath()));
-        assert($media->formComplex() === "<div class='block empty'><div class='form'><input name='media' type='file'/></div></div>");
         assert($media->hasVersion());
         assert(count($media->versions()) === 2);
         assert($media->version(1) !== $media->version(-1));
@@ -170,13 +158,7 @@ class Col extends Base\Test
         // session
 
         // set
-        assert($multi->complexTag() === 'multiselect');
-        assert($check->complexTag() === 'search');
-        assert(strlen($array->formComplex(null,['data-required'=>null])) === 177);
-        assert(strlen($array->formComplex()) === 195);
-        assert(strlen($multi->formComplex(2)) === 165);
-        assert(strlen($multi->formComplex([2,5])) === 185);
-
+        
         // timezone
 
         // uri
@@ -198,7 +180,6 @@ class Col extends Base\Test
         // userPassword
         assert($password instanceof Core\Col\UserPassword);
         assert(count($password->inputs()) === 2);
-        assert(strlen($password->formComplex()) === 285);
 
         // userPasswordReset
         assert($passwordReset instanceof Core\Col\UserPasswordReset);

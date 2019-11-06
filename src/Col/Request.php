@@ -18,6 +18,7 @@ class Request extends Core\ColAlias
     // config
     public static $config = [
         'general'=>true,
+        'editable'=>false,
         'complex'=>'div',
         'onComplex'=>true,
         'required'=>true,
