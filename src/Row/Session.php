@@ -36,7 +36,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             'dateModify'=>['general'=>true]],
         'inRelation'=>false,
         'permission'=>[
-            '*'=>array('update'=>true,'delete'=>true),
+            '*'=>['update'=>true,'delete'=>true],
             'nobody'=>['insert'=>true]]
     ];
 

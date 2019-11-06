@@ -158,7 +158,7 @@ class Col extends Base\Test
         // session
 
         // set
-        
+
         // timezone
 
         // uri

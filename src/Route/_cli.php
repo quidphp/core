@@ -4,7 +4,7 @@ declare(strict_types=1);
 /*
  * This file is part of the QuidPHP package.
  * Website: https://quidphp.com
- * License: https://github.com/quidphp/lemur/blob/master/LICENSE
+ * License: https://github.com/quidphp/core/blob/master/LICENSE
  */
 
 namespace Quid\Core\Route;
@@ -17,9 +17,9 @@ trait _cli
 {
     // config
     public static $configCli = [
-        'match'=>array(
+        'match'=>[
             'cli'=>true,
-            'role'=>array('>='=>'admin')),
+            'role'=>['>='=>'admin']],
         'response'=>[
             'timeLimit'=>0],
         'group'=>'cli',
@@ -29,12 +29,12 @@ trait _cli
         'logCron'=>Core\Row\LogCron::class // classe pour le logCron
     ];
 
-    
+
     // cli
     // méthode abstraite à étendre pour les routes cli
     abstract protected function cli(bool $cli);
-    
-    
+
+
     // trigger
     // génère le cli ou le template
     public function trigger()
@@ -49,17 +49,17 @@ trait _cli
     protected function cliWrap()
     {
         $return = $this->cli(Base\Server::isCli());
-        
+
         if(is_array($return))
         {
             $this->logCron($return);
             $return = null;
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // logCron
     // permet de logger des données dans la table log cron
     public function logCron(array $data):?Core\Row

@@ -163,9 +163,9 @@ class Session extends Base\Test
 
         // navEmpty
         assert($s->navEmpty() === $s);
-        
+
         // historyPreviousRoute
-        
+
         // hasFakeRoles
         assert($s->hasFakeRoles() === false);
 

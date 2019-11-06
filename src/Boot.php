@@ -998,7 +998,7 @@ abstract class Boot extends Main\Root
         return $this->getAttr('path');
     }
 
-    
+
     // path
     // retourne un chemin
     public function path(string $key):string
@@ -1018,7 +1018,7 @@ abstract class Boot extends Main\Root
         $return['line'] = 0;
         $size = 0;
         $size += Base\Dir::size($path,false,$extension);
-        
+
         $return['size'] = Base\Number::sizeFormat($size);
         $return['line'] += Base\Dir::line($path,$extension);
         $return['path'] = Base\Dir::subDirLine($path,null,$extension);

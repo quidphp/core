@@ -140,8 +140,8 @@ abstract class Relation extends Core\ColAlias
 
         return $return;
     }
-    
-    
+
+
     // prepareRelationPlainGeneral
     // méthode utilisé pour préparer l'affichage des relations plains (sans formulaire)
     // retourne au maximum le generalMax
