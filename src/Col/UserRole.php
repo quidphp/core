@@ -68,7 +68,7 @@ class UserRole extends SetAlias
             $values = Base\Arr::cast($values);
             $values = Base\Arr::clean($values);
             asort($values);
-            
+
             if(!empty($values))
             {
                 $table = $this->table();
@@ -88,7 +88,7 @@ class UserRole extends SetAlias
 
                 $roles = $boot->roles();
                 $rolesNobody = $roles->nobody();
-                
+
                 if(!$roles->exists(...$values))
                 static::throw(null,'rolesNotFound');
 

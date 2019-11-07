@@ -907,7 +907,7 @@ class Session extends Main\Session
         $this->rememberEmpty();
         $this->fakeRolesEmpty();
         $this->onLogin();
-        
+
         Base\Call::bindTo($user,function() {
             $this->onLogin();
         });
@@ -952,7 +952,7 @@ class Session extends Main\Session
             Base\Call::bindTo($user,function() {
                 $this->onLogout();
             });
-            
+
             $this->logout($option);
         }
 

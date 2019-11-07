@@ -89,7 +89,7 @@ class User extends Core\RowAlias
         $this->dateLogin()->set($timestamp);
 
         $db->off();
-        $this->updateChanged(array('include'=>false));
+        $this->updateChanged(['include'=>false]);
         $db->on();
 
         return;
@@ -205,11 +205,11 @@ class User extends Core\RowAlias
             $session = static::session();
             $currentUser = $session->user();
             $currentPermission = $session->permission();
-            
+
             $isNobody = $this->isNobody();
             $isAdmin = $this->isAdmin();
             $permission = $this->permission();
-            
+
             if($isNobody === false || $session->isAdmin())
             {
                 if($currentPermission > $permission || $currentUser === $this || ($isAdmin === true && $currentPermission === $permission))
@@ -232,10 +232,10 @@ class User extends Core\RowAlias
             $return = false;
             $session = static::session();
             $currentPermission = $session->permission();
-            
+
             $isNobody = $this->isNobody();
             $permission = $this->permission();
-            
+
             if($isNobody === false && $currentPermission > $permission)
             $return = true;
         }
@@ -734,7 +734,7 @@ class User extends Core\RowAlias
     final public function setPasswordFromPasswordReset(?array $option=null):?int
     {
         $return = null;
-        $option = Base\Arr::plus(array('include'=>false),$option);
+        $option = Base\Arr::plus(['include'=>false],$option);
         $passwordReset = $this->passwordReset();
         $value = $passwordReset->value();
 
@@ -763,7 +763,7 @@ class User extends Core\RowAlias
     final public function setPasswordReset(string $value,?array $option=null):?int
     {
         $return = null;
-        $option = Base\Arr::plus(array('include'=>false),$option);
+        $option = Base\Arr::plus(['include'=>false],$option);
         $this->passwordReset()->hashSet($value);
 
         $db = $this->db()->off();

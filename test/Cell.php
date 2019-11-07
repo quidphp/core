@@ -77,7 +77,7 @@ class Cell extends Base\Test
         assert($enum->set(2) === $enum);
         assert($enum->relation() === 'oken');
         assert($enum->row()->updateChanged() === 1);
-        assert($enum->row()->updateChanged(array('include'=>false)) === null);
+        assert($enum->row()->updateChanged(['include'=>false]) === null);
         assert($enum->row()->updateChanged() === 0);
         assert($enum->unset() === $enum);
         assert($enum->get() === null);
