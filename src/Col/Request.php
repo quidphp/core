@@ -28,7 +28,7 @@ class Request extends Core\ColAlias
 
     // onInsert
     // retourner la requête en json sur insertion
-    public function onInsert($value,array $row,array $option):?string
+    final protected function onInsert($value,array $row,array $option):?string
     {
         $return = null;
         $boot = static::bootReady();
@@ -42,7 +42,7 @@ class Request extends Core\ColAlias
 
     // onGet
     // sur onGet recrée l'objet request
-    public function onGet($return,array $option)
+    protected function onGet($return,array $option)
     {
         if(!$return instanceof Core\Request)
         {

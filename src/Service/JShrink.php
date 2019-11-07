@@ -24,7 +24,7 @@ class JShrink extends Main\Service
     // trigger
     // permet de faire un minify d'une string js fourni en argument
     // retourne le js minify
-    public function trigger(string $value):string
+    final public function trigger(string $value):string
     {
         return Minifier::minify($value,$this->attr());
     }
@@ -33,7 +33,7 @@ class JShrink extends Main\Service
     // staticTrigger
     // méthode statique pour créer l'objet et minify la string
     // retourne une string
-    public static function staticTrigger(string $value,?array $attr=null):string
+    final public static function staticTrigger(string $value,?array $attr=null):string
     {
         $return = null;
         $minifier = new static(__METHOD__,$attr);

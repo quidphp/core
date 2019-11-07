@@ -21,7 +21,7 @@ class Medias extends FilesAlias
 
     // cast
     // cast la cellule, retourne le path http ou base64
-    public function _cast():?string
+    final public function _cast():?string
     {
         return $this->commonCast();
     }
@@ -29,7 +29,7 @@ class Medias extends FilesAlias
 
     // pair
     // retourne un fichier si true ou int, sinon renvoie à parent
-    public function pair($value=null,...$args)
+    final public function pair($value=null,...$args)
     {
         return $this->commonPair($value,...$args);
     }
@@ -38,7 +38,7 @@ class Medias extends FilesAlias
     // canBeDeleted
     // retourne vrai si le média peut être effacé
     // si média est requis, il doit au moins y avoir un
-    public function canBeDeleted(?int $index=null):bool
+    final public function canBeDeleted(?int $index=null):bool
     {
         $return = parent::canBeDeleted($index);
 
@@ -55,7 +55,7 @@ class Medias extends FilesAlias
 
     // basename
     // retourne un basename de fichier dans la cellule
-    public function basename(?int $index=null,$version=null):?string
+    final public function basename(?int $index=null,$version=null):?string
     {
         return $this->commonBasename($index,$version);
     }
@@ -63,7 +63,7 @@ class Medias extends FilesAlias
 
     // cellPath
     // retourne le chemin de la cellule qui combine le nom de la table, le id de la ligne, le nom de la colonne et l'index
-    public function cellPath($index=null,$version=null):string
+    final public function cellPath($index=null,$version=null):string
     {
         return $this->commonCellPath($index,$version);
     }
@@ -71,7 +71,7 @@ class Medias extends FilesAlias
 
     // cellPathBasename
     // retourne le chemin de la cellule avec le basename et l'index, le fichier n'a pas besoin d'exister
-    public function cellPathBasename(?int $index=null,$version=null):?string
+    final public function cellPathBasename(?int $index=null,$version=null):?string
     {
         return $this->commonCellPathBasename($index,$version);
     }
@@ -79,7 +79,7 @@ class Medias extends FilesAlias
 
     // basePath
     // retourne le base path à l'index qui est une combinaison du rootPath et cellPath
-    public function basePath($index=null,$version=null):string
+    final public function basePath($index=null,$version=null):string
     {
         return $this->commonBasePath($index,$version);
     }
@@ -87,7 +87,7 @@ class Medias extends FilesAlias
 
     // filePath
     // retourne le file path à l'index qui combine le basePath et le basename qui est la valeur de la cellule
-    public function filePath(?int $index=null,$version=null):?string
+    final public function filePath(?int $index=null,$version=null):?string
     {
         return $this->commonFilePath($index,$version);
     }
@@ -95,7 +95,7 @@ class Medias extends FilesAlias
 
     // fileExists
     // retourne vrai si le fichier à l'index existe
-    public function fileExists(?int $index=null,$version=null):bool
+    final public function fileExists(?int $index=null,$version=null):bool
     {
         return $this->commonFileExists($index,$version);
     }
@@ -103,7 +103,7 @@ class Medias extends FilesAlias
 
     // checkFileExists
     // envoie une exception si le fichier à l'index n'existe pas
-    public function checkFileExists(?int $index=null,$version=null):self
+    final public function checkFileExists(?int $index=null,$version=null):self
     {
         return $this->commonCheckFileExists($index,$version);
     }
@@ -111,7 +111,7 @@ class Medias extends FilesAlias
 
     // file
     // retourne l'objet fichier, peut retourner null
-    public function file(?int $index=null,$version=null):?Main\File
+    final public function file(?int $index=null,$version=null):?Main\File
     {
         return $this->commonFile($index,$version);
     }
@@ -119,7 +119,7 @@ class Medias extends FilesAlias
 
     // checkFile
     // retourne l'objet fichier, envoie une exception si non existant
-    public function checkFile(?int $index=null,$version=null):Main\File
+    final public function checkFile(?int $index=null,$version=null):Main\File
     {
         return $this->commonCheckFile($index,$version);
     }
@@ -127,7 +127,7 @@ class Medias extends FilesAlias
 
     // versionExtension
     // retourne l'extension a utilisé pour la version à l'index donné
-    public function versionExtension(?int $index=null,$version=null,bool $exception=true):string
+    final public function versionExtension(?int $index=null,$version=null,bool $exception=true):string
     {
         return $this->commonVersionExtension($index,$version,$exception);
     }
@@ -135,7 +135,7 @@ class Medias extends FilesAlias
 
     // version
     // retourne un objet files avec toutes les versions pour un index, retourne null si pas de version
-    public function version(int $index):?Main\Files
+    final public function version(int $index):?Main\Files
     {
         return $this->commonVersion($index);
     }
@@ -143,7 +143,7 @@ class Medias extends FilesAlias
 
     // makeVersion
     // reconstruit les versions pour l'index d'une image à partir de la configuration de la colonne
-    public function makeVersion($index=null,?array $option=null):array
+    final public function makeVersion($index=null,?array $option=null):array
     {
         return $this->commonMakeVersion($index,$option);
     }
@@ -151,7 +151,7 @@ class Medias extends FilesAlias
 
     // downloadRoute
     // retourne la route pour le téléchargement
-    public function downloadRoute(int $index):Core\Route
+    final public function downloadRoute(int $index):Core\Route
     {
         return $this->commonDownloadRoute($index);
     }
@@ -159,7 +159,7 @@ class Medias extends FilesAlias
 
     // process
     // lance le process de déplacement des médias lié
-    public function process(Main\Files $olds,Main\Files $news,array $regenerate,?array $option=null):void
+    final public function process(Main\Files $olds,Main\Files $news,array $regenerate,?array $option=null):void
     {
         $this->unlinks($olds,$option);
 
@@ -177,7 +177,7 @@ class Medias extends FilesAlias
 
     // checkIndex
     // envoie une exception si l'index est invalid, sinon retourne l'index
-    protected function checkIndex(?int $index=null):int
+    final protected function checkIndex(?int $index=null):int
     {
         $return = null;
         $amount = $this->col()->getAmount();
@@ -201,7 +201,7 @@ class Medias extends FilesAlias
     // indexes
     // retourne un objet files avec tous les index de l'objet
     // possible de spécifier une version
-    public function indexes($version=null):Main\Files
+    final public function indexes($version=null):Main\Files
     {
         $return = Main\Files::newOverload();
         $indexes = $this->indexesExists($version);
@@ -217,7 +217,7 @@ class Medias extends FilesAlias
 
     // indexesExists
     // retourne un tableau avec tous les indexes qui existent
-    public function indexesExists($version=null):array
+    final public function indexesExists($version=null):array
     {
         $return = [];
         $get = $this->get();
@@ -238,7 +238,7 @@ class Medias extends FilesAlias
     // all
     // retourne un objet files avec toutes les index, les versions et l'original
     // possible d'exclure les versions
-    public function all(bool $addVersion=true):Main\Files
+    final public function all(bool $addVersion=true):Main\Files
     {
         $return = Main\Files::newOverload();
         $indexes = $this->indexes();

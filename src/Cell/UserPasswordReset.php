@@ -18,7 +18,7 @@ class UserPasswordReset extends Core\CellAlias
     // hashSet
     // encrypte et set le nouveau mot de passe de réinitialisation
     // peut envoyer une exception
-    public function hashSet(string $value):self
+    final public function hashSet(string $value):self
     {
         $hash = null;
         $col = $this->col();

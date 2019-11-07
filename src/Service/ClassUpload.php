@@ -34,7 +34,7 @@ class ClassUpload extends Main\Service
     // trigger
     // compresse une version du fichier image en utilisant la librairie class.upload
     // si le retour est string, c'est une exception, sinon retourne true/false
-    public function trigger($source,string $dirname,?string $filename=null,?array $attr=null)
+    final public function trigger($source,string $dirname,?string $filename=null,?array $attr=null)
     {
         $return = false;
         $attr = Base\Arr::plus($this->attr(),$attr);
@@ -74,8 +74,7 @@ class ClassUpload extends Main\Service
 
     // setClassUpload
     // créer instance de l'objet upload après avoir paramétré et lie à l'objet courant
-    // méthode protégé
-    protected function setClassUpload(string $source,?string $filename=null,array $option):void
+    final protected function setClassUpload(string $source,?string $filename=null,array $option):void
     {
         $this->upload = new Upload\Upload($source);
         $filename = (is_string($filename))? $filename:Base\Path::filename($source);
@@ -89,7 +88,7 @@ class ClassUpload extends Main\Service
 
     // getClassUpload
     // retourne l'instance de l'objet class upload
-    public function getClassUpload():Upload\Upload
+    final public function getClassUpload():Upload\Upload
     {
         return $this->upload;
     }
@@ -97,7 +96,7 @@ class ClassUpload extends Main\Service
 
     // isImage
     // retourne vrai si le fichier dans upload est une image
-    public function isImage():bool
+    final public function isImage():bool
     {
         $return = false;
         $upload = $this->getClassUpload();
@@ -111,7 +110,7 @@ class ClassUpload extends Main\Service
 
     // isConvertImageType
     // retourne vrai si le fichier de conversion sera l'un des types données en argument
-    public function isConvertImageType(...$types):bool
+    final public function isConvertImageType(...$types):bool
     {
         $return = false;
 
@@ -137,8 +136,7 @@ class ClassUpload extends Main\Service
 
     // reset
     // applique les paramètres par défaut à l'objet upload
-    // méthode protégé
-    protected function reset(string $filename):void
+    final protected function reset(string $filename):void
     {
         $upload = $this->getClassUpload();
         $upload->dir_auto_create = false;
@@ -155,8 +153,7 @@ class ClassUpload extends Main\Service
 
     // prepareImage
     // paramètre pour image
-    // méthode protégé
-    protected function prepareImage(array $option):void
+    final protected function prepareImage(array $option):void
     {
         if($this->isImage())
         {
@@ -190,8 +187,7 @@ class ClassUpload extends Main\Service
 
     // prepareResize
     // méthode pour paramétrer un resize dans l'objet upload
-    // méthode protégé
-    protected function prepareResize(?int $width=null,?int $height=null,?string $action=null):void
+    final protected function prepareResize(?int $width=null,?int $height=null,?string $action=null):void
     {
         if(is_int($width) || is_int($height))
         {
@@ -256,7 +252,7 @@ class ClassUpload extends Main\Service
 
     // qualityJpg
     // gère la qualité pour un jpg
-    public static function qualityJpg(int $value):int
+    final public static function qualityJpg(int $value):int
     {
         return ($value > 0 || $value <= 100)? $value:0;
     }
@@ -264,7 +260,7 @@ class ClassUpload extends Main\Service
 
     // qualityPng
     // gère la qualité pour un png
-    public static function qualityPng(int $value):int
+    final public static function qualityPng(int $value):int
     {
         $return = 0;
 

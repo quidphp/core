@@ -47,8 +47,7 @@ class PhpMailer extends Core\ServiceMailerAlias
     // prepare
     // prépare l'objet et créer l'instance de l'objet mailer
     // une exception peut être envoyé si les options ne sont pas valides
-    // méthode protégé
-    protected function prepare():void
+    final protected function prepare():void
     {
         $this->checkReady(false);
         $mailer = new \PHPMailer\PHPMailer\PHPMailer();
@@ -60,8 +59,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 
     // prepareMailer
     // met à jour l'objet du mailer à partir d'un tableau de configuration
-    // méthode protégé
-    protected function prepareMailer(array $value):void
+    final protected function prepareMailer(array $value):void
     {
         $mailer = $this->mailer();
         $mailer->clearAllRecipients();
@@ -114,8 +112,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 
     // prepareMailerMessage
     // prépare le message et met à jour l'objet du mailer à partir d'un tableau
-    // méthode protégé
-    protected function prepareMailerMessage(array $value):void
+    final protected function prepareMailerMessage(array $value):void
     {
         $mailer = $this->mailer();
         $keyMethods = ['bcc'=>'addBCC','cc'=>'addCC','replyTo'=>'addReplyTo','to'=>'addAddress','from'=>'setFrom'];
@@ -161,7 +158,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 
     // error
     // retourne la dernière erreur sur l'objet mailer
-    public function error():string
+    final public function error():string
     {
         return $this->mailer()->ErrorInfo;
     }
@@ -170,7 +167,7 @@ class PhpMailer extends Core\ServiceMailerAlias
     // trigger
     // envoie le courriel maintenant
     // retourne un booléean
-    public function trigger($value):bool
+    final public function trigger($value):bool
     {
         $return = false;
         $mailer = $this->mailer();
@@ -210,7 +207,7 @@ class PhpMailer extends Core\ServiceMailerAlias
     // setDebug
     // change les options de débogagge de l'objet mailer
     // mettre 2 pour output
-    public function setDebug($debug=0,$output=null):self
+    final public function setDebug($debug=0,$output=null):self
     {
         $mailer = $this->mailer();
 

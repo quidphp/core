@@ -23,7 +23,7 @@ class Pointer extends Core\ColAlias
 
     // onGet
     // méthode appelé sur get, retourne la row ou null
-    public function onGet($return,array $option)
+    final protected function onGet($return,array $option)
     {
         return static::getRow($this->value($return));
     }
@@ -31,7 +31,7 @@ class Pointer extends Core\ColAlias
 
     // getRow
     // retourne la row ou null
-    public static function getRow($value):?Core\Row
+    final public static function getRow($value):?Core\Row
     {
         $return = null;
 
@@ -44,7 +44,7 @@ class Pointer extends Core\ColAlias
 
     // custom
     // méthode de validation custom pour le champ pointeur
-    public static function custom($value)
+    final public static function custom($value)
     {
         $return = null;
         $row = static::getRow($value);

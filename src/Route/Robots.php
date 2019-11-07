@@ -28,7 +28,7 @@ abstract class Robots extends Core\RouteAlias
 
     // trigger
     // lance la route robots
-    public function trigger()
+    final public function trigger()
     {
         $r = '';
         $allow = $this->getAttr('allow');
@@ -45,7 +45,7 @@ abstract class Robots extends Core\RouteAlias
 
     // robotsAllow
     // contenu si la navigation par les bots est permise
-    public function robotsAllow():string
+    final public function robotsAllow():string
     {
         $r = "User-agent: *\n";
         $r .= 'Allow: /';
@@ -56,7 +56,7 @@ abstract class Robots extends Core\RouteAlias
 
     // robotsDeny
     // contenu si la navigation par les bots est interdite
-    public function robotsDeny():string
+    final public function robotsDeny():string
     {
         $r = "User-agent: *\n";
         $r .= 'Disallow: /';

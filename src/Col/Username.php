@@ -26,7 +26,7 @@ class Username extends Core\ColAlias
     // onMakeAttr
     // callback lors du set des attr
     // permet de charger le niveau de sécurité du username
-    protected function onMakeAttr(array $return):array
+    final protected function onMakeAttr(array $return):array
     {
         $return['validate'] = $return['validate'] ?? [];
         $security = $return['security'] ?? null;
@@ -48,7 +48,7 @@ class Username extends Core\ColAlias
 
     // getSecurity
     // retourne le niveau de sécurité du mot de passe
-    public function getSecurity():?string
+    final public function getSecurity():?string
     {
         return $this->getAttr('security');
     }

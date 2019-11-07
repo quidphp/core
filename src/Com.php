@@ -25,8 +25,7 @@ class Com extends Main\Com
     // lang
     // retourne l'objet lang, peut utiliser celui dans inst
     // envoie une exception si introuvable
-    // méthode protégé
-    protected function lang(?Main\Lang $return=null):Main\Lang
+    final protected function lang(?Main\Lang $return=null):Main\Lang
     {
         if($return === null)
         {

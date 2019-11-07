@@ -46,7 +46,7 @@ class Log extends Core\RowAlias implements Main\Contract\Log
 
     // getTypeCode
     // retourne le code à partir du type
-    public static function getTypeCode(string $type):int
+    final public static function getTypeCode(string $type):int
     {
         return (in_array($type,static::$config['type'],true))? array_search($type,static::$config['type'],true):0;
     }
@@ -54,7 +54,7 @@ class Log extends Core\RowAlias implements Main\Contract\Log
 
     // newData
     // crée le tableau d'insertion
-    public static function newData(string $type,array $json):array
+    final public static function newData(string $type,array $json):array
     {
         return ['type'=>static::getTypeCode($type),'json'=>$json];
     }

@@ -23,7 +23,7 @@ class ImageRaster extends Main\File\ImageRaster
 
     // getServiceClass
     // retourne la classe du service
-    public function getServiceClass():string
+    final public function getServiceClass():string
     {
         return $this->getAttr('service')::getOverloadClass();
     }
@@ -31,7 +31,7 @@ class ImageRaster extends Main\File\ImageRaster
 
     // compress
     // comprime le fichier image avec le service spécifié dans config
-    public function compress(string $dirname,?string $filename=null,?array $option=null)
+    final public function compress(string $dirname,?string $filename=null,?array $option=null)
     {
         $return = null;
         $class = $this->getServiceClass();

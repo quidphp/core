@@ -28,7 +28,7 @@ class Error extends Main\Error
 
     // init
     // initialise la prise en charge des erreurs, exception et assertion
-    public static function init():void
+    final public static function init():void
     {
         parent::init();
         Base\Error::setHandler([static::class,'handler']);

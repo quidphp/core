@@ -17,7 +17,7 @@ use Quid\Test\Suite;
 class Col extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $db = Core\Boot::inst()->db();
@@ -62,7 +62,7 @@ class Col extends Base\Test
         assert(count($tb->colAttr('email')) === 5);
 
         // active
-        assert($active->onGet(1,[]) === 1);
+        assert($active->get(1) === 1);
 
         // boolean
 
@@ -183,7 +183,7 @@ class Col extends Base\Test
 
         // userPasswordReset
         assert($passwordReset instanceof Core\Col\UserPasswordReset);
-        assert(strlen($passwordReset->onGet('dssddsa',[])) === 40);
+        assert(strlen($passwordReset->get('dssddsa')) === 40);
 
         // userRole
 

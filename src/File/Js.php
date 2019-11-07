@@ -25,7 +25,7 @@ class Js extends Main\File\Js
     // concatenateFrom
     // écrit dans le fichier js le contenu d'un ou plusieurs dossiers contenant du javascript
     // utilise la classe main/concatenator
-    public function concatenateFrom($values,?array $option=null):self
+    final public function concatenateFrom($values,?array $option=null):self
     {
         $option = Base\Arr::plus(['extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
 
@@ -53,7 +53,7 @@ class Js extends Main\File\Js
 
     // getServiceClass
     // retourne la classe du service
-    public function getServiceClass():string
+    final public function getServiceClass():string
     {
         return $this->getAttr('service')::getOverloadClass();
     }
@@ -62,7 +62,7 @@ class Js extends Main\File\Js
     // concatenate
     // permet de concatener un ou plusieurs dossiers avec fichiers js
     // possible aussi de minifier
-    public static function concatenateMany(array $value,?array $option=null):Main\Files
+    final public static function concatenateMany(array $value,?array $option=null):Main\Files
     {
         $return = Main\Files::newOverload();
 

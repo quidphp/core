@@ -36,7 +36,7 @@ class Row extends Orm\Row
     // tableFromFqcn
     // retourne l'objet table à partir du fqcn de la classe
     // envoie une erreur si la table n'existe pas
-    public static function tableFromFqcn():Table
+    final public static function tableFromFqcn():Table
     {
         $return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
 
@@ -49,7 +49,7 @@ class Row extends Orm\Row
 
     // row
     // permet de retourner un objet row de la table
-    public static function row($row):?self
+    final public static function row($row):?self
     {
         return static::tableFromFqcn()->row($row);
     }
@@ -57,7 +57,7 @@ class Row extends Orm\Row
 
     // rows
     // permet de retourner l'objet rows de la table
-    public static function rows(...$values):Rows
+    final public static function rows(...$values):Rows
     {
         return static::tableFromFqcn()->rows(...$values);
     }
@@ -65,7 +65,7 @@ class Row extends Orm\Row
 
     // rowsVisible
     // permet de retourner l'objet rows de la table, mais l'objet contient seulement les lignes visibles
-    public static function rowsVisible(...$values):Rows
+    final public static function rowsVisible(...$values):Rows
     {
         return static::tableFromFqcn()->rowsVisible(...$values);
     }
@@ -73,7 +73,7 @@ class Row extends Orm\Row
 
     // rowsVisibleOrder
     // permet de retourner l'objet rows de la table, mais l'objet contient seulement les lignes visibles et dans l'ordre par défaut de la table
-    public static function rowsVisibleOrder(...$values):Rows
+    final public static function rowsVisibleOrder(...$values):Rows
     {
         return static::tableFromFqcn()->rowsVisibleOrder(...$values);
     }
@@ -81,7 +81,7 @@ class Row extends Orm\Row
 
     // select
     // permet de faire une requête select sur la table de la classe via méthode static
-    public static function select(...$values):?self
+    final public static function select(...$values):?self
     {
         return static::tableFromFqcn()->select(...$values);
     }
@@ -89,7 +89,7 @@ class Row extends Orm\Row
 
     // selects
     // permet de faire une requête selects sur la table de la classe via méthode static
-    public static function selects(...$values):Rows
+    final public static function selects(...$values):Rows
     {
         return static::tableFromFqcn()->selects(...$values);
     }
@@ -97,7 +97,7 @@ class Row extends Orm\Row
 
     // grab
     // permet de faire une requête selects (grab) sur la table de la classe via méthode static
-    public static function grab($where=null,$limit=null,bool $visible=false):Rows
+    final public static function grab($where=null,$limit=null,bool $visible=false):Rows
     {
         return static::tableFromFqcn()->grab($where,$limit,$visible);
     }
@@ -106,7 +106,7 @@ class Row extends Orm\Row
     // grabVisible
     // permet de faire une requête select (grabVisible) sur la table de la classe via méthode static
     // seuls les rows qui passent la méthode isVisible sont retournés
-    public static function grabVisible($where=true,$limit=null):Rows
+    final public static function grabVisible($where=true,$limit=null):Rows
     {
         return static::tableFromFqcn()->grabVisible($where,$limit);
     }
@@ -114,7 +114,7 @@ class Row extends Orm\Row
 
     // insert
     // permet d'insérer une ligne dans la table à partir du fqcn
-    public static function insert(array $set=[],?array $option=null)
+    final public static function insert(array $set=[],?array $option=null)
     {
         return static::tableFromFqcn()->insert($set,$option);
     }

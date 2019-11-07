@@ -16,7 +16,7 @@ trait _bootAccess
 {
     // boot
     // retourne l'objet boot
-    public static function boot():Boot
+    final public static function boot():Boot
     {
         return Boot::inst();
     }
@@ -24,7 +24,7 @@ trait _bootAccess
 
     // bootSafe
     // retourne l'objet boot si existant, n'envoie pas d'exception
-    public static function bootSafe():?Boot
+    final public static function bootSafe():?Boot
     {
         return Boot::instSafe();
     }
@@ -32,7 +32,7 @@ trait _bootAccess
 
     // bootReady
     // retourne l'objet boot si prêt, n'envoie pas d'exception
-    public static function bootReady():?Boot
+    final public static function bootReady():?Boot
     {
         return Boot::instReady();
     }
@@ -41,7 +41,7 @@ trait _bootAccess
     // routeException
     // lance une exception de route
     // ceci force à passer à la prochaine route
-    public static function routeException(?array $option=null,...$values):void
+    final public static function routeException(?array $option=null,...$values):void
     {
         static::throwCommon(Routing\Exception::class,$values,$option);
 
@@ -52,7 +52,7 @@ trait _bootAccess
     // routeBreakException
     // lance une exception de route
     // ceci brise le loop des route
-    public static function routeBreakException(?array $option=null,...$values):void
+    final public static function routeBreakException(?array $option=null,...$values):void
     {
         static::throwCommon(Routing\BreakException::class,$values,$option);
 

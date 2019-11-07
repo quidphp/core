@@ -37,7 +37,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // contentType
     // retourne le type de contenu du email, retourne int
-    public function contentType():int
+    final public function contentType():int
     {
         return $this->cell('type')->get();
     }
@@ -45,7 +45,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // subject
     // retourne le sujet du email
-    public function subject():string
+    final public function subject():string
     {
         return $this->cell('name_[lang]')->get();
     }
@@ -53,7 +53,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // body
     // retourne le body du email
-    public function body():string
+    final public function body():string
     {
         return $this->cell('content_[lang]')->get();
     }
@@ -62,7 +62,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
     // find
     // retourne un objet email, à partir d'une clé
     // doit être actif
-    public static function find(string $key):?self
+    final public static function find(string $key):?self
     {
         $return = null;
         $row = static::tableFromFqcn()->row($key);

@@ -27,7 +27,7 @@ class UserRole extends SetAlias
     // onCellSet
     // utilisé pour les changements de role
     // si la valeur de la cellule n'est pas un int, prend la permission du premier role dans roles soit nobody
-    public function onCellSet(Orm\Cell $cell)
+    final protected function onCellSet(Orm\Cell $cell)
     {
         $role = null;
         $roles = static::boot()->roles();
@@ -55,7 +55,7 @@ class UserRole extends SetAlias
     // un utilisateur ne peut pas changer sa propre permission
     // si c'est un insert et que la valeur est default, accepte dans tous les cas
     // des exceptions attrapables peuvent être envoyés
-    public function onSet($values,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($values,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = null;
         $values = $this->value($values);
@@ -63,46 +63,51 @@ class UserRole extends SetAlias
         if(is_scalar($values))
         $values = [$values];
 
-        if(is_array($values) && !empty($values))
+        if(is_array($values))
         {
             $values = Base\Arr::cast($values);
+            $values = Base\Arr::clean($values);
             asort($values);
-            $table = $this->table();
-            $primary = $table->primary();
-            $isInsert = (empty($cell))? true:false;
-            $id = $row[$primary] ?? null;
-
-            $boot = static::boot();
-            $session = $boot->session();
-            $sessionUser = $session->user();
-            $sessionRoles = $session->roles();
-            $sessionRole = $session->role();
-            $permission = $sessionRole->permission();
-            $isNobody = (!empty($sessionRoles->nobody()))? true:false;
-            $isAdmin = $sessionRole->isAdmin();
-            $isInsertNobody = ($isInsert === true && $isNobody === true)? true:false;
-
-            $roles = $boot->roles();
-            $rolesNobody = $roles->nobody();
-
-            if(!$roles->exists(...$values))
-            static::throw(null,'rolesNotFound');
-
-            if($id === $sessionUser->primary() && $sessionRoles->keys() !== $values)
-            static::catchable(null,'userRoleSelf');
-
-            foreach ($values as $value)
+            
+            if(!empty($values))
             {
-                if($value === $rolesNobody->permission() && $isAdmin === false)
-                static::catchable(null,'userRoleNobody');
+                $table = $this->table();
+                $primary = $table->primary();
+                $isInsert = (empty($cell))? true:false;
+                $id = $row[$primary] ?? null;
 
-                elseif($value >= $permission && $isAdmin === false && $isInsertNobody === false)
-                static::catchable(null,'userRoleUpperEqual');
+                $boot = static::boot();
+                $session = $boot->session();
+                $sessionUser = $session->user();
+                $sessionRoles = $session->roles();
+                $sessionRole = $session->role();
+                $permission = $sessionRole->permission();
+                $isNobody = (!empty($sessionRoles->nobody()))? true:false;
+                $isAdmin = $sessionRole->isAdmin();
+                $isInsertNobody = ($isInsert === true && $isNobody === true)? true:false;
 
-                elseif($value > $permission && $isAdmin === true)
-                static::catchable(null,'userRoleUpper');
+                $roles = $boot->roles();
+                $rolesNobody = $roles->nobody();
+                
+                if(!$roles->exists(...$values))
+                static::throw(null,'rolesNotFound');
 
-                $return[] = $value;
+                if($id === $sessionUser->primary() && $sessionRoles->keys() !== $values)
+                static::catchable(null,'userRoleSelf');
+
+                foreach ($values as $value)
+                {
+                    if($value === $rolesNobody->permission() && $isAdmin === false)
+                    static::catchable(null,'userRoleNobody');
+
+                    elseif($value >= $permission && $isAdmin === false && $isInsertNobody === false)
+                    static::catchable(null,'userRoleUpperEqual');
+
+                    elseif($value > $permission && $isAdmin === true)
+                    static::catchable(null,'userRoleUpper');
+
+                    $return[] = $value;
+                }
             }
         }
 
@@ -112,7 +117,7 @@ class UserRole extends SetAlias
 
     // getRoles
     // retourne les roles actifs
-    public static function getRoles():array
+    final public static function getRoles():array
     {
         return static::boot()->roles()->pair('labelPermission');
     }

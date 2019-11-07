@@ -19,7 +19,7 @@ use Quid\Test\Suite;
 class Session extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $table = 'session';

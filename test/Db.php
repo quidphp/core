@@ -17,7 +17,7 @@ use Quid\Test\Suite;
 class Db extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $db = Core\Db::inst();

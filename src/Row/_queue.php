@@ -26,7 +26,7 @@ trait _queue
 
     // queue
     // créer une nouvelle entrée dans la queue
-    public static function queue(...$values):?Main\Contract\Queue
+    final public static function queue(...$values):?Main\Contract\Queue
     {
         return static::new(...$values);
     }

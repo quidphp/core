@@ -48,7 +48,7 @@ class Session extends Main\Session
     // onStart
     // callback une fois que la session a été démarré
     // lie l'objet com à db et trigge le role
-    protected function onStart():void
+    final protected function onStart():void
     {
         parent::onStart();
 
@@ -68,7 +68,7 @@ class Session extends Main\Session
     // onEnd
     // callback une fois que la session est terminé
     // reset le timezone
-    protected function onEnd():void
+    final protected function onEnd():void
     {
         parent::onEnd();
 
@@ -102,7 +102,7 @@ class Session extends Main\Session
 
     // is
     // retourne vrai si le role a l'attribut à true
-    public function is($value,bool $fake=true):bool
+    final public function is($value,bool $fake=true):bool
     {
         return $this->roles($fake)->isOne($value);
     }
@@ -110,7 +110,7 @@ class Session extends Main\Session
 
     // isNobody
     // retourne vrai si le user est nobody
-    public function isNobody(bool $fake=true):bool
+    final public function isNobody(bool $fake=true):bool
     {
         return $this->roles($fake)->isNobody();
     }
@@ -118,7 +118,7 @@ class Session extends Main\Session
 
     // isSomebody
     // retourne vrai si le user est somebody
-    public function isSomebody(bool $fake=true):bool
+    final public function isSomebody(bool $fake=true):bool
     {
         return $this->roles($fake)->isSomebody();
     }
@@ -126,7 +126,7 @@ class Session extends Main\Session
 
     // isAdmin
     // retourne vrai si le user est admin
-    public function isAdmin(bool $fake=true):bool
+    final public function isAdmin(bool $fake=true):bool
     {
         return $this->roles($fake)->isOne('admin');
     }
@@ -134,7 +134,7 @@ class Session extends Main\Session
 
     // isCli
     // retourne vrai si le user est cli
-    public function isCli(bool $fake=true):bool
+    final public function isCli(bool $fake=true):bool
     {
         return $this->roles($fake)->isOne('cli');
     }
@@ -143,7 +143,7 @@ class Session extends Main\Session
     // isUserSynched
     // retourne vrai si le user est sync
     // c'est à dire que le user objet a le même id et permission que dans les data de session
-    public function isUserSynched():bool
+    final public function isUserSynched():bool
     {
         $return = false;
         $userUid = $this->userUid();
@@ -167,7 +167,7 @@ class Session extends Main\Session
 
     // isLoginSinglePerUser
     // returne vrai si un utilisateur ne peut avoir qu'une session ouverte
-    public function isLoginSinglePerUser():bool
+    final public function isLoginSinglePerUser():bool
     {
         return $this->getAttr('loginSinglePerUser');
     }
@@ -175,7 +175,7 @@ class Session extends Main\Session
 
     // allowRegister
     // retourne vrai si le user a accès au formulaire d'enregistrement
-    public function allowRegister():bool
+    final public function allowRegister():bool
     {
         return false;
     }
@@ -183,7 +183,7 @@ class Session extends Main\Session
 
     // allowResetPasswordEmail
     // retourne vrai si le user de la session permet l'envoie de courrier pour regénérer le mot de passe
-    public function allowResetPasswordEmail():bool
+    final public function allowResetPasswordEmail():bool
     {
         return $this->user()->allowResetPasswordEmail();
     }
@@ -191,7 +191,7 @@ class Session extends Main\Session
 
     // allowWelcomeEmail
     // retourne vrai si le user de la session permet l'envoie de courrier de bienvenue
-    public function allowWelcomeEmail():bool
+    final public function allowWelcomeEmail():bool
     {
         return $this->user()->allowWelcomeEmail();
     }
@@ -199,7 +199,7 @@ class Session extends Main\Session
 
     // getUserClass
     // retourne la classe à utiliser pour utilisateur
-    public function getUserClass():string
+    final public function getUserClass():string
     {
         return $this->getAttr('userClass')::getOverloadClass();
     }
@@ -208,7 +208,7 @@ class Session extends Main\Session
     // getUserDefault
     // retourne la row l'utilisateur par défaut (lors de l'insertion)
     // sinon utilise le storage de user pour aller chercher le nobody ou cli
-    public function getUserDefault():Row\User
+    final public function getUserDefault():Row\User
     {
         $return = $this->getAttr('userDefault',true);
 
@@ -232,7 +232,7 @@ class Session extends Main\Session
 
     // getUserNobody
     // retourne l'utilisateur nobody
-    public function getUserNobody():Row\User
+    final public function getUserNobody():Row\User
     {
         return $this->getUserClass()::findNobody();
     }
@@ -240,7 +240,7 @@ class Session extends Main\Session
 
     // getUserCli
     // retourne l'utilisateur cli
-    public function getUserCli():Row\User
+    final public function getUserCli():Row\User
     {
         return $this->getUserClass()::findCli();
     }
@@ -248,7 +248,7 @@ class Session extends Main\Session
 
     // getLoginLifetime
     // returne la durée de vie du login ou null
-    public function getLoginLifetime():?int
+    final public function getLoginLifetime():?int
     {
         return $this->getAttr('loginLifetime');
     }
@@ -257,7 +257,7 @@ class Session extends Main\Session
     // getSidDefault
     // retourne le sid à utiliser par défaut
     // pour cli, ça permet de continuer toujours sur la même session
-    public function getSidDefault():?string
+    final public function getSidDefault():?string
     {
         $return = null;
 
@@ -281,7 +281,7 @@ class Session extends Main\Session
     // structureNav
     // gère le champ structure nav de la session
     // mode insert, update ou is
-    public function structureNav(string $mode,$value=null)
+    final public function structureNav(string $mode,$value=null)
     {
         $return = $value;
 
@@ -299,7 +299,7 @@ class Session extends Main\Session
     // gère le champ structure user de la session
     // mode insert, update ou is
     // dans init, prend seulement le user si ce sont les mêmes uid et permission
-    public function structureUser(string $mode,$value=null)
+    final public function structureUser(string $mode,$value=null)
     {
         $return = null;
         $class = $this->getUserClass();
@@ -350,7 +350,7 @@ class Session extends Main\Session
 
     // structureFakeRoles
     // gère le champ structure fake roles de la session
-    public function structureFakeRoles(string $mode,$value=null)
+    final public function structureFakeRoles(string $mode,$value=null)
     {
         $return = $value;
 
@@ -366,7 +366,7 @@ class Session extends Main\Session
 
     // context
     // retourne le contexte de boot
-    public function context():array
+    final public function context():array
     {
         return static::boot()->context();
     }
@@ -374,7 +374,7 @@ class Session extends Main\Session
 
     // primary
     // retourne la clé primaire de la row de la session
-    public function primary():int
+    final public function primary():int
     {
         return $this->storage()->primary();
     }
@@ -382,7 +382,7 @@ class Session extends Main\Session
 
     // user
     // retourne l'objet session user
-    public function user():Row\User
+    final public function user():Row\User
     {
         if(!$this->isUserSynched())
         static::throw('userOutOfSync');
@@ -393,7 +393,7 @@ class Session extends Main\Session
 
     // userUid
     // retourne le uid du user, tel qu'enregistré dans la session
-    public function userUid():?int
+    final public function userUid():?int
     {
         return $this->get('user/uid');
     }
@@ -401,7 +401,7 @@ class Session extends Main\Session
 
     // userPermission
     // retourne la permission du user, tel qu'enregistré dans la session
-    public function userPermission():?int
+    final public function userPermission():?int
     {
         return $this->get('user/permission');
     }
@@ -409,7 +409,7 @@ class Session extends Main\Session
 
     // hasPermission
     // retourne vrai si toutes les permissions sont accordés par l'utilisateur
-    public function hasPermission(...$keys):bool
+    final public function hasPermission(...$keys):bool
     {
         return $this->user()->hasPermission(...$keys);
     }
@@ -417,7 +417,7 @@ class Session extends Main\Session
 
     // checkPermission
     // envoie une exception si la ou les permissions ne sont pas accordés par l'utilisateur
-    public function checkPermission(...$keys):self
+    final public function checkPermission(...$keys):self
     {
         $this->user()->checkPermission(...$keys);
 
@@ -427,8 +427,7 @@ class Session extends Main\Session
 
     // triggerUser
     // lie un objet user et trigge celui-ci
-    // méthode protégé
-    protected function triggerUser(Row\User $value):void
+    final protected function triggerUser(Row\User $value):void
     {
         $this->user = $value;
         $this->set('user',$value->toSession());
@@ -442,8 +441,7 @@ class Session extends Main\Session
     // syncUser
     // tente de resynchroniser le user objet avec le user dans les data de session
     // il faut resynchroniser pour le regenerateId (onEnd annule le user)
-    // méthode protégé
-    protected function syncUser():void
+    final protected function syncUser():void
     {
         if(!$this->isUserSynched())
         {
@@ -473,7 +471,7 @@ class Session extends Main\Session
 
     // syncLang
     // synchronise la langue de la session avec celle de l'objet lang
-    protected function syncLang():void
+    final protected function syncLang():void
     {
         $lang = $this->db()->lang();
         $current = $this->lang();
@@ -486,7 +484,7 @@ class Session extends Main\Session
 
     // syncTimezone
     // synchronise le timezone de la session avec celle courante de php
-    protected function syncTimezone():void
+    final protected function syncTimezone():void
     {
         $timezone = $this->timezone();
         if(is_string($timezone))
@@ -498,7 +496,7 @@ class Session extends Main\Session
 
     // timezone
     // retourne la timezone de la session à partir de l'utilisateur
-    public function timezone():?string
+    final public function timezone():?string
     {
         $return = null;
         $timezone = $this->user()->timezone();
@@ -516,7 +514,7 @@ class Session extends Main\Session
     // la timestamp différence ne doit pas être plus grande que le login lifetime, sinon logout
     // si loginSingleUser est true et qu'une session plus récente existe, alors loguout
     // lors du logout ne regénère pas le id de la session
-    protected function userSession():void
+    final protected function userSession():void
     {
         $logout = false;
         $neg = null;
@@ -574,7 +572,7 @@ class Session extends Main\Session
     // ne change pas le user si c'est le même
     // lance le trigger du role du user une fois le changement réussi
     // possibilité de mettre une row user ou un uid de user
-    public function setUser($value):self
+    final public function setUser($value):self
     {
         $this->user();
         $user = $this->user();
@@ -598,7 +596,7 @@ class Session extends Main\Session
 
     // setUserNobody
     // attribue le user nobody
-    public function setUserNobody():self
+    final public function setUserNobody():self
     {
         return $this->setUser($this->getUserNobody());
     }
@@ -606,7 +604,7 @@ class Session extends Main\Session
 
     // setUserDefault
     // attribue le user par défaut
-    public function setUserDefault():self
+    final public function setUserDefault():self
     {
         return $this->setUser($this->getUserDefault());
     }
@@ -615,7 +613,7 @@ class Session extends Main\Session
     // setRoles
     // permet de changer les rôles de la session
     // lie à la base de donnée
-    protected function setRoles(Main\Roles $roles):void
+    final protected function setRoles(Main\Roles $roles):void
     {
         if($roles->isEmpty())
         static::throw('rolesEmpty');
@@ -629,7 +627,7 @@ class Session extends Main\Session
     // roles
     // retourne l'objet roles de l'user
     // possible de retourner les fake roles
-    public function roles(bool $fake=true):Main\Roles
+    final public function roles(bool $fake=true):Main\Roles
     {
         $return = null;
 
@@ -645,7 +643,7 @@ class Session extends Main\Session
 
     // role
     // retourne l'objet role de l'user (le rôle principal)
-    public function role(bool $fake=true):Role
+    final public function role(bool $fake=true):Role
     {
         return $this->roles($fake)->main();
     }
@@ -653,7 +651,7 @@ class Session extends Main\Session
 
     // permission
     // retourne le code de permission du rôle
-    public function permission(bool $fake=true):int
+    final public function permission(bool $fake=true):int
     {
         return $this->role($fake)->permission();
     }
@@ -662,7 +660,7 @@ class Session extends Main\Session
     // setLang
     // change la langue de la session et de l'objet lang
     // une exception est envoyé si la langue n'existe pas dans base lang
-    public function setLang(string $value):parent
+    final public function setLang(string $value):parent
     {
         $lang = $this->db()->lang();
         $lang->changeLang($value);
@@ -675,7 +673,7 @@ class Session extends Main\Session
 
     // nav
     // retourne l'objet nav
-    public function nav():Routing\Nav
+    final public function nav():Routing\Nav
     {
         return $this->get('nav');
     }
@@ -683,7 +681,7 @@ class Session extends Main\Session
 
     // navEmpty
     // vide l'objet nav
-    public function navEmpty():self
+    final public function navEmpty():self
     {
         $this->nav()->empty();
 
@@ -694,7 +692,7 @@ class Session extends Main\Session
     // historyPreviousRoute
     // retourne la route de la requête précédente ou un fallback
     // ne peut pas retourner vide
-    public function historyPreviousRoute($fallback=null,bool $hasExtra=true):Route
+    final public function historyPreviousRoute($fallback=null,bool $hasExtra=true):Route
     {
         $return = null;
         $routes = static::boot()->routes();
@@ -707,7 +705,7 @@ class Session extends Main\Session
 
     // hasFakeRoles
     // retourne vrai si la session a des fake roles
-    public function hasFakeRoles():bool
+    final public function hasFakeRoles():bool
     {
         return (!empty($this->getFakeRoles()))? true:false;
     }
@@ -715,7 +713,7 @@ class Session extends Main\Session
 
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
-    public function allowFakeRoles():bool
+    final public function allowFakeRoles():bool
     {
         return $this->user()->allowFakeRoles();
     }
@@ -723,7 +721,7 @@ class Session extends Main\Session
 
     // setFakeRoles
     // applique des fakes rôles si l'utilisateur peut en avoir
-    public function setFakeRoles($roles):void
+    final public function setFakeRoles($roles):void
     {
         if(!$this->allowFakeRoles() && !empty($roles))
         static::throw('fakeRolesNotAllowed');
@@ -747,7 +745,7 @@ class Session extends Main\Session
 
     // getFakeRoles
     // retourne les fake roles si l'utilisateur peut en avoir
-    public function getFakeRoles():?Main\Roles
+    final public function getFakeRoles():?Main\Roles
     {
         return ($this->allowFakeRoles())? $this->get('fakeRoles'):null;
     }
@@ -755,7 +753,7 @@ class Session extends Main\Session
 
     // fakeRolesEmpty
     // vide la valeur fakeRoles de la session
-    public function fakeRolesEmpty():void
+    final public function fakeRolesEmpty():void
     {
         $this->setFakeRoles(null);
 
@@ -767,7 +765,7 @@ class Session extends Main\Session
     // retourne une route general à partir d'un objet table
     // la session peut générer la route à partir de la dernière route de la même table conservé dans l'objet nav de session
     // plusieurs exceptions peuvent être envoyés
-    public function routeTableGeneral(Table $table,bool $nav=true,string $segment='table',string $key='general'):Route
+    final public function routeTableGeneral(Table $table,bool $nav=true,string $segment='table',string $key='general'):Route
     {
         $return = null;
         $routeClass = $table->routeClass($key,true);
@@ -791,7 +789,7 @@ class Session extends Main\Session
     // flashPost
     // flash les données de post
     // retourne l'objet session flash
-    public function flashPost(Route $route,bool $onlyCol=true,bool $stripTags=false):Flash
+    final public function flashPost(Route $route,bool $onlyCol=true,bool $stripTags=false):Flash
     {
         return $this->flash()->setPost($route,$onlyCol,$stripTags);
     }
@@ -799,7 +797,7 @@ class Session extends Main\Session
 
     // canLogin
     // retourne vrai si le user permet le login dans le type
-    public function canLogin(?string $key=null):bool
+    final public function canLogin(?string $key=null):bool
     {
         $return = false;
         $user = $this->user();
@@ -813,7 +811,7 @@ class Session extends Main\Session
 
     // isPasswordVisible
     // retourne vrai si le champ mot de passe devrait s'afficher
-    public function isPasswordVisible(Col $col,Cell $cell):bool
+    final public function isPasswordVisible(Col $col,Cell $cell):bool
     {
         $return = true;
         $user = $this->user();
@@ -828,7 +826,7 @@ class Session extends Main\Session
 
     // beforeLogin
     // méthode protégé appelé au début du processus de login
-    protected function beforeLogin(string $connect,string $password,?array $option=null):?string
+    final protected function beforeLogin(string $connect,string $password,?array $option=null):?string
     {
         $return = null;
         $option = Base\Arr::plus(['password'=>true,'usernameSecurity'=>null,'passwordSecurity'=>null],$option);
@@ -855,7 +853,7 @@ class Session extends Main\Session
     // loginProcess
     // effectue un login sur la session
     // connect est insensible à la case alors que password est sensible à la case
-    public function loginProcess(string $connect,string $password,?array $option=null):bool
+    final public function loginProcess(string $connect,string $password,?array $option=null):bool
     {
         $return = false;
         $userClass = $this->getUserClass();
@@ -901,7 +899,7 @@ class Session extends Main\Session
 
     // login
     // méthode appelé après la validation pour le login réussi
-    public function login(string $connect,Row $user,$remember=null):string
+    final public function login(string $connect,Row $user,$remember=null):string
     {
         $return = 'login/success';
         $this->regenerateId();
@@ -909,7 +907,10 @@ class Session extends Main\Session
         $this->rememberEmpty();
         $this->fakeRolesEmpty();
         $this->onLogin();
-        $user->onLogin();
+        
+        Base\Call::bindTo($user,function() {
+            $this->onLogin();
+        });
 
         if($remember === true)
         $remember = ['credential'=>$connect];
@@ -925,7 +926,7 @@ class Session extends Main\Session
     // effectue un logout sur la session
     // cette méthode gère aussi les communications, et l'appel de user onLogout
     // regenerateId est true
-    public function logoutProcess(?array $option=null):bool
+    final public function logoutProcess(?array $option=null):bool
     {
         $return = false;
         $option = Base\Arr::plus(['regenerateId'=>true],$option);
@@ -948,7 +949,10 @@ class Session extends Main\Session
             $return = true;
             $pos = 'logout/success';
 
-            $user->onLogout();
+            Base\Call::bindTo($user,function() {
+                $this->onLogout();
+            });
+            
             $this->logout($option);
         }
 
@@ -961,7 +965,7 @@ class Session extends Main\Session
     // logout
     // effectue un logout sur la session
     // par défaut regenerateId est false
-    public function logout(?array $option=null):self
+    final public function logout(?array $option=null):self
     {
         $option = Base\Arr::plus(['regenerateId'=>false,'history'=>true,'nav'=>true,'flash'=>true,'fakeRoles'=>true,'pos'=>null,'neg'=>null],$option);
 
@@ -997,7 +1001,7 @@ class Session extends Main\Session
     // change le mot de passe de l'utilisateur dans la session
     // les passwords sont sensibles à la case
     // envoie une exception si user est nobody
-    public function changePassword(string $newPassword,?string $newPasswordConfirm=null,?string $oldPassword=null,?array $option=null):bool
+    final public function changePassword(string $newPassword,?string $newPasswordConfirm=null,?string $oldPassword=null,?array $option=null):bool
     {
         $return = false;
 

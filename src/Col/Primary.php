@@ -20,6 +20,7 @@ class Primary extends Core\ColAlias
         'general'=>true,
         'searchMinLength'=>1,
         'order'=>true,
+        'editable'=>false,
         'complex'=>'inputHidden',
         'check'=>['kind'=>'int']
     ];

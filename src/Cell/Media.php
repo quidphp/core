@@ -22,7 +22,7 @@ class Media extends FilesAlias
 
     // cast
     // cast la cellule, retourne le path http ou base64
-    public function _cast():?string
+    final public function _cast():?string
     {
         return $this->commonCast();
     }
@@ -30,7 +30,7 @@ class Media extends FilesAlias
 
     // pair
     // si value est true, retourne file
-    public function pair($value=null,...$args)
+    final public function pair($value=null,...$args)
     {
         return $this->commonPair($value,...$args);
     }
@@ -39,7 +39,7 @@ class Media extends FilesAlias
     // canBeDeleted
     // retourne vrai si le média peut être effacé
     // si média est requis, ne peut pas effacé
-    public function canBeDeleted(?int $index=null):bool
+    final public function canBeDeleted(?int $index=null):bool
     {
         return (parent::canBeDeleted($index) && !$this->isRequired())? true:false;
     }
@@ -47,7 +47,7 @@ class Media extends FilesAlias
 
     // basename
     // retourne le basename du fichier dans la cellule
-    public function basename($version=null):?string
+    final public function basename($version=null):?string
     {
         return $this->commonBasename(null,$version);
     }
@@ -55,7 +55,7 @@ class Media extends FilesAlias
 
     // cellPath
     // retourne le chemin de la cellule qui combine le nom de la table, le id de la ligne et le nom de la colonne
-    public function cellPath($version=null):string
+    final public function cellPath($version=null):string
     {
         return $this->commonCellPath(null,$version);
     }
@@ -64,7 +64,7 @@ class Media extends FilesAlias
     // cellPathBasename
     // retourne le chemin de la cellule avec le basename
     // le fichier n'a pas besoin d'exister
-    public function cellPathBasename($version=null):?string
+    final public function cellPathBasename($version=null):?string
     {
         return $this->commonCellPathBasename(null,$version);
     }
@@ -72,7 +72,7 @@ class Media extends FilesAlias
 
     // basePath
     // retourne le base path qui est une combinaison du rootPath et cellPath
-    public function basePath($version=null):string
+    final public function basePath($version=null):string
     {
         return $this->commonBasePath(null,$version);
     }
@@ -80,7 +80,7 @@ class Media extends FilesAlias
 
     // filePath
     // retourne le file path qui combine le basePath et le basename qui est la valeur de la cellule
-    public function filePath($version=null):?string
+    final public function filePath($version=null):?string
     {
         return $this->commonFilePath(null,$version);
     }
@@ -88,7 +88,7 @@ class Media extends FilesAlias
 
     // fileExists
     // retourne vrai si le fichier existe
-    public function fileExists($version=null):bool
+    final public function fileExists($version=null):bool
     {
         return $this->commonFileExists(null,$version);
     }
@@ -96,7 +96,7 @@ class Media extends FilesAlias
 
     // checkFileExists
     // envoie une exception si le fichier n'existe pas
-    public function checkFileExists($version=null):self
+    final public function checkFileExists($version=null):self
     {
         return $this->commonCheckFileExists(null,$version);
     }
@@ -104,7 +104,7 @@ class Media extends FilesAlias
 
     // file
     // retourne l'objet fichier
-    public function file($version=null):?Main\File
+    final public function file($version=null):?Main\File
     {
         return $this->commonFile(null,$version);
     }
@@ -112,7 +112,7 @@ class Media extends FilesAlias
 
     // checkFile
     // retourne l'objet fichier, envoie une exception si non existant
-    public function checkFile($version=null):Main\File
+    final public function checkFile($version=null):Main\File
     {
         return $this->commonCheckFile(null,$version);
     }
@@ -120,7 +120,7 @@ class Media extends FilesAlias
 
     // versionExtension
     // retourne l'extension a utilisé pour la version
-    public function versionExtension($version=null,bool $exception=true):string
+    final public function versionExtension($version=null,bool $exception=true):string
     {
         return $this->commonVersionExtension(null,$version,$exception);
     }
@@ -128,7 +128,7 @@ class Media extends FilesAlias
 
     // version
     // retourne un objet files avec toutes les versions, retourne null si pas de version
-    public function version():?Main\Files
+    final public function version():?Main\Files
     {
         return $this->commonVersion();
     }
@@ -136,7 +136,7 @@ class Media extends FilesAlias
 
     // makeVersion
     // reconstruit les versions pour une image à partir de la configuration de la colonne
-    public function makeVersion(?array $option=null):array
+    final public function makeVersion(?array $option=null):array
     {
         return $this->commonMakeVersion(null,$option);
     }
@@ -144,7 +144,7 @@ class Media extends FilesAlias
 
     // downloadRoute
     // retourne la route pour le téléchargement
-    public function downloadRoute():Core\Route
+    final public function downloadRoute():Core\Route
     {
         return $this->commonDownloadRoute();
     }
@@ -152,7 +152,7 @@ class Media extends FilesAlias
 
     // process
     // lance le process de déplacement du média lié
-    public function process(Main\Files $olds,?Main\File $new=null,bool $regenerate=false,?array $option=null):void
+    final public function process(Main\Files $olds,?Main\File $new=null,bool $regenerate=false,?array $option=null):void
     {
         $this->unlinks($olds,$option);
 
@@ -168,7 +168,7 @@ class Media extends FilesAlias
 
     // all
     // retourne un objet files avec toutes les versions et l'original, possible d'exclure les versions
-    public function all(bool $addVersion=true):Main\Files
+    final public function all(bool $addVersion=true):Main\Files
     {
         $return = Main\Files::newOverload();
         $path = $this->filePath();

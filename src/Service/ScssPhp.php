@@ -31,7 +31,7 @@ class ScssPhp extends Main\ServiceAlias
 
     // construct
     // construit le service et lit l'objet scssPhp
-    public function __construct(string $key,?array $attr=null)
+    final public function __construct(string $key,?array $attr=null)
     {
         parent::__construct($key,$attr);
         $this->compiler = new \ScssPhp\ScssPhp\Compiler();
@@ -42,7 +42,7 @@ class ScssPhp extends Main\ServiceAlias
 
     // getCompiler
     // retourne l'objet compiler
-    public function getCompiler():\ScssPhp\ScssPhp\Compiler
+    final public function getCompiler():\ScssPhp\ScssPhp\Compiler
     {
         return $this->compiler;
     }
@@ -50,7 +50,7 @@ class ScssPhp extends Main\ServiceAlias
 
     // getFormat
     // retourne le format à utiliser
-    public function getFormat():string
+    final public function getFormat():string
     {
         $return = $this->getAttr('format');
 
@@ -76,7 +76,7 @@ class ScssPhp extends Main\ServiceAlias
     // permet de faire un rendu scss à partir d'une string ou objet file\css fourni en argument
     // possible de fournir des variables à déclarer avant le chargement du script
     // retourne la string css
-    public function trigger($value,?array $importPaths=null,?array $variables=null):string
+    final public function trigger($value,?array $importPaths=null,?array $variables=null):string
     {
         $return = null;
         $compiler = $this->getCompiler();

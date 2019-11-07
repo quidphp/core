@@ -25,7 +25,7 @@ class Css extends Main\File\Css
     // compile
     // compile le fichier scss ou css en utilisant le service
     // retourne le css compilé
-    public function compile(?array $importPaths=null,?array $variables=null,?array $option=null):?string
+    final public function compile(?array $importPaths=null,?array $variables=null,?array $option=null):?string
     {
         $return = null;
         $scssPhp = $this->getServiceObj($option);
@@ -37,7 +37,7 @@ class Css extends Main\File\Css
 
     // compileFrom
     // permet de compiler dans le fichier à partir d'un ou plusieurs fichiers scss
-    public function compileFrom($values,?array $importPaths=null,?array $variables=null,int $min=0,?array $option=null):self
+    final public function compileFrom($values,?array $importPaths=null,?array $variables=null,int $min=0,?array $option=null):self
     {
         $concatenator = Main\Concatenator::newOverload();
         $scssPhp = static::getServiceObj($option);
@@ -71,7 +71,7 @@ class Css extends Main\File\Css
 
     // getServiceClass
     // retourne la classe du service
-    public function getServiceClass():string
+    final public function getServiceClass():string
     {
         return $this->getAttr('service')::getOverloadClass();
     }
@@ -79,7 +79,7 @@ class Css extends Main\File\Css
 
     // getServiceObj
     // retourne l'objet du service
-    public function getServiceObj(?array $option=null):Main\Service
+    final public function getServiceObj(?array $option=null):Main\Service
     {
         $service = $this->getServiceClass();
         $return = new $service(__METHOD__,$option);
@@ -90,7 +90,7 @@ class Css extends Main\File\Css
 
     // compileMany
     // permet de compiler un ou plusieurs fichiers css/scss
-    public static function compileMany(array $value,?array $option=null):Main\Files
+    final public static function compileMany(array $value,?array $option=null):Main\Files
     {
         $return = Main\Files::newOverload();
         $variables = static::getScssVariables();
@@ -118,7 +118,7 @@ class Css extends Main\File\Css
 
     // getScssVariables
     // génère un tableau de variable à injecter dans la feuille de style scss
-    public static function getScssVariables():array
+    final public static function getScssVariables():array
     {
         $return = [];
 

@@ -241,7 +241,7 @@ abstract class Boot extends Main\Root
 
     // construct
     // construit et prépare l'objet boot
-    protected function __construct(?array $value=null)
+    final protected function __construct(?array $value=null)
     {
         $value = (array) $value;
         $root = static::nameFromClass();
@@ -259,7 +259,7 @@ abstract class Boot extends Main\Root
 
     // toString
     // retourne le contexte en string
-    public function __toString():string
+    final public function __toString():string
     {
         return implode('-',$this->context());
     }
@@ -267,7 +267,7 @@ abstract class Boot extends Main\Root
 
     // destruct
     // détruit l'objet boot
-    public function __destruct()
+    final public function __destruct()
     {
         if($this->status() > 0)
         {
@@ -382,7 +382,7 @@ abstract class Boot extends Main\Root
 
     // cast
     // retourne la valeur cast, le tableau contexte
-    public function _cast():array
+    final public function _cast():array
     {
         return $this->context();
     }
@@ -391,7 +391,7 @@ abstract class Boot extends Main\Root
     // prepare
     // prépare l'objet
     // init error, le code de réponse, crée la request, génère le envType, ensuite merge les attr, finalement autoload
-    protected function prepare():void
+    final protected function prepare():void
     {
         $this->setInst();
         $this->checkStatus(1);
@@ -424,7 +424,7 @@ abstract class Boot extends Main\Root
     // dispatch
     // prépare l'objet
     // plusieurs changements sont envoyés, ceci affecte php et les classes statiques
-    protected function dispatch():void
+    final protected function dispatch():void
     {
         $this->checkStatus(2);
         $this->onDispatch();
@@ -550,7 +550,7 @@ abstract class Boot extends Main\Root
     // core
     // gère l'extension du core
     // une fois que le statut est à 4, les objets lang, services, db et session peuvent être crées
-    protected function core():void
+    final protected function core():void
     {
         $this->checkStatus(3);
         $this->onCore();
@@ -583,7 +583,7 @@ abstract class Boot extends Main\Root
 
     // compile
     // permet de compile le js, scss et php
-    protected function compile():void
+    final protected function compile():void
     {
         $js = $this->getAttr('concatenateJs');
         $jsOption = $this->getAttr('concatenateJsOption');
@@ -675,7 +675,7 @@ abstract class Boot extends Main\Root
 
     // match
     // match les routes avec la requête
-    public function match(bool $fallback=false,bool $debug=true):array
+    final public function match(bool $fallback=false,bool $debug=true):array
     {
         return $this->routesActive()->match($this->request(),$fallback,$debug);
     }
@@ -684,8 +684,7 @@ abstract class Boot extends Main\Root
     // setRoute
     // garde en mémoire la dernière classe de la route qui a été triggé
     // doit fournir un objet, le nom de la classe est gardé
-    // méthode protégé
-    protected function setRoute(Route $value):void
+    final protected function setRoute(Route $value):void
     {
         $this->route = get_class($value);
 
@@ -695,7 +694,7 @@ abstract class Boot extends Main\Root
 
     // route
     // retourne le nom de la classe de la route qui a été triggé, si existant
-    public function route():?string
+    final public function route():?string
     {
         return $this->route;
     }
@@ -704,7 +703,7 @@ abstract class Boot extends Main\Root
     // terminate
     // termine et détruit l'objet boot
     // commit la session si elle est toujours active
-    protected function terminate():void
+    final protected function terminate():void
     {
         $this->onTerminate();
         Base\Root::setInitCallable(null);
@@ -742,7 +741,7 @@ abstract class Boot extends Main\Root
 
     // cleanup
     // inverse de dispatch, nettoie un maximum de changements static
-    protected function cleanup():void
+    final protected function cleanup():void
     {
         Base\Finder::emptyShortcut();
         Base\Uri::emptyShortcut();
@@ -759,7 +758,7 @@ abstract class Boot extends Main\Root
 
     // end
     // termine le boot, flush les données terminate + cleanup
-    public function end($return=null)
+    final public function end($return=null)
     {
         Base\Buffer::flushEcho($return);
 
@@ -774,7 +773,7 @@ abstract class Boot extends Main\Root
 
 
     // isStatus
-    public function isStatus($value):bool
+    final public function isStatus($value):bool
     {
         return ($this->status() === $value)? true:false;
     }
@@ -782,7 +781,7 @@ abstract class Boot extends Main\Root
 
     // setStatus
     // change le numéro de statut de boot
-    protected function setStatus(int $value):void
+    final protected function setStatus(int $value):void
     {
         $this->status = $value;
 
@@ -792,7 +791,7 @@ abstract class Boot extends Main\Root
 
     // status
     // retourne le numéro de statut de boot
-    public function status():int
+    final public function status():int
     {
         return $this->status;
     }
@@ -800,7 +799,7 @@ abstract class Boot extends Main\Root
 
     // checkStatus
     // envoie une exception si le statut n'est pas le bon
-    public function checkStatus(int $value):self
+    final public function checkStatus(int $value):self
     {
         $this->checkInst();
 
@@ -813,7 +812,7 @@ abstract class Boot extends Main\Root
 
     // isReady
     // retourne vrai si boot est ready, status 4 ou >
-    public function isReady():bool
+    final public function isReady():bool
     {
         return ($this->status >= 4)? true:false;
     }
@@ -821,7 +820,7 @@ abstract class Boot extends Main\Root
 
     // checkReady
     // envoie une exception si boot n'est pas ready, sinon retourne boot
-    public function checkReady():self
+    final public function checkReady():self
     {
         $this->checkInst();
 
@@ -834,7 +833,7 @@ abstract class Boot extends Main\Root
 
     // setName
     // attribue un nom à l'objet boot
-    protected function setName(string $value):void
+    final protected function setName(string $value):void
     {
         $this->name = lcfirst($value);
 
@@ -844,7 +843,7 @@ abstract class Boot extends Main\Root
 
     // name
     // retourne le nom du boot
-    public function name(bool $ucfirst=false):string
+    final public function name(bool $ucfirst=false):string
     {
         $return = $this->name;
 
@@ -857,7 +856,7 @@ abstract class Boot extends Main\Root
 
     // makeInitialAttr
     // génère les attributs, merge le tableau avec la static config
-    protected function makeInitialAttr(array $value):void
+    final protected function makeInitialAttr(array $value):void
     {
         $this->value = $value;
         $parent = get_parent_class(static::class);
@@ -880,7 +879,7 @@ abstract class Boot extends Main\Root
     // makeFinalAttr
     // génère les attributds finaux, maintenant que le envType et la closure pour merge les config sont sets
     // gère aussi le configFile et live
-    protected function makeFinalAttr():void
+    final protected function makeFinalAttr():void
     {
         static::__init();
         $attr = $this->replaceSpecial(static::class,static::initReplaceMode(),static::$config,$this->value);
@@ -912,7 +911,7 @@ abstract class Boot extends Main\Root
     // getConfigFile
     // fait un require sur le ou les fichiers fichier de config additionnel
     // retourne un tableau multidimensionnel
-    protected function getConfigFile(array $files):array
+    final protected function getConfigFile(array $files):array
     {
         $return = [];
 
@@ -937,7 +936,7 @@ abstract class Boot extends Main\Root
 
     // makeFinderShortcut
     // génère les finder shortcut
-    protected function makeFinderShortcut():void
+    final protected function makeFinderShortcut():void
     {
         $finderShortcut = $this->getAttr('finderShortcut');
         if(is_array($finderShortcut) && !empty($finderShortcut))
@@ -952,8 +951,7 @@ abstract class Boot extends Main\Root
 
     // makeRequest
     // crée la requête et conserve dans l'objet
-    // méthode protégé
-    protected function makeRequest():void
+    final protected function makeRequest():void
     {
         $value = $this->getAttr('request');
 
@@ -969,7 +967,7 @@ abstract class Boot extends Main\Root
 
     // request
     // retourne l'objet request
-    public function request():Request
+    final public function request():Request
     {
         return Request::inst();
     }
@@ -977,7 +975,7 @@ abstract class Boot extends Main\Root
 
     // envs
     // retourne tous les environnements
-    public function envs():array
+    final public function envs():array
     {
         return $this->getAttr('envs');
     }
@@ -985,7 +983,7 @@ abstract class Boot extends Main\Root
 
     // types
     // retournes tous les types d'applications
-    public function types():array
+    final public function types():array
     {
         return $this->getAttr('types');
     }
@@ -993,7 +991,7 @@ abstract class Boot extends Main\Root
 
     // paths
     // retourne tous les chemins
-    public function paths():array
+    final public function paths():array
     {
         return $this->getAttr('path');
     }
@@ -1001,7 +999,7 @@ abstract class Boot extends Main\Root
 
     // path
     // retourne un chemin
-    public function path(string $key):string
+    final public function path(string $key):string
     {
         return $this->getAttr(['path',$key]);
     }
@@ -1010,7 +1008,7 @@ abstract class Boot extends Main\Root
     // pathOverview
     // retourne le total des lignes et size pour un path
     // possible de filtrer par extension
-    public function pathOverview(string $path,$extension=null):array
+    final public function pathOverview(string $path,$extension=null):array
     {
         $return = [];
         $extension = ($extension === null)? $this->getAttr('pathOverviewExtension'):$extension;
@@ -1030,7 +1028,7 @@ abstract class Boot extends Main\Root
     // makePaths
     // fait plusieurs paths, sans passer par finder
     // si replaceKey est true, remplace %key% par le nom de boot
-    public function makePaths(array $array,bool $replaceKey=false):array
+    final public function makePaths(array $array,bool $replaceKey=false):array
     {
         $return = [];
 
@@ -1051,7 +1049,7 @@ abstract class Boot extends Main\Root
 
     // makePath
     // fait un path, sans passer par finder
-    public function makePath(string $return):string
+    final public function makePath(string $return):string
     {
         $paths = $this->paths();
         foreach ($paths as $key => $value)
@@ -1065,7 +1063,7 @@ abstract class Boot extends Main\Root
 
     // hosts
     // retournes tous les hosts pour le boot
-    public function hosts():array
+    final public function hosts():array
     {
         return $this->getAttr('host');
     }
@@ -1073,7 +1071,7 @@ abstract class Boot extends Main\Root
 
     // host
     // retourne un host, selon le env et le type
-    public function host($env=null,$type=null):?string
+    final public function host($env=null,$type=null):?string
     {
         $return = null;
         $hosts = $this->hosts();
@@ -1091,7 +1089,7 @@ abstract class Boot extends Main\Root
     // checkHost
     // vérifie si le host est valide avec le tableau de host
     // sinon envoie une exception
-    protected function checkHost():void
+    final protected function checkHost():void
     {
         $hosts = $this->hosts();
         $request = $this->request();
@@ -1107,7 +1105,7 @@ abstract class Boot extends Main\Root
     // makeEnvType
     // génère le envType à partir des tableaux hosts, envs et types
     // la valeur est mise en cache
-    protected function makeEnvType():void
+    final protected function makeEnvType():void
     {
         $request = $this->request();
         $host = $request->host();
@@ -1125,7 +1123,7 @@ abstract class Boot extends Main\Root
 
     // envType
     // retourne la valeur envType
-    public function envType():array
+    final public function envType():array
     {
         return $this->envType;
     }
@@ -1134,7 +1132,7 @@ abstract class Boot extends Main\Root
     // context
     // retourne le context courant
     // contient env, type et lang (lang peut changer)
-    public function context():array
+    final public function context():array
     {
         $return = $this->envType();
         $return['lang'] = Base\Lang::current();
@@ -1145,7 +1143,7 @@ abstract class Boot extends Main\Root
 
     // env
     // retourne l'environnement courant
-    public function env():string
+    final public function env():string
     {
         return $this->envType()['env'];
     }
@@ -1153,7 +1151,7 @@ abstract class Boot extends Main\Root
 
     // envIndex
     // retourne l'index de l'environnement courant
-    public function envIndex():int
+    final public function envIndex():int
     {
         return Base\Arr::search($this->env(),$this->envs());
     }
@@ -1161,7 +1159,7 @@ abstract class Boot extends Main\Root
 
     // type
     // retourne le type courant de l'application
-    public function type():string
+    final public function type():string
     {
         return $this->envType()['type'];
     }
@@ -1169,7 +1167,7 @@ abstract class Boot extends Main\Root
 
     // typeIndex
     // retourne l'index du type courant de l'application
-    public function typeIndex():int
+    final public function typeIndex():int
     {
         return Base\Arr::search($this->type(),$this->types());
     }
@@ -1177,7 +1175,7 @@ abstract class Boot extends Main\Root
 
     // typePrimary
     // retourne le type primaire de l'application
-    public function typePrimary():string
+    final public function typePrimary():string
     {
         return current($this->types());
     }
@@ -1185,7 +1183,7 @@ abstract class Boot extends Main\Root
 
     // envTypeFromHost
     // retourne le context à partir du host fourni en argument
-    protected function envTypeFromHost(string $value):?array
+    final protected function envTypeFromHost(string $value):?array
     {
         return static::envTypeFromValue($value,$this->hosts(),$this->envs(),$this->types());
     }
@@ -1193,7 +1191,7 @@ abstract class Boot extends Main\Root
 
     // isEnv
     // retourne vrai si l'environnement est celui fourni en argument
-    public function isEnv($value):bool
+    final public function isEnv($value):bool
     {
         return (is_string($value) && $this->env() === $value)? true:false;
     }
@@ -1201,7 +1199,7 @@ abstract class Boot extends Main\Root
 
     // isDev
     // retourne vrai si l'environnement est dev
-    public function isDev():bool
+    final public function isDev():bool
     {
         return ($this->env() === 'dev')? true:false;
     }
@@ -1209,7 +1207,7 @@ abstract class Boot extends Main\Root
 
     // isStaging
     // retourne vrai si l'environnement est staging
-    public function isStaging():bool
+    final public function isStaging():bool
     {
         return ($this->env() === 'staging')? true:false;
     }
@@ -1217,7 +1215,7 @@ abstract class Boot extends Main\Root
 
     // isProd
     // retourne vrai si l'environnement est prod
-    public function isProd():bool
+    final public function isProd():bool
     {
         return ($this->env() === 'prod')? true:false;
     }
@@ -1225,7 +1223,7 @@ abstract class Boot extends Main\Root
 
     // isType
     // retourne vrai si le type est celui fourni en argument
-    public function isType($value):bool
+    final public function isType($value):bool
     {
         return (is_string($value) && $this->type() === $value)? true:false;
     }
@@ -1234,7 +1232,7 @@ abstract class Boot extends Main\Root
     // typeAs
     // retourne le ou les types à utiliser pour une classe, en plus du type courant
     // les types à utiliser ont priorités
-    public function typeAs(string $class,string $type)
+    final public function typeAs(string $class,string $type)
     {
         return $this->getAttr(['typeAs',$class,$type]);
     }
@@ -1243,7 +1241,7 @@ abstract class Boot extends Main\Root
     // climbableKeys
     // retourne toutes les clés grimpables pour le tableau
     // un tableau peut être fourni, à ce moment les clés du tableau non existantes sont aussi considérés comme climbables
-    public function climbableKeys(?array $values=null):array
+    final public function climbableKeys(?array $values=null):array
     {
         $return = Base\Arr::append($this->envs(),$this->types());
 
@@ -1264,7 +1262,7 @@ abstract class Boot extends Main\Root
 
     // valuesWrapClimb
     // enrobe les clés à gauche du caractère pour climb
-    public function valuesWrapClimb(array $return):array
+    final public function valuesWrapClimb(array $return):array
     {
         return Base\Arr::valuesWrap($this->getAttr('climbChar'),'',$return);
     }
@@ -1272,7 +1270,7 @@ abstract class Boot extends Main\Root
 
     // makeConfigClosure
     // retourne la closure à utiliser pour le merge de config des classes
-    public function makeConfigClosure():\Closure
+    final public function makeConfigClosure():\Closure
     {
         return function(string $class,...$values) {
             return $this->replaceSpecial($class,$class::initReplaceMode(),...$values);
@@ -1283,7 +1281,7 @@ abstract class Boot extends Main\Root
     // replaceSpecial
     // méthode de remplacement complexe utilisé à travers quid
     // permet de merge les clés @ dans les tableaux de config
-    public function replaceSpecial(?string $class,array $replaceMode,...$values)
+    final public function replaceSpecial(?string $class,array $replaceMode,...$values)
     {
         $return = null;
         $envType = $this->envType();
@@ -1308,7 +1306,7 @@ abstract class Boot extends Main\Root
     // ini
     // initialise les ini
     // les include paths sont le résultat de la méthode paths
-    protected function ini():void
+    final protected function ini():void
     {
         $charset = Base\Encoding::getCharset();
         $timezone = Base\Timezone::get();
@@ -1322,7 +1320,7 @@ abstract class Boot extends Main\Root
 
     // isPreload
     // retourne vrai si le type de autoload est preload
-    public function isPreload():bool
+    final public function isPreload():bool
     {
         return ($this->autoloadType() === 'preload')? true:false;
     }
@@ -1330,7 +1328,7 @@ abstract class Boot extends Main\Root
 
     // autoloadType
     // retourne le type d'autoload, peut être internal, composer ou preload
-    public function autoloadType():string
+    final public function autoloadType():string
     {
         return $this->getAttr('autoload');
     }
@@ -1338,7 +1336,7 @@ abstract class Boot extends Main\Root
 
     // autoload
     // renvoie vers la bonne méthode d'autoload, selon le type
-    protected function autoload():void
+    final protected function autoload():void
     {
         $type = $this->autoloadType();
 
@@ -1377,7 +1375,7 @@ abstract class Boot extends Main\Root
     // checkIp
     // vérifie si le ip est valide pour accéder
     // sinon tue le script
-    protected function checkIp($value):void
+    final protected function checkIp($value):void
     {
         if(is_string($value))
         $value = [$value];
@@ -1397,7 +1395,7 @@ abstract class Boot extends Main\Root
 
     // getSchemeArray
     // traite un tableau de scheme avec clés pouvant être env/type
-    protected function getSchemeArray(array $array):array
+    final protected function getSchemeArray(array $array):array
     {
         $return = [];
 
@@ -1427,7 +1425,7 @@ abstract class Boot extends Main\Root
     // getFinderHostTypes
     // fait un tableau de finderHost à partir d'un type
     // prend le host paramétré et utilise le chemin donné en argument
-    protected function getFinderHostTypes($value,$paths):array
+    final protected function getFinderHostTypes($value,$paths):array
     {
         $return = [];
 
@@ -1473,7 +1471,7 @@ abstract class Boot extends Main\Root
     // schemes
     // retourne le tableau des schemes
     // si convert est true, le scheme est converti de boolean/port vers la string http/https
-    public function schemes(bool $convert=true):array
+    final public function schemes(bool $convert=true):array
     {
         $return = $this->getAttr('scheme');
 
@@ -1487,7 +1485,7 @@ abstract class Boot extends Main\Root
     // scheme
     // retourne un scheme selon l'environnement et le type
     // si convert est true, le scheme est converti de boolean/port vers la string http/https
-    public function scheme($env=null,$type=null,bool $convert=true)
+    final public function scheme($env=null,$type=null,bool $convert=true)
     {
         $return = null;
         $schemes = $this->schemes(false);
@@ -1510,7 +1508,7 @@ abstract class Boot extends Main\Root
     // schemeHost
     // retourne un host avec le scheme
     // le type de scheme est spécifié en troisième argument, par défaut celui de la requête courante
-    public function schemeHost($env=true,$type=true,$scheme=null):?string
+    final public function schemeHost($env=true,$type=true,$scheme=null):?string
     {
         $return = null;
         $host = $this->host($env,$type);
@@ -1529,7 +1527,7 @@ abstract class Boot extends Main\Root
 
     // schemeHosts
     // méthode qui retourne tous les schemeHosts du boot
-    public function schemeHosts($scheme=null):array
+    final public function schemeHosts($scheme=null):array
     {
         $return = [];
 
@@ -1548,7 +1546,7 @@ abstract class Boot extends Main\Root
 
     // schemeHostTypes
     // retourne le schemeHost pour tous les types d'un même environnement
-    public function schemeHostTypes($env=true,$scheme=null):array
+    final public function schemeHostTypes($env=true,$scheme=null):array
     {
         $return = [];
         $env = (is_string($env))? $env:$this->env();
@@ -1566,7 +1564,7 @@ abstract class Boot extends Main\Root
 
     // schemeHostEnvs
     // retourne le schemeHost pour tous les environnements d'un type
-    public function schemeHostEnvs($type=true,$scheme=null):array
+    final public function schemeHostEnvs($type=true,$scheme=null):array
     {
         $return = [];
         $type = (is_string($type))? $type:$this->type();
@@ -1585,7 +1583,7 @@ abstract class Boot extends Main\Root
     // setsUriShortcut
     // permet de lier plusieurs shortcuts à la classe uri
     // si un shortcut est un tableau, passe dans schemeHost
-    public function setsUriShortcut(array $shortcut):void
+    final public function setsUriShortcut(array $shortcut):void
     {
         foreach ($shortcut as $key => $value)
         {
@@ -1602,7 +1600,7 @@ abstract class Boot extends Main\Root
     // versions
     // retourne toutes les versions
     // si quid est true, retourne aussi celle de quid
-    public function versions(bool $quid=true):?array
+    final public function versions(bool $quid=true):?array
     {
         $return = $this->getAttr('version');
 
@@ -1621,7 +1619,7 @@ abstract class Boot extends Main\Root
     // si quid est true, retourne aussi celle de quid
     // possible de retourner le zero à la fin d'un numéro de version
     // doit retourner une string
-    public function version($type=true,bool $quid=true,bool $removeZero=false):?string
+    final public function version($type=true,bool $quid=true,bool $removeZero=false):?string
     {
         $return = null;
         $implode = null;
@@ -1676,7 +1674,7 @@ abstract class Boot extends Main\Root
     // setsSymlink
     // gère la création des symlinks
     // envoie une exception en cas d'erreur
-    public function setsSymlink(array $array):void
+    final public function setsSymlink(array $array):void
     {
         $array = Base\Dir::fromToCatchAll($array);
         $syms = Base\Symlink::sets($array,true,true);
@@ -1693,7 +1691,7 @@ abstract class Boot extends Main\Root
 
     // setsCallable
     // fait les appels au callable pour configuration plus poussée
-    protected function setsCallable(array $array):void
+    final protected function setsCallable(array $array):void
     {
         if(!empty($array))
         {
@@ -1715,7 +1713,7 @@ abstract class Boot extends Main\Root
 
     // isFromCache
     // retourne vrai si la cache d'extenders a été trouvé et est utilisé
-    public function isFromCache():bool
+    final public function isFromCache():bool
     {
         return $this->fromCache;
     }
@@ -1723,7 +1721,7 @@ abstract class Boot extends Main\Root
 
     // shouldCache
     // retourne vrai si la cache globale est activé
-    public function shouldCache():bool
+    final public function shouldCache():bool
     {
         return $this->getAttr('cache');
     }
@@ -1731,7 +1729,7 @@ abstract class Boot extends Main\Root
 
     // shouldCompile
     // retourne vrai s'il faut compiler le php, js et scss
-    public function shouldCompile():bool
+    final public function shouldCompile():bool
     {
         $return = false;
         $request = $this->request();
@@ -1751,7 +1749,7 @@ abstract class Boot extends Main\Root
     // makeExtenders
     // peut créer un nouveau ou utiliser celui de la cache
     // l'extenders est garder comme propriété de l'objet
-    protected function makeExtenders():void
+    final protected function makeExtenders():void
     {
         $cache = $this->shouldCache();
         $type = $this->type();
@@ -1812,7 +1810,7 @@ abstract class Boot extends Main\Root
     // newExtenders
     // créer et retourne le extenders
     // fait les alias et overload
-    protected function newExtenders(array $config):Main\Extenders
+    final protected function newExtenders(array $config):Main\Extenders
     {
         $return = Main\Extenders::newOverload();
         $currentType = $this->type();
@@ -1864,7 +1862,7 @@ abstract class Boot extends Main\Root
 
     // newExtendersClosure
     // retourne la closure pour l'objet extenders
-    protected function newExtendersClosure():\Closure
+    final protected function newExtendersClosure():\Closure
     {
         $currentKey = $this->name(true);
         $return = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
@@ -1886,7 +1884,7 @@ abstract class Boot extends Main\Root
 
     // extenders
     // retourne l'objet extenders
-    public function extenders():Main\Extenders
+    final public function extenders():Main\Extenders
     {
         return $this->extenders;
     }
@@ -1895,7 +1893,7 @@ abstract class Boot extends Main\Root
     // routes
     // retourne l'objet routes de boot
     // peut retourner l'objet d'un type différent si fourni en argument
-    public function routes(?string $type=null):Routing\Routes
+    final public function routes(?string $type=null):Routing\Routes
     {
         $return = null;
 
@@ -1911,7 +1909,7 @@ abstract class Boot extends Main\Root
     // routesActive
     // retourne l'objet routes de boot
     // mais seuls les routes actives sont incluses dans l'objet de retour
-    public function routesActive(?string $type=null):Routing\Routes
+    final public function routesActive(?string $type=null):Routing\Routes
     {
         return $this->routes($type)->active();
     }
@@ -1919,7 +1917,7 @@ abstract class Boot extends Main\Root
 
     // setRoles
     // génère l'objet roles
-    protected function setRoles(array $array):void
+    final protected function setRoles(array $array):void
     {
         $this->roles = $roles = Main\Roles::makeFromArray($array);
         $roles->sortDefault();
@@ -1932,7 +1930,7 @@ abstract class Boot extends Main\Root
 
     // roles
     // retourne l'objet roles de boot
-    public function roles():Main\Roles
+    final public function roles():Main\Roles
     {
         return $this->roles;
     }
@@ -1941,7 +1939,7 @@ abstract class Boot extends Main\Root
     // lang
     // retourne ou crée l'objet lang de boot
     // ne charge pas les contenus lang tout de suite, les contenus sont chargés via onLangLoad méthode statique et abstraite
-    public function lang():Lang
+    final public function lang():Lang
     {
         $this->checkReady();
         $return = Lang::instSafe();
@@ -1980,7 +1978,7 @@ abstract class Boot extends Main\Root
 
     // langContentClass
     // retourne la classe à utiliser pour le contenu de langue à partir d'un code de langue
-    public function langContentClass(?string $value=null):string
+    final public function langContentClass(?string $value=null):string
     {
         $return = null;
         $value = ucfirst($value);
@@ -1997,7 +1995,7 @@ abstract class Boot extends Main\Root
 
     // label
     // retourne le label de l'application courante
-    public function label(?string $lang=null):string
+    final public function label(?string $lang=null):string
     {
         return $this->lang()->bootLabel($lang);
     }
@@ -2005,7 +2003,7 @@ abstract class Boot extends Main\Root
 
     // description
     // retourne la description de l'application courante
-    public function description(?string $lang=null):?string
+    final public function description(?string $lang=null):?string
     {
         return $this->lang()->bootDescription($lang);
     }
@@ -2013,7 +2011,7 @@ abstract class Boot extends Main\Root
 
     // typeLabel
     // retourne le label du type de contexte
-    public function typeLabel(?string $lang=null):string
+    final public function typeLabel(?string $lang=null):string
     {
         return $this->lang()->typeLabel($this->type(),$lang);
     }
@@ -2021,7 +2019,7 @@ abstract class Boot extends Main\Root
 
     // envLabel
     // retourne le label de l'env de contexte
-    public function envLabel(?string $lang=null):string
+    final public function envLabel(?string $lang=null):string
     {
         return $this->lang()->envLabel($this->env(),$lang);
     }
@@ -2029,7 +2027,7 @@ abstract class Boot extends Main\Root
 
     // typeEnvLabel
     // retourne un label combiné pour type et env
-    public function typeEnvLabel(string $separator=' / ',?string $lang=null):string
+    final public function typeEnvLabel(string $separator=' / ',?string $lang=null):string
     {
         return implode($separator,[$this->typeLabel($lang),$this->envLabel($lang)]);
     }
@@ -2037,7 +2035,7 @@ abstract class Boot extends Main\Root
 
     // services
     // retourne l'objet services ou crée le et met le dans inst
-    public function services():Main\Services
+    final public function services():Main\Services
     {
         $this->checkReady();
         $return = Main\Services::instSafe();
@@ -2056,7 +2054,7 @@ abstract class Boot extends Main\Root
 
     // service
     // retourne un objet service à partir d'une clé
-    public function service(string $key):?Main\Service
+    final public function service(string $key):?Main\Service
     {
         return $this->services()->get($key);
     }
@@ -2064,7 +2062,7 @@ abstract class Boot extends Main\Root
 
     // checkService
     // retourne un objet service à partir d'une clé, sinon envoie une exception
-    public function checkService(string $key):Main\Service
+    final public function checkService(string $key):Main\Service
     {
         $return = $this->service($key);
 
@@ -2077,7 +2075,7 @@ abstract class Boot extends Main\Root
 
     // serviceMailer
     // retourne un objet service mailer à partir d'une clé
-    public function serviceMailer(?string $key=null):?Main\ServiceMailer
+    final public function serviceMailer(?string $key=null):?Main\ServiceMailer
     {
         $return = null;
         $key = ($key === null)? $this->getAttr('serviceMailer'):$key;
@@ -2091,7 +2089,7 @@ abstract class Boot extends Main\Root
 
     // checkServiceMailer
     // retourne un objet service mailer à partir d'une clé, sinon envoie une exception
-    public function checkServiceMailer(?string $key=null):Main\ServiceMailer
+    final public function checkServiceMailer(?string $key=null):Main\ServiceMailer
     {
         $return = $this->serviceMailer($key);
 
@@ -2104,7 +2102,7 @@ abstract class Boot extends Main\Root
 
     // redirection
     // retourne ou crée l'objet redirection
-    public function redirection():Routing\Redirection
+    final public function redirection():Routing\Redirection
     {
         $this->checkReady();
         $return = Routing\Redirection::instSafe();
@@ -2132,7 +2130,7 @@ abstract class Boot extends Main\Root
 
     // db
     // créer ou retourne l'objet db de boot
-    public function db():Db
+    final public function db():Db
     {
         $this->checkReady();
         $return = Db::instReady();
@@ -2191,7 +2189,7 @@ abstract class Boot extends Main\Root
 
     // hasDb
     // retourne vrai si  boot a présentement une db
-    public function hasDb():bool
+    final public function hasDb():bool
     {
         return (Db::instReady() instanceof Db)? true:false;
     }
@@ -2199,7 +2197,7 @@ abstract class Boot extends Main\Root
 
     // session
     // retourne ou crée l'objet session de boot
-    public function session():Session
+    final public function session():Session
     {
         $this->checkReady();
         $return = Session::instSafe();
@@ -2229,7 +2227,7 @@ abstract class Boot extends Main\Root
 
     // hasSession
     // retourne vrai si boot a présentement une session
-    public function hasSession():bool
+    final public function hasSession():bool
     {
         return (Session::instReady() instanceof Session)? true:false;
     }
@@ -2239,8 +2237,7 @@ abstract class Boot extends Main\Root
     // vérifie la requête et manage les redirections avant de continuer
     // certaines errors vont générer un code http 400 plutôt que 404 (bad request)
     // crée aussi un callback au closeDown dans la classe de log, une entrée sera ajouté si le code de réponse n'est pas positif
-    // méthode protégé
-    protected function manageRedirect():void
+    final protected function manageRedirect():void
     {
         $request = $this->request();
         $redirection = $this->redirection();
@@ -2278,7 +2275,7 @@ abstract class Boot extends Main\Root
 
     // getOption
     // retourne la valeur d'une option dans les attributs
-    public function getOption($value)
+    final public function getOption($value)
     {
         return Base\Arrs::get($value,$this->getAttr('option'));
     }
@@ -2286,7 +2283,7 @@ abstract class Boot extends Main\Root
 
     // info
     // retourne un tableau d'informations sur boot
-    public function info():array
+    final public function info():array
     {
         $return = [];
         $return['class'] = static::class;
@@ -2307,7 +2304,7 @@ abstract class Boot extends Main\Root
     // permet de parse la valeur schemeHost du tableau d'attribut
     // ajoute les scheme et les hosts dans leur clé de tableau
     // vide l'entrée du tableau schemeHost pour éviter des désynchronisations
-    public static function parseSchemeHost(array $return):array
+    final public static function parseSchemeHost(array $return):array
     {
         if(!empty($return['schemeHost']) && is_array($return['schemeHost']))
         {
@@ -2336,7 +2333,7 @@ abstract class Boot extends Main\Root
     // envTypeFromValue
     // méthode utilisé par envTypeFromHost pour obtenir le env/type d'une valeur dans un tableau
     // il faut fournir envs et types
-    public static function envTypeFromValue(string $value,array $values,array $envs,array $types):?array
+    final public static function envTypeFromValue(string $value,array $values,array $envs,array $types):?array
     {
         $return = null;
 
@@ -2355,7 +2352,7 @@ abstract class Boot extends Main\Root
     // envTypeFromString
     // parse une string avec env/type et retourne un tableau
     // il faut fournir envs et types
-    public static function envTypeFromString(string $value,array $envs,array $types):?array
+    final public static function envTypeFromString(string $value,array $envs,array $types):?array
     {
         $return = null;
         $explode = explode('/',$value);
@@ -2373,7 +2370,7 @@ abstract class Boot extends Main\Root
 
     // requirement
     // lance les tests de requirement sur le serveur
-    public static function requirement():void
+    final public static function requirement():void
     {
         $server = Base\Server::requirement();
         if(!empty($server))
@@ -2394,7 +2391,7 @@ abstract class Boot extends Main\Root
     // setErrorLog
     // enregistre le errorLog dans le ini
     // tente de le créer, vérifie qu'il est accessible en écriture
-    public static function setErrorLog(string $value):void
+    final public static function setErrorLog(string $value):void
     {
         if(!Base\File::is($value))
         Base\File::set($value);
@@ -2411,7 +2408,7 @@ abstract class Boot extends Main\Root
     // checkWritable
     // vérifie si les dossiers paramétrés sont accessibles en écriture
     // sinon envoie une exception
-    protected static function checkWritable($value)
+    final protected static function checkWritable($value)
     {
         if(is_string($value))
         $value = [$value];
@@ -2431,7 +2428,7 @@ abstract class Boot extends Main\Root
 
     // setsConfig
     // fait un replace avec les configurations fournis en arguments aux différentes classes
-    public static function setsConfig(array $config):void
+    final public static function setsConfig(array $config):void
     {
         foreach ($config as $key => $value)
         {
@@ -2445,7 +2442,7 @@ abstract class Boot extends Main\Root
 
     // unsetsConfig
     // fait un unset sur les clés fournis en arguments aux différentes classes
-    public static function unsetsConfig(array $unsets):void
+    final public static function unsetsConfig(array $unsets):void
     {
         foreach ($unsets as $key => $value)
         {
@@ -2460,7 +2457,7 @@ abstract class Boot extends Main\Root
     // quidVersion
     // retourne la version courant de quid
     // doit retourner une string
-    public static function quidVersion():string
+    final public static function quidVersion():string
     {
         return static::$quidVersion;
     }
@@ -2468,7 +2465,7 @@ abstract class Boot extends Main\Root
 
     // quidCredit
     // retourne les informations de crédit de quid
-    public static function quidCredit():string
+    final public static function quidCredit():string
     {
         $return = [];
         $credit = static::$quidCredit;
@@ -2492,7 +2489,7 @@ abstract class Boot extends Main\Root
 
     // extendersNamespaces
     // retourne un tableau avec tous les namespaces étendus (core et après)
-    public static function extendersNamespaces():array
+    final public static function extendersNamespaces():array
     {
         $return = [];
         $parents = static::classParents(true);
@@ -2510,7 +2507,7 @@ abstract class Boot extends Main\Root
     // unclimbableKeys
     // retouren un tableau avec toutes les clés de config ne pouvant être grimpés avec @
     // ceci est utilisé dans makeInitialAttr
-    public static function unclimbableKeys():array
+    final public static function unclimbableKeys():array
     {
         return ['host','path','envs','types','climbChar','typeAs','request'];
     }
@@ -2518,7 +2515,7 @@ abstract class Boot extends Main\Root
 
     // initReplaceMode
     // retourne le tableau des clés à ne pas merger recursivement
-    public static function initReplaceMode():array
+    final public static function initReplaceMode():array
     {
         return static::$replaceMode;
     }
@@ -2526,7 +2523,7 @@ abstract class Boot extends Main\Root
 
     // isInit
     // retourne vrai si un boot a déjà été lancé
-    public static function isInit():bool
+    final public static function isInit():bool
     {
         return (static::$init === true)? true:false;
     }
@@ -2535,7 +2532,7 @@ abstract class Boot extends Main\Root
     // initialize
     // initialise la racine de quid
     // attribue les constantes, initialise la classe server et charge les helpers de debug
-    public static function initialize():void
+    final public static function initialize():void
     {
         $version = static::quidVersion();
         Base\Constant::set('QUID_VERSION',$version);
@@ -2558,7 +2555,7 @@ abstract class Boot extends Main\Root
     // start
     // crée un objet quid et fait tous le processus
     // retourne le contenu à output
-    public static function start(?array $value=null,bool $end=true):?string
+    final public static function start(?array $value=null,bool $end=true):?string
     {
         $return = null;
 
@@ -2578,7 +2575,7 @@ abstract class Boot extends Main\Root
     // new
     // config la classe et génère un nouvel objet
     // envoie une exception is isInit est true
-    public static function new(?array $value=null):self
+    final public static function new(?array $value=null):self
     {
         return new static($value);
     }

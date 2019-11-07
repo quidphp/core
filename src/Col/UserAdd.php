@@ -29,7 +29,7 @@ class UserAdd extends EnumAlias
     // onInsert
     // donne le user courant lors d'un insert
     // il faut vérifier que boot hasSession car la row session à un champ userAdd
-    public function onInsert($value,array $row,array $option)
+    final protected function onInsert($value,array $row,array $option)
     {
         $return = 1;
         $boot = static::bootReady();

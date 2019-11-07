@@ -60,7 +60,7 @@ class User extends Core\RowAlias
 
     // onInserted
     // appelé après une insertion réussi dans core/table insert
-    public function onInserted(array $option)
+    protected function onInserted(array $option)
     {
         return $this->onRegister();
     }
@@ -68,7 +68,7 @@ class User extends Core\RowAlias
 
     // onRegister
     // lors de l'enregistrement d'un nouvel utilisateur
-    public function onRegister():void
+    protected function onRegister():void
     {
         if($this->allowRegisterConfirmEmail())
         $this->sendRegisterConfirmEmail();
@@ -82,14 +82,14 @@ class User extends Core\RowAlias
 
     // onLogin
     // callback lorsque l'utilisateur login
-    public function onLogin():void
+    protected function onLogin():void
     {
         $db = $this->db();
         $timestamp = Base\Date::timestamp();
         $this->dateLogin()->set($timestamp);
 
         $db->off();
-        $this->updateChanged();
+        $this->updateChanged(array('include'=>false));
         $db->on();
 
         return;
@@ -98,7 +98,7 @@ class User extends Core\RowAlias
 
     // onLogout
     // callback lorsque l'utilisateur logout
-    public function onLogout():void
+    protected function onLogout():void
     {
         return;
     }
@@ -106,7 +106,7 @@ class User extends Core\RowAlias
 
     // onChangePassword
     // lorsque l'utilisateur a changé son mot de passe
-    public function onChangePassword():void
+    protected function onChangePassword():void
     {
         return;
     }
@@ -115,7 +115,7 @@ class User extends Core\RowAlias
     // onResetPassword
     // lorsque l'utilisateur a son mot de passe reset
     // le nouveau mot de passe est donné en argument
-    public function onResetPassword(string $password):void
+    protected function onResetPassword(string $password):void
     {
         return;
     }
@@ -123,7 +123,7 @@ class User extends Core\RowAlias
 
     // onActivatePassword
     // lorsque l'utilisateur a activé son mot de passe reset
-    public function onActivatePassword():void
+    protected function onActivatePassword():void
     {
         return;
     }
@@ -131,7 +131,7 @@ class User extends Core\RowAlias
 
     // onRegisterConfirmEmailSent
     // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'utilisateur
-    protected function onRegisterConfirmEmailSent():void
+    final protected function onRegisterConfirmEmailSent():void
     {
         return;
     }
@@ -139,7 +139,7 @@ class User extends Core\RowAlias
 
     // onRegisterAdminEmailSent
     // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'administrateur
-    protected function onRegisterAdminEmailSent():void
+    final protected function onRegisterAdminEmailSent():void
     {
         return;
     }
@@ -147,7 +147,7 @@ class User extends Core\RowAlias
 
     // onResetPasswordEmailSent
     // lorsque le courriel de regénération de mot de passe a été envoyé à l'utilisateur
-    protected function onResetPasswordEmailSent():void
+    final protected function onResetPasswordEmailSent():void
     {
         return;
     }
@@ -155,7 +155,7 @@ class User extends Core\RowAlias
 
     // onWelcomeEmailSent
     // lorsque le courriel de bienvenue a été envoyé à l'utilisateur
-    protected function onWelcomeEmailSent():void
+    final protected function onWelcomeEmailSent():void
     {
         return;
     }
@@ -163,7 +163,7 @@ class User extends Core\RowAlias
 
     // allowRegisterConfirmEmail
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
-    public function allowRegisterConfirmEmail():bool
+    final public function allowRegisterConfirmEmail():bool
     {
         return (!empty($this->registerConfirmEmailModel()))? true:false;
     }
@@ -171,7 +171,7 @@ class User extends Core\RowAlias
 
     // allowRegisterAdminEmail
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement à l'administrateur
-    public function allowRegisterAdminEmail():bool
+    final public function allowRegisterAdminEmail():bool
     {
         return (!empty($this->registerAdminEmailModel()))? true:false;
     }
@@ -179,7 +179,7 @@ class User extends Core\RowAlias
 
     // allowWelcomeEmail
     // retourne vrai si le user permet l'envoie de courrier de bienvenue
-    public function allowWelcomeEmail():bool
+    final public function allowWelcomeEmail():bool
     {
         return (!empty($this->welcomeEmailModel()))? true:false;
     }
@@ -187,7 +187,7 @@ class User extends Core\RowAlias
 
     // allowResetPasswordEmail
     // retourne vrai si le user permet l'envoie de courrier pour regénérer le mot de passe
-    public function allowResetPasswordEmail():bool
+    final public function allowResetPasswordEmail():bool
     {
         return ($this->hasPasswordReset() && !empty($this->resetPasswordEmailModel()) && !empty($this->activatePasswordRoute()))? true:false;
     }
@@ -195,23 +195,24 @@ class User extends Core\RowAlias
 
     // isUpdateable
     // retourne vrai si l'utilisateur peut être modifié
-    public function isUpdateable(?array $option=null):bool
+    final public function isUpdateable(?array $option=null):bool
     {
         $return = parent::isUpdateable($option);
 
         if($return === true && empty($option['isUpdateable']))
         {
             $return = false;
-            $current = static::sessionUser();
-
+            $session = static::session();
+            $currentUser = $session->user();
+            $currentPermission = $session->permission();
+            
             $isNobody = $this->isNobody();
             $isAdmin = $this->isAdmin();
             $permission = $this->permission();
-            $currentPermission = $current->permission();
-
-            if($isNobody === false || $current->isAdmin())
+            
+            if($isNobody === false || $session->isAdmin())
             {
-                if($currentPermission > $permission || $current === $this || ($isAdmin === true && $currentPermission === $permission))
+                if($currentPermission > $permission || $currentUser === $this || ($isAdmin === true && $currentPermission === $permission))
                 $return = true;
             }
         }
@@ -222,19 +223,19 @@ class User extends Core\RowAlias
 
     // isDeleteable
     // retourne vrai si l'utilisateur peut être effacé
-    public function isDeleteable(?array $option=null):bool
+    final public function isDeleteable(?array $option=null):bool
     {
         $return = parent::isDeleteable($option);
 
         if($return === true)
         {
             $return = false;
-            $current = static::sessionUser();
-
+            $session = static::session();
+            $currentPermission = $session->permission();
+            
             $isNobody = $this->isNobody();
             $permission = $this->permission();
-            $currentPermission = $current->permission();
-
+            
             if($isNobody === false && $currentPermission > $permission)
             $return = true;
         }
@@ -245,7 +246,7 @@ class User extends Core\RowAlias
 
     // is
     // retourne vrai si le role du user a l'attribut à true
-    public function is($value):bool
+    final public function is($value):bool
     {
         return $this->roles()->isOne($value);
     }
@@ -253,7 +254,7 @@ class User extends Core\RowAlias
 
     // isNobody
     // retourne vrai si le user est nobody
-    public function isNobody():bool
+    final public function isNobody():bool
     {
         return $this->roles()->isNobody();
     }
@@ -261,7 +262,7 @@ class User extends Core\RowAlias
 
     // isSomebody
     // retourne vrai si le user est de rôle somebody
-    public function isSomebody():bool
+    final public function isSomebody():bool
     {
         return $this->roles()->isSomebody();
     }
@@ -269,7 +270,7 @@ class User extends Core\RowAlias
 
     // isAdmin
     // retourne vrai si le user est de rôle admin
-    public function isAdmin():bool
+    final public function isAdmin():bool
     {
         return $this->roles()->isOne('admin');
     }
@@ -277,7 +278,7 @@ class User extends Core\RowAlias
 
     // isCli
     // retourne vrai si le user est de rôle cli
-    public function isCli():bool
+    final public function isCli():bool
     {
         return $this->roles()->isOne('cli');
     }
@@ -285,7 +286,7 @@ class User extends Core\RowAlias
 
     // attrPermissionRolesObject
     // retourne les roles par défaut à utiliser, soit les rôles de l'utilisateur courant
-    protected function attrPermissionRolesObject():Main\Roles
+    final protected function attrPermissionRolesObject():Main\Roles
     {
         return $this->roles();
     }
@@ -293,7 +294,7 @@ class User extends Core\RowAlias
 
     // canLogin
     // retourne vrai si le role permet le login
-    public function canLogin(?string $type=null):bool
+    final public function canLogin(?string $type=null):bool
     {
         $return = false;
 
@@ -309,7 +310,7 @@ class User extends Core\RowAlias
 
     // hasUsername
     // retourne vrai si le user a un username
-    public function hasUsername():bool
+    final public function hasUsername():bool
     {
         $return = false;
         $username = $this->username();
@@ -325,7 +326,7 @@ class User extends Core\RowAlias
 
     // hasEmail
     // retourne vrai si le user a un email
-    public function hasEmail():bool
+    final public function hasEmail():bool
     {
         $return = false;
         $email = $this->email();
@@ -339,7 +340,7 @@ class User extends Core\RowAlias
 
     // canReceiveEmail
     // retourne vrai si l'utilisateur peut recevoir un courriel
-    public function canReceiveEmail():bool
+    final public function canReceiveEmail():bool
     {
         return ($this->isSomebody() && $this->hasUsername() && $this->hasEmail())? true:false;
     }
@@ -347,7 +348,7 @@ class User extends Core\RowAlias
 
     // isPassword
     // vérifie si le mot de passe est celui donné
-    public function isPassword($value):bool
+    final public function isPassword($value):bool
     {
         $return = false;
         $cell = $this->password();
@@ -363,7 +364,7 @@ class User extends Core\RowAlias
 
     // hasPasswordReset
     // retourne vrai si l'utilisateur a le champ password reset
-    public function hasPasswordReset():bool
+    final public function hasPasswordReset():bool
     {
         return ($this->hasCell('passwordReset'))? true:false;
     }
@@ -371,7 +372,7 @@ class User extends Core\RowAlias
 
     // isPasswordReset
     // retourne vrai si la valeur donné est un sha1 du crypt passwordReset
-    public function isPasswordReset($value):bool
+    final public function isPasswordReset($value):bool
     {
         $return = false;
         $passwordReset = $this->passwordReset()->value();
@@ -388,7 +389,7 @@ class User extends Core\RowAlias
 
     // uid
     // retourne le uid du user
-    public function uid():int
+    final public function uid():int
     {
         return $this->primary();
     }
@@ -406,7 +407,7 @@ class User extends Core\RowAlias
 
     // setRoles
     // change les roles du user
-    public function setRoles(Main\Roles $value):void
+    final public function setRoles(Main\Roles $value):void
     {
         $this->roles = $value;
 
@@ -416,7 +417,7 @@ class User extends Core\RowAlias
 
     // roles
     // retourne les roles du user
-    public function roles():Main\Roles
+    final public function roles():Main\Roles
     {
         return $this->roles;
     }
@@ -424,7 +425,7 @@ class User extends Core\RowAlias
 
     // role
     // retourne le role principal de la row user
-    public function role():Main\Role
+    final public function role():Main\Role
     {
         return $this->roles()->main();
     }
@@ -432,7 +433,7 @@ class User extends Core\RowAlias
 
     // allowFakeRoles
     // retourne vrai si l'utilisateur a la permission d'avoir des fake roles
-    public function allowFakeRoles():bool
+    final public function allowFakeRoles():bool
     {
         return $this->hasPermission('fakeRoles');
     }
@@ -440,7 +441,7 @@ class User extends Core\RowAlias
 
     // permission
     // retourne la permission du role
-    public function permission():int
+    final public function permission():int
     {
         return $this->role()->permission();
     }
@@ -449,8 +450,7 @@ class User extends Core\RowAlias
     // getEmailArray
     // retourne le tableau pour envoyer un courriel en lien avec l'utilisateur
     // peut retourner null
-    // méthode protégé
-    protected function getEmailArray(string $name,?array $replace=null):?array
+    final protected function getEmailArray(string $name,?array $replace=null):?array
     {
         $return = null;
         $method = $name.'EmailModel';
@@ -475,8 +475,7 @@ class User extends Core\RowAlias
 
     // getEmailModel
     // retourne un modèle de courriel à partir d'une clé
-    // méthode protégé
-    protected function getEmailModel(string $name):?Main\Contract\Email
+    final protected function getEmailModel(string $name):?Main\Contract\Email
     {
         $return = null;
         $key = $this->getAttr(['emailModel',$name]);
@@ -490,8 +489,7 @@ class User extends Core\RowAlias
 
     // getEmailReplace
     // retourne un tableau de remplacement de base pour les courriels
-    // méthode protégé
-    protected function getEmailReplace():array
+    final protected function getEmailReplace():array
     {
         $return = [];
         $return['username'] = $this->username();
@@ -504,7 +502,7 @@ class User extends Core\RowAlias
 
     // registerConfirmEmail
     // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement
-    public function registerConfirmEmail(?array $replace=null):?array
+    final public function registerConfirmEmail(?array $replace=null):?array
     {
         return $this->getEmailArray('registerConfirm',$replace);
     }
@@ -512,7 +510,7 @@ class User extends Core\RowAlias
 
     // registerConfirmEmailModel
     // retourne le model pour le courriel de confirmation de l'enregistrement
-    public function registerConfirmEmailModel():?Main\Contract\Email
+    final public function registerConfirmEmailModel():?Main\Contract\Email
     {
         return $this->getEmailModel('registerConfirm');
     }
@@ -520,7 +518,7 @@ class User extends Core\RowAlias
 
     // registerConfirmEmailReplace
     // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    public function registerConfirmEmailReplace():array
+    final public function registerConfirmEmailReplace():array
     {
         return $this->getEmailReplace();
     }
@@ -528,7 +526,7 @@ class User extends Core\RowAlias
 
     // registerAdminEmail
     // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement à l'administrateur
-    public function registerAdminEmail(?array $replace=null):?array
+    final public function registerAdminEmail(?array $replace=null):?array
     {
         return $this->getEmailArray('registerAdmin',$replace);
     }
@@ -536,7 +534,7 @@ class User extends Core\RowAlias
 
     // registerAdminEmailModel
     // retourne le model pour le courriel de confirmation de l'enregistrement à l'administrateur
-    public function registerAdminEmailModel():?Main\Contract\Email
+    final public function registerAdminEmailModel():?Main\Contract\Email
     {
         return $this->getEmailModel('registerAdmin');
     }
@@ -544,7 +542,7 @@ class User extends Core\RowAlias
 
     // registerAdminEmailReplace
     // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    public function registerAdminEmailReplace():array
+    final public function registerAdminEmailReplace():array
     {
         return $this->getEmailReplace();
     }
@@ -552,7 +550,7 @@ class User extends Core\RowAlias
 
     // resetPasswordEmail
     // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour regénérer le mot de passe
-    public function resetPasswordEmail(?array $replace=null):?array
+    final public function resetPasswordEmail(?array $replace=null):?array
     {
         return $this->getEmailArray('resetPassword',$replace);
     }
@@ -560,7 +558,7 @@ class User extends Core\RowAlias
 
     // resetPasswordEmailModel
     // retourne le model pour le courriel de regénération du mot de passe
-    public function resetPasswordEmailModel():?Main\Contract\Email
+    final public function resetPasswordEmailModel():?Main\Contract\Email
     {
         return $this->getEmailModel('resetPassword');
     }
@@ -584,7 +582,7 @@ class User extends Core\RowAlias
 
     // welcomeEmail
     // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel de bienvenue
-    public function welcomeEmail(?array $replace=null):?array
+    final public function welcomeEmail(?array $replace=null):?array
     {
         return $this->getEmailArray('welcome',$replace);
     }
@@ -592,7 +590,7 @@ class User extends Core\RowAlias
 
     // welcomeEmailModel
     // retourne le model pour le courriel de bienvenue ou null
-    public function welcomeEmailModel():?Main\Contract\Email
+    final public function welcomeEmailModel():?Main\Contract\Email
     {
         return $this->getEmailModel('userWelcome');
     }
@@ -608,7 +606,7 @@ class User extends Core\RowAlias
 
     // username
     // retourne la cellule du username
-    public function username():Core\Cell
+    final public function username():Core\Cell
     {
         return $this->cell('username');
     }
@@ -616,7 +614,7 @@ class User extends Core\RowAlias
 
     // email
     // retourne la cellule du email
-    public function email():Core\Cell
+    final public function email():Core\Cell
     {
         return $this->cell('email');
     }
@@ -625,7 +623,7 @@ class User extends Core\RowAlias
     // toEmail
     // retourne un tableau email=>fullName lors de l'envoie dans un email
     // peut retourner null
-    public function toEmail():?array
+    final public function toEmail():?array
     {
         $return = null;
 
@@ -651,7 +649,7 @@ class User extends Core\RowAlias
 
     // toSession
     // retourne le tableau a mettre dans session
-    public function toSession():array
+    final public function toSession():array
     {
         $return = [];
         $return['uid'] = $this->primary();
@@ -663,7 +661,7 @@ class User extends Core\RowAlias
 
     // timezone
     // retourne la cellule de timezone
-    public function timezone():Core\Cell
+    final public function timezone():Core\Cell
     {
         return $this->cell('timezone');
     }
@@ -671,7 +669,7 @@ class User extends Core\RowAlias
 
     // dateLogin
     // retourne la cellule de dateLogin
-    public function dateLogin():Core\Cell
+    final public function dateLogin():Core\Cell
     {
         return $this->cell('dateLogin');
     }
@@ -679,7 +677,7 @@ class User extends Core\RowAlias
 
     // password
     // retourne la cellule de password
-    public function password():Core\Cell
+    final public function password():Core\Cell
     {
         return $this->cell('password');
     }
@@ -687,7 +685,7 @@ class User extends Core\RowAlias
 
     // passwordReset
     // retourne la cellule de passwordReset
-    public function passwordReset()
+    final public function passwordReset()
     {
         return $this->cell('passwordReset');
     }
@@ -697,10 +695,10 @@ class User extends Core\RowAlias
     // change le mot de passe, peut être une string ou array
     // ne log pas la query
     // envoie une exception si le mot de passe est invalide
-    public function setPassword($value,?array $option=null):?int
+    final public function setPassword($value,?array $option=null):?int
     {
         $return = null;
-        $option = Base\Arr::plus(['onChange'=>true],$option);
+        $option = Base\Arr::plus(['onChange'=>true,'include'=>false],$option);
 
         try
         {
@@ -723,7 +721,7 @@ class User extends Core\RowAlias
 
         catch (Main\CatchableException $e)
         {
-            $e->onCatched($option);
+            $e->catched($option);
         }
 
         return $return;
@@ -733,9 +731,10 @@ class User extends Core\RowAlias
     // setPasswordFromPasswordReset
     // met le password reset comme mot de passe
     // se fait lors d'une activation du mot de passe
-    public function setPasswordFromPasswordReset(?array $option=null):?int
+    final public function setPasswordFromPasswordReset(?array $option=null):?int
     {
         $return = null;
+        $option = Base\Arr::plus(array('include'=>false),$option);
         $passwordReset = $this->passwordReset();
         $value = $passwordReset->value();
 
@@ -761,9 +760,10 @@ class User extends Core\RowAlias
 
     // setPasswordReset
     // crypt le nouveau mot de passe et met le hash dans la cellule passwordReset
-    public function setPasswordReset(string $value,?array $option=null):?int
+    final public function setPasswordReset(string $value,?array $option=null):?int
     {
         $return = null;
+        $option = Base\Arr::plus(array('include'=>false),$option);
         $this->passwordReset()->hashSet($value);
 
         $db = $this->db()->off();
@@ -779,7 +779,7 @@ class User extends Core\RowAlias
 
     // passwordRehash
     // rehash le password si nécessaire
-    public function passwordRehash(string $value,?array $option=null):?int
+    final public function passwordRehash(string $value,?array $option=null):?int
     {
         $return = null;
         $option = Base\Arr::plus($option,['onChange'=>false]);
@@ -798,7 +798,7 @@ class User extends Core\RowAlias
     // il faut fournir une route, un modèle de courriel, un tableau de remplacement pour le courriel
     // retourne null ou une string contenant le nouveau mot de passe
     // option com, strict et log
-    public function resetPassword(?array $replace=null,?array $option=null):?string
+    final public function resetPassword(?array $replace=null,?array $option=null):?string
     {
         $return = null;
         $neg = $this->loginValidate('resetPassword');
@@ -842,7 +842,7 @@ class User extends Core\RowAlias
 
     // validateSend
     // méthode protégé qui valide que le user et le modèle de courriel sont valides
-    protected function validateSend(Main\Contract\Email $model,?array $option=null):void
+    final protected function validateSend(Main\Contract\Email $model,?array $option=null):void
     {
         $option = Base\Arr::plus(['method'=>'dispatch'],$option);
 
@@ -862,8 +862,7 @@ class User extends Core\RowAlias
     // sendResetPasswordEmail
     // envoie un email à un utilisateur ayant fait un reset de mot de passe
     // plusieurs exceptions peuvent être envoyés, ne gère pas l'objet de communication
-    // méthode protégé
-    public function sendResetPasswordEmail(string $password,?array $replace=null,?array $option=null):bool
+    final public function sendResetPasswordEmail(string $password,?array $replace=null,?array $option=null):bool
     {
         $return = false;
         $option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
@@ -916,8 +915,7 @@ class User extends Core\RowAlias
     // sendEmail
     // méthode utilisé par sendWelcomeEmail, sendRegisterConfirmEmail et sendRegisterAdminEmail
     // plusieurs exceptions peuvent être envoyés
-    // méthode protégé
-    protected function sendEmail(string $type,$to,?array $replace=null,?\Closure $closure=null,?array $option=null):bool
+    final protected function sendEmail(string $type,$to,?array $replace=null,?\Closure $closure=null,?array $option=null):bool
     {
         $return = false;
         $option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
@@ -954,7 +952,7 @@ class User extends Core\RowAlias
     // sendWelcomeEmail
     // envoie le courriel de bienvenue
     // plusieurs exceptions peuvent être envoyés
-    public function sendWelcomeEmail(?array $replace=null,?array $option=null):bool
+    final public function sendWelcomeEmail(?array $replace=null,?array $option=null):bool
     {
         $return = false;
         $closure = function(array $return) {
@@ -979,7 +977,7 @@ class User extends Core\RowAlias
     // sendRegisterConfirmEmail
     // envoie le courriel de confirmation de l'enregistrement
     // plusieurs exceptions peuvent être envoyés
-    public function sendRegisterConfirmEmail(?array $replace=null,?array $option=null):bool
+    final public function sendRegisterConfirmEmail(?array $replace=null,?array $option=null):bool
     {
         return $this->sendEmail('registerConfirm',$this,$replace,$option);
     }
@@ -988,7 +986,7 @@ class User extends Core\RowAlias
     // sendRegisterAdminEmail
     // envoie le courriel de confirmation de l'enregistrement à l'administrateur
     // plusieurs exceptions peuvent être envoyés
-    public function sendRegisterAdminEmail(?array $replace=null,?array $option=null):bool
+    final public function sendRegisterAdminEmail(?array $replace=null,?array $option=null):bool
     {
         return $this->sendEmail('registerAdmin',$this->getAdminEmail(),$replace,$option);
     }
@@ -996,7 +994,7 @@ class User extends Core\RowAlias
 
     // getAdminEmail
     // retourne le email de l'administrateur
-    public function getAdminEmail():?array
+    final public function getAdminEmail():?array
     {
         return null;
     }
@@ -1005,7 +1003,7 @@ class User extends Core\RowAlias
     // activatePassword
     // permet d'activer un password à partir d'un sha1 du hash dans password reset
     // option com, strict et log
-    public function activatePassword(string $hash,?array $option=null):bool
+    final public function activatePassword(string $hash,?array $option=null):bool
     {
         $return = false;
         $neg = $this->loginValidate('activatePassword');
@@ -1044,7 +1042,7 @@ class User extends Core\RowAlias
     // retourne un message de validation en lien avec la connection du user courant
     // vérifie si le user est actif et peut se connecter
     // une string type doit être fourni
-    public function loginValidate(string $type):?string
+    final public function loginValidate(string $type):?string
     {
         $return = null;
 
@@ -1068,7 +1066,7 @@ class User extends Core\RowAlias
     // fait le processus de login, mais ne change rien à la session
     // si la méthode retourne un user, le login est possible
     // si la méthode retourne une string, c'est un message de communication négatif
-    public static function loginProcess(string $connect,string $password)
+    final public static function loginProcess(string $connect,string $password)
     {
         $return = null;
         $user = static::findByCredentials($connect);
@@ -1097,7 +1095,7 @@ class User extends Core\RowAlias
     // reset le mot de passe d'un l'utilisateur
     // connect se fait normalement par email
     // retourne null ou le nouveau password
-    public static function resetPasswordProcess(string $email,?array $replace=null,?array $option=null):?string
+    final public static function resetPasswordProcess(string $email,?array $replace=null,?array $option=null):?string
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1138,7 +1136,7 @@ class User extends Core\RowAlias
     // activatePasswordProcess
     // active le mot de passe de l'utilisateur d'un utilisateur
     // le mot de passe doit avoir été préalablement reset
-    public static function activatePasswordProcess(int $primary,string $hash,?array $option=null):bool
+    final public static function activatePasswordProcess(int $primary,string $hash,?array $option=null):bool
     {
         $return = false;
         $table = static::tableFromFqcn();
@@ -1174,7 +1172,7 @@ class User extends Core\RowAlias
     // gère la validation avant l'enregistrement
     // peut valider que passwordConfirm est conforme si donnée en argument
     // retourne une string ou null
-    public static function registerValidate(array $data,?string $passwordConfirm=null):?string
+    final public static function registerValidate(array $data,?string $passwordConfirm=null):?string
     {
         $return = null;
         $session = static::session();
@@ -1199,7 +1197,7 @@ class User extends Core\RowAlias
     // registerProcess
     // gère le processus pour enregistrer un nouvel utilisateur
     // retourne null ou un objet row
-    public static function registerProcess(array $data,?string $passwordConfirm=null,?array $option=null):?self
+    final public static function registerProcess(array $data,?string $passwordConfirm=null,?array $option=null):?self
     {
         $return = null;
         $option = Base\Arr::plus($option,['row'=>true]);
@@ -1224,7 +1222,7 @@ class User extends Core\RowAlias
     // findByRole
     // retourne un utilisateur par un rôle
     // envoie une exception si la méthode ne retourne pas une row
-    public static function findByRole($permission,?array $order=null):self
+    final public static function findByRole($permission,?array $order=null):self
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1249,7 +1247,7 @@ class User extends Core\RowAlias
 
     // findNobody
     // retourne le premier utilisateur avec le rôle nobody
-    public static function findNobody(?array $order=null):self
+    final public static function findNobody(?array $order=null):self
     {
         return static::findByRole(static::boot()->roles()->filter(['isNobody'=>true])->first(),$order);
     }
@@ -1257,7 +1255,7 @@ class User extends Core\RowAlias
 
     // findCli
     // retourne le premier utilisateur avec le rôle cli
-    public static function findCli(?array $order=null):self
+    final public static function findCli(?array $order=null):self
     {
         return static::findByRole(static::boot()->roles()->filter(['isCli'=>true])->first(),$order);
     }
@@ -1266,7 +1264,7 @@ class User extends Core\RowAlias
     // findByCredentials
     // retourne un utilisateur à partir des champs valides pour la connexion
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByCredentials(string $value):?self
+    final public static function findByCredentials(string $value):?self
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1303,7 +1301,7 @@ class User extends Core\RowAlias
     // findByUsername
     // retourne un utilisateur à partir d'un username
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByUsername(string $value):?self
+    final public static function findByUsername(string $value):?self
     {
         return static::tableFromFqcn()->row($value);
     }
@@ -1311,7 +1309,7 @@ class User extends Core\RowAlias
 
     // findByUid
     // retourne un utilisateur à partir d'un uid
-    public static function findByUid(int $value):?self
+    final public static function findByUid(int $value):?self
     {
         return static::tableFromFqcn()->row($value);
     }
@@ -1320,7 +1318,7 @@ class User extends Core\RowAlias
     // findByEmail
     // retourne un utilisateur à partir d'un email
     // cette recherche est insensible à la case, seul le mot de passe est sensible à la case
-    public static function findByEmail(string $value):?self
+    final public static function findByEmail(string $value):?self
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1339,7 +1337,7 @@ class User extends Core\RowAlias
     // getUsernameSecurity
     // retourne la sécurité utilisé pour le champ username
     // peut être null
-    public static function getUsernameSecurity():?string
+    final public static function getUsernameSecurity():?string
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1353,7 +1351,7 @@ class User extends Core\RowAlias
     // getPasswordSecurity
     // retourne la sécurité utilisé pour le champ password
     // peut être null
-    public static function getPasswordSecurity():?string
+    final public static function getPasswordSecurity():?string
     {
         $return = null;
         $table = static::tableFromFqcn();

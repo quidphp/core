@@ -33,7 +33,7 @@ class UserPasswordReset extends Core\ColAlias
 
     // onGet
     // retourne une string sha1 du hash
-    public function onGet($return,array $option)
+    final protected function onGet($return,array $option)
     {
         $return = $this->value($return);
 
@@ -46,7 +46,7 @@ class UserPasswordReset extends Core\ColAlias
 
     // getSecurity
     // retourne le niveau de sécurité du mot de passe
-    public function getSecurity():?string
+    final public function getSecurity():?string
     {
         return $this->getAttr('security');
     }

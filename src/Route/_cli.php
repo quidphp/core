@@ -37,7 +37,7 @@ trait _cli
 
     // trigger
     // génère le cli ou le template
-    public function trigger()
+    final public function trigger()
     {
         return $this->cliWrap();
     }
@@ -46,7 +46,7 @@ trait _cli
     // cliWrap
     // enrobe l'appel à la méthode cli
     // si le retour est un tableau, log dans logCron
-    protected function cliWrap()
+    final protected function cliWrap()
     {
         $return = $this->cli(Base\Server::isCli());
 
@@ -62,7 +62,7 @@ trait _cli
 
     // logCron
     // permet de logger des données dans la table log cron
-    public function logCron(array $data):?Core\Row
+    final public function logCron(array $data):?Core\Row
     {
         $return = null;
         $class = $this->getAttr('logCron');

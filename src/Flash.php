@@ -25,7 +25,7 @@ class Flash extends Routing\Flash
     // setPost
     // flash les données de post
     // prend les données de post de l'objet request dans inst
-    public function setPost(Route $route,bool $onlyCol=true,bool $stripTags=false)
+    final public function setPost(Route $route,bool $onlyCol=true,bool $stripTags=false)
     {
         $request = static::boot()->request();
         $post = $request->post($onlyCol,$stripTags);

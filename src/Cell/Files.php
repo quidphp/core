@@ -23,7 +23,7 @@ abstract class Files extends Core\CellAlias
 
     // commonCast
     // cast la cellule, retourne le path http ou base64
-    protected function commonCast():?string
+    final protected function commonCast():?string
     {
         $return = null;
         $index = ($this->hasIndex())? 0:null;
@@ -54,7 +54,7 @@ abstract class Files extends Core\CellAlias
 
     // checkCanBeDeleted
     // retourne vrai si le média peut être effacé, sinon envoie une exception
-    public function checkCanBeDeleted(?int $index=null):bool
+    final public function checkCanBeDeleted(?int $index=null):bool
     {
         $return = $this->canBeDeleted($index);
 
@@ -68,7 +68,7 @@ abstract class Files extends Core\CellAlias
     // canBeRegenerated
     // retourne vrai si le média peut être regénéré
     // doit avoir des versions
-    public function canBeRegenerated(?int $index=null):bool
+    final public function canBeRegenerated(?int $index=null):bool
     {
         $return = false;
         $table = $this->table();
@@ -82,7 +82,7 @@ abstract class Files extends Core\CellAlias
 
     // checkCanBeRegenerated
     // retourne vrai si le média peut être effacé, sinon envoie une exception
-    public function checkCanBeRegenerated(?int $index=null):bool
+    final public function checkCanBeRegenerated(?int $index=null):bool
     {
         $return = $this->canBeRegenerated($index);
 
@@ -96,7 +96,7 @@ abstract class Files extends Core\CellAlias
     // commonPair
     // retourne un fichier si true ou int
     // sinon renvoie à parent
-    protected function commonPair($value=null,...$args)
+    final protected function commonPair($value=null,...$args)
     {
         $return = $this;
 
@@ -118,7 +118,7 @@ abstract class Files extends Core\CellAlias
 
     // commonBasename
     // retourne un basename de fichier dans la cellule
-    protected function commonBasename(?int $index=null,$version=null):?string
+    final protected function commonBasename(?int $index=null,$version=null):?string
     {
         $return = null;
         $get = $this->get();
@@ -150,7 +150,7 @@ abstract class Files extends Core\CellAlias
     // possible de fournir l'index, n'affiche pas si false
     // possible de fournir une version, n'affiche pas si false
     // si null inclut la version original (0)
-    protected function commonCellPath($index=null,$version=null):string
+    final protected function commonCellPath($index=null,$version=null):string
     {
         $return = null;
         $array = [$this->tableName(),$this->rowPrimary(),$this->name()];
@@ -176,7 +176,7 @@ abstract class Files extends Core\CellAlias
     // commonCellPathBasename
     // retourne le chemin de la cellule avec le basename et l'index
     // le fichier n'a pas besoin d'exister
-    protected function commonCellPathBasename(?int $index=null,$version=null):?string
+    final protected function commonCellPathBasename(?int $index=null,$version=null):?string
     {
         $return = null;
         $basename = $this->commonBasename($index,$version);
@@ -190,7 +190,7 @@ abstract class Files extends Core\CellAlias
 
     // commonBasePath
     // retourne le base path à l'index qui est une combinaison du rootPath et cellPath
-    protected function commonBasePath($index=null,$version=null):string
+    final protected function commonBasePath($index=null,$version=null):string
     {
         return Base\Path::append($this->rootPath(),$this->commonCellPath($index,$version));
     }
@@ -198,7 +198,7 @@ abstract class Files extends Core\CellAlias
 
     // commonFilePath
     // retourne le file path à l'index qui combine le basePath et le basename qui est la valeur de la cellule
-    protected function commonFilePath(?int $index=null,$version=null):?string
+    final protected function commonFilePath(?int $index=null,$version=null):?string
     {
         $return = null;
 
@@ -211,7 +211,7 @@ abstract class Files extends Core\CellAlias
 
     // commonThrow
     // utilisé pour envoyer une exception avec l'index et la version
-    protected function commonThrow(?int $index=null,$version=null):void
+    final protected function commonThrow(?int $index=null,$version=null):void
     {
         $array = [$this->table(),$this->row(),$this->col()];
         if($this->hasIndex())
@@ -226,7 +226,7 @@ abstract class Files extends Core\CellAlias
 
     // commonFileExists
     // retourne vrai si le fichier à l'index existe
-    protected function commonFileExists(?int $index=null,$version=null):bool
+    final protected function commonFileExists(?int $index=null,$version=null):bool
     {
         $return = false;
         $path = $this->commonFilePath($index,$version);
@@ -240,7 +240,7 @@ abstract class Files extends Core\CellAlias
 
     // commonCheckFileExists
     // envoie une exception si le fichier à l'index n'existe pas
-    protected function commonCheckFileExists(?int $index=null,$version=null):self
+    final protected function commonCheckFileExists(?int $index=null,$version=null):self
     {
         if(!$this->commonFileExists($index,$version))
         $this->commonThrow($index,$version);
@@ -252,7 +252,7 @@ abstract class Files extends Core\CellAlias
     // commonFile
     // retourne l'objet fichier
     // peut retourner null
-    protected function commonFile(?int $index=null,$version=null):?Main\File
+    final protected function commonFile(?int $index=null,$version=null):?Main\File
     {
         $return = null;
 
@@ -268,7 +268,7 @@ abstract class Files extends Core\CellAlias
 
     // commonCheckFile
     // retourne l'objet fichier, envoie une exception si non existant
-    protected function commonCheckFile(?int $index=null,$version=null):Main\File
+    final protected function commonCheckFile(?int $index=null,$version=null):Main\File
     {
         $return = $this->commonFile($index,$version);
 
@@ -281,7 +281,7 @@ abstract class Files extends Core\CellAlias
 
     // commonVersionExtension
     // retourne l'extension a utilisé pour la version à l'index donné
-    protected function commonVersionExtension(?int $index=null,$version=null,bool $exception=true):string
+    final protected function commonVersionExtension(?int $index=null,$version=null,bool $exception=true):string
     {
         $return = null;
         $version = $this->col()->version($version,$exception);
@@ -309,7 +309,7 @@ abstract class Files extends Core\CellAlias
     // commonVersion
     // retourne un objet files avec toutes les versions pour un index
     // retourne null si pas de version
-    protected function commonVersion(?int $index=null):?Main\Files
+    final protected function commonVersion(?int $index=null):?Main\Files
     {
         $return = null;
 
@@ -333,7 +333,7 @@ abstract class Files extends Core\CellAlias
 
     // commonDownloadRoute
     // retourne la route pour le téléchargement
-    protected function commonDownloadRoute(?int $index=null):Core\Route
+    final protected function commonDownloadRoute(?int $index=null):Core\Route
     {
         $return = null;
         $col = $this->col();
@@ -351,7 +351,7 @@ abstract class Files extends Core\CellAlias
     // commonMakeVersion
     // reconstruit les versions pour un ou plusieurs index à partir de l'image originale
     // efface tous les dossiers sauf celui de l'original (donc efface contenu de version inexistante)
-    protected function commonMakeVersion($indexes=null,?array $option=null):array
+    final protected function commonMakeVersion($indexes=null,?array $option=null):array
     {
         $return = [];
         $option = Base\Arr::plus(['com'=>false],$option);
@@ -425,8 +425,7 @@ abstract class Files extends Core\CellAlias
     // commonCopy
     // utilisé à deux endroits pour faire la copie d'un fichier
     // peut envoyer une exception si dirname n'est pas writable ou créable
-    // méthode protégé
-    protected function commonCopy(Main\File $file,string $path,string $dirname):bool
+    final protected function commonCopy(Main\File $file,string $path,string $dirname):bool
     {
         $return = false;
 
@@ -443,7 +442,7 @@ abstract class Files extends Core\CellAlias
     // commonProcess
     // lance le process de déplacement du média lié
     // efface le dossier de l'original avant de le recréer
-    protected function commonProcess(?int $index=null,Main\File $new):void
+    final protected function commonProcess(?int $index=null,Main\File $new):void
     {
         $this->col()->checkWritable();
         $dirname = $this->commonBasePath($index);
@@ -465,7 +464,7 @@ abstract class Files extends Core\CellAlias
 
     // export
     // retourne la valeur pour l'exportation de cellules media/medias
-    public function export(?array $option=null):array
+    final public function export(?array $option=null):array
     {
         return $this->exportCommon($this->all(false)->pair('pathToUri'),$option);
     }
@@ -473,7 +472,7 @@ abstract class Files extends Core\CellAlias
 
     // delete
     // sur effacement de la ligne
-    public function delete(?array $option=null):Orm\Cell
+    final public function delete(?array $option=null):Orm\Cell
     {
         $this->unlinks(null,$option);
 
@@ -484,7 +483,7 @@ abstract class Files extends Core\CellAlias
     // rootPath
     // retourne le chemin racine pour le storage de média, ceci est dans colonne
     // possible de désactiver le remplacement de shortcut
-    public function rootPath(bool $shortcut=true):string
+    final public function rootPath(bool $shortcut=true):string
     {
         return $this->col()->rootPath($shortcut);
     }
@@ -493,7 +492,7 @@ abstract class Files extends Core\CellAlias
     // tablePath
     // retourne le chemin racine pour le storage de média avec la table, ceci est dans colonne
     // possible de désactiver le remplacement de shortcut
-    public function tablePath(bool $shortcut=true):string
+    final public function tablePath(bool $shortcut=true):string
     {
         return $this->col()->tablePath($shortcut);
     }
@@ -501,7 +500,7 @@ abstract class Files extends Core\CellAlias
 
     // hasVersion
     // retourne vrai si la colonne media a des versions
-    public function hasVersion():bool
+    final public function hasVersion():bool
     {
         return $this->col()->hasVersion();
     }
@@ -509,7 +508,7 @@ abstract class Files extends Core\CellAlias
 
     // hasIndex
     // retourne vrai si le champ a plusieurs index
-    public function hasIndex():bool
+    final public function hasIndex():bool
     {
         return $this->col()->hasIndex();
     }
@@ -517,8 +516,7 @@ abstract class Files extends Core\CellAlias
 
     // copyOriginal
     // copie l'original au chemin target
-    // méthode protégé
-    protected function copyOriginal(string $dirname,Main\File $file):void
+    final protected function copyOriginal(string $dirname,Main\File $file):void
     {
         $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
         $basename = Base\Path::safeBasename($basename);
@@ -543,7 +541,7 @@ abstract class Files extends Core\CellAlias
     // possible de fournir un objet files en premier argument (utilisé pour les committed callback)
     // utilise unlinkWhileEmpty pour effacer le maximum de dossier vide dans la hiérarchie
     // retourne le nombre de fichiers effacés
-    public function unlinks(?Main\Files $all=null,?array $option=null):int
+    final public function unlinks(?Main\Files $all=null,?array $option=null):int
     {
         $return = 0;
         $option = Base\Arr::plus(['unsetWhileEmpty'=>true,'com'=>false],$option);
@@ -578,7 +576,7 @@ abstract class Files extends Core\CellAlias
 
     // unsetWhileEmptyAmount
     // retourne le nombre de niveaux de directoires à tenter de supprimer
-    public function unsetWhileEmptyAMount():int
+    final public function unsetWhileEmptyAMount():int
     {
         $return = 2;
         $return += ($this->hasVersion())? 1:0;

@@ -33,7 +33,7 @@ abstract class Route extends Routing\Route
     // retourne le type de la route
     // si pas de type, utilise celui de boot
     // peut envoyer une exception
-    public static function type():string
+    final public static function type():string
     {
         $return = static::$config['type'] ?? null;
 
@@ -59,7 +59,7 @@ abstract class Route extends Routing\Route
     // getBaseReplace
     // retourne le tableau de remplacement de base
     // utilisé par docOpen et docClose
-    public function getBaseReplace():array
+    final public function getBaseReplace():array
     {
         $return = [];
         $boot = static::boot();
@@ -91,7 +91,7 @@ abstract class Route extends Routing\Route
 
     // prepareTitle
     // prépare le titre après le onReplace
-    protected function prepareTitle($return,array $array):array
+    final protected function prepareTitle($return,array $array):array
     {
         $titleConfig = $this->getAttr('metaTitle') ?? [];
 
@@ -119,7 +119,7 @@ abstract class Route extends Routing\Route
     // context
     // retourne le tableau de contexte de la classe
     // possible d'ajouter des éléments au tableau via arr/plus
-    public function context(?array $option=null):array
+    final public function context(?array $option=null):array
     {
         return $this->cache(__METHOD__,function() use($option) {
             $return = [];
@@ -157,7 +157,7 @@ abstract class Route extends Routing\Route
     // getOtherMeta
     // retourne la row meta lié à la route
     // par défaut vérifie si la row a l'interface meta
-    public function getOtherMeta():?Main\Contract\Meta
+    final public function getOtherMeta():?Main\Contract\Meta
     {
         $return = null;
 
@@ -176,7 +176,7 @@ abstract class Route extends Routing\Route
     // host
     // retourne le host pour la route
     // utilise le type de la route et la méthode host dans boot
-    public static function host():?string
+    final public static function host():?string
     {
         $return = null;
         $type = static::type();
@@ -191,7 +191,7 @@ abstract class Route extends Routing\Route
     // schemeHost
     // retourne le schemeHost pour la route
     // utilise le type de la route et la méthode schemeHost dans boot
-    public static function schemeHost():?string
+    final public static function schemeHost():?string
     {
         $return = null;
         $type = static::type();
@@ -205,7 +205,7 @@ abstract class Route extends Routing\Route
 
     // routes
     // retourne l'objet routes de boot ou un nom de classe de route contenu dans l'objet
-    public static function routes(bool $active=false,$get=null)
+    final public static function routes(bool $active=false,$get=null)
     {
         $boot = static::boot();
         $type = static::type();
@@ -222,8 +222,7 @@ abstract class Route extends Routing\Route
     // reourne un objet table à partir du tableau keyValue utilisé dans segment
     // sinon, utilise la rowClass
     // peut retourner null
-    // méthode protégé
-    protected static function tableSegment(array &$keyValue):?Table
+    final protected static function tableSegment(array &$keyValue):?Table
     {
         $return = null;
         $table = $keyValue['table'] ?? null;
@@ -248,7 +247,7 @@ abstract class Route extends Routing\Route
 
     // rowClass
     // retourne la classe row lié à la route
-    public static function rowClass():?string
+    final public static function rowClass():?string
     {
         return static::$config['row'] ?? null;
     }
@@ -257,7 +256,7 @@ abstract class Route extends Routing\Route
     // tableFromRowClass
     // retourne l'objet table à partir de la classe row lié à la route
     // envoie une exception si pas de rowClass
-    public static function tableFromRowClass():Table
+    final public static function tableFromRowClass():Table
     {
         $return = null;
         $row = static::rowClass();
@@ -273,7 +272,7 @@ abstract class Route extends Routing\Route
 
     // routeBaseClasses
     // retourne les classes bases de routes (donc abstraite)
-    public static function routeBaseClasses():array
+    final public static function routeBaseClasses():array
     {
         return [self::class,Routing\Route::class];
     }

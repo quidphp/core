@@ -29,7 +29,7 @@ abstract class CliVersion extends Core\RouteAlias
 
     // cli
     // génère le output du cli
-    protected function cli(bool $cli)
+    final protected function cli(bool $cli)
     {
         $boot = static::boot();
         $art = static::asciiArt();
@@ -48,7 +48,7 @@ abstract class CliVersion extends Core\RouteAlias
 
     // asciiArt
     // retourne le ascii art pour le cli
-    public static function asciiArt():string
+    final public static function asciiArt():string
     {
 return '
  .d88888b.           d8b      888 8888888b.  888    888 8888888b.  

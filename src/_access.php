@@ -20,7 +20,7 @@ trait _access
 
     // session
     // retourne l'objet session
-    public static function session():Main\Session
+    final public static function session():Main\Session
     {
         return static::boot()->session();
     }
@@ -28,7 +28,7 @@ trait _access
 
     // sessionCom
     // retourne l'objet com de session
-    public static function sessionCom():Com
+    final public static function sessionCom():Com
     {
         return static::session()->com();
     }
@@ -36,7 +36,7 @@ trait _access
 
     // sessionUser
     // retourne l'objet user de session
-    public static function sessionUser():Row
+    final public static function sessionUser():Row
     {
         return static::session()->user();
     }
@@ -44,7 +44,7 @@ trait _access
 
     // lang
     // retourne l'objet lang
-    public static function lang():Main\Lang
+    final public static function lang():Main\Lang
     {
         return static::boot()->lang();
     }
@@ -52,7 +52,7 @@ trait _access
 
     // langText
     // retourne un élément de texte à partir de l'objet lang
-    public static function langText($key,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public static function langText($key,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return static::lang()->text($key,$replace,$lang,$option);
     }
@@ -60,7 +60,7 @@ trait _access
 
     // langPlural
     // retourne un élément de texte plural à partir de l'objet lang
-    public static function langPlural($value,$key,?array $replace=null,?array $plural=null,?string $lang=null,?array $option=null):?string
+    final public static function langPlural($value,$key,?array $replace=null,?array $plural=null,?string $lang=null,?array $option=null):?string
     {
         return static::lang()->plural($value,$key,$replace,$plural,$lang,$option);
     }
@@ -68,7 +68,7 @@ trait _access
 
     // services
     // retourne l'objet services
-    public static function services():Main\Services
+    final public static function services():Main\Services
     {
         return static::boot()->services();
     }
@@ -76,7 +76,7 @@ trait _access
 
     // service
     // retourne un objet service, envoie une exception si n'existe pas
-    public static function service(string $key):Main\Service
+    final public static function service(string $key):Main\Service
     {
         return static::boot()->checkService($key);
     }
@@ -84,7 +84,7 @@ trait _access
 
     // serviceMailer
     // retourne l'objet mailer à utiliser pour envoyer un courriel, ne peut pas retourner null
-    public static function serviceMailer($key=null):Main\ServiceMailer
+    final public static function serviceMailer($key=null):Main\ServiceMailer
     {
         return static::boot()->checkServiceMailer($key);
     }

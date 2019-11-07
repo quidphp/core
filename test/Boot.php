@@ -18,7 +18,7 @@ use Quid\Routing;
 class Boot extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $boot = $data['boot'];
@@ -280,7 +280,7 @@ class Boot extends Base\Test
         assert($boot->routes($type) === $boot->routes());
 
         // routesActive
-        assert($boot->routesActive($type)->isCount(4));
+        assert(!empty($boot->routesActive($type)->count()));
 
         // setRoles
 

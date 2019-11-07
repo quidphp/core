@@ -34,7 +34,7 @@ class Lang extends Core\RowAlias
 
     // getCacheIdentifier
     // retourne l'identificateur de cache
-    public static function getCacheIdentifier(?string $type=null):array
+    final public static function getCacheIdentifier(?string $type=null):array
     {
         $return = [];
         $boot = static::boot();
@@ -47,7 +47,7 @@ class Lang extends Core\RowAlias
 
     // onCommittedOrDeleted
     // sur insert, update ou delete efface la cache de tous les types
-    protected function onCommittedOrDeleted(array $option)
+    final protected function onCommittedOrDeleted(array $option)
     {
         $boot = static::boot();
 
@@ -64,7 +64,7 @@ class Lang extends Core\RowAlias
     // retourne un tableau de tous les contenus de langue pertinente
     // il faut fournir un code de langue et un type (index)
     // peut être mis en cache
-    public static function grabContent(string $value,int $type):array
+    final public static function grabContent(string $value,int $type):array
     {
         $boot = static::boot();
         return static::cacheFile(static::getCacheIdentifier(),function() use($value,$type) {
@@ -86,7 +86,7 @@ class Lang extends Core\RowAlias
 
     // import
     // permet d'importer du contenu dans la table lang
-    public static function import(array $array,string $lang,$types=null):array
+    final public static function import(array $array,string $lang,$types=null):array
     {
         $return = [];
         $table = static::tableFromFqcn();

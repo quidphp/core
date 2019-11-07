@@ -30,7 +30,7 @@ class Role extends Main\Role
 
     // isAdmin
     // retourne vrai si le role est admin
-    public function isAdmin():bool
+    final public function isAdmin():bool
     {
         return $this->is('admin');
     }
@@ -38,7 +38,7 @@ class Role extends Main\Role
 
     // isCli
     // retourne vrai si le role est cli
-    public function isCli():bool
+    final public function isCli():bool
     {
         return $this->is('cli');
     }
@@ -46,7 +46,7 @@ class Role extends Main\Role
 
     // validate
     // permet de faire une validation sur l'objet role
-    public function validate($value):bool
+    final public function validate($value):bool
     {
         $return = false;
         $permission = $this->permission();
@@ -90,7 +90,7 @@ class Role extends Main\Role
     // validateReplace
     // retourne un tableau de remplacement en utilisant roles dans boot
     // méthode protégé, utilisé par validate
-    protected function validateReplace():?array
+    final protected function validateReplace():?array
     {
         return $this->cache(__METHOD__,function() {
             $return = null;
@@ -109,7 +109,7 @@ class Role extends Main\Role
     // label
     // retourne le label du rôle
     // envoie une exception si lang/inst n'existe pas
-    public function label($pattern=null,?string $lang=null,?array $option=null):?string
+    final public function label($pattern=null,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $obj = static::lang();
@@ -127,7 +127,7 @@ class Role extends Main\Role
 
     // labelPermission
     // retourne le label du rôle avec la permission entre paranthèse
-    public function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string
+    final public function labelPermission($pattern=null,?string $lang=null,?array $option=null):?string
     {
         $return = static::label($pattern,$lang,$option);
 
@@ -144,7 +144,7 @@ class Role extends Main\Role
     // description
     // retourne la description du rôle
     // envoie une exception si lang/inst n'existe pas
-    public function description($pattern=null,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function description($pattern=null,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $obj = static::lang();

@@ -23,7 +23,7 @@ class CountCommit extends Core\ColAlias
 
     // onCommit
     // sur commit incrémente le count
-    public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):int
+    final protected function onCommit($value,array $row,?Core\Cell $cell=null,array $option):int
     {
         return (is_int($value))? ($value + 1):0;
     }

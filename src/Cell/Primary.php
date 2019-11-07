@@ -22,7 +22,7 @@ class Primary extends Core\CellAlias
     // set
     // set pour cell primaire n'est pas permis
     // aucune erreur envoyé si le id est le même qu'initial
-    public function set($value,?array $option=null):Orm\Cell
+    final public function set($value,?array $option=null):Orm\Cell
     {
         if(!(is_int($value) && !empty($this->value['initial']) && $this->value['initial'] === $value))
         static::throw();
@@ -35,7 +35,7 @@ class Primary extends Core\CellAlias
     // setInitial pour cell primaire est seulement permis si:
     // il n'y pas de valeur initial ou si la valeur donné est la valeur initial
     // onInit n'est pas appelé
-    public function setInitial($value):Orm\Cell
+    final public function setInitial($value):Orm\Cell
     {
         if(is_int($value) && (empty($this->value['initial']) || $this->value['initial'] === $value))
         {
@@ -52,7 +52,7 @@ class Primary extends Core\CellAlias
 
     // reset
     // reset pour cell primaire n'est pas permis
-    public function reset():Orm\Cell
+    final public function reset():Orm\Cell
     {
         static::throw();
 
@@ -62,7 +62,7 @@ class Primary extends Core\CellAlias
 
     // unset
     // unset pour cell primaire n'est pas permis
-    public function unset():Orm\Cell
+    final public function unset():Orm\Cell
     {
         static::throw();
 

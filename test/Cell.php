@@ -18,7 +18,7 @@ use Quid\Orm;
 class Cell extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $boot = Core\Boot::inst();
@@ -76,14 +76,14 @@ class Cell extends Base\Test
         assert($enum->relation() === null);
         assert($enum->set(2) === $enum);
         assert($enum->relation() === 'oken');
-        assert($enum->row()->updateChangedIncluded() === 1);
-        assert($enum->row()->updateChanged() === null);
-        assert($enum->row()->updateChangedIncluded() === 0);
+        assert($enum->row()->updateChanged() === 1);
+        assert($enum->row()->updateChanged(array('include'=>false)) === null);
+        assert($enum->row()->updateChanged() === 0);
         assert($enum->unset() === $enum);
         assert($enum->get() === null);
         assert($enum->relation() === null);
         $enum->set(3);
-        assert($enum->row()->updateChangedIncluded(['strict'=>true]) === 1);
+        assert($enum->row()->updateChanged(['strict'=>true]) === 1);
         assert($userAdd->relation() === 'admin (#2)');
         assert($userIds->relationKeyValue() === [2=>'admin (#2)',1=>'nobody (#1)']);
         assert($userAdd->relationRow() instanceof Core\Row);
@@ -132,7 +132,7 @@ class Cell extends Base\Test
         $tmp = Main\File::new(Base\File::prefix(null));
         $tmp2 = Main\File::new(Base\File::prefix(null));
         assert($media->set($tmp) === $media);
-        assert($media->row()->updateChangedIncluded() === 1);
+        assert($media->row()->updateChanged() === 1);
         assert(is_string($media->basename()));
         assert($media->file() instanceof Main\File\Txt);
         assert(!$media->file()->isMimeFamily('image'));
@@ -150,11 +150,11 @@ class Cell extends Base\Test
         if(!Base\Server::isWindows())
         {
             assert($media->set($tmp2) === $media);
-            assert($media->row()->updateChangedIncluded() === 1);
+            assert($media->row()->updateChanged() === 1);
         }
 
         assert($thumbnail->set($image) === $thumbnail);
-        assert($thumbnail->row()->updateChangedIncluded() === 1);
+        assert($thumbnail->row()->updateChanged() === 1);
         assert($medias instanceof Core\Cell\Medias);
         $files = Main\Files::newOverload();
         $files->sets([2=>$_file_,3=>$_file_]);
@@ -165,7 +165,7 @@ class Cell extends Base\Test
         assert(!empty($medias->basePath(2)));
         assert(!empty($medias->filePath(2)));
         assert(!$medias->fileExists(2));
-        assert($media->row()->updateChangedIncluded() === 1);
+        assert($media->row()->updateChanged() === 1);
         assert($medias->checkFileExists(2) === $medias);
         $file = $medias->file(2);
         assert($file instanceof Core\File\Php);
@@ -176,7 +176,7 @@ class Cell extends Base\Test
         $files = Main\Files::newOverload();
         $files->sets([2=>$image,4=>$image]);
         assert($thumbnails->set($files) === $thumbnails);
-        assert($thumbnails->row()->updateChangedIncluded() === 1);
+        assert($thumbnails->row()->updateChanged() === 1);
         assert($thumbnails->indexes()->isCount(2));
         assert($thumbnails->version(2)->isCount(1));
         assert($thumbnails->all()->isCount(4));

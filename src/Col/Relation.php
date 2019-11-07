@@ -32,7 +32,7 @@ abstract class Relation extends Core\ColAlias
 
     // onMakeAttr
     // gère onMakeAttr pour relation
-    protected function onMakeAttr(array $return):array
+    final protected function onMakeAttr(array $return):array
     {
         $table = $this->table();
 
@@ -45,7 +45,7 @@ abstract class Relation extends Core\ColAlias
 
     // inRelationClosure
     // méthode anonyme pour valider si la valeur est bien dans la relation
-    protected function inRelationClosure():\Closure
+    final protected function inRelationClosure():\Closure
     {
         return function(string $context,$value=null) {
             $return = null;
@@ -76,7 +76,7 @@ abstract class Relation extends Core\ColAlias
 
     // isRelationTable
     // retourne vrai si la relation est de type table
-    public function isRelationTable():bool
+    final public function isRelationTable():bool
     {
         return $this->relation()->isRelationTable();
     }
@@ -84,7 +84,7 @@ abstract class Relation extends Core\ColAlias
 
     // showDetailsMaxLength
     // n'affiche pas le détail sur le maxLength de la colonne
-    public function showDetailsMaxLength():bool
+    final public function showDetailsMaxLength():bool
     {
         return false;
     }
@@ -92,7 +92,7 @@ abstract class Relation extends Core\ColAlias
 
     // relationTable
     // retourne la table de relation si existante
-    public function relationTable():?Core\Table
+    final public function relationTable():?Core\Table
     {
         return $this->relation()->relationTable();
     }
@@ -100,7 +100,7 @@ abstract class Relation extends Core\ColAlias
 
     // hasFormLabelId
     // retourne vrai si l'élément de label doit avoir un id
-    public function hasFormLabelId(?array $attr=null,bool $complex=false):bool
+    final public function hasFormLabelId(?array $attr=null,bool $complex=false):bool
     {
         return ($complex === true && $this->tag($attr,$complex) === 'search')? true:parent::hasFormLabelId($attr,$complex);
     }
@@ -109,7 +109,7 @@ abstract class Relation extends Core\ColAlias
     // tag
     // retourne la tag à utiliser pour représenter la relation
     // override pour complex
-    public function tag(?array $attr=null,bool $complex=false):string
+    final public function tag(?array $attr=null,bool $complex=false):string
     {
         $return = null;
 

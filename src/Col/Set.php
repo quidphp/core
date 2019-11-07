@@ -29,7 +29,7 @@ class Set extends RelationAlias
 
     // isSet
     // retourne vrai comme la colonne est de type relation set
-    public function isSet():bool
+    final public function isSet():bool
     {
         return true;
     }

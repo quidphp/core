@@ -48,7 +48,7 @@ abstract class Files extends Core\ColAlias
     // onMakeAttr
     // gère onMakeAttr pour media et medias
     // note pour medias: si required est true, alors le nombre de media devient le validate/fileCount sauf si un fileCount est deja set
-    protected function onMakeAttr(array $return):array
+    final protected function onMakeAttr(array $return):array
     {
         $maxFilesize = $return['maxFilesize'] ?? null;
         if($maxFilesize !== false)
@@ -80,7 +80,7 @@ abstract class Files extends Core\ColAlias
 
     // allowfileUpload
     // retourne vrai si le chargement par fichier est permis
-    public function allowFileUpload():bool
+    final public function allowFileUpload():bool
     {
         return ($this->getAttr('fileUpload') === true)? true:false;
     }
@@ -88,7 +88,7 @@ abstract class Files extends Core\ColAlias
 
     // showDetailsMaxLength
     // n'affiche pas le détail sur le maxLength de la colonne
-    public function showDetailsMaxLength():bool
+    final public function showDetailsMaxLength():bool
     {
         return false;
     }
@@ -96,7 +96,7 @@ abstract class Files extends Core\ColAlias
 
     // extensionClosure
     // méthode anonyme pour valider si l'extension du ou des fichiers est conforme à extension
-    protected function extensionClosure():\Closure
+    final protected function extensionClosure():\Closure
     {
         return function(string $context,$value=null) {
             $return = null;
@@ -138,7 +138,7 @@ abstract class Files extends Core\ColAlias
 
     // maxFilesizeClosure
     // méthode anonyme pour valider si le ou les fichiers respectent max file size
-    protected function maxFilesizeClosure():\Closure
+    final protected function maxFilesizeClosure():\Closure
     {
         return function(string $context,$value=null) {
             $return = null;
@@ -181,7 +181,7 @@ abstract class Files extends Core\ColAlias
 
     // checkWritable
     // envoie une exception si quelque chose n'est pas écrivable dans le dossier
-    public function checkWritable():self
+    final public function checkWritable():self
     {
         $tablePath = $this->tablePath();
 
@@ -194,7 +194,7 @@ abstract class Files extends Core\ColAlias
 
     // getValidateKey
     // retourne une clé de validation dans les attributs
-    public function getValidateKey(string $key):string
+    final public function getValidateKey(string $key):string
     {
         return $this->getAttr(['validateKeys',$key]);
     }
@@ -211,7 +211,7 @@ abstract class Files extends Core\ColAlias
     // extension
     // retourne les extensions permises
     // si extension est vide et qu'il a y a une version, utilise defaultVersionExtension
-    public function extension():array
+    final public function extension():array
     {
         $return = $this->getAttr('extension');
 
@@ -227,7 +227,7 @@ abstract class Files extends Core\ColAlias
 
     // hasDistinctMaxFilesize
     // retourne vrai s'il y a une limite de taille de fichier distincte à la colonne, donc plus petite que php ini
-    public function hasDistinctMaxFilesize():bool
+    final public function hasDistinctMaxFilesize():bool
     {
         $return = false;
         $iniMaxFilesize = Base\Ini::uploadMaxFilesize(1);
@@ -242,7 +242,7 @@ abstract class Files extends Core\ColAlias
 
     // maxFilesize
     // retourne le max filesize pour la colonne
-    public function maxFilesize():int
+    final public function maxFilesize():int
     {
         return static::makeMaxFilesize($this->getAttr('maxFilesize'));
     }
@@ -250,7 +250,7 @@ abstract class Files extends Core\ColAlias
 
     // maxFilesizeFormat
     // retourne le max filesize formaté pour la colonne
-    public function maxFilesizeFormat():string
+    final public function maxFilesizeFormat():string
     {
         return Base\Number::sizeFormat($this->maxFilesize());
     }
@@ -259,7 +259,7 @@ abstract class Files extends Core\ColAlias
     // getAmount
     // retourne le nombre de fichiers dans le champ médias
     // peut envoyer une exception
-    public function getAmount():int
+    final public function getAmount():int
     {
         $return = $this->getAttr('media');
         $hasIndex = $this->hasIndex();
@@ -276,7 +276,7 @@ abstract class Files extends Core\ColAlias
 
     // indexRange
     // retourne le range des index
-    public function indexRange():array
+    final public function indexRange():array
     {
         return range(0,($this->getAmount() - 1));
     }
@@ -284,7 +284,7 @@ abstract class Files extends Core\ColAlias
 
     // onGet
     // logique onGet pour un champ files
-    public function onGet($return,array $option)
+    protected function onGet($return,array $option)
     {
         return ($return instanceof Core\Cell\Files)? parent::onGet($return,$option):null;
     }
@@ -292,7 +292,7 @@ abstract class Files extends Core\ColAlias
 
     // hasVersion
     // retourne vrai si l'image a des versions
-    public function hasVersion():bool
+    final public function hasVersion():bool
     {
         return Base\Arrs::is($this->getAttr('version'));
     }
@@ -301,7 +301,7 @@ abstract class Files extends Core\ColAlias
     // versions
     // retourne le tableau avec les versions à générer pour le fichier
     // envoie une exception si le tableau est mal formatté
-    public function versions():?array
+    final public function versions():?array
     {
         return $this->cache(__METHOD__,function() {
             $return = null;
@@ -338,7 +338,7 @@ abstract class Files extends Core\ColAlias
 
     // checkVersion
     // vérifie qu'une version est valide, envoie une exception sinon
-    public function checkVersion(array $value):bool
+    final public function checkVersion(array $value):bool
     {
         $return = true;
         $throw = [];
@@ -368,7 +368,7 @@ abstract class Files extends Core\ColAlias
 
     // version
     // permet de retourner la configuration pour une version
-    public function version($version=null,bool $exception=true):?array
+    final public function version($version=null,bool $exception=true):?array
     {
         $return = null;
         $versions = $this->versions();
@@ -385,7 +385,7 @@ abstract class Files extends Core\ColAlias
     // retourne la clé de version à utiliser
     // -1 retourne la clé la plus petite, alors que 1 retourne la clé la plus grande
     // différentes exceptions peuvent être envoyés si exception est true
-    public function versionKey($version=null,bool $exception=true)
+    final public function versionKey($version=null,bool $exception=true)
     {
         $return = null;
         $hasVersion = $this->hasVersion();
@@ -419,7 +419,7 @@ abstract class Files extends Core\ColAlias
 
     // details
     // retourne un tableau de détail en lien avec la colonne, utilise versionDetails
-    public function details(bool $lang=true):array
+    final public function details(bool $lang=true):array
     {
         $return = [];
 
@@ -435,7 +435,7 @@ abstract class Files extends Core\ColAlias
 
     // fileSizeDetails
     // retourne le string pour fileSize admis
-    public function fileSizeDetails(bool $lang=true)
+    final public function fileSizeDetails(bool $lang=true)
     {
         $return = null;
         $maxFilesizeKey = $this->getAttr('validateKeys/maxFilesize');
@@ -458,7 +458,7 @@ abstract class Files extends Core\ColAlias
 
     // extensionDetails
     // retourne la string des extensions admises
-    public function extensionDetails(bool $lang=true)
+    final public function extensionDetails(bool $lang=true)
     {
         $return = null;
         $extension = $this->extension();
@@ -482,7 +482,7 @@ abstract class Files extends Core\ColAlias
     // versionDetails
     // génère un tableau avec la description pour chaque version
     // utilise width, height, quality, action et key
-    public function versionDetails():?array
+    final public function versionDetails():?array
     {
         $return = null;
         $version = $this->versions();
@@ -506,7 +506,7 @@ abstract class Files extends Core\ColAlias
 
     // rootPath
     // retourne le chemin root pour la colonne, envoie une exception si vide
-    public function rootPath(bool $shortcut=true):string
+    final public function rootPath(bool $shortcut=true):string
     {
         $return = null;
         $path = $this->getAttr('path');
@@ -528,7 +528,7 @@ abstract class Files extends Core\ColAlias
 
     // tablePath
     // retourne le chemin root avec la table
-    public function tablePath(bool $shortcut=true):string
+    final public function tablePath(bool $shortcut=true):string
     {
         $return = $this->rootPath($shortcut);
         $return = Base\Path::append($return,$this->tableName());
@@ -540,7 +540,7 @@ abstract class Files extends Core\ColAlias
     // checkFilesIndex
     // vérifier que les index du fichier files sont bien valides
     // l'exception est attrapable
-    public function checkFilesIndex(Main\Files $files):self
+    final public function checkFilesIndex(Main\Files $files):self
     {
         $amount = $this->getAmount();
 
@@ -556,7 +556,7 @@ abstract class Files extends Core\ColAlias
 
     // defaultVersion
     // retourne les config par défaut pour une version
-    public function defaultVersion():array
+    final public function defaultVersion():array
     {
         return $this->getAttr('defaultVersion');
     }
@@ -564,7 +564,7 @@ abstract class Files extends Core\ColAlias
 
     // defaultVersionExtension
     // retourne l'extension par défaut si non spécifié et qu'il y a une version
-    public function defaultVersionExtension():array
+    final public function defaultVersionExtension():array
     {
         return $this->getAttr('defaultVersionExtension');
     }
@@ -572,7 +572,7 @@ abstract class Files extends Core\ColAlias
 
     // defaultConvertExtension
     // retourne l'extension de conversion par défaut pour une version
-    public function defaultConvertExtension():string
+    final public function defaultConvertExtension():string
     {
         return current($this->defaultVersionExtension());
     }
@@ -580,7 +580,7 @@ abstract class Files extends Core\ColAlias
 
     // versionDetail
     // génère la string de détail à partir d'un tableau de version
-    public static function versionDetail(string $key,array $value):string
+    final public static function versionDetail(string $key,array $value):string
     {
         $return = '';
         $name = ucfirst($key);
@@ -633,7 +633,7 @@ abstract class Files extends Core\ColAlias
 
     // makeMaxFilesize
     // méthode statique pour retourner la valeur maxFilesize
-    public static function makeMaxFilesize($value):int
+    final public static function makeMaxFilesize($value):int
     {
         $return = null;
 

@@ -30,7 +30,7 @@ class Medias extends FilesAlias
 
     // hasIndex
     // retourne vrai comme medias supporte multiple indexes
-    public function hasIndex():bool
+    final public function hasIndex():bool
     {
         return true;
     }
@@ -38,7 +38,7 @@ class Medias extends FilesAlias
 
     // preValidatePrepare
     // prépare le tableau de chargement avant la prévalidation
-    public function preValidatePrepare($values)
+    final public function preValidatePrepare($values)
     {
         $return = null;
 
@@ -78,7 +78,7 @@ class Medias extends FilesAlias
     // onSet
     // logique onSet pour un champ médias
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
-    public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = parent::onSet($value,$row,$cell,$option);
         $indexes = null;
@@ -178,7 +178,7 @@ class Medias extends FilesAlias
 
     // onSetFileUpload
     // gère le onSet si c'est upload fichier (array dans $_FILES)
-    protected function onSetFileUpload(array $array,?Main\Files $indexes):?Main\Files
+    final protected function onSetFileUpload(array $array,?Main\Files $indexes):?Main\Files
     {
         $return = null;
         $value = null;

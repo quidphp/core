@@ -43,7 +43,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // isDeleteable
     // une ligne de session peut toujours être effacé
-    public function isDeleteable(?array $option=null):bool
+    final public function isDeleteable(?array $option=null):bool
     {
         return true;
     }
@@ -51,7 +51,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionSid
     // retourne la clé de session
-    public function sessionSid():string
+    final public function sessionSid():string
     {
         return $this->cell('sid')->value() ?? '';
     }
@@ -59,7 +59,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionData
     // retourne les données d'une ligne session
-    public function sessionData():string
+    final public function sessionData():string
     {
         return $this->cell('data')->value() ?? '';
     }
@@ -67,7 +67,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionWrite
     // écrit de nouvelles data dans la ligne de session
-    public function sessionWrite(string $data):bool
+    final public function sessionWrite(string $data):bool
     {
         $return = false;
         $db = $this->db();
@@ -86,7 +86,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionUpdateTimestamp
     // update le timestamp de la ligne, retourne true même si rien n'a changé
-    public function sessionUpdateTimestamp():bool
+    final public function sessionUpdateTimestamp():bool
     {
         $return = false;
         $db = $this->db();
@@ -104,7 +104,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionDestroy
     // détruit la ligne de session
-    public function sessionDestroy():bool
+    final public function sessionDestroy():bool
     {
         $return = false;
         $db = $this->db();
@@ -122,7 +122,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionExists
     // retourne vrai si le sid exists pour le nom donné
-    public static function sessionExists(string $path,string $name,string $sid):bool
+    final public static function sessionExists(string $path,string $name,string $sid):bool
     {
         $return = false;
         $table = static::tableFromFqcn();
@@ -140,7 +140,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionCreate
     // crée une nouvelle session avec le nom et sid donné
-    public static function sessionCreate(string $path,string $name,string $sid):?Main\Contract\Session
+    final public static function sessionCreate(string $path,string $name,string $sid):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -167,7 +167,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     // sessionRead
     // lit une session à partir d'un nom et d'un sid
     // retourne une classe qui implémente Contract\Session
-    public static function sessionRead(string $path,string $name,string $sid):?Main\Contract\Session
+    final public static function sessionRead(string $path,string $name,string $sid):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -184,7 +184,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionGarbageCollect
     // lance le processus de garbageCollect pour le nom de session donné
-    public static function sessionGarbageCollect(string $path,string $name,int $lifetime,$not=null):int
+    final public static function sessionGarbageCollect(string $path,string $name,int $lifetime,$not=null):int
     {
         $return = 0;
         $table = static::tableFromFqcn();
@@ -214,7 +214,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionMostRecent
     // retourne la session la plus récente pour l'utilisateur donné
-    public static function sessionMostRecent(string $name,User $user,?self $not=null,?array $context=null):?Main\Contract\Session
+    final public static function sessionMostRecent(string $name,User $user,?self $not=null,?array $context=null):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -243,7 +243,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionDestroyOther
     // efface toutes les sessions sauf la courante
-    public static function sessionDestroyOther(string $name,User $user,?self $not=null,?array $context=null):?int
+    final public static function sessionDestroyOther(string $name,User $user,?self $not=null,?array $context=null):?int
     {
         $return = null;
         $table = static::tableFromFqcn();

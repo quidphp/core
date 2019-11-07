@@ -27,7 +27,7 @@ class Error extends Core\ColAlias
 
     // onGet
     // sur onGet recrée l'objet error si c'est du json
-    public function onGet($return,array $option)
+    protected function onGet($return,array $option)
     {
         if(!$return instanceof Core\Error)
         {

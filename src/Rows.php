@@ -25,7 +25,7 @@ class Rows extends Orm\Rows
     // tableFromFqcn
     // retourne l'objet table à partir du fqcn de la classe
     // envoie une erreur si la table n'existe pas
-    public static function tableFromFqcn():Table
+    final public static function tableFromFqcn():Table
     {
         $return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
 

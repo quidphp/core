@@ -20,7 +20,7 @@ class Active extends YesAlias
 
     // onDuplicate
     // callback sur duplication, retourne null
-    public function onDuplicate($return,array $row,Orm\Cell $cell,array $option)
+    final protected function onDuplicate($return,array $row,Orm\Cell $cell,array $option)
     {
         return;
     }

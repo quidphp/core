@@ -20,7 +20,7 @@ class Integer extends Core\CellAlias
 
     // increment
     // increment la valeur de la cell
-    public function increment():self
+    final public function increment():self
     {
         $value = $this->value();
         $value = (is_int($value))? ($value + 1):1;
@@ -32,7 +32,7 @@ class Integer extends Core\CellAlias
 
     // decrement
     // decrement la valeur de la cell
-    public function decrement():self
+    final public function decrement():self
     {
         $value = $this->value();
         $value = (is_int($value) && $value > 1)? ($value - 1):0;

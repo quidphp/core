@@ -28,7 +28,7 @@ class Col extends Orm\Col
 
     // generalCurrentLang
     // retourne vrai si le nom de la colonne a un pattern de la langue courante
-    public static function generalCurrentLang(self $col):bool
+    final public static function generalCurrentLang(self $col):bool
     {
         $return = false;
         $boot = static::boot();

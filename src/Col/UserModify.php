@@ -26,7 +26,7 @@ class UserModify extends EnumAlias
 
     // onUpdate
     // donne le user courant lors d'un update
-    public function onUpdate($cell,array $option)
+    final protected function onUpdate($cell,array $option)
     {
         $return = 1;
         $boot = static::bootReady();

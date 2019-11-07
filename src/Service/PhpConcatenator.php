@@ -34,7 +34,7 @@ class PhpConcatenator extends Main\Service
 
     // construct
     // construit le service et et lie le concatenator
-    public function __construct(string $key,?array $attr=null)
+    final public function __construct(string $key,?array $attr=null)
     {
         parent::__construct($key,$attr);
         $this->setAttr('concatenator',$this->concatenatorOption());
@@ -46,7 +46,7 @@ class PhpConcatenator extends Main\Service
 
     // getConcatenator
     // retourne l'objet concatenator
-    public function getConcatenator():Main\Concatenator
+    final public function getConcatenator():Main\Concatenator
     {
         return $this->concatenator;
     }
@@ -54,7 +54,7 @@ class PhpConcatenator extends Main\Service
 
     // trigger
     // trigger et retourne la string php concatene
-    public function trigger():string
+    final public function trigger():string
     {
         $return = null;
         $concatenator = $this->getConcatenator();
@@ -83,7 +83,7 @@ class PhpConcatenator extends Main\Service
     // triggerWrite
     // méthode qui permet de concatener du php en un fichier
     // retourne l'objet fichier
-    public function triggerWrite(Core\File\Php $return):Core\File\Php
+    final public function triggerWrite(Core\File\Php $return):Core\File\Php
     {
         return $return->overwrite($this->trigger());
     }
@@ -91,7 +91,7 @@ class PhpConcatenator extends Main\Service
 
     // entryOption
     // retourne le tableau d'option pour le namespace
-    protected function entryOption(array $return):array
+    final protected function entryOption(array $return):array
     {
         $return = Base\Arrs::replace($this->getAttr('concatenator/entry'),$return);
         $closure = $return['closure'] ?? false;
@@ -109,7 +109,7 @@ class PhpConcatenator extends Main\Service
 
     // concatenatorOption
     // retourne les options pour le concatenator
-    public function concatenatorOption():array
+    final public function concatenatorOption():array
     {
         $return = [];
         $strictType = $this->getAttr('strictType');
@@ -163,7 +163,7 @@ class PhpConcatenator extends Main\Service
 
     // namespaceAccoladeClosure
     // retourne la closure, ceci transforme les namespace dans les classes php en namespace avec accolade
-    public static function namespaceAccoladeClosure():\Closure
+    final public static function namespaceAccoladeClosure():\Closure
     {
         return function(string $return) {
             $lines = Base\Str::lines($return);
@@ -184,7 +184,7 @@ class PhpConcatenator extends Main\Service
     // namespaceAccoladeAutoloadClosure
     // comme namespaceAccoladeClosure mais en plus la classe est storé dans main/autoload setClosure
     // possible d'init la classe si une initMethod est fourni en argument
-    public static function namespaceAccoladeAutoloadClosure(?string $initMethod=null):\Closure
+    final public static function namespaceAccoladeAutoloadClosure(?string $initMethod=null):\Closure
     {
         return function(string $return) use($initMethod) {
             $namespaceAccoladeClosure = static::namespaceAccoladeClosure();

@@ -38,7 +38,7 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
 
     // newData
     // crée le tableau d'insertion
-    public static function newData(bool $status,array $json):array
+    final public static function newData(bool $status,array $json):array
     {
         return ['status'=>(int) $status,'json'=>$json];
     }

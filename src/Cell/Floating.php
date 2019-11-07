@@ -22,7 +22,7 @@ class Floating extends Core\CellAlias
     // pair
     // retourne la date formatté
     // sinon renvoie à parent
-    public function pair($value=null,...$args)
+    final public function pair($value=null,...$args)
     {
         $return = $this;
 
@@ -38,7 +38,7 @@ class Floating extends Core\CellAlias
 
     // moneyFormat
     // format le nombre flottant en argent
-    public function moneyFormat(?string $lang=null,?array $option=null):?string
+    final public function moneyFormat(?string $lang=null,?array $option=null):?string
     {
         return Base\Number::moneyFormat($this->value(),$lang,$option);
     }

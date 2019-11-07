@@ -28,7 +28,7 @@ class Media extends FilesAlias
 
     // preValidatePrepare
     // prépare le tableau de chargement avant la prévalidation
-    public function preValidatePrepare($value)
+    final public function preValidatePrepare($value)
     {
         $return = null;
 
@@ -57,7 +57,7 @@ class Media extends FilesAlias
     // onSet
     // logique onSet pour un champ média
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
-    public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = null;
         $value = parent::onSet($value,$row,$cell,$option);
@@ -119,7 +119,7 @@ class Media extends FilesAlias
 
     // onSetFileUpload
     // gère le onSet si c'est upload fichier (array dans $_FILES)
-    protected function onSetFileUpload(array $array):array
+    final protected function onSetFileUpload(array $array):array
     {
         $return = [];
         $r = null;

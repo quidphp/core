@@ -26,7 +26,7 @@ class Enum extends RelationAlias
 
     // isEnum
     // retourne vrai comme la colonne est de type relation enum
-    public function isEnum():bool
+    final public function isEnum():bool
     {
         return true;
     }

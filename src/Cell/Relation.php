@@ -22,7 +22,7 @@ abstract class Relation extends Core\CellAlias
     // pair
     // si value est true, la relation, relationRow ou relationRows si c'est une relation de table
     // sinon renvoie à parent
-    public function pair($value=null,...$args)
+    final public function pair($value=null,...$args)
     {
         $return = $this;
 
@@ -44,7 +44,7 @@ abstract class Relation extends Core\CellAlias
 
     // export
     // retourne la valeur pour l'exportation de cellules relation
-    public function export(?array $option=null):array
+    final public function export(?array $option=null):array
     {
         $return = [];
         $value = $this->relationKeyValue($option);
@@ -61,7 +61,7 @@ abstract class Relation extends Core\CellAlias
     // colRelation
     // retourne l'objet relation de la colonne, si existant
     // envoie une exception sinon
-    public function colRelation():Orm\ColRelation
+    final public function colRelation():Orm\ColRelation
     {
         return $this->col()->relation();
     }
@@ -69,7 +69,7 @@ abstract class Relation extends Core\CellAlias
 
     // relationKeyValue
     // retourne la valeur de la relation sous forme d'un tableau key -> value, peu importe si c'est enum ou set
-    public function relationKeyValue(?array $option=null):?array
+    final public function relationKeyValue(?array $option=null):?array
     {
         return $this->colRelation()->getKeyValue($this,false,true,$option);
     }
@@ -77,7 +77,7 @@ abstract class Relation extends Core\CellAlias
 
     // isRelationTable
     // retourne vrai si la colonne est une relation avec une autre table
-    public function isRelationTable():bool
+    final public function isRelationTable():bool
     {
         return $this->colRelation()->isRelationTable();
     }
@@ -85,7 +85,7 @@ abstract class Relation extends Core\CellAlias
 
     // relationTable
     // retourne la table de la relation, si existante
-    public function relationTable():?Core\Table
+    final public function relationTable():?Core\Table
     {
         return $this->colRelation()->relationTable();
     }

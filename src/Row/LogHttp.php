@@ -55,7 +55,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     // shouldLog
     // retourne vrai s'il faut logger la route à partir du chemin
     // voir static config block
-    public static function shouldLog(Main\Request $request):bool
+    final public static function shouldLog(Main\Request $request):bool
     {
         return (Base\Arr::hasValueStart($request->pathStripStart(),static::$config['block'] ?? [],false))? false:true;
     }
@@ -63,7 +63,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
     // getTypeCode
     // retourne le code à partir du type
-    public static function getTypeCode($type):?int
+    final public static function getTypeCode($type):?int
     {
         return (in_array($type,static::$config['type'],true))? array_search($type,static::$config['type'],true):null;
     }
@@ -71,7 +71,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
     // newData
     // crée le tableau d'insertion
-    public static function newData($type,$json=null):?array
+    final public static function newData($type,$json=null):?array
     {
         $return = null;
         $type = static::getTypeCode($type);
@@ -86,7 +86,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     // onCloseDown
     // ajoute un log au closeDown si le code de réponse n'est pas positif (pas 200, 301 ou 302)
     // et si la requête doit être loggé dans shouldLOg
-    public static function onCloseDown():void
+    final public static function onCloseDown():void
     {
         Base\Response::onCloseDown(function() {
 

@@ -38,7 +38,7 @@ class Date extends Core\ColAlias
     // callback lors du set des attr
     // le format spécifié dans config est utilisé comme argument pour les callbacks
     // peut envoyer une exception si le format de date est invalide
-    protected function onMakeAttr(array $return):array
+    final protected function onMakeAttr(array $return):array
     {
         $format = static::makeDateFormat($return['date'] ?? true);
 
@@ -65,7 +65,7 @@ class Date extends Core\ColAlias
 
     // showDetailsMaxLength
     // n'affiche pas le détail sur le maxLength de la colonne
-    public function showDetailsMaxLength():bool
+    final public function showDetailsMaxLength():bool
     {
         return false;
     }
@@ -73,7 +73,7 @@ class Date extends Core\ColAlias
 
     // format
     // format une valeur à partir du format de date de la colonne
-    public function format($value)
+    final public function format($value)
     {
         return Base\Date::onSet($value,$this->date());
     }
@@ -82,7 +82,7 @@ class Date extends Core\ColAlias
     // checkFormatCalendar
     // envoie une exception si le format n'est pas compatible avec un calendrier
     // envoie aussi une exception ai aucun placeholder pour le format
-    public function checkFormatCalendar():self
+    final public function checkFormatCalendar():self
     {
         $format = $this->date();
 
@@ -99,7 +99,7 @@ class Date extends Core\ColAlias
 
     // dateMin
     // retourne la date la plus petite de la colonne dans la table
-    public function dateMin():?int
+    final public function dateMin():?int
     {
         return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'asc'],1);
     }
@@ -107,7 +107,7 @@ class Date extends Core\ColAlias
 
     // dateMax
     // retourne la date la plus grande de la colonne dans la table
-    public function dateMax():?int
+    final public function dateMax():?int
     {
         return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'desc'],1);
     }
@@ -115,7 +115,7 @@ class Date extends Core\ColAlias
 
     // dateDaysDiff
     // retourne la différence de jour entre la date minimum et maximum
-    public function dateDaysDiff():?int
+    final public function dateDaysDiff():?int
     {
         $return = null;
         $min = $this->dateMin();
@@ -130,7 +130,7 @@ class Date extends Core\ColAlias
 
     // dateDaysDiffFilterMethod
     // retourne la méthode de filtre à utiliser selon la différence de jours
-    public function dateDaysDiffFilterMethod():string
+    final public function dateDaysDiffFilterMethod():string
     {
         $return = null;
         $diff = $this->dateDaysDiff() ?? 0;
@@ -154,7 +154,7 @@ class Date extends Core\ColAlias
 
     // date
     // retourne le format de la date si disponible
-    public function date(bool $make=false)
+    final public function date(bool $make=false)
     {
         $return = $this->getAttr('date');
 
@@ -167,7 +167,7 @@ class Date extends Core\ColAlias
 
     // daysMonthsIn
     // méthode protégé utilisé par daysIn et monthsIn
-    protected function daysMonthsIn(string $key):array
+    final protected function daysMonthsIn(string $key):array
     {
         $return = [];
         $filterFormat = $this->getAttr('filterFormat');
@@ -196,7 +196,7 @@ class Date extends Core\ColAlias
 
     // daysIn
     // retourne un tableau de tous les jours compris entre la date minimale et maximale de la colonne
-    public function daysIn():array
+    final public function daysIn():array
     {
         return $this->daysMonthsIn('day');
     }
@@ -204,7 +204,7 @@ class Date extends Core\ColAlias
 
     // monthsIn
     // retourne un tableau de tous les mois compris entre la date minimale et maximale de la colonne
-    public function monthsIn():array
+    final public function monthsIn():array
     {
         return $this->daysMonthsIn('month');
     }
@@ -212,7 +212,7 @@ class Date extends Core\ColAlias
 
     // yearsIn
     // retourne un tableau de toutes les années compris entre la date minimale et maximale de la colonne
-    public function yearsIn():array
+    final public function yearsIn():array
     {
         return $this->daysMonthsIn('year');
     }
@@ -221,7 +221,7 @@ class Date extends Core\ColAlias
     // filterMethodDateType
     // retourne le type de date à partir de la méthode filter
     // envoie une exception si null
-    public function filterMethodDateType():string
+    final public function filterMethodDateType():string
     {
         $return = null;
         $filterMethod = $this->filterMethod();
@@ -249,7 +249,7 @@ class Date extends Core\ColAlias
     // dateRelation
     // retourne le tableau de la relation de date
     // se base sur le filterMethod de la colonne
-    public function dateRelation():array
+    final public function dateRelation():array
     {
         return $this->daysMonthsIn($this->filterMethodDateType());
     }
@@ -257,7 +257,7 @@ class Date extends Core\ColAlias
 
     // allowedFormats
     // retourne les formats de date permis
-    public function allowedFormats():array
+    final public function allowedFormats():array
     {
         return $this->getAttr('formats');
     }
@@ -265,7 +265,7 @@ class Date extends Core\ColAlias
 
     // makeDateFormat
     // retourne le format de date en string, gère la valeur est un true (donc par défaut)
-    public static function makeDateFormat($value):?string
+    final public static function makeDateFormat($value):?string
     {
         $return = null;
 
@@ -284,7 +284,7 @@ class Date extends Core\ColAlias
 
     // autoFilterMethod
     // génère une méthode de filtre automatiquement, selon la différence de jour entre la date minimale et maximale
-    public static function autoFilterMethod(self $col):string
+    final public static function autoFilterMethod(self $col):string
     {
         return $col->cache(__METHOD__,function() use($col) {
             return $col->dateDaysDiffFilterMethod();

@@ -36,7 +36,7 @@ class UserPassword extends Core\ColAlias
     // onMakeAttr
     // callback lors du set des attr
     // permet de charger le niveau de sécurité du mot de passe
-    protected function onMakeAttr(array $return):array
+    final protected function onMakeAttr(array $return):array
     {
         $return['pattern'] = $return['pattern'] ?? null;
         $return['validate'] = $return['validate'] ?? [];
@@ -65,7 +65,7 @@ class UserPassword extends Core\ColAlias
 
     // preValidatePrepare
     // prépare la valeur en provenance de post avant la prévalidation
-    public function preValidatePrepare($value)
+    final public function preValidatePrepare($value)
     {
         $return = null;
 
@@ -84,7 +84,7 @@ class UserPassword extends Core\ColAlias
     // onSet
     // logique onSet pour le champ password
     // possible de fournir un mot de passe via un array ou une string
-    public function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
     {
         $return = null;
 
@@ -126,7 +126,7 @@ class UserPassword extends Core\ColAlias
     // onCommitted
     // lors d'un changement de mot de passe réussi que ce soit sur insertion ou mise à jour
     // utilisé pour ajouter de la communication et un log
-    public function onCommitted(Orm\Cell $cell,bool $insert=false,array $option)
+    final protected function onCommitted(Orm\Cell $cell,bool $insert=false,array $option)
     {
         $pos = 'changePassword/success';
 
@@ -147,7 +147,7 @@ class UserPassword extends Core\ColAlias
 
     // inputs
     // retourne les inputs à utiliser pour le formulaire
-    public function inputs(?array $attr=null,bool $required=false):array
+    final public function inputs(?array $attr=null,bool $required=false):array
     {
         $return = [];
         $lang = $this->db()->lang();
@@ -171,7 +171,7 @@ class UserPassword extends Core\ColAlias
 
     // getSecurity
     // retourne le niveau de sécurité du mot de passe
-    public function getSecurity():?string
+    final public function getSecurity():?string
     {
         return $this->getAttr('security');
     }

@@ -45,7 +45,7 @@ abstract class Error extends Core\RouteAlias
     // sur fallback de la route error, il y a un problème
     // ça indique que même la page erreur ne peut pas s'afficher
     // ne trigger pas l'erreur car le log a probablement déjà été fait dans route/start
-    protected function onFallback($context=null)
+    final protected function onFallback($context=null)
     {
         if($context instanceof \Exception)
         $context->echoOutput();
@@ -56,7 +56,7 @@ abstract class Error extends Core\RouteAlias
 
     // showOutputHtml
     // retourne vrai s'il faut générer le output
-    protected function showOutputHtml():bool
+    final protected function showOutputHtml():bool
     {
         return ($this->request()->hasExtension() || Base\Server::isCli())? false:true;
     }
@@ -64,7 +64,7 @@ abstract class Error extends Core\RouteAlias
 
     // output
     // génère le output, il faut fournir un nom de méthode à appeler si c'est outputHtml
-    protected function output(string $method):string
+    final protected function output(string $method):string
     {
         $r = '';
 
@@ -80,7 +80,7 @@ abstract class Error extends Core\RouteAlias
 
     // outputHtml
     // génère le output html de la route error
-    protected function outputHtml():string
+    final protected function outputHtml():string
     {
         $r = '';
         $route = $this->getAttr('route');
@@ -110,7 +110,7 @@ abstract class Error extends Core\RouteAlias
 
     // outputCli
     // génère le output cli de la route error
-    protected function outputCli():string
+    final protected function outputCli():string
     {
         $return = '';
         $boot = static::boot();
@@ -138,7 +138,7 @@ abstract class Error extends Core\RouteAlias
 
     // makeTitle
     // génère le titre pour la route
-    protected function makeTitle(?string $lang=null):string
+    final protected function makeTitle(?string $lang=null):string
     {
         return static::label().' '.Base\Response::code();
     }
@@ -146,7 +146,7 @@ abstract class Error extends Core\RouteAlias
 
     // makeSubTitle
     // génère le sous-titre pour la route
-    protected function makeSubTitle(?string $lang=null):string
+    final protected function makeSubTitle(?string $lang=null):string
     {
         return static::lang()->headerResponseStatus(Base\Response::code());
     }
@@ -155,7 +155,7 @@ abstract class Error extends Core\RouteAlias
     // makeContent
     // génère le contenu pour l'explication du code erreur http
     // peut retourner null
-    protected function makeContent():?string
+    final protected function makeContent():?string
     {
         $return = null;
         $code = Base\Response::code();

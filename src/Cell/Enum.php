@@ -20,7 +20,7 @@ class Enum extends RelationAlias
 
     // cast
     // pour cast de cellule relation retourne get plutôt que value
-    public function _cast()
+    final public function _cast()
     {
         return $this->get();
     }
@@ -29,7 +29,7 @@ class Enum extends RelationAlias
     // relation
     // gère le retour d'une valeur de relation pour enum
     // cache est true
-    public function relation(?array $option=null)
+    final public function relation(?array $option=null)
     {
         return $this->colRelation()->get($this,false,true,$option);
     }
@@ -38,7 +38,7 @@ class Enum extends RelationAlias
     // relationRow
     // retourne la valeur de la relation sous forme de row, peut retourner null
     // envoie une exception si le type de relation n'est pas table
-    public function relationRow(?array $option=null):?Core\Row
+    final public function relationRow(?array $option=null):?Core\Row
     {
         return $this->colRelation()->getRow($this,$option);
     }

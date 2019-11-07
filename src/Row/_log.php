@@ -21,7 +21,7 @@ trait _log
 
     // log
     // crée une nouvelle entrée du log maintenant
-    public static function log(...$values):?Main\Contract\Log
+    final public static function log(...$values):?Main\Contract\Log
     {
         return static::new(...$values);
     }
@@ -30,7 +30,7 @@ trait _log
     // logTrim
     // trim la table de log pour la valeur paramétré dans static config
     // le maximum de vérification sont faites pour ne pas qu'il y ait d'erreurs de générer dans la méthode
-    public static function logTrim():?int
+    final public static function logTrim():?int
     {
         $return = null;
 

@@ -39,7 +39,7 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 
     // newData
     // crée le tableau d'insertion
-    public static function newData(Core\Error $error):array
+    final public static function newData(Core\Error $error):array
     {
         $return = [];
         $return['type'] = $error->getCode();

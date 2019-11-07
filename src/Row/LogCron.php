@@ -38,7 +38,7 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
 
     // newData
     // crée le tableau d'insertion
-    public static function newData(Core\Route $route,array $data):array
+    final public static function newData(Core\Route $route,array $data):array
     {
         $return = [];
         $return['route'] = $route::classFqcn();

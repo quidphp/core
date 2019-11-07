@@ -22,7 +22,7 @@ class Php extends Main\File\Php
     // concatenateMany
     // permet de concatener du php à partir de namespace
     // ceci ne peut pas être fait si le autoload est en mode preload
-    public static function concatenateMany(array $array):Main\Files
+    final public static function concatenateMany(array $array):Main\Files
     {
         $return = Main\Files::newOverload();
 

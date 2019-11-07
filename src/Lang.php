@@ -57,8 +57,7 @@ class Lang extends Main\Lang
 
     // onChange
     // ajout le shortcut dans orm/syntax
-    // méthode protégé
-    protected function onChange():void
+    final protected function onChange():void
     {
         parent::onChange();
 
@@ -71,7 +70,7 @@ class Lang extends Main\Lang
 
     // existsRelation
     // retourne vrai si un élément de relation existe et est texte
-    public function existsRelation($value=null,?string $lang=null):bool
+    final public function existsRelation($value=null,?string $lang=null):bool
     {
         $return = $this->existsText($this->getPath('relation',$value),$lang);
 
@@ -84,7 +83,7 @@ class Lang extends Main\Lang
 
     // existsCom
     // retourne vrai si un élément de com existe pour le type et la valeur spécifié
-    public function existsCom(string $type,$path,?string $lang=null):bool
+    final public function existsCom(string $type,$path,?string $lang=null):bool
     {
         return $this->existsText($this->getPath('com',[$type,$path]),$lang);
     }
@@ -92,7 +91,7 @@ class Lang extends Main\Lang
 
     // direction
     // retourne le texte pour une direction, asc ou desc
-    public function direction(string $key,$lang=null,?array $option=null):?string
+    final public function direction(string $key,$lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('direction',strtolower($key),null,$lang,$option));
     }
@@ -100,7 +99,7 @@ class Lang extends Main\Lang
 
     // bootLabel
     // retourne le label du boot courant
-    public function bootLabel(?string $lang=null,?array $option=null):?string
+    final public function bootLabel(?string $lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('bootLabel'),null,$lang,$option);
     }
@@ -108,7 +107,7 @@ class Lang extends Main\Lang
 
     // bootDescription
     // retourne la description du boot courant
-    public function bootDescription(?string $lang=null,?array $option=null):?string
+    final public function bootDescription(?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('bootDescription'),null,$lang,$option);
     }
@@ -116,7 +115,7 @@ class Lang extends Main\Lang
 
     // typeLabel
     // retourne le label du type de context
-    public function typeLabel(string $type,?string $lang=null,?array $option=null):?string
+    final public function typeLabel(string $type,?string $lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('typeLabel',$type),null,$lang,$option);
     }
@@ -124,7 +123,7 @@ class Lang extends Main\Lang
 
     // envLabel
     // retourne le label de l'env de context
-    public function envLabel(string $env,?string $lang=null,?array $option=null):?string
+    final public function envLabel(string $env,?string $lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('envLabel',$env),null,$lang,$option);
     }
@@ -132,7 +131,7 @@ class Lang extends Main\Lang
 
     // langLabel
     // retourne le label d'une langue
-    public function langLabel(string $value,?string $lang=null,?array $option=null):?string
+    final public function langLabel(string $value,?string $lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('langLabel',$value),null,$lang,$option);
     }
@@ -141,7 +140,7 @@ class Lang extends Main\Lang
     // dbLabel
     // retourne le label d'une base de donnée
     // si la db n'existe pas, utilise def
-    public function dbLabel(string $tables,?string $lang=null,?array $option=null):?string
+    final public function dbLabel(string $tables,?string $lang=null,?array $option=null):?string
     {
         return $this->def($this->getPath('dbLabel',$tables),null,$lang,$option);
     }
@@ -150,7 +149,7 @@ class Lang extends Main\Lang
     // dbDescription
     // retourne la description d'une base de donnée
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
-    public function dbDescription(string $tables,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function dbDescription(string $tables,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('dbDescription',$tables),$replace,$lang,$option);
     }
@@ -159,7 +158,7 @@ class Lang extends Main\Lang
     // tableLabel
     // retourne le label d'une table
     // si la table n'existe pas, utilise def
-    public function tableLabel(string $table,?string $lang=null,?array $option=null):?string
+    final public function tableLabel(string $table,?string $lang=null,?array $option=null):?string
     {
         return $this->def($this->getPath('tableLabel',$table),null,$lang,$option);
     }
@@ -168,7 +167,7 @@ class Lang extends Main\Lang
     // tableDescription
     // retourne la description d'une table
     // par défaut, la méthode error n'est plas lancé et retournera null si aucune description
-    public function tableDescription(string $table,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function tableDescription(string $table,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('tableDescription',$table),$replace,$lang,$option);
     }
@@ -179,7 +178,7 @@ class Lang extends Main\Lang
     // s'il y a table recherche dans col/label/table/*, ensuite dans col/label/*/*
     // s'il y a une table et toujours introuvable, regarde si la colonne a un nom de relation, si oui retourne le nom de la table
     // si toujours introuvable, utilise def
-    public function colLabel(string $col,?string $table=null,?string $lang=null,?array $option=null):?string
+    final public function colLabel(string $col,?string $table=null,?string $lang=null,?array $option=null):?string
     {
         $colLabel = $this->getPath('colLabel',$col);
 
@@ -211,7 +210,7 @@ class Lang extends Main\Lang
     // retourne la description d'une colonne
     // utilise alt pour faire une recherche alternative dans col/description/* si introuvable sous le nom de la table, ou si pas de table donné
     // par défaut, la méthode error n'est plas lancé et la méthode retournera null si aucune description
-    public function colDescription(string $col,?string $table=null,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function colDescription(string $col,?string $table=null,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         $colDescription = $this->getPath('colDescription',$col);
 
@@ -228,7 +227,7 @@ class Lang extends Main\Lang
     // retourne le label d'une row
     // le label de la table sera aussi cherché
     // une erreur sera envoyé si le texte et le texte alternatif n'existe pas
-    public function rowLabel(int $primary,string $table,?string $lang=null,?array $option=null):?string
+    final public function rowLabel(int $primary,string $table,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $tableLabel = $this->tableLabel($table,$lang);
@@ -243,7 +242,7 @@ class Lang extends Main\Lang
     // retourne la description d'une row
     // le label de la table sera aussi cherché
     // une erreur sera envoyé si le texte et le texte alternatif n'existe pas
-    public function rowDescription(int $primary,string $table,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function rowDescription(int $primary,string $table,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         $return = null;
         $tableLabel = $this->tableLabel($table,$lang);
@@ -258,7 +257,7 @@ class Lang extends Main\Lang
     // panelLabel
     // retourne le label d'un panel
     // si le panel n'existe pas, utilise def
-    public function panelLabel(string $panel,?string $lang=null,?array $option=null):?string
+    final public function panelLabel(string $panel,?string $lang=null,?array $option=null):?string
     {
         return $this->def($this->getPath('panelLabel',$panel),null,$lang,$option);
     }
@@ -267,7 +266,7 @@ class Lang extends Main\Lang
     // panelDescription
     // retourne la description d'un panel
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
-    public function panelDescription(string $panel,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function panelDescription(string $panel,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('panelDescription',$panel),$replace,$lang,$option);
     }
@@ -276,7 +275,7 @@ class Lang extends Main\Lang
     // roleLabel
     // retourne le label d'un role
     // une erreur sera envoyé si le role n'existe pas
-    public function roleLabel(int $role,?string $lang=null,?array $option=null):?string
+    final public function roleLabel(int $role,?string $lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('roleLabel',$role),null,$lang,$option);
     }
@@ -285,7 +284,7 @@ class Lang extends Main\Lang
     // roleDescription
     // retourne la description d'un role
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
-    public function roleDescription(int $role,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function roleDescription(int $role,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('roleDescription',$role),$replace,$lang,$option);
     }
@@ -294,7 +293,7 @@ class Lang extends Main\Lang
     // routeLabel
     // retourne le label d'une route
     // si la route n'existe pas, utilise def
-    public function routeLabel(string $route,?string $lang=null,?array $option=null):?string
+    final public function routeLabel(string $route,?string $lang=null,?array $option=null):?string
     {
         return $this->def($this->getPath('routeLabel',$route),null,$lang,$option);
     }
@@ -303,7 +302,7 @@ class Lang extends Main\Lang
     // routeDescription
     // retourne la description d'une route
     // par défaut, la méthode error n'est pas lancé et retournera null si aucune description
-    public function routeDescription(string $route,?array $replace=null,?string $lang=null,?array $option=null):?string
+    final public function routeDescription(string $route,?array $replace=null,?string $lang=null,?array $option=null):?string
     {
         return $this->safe($this->getPath('routeDescription',$route),$replace,$lang,$option);
     }
@@ -311,7 +310,7 @@ class Lang extends Main\Lang
 
     // bool
     // retourne le texte pour un booléean, true ou false, 0 ou 1
-    public function bool($key,$lang=null,?array $option=null):?string
+    final public function bool($key,$lang=null,?array $option=null):?string
     {
         return $this->text($this->getPath('bool',(is_scalar($key))? (int) $key:$key),null,$lang,$option);
     }
@@ -324,7 +323,7 @@ class Lang extends Main\Lang
     // envoie une exception si le retour est toujours null
     // le tableau des relations est maintenant sort par valeur de clé
     // possible de sort le résultat, par défaut true
-    public function relation($value=null,?string $lang=null,bool $sort=false)
+    final public function relation($value=null,?string $lang=null,bool $sort=false)
     {
         $return = $this->take($this->getPath('relation',$value),$lang);
 
@@ -348,7 +347,7 @@ class Lang extends Main\Lang
     // compatible avec base/lang
     // sinon retourne un texte d'erreur de validation
     // utilise def, donc aucune erreur envoyé si inexistant
-    public function validate(?array $value=null,?string $lang=null,?array $option=null)
+    final public function validate(?array $value=null,?string $lang=null,?array $option=null)
     {
         $return = null;
         $option = Base\Arr::plus(['path'=>null,'same'=>true],$option);
@@ -398,7 +397,7 @@ class Lang extends Main\Lang
     // retourne plusieurs textes d'erreur de validation
     // utilise def, donc aucune erreur envoyé si inexistant
     // retourne un tableau
-    public function validates(array $values,?string $lang=null,?array $option=null):array
+    final public function validates(array $values,?string $lang=null,?array $option=null):array
     {
         $return = [];
 
@@ -422,7 +421,7 @@ class Lang extends Main\Lang
     // sinon retourne un texte d'erreur de validation
     // compatible avec base/lang
     // utilise def, donc aucune erreur envoyé si inexistant
-    public function compare(?array $value=null,?string $lang=null,?array $option=null)
+    final public function compare(?array $value=null,?string $lang=null,?array $option=null)
     {
         $return = null;
         $option = Base\Arr::plus(['path'=>null],$option);
@@ -451,7 +450,7 @@ class Lang extends Main\Lang
     // retourne plusieurs textes d'erreur de comparaison
     // utilise def, donc aucune erreur envoyé si inexistant
     // retourne un tableau
-    public function compares(array $values,?string $lang=null,?array $option=null):array
+    final public function compares(array $values,?string $lang=null,?array $option=null):array
     {
         $return = [];
 
@@ -467,7 +466,7 @@ class Lang extends Main\Lang
     // required
     // génère le message d'erreur pour champ requis
     // compatible avec base/lang
-    public function required($value=null,?string $lang=null,?array $option=null)
+    final public function required($value=null,?string $lang=null,?array $option=null)
     {
         $return = null;
         $option = Base\Arr::plus(['path'=>null],$option);
@@ -488,7 +487,7 @@ class Lang extends Main\Lang
     // unique
     // génère le message d'erreur pour champ devant être unique
     // compatible avec base/lang
-    public function unique($value=null,?string $lang=null,?array $option=null)
+    final public function unique($value=null,?string $lang=null,?array $option=null)
     {
         $return = null;
         $option = Base\Arr::plus(['path'=>null],$option);
@@ -534,7 +533,7 @@ class Lang extends Main\Lang
     // editable
     // génère le message d'erreur pour champ editable
     // compatible avec base/lang
-    public function editable($value=null,?string $lang=null,?array $option=null)
+    final public function editable($value=null,?string $lang=null,?array $option=null)
     {
         $return = null;
         $option = Base\Arr::plus(['path'=>null],$option);
@@ -555,7 +554,7 @@ class Lang extends Main\Lang
     // pathAlternate
     // méthode utilisé par les méthodes de validation pour lang
     // permet d'aller vérifier si un chemin alternatif existe pour validate, compare, required ou unique avec sans valeur
-    public function pathAlternate(string $type,$alternate=null)
+    final public function pathAlternate(string $type,$alternate=null)
     {
         $return = null;
 
@@ -581,7 +580,7 @@ class Lang extends Main\Lang
 
     // pathAlternateTake
     // utilise pathAlternate et ensuite take
-    public function pathAlternateTake(string $type,?string $lang=null,$alternate=null)
+    final public function pathAlternateTake(string $type,?string $lang=null,$alternate=null)
     {
         $return = null;
         $path = $this->pathAlternate($type,$alternate);
@@ -594,7 +593,7 @@ class Lang extends Main\Lang
     // pathAlternateValue
     // méthode utilisé par les méthodes de validation pour lang
     // permet d'aller vérifier si un chemin alternatif existe pour validate, compare, required ou unique avec une valeur
-    public function pathAlternateValue(string $type,$value,bool $includeValue=true,$alternate=null)
+    final public function pathAlternateValue(string $type,$value,bool $includeValue=true,$alternate=null)
     {
         $return = null;
 

@@ -57,7 +57,7 @@ class Table extends Orm\Table
     // retourne l'objet table à partir du fqcn de la classe
     // utilise boot
     // envoie une erreur si la table n'existe pas
-    public static function tableFromFqcn():self
+    final public static function tableFromFqcn():self
     {
         $return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
 

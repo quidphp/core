@@ -16,7 +16,7 @@ trait _dbAccess
 {
     // db
     // retourne l'objet db de boot
-    public static function db():Orm\Db
+    final public static function db():Orm\Db
     {
         return static::boot()->db();
     }

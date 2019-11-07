@@ -30,7 +30,7 @@ class Context extends Core\ColAlias
 
     // onCommit
     // ajoute le contexte sur insertion ou mise à jour
-    public function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
+    final protected function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
     {
         $return = null;
         $boot = static::bootReady();

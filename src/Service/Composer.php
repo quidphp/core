@@ -22,7 +22,7 @@ class Composer extends Main\Service
 
     // construct
     // constructeur privé
-    private function __construct()
+    final private function __construct()
     {
         return;
     }
@@ -30,7 +30,7 @@ class Composer extends Main\Service
 
     // get
     // retourne l'objet composer à partir du pool de callable autoload
-    public static function get():Autoload\ClassLoader
+    final public static function get():Autoload\ClassLoader
     {
         $return = null;
 
@@ -49,7 +49,7 @@ class Composer extends Main\Service
 
     // getPsr4
     // retourne un tableau avec tous les psr4 de composer
-    public static function getPsr4():array
+    final public static function getPsr4():array
     {
         $return = [];
         $composer = static::get();
@@ -74,7 +74,7 @@ class Composer extends Main\Service
 
     // setPsr4
     // enregistre les psr4 de composer dans base/autoload
-    public static function setPsr4():void
+    final public static function setPsr4():void
     {
         $psr4 = static::getPsr4();
         Base\Autoload::setsPsr4($psr4);
@@ -85,7 +85,7 @@ class Composer extends Main\Service
 
     // setClassMapAuthoritative
     // active ou désactive la fonctionnalitée class map authoritative de composer
-    public static function setClassMapAuthoritative(bool $value):void
+    final public static function setClassMapAuthoritative(bool $value):void
     {
         $composer = static::get();
         $composer->setClassMapAuthoritative($value);

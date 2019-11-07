@@ -37,7 +37,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // isUnsent
     // retourne vrai si le email n'a pas été envoyé
-    public function isUnsent():bool
+    final public function isUnsent():bool
     {
         return ($this->cell('status')->isEqual(1))? true:false;
     }
@@ -45,7 +45,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // isInProgress
     // retourne vrai si le email est en train d'être envoyé
-    public function isInProgress():bool
+    final public function isInProgress():bool
     {
         return ($this->cell('status')->isEqual(2))? true:false;
     }
@@ -53,7 +53,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // isError
     // retourne vrai si l'envoie du email a échoué
-    public function isError():bool
+    final public function isError():bool
     {
         return ($this->cell('status')->isEqual(3))? true:false;
     }
@@ -61,7 +61,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // isSent
     // retourne vrai si le email a été envoyé
-    public function isSent():bool
+    final public function isSent():bool
     {
         return ($this->cell('status')->isEqual(4))? true:false;
     }
@@ -69,7 +69,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // sendEmail
     // retourne le tableau message qui contient tout le nécessaire pour envoyer le courriel
-    public function sendEmail():array
+    final public function sendEmail():array
     {
         return $this->cell('json')->get();
     }
@@ -78,7 +78,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // getMailerKey
     // retourne la clé pour trouver l'objet mailer à utiliser pour envoyer le courriel
     // envoie une exception si introuvable
-    public function getMailerKey():string
+    final public function getMailerKey():string
     {
         $return = null;
         $json = $this->cell('json')->get();
@@ -95,7 +95,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // unqueue
     // unqueue la row et change le status
-    public function unqueue():bool
+    final public function unqueue():bool
     {
         $return = false;
         $key = $this->getMailerKey();
@@ -103,7 +103,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
         $status = $this->cell('status');
 
         $status->set(2);
-        $save = $this->updateChangedIncluded();
+        $save = $this->updateChanged();
 
         $return = $mailer->send($this);
 
@@ -112,7 +112,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
         else
         $status->set(3);
 
-        $save = $this->updateChangedIncluded();
+        $save = $this->updateChanged();
 
         return $return;
     }
@@ -120,7 +120,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
     // newData
     // crée le tableau d'insertion
-    public static function newData(array $json):array
+    final public static function newData(array $json):array
     {
         $return = [];
         $return['status'] = 1;
@@ -133,7 +133,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // getQueued
     // retourne un objet rows avec toutes les rows queued
     // la plus ancienne est retourné en premier
-    public static function getQueued(?int $limit=null):?Main\Map
+    final public static function getQueued(?int $limit=null):?Main\Map
     {
         $return = null;
         $table = static::newTable();

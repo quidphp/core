@@ -22,7 +22,7 @@ class Date extends Core\CellAlias
     // pair
     // retourne la date formatté
     // sinon renvoie à parent
-    public function pair($value=null,...$args)
+    final public function pair($value=null,...$args)
     {
         $return = $this;
 
@@ -38,7 +38,7 @@ class Date extends Core\CellAlias
 
     // format
     // format la date contenu dans la cellule
-    public function format($format=true):?string
+    final public function format($format=true):?string
     {
         return Base\Date::format($format,$this);
     }
@@ -47,7 +47,7 @@ class Date extends Core\CellAlias
     // isBefore
     // retourne vrai si le temps est après maintenant ou le temps donné en argument
     // retourne vrai si empty si allowEmpty est true
-    public function isBefore($time=null,bool $allowEmpty=false):bool
+    final public function isBefore($time=null,bool $allowEmpty=false):bool
     {
         return $this->isBeforeAfter('<=',$time,$allowEmpty);
     }
@@ -56,7 +56,7 @@ class Date extends Core\CellAlias
     // isAfter
     // retourne vrai si le temps est avant maintenant ou le temps donné en argument
     // retourne vrai si empty si allowEmpty est true
-    public function isAfter($time=null,bool $allowEmpty=false):bool
+    final public function isAfter($time=null,bool $allowEmpty=false):bool
     {
         return $this->isBeforeAfter('>=',$time,$allowEmpty);
     }
@@ -64,7 +64,7 @@ class Date extends Core\CellAlias
 
     // isBeforeAfter
     // méthode protégé utilisé par isBefore et isAfter
-    protected function isBeforeAfter(string $symbol,$time=null,bool $allowEmpty=false):bool
+    final protected function isBeforeAfter(string $symbol,$time=null,bool $allowEmpty=false):bool
     {
         $return = false;
         $time = Base\Date::time($time);

@@ -17,7 +17,7 @@ use Quid\Main;
 class Error extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $logError = Core\Row\LogError::class;

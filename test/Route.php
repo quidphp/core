@@ -18,7 +18,7 @@ use Quid\Test\Suite;
 class Route extends Base\Test
 {
     // trigger
-    public static function trigger(array $data):bool
+    final public static function trigger(array $data):bool
     {
         // prepare
         $boot = Core\Boot::inst();

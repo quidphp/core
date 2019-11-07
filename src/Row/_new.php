@@ -23,7 +23,7 @@ trait _new
     // newTable
     // retourne l'objet table de la classe
     // n'envoie pas d'erreur si la table n'existe pas ou si boot n'est pas prêt
-    public static function newTable():?Core\Table
+    final public static function newTable():?Core\Table
     {
         $return = null;
         $boot = static::bootReady();
@@ -47,7 +47,7 @@ trait _new
     // le maximum de vérification sont faites pour ne pas qu'il y ait d'erreurs de générer dans la méthode
     // reservePrimary est false (donc sauve 2 requêtes)
     // si newData retourne null, n'insère pas la ligne -> skip
-    public static function new(...$values):?Core\Row
+    final public static function new(...$values):?Core\Row
     {
         $return = null;
         $table = static::newTable();
@@ -71,7 +71,7 @@ trait _new
 
     // newOverload
     // fait un overload sur la classe et ensuite passe à new
-    public static function newOverload(...$values):Main\Root
+    final public static function newOverload(...$values):Main\Root
     {
         return static::getOverloadClass()::new(...$values);
     }

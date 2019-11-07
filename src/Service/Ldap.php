@@ -28,7 +28,7 @@ class Ldap extends Main\Service
 
     // host
     // retourne le host de l'objet ldap
-    public function host():string
+    final public function host():string
     {
         return $this->getAttr('host');
     }
@@ -36,7 +36,7 @@ class Ldap extends Main\Service
 
     // port
     // retourne le port de l'objet ldap
-    public function port():int
+    final public function port():int
     {
         return $this->getAttr('port');
     }
@@ -45,7 +45,7 @@ class Ldap extends Main\Service
     // res
     // retourne une resource lien ldap
     // envoie une exception en cas d'erreur de création
-    public function res(bool $ping=false)
+    final public function res(bool $ping=false)
     {
         $return = $this->res;
         $attr = $this->attr();
@@ -71,7 +71,7 @@ class Ldap extends Main\Service
     // login
     // tente une connexion au serveur ldap
     // retourne vrai ou faux
-    public function login(string $username,string $password):bool
+    final public function login(string $username,string $password):bool
     {
         $return = false;
         $ldap = $this->res(true);

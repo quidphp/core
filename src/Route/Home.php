@@ -24,7 +24,7 @@ abstract class Home extends Core\RouteAlias
 
     // onReplace
     // comme titre, met le bootLabel
-    protected function onReplace(array $return):array
+    final protected function onReplace(array $return):array
     {
         $return['title'] = $return['bootLabel'];
 

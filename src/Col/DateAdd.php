@@ -28,7 +28,7 @@ class DateAdd extends DateAlias
 
     // onInsert
     // sur insert retourne le timestamp
-    public function onInsert($value,array $row,array $option):int
+    final protected function onInsert($value,array $row,array $option):int
     {
         return Base\Date::timestamp();
     }
