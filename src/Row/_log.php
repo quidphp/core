@@ -8,8 +8,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Row;
-use Quid\Main;
 use Quid\Core;
+use Quid\Main;
 
 // _log
 // trait that adds log-related methods to a row
@@ -21,19 +21,19 @@ trait _log
 
 
     // configLog
-    public static $configLog = array(
+    public static $configLog = [
         'panel'=>false,
         'search'=>false,
         'parent'=>'system',
         'permission'=>[
             'nobody'=>['insert'=>true],
             'admin'=>['update'=>false]],
-        'cols'=>array(
-            'context'=>['class'=>Core\Col\Context::class]),
+        'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class]],
         'deleteTrim'=>500 // custom
-    );
-    
-    
+    ];
+
+
     // log
     // crée une nouvelle entrée du log maintenant
     final public static function log(...$values):?Main\Contract\Log
