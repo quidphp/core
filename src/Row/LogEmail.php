@@ -21,18 +21,10 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
 
     // config
     public static $config = [
-        'panel'=>false,
-        'search'=>false,
-        'parent'=>'system',
         'priority'=>1004,
         'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
-            'status'=>['class'=>Core\Col\Boolean::class]],
-        'permission'=>[
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
-        'deleteTrim'=>500 // custom
+            'status'=>['class'=>Core\Col\Boolean::class]]
     ];
 
 

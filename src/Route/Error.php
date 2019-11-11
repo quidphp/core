@@ -95,7 +95,7 @@ abstract class Error extends Core\RouteAlias
 
         if(!empty($route))
         {
-            $route = $route::makeOverload();
+            $route = $route::make();
             $r .= Html::divOp('back');
             $link = $route->a(static::langText('lc|common/here'));
             $r .= Html::span(static::langText('error/page/back',['link'=>$link]));

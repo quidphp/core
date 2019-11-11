@@ -22,18 +22,10 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
     // config
     public static $config = [
-        'panel'=>false,
-        'search'=>false,
-        'parent'=>'system',
         'priority'=>1002,
         'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'logHttpType']],
-        'permission'=>[
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
-        'deleteTrim'=>500, // custom
         'block'=>[ // liste des patterns de chemins à ne pas logger, insensible à la case
             'apple-touch-icon',
             'browserconfig.xml',

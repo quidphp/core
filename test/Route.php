@@ -35,9 +35,6 @@ class Route extends Base\Test
 
         // prepareDocServices
 
-        // context
-        assert(count($contactMake->context()) === 4);
-
         // rowExists
         assert($contactMake->rowExists() === false);
 

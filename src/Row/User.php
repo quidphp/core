@@ -892,7 +892,7 @@ class User extends Core\RowAlias
             if(!is_string($hash) || empty($hash))
             static::throw('invalidHash');
 
-            $route = $route::makeOverload(['primary'=>$primary,'hash'=>$hash]);
+            $route = $route::make(['primary'=>$primary,'hash'=>$hash]);
             $absolute = $route->uriAbsolute();
             if(empty($absolute))
             static::throw('invalidAbsoluteUri');

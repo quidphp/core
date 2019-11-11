@@ -17,7 +17,7 @@ class UserActive extends YesAlias
     // config
     public static $config = [];
 
-
+    
     // onSet
     // sur changement de active
     // une exception attrapable peut être envoyé

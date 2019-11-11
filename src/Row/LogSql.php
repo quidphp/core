@@ -21,20 +21,12 @@ class LogSql extends Core\RowAlias implements Main\Contract\Log
 
     // config
     public static $config = [
-        'panel'=>false,
-        'search'=>false,
-        'parent'=>'system',
         'priority'=>1003,
         'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'logSqlType']],
-        'permission'=>[
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
         'logSql'=>[
             'truncate'=>false],
-        'deleteTrim'=>500, // custom
         'type'=>[ // type de logSql
             1=>'select',
             2=>'show',

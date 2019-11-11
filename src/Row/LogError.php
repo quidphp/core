@@ -21,19 +21,11 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 
     // config
     public static $config = [
-        'panel'=>false,
-        'search'=>false,
-        'parent'=>'system',
         'priority'=>1001,
         'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'error/label'],
-            'error'=>['required'=>true,'class'=>Core\Col\Error::class]],
-        'permission'=>[
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
-        'deleteTrim'=>500 // custom
+            'error'=>['required'=>true,'class'=>Core\Col\Error::class]]
     ];
 
 

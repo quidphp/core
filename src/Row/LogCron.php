@@ -21,18 +21,10 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
 
     // config
     public static $config = [
-        'panel'=>false,
-        'search'=>false,
-        'parent'=>'system',
         'priority'=>1005,
         'cols'=>[
             'route'=>['required'=>true,'general'=>true],
-            'context'=>['class'=>Core\Col\Context::class],
-            'json'=>['required'=>true]],
-        'permission'=>[
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
-        'deleteTrim'=>500 // custom
+            'json'=>['required'=>true]]
     ];
 
 

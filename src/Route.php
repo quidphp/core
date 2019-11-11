@@ -116,28 +116,6 @@ abstract class Route extends Routing\Route
     }
 
 
-    // context
-    // retourne le tableau de contexte de la classe
-    // possible d'ajouter des éléments au tableau via arr/plus
-    final public function context(?array $option=null):array
-    {
-        return $this->cache(__METHOD__,function() use($option) {
-            $return = [];
-            $boot = static::boot();
-            $type = $boot->type();
-            $env = $boot->env();
-            $className = static::className();
-            $context = $type.':'.lcfirst($className);
-            $return = ['class'=>static::class,'type'=>$type,'env'=>$env,'context'=>$context];
-
-            if(!empty($option))
-            $return = Base\Arr::plus($return,$option);
-
-            return $return;
-        });
-    }
-
-
     // rowExists
     // retourne vrai s'il y a une row lié à la route
     public function rowExists():bool
