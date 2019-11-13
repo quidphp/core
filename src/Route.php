@@ -182,17 +182,10 @@ abstract class Route extends Routing\Route
 
 
     // routes
-    // retourne l'objet routes de boot ou un nom de classe de route contenu dans l'objet
-    final public static function routes(bool $active=false,$get=null)
+    // retourne l'objet routes de boot du type dela route
+    final public static function routes():Routing\Routes
     {
-        $boot = static::boot();
-        $type = static::type();
-        $return = ($active === true)? $boot->routesActive($type):$boot->routes($type);
-
-        if(is_string($get))
-        $return = $return->get($get);
-
-        return $return;
+        return static::boot()->routes(static::type());
     }
 
 

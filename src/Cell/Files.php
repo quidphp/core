@@ -343,7 +343,7 @@ abstract class Files extends Core\CellAlias
         $array['index'] = $index;
 
         $return = $col->route('download',$array);
-
+        
         return $return;
     }
 

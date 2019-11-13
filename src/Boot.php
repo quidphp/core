@@ -211,12 +211,14 @@ abstract class Boot extends Main\Root
 
     // quidCredit
     protected static $quidCredit = [ // les crédits de quid php
-        'name'=>'QuidPHP',
+        'framework'=>'QuidPHP',
         'author'=>'Pierre-Philippe Emond',
         'email'=>'emondpph@gmail.com',
+        'website'=>'https://quidphp.com',
         'github'=>'https://github.com/quidphp',
         'readme'=>'https://github.com/quidphp/project/blob/master/README.md',
-        'license'=>'https://github.com/quidphp/project/blob/master/LICENSE'
+        'licenseType'=>'MIT',
+        'licenseUrl'=>'https://github.com/quidphp/project/blob/master/LICENSE'
     ];
 
 
@@ -677,7 +679,7 @@ abstract class Boot extends Main\Root
     // match les routes avec la requête
     final public function match(bool $fallback=false,bool $debug=true):array
     {
-        return $this->routesActive()->match($this->request(),$fallback,$debug);
+        return $this->routes()->match($this->request(),$fallback,$debug);
     }
 
 
@@ -763,7 +765,7 @@ abstract class Boot extends Main\Root
         Base\Buffer::flushEcho($return);
 
         if(Base\Server::isCli())
-        Base\Cli::flushEol();
+        Base\Cli::eol();
 
         $this->terminate();
         $this->cleanup();
@@ -1906,15 +1908,6 @@ abstract class Boot extends Main\Root
     }
 
 
-    // routesActive
-    // retourne l'objet routes de boot
-    // mais seuls les routes actives sont incluses dans l'objet de retour
-    final public function routesActive(?string $type=null):Routing\Routes
-    {
-        return $this->routes($type)->active();
-    }
-
-
     // setRoles
     // génère l'objet roles
     final protected function setRoles(array $array):void
@@ -2465,23 +2458,26 @@ abstract class Boot extends Main\Root
 
     // quidCredit
     // retourne les informations de crédit de quid
-    final public static function quidCredit():string
+    // peut retorner sous forme de string ou tableau
+    final public static function quidCredit(bool $str=true)
     {
-        $return = [];
+        $return = null;
         $credit = static::$quidCredit;
-        $keys = ['name','author','email','github','readme','license'];
-        $version = static::quidVersion();
-
-        if(Base\Arr::keysExists($keys,$credit))
+        $credit['version'] = static::quidVersion();
+        
+        if($str === true)
         {
-            $return = 'Framework: '.$credit['name'];
-            $return .= "\nVersion: ".$version;
-            $return .= "\nAuthor: ".$credit['author'].' / '.$credit['email'];
-            $return .= "\nRequires: PHP 7.3";
-            $return .= "\nGithub: ".$credit['github'];
-            $return .= "\nLicense: ".$credit['license'];
-            $return .= "\nReadme: ".$credit['readme'];
+            $return = '';
+            
+            foreach ($credit as $key => $value) 
+            {
+                $return .= (!empty($return))? "\n":'';
+                $return .= ucfirst($key).": ".$value;
+            }
         }
+        
+        else
+        $return = $credit;
 
         return $return;
     }

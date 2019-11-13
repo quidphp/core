@@ -279,9 +279,6 @@ class Boot extends Base\Test
         assert($boot->routes() instanceof Routing\Routes);
         assert($boot->routes($type) === $boot->routes());
 
-        // routesActive
-        assert(!empty($boot->routesActive($type)->count()));
-
         // setRoles
 
         // roles
@@ -373,7 +370,8 @@ class Boot extends Base\Test
 
         // quidCredit
         assert(strlen($boot::quidCredit()) > 100);
-
+        assert(count($boot::quidCredit(false)) === 9);
+        
         // extendersNamespaces
         assert(count($boot::extendersNamespaces()) >= 2);
 
