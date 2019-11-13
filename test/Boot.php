@@ -371,7 +371,7 @@ class Boot extends Base\Test
         // quidCredit
         assert(strlen($boot::quidCredit()) > 100);
         assert(count($boot::quidCredit(false)) === 9);
-        
+
         // extendersNamespaces
         assert(count($boot::extendersNamespaces()) >= 2);
 

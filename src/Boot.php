@@ -2464,18 +2464,18 @@ abstract class Boot extends Main\Root
         $return = null;
         $credit = static::$quidCredit;
         $credit['version'] = static::quidVersion();
-        
+
         if($str === true)
         {
             $return = '';
-            
-            foreach ($credit as $key => $value) 
+
+            foreach ($credit as $key => $value)
             {
                 $return .= (!empty($return))? "\n":'';
-                $return .= ucfirst($key).": ".$value;
+                $return .= ucfirst($key).': '.$value;
             }
         }
-        
+
         else
         $return = $credit;
 
