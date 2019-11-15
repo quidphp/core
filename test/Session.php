@@ -180,8 +180,6 @@ class Session extends Base\Test
         // fakeRolesEmpty
         assert($s->fakeRolesEmpty() === null);
 
-        // routeTableGeneral
-
         // flashPost
 
         // canLogin

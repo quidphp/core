@@ -124,12 +124,6 @@ class En extends Base\Lang\En
             'remember'=>'Remember me ?',
         ],
 
-        // browscap
-        'browscap'=>[
-            'noscript'=>'Cannot login because JavaScript is disabled on your browser.',
-            'cookie'=>'Cannot login because your browser does not accept cookies.'
-        ],
-
         // resetPassword
         'resetPassword'=>[
             'forgot'=>'Forgot your password ?',

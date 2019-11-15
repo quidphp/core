@@ -22,12 +22,12 @@ class Route extends Base\Test
     {
         // prepare
         $boot = Core\Boot::inst();
-        $contact = Suite\Assert\Contact::class;
-        $contactMake = $contact::make();
+        $priority = Suite\Assert\Priority::class;
+        $priorityMake = $priority::make();
         $admin = $boot->roles()->get(80);
 
         // type
-        assert($contact::type() === 'assert');
+        assert($priority::type() === 'assert');
 
         // getBaseReplace
 
@@ -36,37 +36,37 @@ class Route extends Base\Test
         // prepareDocServices
 
         // rowExists
-        assert($contactMake->rowExists() === false);
+        assert($priorityMake->rowExists() === false);
 
         // row
-        assert($contactMake->row() === null);
+        assert($priorityMake->row() === null);
 
         // getOtherMeta
 
         // host
-        assert(is_string($contact::host()));
+        assert(is_string($priority::host()));
 
         // schemeHost
-        assert(is_string($contact::schemeHost()));
+        assert(is_string($priority::schemeHost()));
 
         // routes
-        assert($contact::routes() instanceof Routing\Routes);
+        assert($priority::routes() instanceof Routing\Routes);
 
         // tableSegment
 
         // rowClass
-        assert($contact::rowClass() === Suite\Row\OrmCol::class);
+        assert($priority::rowClass() === Suite\Row\OrmCol::class);
 
         // tableFromRowClass
-        assert($contact::tableFromRowClass() instanceof Core\Table);
+        assert($priority::tableFromRowClass() instanceof Core\Table);
 
         // routeBaseClasses
-        assert(count($contact::routeBaseClasses()) === 2);
+        assert(count($priority::routeBaseClasses()) === 2);
 
         // routing
-        assert(is_array($contactMake->getPermission($admin)));
-        assert($contact::inSitemap());
-        assert($contact::isRedirectable());
+        assert(is_array($priorityMake->getPermission($admin)));
+        assert($priority::inSitemap());
+        assert($priority::isRedirectable());
 
         // request
         $class = new class() extends Core\Route\Robots { };

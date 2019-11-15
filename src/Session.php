@@ -728,10 +728,20 @@ class Session extends Main\Session
 
         if(is_array($roles))
         $roles = static::boot()->roles()->only(...array_values($roles));
-
-        if(!empty($roles) && $roles->isEmpty())
-        $roles = null;
-
+        
+        if($roles instanceof Main\Roles)
+        {
+            $current = $this->permission(false);
+            foreach ($roles as $permission => $role) 
+            {
+                if($permission > $current)
+                static::throw('cannotSetFakeRole',$permission);
+            }
+            
+            if($roles->isEmpty())
+            $roles = null;
+        }
+        
         $this->set('fakeRoles',$roles);
 
         if($roles === null)
@@ -758,31 +768,6 @@ class Session extends Main\Session
         $this->setFakeRoles(null);
 
         return;
-    }
-
-
-    // routeTableGeneral
-    // retourne une route general à partir d'un objet table
-    // la session peut générer la route à partir de la dernière route de la même table conservé dans l'objet nav de session
-    // plusieurs exceptions peuvent être envoyés
-    final public function routeTableGeneral(Table $table,bool $nav=true,string $segment='table',string $key='general'):Route
-    {
-        $return = null;
-        $routeClass = $table->routeClass($key,true);
-
-        if($nav === true)
-        {
-            $nav = $this->nav();
-            $return = $nav->route([$routeClass,$table]);
-        }
-
-        if(empty($return) || !$return->isValidSegment())
-        {
-            $segments = [$segment=>$table];
-            $return = $routeClass::make($segments)->checkValidSegment();
-        }
-
-        return $return;
     }
 
 
@@ -908,7 +893,7 @@ class Session extends Main\Session
         $this->fakeRolesEmpty();
         $this->onLogin();
 
-        Base\Call::bindTo($user,function() {
+        $user->callThis(function() {
             $this->onLogin();
         });
 
@@ -949,7 +934,7 @@ class Session extends Main\Session
             $return = true;
             $pos = 'logout/success';
 
-            Base\Call::bindTo($user,function() {
+            $user->callThis(function() {
                 $this->onLogout();
             });
 

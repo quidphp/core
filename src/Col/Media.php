@@ -67,7 +67,8 @@ class Media extends FilesAlias
 
         if(is_array($value) && $this->allowFileUpload())
         {
-            $array = $this->onSetFileUpload($value);
+            $deleteSource = $option['uploadDeleteSource'] ?? true;
+            $array = $this->onSetFileUpload($value,$deleteSource);
             $return = $array['return'];
             $value = $array['value'];
         }
@@ -119,7 +120,7 @@ class Media extends FilesAlias
 
     // onSetFileUpload
     // gère le onSet si c'est upload fichier (array dans $_FILES)
-    final protected function onSetFileUpload(array $array):array
+    final protected function onSetFileUpload(array $array,bool $deleteSource):array
     {
         $return = [];
         $r = null;
@@ -132,7 +133,7 @@ class Media extends FilesAlias
             $name = Base\File::uploadBasename($array);
             $value = Main\File::new($array);
             $value->setAttr('uploadBasename',$name);
-            $value->setAttr('uploadDeleteSource',true);
+            $value->setAttr('uploadDeleteSource',$deleteSource);
 
             if($error === 9 && !empty($action))
             $value->setAttr('uploadAction',$action);

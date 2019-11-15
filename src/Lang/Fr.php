@@ -124,12 +124,6 @@ class Fr extends Base\Lang\Fr
             'remember'=>'Se souvenir de moi?'
         ],
 
-        // browscap
-        'browscap'=>[
-            'noscript'=>'Impossible de se connecter car JavaScript est désactivé sur votre navigateur.',
-            'cookie'=>"Impossible de se connecter car votre navigateur n'accepte pas les cookies."
-        ],
-
         // resetPassword
         'resetPassword'=>[
             'forgot'=>'Mot de passe oublié ?',
