@@ -728,20 +728,20 @@ class Session extends Main\Session
 
         if(is_array($roles))
         $roles = static::boot()->roles()->only(...array_values($roles));
-        
+
         if($roles instanceof Main\Roles)
         {
             $current = $this->permission(false);
-            foreach ($roles as $permission => $role) 
+            foreach ($roles as $permission => $role)
             {
                 if($permission > $current)
                 static::throw('cannotSetFakeRole',$permission);
             }
-            
+
             if($roles->isEmpty())
             $roles = null;
         }
-        
+
         $this->set('fakeRoles',$roles);
 
         if($roles === null)

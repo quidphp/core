@@ -30,7 +30,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
             'context'=>['class'=>Core\Col\Context::class],
             'status'=>['general'=>true,'relation'=>'queueEmailStatus']],
         'permission'=>[
-            '*'=>array('insert'=>true),
+            '*'=>['insert'=>true],
             'nobody'=>['insert'=>true],
             'admin'=>['update'=>false]]
     ];

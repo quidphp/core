@@ -26,7 +26,7 @@ trait _log
         'search'=>false,
         'parent'=>'system',
         'permission'=>[
-            '*'=>array('insert'=>true),
+            '*'=>['insert'=>true],
             'nobody'=>['insert'=>true],
             'admin'=>['update'=>false]],
         'cols'=>[
