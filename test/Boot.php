@@ -55,7 +55,7 @@ class Boot extends Base\Test
         // onCleanup
 
         // cast
-        assert(count($boot->_cast()) === 3);
+        assert(count($boot->_cast()) === 2);
 
         // prepare
 
@@ -153,7 +153,7 @@ class Boot extends Base\Test
         assert(count($boot->envType()) === 2);
 
         // context
-        assert(count($boot->context()) === 3);
+        assert(count($boot->context()) === 4);
 
         // env
         assert(is_string($boot->env()));

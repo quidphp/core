@@ -67,7 +67,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         $return = null;
         $row = static::tableFromFqcn()->row($key);
 
-        if($row->isActive())
+        if(!empty($row) && $row->isActive())
         $return = $row;
 
         return $return;

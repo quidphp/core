@@ -33,7 +33,7 @@ class Col extends Orm\Col
         $return = false;
         $boot = static::boot();
         $langCode = $col->langCode();
-
+        
         if($boot->lang()->currentLang() === $langCode)
         $return = true;
 

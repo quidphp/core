@@ -236,6 +236,7 @@ class En extends Base\Lang\En
                     'status'=>'Status',
                     'index'=>'index',
                     'role'=>'Role',
+                    'envType'=>'Env and type',
                     'context'=>'Context',
                     'subject'=>'Subject',
                     'message'=>'Message',
@@ -408,6 +409,8 @@ class En extends Base\Lang\En
 
             // label
             'label'=>[
+                'cliClearCache'=>'Empty caches',
+                'cliClearLog'=>'Empty logs',
                 'cliSessionGc'=>'Session garbage collect',
                 'cliVersion'=>'Version',
                 'error'=>'Error',

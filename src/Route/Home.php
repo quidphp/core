@@ -16,7 +16,10 @@ abstract class Home extends Core\RouteAlias
 {
     // config
     public static $config = [
-        'path'=>'',
+        'path'=>array(
+            '',
+            'en'=>'home',
+            'fr'=>'accueil'),
         'group'=>'home',
         'priority'=>1
     ];

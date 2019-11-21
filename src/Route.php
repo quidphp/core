@@ -82,8 +82,8 @@ abstract class Route extends Routing\Route
         $return['metaKeywords'] = $lang->safe('meta/keywords');
         $return['metaDescription'] = $lang->safe('meta/description') ?? $description;
         $return['metaImage'] = $lang->safe('meta/image');
-        $return['bodyClass'] = null;
-        $return['bodyStyle'] = null;
+        $return['htmlAttr'] = null;
+        $return['bodyAttr'] = null;
 
         return $return;
     }

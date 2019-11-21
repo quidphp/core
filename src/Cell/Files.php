@@ -41,14 +41,7 @@ abstract class Files extends Core\CellAlias
     // retourne vrai si le média peut être effacé
     public function canBeDeleted(?int $index=null):bool
     {
-        $return = false;
-        $exists = $this->fileExists($index);
-        $table = $this->table();
-
-        if($exists === true && $table->hasPermission('mediaDelete'))
-        $return = true;
-
-        return $return;
+        return ($this->table()->hasPermission('mediaDelete') && $this->fileExists($index))? true:false;
     }
 
 
@@ -70,13 +63,7 @@ abstract class Files extends Core\CellAlias
     // doit avoir des versions
     final public function canBeRegenerated(?int $index=null):bool
     {
-        $return = false;
-        $table = $this->table();
-
-        if($this->hasVersion() && $table->hasPermission('mediaRegenerate'))
-        $return = true;
-
-        return $return;
+        return ($this->hasVersion() && $this->table()->hasPermission('mediaRegenerate') && $this->fileExists($index))? true:false;
     }
 
 

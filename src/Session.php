@@ -268,7 +268,7 @@ class Session extends Main\Session
             if(method_exists($storage,'sessionMostRecent'))
             {
                 $user = $this->getUserDefault();
-                $session = $storage::sessionMostRecent($this->name(),$user,null,$this->context());
+                $session = $storage::sessionMostRecent($this->name(),$user,null,$this->envType());
                 if(!empty($session))
                 $return = $session->sessionSid();
             }
@@ -364,11 +364,11 @@ class Session extends Main\Session
     }
 
 
-    // context
-    // retourne le contexte de boot
-    final public function context():array
+    // envType
+    // retourne le envType de boot
+    final public function envType():array
     {
-        return static::boot()->context();
+        return static::boot()->envType();
     }
 
 
@@ -544,7 +544,7 @@ class Session extends Main\Session
 
             if(empty($logout) && $this->isLoginSinglePerUser() && method_exists($storage,'sessionMostRecent'))
             {
-                $mostRecentStorage = $storage::sessionMostRecent($this->name(),$user,$storage,$this->context());
+                $mostRecentStorage = $storage::sessionMostRecent($this->name(),$user,$storage,$this->envType());
                 if(!empty($mostRecentStorage))
                 {
                     $neg = 'userSession/mostRecentStorage';
@@ -929,7 +929,7 @@ class Session extends Main\Session
         else
         {
             if($this->isLoginSinglePerUser() && method_exists($storage,'sessionDestroyOther'))
-            $storage::sessionDestroyOther($this->name(),$user,$storage,$this->context());
+            $storage::sessionDestroyOther($this->name(),$user,$storage,$this->envType());
 
             $return = true;
             $pos = 'logout/success';

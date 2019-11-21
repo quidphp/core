@@ -236,6 +236,7 @@ class Fr extends Base\Lang\Fr
                     'status'=>'Statut',
                     'index'=>'index',
                     'role'=>'Rôle',
+                    'envType'=>'Env et type',
                     'context'=>'Contexte',
                     'subject'=>'Sujet',
                     'message'=>'Message',
@@ -408,6 +409,8 @@ class Fr extends Base\Lang\Fr
 
             // label
             'label'=>[
+                'cliClearCache'=>'Vider les caches',
+                'cliClearLog'=>'Vider les logs',
                 'cliSessionGc'=>'Nettoyer les sessions',
                 'cliVersion'=>'Version',
                 'error'=>'Erreur',

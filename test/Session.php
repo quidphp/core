@@ -103,8 +103,8 @@ class Session extends Base\Test
 
         // structureFakeRoles
 
-        // context
-        assert(count($s->context()) === 3);
+        // envType
+        assert(count($s->envType()) === 2);
 
         // primary
         assert(is_int($s->primary()));

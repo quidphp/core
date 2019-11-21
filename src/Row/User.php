@@ -226,7 +226,7 @@ class User extends Core\RowAlias
     final public function isDeleteable(?array $option=null):bool
     {
         $return = parent::isDeleteable($option);
-
+        
         if($return === true)
         {
             $return = false;
@@ -235,7 +235,7 @@ class User extends Core\RowAlias
 
             $isNobody = $this->isNobody();
             $permission = $this->permission();
-
+            
             if($isNobody === false && $currentPermission > $permission)
             $return = true;
         }

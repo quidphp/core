@@ -43,7 +43,7 @@ class Table extends Base\Test
         assert($rowLog::logOnCloseDown('login',['save'=>'queue2']) === null);
         assert($row instanceof Core\Row);
         assert($row['type']->get() === 1);
-        assert(count($row['context']->get()) === 3);
+        assert(count($row['context']->get()) === 4);
         assert($row['request']->get() instanceof Core\Request);
         assert($row['json']->get() === ['save'=>'that']);
         assert(is_int($row['session_id']->get()));

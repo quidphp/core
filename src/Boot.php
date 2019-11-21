@@ -45,6 +45,7 @@ abstract class Boot extends Main\Root
             'storage'=>'[storage]',
             'storageCache'=>'[storage]/cache',
             'storageLog'=>'[storage]/log',
+            'storageError'=>'[storage]/error',
             'storagePublic'=>'[storage]/public',
             'storagePrivate'=>'[storage]/private',
             'src'=>'[src]',
@@ -103,6 +104,7 @@ abstract class Boot extends Main\Root
             'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','send'],
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
+            'errorStorage'=>[Main\File\Error::class,'setStorageDirname','[storageError]'],
             'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false]],
         'lang'=>'en', // lang à mettre dans setLang
@@ -260,10 +262,10 @@ abstract class Boot extends Main\Root
 
 
     // toString
-    // retourne le contexte en string
+    // retourne le envType en string
     final public function __toString():string
     {
-        return implode('-',$this->context());
+        return implode('-',$this->envType());
     }
 
 
@@ -383,10 +385,10 @@ abstract class Boot extends Main\Root
 
 
     // cast
-    // retourne la valeur cast, le tableau contexte
+    // retourne la valeur cast, le tableau envType
     final public function _cast():array
     {
-        return $this->context();
+        return $this->envType();
     }
 
 
@@ -1125,6 +1127,7 @@ abstract class Boot extends Main\Root
 
     // envType
     // retourne la valeur envType
+    // contient env et type (valeur ne pouvant pas changer)
     final public function envType():array
     {
         return $this->envType;
@@ -1133,12 +1136,20 @@ abstract class Boot extends Main\Root
 
     // context
     // retourne le context courant
-    // contient env, type et lang (lang peut changer)
+    // contient envType et lang, role (lang et role peuvent changer)
+    // pour role, utilse seulement le vrai role (pas de fake role)
     final public function context():array
     {
         $return = $this->envType();
         $return['lang'] = Base\Lang::current();
-
+        $return['role'] = null;
+        
+        if($this->hasSession())
+        {
+            $role = $this->session()->role(false);
+            $return['role'] = $role->name();
+        }
+        
         return $return;
     }
 
@@ -1802,7 +1813,7 @@ abstract class Boot extends Main\Root
         $routes = $extenders->get($type);
         $routes->init($type);
         $routes->readOnly(true);
-
+        
         $this->extenders = $extenders;
 
         return;
@@ -2175,7 +2186,7 @@ abstract class Boot extends Main\Root
             else
             static::throw('invalidCredentials');
         }
-
+        
         return $return;
     }
 

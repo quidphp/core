@@ -72,5 +72,41 @@ trait _cli
 
         return $return;
     }
+    
+    
+    // clearValue
+    // utilisé par clearCache et clearLog pour effacer une valeur
+    // peut être un fichier, directoire, symlink ou table de données
+    final protected function clearValue(string $value):array
+    {
+        $return = array('method'=>'neg','value'=>null);
+        $value = Base\Finder::shortcut($value);
+        $return['value'] = "? $value";
+        
+        if(is_a($value,Core\Row::class,true))
+        {
+            $db = static::db();
+            
+            if($db->hasTable($value))
+            {
+                $table = $db->table($value);
+                $option = array('log'=>false);
+                
+                if($table->truncate($option) === true)
+                $return = array('method'=>'pos','value'=>"x $value");
+            }
+        }
+        
+        else
+        {
+            if(Base\Symlink::is($value) && Base\Symlink::unset($value))
+            $return = array('method'=>'pos','value'=>"- $value");
+
+            elseif(Base\Dir::is($value) && Base\Dir::emptyAndUnlink($value))
+            $return = array('method'=>'pos','value'=>"x $value");
+        }
+        
+        return $return;
+    }
 }
 ?>

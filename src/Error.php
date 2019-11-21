@@ -17,7 +17,7 @@ class Error extends Main\Error
 {
     // config
     public static $config = [
-        'log'=>[Row\LogError::class,File\Error::class], // classe pour log, , s'il y a en plusieurs utilise seulement le premier qui fonctionne
+        'log'=>[Row\LogError::class,Main\File\Error::class], // classe pour log, , s'il y a en plusieurs utilise seulement le premier qui fonctionne
         'type'=>[ // description des types additionneles à boot
             33=>['key'=>'dbException','name'=>'Database Exception'],
             34=>['key'=>'dbException','name'=>'Catchable database exception'],

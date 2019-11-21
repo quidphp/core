@@ -24,7 +24,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
         'parent'=>'system',
         'order'=>['dateModify'=>'desc'],
         'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class],
+            'envType'=>['class'=>Core\Col\EnvType::class],
             'data'=>['class'=>Core\Col\Serialize::class],
             'name'=>['general'=>false],
             'sid'=>['required'=>true],
@@ -214,7 +214,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionMostRecent
     // retourne la session la plus récente pour l'utilisateur donné
-    final public static function sessionMostRecent(string $name,User $user,?self $not=null,?array $context=null):?Main\Contract\Session
+    final public static function sessionMostRecent(string $name,User $user,?self $not=null,?array $envType=null):?Main\Contract\Session
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -231,8 +231,8 @@ class Session extends Core\RowAlias implements Main\Contract\Session
                 $where[] = ['dateAdd','>',$dateAdd];
             }
 
-            if(!empty($context))
-            $where[] = ['context','=',$context];
+            if(!empty($envType))
+            $where[] = ['envType','=',$envType];
 
             $return = $table->select($where,['dateAdd'=>'desc'],1);
         }
@@ -243,7 +243,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
     // sessionDestroyOther
     // efface toutes les sessions sauf la courante
-    final public static function sessionDestroyOther(string $name,User $user,?self $not=null,?array $context=null):?int
+    final public static function sessionDestroyOther(string $name,User $user,?self $not=null,?array $envType=null):?int
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -258,8 +258,8 @@ class Session extends Core\RowAlias implements Main\Contract\Session
                 $where[] = [$primary,'!=',$not];
             }
 
-            if(!empty($context))
-            $where[] = ['context','=',$context];
+            if(!empty($envType))
+            $where[] = ['envType','=',$envType];
 
             $return = $table->delete($where);
         }
