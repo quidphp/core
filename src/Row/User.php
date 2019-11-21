@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 /*
  * This file is part of the QuidPHP package.
+ * Author: Pierre-Philippe Emond <emondpph@gmail.com>
  * Website: https://quidphp.com
  * License: https://github.com/quidphp/core/blob/master/LICENSE
+ * Readme: https://github.com/quidphp/core/blob/master/README.md
  */
 
 namespace Quid\Core\Row;
@@ -226,7 +228,7 @@ class User extends Core\RowAlias
     final public function isDeleteable(?array $option=null):bool
     {
         $return = parent::isDeleteable($option);
-        
+
         if($return === true)
         {
             $return = false;
@@ -235,7 +237,7 @@ class User extends Core\RowAlias
 
             $isNobody = $this->isNobody();
             $permission = $this->permission();
-            
+
             if($isNobody === false && $currentPermission > $permission)
             $return = true;
         }

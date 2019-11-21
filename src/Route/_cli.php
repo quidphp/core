@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 /*
  * This file is part of the QuidPHP package.
+ * Author: Pierre-Philippe Emond <emondpph@gmail.com>
  * Website: https://quidphp.com
  * License: https://github.com/quidphp/core/blob/master/LICENSE
+ * Readme: https://github.com/quidphp/core/blob/master/README.md
  */
 
 namespace Quid\Core\Route;
@@ -72,40 +74,40 @@ trait _cli
 
         return $return;
     }
-    
-    
+
+
     // clearValue
     // utilisé par clearCache et clearLog pour effacer une valeur
     // peut être un fichier, directoire, symlink ou table de données
     final protected function clearValue(string $value):array
     {
-        $return = array('method'=>'neg','value'=>null);
+        $return = ['method'=>'neg','value'=>null];
         $value = Base\Finder::shortcut($value);
         $return['value'] = "? $value";
-        
+
         if(is_a($value,Core\Row::class,true))
         {
             $db = static::db();
-            
+
             if($db->hasTable($value))
             {
                 $table = $db->table($value);
-                $option = array('log'=>false);
-                
+                $option = ['log'=>false];
+
                 if($table->truncate($option) === true)
-                $return = array('method'=>'pos','value'=>"x $value");
+                $return = ['method'=>'pos','value'=>"x $value"];
             }
         }
-        
+
         else
         {
             if(Base\Symlink::is($value) && Base\Symlink::unset($value))
-            $return = array('method'=>'pos','value'=>"- $value");
+            $return = ['method'=>'pos','value'=>"- $value"];
 
             elseif(Base\Dir::is($value) && Base\Dir::emptyAndUnlink($value))
-            $return = array('method'=>'pos','value'=>"x $value");
+            $return = ['method'=>'pos','value'=>"x $value"];
         }
-        
+
         return $return;
     }
 }

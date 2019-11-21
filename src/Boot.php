@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 /*
  * This file is part of the QuidPHP package.
+ * Author: Pierre-Philippe Emond <emondpph@gmail.com>
  * Website: https://quidphp.com
  * License: https://github.com/quidphp/core/blob/master/LICENSE
+ * Readme: https://github.com/quidphp/core/blob/master/README.md
  */
 
 namespace Quid\Core;
@@ -1143,13 +1145,13 @@ abstract class Boot extends Main\Root
         $return = $this->envType();
         $return['lang'] = Base\Lang::current();
         $return['role'] = null;
-        
+
         if($this->hasSession())
         {
             $role = $this->session()->role(false);
             $return['role'] = $role->name();
         }
-        
+
         return $return;
     }
 
@@ -1813,7 +1815,7 @@ abstract class Boot extends Main\Root
         $routes = $extenders->get($type);
         $routes->init($type);
         $routes->readOnly(true);
-        
+
         $this->extenders = $extenders;
 
         return;
@@ -2186,7 +2188,7 @@ abstract class Boot extends Main\Root
             else
             static::throw('invalidCredentials');
         }
-        
+
         return $return;
     }
 
