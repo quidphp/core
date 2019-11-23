@@ -73,7 +73,7 @@ abstract class Route extends Routing\Route
         $parent = static::parent();
         $description = $boot->description();
         $lang = $this->lang();
-        
+
         $return['env'] = $boot->env();
         $return['role'] = $session->role()->name();
         $return['bootLabel'] = $boot->label();

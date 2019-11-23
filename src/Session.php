@@ -795,16 +795,16 @@ class Session extends Main\Session
         return $return;
     }
 
-    
+
     // canAccess
     // méthode qui retourne vrai si l'utilisateur a accès
     // soit le user peut se logger ou le user est cli
-    final public function canAccess():bool 
+    final public function canAccess():bool
     {
         return ($this->canLogin() || $this->isCli())? true:false;
     }
-    
-    
+
+
     // isPasswordVisible
     // retourne vrai si le champ mot de passe devrait s'afficher
     final public function isPasswordVisible(Col $col,Cell $cell):bool

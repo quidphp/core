@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
-use Quid\Base;
 use Quid\Orm;
 
 // lang

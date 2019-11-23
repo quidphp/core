@@ -97,7 +97,7 @@ class Fr extends Orm\Lang\Fr
             'newPassword'=>'Nouveau mot de passe',
             'newPasswordConfirm'=>'Confirmation du nouveau mot de passe'
         ],
-        
+
         // exception
         'exception'=>[
 

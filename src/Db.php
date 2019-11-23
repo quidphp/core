@@ -51,8 +51,8 @@ class Db extends Orm\Db
                 'enum'=>Col\Enum::class]],
         'tables'=>[], // paramètre par défaut pour les tables
         'cols'=>[ // paramètre par défaut pour les colonnes
-            'enum'=>array('class'=>Col\Enum::class),
-            'set'=>array('class'=>Col\Set::class),
+            'enum'=>['class'=>Col\Enum::class],
+            'set'=>['class'=>Col\Set::class],
             'active'=>['class'=>Col\Active::class,'general'=>true],
             'dateAdd'=>['class'=>Col\DateAdd::class],
             'dateLogin'=>['class'=>Col\DateLogin::class],

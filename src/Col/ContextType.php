@@ -21,21 +21,21 @@ class ContextType extends SetAlias
         'complex'=>'checkbox',
         'relation'=>[self::class,'getContextType'],
     ];
-    
-    
+
+
     // getContextType
     // retourne les types de contextes de boot
     final public static function getContextType():array
     {
-        $return = array();
+        $return = [];
         $boot = static::boot();
         $lang = static::lang();
-        
-        foreach ($boot->types() as $type) 
+
+        foreach ($boot->types() as $type)
         {
             $return[$type] = $lang->typeLabel($type);
         }
-        
+
         return $return;
     }
 }
