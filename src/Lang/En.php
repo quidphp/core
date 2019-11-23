@@ -10,16 +10,12 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Lang;
-use Quid\Base;
+use Quid\Orm;
 
 // en
 // english language content used by this namespace
-class En extends Base\Lang\En
+class En extends Orm\Lang\En
 {
-    // trait
-    use _overload;
-
-
     // config
     public static $config = [
         // common
@@ -71,17 +67,6 @@ class En extends Base\Lang\En
 
             // label
             'label'=>[
-                1=>'Error',
-                2=>'Notice',
-                3=>'Deprecated',
-                11=>'Assertion',
-                21=>'Silent',
-                22=>'Warning',
-                23=>'Fatal',
-                31=>'Exception',
-                32=>'Catchable exception',
-                33=>'Database exception',
-                34=>'Catchable database exception',
                 35=>'Route exception',
                 36=>'Route break exception'
             ],
@@ -107,48 +92,10 @@ class En extends Base\Lang\En
             'en'=>'English'
         ],
 
-        // relationOrder
-        'relationOrder'=>[
-            'key'=>[
-                1=>'Oldest first',
-                2=>'Newest first',
-            ],
-
-            'value'=>[
-                3=>'Alphabetical order',
-                4=>'Inverted alphabetical order'
-            ]
-        ],
-
-        // login
-        'login'=>[
-            'usernameEmail'=>'Username or email',
-            'remember'=>'Remember me ?',
-        ],
-
-        // resetPassword
-        'resetPassword'=>[
-            'forgot'=>'Forgot your password ?',
-            'submit'=>'Submit'
-        ],
-
-        // register
-        'register'=>[
-            'confirmPassword'=>'Password confirmation'
-        ],
-
         // changePassword
         'changePassword'=>[
             'newPassword'=>'New password',
             'newPasswordConfirm'=>'New password confirmation'
-        ],
-
-        // accountChangePassword
-        'accountChangePassword'=>[
-            'oldPassword'=>'Current password',
-            'newPassword'=>'New password',
-            'newPasswordConfirm'=>'New password confirmation',
-            'submit'=>'Change my password'
         ],
 
         // exception
@@ -176,24 +123,8 @@ class En extends Base\Lang\En
                 'pathNotWritable'=>'Path [1] is not writable']
         ],
 
-        // direction
-        'direction'=>[
-            'asc'=>'Asc',
-            'desc'=>'Desc',
-        ],
-
         // label
         'label'=>'QuidPHP',
-
-        // db
-        'db'=>[
-
-            // label
-            'label'=>[],
-
-            // description
-            'description'=>[]
-        ],
 
         // table
         'table'=>[
@@ -212,11 +143,7 @@ class En extends Base\Lang\En
                 'queueEmail'=>'Queue - Email',
                 'session'=>'Session',
                 'user'=>'User',
-                'admin'=>'Admin',
-                'system'=>'System'],
-
-            // description
-            'description'=>[]
+                'system'=>'System']
         ],
 
         // col
@@ -227,167 +154,50 @@ class En extends Base\Lang\En
 
                 // *
                 '*'=>[
-                    'id'=>'Id',
                     'active'=>'Active',
-                    'featured'=>'Featured',
                     'code'=>'Code',
-                    'category'=>'Category',
                     'order'=>'Order',
-                    'lang'=>'Language',
                     'type'=>'Type',
                     'status'=>'Status',
-                    'index'=>'index',
                     'role'=>'Role',
                     'envType'=>'Env and type',
                     'context'=>'Context',
-                    'subject'=>'Subject',
-                    'message'=>'Message',
                     'route'=>'Route',
-                    'method'=>'Method',
-                    'option'=>'Option',
-                    'menu'=>'In menu',
-                    'priority'=>'Priority',
                     'data'=>'Data',
-                    'body'=>'Body',
-                    'header'=>'Header',
-                    'phone'=>'Phone number',
-                    'company'=>'Company',
-                    'amount'=>'Amount',
                     'count'=>'Count',
-                    'year'=>'Year',
-                    'month'=>'Month',
-                    'day'=>'Day',
                     'email'=>'Email',
                     'ip'=>'IP address',
-                    'url'=>'Url',
-                    'uri'=>'Uri',
                     'website'=>'Website',
                     'media'=>'Media',
-                    'media_fr'=>'French media',
-                    'media_en'=>'English media',
-                    'medias'=>'Medias',
-                    'video'=>'Video',
                     'json'=>'Json',
-                    'thumbnail'=>'Thumbnail',
-                    'icon'=>'Icon',
-                    'icons'=>'Icons',
                     'storage'=>'File',
-                    'storage_fr'=>'French file',
-                    'storage_en'=>'English file',
+                    'medias'=>'Medias',
                     'storages'=>'Files',
-                    'background'=>'Background',
                     'key'=>'Key',
                     'name'=>'Name',
-                    'title'=>'Title',
                     'content'=>'Content',
-                    'firstName'=>'First Name',
-                    'lastName'=>'Last Name',
-                    'fullName'=>'Full name',
                     'username'=>'Username',
                     'userAdd'=>'Added by',
                     'userModify'=>'Modified by',
                     'password'=>'Password',
                     'passwordReset'=>'Password - Reset',
-                    'country'=>'Country',
-                    'state'=>'State',
-                    'province'=>'Province',
-                    'city'=>'City',
-                    'zipCode'=>'Zip code',
-                    'postalCode'=>'Postal code',
-                    'key_fr'=>'French key',
-                    'key_en'=>'English key',
-                    'slug'=>'Slug',
-                    'slug_fr'=>'French slug',
-                    'slug_en'=>'English slug',
-                    'slugPath'=>'Slug path',
-                    'slugPath_fr'=>'French slug path',
-                    'slugPath_en'=>'English slug path',
-                    'fragment'=>'Fragment',
-                    'fragment_fr'=>'French fragment',
-                    'fragment_en'=>'English fragment',
-                    'name_fr'=>'French name',
-                    'name_en'=>'English name',
-                    'title_fr'=>'French title',
-                    'title_en'=>'English title',
-                    'content_fr'=>'French content',
-                    'content_en'=>'English content',
-                    'uri_fr'=>'French Uri',
-                    'uri_en'=>'English Uri',
-                    'metaTitle_fr'=>'French meta title',
-                    'metaTitle_en'=>'English meta title',
-                    'metaDescription_fr'=>'French meta description',
-                    'metaDescription_en'=>'English meta description',
-                    'metaKeywords_fr'=>'French meta keywords',
-                    'metaKeywords_en'=>'English meta keywords',
-                    'metaImage_fr'=>'French meta image',
-                    'metaImage_en'=>'English meta image',
-                    'metaSearch_fr'=>'French meta search',
-                    'metaSearch_en'=>'English meta search',
-                    'media_fr'=>'French media',
-                    'media_en'=>'English media',
-                    'video_fr'=>'French video',
-                    'video_en'=>'English video',
-                    'json_fr'=>'French json',
-                    'json_en'=>'English json',
-                    'timestamp'=>'Timestamp',
                     'datetime'=>'Date and time',
                     'datetimeStart'=>'Start date and time',
                     'datetimeEnd'=>'End date and time',
                     'date'=>'Date',
                     'dateStart'=>'Start date',
                     'dateEnd'=>'End date',
-                    'time'=>'Time',
-                    'timeStart'=>'Start time',
-                    'timeEnd'=>'End time',
                     'dateAdd'=>'Date added',
                     'dateModify'=>'Last modification',
-                    'dateExpire'=>'Expiration date',
                     'dateLogin'=>'Last login',
-                    'dateBirth'=>'Birth date',
-                    'dateSent'=>'Sent date',
                     'pointer'=>'Pointer',
                     'value'=>'Value',
-                    'excerpt_fr'=>'French excerpt',
-                    'excerpt_en'=>'English excerpt',
-                    'info_fr'=>'French info',
-                    'info_en'=>'English info',
-                    'role_fr'=>'French role',
-                    'role_en'=>'English role',
-                    'fax'=>'Fax',
-                    'address'=>'Address',
                     'request'=>'Request',
                     'error'=>'Error',
-                    'host'=>'Host',
                     'userCommit'=>'Session user',
-                    'color'=>'Color code',
-                    'attr'=>'Attribute',
-                    'visible'=>'Visible',
-                    'author'=>'Author',
-                    'price'=>'Price',
-                    'total'=>'Total',
                     'timezone'=>'Timezone'
-                ],
-
-                // page
-                'page'=>[
-                    'page_id'=>'Parent page'
                 ]
-            ],
-
-            // description
-            'description'=>[]
-        ],
-
-        // row
-        'row'=>[
-
-            // label
-            'label'=>[
-                '*'=>'[table] #[primary]'
-            ],
-
-            // description
-            'description'=>[]
+            ]
         ],
 
         // role
@@ -400,10 +210,7 @@ class En extends Base\Lang\En
                 20=>'User',
                 80=>'Admin',
                 90=>'Cli'
-            ],
-
-            // description
-            'description'=>[]
+            ]
         ],
 
         // route
@@ -428,30 +235,7 @@ class En extends Base\Lang\En
         // validate
         'validate'=>[
             'pointer'=>'Must be a valid pointer (table/id)',
-            'inRelation'=>'Must be in the relation',
-
-            // tables
-            'tables'=>[]
-        ],
-
-        // required
-        'required'=>[
-            'tables'=>[]
-        ],
-
-        // unique
-        'unique'=>[
-            'tables'=>[]
-        ],
-
-        // editable
-        'editable'=>[
-            'tables'=>[]
-        ],
-
-        // compare
-        'compare'=>[
-            'tables'=>[]
+            'inRelation'=>'Must be in the relation'
         ],
 
         // com
@@ -538,41 +322,6 @@ class En extends Base\Lang\En
                     'alreadyConnected'=>'Cannot register from a connected user account',
                     'passwordConfirm'=>'The password confirmation is incorrect',
                     'invalidValues'=>'Invalid values'
-                ],
-
-                // insert
-                'insert'=>[
-                    '*'=>[
-                        'exception'=>'[message]',
-                        'failure'=>'Add failed'
-                    ]
-                ],
-
-                // update
-                'update'=>[
-                    '*'=>[
-                        'tooMany'=>'Error: many rows updated',
-                        'exception'=>'[message]',
-                        'system'=>'Error system'
-                    ]
-                ],
-
-                // delete
-                'delete'=>[
-                    '*'=>[
-                        'notFound'=>'Error: no rows deleted',
-                        'tooMany'=>'Error: many rows deleted',
-                        'exception'=>'[message]',
-                        'system'=>'Error system'
-                    ]
-                ],
-
-                // truncate
-                'truncate'=>[
-                    '*'=>[
-                        'exception'=>'[message]',
-                        'system'=>'Error system'
-                    ]
                 ]
             ],
 
@@ -608,67 +357,12 @@ class En extends Base\Lang\En
                 'media'=>[
                     'delete'=>'[count] file%s% deleted',
                     'regenerate'=>'[count] file%s% regenerated'
-                ],
-
-                // slug
-                'slug'=>[
-                    'updated'=>'[count] other%s% line%s% updated'
-                ],
-
-                // user
-                'user'=>[
-
-                    // welcome
-                    'welcome'=>[
-                        'success'=>'The welcome email was sent.'
-                    ],
-                ],
-
-                // insert
-                'insert'=>[
-                    '*'=>[
-                        'success'=>'Add success'
-                    ]
-                ],
-
-                // update
-                'update'=>[
-                    '*'=>[
-                        'success'=>'Modify success',
-                        'partial'=>'Modify partial success',
-                        'noChange'=>'No change'
-                    ]
-                ],
-
-                // delete
-                'delete'=>[
-                    '*'=>[
-                        'success'=>'Delete success'
-                    ]
-                ],
-
-                // truncate
-                'truncate'=>[
-                    '*'=>[
-                        'success'=>'Table has been truncated'
-                    ]
-                ],
-
-                // duplicate
-                'duplicate'=>[
-                    'success'=>'Duplicate success'
                 ]
             ]
         ],
 
         // relation
         'relation'=>[
-
-            // bool
-            'bool'=>[
-                0=>'No',
-                1=>'Yes'
-            ],
 
             // yes
             'yes'=>[
@@ -683,12 +377,6 @@ class En extends Base\Lang\En
                 'dev'=>'Development',
                 'staging'=>'Staging',
                 'prod'=>'Production'
-            ],
-
-            // lang
-            'lang'=>[
-                'fr'=>'French',
-                'en'=>'English'
             ],
 
             // emailType

@@ -630,7 +630,7 @@ abstract class Boot extends Main\Root
 
             $firstMatch = $this->getFirstMatch() ?? $routes->route($request,$match,true,true);
             $once = false;
-
+            
             while (!empty($firstMatch) || ($match = $routes->route($request,$match,true,true)))
             {
                 if(!empty($firstMatch))

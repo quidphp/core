@@ -26,6 +26,8 @@ abstract class Route extends Routing\Route
     public static $config = [ // config pour la route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
         'row'=>null, // permet de spécifier la classe row en lien avec la route
+        'docOpen'=>[ // utilisé pour l'ouverture du document
+            'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%']],
         '@dev'=>[
             'debug'=>1] // store dans debug
     ];
@@ -65,12 +67,15 @@ abstract class Route extends Routing\Route
     {
         $return = [];
         $boot = static::boot();
+        $session = static::session();
         $lang = $boot->lang();
         $request = $this->request();
         $parent = static::parent();
         $description = $boot->description();
         $lang = $this->lang();
-
+        
+        $return['env'] = $boot->env();
+        $return['role'] = $session->role()->name();
         $return['bootLabel'] = $boot->label();
         $return['bootDescription'] = $description;
         $return['lang'] = $lang->currentLang();
@@ -195,7 +200,7 @@ abstract class Route extends Routing\Route
     // reourne un objet table à partir du tableau keyValue utilisé dans segment
     // sinon, utilise la rowClass
     // peut retourner null
-    final protected static function tableSegment(array &$keyValue):?Table
+    protected static function tableSegment(array &$keyValue):?Table
     {
         $return = null;
         $table = $keyValue['table'] ?? null;

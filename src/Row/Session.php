@@ -22,7 +22,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     public static $config = [
         'search'=>false,
         'relation'=>'id',
-        'priority'=>954,
+        'priority'=>970,
         'parent'=>'system',
         'order'=>['dateModify'=>'desc'],
         'cols'=>[

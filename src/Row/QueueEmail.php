@@ -26,7 +26,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     public static $config = [
         'panel'=>false,
         'search'=>false,
-        'priority'=>953,
+        'priority'=>960,
         'parent'=>'system',
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],

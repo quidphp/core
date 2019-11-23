@@ -28,7 +28,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         'parent'=>'system',
         'cols'=>[
             'active'=>true,
-            'type'=>['relation'=>'emailType'],
+            'type'=>['relation'=>'emailType','default'=>1],
             'key'=>true,
             'name_fr'=>false,
             'name_en'=>false,

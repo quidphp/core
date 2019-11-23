@@ -10,16 +10,12 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Lang;
-use Quid\Base;
+use Quid\Orm;
 
 // fr
 // french language content used by this namespace
-class Fr extends Base\Lang\Fr
+class Fr extends Orm\Lang\Fr
 {
-    // trait
-    use _overload;
-
-
     // config
     public static $config = [
         // common
@@ -71,17 +67,6 @@ class Fr extends Base\Lang\Fr
 
             // label
             'label'=>[
-                1=>'Erreur',
-                2=>'Notification',
-                3=>'Déconseillé',
-                11=>'Assertion',
-                21=>'Erreur silencieuse',
-                22=>'Avertissement',
-                23=>'Erreur fatale',
-                31=>'Exception',
-                32=>'Exception attrapable',
-                33=>'Exception base de données',
-                34=>'Exception attrapable de base de données',
                 35=>'Exception de route',
                 36=>'Exception fatale de route'
             ],
@@ -107,50 +92,12 @@ class Fr extends Base\Lang\Fr
             'en'=>'English'
         ],
 
-        // relationOrder
-        'relationOrder'=>[
-            'key'=>[
-                1=>'Plus ancien en premier',
-                2=>'Plus récent en premier',
-            ],
-
-            'value'=>[
-                3=>'Ordre alphabétique',
-                4=>'Ordre alphabétique inversé'
-            ]
-        ],
-
-        // login
-        'login'=>[
-            'usernameEmail'=>"Nom d'utilisateur ou courriel",
-            'remember'=>'Se souvenir de moi?'
-        ],
-
-        // resetPassword
-        'resetPassword'=>[
-            'forgot'=>'Mot de passe oublié ?',
-            'submit'=>'Soumettre'
-        ],
-
-        // register
-        'register'=>[
-            'confirmPassword'=>'Confirmation du mot de passe'
-        ],
-
         // changePassword
         'changePassword'=>[
             'newPassword'=>'Nouveau mot de passe',
             'newPasswordConfirm'=>'Confirmation du nouveau mot de passe'
         ],
-
-        // accountChangePassword
-        'accountChangePassword'=>[
-            'oldPassword'=>'Mot de passe actuel',
-            'newPassword'=>'Nouveau mot de passe',
-            'newPasswordConfirm'=>'Confirmation du nouveau mot de passe',
-            'submit'=>'Modifier mon mot de passe'
-        ],
-
+        
         // exception
         'exception'=>[
 
@@ -176,24 +123,8 @@ class Fr extends Base\Lang\Fr
                 'pathNotWritable'=>"Le chemin [1] n'est pas accessible en écriture"]
         ],
 
-        // direction
-        'direction'=>[
-            'asc'=>'Ascendant',
-            'desc'=>'Descendant',
-        ],
-
         // label
         'label'=>'QuidPHP',
-
-        // db
-        'db'=>[
-
-            // label
-            'label'=>[],
-
-            // description
-            'description'=>[]
-        ],
 
         // table
         'table'=>[
@@ -212,11 +143,7 @@ class Fr extends Base\Lang\Fr
                 'queueEmail'=>'Queue - Courriel',
                 'session'=>'Session',
                 'user'=>'Utilisateur',
-                'admin'=>'Administration',
-                'system'=>'Système'],
-
-            // description
-            'description'=>[]
+                'system'=>'Système']
         ],
 
         // col
@@ -227,167 +154,50 @@ class Fr extends Base\Lang\Fr
 
                 // *
                 '*'=>[
-                    'id'=>'Id',
                     'active'=>'Actif',
-                    'featured'=>'En vedette',
                     'code'=>'Code',
-                    'category'=>'Catégorie',
                     'order'=>'Ordre',
-                    'lang'=>'Langue',
                     'type'=>'Type',
                     'status'=>'Statut',
-                    'index'=>'index',
                     'role'=>'Rôle',
                     'envType'=>'Env et type',
                     'context'=>'Contexte',
-                    'subject'=>'Sujet',
-                    'message'=>'Message',
                     'route'=>'Route',
-                    'method'=>'Méthode',
-                    'option'=>'Option',
-                    'menu'=>'Dans le menu',
-                    'priority'=>'Priorité',
                     'data'=>'Données',
-                    'body'=>'Corps',
-                    'header'=>'En-tête',
-                    'phone'=>'Téléphone',
-                    'company'=>'Compagnie',
-                    'amount'=>'Montant',
                     'count'=>'Compte',
-                    'year'=>'Année',
-                    'month'=>'Mois',
-                    'day'=>'Jour',
                     'email'=>'Courriel',
                     'ip'=>'Adresse IP',
-                    'url'=>'Url',
-                    'uri'=>'Uri',
                     'website'=>'Site Web',
                     'media'=>'Média',
-                    'media_fr'=>'Média français',
-                    'media_en'=>'Média anglais',
-                    'medias'=>'Médias',
-                    'video'=>'Vidéo',
                     'json'=>'Json',
-                    'thumbnail'=>'Miniature',
-                    'icon'=>'Icône',
-                    'icons'=>'Icônes',
                     'storage'=>'Fichier',
-                    'storage_fr'=>'Fichier français',
-                    'storage_en'=>'Fichier anglais',
+                    'medias'=>'Médias',
                     'storages'=>'Fichiers',
-                    'background'=>'Arrière-plan',
                     'key'=>'Clé',
                     'name'=>'Nom',
-                    'title'=>'Titre',
                     'content'=>'Contenu',
-                    'firstName'=>'Prénom',
-                    'lastName'=>'Nom de famille',
-                    'fullName'=>'Nom complet',
                     'username'=>"Nom d'utilisateur",
                     'userAdd'=>'Ajouté par',
                     'userModify'=>'Modifié par',
                     'password'=>'Mot de passe',
                     'passwordReset'=>'Réinitialisation du mot de passe',
-                    'country'=>'Pays',
-                    'state'=>'État',
-                    'province'=>'Province',
-                    'city'=>'Ville',
-                    'zipCode'=>'Zip code',
-                    'postalCode'=>'Code postal',
-                    'key_fr'=>'Clé française',
-                    'key_en'=>'Clé anglaise',
-                    'slug'=>'Slug',
-                    'slug_fr'=>'Slug français',
-                    'slug_en'=>'Slug anglais',
-                    'slugPath'=>'Slug-chemin',
-                    'slugPath_fr'=>'Slug-chemin français',
-                    'slugPath_en'=>'Slug-chemin anglais',
-                    'fragment'=>'Fragment',
-                    'fragment_fr'=>'Fragment français',
-                    'fragment_en'=>'Fragment anglais',
-                    'name_fr'=>'Nom français',
-                    'name_en'=>'Nom anglais',
-                    'title_fr'=>'Titre français',
-                    'title_en'=>'Titre anglais',
-                    'content_fr'=>'Contenu français',
-                    'content_en'=>'Contenu anglais',
-                    'uri_fr'=>'Uri française',
-                    'uri_en'=>'Uri anglaise',
-                    'metaTitle_fr'=>'Meta titre français',
-                    'metaTitle_en'=>'Meta titre anglais',
-                    'metaDescription_fr'=>'Meta description française',
-                    'metaDescription_en'=>'Meta description anglaise',
-                    'metaKeywords_fr'=>'Meta mots clefs français',
-                    'metaKeywords_en'=>'Meta mots clefs anglais',
-                    'metaImage_fr'=>'Meta image français',
-                    'metaImage_en'=>'Meta image anglais',
-                    'metaSearch_fr'=>'Meta recherche français',
-                    'metaSearch_en'=>'Meta recherche anglais',
-                    'media_fr'=>'Média français',
-                    'media_en'=>'Média anglais',
-                    'video_fr'=>'Vidéo français',
-                    'video_en'=>'Vidéo anglais',
-                    'json_fr'=>'Json français',
-                    'json_en'=>'Json anglais',
-                    'timestamp'=>'Code temps',
                     'datetime'=>'Date et heure',
                     'datetimeStart'=>'Date et heure de début',
                     'datetimeEnd'=>'Date et heure de fin',
                     'date'=>'Date',
                     'dateStart'=>'Date de début',
                     'dateEnd'=>'Date de fin',
-                    'time'=>'Heure',
-                    'timeStart'=>'Heure de début',
-                    'timeEnd'=>'Heure de fin',
                     'dateAdd'=>"Date d'ajout",
                     'dateModify'=>'Dernière modification',
-                    'dateExpire'=>"Date d'expiration",
                     'dateLogin'=>'Dernière connexion',
-                    'dateBirth'=>'Date de naissance',
-                    'dateSent'=>"Date d'envoie",
                     'pointer'=>'Pointeur',
                     'value'=>'Valeur',
-                    'excerpt_fr'=>'Résumé français',
-                    'excerpt_en'=>'Résumé anglais',
-                    'info_fr'=>'Information française',
-                    'info_en'=>'Information anglaise',
-                    'role_fr'=>'Rôle français',
-                    'role_en'=>'Rôle anglais',
-                    'fax'=>'Fax',
-                    'address'=>'Adresse',
                     'request'=>'Requête',
                     'error'=>'Erreur',
-                    'host'=>'Hôte',
                     'userCommit'=>'Utilisateur session',
-                    'color'=>'Code couleur',
-                    'attr'=>'Attribut',
-                    'visible'=>'Visible',
-                    'author'=>'Auteur',
-                    'price'=>'Prix',
-                    'total'=>'Total',
                     'timezone'=>'Fuseau horaire'
-                ],
-
-                // page
-                'page'=>[
-                    'page_id'=>'Page parent'
                 ]
-            ],
-
-            // description
-            'description'=>[]
-        ],
-
-        // row
-        'row'=>[
-
-            // label
-            'label'=>[
-                '*'=>'[table] #[primary]',
-            ],
-
-            // description
-            'description'=>[]
+            ]
         ],
 
         // role
@@ -400,10 +210,7 @@ class Fr extends Base\Lang\Fr
                 20=>'Utilisateur',
                 80=>'Administrateur',
                 90=>'Cli'
-            ],
-
-            // description
-            'description'=>[]
+            ]
         ],
 
         // route
@@ -428,30 +235,7 @@ class Fr extends Base\Lang\Fr
         // validate
         'validate'=>[
             'pointer'=>'Doit être un pointeur valide (table/id)',
-            'inRelation'=>'Doit être dans la relation',
-
-            // tables
-            'tables'=>[]
-        ],
-
-        // required
-        'required'=>[
-            'tables'=>[]
-        ],
-
-        // unique
-        'unique'=>[
-            'tables'=>[]
-        ],
-
-        // editable
-        'editable'=>[
-            'tables'=>[]
-        ],
-
-        // compare
-        'compare'=>[
-            'tables'=>[]
+            'inRelation'=>'Doit être dans la relation'
         ],
 
         // com
@@ -538,41 +322,6 @@ class Fr extends Base\Lang\Fr
                     'alreadyConnected'=>"Impossible de faire un enregistrement à partir d'un utilisateur connecté",
                     'passwordConfirm'=>'La confirmation du mot de passe est incorrect',
                     'invalidValues'=>'Valeurs fournies invalides'
-                ],
-
-                // insert
-                'insert'=>[
-                    '*'=>[
-                        'exception'=>'[message]',
-                        'failure'=>'Ajout non effectué'
-                    ]
-                ],
-
-                // update
-                'update'=>[
-                    '*'=>[
-                        'tooMany'=>'Erreur: plusieurs lignes modifiés',
-                        'exception'=>'[message]',
-                        'system'=>'Erreur système'
-                    ]
-                ],
-
-                // delete
-                'delete'=>[
-                    '*'=>[
-                        'notFound'=>'Erreur: aucune ligne effacée',
-                        'tooMany'=>'Erreur: plusieurs lignes effacées',
-                        'exception'=>'[message]',
-                        'system'=>'Erreur système'
-                    ]
-                ],
-
-                // truncate
-                'truncate'=>[
-                    '*'=>[
-                        'exception'=>'[message]',
-                        'system'=>'Erreur système'
-                    ]
                 ]
             ],
 
@@ -608,67 +357,12 @@ class Fr extends Base\Lang\Fr
                 'media'=>[
                     'delete'=>'[count] fichier%s% effacé%s%',
                     'regenerate'=>'[count] fichier%s% regénéré%s%'
-                ],
-
-                // slug
-                'slug'=>[
-                    'updated'=>'[count] autre%s% ligne%s% mise%s% à jour'
-                ],
-
-                // user
-                'user'=>[
-
-                    // welcome
-                    'welcome'=>[
-                        'success'=>'Le courriel de bienvenue a été envoyé.'
-                    ],
-                ],
-
-                // insert
-                'insert'=>[
-                    '*'=>[
-                        'success'=>'Ajout effectué'
-                    ]
-                ],
-
-                // update
-                'update'=>[
-                    '*'=>[
-                        'success'=>'Modification effectuée',
-                        'partial'=>'Modification partielle effectuée',
-                        'noChange'=>'Aucun changement'
-                    ]
-                ],
-
-                // delete
-                'delete'=>[
-                    '*'=>[
-                        'success'=>'Suppression effectuée'
-                    ]
-                ],
-
-                // truncate
-                'truncate'=>[
-                    '*'=>[
-                        'success'=>'La table a été vidée'
-                    ]
-                ],
-
-                // duplicate
-                'duplicate'=>[
-                    'success'=>'La duplication a réussie'
                 ]
             ]
         ],
 
         // relation
         'relation'=>[
-
-            // bool
-            'bool'=>[
-                0=>'Non',
-                1=>'Oui'
-            ],
 
             // yes
             'yes'=>[
@@ -683,12 +377,6 @@ class Fr extends Base\Lang\Fr
                 'dev'=>'Développement',
                 'staging'=>'Test',
                 'prod'=>'Production'
-            ],
-
-            // lang
-            'lang'=>[
-                'fr'=>'Français',
-                'en'=>'Anglais'
             ],
 
             // emailType

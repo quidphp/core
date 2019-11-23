@@ -26,6 +26,8 @@ abstract class Error extends Core\RouteAlias
         'match'=>[
             'cli'=>null,
             'method'=>null],
+        'docOpen'=>[
+            'html'=>['data-error'=>'route']],
         'group'=>'error',
         'sitemap'=>false,
         'response'=>[

@@ -28,7 +28,7 @@ class Table extends Orm\Table
         'permission'=>[
             '*'=>[
                 'view'=>true, // pouvoir voir le contenu de la table
-                'mediaDownload'=>true, // pouvoir télécharger un média
+                'download'=>true, // pouvoir télécharger un média
                 'mediaDelete'=>true, // permettre d'effacer un média
                 'mediaRegenerate'=>false], // permettre de regénérer un média
             'admin'=>[

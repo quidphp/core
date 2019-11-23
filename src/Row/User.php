@@ -35,8 +35,7 @@ class User extends Core\RowAlias
             'email'=>true,
             'dateLogin'=>true],
         'permission'=>[
-            '*'=>['fakeRoles'=>false],
-            'nobody'=>['update'=>true]],
+            '*'=>['fakeRoles'=>false,'update'=>true]],
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
@@ -342,7 +341,7 @@ class User extends Core\RowAlias
 
     // canReceiveEmail
     // retourne vrai si l'utilisateur peut recevoir un courriel
-    final public function canReceiveEmail():bool
+    public function canReceiveEmail():bool
     {
         return ($this->isSomebody() && $this->hasUsername() && $this->hasEmail())? true:false;
     }
@@ -491,7 +490,7 @@ class User extends Core\RowAlias
 
     // getEmailReplace
     // retourne un tableau de remplacement de base pour les courriels
-    final protected function getEmailReplace():array
+    protected function getEmailReplace():array
     {
         $return = [];
         $return['username'] = $this->username();
@@ -520,7 +519,7 @@ class User extends Core\RowAlias
 
     // registerConfirmEmailReplace
     // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    final public function registerConfirmEmailReplace():array
+    public function registerConfirmEmailReplace():array
     {
         return $this->getEmailReplace();
     }
@@ -544,7 +543,7 @@ class User extends Core\RowAlias
 
     // registerAdminEmailReplace
     // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    final public function registerAdminEmailReplace():array
+    public function registerAdminEmailReplace():array
     {
         return $this->getEmailReplace();
     }
@@ -996,7 +995,7 @@ class User extends Core\RowAlias
 
     // getAdminEmail
     // retourne le email de l'administrateur
-    final public function getAdminEmail():?array
+    public function getAdminEmail():?array
     {
         return null;
     }

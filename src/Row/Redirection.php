@@ -22,7 +22,7 @@ class Redirection extends Core\RowAlias
         'key'=>'key',
         'order'=>['id'=>'desc'],
         'parent'=>'system',
-        'priority'=>951,
+        'priority'=>952,
         'searchMinLength'=>1,
         'cols'=>[
             'active'=>true,

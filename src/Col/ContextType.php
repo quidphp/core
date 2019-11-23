@@ -19,8 +19,25 @@ class ContextType extends SetAlias
     public static $config = [
         'required'=>true,
         'complex'=>'checkbox',
-        'relation'=>'contextType'
+        'relation'=>[self::class,'getContextType'],
     ];
+    
+    
+    // getContextType
+    // retourne les types de contextes de boot
+    final public static function getContextType():array
+    {
+        $return = array();
+        $boot = static::boot();
+        $lang = static::lang();
+        
+        foreach ($boot->types() as $type) 
+        {
+            $return[$type] = $lang->typeLabel($type);
+        }
+        
+        return $return;
+    }
 }
 
 // init
