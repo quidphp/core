@@ -24,10 +24,17 @@ class Table extends Orm\Table
 
     // config
     public static $config = [
+        'active'=>'active', // colonne(s) utilisé pour déterminer si une ligne est active
+        'key'=>['key',0], // colonne(s) utilisé pour key
+        'name'=>['name_[lang]','name','id',0], // colonne(s) utilisé pour le nom d'une ligne
+        'content'=>['content_[lang]','content'], // colonne(s) utilisé pour le contenu d'une ligne
+        'dateCommit'=>['dateAdd'=>'userAdd','dateModify'=>'userModify'], // crée une relation entre un nom de colonne pour la date et un pour le user, le user peut être vide
+        'owner'=>array('user_id','userAdd','userModify'), // champs qui définissent le ou les propriétaires d'une ligne
+        'order'=>['order'=>'asc','date'=>'desc','name_[lang]'=>'asc','key'=>'asc','id'=>'desc'], // ordre et direction à utiliser par défaut, prend la première qui existe
         'route'=>null, // permet de lier une classe de route à la table
+        'inRelation'=>true, // active ou non la validation que la valeur des relations sont dans la relation
         'permission'=>[
             '*'=>[
-                'view'=>true, // pouvoir voir le contenu de la table
                 'download'=>true, // pouvoir télécharger un média
                 'mediaDelete'=>true, // permettre d'effacer un média
                 'mediaRegenerate'=>false], // permettre de regénérer un média

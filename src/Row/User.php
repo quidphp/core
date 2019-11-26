@@ -45,8 +45,7 @@ class User extends Core\RowAlias
         'emailModel'=>[
             'registerAdmin'=>null,
             'registerConfirm'=>null,
-            'resetPassword'=>null,
-            'userWelcome'=>null],
+            'resetPassword'=>null],
         'crypt'=>[
             'passwordHash'=>[ // configuration pour passwordHash
                 'algo'=>PASSWORD_DEFAULT,
@@ -154,14 +153,6 @@ class User extends Core\RowAlias
     }
 
 
-    // onWelcomeEmailSent
-    // lorsque le courriel de bienvenue a été envoyé à l'utilisateur
-    final protected function onWelcomeEmailSent():void
-    {
-        return;
-    }
-
-
     // allowRegisterConfirmEmail
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
     final public function allowRegisterConfirmEmail():bool
@@ -178,14 +169,15 @@ class User extends Core\RowAlias
     }
 
 
-    // allowWelcomeEmail
-    // retourne vrai si le user permet l'envoie de courrier de bienvenue
-    final public function allowWelcomeEmail():bool
+    // allowRegister
+    // retourne vrai si l'utilisateur pourriat procéder à un enregistrement
+    // doit être nobody et qu'il y ait au moins un modèle d'email de confirmation
+    final public function allowRegister():bool 
     {
-        return (!empty($this->welcomeEmailModel()))? true:false;
+        return ($this->isNobody() && ($this->allowRegisterConfirmEmail() || $this->allowRegisterAdminEmail()))? true:false;
     }
-
-
+    
+    
     // allowResetPasswordEmail
     // retourne vrai si le user permet l'envoie de courrier pour regénérer le mot de passe
     final public function allowResetPasswordEmail():bool
@@ -581,30 +573,6 @@ class User extends Core\RowAlias
     }
 
 
-    // welcomeEmail
-    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel de bienvenue
-    final public function welcomeEmail(?array $replace=null):?array
-    {
-        return $this->getEmailArray('welcome',$replace);
-    }
-
-
-    // welcomeEmailModel
-    // retourne le model pour le courriel de bienvenue ou null
-    final public function welcomeEmailModel():?Main\Contract\Email
-    {
-        return $this->getEmailModel('userWelcome');
-    }
-
-
-    // welcomeEmailReplace
-    // retourne les valeurs de remplacement pour le courriel de bienvenue
-    public function welcomeEmailReplace():array
-    {
-        return $this->getEmailReplace();
-    }
-
-
     // username
     // retourne la cellule du username
     final public function username():Core\Cell
@@ -914,7 +882,7 @@ class User extends Core\RowAlias
 
 
     // sendEmail
-    // méthode utilisé par sendWelcomeEmail, sendRegisterConfirmEmail et sendRegisterAdminEmail
+    // méthode utilisé par différentes méthodes d'envoies de courriels
     // plusieurs exceptions peuvent être envoyés
     final protected function sendEmail(string $type,$to,?array $replace=null,?\Closure $closure=null,?array $option=null):bool
     {
@@ -945,31 +913,6 @@ class User extends Core\RowAlias
 
         else
         static::throw('cannotSendEmail',$type);
-
-        return $return;
-    }
-
-
-    // sendWelcomeEmail
-    // envoie le courriel de bienvenue
-    // plusieurs exceptions peuvent être envoyés
-    final public function sendWelcomeEmail(?array $replace=null,?array $option=null):bool
-    {
-        $return = false;
-        $closure = function(array $return) {
-            if(empty($return['password']) || !is_string($return['password']))
-            {
-                $newOption = $this->getAttr('crypt/passwordNew');
-                $password = Base\Crypt::passwordNew($newOption);
-
-                if($this->setPassword([$password]) !== 1)
-                static::throw('cannotChangePassword');
-                $return['password'] = $password;
-            }
-
-            return $return;
-        };
-        $return = $this->sendEmail('welcome',$this,$replace,$closure,$option);
 
         return $return;
     }

@@ -16,7 +16,7 @@ use Quid\Routing;
 
 // session
 // extended class that adds session support for user
-class Session extends Main\Session
+class Session extends Routing\Session
 {
     // trait
     use _bootAccess;
@@ -26,7 +26,6 @@ class Session extends Main\Session
     // config
     public static $config = [
         'userClass'=>Row\User::class, // classe row de l'utilisateur
-        'historyClass'=>Routing\RequestHistory::class, // classe de l'historique de requête
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
         'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
         'loginLifetime'=>3600, // durée du login dans une session
@@ -35,7 +34,6 @@ class Session extends Main\Session
             'login'=>Row\Log::class,
             'logout'=>Row\Log::class],
         'structure'=>[ // callables de structure additionnelles dans data, se merge à celle dans base/session
-            'nav'=>'structureNav',
             'user'=>'structureUser',
             'fakeRoles'=>'structureFakeRoles'],
         '@dev'=>[
@@ -179,7 +177,7 @@ class Session extends Main\Session
     // retourne vrai si le user a accès au formulaire d'enregistrement
     public function allowRegister():bool
     {
-        return false;
+        return $this->user()->allowRegister();
     }
 
 
@@ -188,14 +186,6 @@ class Session extends Main\Session
     final public function allowResetPasswordEmail():bool
     {
         return $this->user()->allowResetPasswordEmail();
-    }
-
-
-    // allowWelcomeEmail
-    // retourne vrai si le user de la session permet l'envoie de courrier de bienvenue
-    final public function allowWelcomeEmail():bool
-    {
-        return $this->user()->allowWelcomeEmail();
     }
 
 
@@ -275,23 +265,6 @@ class Session extends Main\Session
                 $return = $session->sessionSid();
             }
         }
-
-        return $return;
-    }
-
-
-    // structureNav
-    // gère le champ structure nav de la session
-    // mode insert, update ou is
-    final public function structureNav(string $mode,$value=null)
-    {
-        $return = $value;
-
-        if($mode === 'insert')
-        $return = Routing\Nav::newOverload();
-
-        elseif($mode === 'is')
-        $return = ($value instanceof Routing\Nav)? true:false;
 
         return $return;
     }
@@ -662,7 +635,7 @@ class Session extends Main\Session
     // setLang
     // change la langue de la session et de l'objet lang
     // une exception est envoyé si la langue n'existe pas dans base lang
-    final public function setLang(string $value):parent
+    final public function setLang(string $value):Main\Session
     {
         $lang = $this->db()->lang();
         $lang->changeLang($value);
@@ -672,25 +645,7 @@ class Session extends Main\Session
         return $this;
     }
 
-
-    // nav
-    // retourne l'objet nav
-    final public function nav():Routing\Nav
-    {
-        return $this->get('nav');
-    }
-
-
-    // navEmpty
-    // vide l'objet nav
-    final public function navEmpty():self
-    {
-        $this->nav()->empty();
-
-        return $this;
-    }
-
-
+    
     // historyPreviousRoute
     // retourne la route de la requête précédente ou un fallback
     // ne peut pas retourner vide
@@ -703,8 +658,8 @@ class Session extends Main\Session
 
         return $return;
     }
-
-
+    
+    
     // hasFakeRoles
     // retourne vrai si la session a des fake roles
     final public function hasFakeRoles():bool

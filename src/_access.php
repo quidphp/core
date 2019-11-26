@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quid\Core;
 use Quid\Main;
+use Quid\Routing;
 
 // _access
 // trait that provides methods to useful objects related to the Boot
@@ -22,7 +23,7 @@ trait _access
 
     // session
     // retourne l'objet session
-    final public static function session():Main\Session
+    final public static function session():Routing\Session
     {
         return static::boot()->session();
     }

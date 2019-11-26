@@ -40,7 +40,7 @@ abstract class Boot extends Main\Root
         'envs'=>['dev','staging','prod'], // définis les environnements, ne peut pas être mis dans un @
         'types'=>[], // définis les types applicatif, ne peut pas être mis dans un @
         'climbChar'=>'@', // caractère à mettre avec une clé grimpable, ne peut pas être mis dans un @
-        'typeAs'=>[], // permet de spécifier des classes dont les types doivent utiliser un autre type, ne peut pas être mis dans un @
+        'typeAs'=>null, // permet de spécifier des types qui doivent utiliser un ou plusieurs autres types, ne peut pas être mis dans un @
         'request'=>null, // valeur par défaut pour la création de request, ne peut pas être mis dans un @
         'finderShortcut'=>[ // shortcut pour finder
             'vendor'=>'[vendor]',
@@ -1245,11 +1245,11 @@ abstract class Boot extends Main\Root
 
 
     // typeAs
-    // retourne le ou les types à utiliser pour une classe, en plus du type courant
-    // les types à utiliser ont priorités
-    final public function typeAs(string $class,string $type)
+    // retourne le ou les types supplémentaires à utiliser
+    // ces types à utiliser n'ont pas priorités sur le type courant
+    final public function typeAs(string $type)
     {
-        return $this->getAttr(['typeAs',$class,$type]);
+        return $this->getAttr(['typeAs',$type]);
     }
 
 
@@ -1303,9 +1303,9 @@ abstract class Boot extends Main\Root
 
         if(is_string($class))
         {
-            $typeAs = $this->typeAs($class,$envType['type']);
+            $typeAs = $this->typeAs($envType['type']);
             if(!empty($typeAs))
-            $envType = Base\Arr::append($envType,$typeAs);
+            $envType = Base\Arr::append($typeAs,$envType);
         }
 
         $envType = array_values($envType);
@@ -2514,7 +2514,7 @@ abstract class Boot extends Main\Root
 
 
     // unclimbableKeys
-    // retouren un tableau avec toutes les clés de config ne pouvant être grimpés avec @
+    // retourne un tableau avec toutes les clés de config ne pouvant être grimpés avec @
     // ceci est utilisé dans makeInitialAttr
     final public static function unclimbableKeys():array
     {

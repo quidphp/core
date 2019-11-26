@@ -79,9 +79,6 @@ class Session extends Base\Test
         // allowResetPasswordEmail
         assert($s->allowResetPasswordEmail());
 
-        // allowWelcomeEmail
-        assert(!$s->allowWelcomeEmail());
-
         // getUserClass
         assert($s->getUserClass() === Suite\Row\User::class);
 
@@ -98,8 +95,6 @@ class Session extends Base\Test
         assert(is_int($s->getLoginLifetime()));
 
         // getSidDefault
-
-        // structureNav
 
         // structureUser
 
@@ -159,15 +154,9 @@ class Session extends Base\Test
         assert($s->permission() === 1);
 
         // setLang
-
-        // nav
-        assert($s->nav() instanceof Routing\Nav);
-
-        // navEmpty
-        assert($s->navEmpty() === $s);
-
+        
         // historyPreviousRoute
-
+        
         // hasFakeRoles
         assert($s->hasFakeRoles() === false);
 

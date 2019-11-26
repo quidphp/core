@@ -24,8 +24,17 @@ class Col extends Orm\Col
 
     // config
     public static $config = [
-        'route'=>null // permet de définir la route à utiliser en lien avec complex
+        'route'=>null, // permet de définir la route à utiliser en lien avec complex
+        'generalExcerptMin'=>null // excerpt min pour l'affichage dans general
     ];
+
+    
+    // generalExcerptMin
+    // retourne la longueur de l'excerpt pour general
+    final public function generalExcerptMin():?int
+    {
+        return $this->getAttr('generalExcerptMin');
+    }
 
 
     // generalCurrentLang

@@ -49,6 +49,10 @@ class Cell extends Base\Test
         $medias = $row->cell('medias');
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
+        
+        // generalExcerptMin
+        assert($primary->generalExcerptMin() === 100);
+        assert($userAdd->generalExcerptMin() === null);
 
         // orm
         assert(is_array($dateAdd->getPermission($admin)));
@@ -105,7 +109,6 @@ class Cell extends Base\Test
         // integer
         assert($integer instanceof Core\Cell\Integer);
         assert(!$integer->isPrimary());
-        assert($integer->isColKindInt());
         assert(!$primary->hasDefault());
         assert($integer->hasDefault());
         assert($primary->value() === 1);
