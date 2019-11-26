@@ -172,12 +172,12 @@ class User extends Core\RowAlias
     // allowRegister
     // retourne vrai si l'utilisateur pourriat procéder à un enregistrement
     // doit être nobody et qu'il y ait au moins un modèle d'email de confirmation
-    final public function allowRegister():bool 
+    final public function allowRegister():bool
     {
         return ($this->isNobody() && ($this->allowRegisterConfirmEmail() || $this->allowRegisterAdminEmail()))? true:false;
     }
-    
-    
+
+
     // allowResetPasswordEmail
     // retourne vrai si le user permet l'envoie de courrier pour regénérer le mot de passe
     final public function allowResetPasswordEmail():bool

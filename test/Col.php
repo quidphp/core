@@ -39,7 +39,7 @@ class Col extends Base\Test
         $storage = $tb['storage'];
         $row = $tb[1];
         $medias = $tb['medias'];
-        
+
         // generalExcerptMin
         assert($col->generalExcerptMin() === 100);
 

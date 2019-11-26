@@ -33,13 +33,13 @@ class Row extends Base\Test
         $row = $tb->row(1);
         $row2 = $tb->row(2);
         $admin = $boot->roles()->get(80);
-        
+
         // isOwner
         $nobody = $session->getUserNobody();
         assert($row->isOwner());
         assert($row->isOwner($user));
         assert(!$row->isOwner($nobody));
-        
+
         // inAllSegment
         assert($row->inAllSegment() === false);
         assert($row->cellClass($tb['id']) === Core\Cell\Primary::class);

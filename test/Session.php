@@ -13,7 +13,6 @@ namespace Quid\Test\Core;
 use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Routing;
 use Quid\Test\Suite;
 
 // session
@@ -154,9 +153,9 @@ class Session extends Base\Test
         assert($s->permission() === 1);
 
         // setLang
-        
+
         // historyPreviousRoute
-        
+
         // hasFakeRoles
         assert($s->hasFakeRoles() === false);
 

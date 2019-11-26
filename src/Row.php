@@ -25,19 +25,19 @@ class Row extends Orm\Row
     // config
     public static $config = [];
 
-    
+
     // isOwner
     // retourne vrai si l'utilisateur donné en argument est un des propriétaires de la ligne
     // si null prend l'utilisateur de la session courante
-    final public function isOwner(?Row\User $user=null):bool 
+    final public function isOwner(?Row\User $user=null):bool
     {
         $return = false;
         $owner = $this->cellsOwner();
-        
+
         if(empty($user))
         $user = static::session()->user();
-        
-        foreach ($owner as $cell) 
+
+        foreach ($owner as $cell)
         {
             if($cell->value() === $user->primary())
             {
@@ -45,11 +45,11 @@ class Row extends Orm\Row
                 break;
             }
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // inAllSegment
     // retourne vrai si la route doit être ajouté allSegment de route
     // en lien avec le sitemap

@@ -24,8 +24,8 @@ class Cell extends Orm\Cell
 
     // config
     public static $config = [];
-    
-    
+
+
     // generalExcerptMin
     // retourne la longueur de l'excerpt pour general
     final public function generalExcerptMin():?int

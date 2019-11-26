@@ -28,7 +28,7 @@ class Col extends Orm\Col
         'generalExcerptMin'=>null // excerpt min pour l'affichage dans general
     ];
 
-    
+
     // generalExcerptMin
     // retourne la longueur de l'excerpt pour general
     final public function generalExcerptMin():?int

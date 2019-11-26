@@ -645,7 +645,7 @@ class Session extends Routing\Session
         return $this;
     }
 
-    
+
     // historyPreviousRoute
     // retourne la route de la requête précédente ou un fallback
     // ne peut pas retourner vide
@@ -658,8 +658,8 @@ class Session extends Routing\Session
 
         return $return;
     }
-    
-    
+
+
     // hasFakeRoles
     // retourne vrai si la session a des fake roles
     final public function hasFakeRoles():bool

@@ -49,7 +49,7 @@ class Cell extends Base\Test
         $medias = $row->cell('medias');
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
-        
+
         // generalExcerptMin
         assert($primary->generalExcerptMin() === 100);
         assert($userAdd->generalExcerptMin() === null);
