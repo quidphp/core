@@ -20,7 +20,8 @@ class Css extends Main\File\Css
 {
     // config
     public static $config = [
-        'service'=>Core\Service\ScssPhp::class
+        'service'=>Core\Service\ScssPhp::class,
+        'extension'=>array('css','scss')
     ];
 
 
@@ -41,6 +42,7 @@ class Css extends Main\File\Css
     // permet de compiler dans le fichier à partir d'un ou plusieurs fichiers scss
     final public function compileFrom($values,?array $importPaths=null,?array $variables=null,int $min=0,?array $option=null):self
     {
+        $option = Base\Arr::plus(array('extension'=>$this->getAttr('extension')),$option);
         $concatenator = Main\Concatenator::newOverload();
         $scssPhp = static::getServiceObj($option);
         $importPaths = (array) $importPaths;
@@ -48,21 +50,27 @@ class Css extends Main\File\Css
         if(!is_array($values))
         $values = (array) $values;
         ksort($values);
-
+        
         foreach ($values as $key => $value)
         {
             if(!empty($value))
             {
-                $value = static::new($value);
-                $dirname = $value->dirname();
-
+                if(is_string($value) && Base\Dir::is($value))
+                $dirname = $value;
+                
+                else
+                {
+                    $value = static::new($value);
+                    $dirname = $value->dirname();
+                }
+                
                 if($key >= $min && !in_array($dirname,$importPaths,true))
                 $importPaths[] = $dirname;
-
+                
                 $concatenator->add($value,$option);
             }
         }
-
+        
         $scss = $concatenator->trigger($this);
         $css = $scssPhp->trigger($scss,$importPaths,$variables);
         $this->overwrite($css);

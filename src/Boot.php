@@ -34,6 +34,7 @@ abstract class Boot extends Main\Root
             'boot'=>null,
             'js'=>null,
             'scss'=>null,
+            'component'=>null,
             'vendor'=>null,
             'public'=>null,
             'storage'=>null],

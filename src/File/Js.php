@@ -20,7 +20,8 @@ class Js extends Main\File\Js
 {
     // config
     public static $config = [
-        'service'=>Core\Service\JShrink::class
+        'service'=>Core\Service\JShrink::class,
+        'extension'=>array('js','jsx')
     ];
 
 
@@ -29,8 +30,8 @@ class Js extends Main\File\Js
     // utilise la classe main/concatenator
     final public function concatenateFrom($values,?array $option=null):self
     {
-        $option = Base\Arr::plus(['extension'=>$this->extension(),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
-
+        $option = Base\Arr::plus(['extension'=>$this->getAttr('extension'),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
+        
         $concatenatorOption = [];
         if($option['compress'] === true)
         $concatenatorOption['callable'] = [$this->getServiceClass(),'staticTrigger'];
@@ -75,7 +76,7 @@ class Js extends Main\File\Js
                 if(Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>'js']))
                 {
                     $to = Main\File::newCreate($to);
-
+                    
                     if($to instanceof self)
                     $to->concatenateFrom($from,$option);
 
