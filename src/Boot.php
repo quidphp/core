@@ -142,7 +142,7 @@ abstract class Boot extends Main\Root
             'admin'=>[80,['admin'=>true]],
             'cli'=>[90,['admin'=>true,'cli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
-        'compile'=>array( // configuration pour le compilateur, mettre à false pour annuler toutes les compilations
+        'compile'=>[ // configuration pour le compilateur, mettre à false pour annuler toutes les compilations
             'php'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
                 'quid'=>[
                     'target'=>null,
@@ -169,7 +169,7 @@ abstract class Boot extends Main\Root
                             Test\Routing::class=>['closure'=>false],
                             __NAMESPACE__=>['closure'=>true],
                             Test\Core::class=>['closure'=>false],
-                            '%key%'=>['closure'=>true]]]]]),
+                            '%key%'=>['closure'=>true]]]]]],
         'onReady'=>null, // possible de mettre une callable sur onReady
         'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
         'langOption'=>null, // option pour lang, peut être une callable
@@ -197,9 +197,9 @@ abstract class Boot extends Main\Root
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]],
-            'compile'=>array(
+            'compile'=>[
                 'jsOption'=>['compress'=>false],
-                'scssOption'=>['compress'=>false])],
+                'scssOption'=>['compress'=>false]]],
         '@prod'=>[
             'cache'=>true,
             'composer'=>[
@@ -594,7 +594,7 @@ abstract class Boot extends Main\Root
         {
             if(is_array($option['php']))
             $option['php'] = Base\Arrs::keysReplace(['%key%'=>$this->name(true)],$option['php']);
-            
+
             Service\Compiler::staticTrigger($option);
         }
 

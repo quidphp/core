@@ -10,9 +10,8 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Main;
-use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 
 // compiler
 // class to compile or concatenate js, scss and php assets
@@ -26,21 +25,21 @@ class Compiler extends Main\Service
         'scssOption'=>null,
         'php'=>null
     ];
-    
-    
+
+
     // trigger
     // lance la compilation de js, scss et php
     final public function trigger():array
     {
-        $return = array();
+        $return = [];
         $return['js'] = $this->triggerJs();
         $return['scss'] = $this->triggerScss();
         $return['php'] = $this->triggerPhp();
 
         return $return;
     }
-    
-    
+
+
     // triggerJs
     // permet de concatener plusieurs fichiers et directoires js
     final protected function triggerJs():?Main\Files
@@ -48,17 +47,17 @@ class Compiler extends Main\Service
         $return = null;
         $js = $this->getAttr('js');
         $jsOption = $this->getAttr('jsOption');
-        
+
         if(is_array($js) && !empty($js))
         {
             $class = Core\File\Js::getOverloadClass();
             $return = $class::concatenateMany($js,$jsOption);
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // triggerScss
     // permet de compiler plusieurs fichiers et directoires scss
     final protected function triggerScss():?Main\Files
@@ -66,34 +65,34 @@ class Compiler extends Main\Service
         $return = null;
         $scss = $this->getAttr('scss');
         $scssOption = $this->getAttr('scssOption');
-        
+
         if(is_array($scss) && !empty($scss))
         {
             $class = Core\File\Css::getOverloadClass();
             $return = $class::compileMany($scss,$scssOption);
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // triggerPhp
     // permet de concatener plusieurs namespaces php
     final protected function triggerPhp():?Main\Files
     {
         $return = null;
         $php = $this->getAttr('php');
-        
+
         if(is_array($php) && !empty($php))
         {
             $class = Core\File\Php::getOverloadClass();
             $return = $class::concatenateMany($php);
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // staticTrigger
     // méthode statique pour créer l'objet et lancer le trigger
     // retourne un array

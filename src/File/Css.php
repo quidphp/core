@@ -50,7 +50,7 @@ class Css extends Main\File\Css
         if(!is_array($values))
         $values = (array) $values;
         ksort($values);
-        
+
         foreach ($values as $key => $value)
         {
             if(!empty($value))
