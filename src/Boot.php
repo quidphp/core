@@ -142,38 +142,34 @@ abstract class Boot extends Main\Root
             'admin'=>[80,['admin'=>true]],
             'cli'=>[90,['admin'=>true,'cli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
-        'compile'=>null, // active ou désactive toutes les compilations (js, scss et php), si c'est null la compilation aura lieu si fromCache est false
-        'concatenateJs'=>null, // permet de concatener et minifier des fichiers js au lancement, fournir un tableau to => from
-        'concatenateJsOption'=>null, // option pour la concatenation de js
-        'compileScss'=>null, // permet de lancer un encodage scss (fournir un tableau to => from)
-        'compileScssOption'=>null, // option pour le rendu du scss
-        'concatenatePhp'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
-            'quid'=>[
-                'target'=>null,
-                'option'=>[
-                    'credit'=>[self::class,'quidCredit'],
-                    'registerClosure'=>true,
-                    'bootPreload'=>true,
-                    'initMethod'=>'__init',
-                    'namespace'=>[
-                        Base::class=>[
-                            'closure'=>false,
-                            'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php','Path.php']],
-                        Test\Base::class=>['closure'=>false],
-                        Main::class=>[
-                            'closure'=>false,
-                            'priority'=>['_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php']],
-                        Test\Main::class=>['closure'=>false],
-                        Orm::class=>[
-                            'closure'=>false,
-                            'priority'=>['_tableAccess.php','Relation.php','Exception.php','Pdo.php']],
-                        Test\Orm::class=>[
-                            'closure'=>false],
-                        Routing::class=>['closure'=>true],
-                        Test\Routing::class=>['closure'=>false],
-                        __NAMESPACE__=>['closure'=>true],
-                        Test\Core::class=>['closure'=>false],
-                        '%key%'=>['closure'=>true]]]]],
+        'compile'=>array( // configuration pour le compilateur, mettre à false pour annuler toutes les compilations
+            'php'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
+                'quid'=>[
+                    'target'=>null,
+                    'option'=>[
+                        'credit'=>[self::class,'quidCredit'],
+                        'registerClosure'=>true,
+                        'bootPreload'=>true,
+                        'initMethod'=>'__init',
+                        'namespace'=>[
+                            Base::class=>[
+                                'closure'=>false,
+                                'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php','Path.php']],
+                            Test\Base::class=>['closure'=>false],
+                            Main::class=>[
+                                'closure'=>false,
+                                'priority'=>['_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php']],
+                            Test\Main::class=>['closure'=>false],
+                            Orm::class=>[
+                                'closure'=>false,
+                                'priority'=>['_tableAccess.php','Relation.php','Exception.php','Pdo.php']],
+                            Test\Orm::class=>[
+                                'closure'=>false],
+                            Routing::class=>['closure'=>true],
+                            Test\Routing::class=>['closure'=>false],
+                            __NAMESPACE__=>['closure'=>true],
+                            Test\Core::class=>['closure'=>false],
+                            '%key%'=>['closure'=>true]]]]]),
         'onReady'=>null, // possible de mettre une callable sur onReady
         'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
         'langOption'=>null, // option pour lang, peut être une callable
@@ -201,8 +197,9 @@ abstract class Boot extends Main\Root
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]],
-            'concatenateJsOption'=>['compress'=>false],
-            'compileScssOption'=>['compress'=>false]],
+            'compile'=>array(
+                'jsOption'=>['compress'=>false],
+                'scssOption'=>['compress'=>false])],
         '@prod'=>[
             'cache'=>true,
             'composer'=>[
@@ -589,25 +586,16 @@ abstract class Boot extends Main\Root
 
 
     // compile
-    // permet de compile le js, scss et php
+    // permet de compiler le js, scss et php
     final protected function compile():void
     {
-        $js = $this->getAttr('concatenateJs');
-        $jsOption = $this->getAttr('concatenateJsOption');
-        if(is_array($js) && !empty($js))
-        File\Js::concatenateMany($js,$jsOption);
-
-        $scss = $this->getAttr('compileScss');
-        $scssOption = $this->getAttr('compileScssOption');
-        if(is_array($scss) && !empty($scss))
-        File\Css::compileMany($scss,$scssOption);
-
-        $php = $this->getAttr('concatenatePhp');
-        if(is_array($php) && !empty($php))
+        $option = $this->getAttr('compile');
+        if(is_array($option) && !empty($option))
         {
-            $replace = ['%key%'=>$this->name(true)];
-            $php = Base\Arrs::keysReplace($replace,$php);
-            File\Php::concatenateMany($php);
+            if(is_array($option['php']))
+            $option['php'] = Base\Arrs::keysReplace(['%key%'=>$this->name(true)],$option['php']);
+            
+            Service\Compiler::staticTrigger($option);
         }
 
         return;
@@ -1752,9 +1740,9 @@ abstract class Boot extends Main\Root
 
         if($request->isStandard() && !$this->isPreload())
         {
-            $return = $this->getAttr('compile');
+            $compile = $this->getAttr('compile');
 
-            if(!is_bool($return))
+            if(is_array($compile) && !empty($compile))
             $return = ($this->isFromCache())? false:true;
         }
 

@@ -50,24 +50,27 @@ class Css extends Main\File\Css
         if(!is_array($values))
         $values = (array) $values;
         ksort($values);
-
+        
         foreach ($values as $key => $value)
         {
             if(!empty($value))
             {
-                if(is_string($value) && Base\Dir::is($value))
-                $dirname = $value;
-
-                else
+                if(!is_string($value) || Base\Finder::is($value))
                 {
-                    $value = static::new($value);
-                    $dirname = $value->dirname();
+                    if(is_string($value) && Base\Dir::is($value))
+                    $dirname = $value;
+
+                    else
+                    {
+                        $value = static::new($value);
+                        $dirname = $value->dirname();
+                    }
+
+                    if($key >= $min && !in_array($dirname,$importPaths,true))
+                    $importPaths[] = $dirname;
+
+                    $concatenator->add($value,$option);
                 }
-
-                if($key >= $min && !in_array($dirname,$importPaths,true))
-                $importPaths[] = $dirname;
-
-                $concatenator->add($value,$option);
             }
         }
 

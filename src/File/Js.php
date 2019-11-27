@@ -44,7 +44,7 @@ class Js extends Main\File\Js
 
         foreach ($values as $value)
         {
-            if(!empty($value))
+            if(!is_string($value) || Base\Finder::is($value))
             $concatenator->add($value,$option);
         }
 
