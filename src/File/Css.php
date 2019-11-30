@@ -46,11 +46,11 @@ class Css extends Main\File\Css
         $concatenator = Main\Concatenator::newOverload();
         $scssPhp = static::getServiceObj($option);
         $importPaths = (array) $importPaths;
-
+        
         if(!is_array($values))
         $values = (array) $values;
         ksort($values);
-
+        
         foreach ($values as $key => $value)
         {
             if(!empty($value))
@@ -116,7 +116,7 @@ class Css extends Main\File\Css
                 if(Base\Dir::isOlderThanFrom($to,$fromDir,true,['visible'=>true,'extension'=>['css','scss']]))
                 {
                     $to = Main\File::newCreate($to);
-
+                    
                     if($to instanceof self)
                     $to->compileFrom($from,null,$variables,10,$option);
 

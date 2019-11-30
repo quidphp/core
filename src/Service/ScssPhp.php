@@ -69,7 +69,7 @@ class ScssPhp extends Main\ServiceAlias
                 $return = $formats[1];
             }
         }
-
+        
         return $return;
     }
 
@@ -84,13 +84,13 @@ class ScssPhp extends Main\ServiceAlias
         $compiler = $this->getCompiler();
         $format = $this->getFormat();
         $importPaths = (array) $importPaths;
-
+        
         if($value instanceof Core\File\Css)
         {
             $importPaths[] = $value->dirname();
             $value = $value->read(true,true);
         }
-
+        
         if(is_string($value))
         {
             $compiler->setFormatter($format);
@@ -100,7 +100,7 @@ class ScssPhp extends Main\ServiceAlias
 
             if(!empty($variables))
             $compiler->setVariables($variables);
-
+            
             $return = $compiler->compile($value);
         }
 

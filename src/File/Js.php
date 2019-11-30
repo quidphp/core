@@ -21,7 +21,10 @@ class Js extends Main\File\Js
     // config
     public static $config = [
         'service'=>Core\Service\JShrink::class,
-        'extension'=>['js','jsx']
+        'extension'=>['js','jsx'],
+        'concatenator'=>array()
+            //'start'=>"\"use strict\";\n\n(function() {\n\n",
+            //'end'=>"\n\n})();"
     ];
 
 
@@ -32,7 +35,7 @@ class Js extends Main\File\Js
     {
         $option = Base\Arr::plus(['extension'=>$this->getAttr('extension'),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
 
-        $concatenatorOption = [];
+        $concatenatorOption = $this->getAttr('concatenator');
         if($option['compress'] === true)
         $concatenatorOption['callable'] = [$this->getServiceClass(),'staticTrigger'];
 
@@ -47,7 +50,7 @@ class Js extends Main\File\Js
             if(!is_string($value) || Base\Finder::is($value))
             $concatenator->add($value,$option);
         }
-
+        
         $concatenator->triggerWrite($this);
 
         return $this;
@@ -73,7 +76,7 @@ class Js extends Main\File\Js
         {
             if(is_string($to) && !empty($to) && !empty($from))
             {
-                if(Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>'js']))
+                if(Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>static::$config['extension']]))
                 {
                     $to = Main\File::newCreate($to);
 
