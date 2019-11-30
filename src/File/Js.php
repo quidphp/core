@@ -22,7 +22,7 @@ class Js extends Main\File\Js
     public static $config = [
         'service'=>Core\Service\JShrink::class,
         'extension'=>['js','jsx'],
-        'concatenator'=>array()
+        'concatenator'=>[]
             //'start'=>"\"use strict\";\n\n(function() {\n\n",
             //'end'=>"\n\n})();"
     ];
@@ -50,7 +50,7 @@ class Js extends Main\File\Js
             if(!is_string($value) || Base\Finder::is($value))
             $concatenator->add($value,$option);
         }
-        
+
         $concatenator->triggerWrite($this);
 
         return $this;
