@@ -21,117 +21,61 @@ class Css extends Main\File\Css
     // config
     public static $config = [
         'service'=>Core\Service\ScssPhp::class,
-        'extension'=>['css','scss']
+        'extension'=>['css','scss'],
+        'importPathMin'=>10 // cette variable défini après quel clé l'import path est considéré
     ];
 
 
-    // compile
-    // compile le fichier scss ou css en utilisant le service
-    // retourne le css compilé
-    final public function compile(?array $importPaths=null,?array $variables=null,?array $option=null):?string
+    // getConcatenatorOption
+    // retourne les options pour le concatenateur
+    protected function getConcatenatorOption(array $values,array $option):?array
     {
-        $return = null;
-        $scssPhp = $this->getServiceObj($option);
-        $return = $scssPhp->trigger($this,$importPaths,$variables);
-
+        $return = parent::getConcatenatorOption($values,$option);
+        
+        $return['callable'] = function(string $value) use($values,$option) {
+            $service = $this->getServiceClass();
+            $option['variables'] = $this->getScssVariables();
+            $option['importPaths'] = $this->getImportPaths($values);
+            
+            return $service::staticTrigger($value,$option);
+        };
+        
         return $return;
     }
 
-
-    // compileFrom
-    // permet de compiler dans le fichier à partir d'un ou plusieurs fichiers scss
-    final public function compileFrom($values,?array $importPaths=null,?array $variables=null,int $min=0,?array $option=null):self
+    
+    // getImportPaths
+    // retourne les chemins d'importations à partir du tableau de valeur
+    final protected function getImportPaths(array $values):array
     {
-        $option = Base\Arr::plus(['extension'=>$this->getAttr('extension')],$option);
-        $concatenator = Main\Concatenator::newOverload();
-        $scssPhp = static::getServiceObj($option);
-        $importPaths = (array) $importPaths;
-
-        if(!is_array($values))
-        $values = (array) $values;
-        ksort($values);
-
-        foreach ($values as $key => $value)
+        $return = array();
+        $min = $this->getAttr('importPathMin');
+        
+        foreach ($values as $key => $value) 
         {
-            if(!empty($value))
+            if(!is_string($value) || Base\Finder::is($value))
             {
-                if(!is_string($value) || Base\Finder::is($value))
+                if(is_string($value) && Base\Dir::is($value))
+                $dirname = $value;
+
+                else
                 {
-                    if(is_string($value) && Base\Dir::is($value))
-                    $dirname = $value;
-
-                    else
-                    {
-                        $value = static::new($value);
-                        $dirname = $value->dirname();
-                    }
-
-                    if($key >= $min && !in_array($dirname,$importPaths,true))
-                    $importPaths[] = $dirname;
-
-                    $concatenator->add($value,$option);
+                   $value = static::new($value);
+                   $dirname = $value->dirname();
                 }
+
+                if($key >= $min && !in_array($dirname,$return,true))
+                $return[] = $dirname;
             }
         }
-
-        $scss = $concatenator->trigger($this);
-        $css = $scssPhp->trigger($scss,$importPaths,$variables);
-        $this->overwrite($css);
-
-        return $this;
-    }
-
-
-    // getServiceClass
-    // retourne la classe du service
-    final public function getServiceClass():string
-    {
-        return $this->getAttr('service')::getOverloadClass();
-    }
-
-
-    // getServiceObj
-    // retourne l'objet du service
-    final public function getServiceObj(?array $option=null):Main\Service
-    {
-        $service = $this->getServiceClass();
-        $return = new $service(__METHOD__,$option);
-
+        
         return $return;
     }
-
-
-    // compileMany
-    // permet de compiler un ou plusieurs fichiers css/scss
-    final public static function compileMany(array $value,?array $option=null):Main\Files
-    {
-        $return = Main\Files::newOverload();
-        $variables = static::getScssVariables();
-
-        foreach ($value as $to => $from)
-        {
-            if(is_string($to) && !empty($to) && !empty($from))
-            {
-                $fromDir = Base\Dir::getDirFromFileAndDir($from);
-                if(Base\Dir::isOlderThanFrom($to,$fromDir,true,['visible'=>true,'extension'=>['css','scss']]))
-                {
-                    $to = Main\File::newCreate($to);
-
-                    if($to instanceof self)
-                    $to->compileFrom($from,null,$variables,10,$option);
-
-                    $return->add($to);
-                }
-            }
-        }
-
-        return $return;
-    }
-
-
+    
+    
     // getScssVariables
     // génère un tableau de variable à injecter dans la feuille de style scss
-    final public static function getScssVariables():array
+    final protected static function getScssVariables():array
     {
         $return = [];
 

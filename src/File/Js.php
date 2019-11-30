@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\File;
-use Quid\Base;
 use Quid\Core;
 use Quid\Main;
 
@@ -20,74 +19,24 @@ class Js extends Main\File\Js
 {
     // config
     public static $config = [
-        'service'=>Core\Service\JShrink::class,
-        'extension'=>['js','jsx'],
-        'concatenator'=>[]
-            //'start'=>"\"use strict\";\n\n(function() {\n\n",
-            //'end'=>"\n\n})();"
+        'service'=>Core\Service\JShrink::class
     ];
 
 
-    // concatenateFrom
-    // écrit dans le fichier js le contenu d'un ou plusieurs dossiers contenant du javascript
-    // utilise la classe main/concatenator
-    final public function concatenateFrom($values,?array $option=null):self
+    // getConcatenatorOption
+    // retourne les options pour le concatenateur
+    protected function getConcatenatorOption(array $values,array $option):?array
     {
-        $option = Base\Arr::plus(['extension'=>$this->getAttr('extension'),'separator'=>PHP_EOL.PHP_EOL,'compress'=>true],$option);
-
-        $concatenatorOption = $this->getAttr('concatenator');
-        if($option['compress'] === true)
-        $concatenatorOption['callable'] = [$this->getServiceClass(),'staticTrigger'];
-
-        $concatenator = Main\Concatenator::newOverload($concatenatorOption);
-
-        if(!is_array($values))
-        $values = (array) $values;
-        ksort($values);
-
-        foreach ($values as $value)
+        $return = parent::getConcatenatorOption($values,$option);
+        
+        if(array_key_exists('compress',$option) && $option['compress'] === true)
         {
-            if(!is_string($value) || Base\Finder::is($value))
-            $concatenator->add($value,$option);
+            $return['callable'] = function(string $value) use($option) {
+                $service = $this->getServiceClass();
+                return $service::staticTrigger($value,$option);
+            };
         }
-
-        $concatenator->triggerWrite($this);
-
-        return $this;
-    }
-
-
-    // getServiceClass
-    // retourne la classe du service
-    final public function getServiceClass():string
-    {
-        return $this->getAttr('service')::getOverloadClass();
-    }
-
-
-    // concatenate
-    // permet de concatener un ou plusieurs dossiers avec fichiers js
-    // possible aussi de minifier
-    final public static function concatenateMany(array $value,?array $option=null):Main\Files
-    {
-        $return = Main\Files::newOverload();
-
-        foreach ($value as $to => $from)
-        {
-            if(is_string($to) && !empty($to) && !empty($from))
-            {
-                if(Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>static::$config['extension']]))
-                {
-                    $to = Main\File::newCreate($to);
-
-                    if($to instanceof self)
-                    $to->concatenateFrom($from,$option);
-
-                    $return->add($to);
-                }
-            }
-        }
-
+        
         return $return;
     }
 }

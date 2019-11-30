@@ -26,7 +26,8 @@ class PhpConcatenator extends Main\Service
         'concatenator'=>[], // option pour le compileur, voir la méthode statique concatenatorOption
         'credit'=>null, // permet de mettre un texte de crédit en haut du fichier
         'initMethod'=>null, // permet de spécifier la init méthode
-        'namespace'=>[]// spécifie les namespace pour la compilation, closure et priority sont supportés
+        'entryLineStart'=>11, // ligne de départ pour chaque fichier
+        'entryLineEnd'=>1 // ligne de fin pour chaque fichier
     ];
 
 
@@ -56,17 +57,16 @@ class PhpConcatenator extends Main\Service
 
     // trigger
     // trigger et retourne la string php concatene
-    final public function trigger():string
+    final public function trigger(array $from):string
     {
         $return = null;
         $concatenator = $this->getConcatenator();
         $credit = $this->getAttr('credit',true);
-        $namespaces = $this->getAttr('namespace');
 
         if(!empty($credit))
         $concatenator->addStr($credit,$this->getAttr('concatenator/credit'));
 
-        foreach ($namespaces as $namespace => $value)
+        foreach ($from as $namespace => $value)
         {
             if(is_string($namespace))
             {
@@ -85,9 +85,9 @@ class PhpConcatenator extends Main\Service
     // triggerWrite
     // méthode qui permet de concatener du php en un fichier
     // retourne l'objet fichier
-    final public function triggerWrite(Core\File\Php $return):Core\File\Php
+    final public function triggerWrite(array $from,Core\File\Php $return):Core\File\Php
     {
-        return $return->overwrite($this->trigger());
+        return $return->overwrite($this->trigger($from));
     }
 
 
@@ -154,8 +154,8 @@ class PhpConcatenator extends Main\Service
 
         $return['entry'] = [
             'separator'=>PHP_EOL.PHP_EOL,
-            'lineStart'=>9,
-            'lineEnd'=>1,
+            'lineStart'=>$this->getAttr('entryLineStart'),
+            'lineEnd'=>$this->getAttr('entryLineEnd'),
             'extension'=>'php'
         ];
 
@@ -218,7 +218,7 @@ class PhpConcatenator extends Main\Service
 
             $return = Base\Str::lineImplode($lines);
             $return = $namespaceAccoladeClosure($return);
-
+            
             return $return;
         };
     }

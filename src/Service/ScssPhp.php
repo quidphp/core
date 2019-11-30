@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
-use Quid\Core;
 use Quid\Main;
 
 // scssPhp
@@ -20,10 +19,12 @@ class ScssPhp extends Main\ServiceAlias
     // config
     public static $config = [
         'formatsPossible'=>[
-            \ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
-            \ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
+            'normal'=>\ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
+            'compress'=>\ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
         'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
-        'format'=>null // permet de spécifier un format, ne prend pas en compte l'option compress
+        'format'=>null, // permet de spécifier un format, ne prend pas en compte l'option compress
+        'importPaths'=>null, // chemins d'importation à déclarer
+        'variables'=>null // variables à inclure dans la compilation
     ];
 
 
@@ -59,35 +60,48 @@ class ScssPhp extends Main\ServiceAlias
         if(empty($return))
         {
             $formats = $this->getAttr('formatsPossible');
-
-            if(is_array($formats))
-            {
-                $return = $formats[0];
-
-                $compress = $this->getAttr('compress');
-                if($compress === true)
-                $return = $formats[1];
-            }
+            $compress = $this->getAttr('compress');
+            $return = ($compress === true)? $formats['compress']:$formats['normal'];
         }
 
         return $return;
     }
 
-
+    
+    // getImportPaths
+    // retourne les chemins d'importation à déclarer
+    final public function getImportPaths():array
+    {
+        return (array) $this->getAttr('importPaths');
+    }
+    
+    
+    // getVariables
+    // retourne les variables à inclure dans la compilation
+    final public function getVariables():array
+    {
+        return (array) $this->getAttr('variables');
+    }
+    
+    
     // trigger
     // permet de faire un rendu scss à partir d'une string ou objet file\css fourni en argument
     // possible de fournir des variables à déclarer avant le chargement du script
     // retourne la string css
-    final public function trigger($value,?array $importPaths=null,?array $variables=null):string
+    final public function trigger($value):string
     {
         $return = null;
         $compiler = $this->getCompiler();
         $format = $this->getFormat();
-        $importPaths = (array) $importPaths;
-
-        if($value instanceof Core\File\Css)
+        $importPaths = $this->getImportPaths();
+        $variables = $this->getVariables();
+        
+        if($value instanceof Main\File\Css)
         {
-            $importPaths[] = $value->dirname();
+            $dirname = $value->dirname();
+            if(!in_array($dirname,$importPaths,true))
+            $importPaths[] = $dirname;
+            
             $value = $value->read(true,true);
         }
 
@@ -106,6 +120,19 @@ class ScssPhp extends Main\ServiceAlias
 
         else
         static::throw('invalidValue');
+
+        return $return;
+    }
+    
+    
+    // staticTrigger
+    // méthode statique pour créer l'objet lancer la compilation
+    // retourne une string
+    final public static function staticTrigger(string $value,?array $attr=null):string
+    {
+        $return = null;
+        $minifier = new static(__METHOD__,$attr);
+        $return = $minifier->trigger($value);
 
         return $return;
     }

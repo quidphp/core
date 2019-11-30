@@ -19,7 +19,7 @@ class JShrink extends Main\Service
 {
     // config
     public static $config = [
-        'flaggedComments'=>false
+        'flaggedComments'=>true
     ];
 
 
@@ -28,7 +28,14 @@ class JShrink extends Main\Service
     // retourne le js minify
     final public function trigger(string $value):string
     {
-        return Minifier::minify($value,$this->attr());
+        $return = '';
+        
+        if($value instanceof Main\File\Js)
+        $value = $value->read(true,true);
+
+        $return = Minifier::minify($value,$this->attr());
+        
+        return $return;
     }
 
 

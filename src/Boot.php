@@ -63,7 +63,8 @@ abstract class Boot extends Main\Root
         'configLive'=>[ // peut contenir un tableau de configuration à mettre par-dessus à utiliser si live est true
             'requirement'=>false,
             'writable'=>false,
-            'symlink'=>false],
+            'symlink'=>false,
+            'compile'=>false],
         'autoload'=>'composer', // type d'autoload utilisé peut être composer, internal ou preload
         'psr4'=>[ // psr4 pour autoload
             '%key%'=>'[src]'],
@@ -141,34 +142,11 @@ abstract class Boot extends Main\Root
             'admin'=>[80,['admin'=>true]],
             'cli'=>[90,['admin'=>true,'cli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
-        'compile'=>[ // configuration pour le compilateur, mettre à false pour annuler toutes les compilations
-            'php'=>[ // tableau pour la compilation de php, fournir un tableau avec target et option
-                'quid'=>[
-                    'target'=>null,
-                    'option'=>[
-                        'credit'=>[self::class,'quidCredit'],
-                        'registerClosure'=>true,
-                        'bootPreload'=>true,
-                        'initMethod'=>'__init',
-                        'namespace'=>[
-                            Base::class=>[
-                                'closure'=>false,
-                                'priority'=>['_root.php','Root.php','Assoc.php','Listing.php','Set.php','Obj.php','Str.php','Finder.php','File.php','Request.php','Sql.php','Uri.php','Path.php']],
-                            Test\Base::class=>['closure'=>false],
-                            Main::class=>[
-                                'closure'=>false,
-                                'priority'=>['_root.php','_rootClone.php','Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/_log.php','File/_storage.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php','Map/_classeObj.php','Map/_obj.php']],
-                            Test\Main::class=>['closure'=>false],
-                            Orm::class=>[
-                                'closure'=>false,
-                                'priority'=>['_tableAccess.php','Relation.php','Exception.php','Pdo.php']],
-                            Test\Orm::class=>[
-                                'closure'=>false],
-                            Routing::class=>['closure'=>true],
-                            Test\Routing::class=>['closure'=>false],
-                            __NAMESPACE__=>['closure'=>true],
-                            Test\Core::class=>['closure'=>false],
-                            '%key%'=>['closure'=>true]]]]]],
+        'compile'=>null, // valeur qui permet d'activer ou désactiver la compilation, si compile est null -> compile seulement si cache est false
+        'compileCss'=>null, // tableau pour la compilation de css
+        'compileCssOption'=>null, // options supplémentaires pour toutes les compilations css
+        'compileJs'=>null, // tableau pour la compilation de js
+        'compileJsOption'=>null, // options supplémentaires pour toutes les compilations js
         'onReady'=>null, // possible de mettre une callable sur onReady
         'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
         'langOption'=>null, // option pour lang, peut être une callable
@@ -182,8 +160,10 @@ abstract class Boot extends Main\Root
         'redirection'=>null, // tableau redirection par défaut, peut être une callable
         'redirectionRow'=>Row\Redirection::class, // row pour contenu additionnel de redirection
         'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
-        'pathOverviewExtension'=>['php','js','scss'], // extension pour pathOverview si extension est null
+        'pathOverviewExtension'=>['php','js','jsx','css','scss'], // extension pour pathOverview si extension est null
         '@dev'=>[
+            'compileJsOption'=>array('compress'=>false),
+            'compileCssOption'=>array('compress'=>false),
             'cache'=>false,
             'umaskGroupWritable'=>true,
             'callable'=>[
@@ -195,12 +175,11 @@ abstract class Boot extends Main\Root
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
-                'dbHistory'=>[Db::class,'setDefaultHistory',true]],
-            'compile'=>[
-                'jsOption'=>['compress'=>false],
-                'scssOption'=>['compress'=>false]]],
+                'dbHistory'=>[Db::class,'setDefaultHistory',true]]],
         '@prod'=>[
             'cache'=>true,
+            'compileJsOption'=>array('compress'=>true),
+            'compileCssOption'=>array('compress'=>true),
             'composer'=>[
                 'classMapAuthoritative'=>true]]
     ];
@@ -585,15 +564,21 @@ abstract class Boot extends Main\Root
 
 
     // compile
-    // permet de compiler le js, scss et php
+    // permet de compiler le css et js
     final protected function compile():void
     {
-        $option = $this->getAttr('compile');
+        $attr = $this->attr();
+        $keys = array('compileCss'=>'css','compileCssOption'=>'cssOption','compileJs'=>'js','compileJsOption'=>'jsOption');
+            
+        $option = Base\Arr::gets(array_keys($keys),$attr);
+        
         if(is_array($option) && !empty($option))
         {
-            if(is_array($option['php']))
-            $option['php'] = Base\Arrs::keysReplace(['%key%'=>$this->name(true)],$option['php']);
-
+            $name = $this->name();
+            $option = Base\Arrs::keysReplace(['%key%'=>$name],$option);
+            $option = Base\Arrs::valuesReplace(['%key%'=>$name],$option);
+            $option = Base\Arr::keysReplace($keys,$option);
+            
             Service\Compiler::staticTrigger($option);
         }
 
@@ -1731,7 +1716,7 @@ abstract class Boot extends Main\Root
 
 
     // shouldCompile
-    // retourne vrai s'il faut compiler le php, js et scss
+    // retourne vrai s'il faut compiler css et le js
     final public function shouldCompile():bool
     {
         $return = false;
@@ -1740,9 +1725,12 @@ abstract class Boot extends Main\Root
         if($request->isStandard() && !$this->isPreload())
         {
             $compile = $this->getAttr('compile');
-
-            if(is_array($compile) && !empty($compile))
-            $return = ($this->isFromCache())? false:true;
+            
+            if($compile === true)
+            $return = true;
+            
+            elseif($compile === null && !$this->isFromCache())
+            $return = true;
         }
 
         return $return;
