@@ -10,9 +10,9 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
+use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Base;
 
 // compiler
 // class to compile or concatenate js and css assets
@@ -32,10 +32,10 @@ class Compiler extends Main\Service
     final public function trigger():array
     {
         $return = [];
-        
+
         $return['css'] = $this->triggerOne(Core\File\Css::class);
         $return['js'] = $this->triggerOne(Core\File\Js::class);
-        
+
         return $return;
     }
 
@@ -48,7 +48,7 @@ class Compiler extends Main\Service
         $type = $class::className(true);
         $config = $this->getAttr($type);
         $option = (array) $this->getAttr($type.'Option');
-        
+
         if(is_array($config) && !empty($config))
         $return = $this->loop($class::getOverloadClass(),$config,$option);
 
@@ -61,23 +61,23 @@ class Compiler extends Main\Service
     final protected function loop(string $class,array $value,array $option):Main\Files
     {
         $return = Main\Files::newOverload();
-        
-        foreach ($value as $key => $array) 
+
+        foreach ($value as $key => $array)
         {
             if(is_string($key) && is_array($array) && !empty($array))
             {
                 $array = Base\Arrs::replace($option,$array);
                 $file = $this->loopOne($class,$key,$array);
-                
+
                 if(!empty($file))
                 $return->add($file);
             }
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // loopOne
     // loop à travers une demande de concatenation pour un type
     // si overwrite est true, écrase le fichier dans tous les cas
@@ -86,27 +86,27 @@ class Compiler extends Main\Service
     {
         $return = null;
         $extension = $class::concatenateExtension();
-        
+
         $to = $array['to'] ?? null;
         $from = $array['from'] ?? null;
         $overwrite = $array['overwrite'] ?? null;
-        
+
         if(is_string($to) && !empty($to) && !empty($from))
         {
             if($overwrite === true || Base\Dir::isOlderThanFrom($to,$from,true,['visible'=>true,'extension'=>$extension]))
             {
-                $keys = array('to','from','overwrite');
+                $keys = ['to','from','overwrite'];
                 $option = Base\Arr::keysStrip($keys,$array);
-                
+
                 $return = Main\File::newCreate($to);
                 $return->concatenateFrom($from,$option);
             }
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // staticTrigger
     // méthode statique pour créer l'objet et lancer le trigger
     // retourne un array

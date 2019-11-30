@@ -67,23 +67,23 @@ class ScssPhp extends Main\ServiceAlias
         return $return;
     }
 
-    
+
     // getImportPaths
     // retourne les chemins d'importation à déclarer
     final public function getImportPaths():array
     {
         return (array) $this->getAttr('importPaths');
     }
-    
-    
+
+
     // getVariables
     // retourne les variables à inclure dans la compilation
     final public function getVariables():array
     {
         return (array) $this->getAttr('variables');
     }
-    
-    
+
+
     // trigger
     // permet de faire un rendu scss à partir d'une string ou objet file\css fourni en argument
     // possible de fournir des variables à déclarer avant le chargement du script
@@ -95,13 +95,13 @@ class ScssPhp extends Main\ServiceAlias
         $format = $this->getFormat();
         $importPaths = $this->getImportPaths();
         $variables = $this->getVariables();
-        
+
         if($value instanceof Main\File\Css)
         {
             $dirname = $value->dirname();
             if(!in_array($dirname,$importPaths,true))
             $importPaths[] = $dirname;
-            
+
             $value = $value->read(true,true);
         }
 
@@ -123,8 +123,8 @@ class ScssPhp extends Main\ServiceAlias
 
         return $return;
     }
-    
-    
+
+
     // staticTrigger
     // méthode statique pour créer l'objet lancer la compilation
     // retourne une string

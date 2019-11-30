@@ -14,7 +14,6 @@ use Quid\Base;
 use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
-use Quid\Test;
 
 // boot
 // abstract class for boot which is the object that bootstraps the application
@@ -162,8 +161,8 @@ abstract class Boot extends Main\Root
         'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
         'pathOverviewExtension'=>['php','js','jsx','css','scss'], // extension pour pathOverview si extension est null
         '@dev'=>[
-            'compileJsOption'=>array('compress'=>false),
-            'compileCssOption'=>array('compress'=>false),
+            'compileJsOption'=>['compress'=>false],
+            'compileCssOption'=>['compress'=>false],
             'cache'=>false,
             'umaskGroupWritable'=>true,
             'callable'=>[
@@ -178,8 +177,8 @@ abstract class Boot extends Main\Root
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]]],
         '@prod'=>[
             'cache'=>true,
-            'compileJsOption'=>array('compress'=>true),
-            'compileCssOption'=>array('compress'=>true),
+            'compileJsOption'=>['compress'=>true],
+            'compileCssOption'=>['compress'=>true],
             'composer'=>[
                 'classMapAuthoritative'=>true]]
     ];
@@ -568,17 +567,17 @@ abstract class Boot extends Main\Root
     final protected function compile():void
     {
         $attr = $this->attr();
-        $keys = array('compileCss'=>'css','compileCssOption'=>'cssOption','compileJs'=>'js','compileJsOption'=>'jsOption');
-            
+        $keys = ['compileCss'=>'css','compileCssOption'=>'cssOption','compileJs'=>'js','compileJsOption'=>'jsOption'];
+
         $option = Base\Arr::gets(array_keys($keys),$attr);
-        
+
         if(is_array($option) && !empty($option))
         {
             $name = $this->name();
             $option = Base\Arrs::keysReplace(['%key%'=>$name],$option);
             $option = Base\Arrs::valuesReplace(['%key%'=>$name],$option);
             $option = Base\Arr::keysReplace($keys,$option);
-            
+
             Service\Compiler::staticTrigger($option);
         }
 
@@ -1725,10 +1724,10 @@ abstract class Boot extends Main\Root
         if($request->isStandard() && !$this->isPreload())
         {
             $compile = $this->getAttr('compile');
-            
+
             if($compile === true)
             $return = true;
-            
+
             elseif($compile === null && !$this->isFromCache())
             $return = true;
         }

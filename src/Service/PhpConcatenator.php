@@ -218,7 +218,7 @@ class PhpConcatenator extends Main\Service
 
             $return = Base\Str::lineImplode($lines);
             $return = $namespaceAccoladeClosure($return);
-            
+
             return $return;
         };
     }

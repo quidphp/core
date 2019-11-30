@@ -31,27 +31,27 @@ class Css extends Main\File\Css
     protected function getConcatenatorOption(array $values,array $option):?array
     {
         $return = parent::getConcatenatorOption($values,$option);
-        
+
         $return['callable'] = function(string $value) use($values,$option) {
             $service = $this->getServiceClass();
             $option['variables'] = $this->getScssVariables();
             $option['importPaths'] = $this->getImportPaths($values);
-            
+
             return $service::staticTrigger($value,$option);
         };
-        
+
         return $return;
     }
 
-    
+
     // getImportPaths
     // retourne les chemins d'importations à partir du tableau de valeur
     final protected function getImportPaths(array $values):array
     {
-        $return = array();
+        $return = [];
         $min = $this->getAttr('importPathMin');
-        
-        foreach ($values as $key => $value) 
+
+        foreach ($values as $key => $value)
         {
             if(!is_string($value) || Base\Finder::is($value))
             {
@@ -68,11 +68,11 @@ class Css extends Main\File\Css
                 $return[] = $dirname;
             }
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // getScssVariables
     // génère un tableau de variable à injecter dans la feuille de style scss
     final protected static function getScssVariables():array

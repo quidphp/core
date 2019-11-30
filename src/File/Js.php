@@ -28,7 +28,7 @@ class Js extends Main\File\Js
     protected function getConcatenatorOption(array $values,array $option):?array
     {
         $return = parent::getConcatenatorOption($values,$option);
-        
+
         if(array_key_exists('compress',$option) && $option['compress'] === true)
         {
             $return['callable'] = function(string $value) use($option) {
@@ -36,7 +36,7 @@ class Js extends Main\File\Js
                 return $service::staticTrigger($value,$option);
             };
         }
-        
+
         return $return;
     }
 }

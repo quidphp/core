@@ -29,12 +29,12 @@ class JShrink extends Main\Service
     final public function trigger(string $value):string
     {
         $return = '';
-        
+
         if($value instanceof Main\File\Js)
         $value = $value->read(true,true);
 
         $return = Minifier::minify($value,$this->attr());
-        
+
         return $return;
     }
 

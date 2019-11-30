@@ -10,12 +10,12 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Route;
-use Quid\Base\Cli;
 use Quid\Base;
+use Quid\Base\Cli;
+use Quid\Core;
 use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
-use Quid\Core;
 use Quid\Test;
 
 // CliPreload
@@ -72,51 +72,51 @@ abstract class CliPreload extends Core\RouteAlias
         return $return;
     }
 
-    
+
     // getTarget
     // retourne le fichier target
-    final protected function getTarget():Main\File\Php 
+    final protected function getTarget():Main\File\Php
     {
         $return = null;
         $attr = $this->getAttr('target');
-        
+
         if(!empty($attr))
         $return = Core\File\Php::newCreate($attr);
-        
+
         return $return;
     }
-    
-    
+
+
     // getService
     // retourne le service de concatenation
     final protected function getService(?array $option=null):Main\Service
     {
         $service = $this->getAttr('service');
-        
+
         if(!empty($service))
         $return = new $service(__METHOD__,$option);
-        
+
         return $return;
     }
-    
-    
+
+
     // getFrom
     // retourne les namespaces à compiler dans un tableau
-    final protected function getFrom():array 
+    final protected function getFrom():array
     {
         $return = $this->getAttr('from');
-        
+
         if(is_array($return) && !empty($return))
         {
             $name = static::boot()->name(true);
             $return = Base\Arrs::keysReplace(['%key%'=>$name],$return);
             $return = Base\Arrs::valuesReplace(['%key%'=>$name],$return);
         }
-        
+
         return $return;
     }
-    
-    
+
+
     // buildPreload
     // génère le script PHP
     final protected function buildPreload():array
@@ -124,21 +124,21 @@ abstract class CliPreload extends Core\RouteAlias
         $return = [];
         $method = 'neg';
         $value = 'x';
-        
+
         $target = $this->getTarget();
         $from = $this->getFrom();
         $option = (array) $this->getAttr('option');
         $option = Base\Call::digStaticMethod($option);
         $service = $this->getService($option);
         $preload = $service->trigger($from,$target);
-        
+
         if(!empty($preload))
         {
             $target->overwrite($preload);
             $method = 'pos';
-            $value = array($target->path(),$target->size());
+            $value = [$target->path(),$target->size()];
         }
-        
+
         Cli::$method($value);
         $return[] = [$method=>$value];
 
