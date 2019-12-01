@@ -42,7 +42,7 @@ class Floating extends Core\CellAlias
     // format le nombre flottant en argent
     final public function moneyFormat(?string $lang=null,?array $option=null):?string
     {
-        return Base\Number::moneyFormat($this->value(),$lang,$option);
+        return Base\Num::moneyFormat($this->value(),$lang,$option);
     }
 }
 

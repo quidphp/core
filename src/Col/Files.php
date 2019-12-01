@@ -254,7 +254,7 @@ abstract class Files extends Core\ColAlias
     // retourne le max filesize formaté pour la colonne
     final public function maxFilesizeFormat():string
     {
-        return Base\Number::sizeFormat($this->maxFilesize());
+        return Base\Num::sizeFormat($this->maxFilesize());
     }
 
 
@@ -640,7 +640,7 @@ abstract class Files extends Core\ColAlias
         $return = null;
 
         if(is_string($value))
-        $value = Base\Number::fromSizeFormat($value);
+        $value = Base\Num::fromSizeFormat($value);
 
         if(is_int($value))
         $return = $value;

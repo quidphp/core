@@ -20,7 +20,7 @@ class Css extends Main\File\Css
 {
     // config
     public static $config = [
-        'service'=>Core\Service\ScssPhp::class,
+        'concatenateService'=>Core\Service\ScssPhp::class,
         'extension'=>['css','scss'],
         'importPathMin'=>10 // cette variable défini après quel clé l'import path est considéré
     ];
@@ -33,7 +33,7 @@ class Css extends Main\File\Css
         $return = parent::getConcatenatorOption($values,$option);
 
         $return['callable'] = function(string $value) use($values,$option) {
-            $service = $this->getServiceClass();
+            $service = $this->concatenateService();
             $option['variables'] = $this->getScssVariables();
             $option['importPaths'] = $this->getImportPaths($values);
 

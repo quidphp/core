@@ -26,7 +26,7 @@ abstract class CliPreload extends Core\RouteAlias
     public static $config = [
         'path'=>['-preload'],
         'target'=>'[storage]/preload.php',
-        'service'=>Core\Service\PhpConcatenator::class,
+        'service'=>Core\Service\PhpPreload::class,
         'from'=>[
             Base::class=>[
                 'priority'=>[
@@ -47,8 +47,7 @@ abstract class CliPreload extends Core\RouteAlias
             Test\Routing::class=>[],
             Core::class=>['closure'=>true],
             Test\Core::class=>[],
-            //'%key%'=>['closure'=>true],
-            ],
+            '%key%'=>['closure'=>true]],
         'option'=>[
             'credit'=>[Core\Boot::class,'quidCredit'],
             'registerClosure'=>true,
@@ -67,7 +66,7 @@ abstract class CliPreload extends Core\RouteAlias
     final protected function cli(bool $cli)
     {
         Cli::neutral(static::label());
-        $return = $this->buildPreload();
+        $return = $this->preload();
 
         return $return;
     }
@@ -117,9 +116,9 @@ abstract class CliPreload extends Core\RouteAlias
     }
 
 
-    // buildPreload
+    // preload
     // génère le script PHP
-    final protected function buildPreload():array
+    final protected function preload():array
     {
         $return = [];
         $method = 'neg';
@@ -136,7 +135,7 @@ abstract class CliPreload extends Core\RouteAlias
         {
             $target->overwrite($preload);
             $method = 'pos';
-            $value = [$target->path(),$target->size()];
+            $value = ['path'=>$target->path(),'size'=>$target->size()];
         }
 
         Cli::$method($value);

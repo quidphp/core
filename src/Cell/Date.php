@@ -42,7 +42,7 @@ class Date extends Core\CellAlias
     // format la date contenu dans la cellule
     final public function format($format=true):?string
     {
-        return Base\Date::format($format,$this);
+        return Base\Datetime::format($format,$this);
     }
 
 
@@ -69,7 +69,7 @@ class Date extends Core\CellAlias
     final protected function isBeforeAfter(string $symbol,$time=null,bool $allowEmpty=false):bool
     {
         $return = false;
-        $time = Base\Date::time($time);
+        $time = Base\Datetime::time($time);
         $value = $this->value();
 
         if(is_int($value))

@@ -299,7 +299,7 @@ class Boot extends Base\Test
         assert($boot->description() === 'Descr Boot');
 
         // typeLabel
-        assert($boot->typeLabel() === 'Content management system');
+        assert($boot->typeLabel() === 'Assertion script');
 
         // envLabel
         assert(is_string($boot->envLabel()));

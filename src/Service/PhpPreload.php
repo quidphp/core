@@ -14,9 +14,9 @@ use Quid\Base;
 use Quid\Core;
 use Quid\Main;
 
-// phpConcatenator
-// class used for concatenating a bunch of php files within a single one
-class PhpConcatenator extends Main\Service
+// phpPreload
+// class used for concatenating a bunch of php files within a single one, for use as preloading
+class PhpPreload extends Main\Service
 {
     // config
     public static $config = [
@@ -225,5 +225,5 @@ class PhpConcatenator extends Main\Service
 }
 
 // init
-PhpConcatenator::__init();
+PhpPreload::__init();
 ?>

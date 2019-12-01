@@ -567,20 +567,17 @@ abstract class Boot extends Main\Root
     final protected function compile():void
     {
         $attr = $this->attr();
-        $keys = ['compileCss'=>'css','compileCssOption'=>'cssOption','compileJs'=>'js','compileJsOption'=>'jsOption'];
-
-        $option = Base\Arr::gets(array_keys($keys),$attr);
-
-        if(is_array($option) && !empty($option))
-        {
-            $name = $this->name();
-            $option = Base\Arrs::keysReplace(['%key%'=>$name],$option);
-            $option = Base\Arrs::valuesReplace(['%key%'=>$name],$option);
-            $option = Base\Arr::keysReplace($keys,$option);
-
-            Service\Compiler::staticTrigger($option);
-        }
-
+        $attr = Base\Arr::gets(['compileCss','compileCssOption','compileJs','compileJsOption'],$attr);
+        $name = $this->name();
+        $attr = Base\Arr::keysReplace(['%key%'=>$name],$attr);
+        $attr = Base\Arrs::valuesReplace(['%key%'=>$name],$attr);
+        
+        if(!empty($attr['compileCss']))
+        File\Css::concatenateMany($attr['compileCss'],$attr['compileCssOption']);
+        
+        if(!empty($attr['compileJs']))
+        File\Js::concatenateMany($attr['compileJs'],$attr['compileJsOption']);
+        
         return;
     }
 
@@ -995,7 +992,7 @@ abstract class Boot extends Main\Root
         $size = 0;
         $size += Base\Dir::size($path,false,$extension);
 
-        $return['size'] = Base\Number::sizeFormat($size);
+        $return['size'] = Base\Num::sizeFormat($size);
         $return['line'] += Base\Dir::line($path,$extension);
         $return['path'] = Base\Dir::subDirLine($path,null,$extension);
 

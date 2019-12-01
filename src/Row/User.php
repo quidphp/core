@@ -85,7 +85,7 @@ class User extends Core\RowAlias
     protected function onLogin():void
     {
         $db = $this->db();
-        $timestamp = Base\Date::timestamp();
+        $timestamp = Base\Datetime::timestamp();
         $this->dateLogin()->set($timestamp);
 
         $db->off();

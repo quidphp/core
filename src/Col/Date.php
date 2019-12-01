@@ -50,16 +50,16 @@ class Date extends Core\ColAlias
         $allowedFormats = $return['formats'] ?? [];
 
         if(empty($return['onGet']))
-        $return['onGet'] = [[Base\Date::class,'onGet'],$format];
+        $return['onGet'] = [[Base\Datetime::class,'onGet'],$format];
 
         if(empty($return['onSet']))
-        $return['onSet'] = [[Base\Date::class,'onSet'],$format];
+        $return['onSet'] = [[Base\Datetime::class,'onSet'],$format];
 
         if($return['preValidate'] !== false && in_array($format,$allowedFormats,true))
         $return['preValidate'] = $format;
 
         if(array_key_exists('default',$return) && $return['default'] === true)
-        $return['default'] = Base\Date::timestamp();
+        $return['default'] = Base\Datetime::timestamp();
 
         return $return;
     }
@@ -77,7 +77,7 @@ class Date extends Core\ColAlias
     // format une valeur à partir du format de date de la colonne
     final public function format($value)
     {
-        return Base\Date::onSet($value,$this->date());
+        return Base\Datetime::onSet($value,$this->date());
     }
 
 
@@ -91,7 +91,7 @@ class Date extends Core\ColAlias
         if(!in_array($format,$this->allowedFormats(),true))
         static::throw('invalidDateFormat',$format);
 
-        $placeholder = Base\Date::placeholder($format);
+        $placeholder = Base\Datetime::placeholder($format);
         if(empty($placeholder))
         static::throw('noDatePlaceholderFor',$format);
 
@@ -124,7 +124,7 @@ class Date extends Core\ColAlias
         $max = $this->dateMax();
 
         if(is_int($min) && is_int($max))
-        $return = Base\Date::daysDiff($min,$max);
+        $return = Base\Datetime::daysDiff($min,$max);
 
         return $return;
     }
@@ -185,7 +185,7 @@ class Date extends Core\ColAlias
                 $max = $this->dateMax();
 
                 if(is_int($min) && is_int($max))
-                $return = Base\Date::$method($max,$min,1,$format);
+                $return = Base\Datetime::$method($max,$min,1,$format);
             }
 
             else
@@ -274,7 +274,7 @@ class Date extends Core\ColAlias
         if($value === true)
         {
             $lang = static::lang()->currentLang();
-            $value = Base\Date::getFormat($value,$lang);
+            $value = Base\Datetime::getFormat($value,$lang);
         }
 
         if(is_string($value))

@@ -24,7 +24,7 @@ class DateAdd extends DateAlias
         'duplicate'=>false,
         'editable'=>false,
         'complex'=>'div',
-        'onGet'=>[[Base\Date::class,'onGet'],'long']
+        'onGet'=>[[Base\Datetime::class,'onGet'],'long']
     ];
 
 
@@ -32,7 +32,7 @@ class DateAdd extends DateAlias
     // sur insert retourne le timestamp
     final protected function onInsert($value,array $row,array $option):int
     {
-        return Base\Date::timestamp();
+        return Base\Datetime::timestamp();
     }
 }
 

@@ -23,7 +23,7 @@ class DateModify extends DateAlias
         'visible'=>['validate'=>'notEmpty'],
         'date'=>'long',
         'duplicate'=>false,
-        'onGet'=>[[Base\Date::class,'onGet'],'long'],
+        'onGet'=>[[Base\Datetime::class,'onGet'],'long'],
     ];
 
 
@@ -31,7 +31,7 @@ class DateModify extends DateAlias
     // sur mise à jour, retourne le timestamp
     final protected function onUpdate(Core\Cell $cell,array $option):int
     {
-        return Base\Date::timestamp();
+        return Base\Datetime::timestamp();
     }
 }
 

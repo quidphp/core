@@ -22,7 +22,7 @@ class DateLogin extends DateAlias
         'complex'=>'div',
         'date'=>'long',
         'visible'=>['validate'=>'notEmpty'],
-        'onGet'=>[[Base\Date::class,'onGet'],'long'],
+        'onGet'=>[[Base\Datetime::class,'onGet'],'long'],
     ];
 }
 

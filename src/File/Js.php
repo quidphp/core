@@ -19,7 +19,7 @@ class Js extends Main\File\Js
 {
     // config
     public static $config = [
-        'service'=>Core\Service\JShrink::class
+        'concatenateService'=>Core\Service\JShrink::class
     ];
 
 
@@ -32,7 +32,7 @@ class Js extends Main\File\Js
         if(array_key_exists('compress',$option) && $option['compress'] === true)
         {
             $return['callable'] = function(string $value) use($option) {
-                $service = $this->getServiceClass();
+                $service = $this->concatenateService();
                 return $service::staticTrigger($value,$option);
             };
         }
