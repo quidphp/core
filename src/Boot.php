@@ -571,13 +571,13 @@ abstract class Boot extends Main\Root
         $name = $this->name();
         $attr = Base\Arr::keysReplace(['%key%'=>$name],$attr);
         $attr = Base\Arrs::valuesReplace(['%key%'=>$name],$attr);
-        
+
         if(!empty($attr['compileCss']))
         File\Css::concatenateMany($attr['compileCss'],$attr['compileCssOption']);
-        
+
         if(!empty($attr['compileJs']))
         File\Js::concatenateMany($attr['compileJs'],$attr['compileJsOption']);
-        
+
         return;
     }
 
