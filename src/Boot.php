@@ -547,7 +547,7 @@ abstract class Boot extends Main\Root
         $error = Error::getOverloadClass();
         if($error !== Error::class)
         $error::init();
-        
+
         if($this->shouldCompile())
         $this->compile();
 
@@ -561,13 +561,13 @@ abstract class Boot extends Main\Root
         return;
     }
 
-    
+
     // compile
     // permet de compiler le css et js
     final protected function compile():void
     {
         $attr = $this->compileAttr();
-        
+
         if(!empty($attr['compileCss']))
         {
             $class = File\Css::getOverloadClass();
@@ -579,16 +579,16 @@ abstract class Boot extends Main\Root
             $class = File\Js::getOverloadClass();
             $class::concatenateMany($attr['compileJs'],null,$attr['compileJsOption']);
         }
-        
+
         return;
     }
 
-    
+
     // compileAttr
     // retourne les attributs pour la compilation
-    final public function compileAttr():array 
+    final public function compileAttr():array
     {
-        $return = array();
+        $return = [];
         $attr = $this->attr();
         $return = Base\Arr::gets(['compileCss','compileCssOption','compileJs','compileJsOption'],$attr);
         $name = $this->name();
@@ -597,8 +597,8 @@ abstract class Boot extends Main\Root
 
         return $return;
     }
-    
-    
+
+
     // launch
     // match la route avec la request et lance la route
     // retourne le contenu du match
@@ -613,10 +613,10 @@ abstract class Boot extends Main\Root
             $routes = $this->routes();
 
             $match = null;
-            
+
             $firstMatch = $this->getFirstMatch() ?? $routes->route($request,$match,true,true);
             $once = false;
-            
+
             while (!empty($firstMatch) || ($match = $routes->route($request,$match,true,true)))
             {
                 if(!empty($firstMatch))
