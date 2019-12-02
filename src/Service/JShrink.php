@@ -45,7 +45,7 @@ class JShrink extends Main\Service
     final public static function staticTrigger(string $value,?array $attr=null):string
     {
         $return = null;
-        $minifier = new static(__METHOD__,$attr);
+        $minifier = new static($attr);
         $return = $minifier->trigger($value);
 
         return $return;

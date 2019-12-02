@@ -45,7 +45,7 @@ class ServiceMailer extends Base\Test
         assert($mailer->setDebug(0) === $mailer);
         assert($mailer->error() === '');
         assert(count($mailer->attr()) === 28);
-        assert($mailer->getKey() === 'mailer');
+        assert($mailer->getServiceKey(true) === 'mailer');
         assert($mailer->username() === $from);
         assert($mailer->from() === ['email'=>'james@james.com','name'=>'James']);
         assert($mailer->mailer() instanceof \PHPMailer\PHPMailer\PHPMailer);

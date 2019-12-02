@@ -31,7 +31,7 @@ class DateModify extends DateAlias
     // sur mise à jour, retourne le timestamp
     final protected function onUpdate(Core\Cell $cell,array $option):int
     {
-        return Base\Datetime::timestamp();
+        return Base\Datetime::now();
     }
 }
 

@@ -59,7 +59,7 @@ class Date extends Core\ColAlias
         $return['preValidate'] = $format;
 
         if(array_key_exists('default',$return) && $return['default'] === true)
-        $return['default'] = Base\Datetime::timestamp();
+        $return['default'] = Base\Datetime::now();
 
         return $return;
     }

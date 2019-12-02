@@ -93,7 +93,7 @@ abstract class CliPreload extends Core\RouteAlias
         $service = $this->getAttr('service');
 
         if(!empty($service))
-        $return = new $service(__METHOD__,$option);
+        $return = new $service($option);
 
         return $return;
     }

@@ -547,7 +547,7 @@ abstract class Boot extends Main\Root
         $error = Error::getOverloadClass();
         if($error !== Error::class)
         $error::init();
-
+        
         if($this->shouldCompile())
         $this->compile();
 
@@ -561,31 +561,48 @@ abstract class Boot extends Main\Root
         return;
     }
 
-
+    
     // compile
     // permet de compiler le css et js
     final protected function compile():void
     {
-        $attr = $this->attr();
-        $attr = Base\Arr::gets(['compileCss','compileCssOption','compileJs','compileJsOption'],$attr);
-        $name = $this->name();
-        $attr = Base\Arr::keysReplace(['%key%'=>$name],$attr);
-        $attr = Base\Arrs::valuesReplace(['%key%'=>$name],$attr);
-
+        $attr = $this->compileAttr();
+        
         if(!empty($attr['compileCss']))
-        File\Css::concatenateMany($attr['compileCss'],$attr['compileCssOption']);
+        {
+            $class = File\Css::getOverloadClass();
+            $class::concatenateMany($attr['compileCss'],null,$attr['compileCssOption']);
+        }
 
         if(!empty($attr['compileJs']))
-        File\Js::concatenateMany($attr['compileJs'],$attr['compileJsOption']);
-
+        {
+            $class = File\Js::getOverloadClass();
+            $class::concatenateMany($attr['compileJs'],null,$attr['compileJsOption']);
+        }
+        
         return;
     }
 
+    
+    // compileAttr
+    // retourne les attributs pour la compilation
+    final public function compileAttr():array 
+    {
+        $return = array();
+        $attr = $this->attr();
+        $return = Base\Arr::gets(['compileCss','compileCssOption','compileJs','compileJsOption'],$attr);
+        $name = $this->name();
+        $return = Base\Arr::keysReplace(['%key%'=>$name],$return);
+        $return = Base\Arrs::valuesReplace(['%key%'=>$name],$return);
 
+        return $return;
+    }
+    
+    
     // launch
     // match la route avec la request et lance la route
     // retourne le contenu du match
-    protected function launch()
+    final protected function launch()
     {
         $return = null;
         $this->checkReady();
@@ -596,10 +613,10 @@ abstract class Boot extends Main\Root
             $routes = $this->routes();
 
             $match = null;
-
+            
             $firstMatch = $this->getFirstMatch() ?? $routes->route($request,$match,true,true);
             $once = false;
-
+            
             while (!empty($firstMatch) || ($match = $routes->route($request,$match,true,true)))
             {
                 if(!empty($firstMatch))
@@ -1713,12 +1730,13 @@ abstract class Boot extends Main\Root
 
     // shouldCompile
     // retourne vrai s'il faut compiler css et le js
+    // jamais de compilation si request ajax ou cli
     final public function shouldCompile():bool
     {
         $return = false;
         $request = $this->request();
 
-        if($request->isStandard() && !$this->isPreload())
+        if($request->isStandard())
         {
             $compile = $this->getAttr('compile');
 

@@ -193,7 +193,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
 
         if(!empty($lifetime))
         {
-            $timestamp = Base\Datetime::timestamp() - $lifetime;
+            $timestamp = Base\Datetime::now() - $lifetime;
             if($timestamp > 0)
             {
                 $db = $table->db();

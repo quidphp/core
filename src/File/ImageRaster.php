@@ -37,7 +37,7 @@ class ImageRaster extends Main\File\ImageRaster
     {
         $return = null;
         $class = $this->getServiceClass();
-        $upload = new $class(__METHOD__,$option);
+        $upload = new $class($option);
         $return = $upload->trigger($this,$dirname,$filename);
 
         return $return;

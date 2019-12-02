@@ -220,6 +220,7 @@ class En extends Orm\Lang\En
             'label'=>[
                 'cliClearCache'=>'Empty caches',
                 'cliClearLog'=>'Empty logs',
+                'cliCompile'=>'Compile assets',
                 'cliPreload'=>'Build PHP Preload',
                 'cliSessionGc'=>'Session garbage collect',
                 'cliVersion'=>'Version',

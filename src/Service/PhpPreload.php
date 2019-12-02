@@ -37,9 +37,9 @@ class PhpPreload extends Main\Service
 
     // construct
     // construit le service et et lie le concatenator
-    final public function __construct(string $key,?array $attr=null)
+    final public function __construct(?array $attr=null)
     {
-        parent::__construct($key,$attr);
+        parent::__construct($attr);
         $this->setAttr('concatenator',$this->concatenatorOption());
         $this->concatenator = Main\Concatenator::newOverload($this->getAttr('concatenator/base'));
 

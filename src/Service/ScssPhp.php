@@ -34,9 +34,9 @@ class ScssPhp extends Main\ServiceAlias
 
     // construct
     // construit le service et lit l'objet scssPhp
-    final public function __construct(string $key,?array $attr=null)
+    final public function __construct(?array $attr=null)
     {
-        parent::__construct($key,$attr);
+        parent::__construct($attr);
         $this->compiler = new \ScssPhp\ScssPhp\Compiler();
 
         return;
@@ -131,7 +131,7 @@ class ScssPhp extends Main\ServiceAlias
     final public static function staticTrigger(string $value,?array $attr=null):string
     {
         $return = null;
-        $minifier = new static(__METHOD__,$attr);
+        $minifier = new static($attr);
         $return = $minifier->trigger($value);
 
         return $return;
