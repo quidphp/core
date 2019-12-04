@@ -157,19 +157,19 @@ abstract class Route extends Routing\Route
         return $return;
     }
 
-    
+
     // getFormText
     // retourne le texte à utiliser pour form, gère unload et confirm
     // true renvoie vers lang common
     final protected function getFormText($value,string $type):string
     {
         if($value === true)
-        $value = array('common',$type);
-        
+        $value = ['common',$type];
+
         return parent::getFormText($value,$type);
     }
-    
-    
+
+
     // host
     // retourne le host pour la route
     // utilise le type de la route et la méthode host dans boot
