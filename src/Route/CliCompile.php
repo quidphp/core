@@ -17,6 +17,7 @@ use Quid\Main;
 
 // cliCompile
 // class for the cli route to compile assets (js and css)
+// the script cannot see if the attributes have changed in boot
 class CliCompile extends Core\RouteAlias
 {
     // trait
