@@ -215,7 +215,6 @@ abstract class Boot extends Main\Root
     protected $status = 0; // niveau de préparation de l'objet
     protected $envType = null; // garde en mémoire le envType
     protected $extenders = null; // garde l'objet extenders
-    protected $roles = null; // garde l'objet roles
     protected $route = null; // classe de la dernière route qui a été trigger
     protected $fromCache = false; // détermine si la cache pour extenders est utilisé
 
@@ -648,9 +647,13 @@ abstract class Boot extends Main\Root
             if($once === false)
             static::throw('noRouteMatch');
         }
-
-        $this->setStatus(5);
-        $this->onAfter();
+        
+        // si boot toujours prêt
+        if($this->isReady())
+        {
+            $this->setStatus(5);
+            $this->onAfter();
+        }
 
         return $return;
     }
@@ -695,7 +698,7 @@ abstract class Boot extends Main\Root
     // terminate
     // termine et détruit l'objet boot
     // commit la session si elle est toujours active
-    final protected function terminate():void
+    final public function terminate():void
     {
         $this->onTerminate();
         Base\Root::setInitCallable(null);
@@ -703,7 +706,7 @@ abstract class Boot extends Main\Root
 
         if($this->isReady())
         {
-            $insts = [Lang::class,Main\Services::class,Routing\Redirection::class,Session::class,Request::class];
+            $insts = [Lang::class,Main\Services::class,Routing\Redirection::class,Session::class,Request::class,Main\Roles::class];
             foreach ($insts as $class)
             {
                 $obj = $class::instSafe();
@@ -715,13 +718,16 @@ abstract class Boot extends Main\Root
             if(!empty($db) && $db->isReady())
             $db->disconnect();
         }
-
+        
         $this->setStatus(0);
+        $this->value = [];
         $this->attr = [];
         $this->name = null;
         $this->envType = null;
         $this->extenders = null;
-
+        $this->route = null;
+        $this->fromCache = false;
+        
         if($this->inInst())
         $this->unsetInst();
 
@@ -1915,7 +1921,7 @@ abstract class Boot extends Main\Root
     // génère l'objet roles
     final protected function setRoles(array $array):void
     {
-        $this->roles = $roles = Main\Roles::makeFromArray($array);
+        $roles = Main\Roles::makeFromArray($array);
         $roles->sortDefault();
         $roles->readOnly(true);
         $roles->setInst();
@@ -1928,7 +1934,7 @@ abstract class Boot extends Main\Root
     // retourne l'objet roles de boot
     final public function roles():Main\Roles
     {
-        return $this->roles;
+        return Main\Roles::inst();
     }
 
 

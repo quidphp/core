@@ -87,11 +87,11 @@ class CliCompile extends Core\RouteAlias
             $value = $results;
         }
 
-        $return[] = [$method=>$value];
+        $this->logCron([$method=>$value]);
 
         if($this->isLive($cli))
         $this->compileLive($attr,$overOption);
-
+        
         return;
     }
 
@@ -106,11 +106,12 @@ class CliCompile extends Core\RouteAlias
 
     // compileLive
     // permet de faire une compilation constante via console
+    // boot est terminate avant le lancement du loop éternel
     final protected function compileLive(array $attr,?array $overOption=null):void
     {
         $this->live(function() use($attr,$overOption) {
             $this->compilePass($attr,$overOption);
-        },true);
+        },true,true);
 
         return;
     }
