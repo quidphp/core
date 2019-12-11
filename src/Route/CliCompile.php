@@ -91,7 +91,7 @@ class CliCompile extends Core\RouteAlias
 
         if($this->isLive($cli))
         $this->compileLive($attr,$overOption);
-        
+
         return;
     }
 
