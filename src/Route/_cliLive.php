@@ -31,17 +31,13 @@ trait _cliLive
     {
         if($after === true)
         $after = $this->defaultExitClosure();
-<<<<<<< HEAD
         
         if($teardown === true)
         static::boot()->teardown();
         
-=======
-
         if($terminate === true)
         static::boot()->terminate();
 
->>>>>>> 578844293a5820a54ad3168eebe783c601b152c8
         while (true)
         {
             $continue = true;
