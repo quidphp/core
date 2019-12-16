@@ -31,10 +31,10 @@ trait _cliLive
     {
         if($after === true)
         $after = $this->defaultExitClosure();
-        
+
         if($teardown === true)
         static::boot()->teardown();
-        
+
         if($terminate === true)
         static::boot()->terminate();
 
