@@ -27,13 +27,13 @@ trait _cliLive
     // loop live pour cli
     // la closure after permet de mettre un stop au loop
     // possible de terminer le boot avant d'enclencher le loop
-    final protected function live(\Closure $closure,$after=null,bool $terminate=false):void
+    final protected function live(\Closure $closure,$after=null,bool $teardown=false):void
     {
         if($after === true)
         $after = $this->defaultExitClosure();
         
-        if($terminate === true)
-        static::boot()->terminate();
+        if($teardown === true)
+        static::boot()->teardown();
         
         while (true)
         {

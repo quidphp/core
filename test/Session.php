@@ -34,7 +34,7 @@ class Session extends Base\Test
         $db->update('user',['password'=>'$2y$11$8nFxo4CJfdzkT3ljRTrnAeYVsRIWDNlb/UDh.yRyuA9DN0GqZzMfe'],3);
         $db->delete('user',[['id','>',5]]);
         $db->table('user')->alterAutoIncrement();
-        $s->terminate(true,true);
+        $s->teardown(true,true);
         $s = $boot->session();
         $s->setLang('en');
 

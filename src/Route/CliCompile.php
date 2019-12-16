@@ -106,7 +106,7 @@ class CliCompile extends Core\RouteAlias
 
     // compileLive
     // permet de faire une compilation constante via console
-    // boot est terminate avant le lancement du loop éternel
+    // boot est teardown avant le lancement du loop éternel
     final protected function compileLive(array $attr,?array $overOption=null):void
     {
         $this->live(function() use($attr,$overOption) {

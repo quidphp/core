@@ -251,7 +251,7 @@ abstract class Boot extends Main\Root
     {
         if($this->status() > 0)
         {
-            $this->terminate();
+            $this->teardown();
             $this->cleanup();
         }
 
@@ -344,9 +344,9 @@ abstract class Boot extends Main\Root
     }
 
 
-    // onTerminate
-    // callback au début de terminate
-    protected function onTerminate():void
+    // onTeardown
+    // callback au début de teardown
+    protected function onTeardown():void
     {
         return;
     }
@@ -695,12 +695,12 @@ abstract class Boot extends Main\Root
     }
 
 
-    // terminate
+    // teardown
     // termine et détruit l'objet boot
     // commit la session si elle est toujours active
-    final public function terminate():void
+    final public function teardown():void
     {
-        $this->onTerminate();
+        $this->onTeardown();
         Base\Root::setInitCallable(null);
         Base\Response::closeDown();
 
@@ -755,7 +755,7 @@ abstract class Boot extends Main\Root
 
 
     // end
-    // termine le boot, flush les données terminate + cleanup
+    // termine le boot, flush les données teardown + cleanup
     final public function end($return=null)
     {
         Base\Buffer::flushEcho($return);
@@ -763,7 +763,7 @@ abstract class Boot extends Main\Root
         if(Base\Server::isCli())
         Base\Cli::eol();
 
-        $this->terminate();
+        $this->teardown();
         $this->cleanup();
 
         return $return;

@@ -52,7 +52,7 @@ class Boot extends Base\Test
 
         // onAfter
 
-        // onTerminate
+        // onTeardown
 
         // onCleanup
 
@@ -81,7 +81,7 @@ class Boot extends Base\Test
         // route
         assert($boot->route() === null);
 
-        // terminate
+        // teardown
 
         // cleanup
 
