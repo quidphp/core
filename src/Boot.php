@@ -647,7 +647,7 @@ abstract class Boot extends Main\Root
             if($once === false)
             static::throw('noRouteMatch');
         }
-        
+
         // si boot toujours prêt
         if($this->isReady())
         {
@@ -718,7 +718,7 @@ abstract class Boot extends Main\Root
             if(!empty($db) && $db->isReady())
             $db->disconnect();
         }
-        
+
         $this->setStatus(0);
         $this->value = [];
         $this->attr = [];
@@ -727,7 +727,7 @@ abstract class Boot extends Main\Root
         $this->extenders = null;
         $this->route = null;
         $this->fromCache = false;
-        
+
         if($this->inInst())
         $this->unsetInst();
 
