@@ -35,9 +35,6 @@ trait _cliLive
         if($teardown === true)
         static::boot()->teardown();
 
-        if($terminate === true)
-        static::boot()->terminate();
-
         while (true)
         {
             $continue = true;
