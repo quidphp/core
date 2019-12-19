@@ -1973,7 +1973,7 @@ abstract class Boot extends Main\Root
             $return = Lang::newOverload($all,$option);
             $return->setInst();
         }
-        
+
         return $return;
     }
 
