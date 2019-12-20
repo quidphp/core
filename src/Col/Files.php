@@ -145,7 +145,7 @@ abstract class Files extends Core\ColAlias
         return function(string $context,$value=null) {
             $return = null;
             $format = $this->maxFilesizeFormat();
-            
+
             if($context === 'lang' && !empty($format))
             $return = $format;
 
@@ -496,7 +496,7 @@ abstract class Files extends Core\ColAlias
             foreach ($version as $key => $value)
             {
                 $r = static::versionDetail($key,$value);
-                
+
                 if(strlen($r))
                 $return[$key] = $r;
             }
