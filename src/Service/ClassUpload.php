@@ -189,7 +189,7 @@ class ClassUpload extends Main\Service
 
     // prepareResize
     // méthode pour paramétrer un resize dans l'objet upload
-    final protected function prepareResize(?int $width=null,?int $height=null,?string $action=null):void
+    final protected function prepareResize(?int $width=null,?int $height=null,$action=null):void
     {
         if(is_int($width) || is_int($height))
         {

@@ -19,6 +19,7 @@ trait _cli
 {
     // config
     public static $configCli = [
+        'priority'=>800,
         'match'=>[
             'cli'=>true,
             'role'=>['>='=>'admin']],

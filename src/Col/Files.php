@@ -104,7 +104,7 @@ abstract class Files extends Core\ColAlias
             $return = null;
             $extension = $this->extension();
 
-            if($context === 'lang')
+            if($context === 'lang' && !empty($extension))
             $return = $extension;
 
             elseif($context === 'validate')
@@ -145,8 +145,8 @@ abstract class Files extends Core\ColAlias
         return function(string $context,$value=null) {
             $return = null;
             $format = $this->maxFilesizeFormat();
-
-            if($context === 'lang')
+            
+            if($context === 'lang' && !empty($format))
             $return = $format;
 
             elseif($context === 'validate')
@@ -351,7 +351,7 @@ abstract class Files extends Core\ColAlias
             $throw[] = $z;
         }
 
-        $action = (is_array($value['action']))? current($value['action']):$value['action'];
+        $action = (is_array($value['action']))? key($value['action']):$value['action'];
         if($action !== null && !in_array($action,$this->getAttr('compressAction'),true))
         $throw[] = 'action';
 
@@ -496,7 +496,7 @@ abstract class Files extends Core\ColAlias
             foreach ($version as $key => $value)
             {
                 $r = static::versionDetail($key,$value);
-
+                
                 if(strlen($r))
                 $return[$key] = $r;
             }

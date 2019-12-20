@@ -1912,7 +1912,10 @@ abstract class Boot extends Main\Root
         $type = $this->type();
 
         $return = $this->extenders()->get($type);
-
+        
+        if(!empty($return) && !$return->isInit())
+        $return->sortDefault();
+        
         return $return;
     }
 

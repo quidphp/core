@@ -273,7 +273,8 @@ abstract class Files extends Core\CellAlias
     final protected function commonVersionExtension(?int $index=null,$version=null,bool $exception=true):string
     {
         $return = null;
-        $version = $this->col()->version($version,$exception);
+        $col = $this->col();
+        $version = $col->version($version,$exception);
 
         if(is_array($version))
         {

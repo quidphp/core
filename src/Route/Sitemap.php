@@ -20,7 +20,7 @@ abstract class Sitemap extends Core\RouteAlias
     // config
     public static $config = [
         'path'=>'sitemap.xml',
-        'priority'=>500,
+        'priority'=>501,
         'sitemap'=>false,
         'group'=>'seo'
     ];
