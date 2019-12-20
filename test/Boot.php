@@ -163,7 +163,7 @@ class Boot extends Base\Test
         assert(is_string($boot->env()));
 
         // envIndex
-        assert($boot->envIndex() === 0);
+        assert(is_int($boot->envIndex()));
 
         // type
         assert(is_string($boot->type()));

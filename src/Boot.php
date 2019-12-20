@@ -952,7 +952,7 @@ abstract class Boot extends Main\Root
     final protected function makeRequest():void
     {
         $value = $this->getAttr('request');
-
+        
         if(is_array($value) && !empty($value))
         Base\Request::change($value,true);
 
