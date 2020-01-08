@@ -87,8 +87,8 @@ class Row extends Orm\Row
     {
         return static::tableFromFqcn()->rowVisible($row);
     }
-    
-    
+
+
     // rows
     // permet de retourner l'objet rows de la table
     final public static function rows(...$values):Rows

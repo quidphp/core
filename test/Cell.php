@@ -199,7 +199,7 @@ class Cell extends Base\Test
         assert($thumbnails->pair(0,'large') === null);
         assert($thumbnails->pair(2,'large') instanceof Main\File);
         assert($thumbnails->pair() === $thumbnails);
-        
+
         // primary
         assert($primary->isPrimary());
 

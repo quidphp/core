@@ -35,18 +35,18 @@ class Medias extends FilesAlias
     final public function pair($value=null,...$args)
     {
         $return = $this;
-        
+
         if($value !== null || !empty($args))
         {
             $value = ($value === true)? null:$value;
-            
+
             if(empty($args) && !is_int($value))
             $return = $this->indexes($value);
-            
+
             else
             $return = $this->commonFile($value,...$args);
         }
-        
+
         return $return;
     }
 
@@ -250,7 +250,7 @@ class Medias extends FilesAlias
         return $return;
     }
 
-    
+
     // all
     // retourne un objet files avec toutes les index, les versions et l'original
     // possible d'exclure les versions

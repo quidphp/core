@@ -35,13 +35,13 @@ class Media extends FilesAlias
     final public function pair($value=null,...$args)
     {
         $return = $this;
-        
+
         if($value !== null || !empty($args))
         {
             $value = ($value === true)? null:$value;
             $return = $this->commonFile(null,$value);
         }
-        
+
         return $return;
     }
 

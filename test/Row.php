@@ -49,10 +49,10 @@ class Row extends Base\Test
 
         // row
         assert(Core\Row\Session::row(3213) === null);
-        
+
         // rowVisible
         assert(Core\Row\Session::rowVisible(3213) === null);
-        
+
         // rows
         assert(Core\Row\Session::rows() instanceof Core\Rows);
 

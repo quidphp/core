@@ -167,7 +167,7 @@ abstract class Files extends Core\CellAlias
     final protected function commonFilePath(?int $index=null,$version=null):?string
     {
         $return = null;
-        
+
         if($this->isNotEmpty())
         $return = Base\Path::append($this->commonBasePath($index,$version),$this->commonBasename($index,$version));
 
@@ -216,7 +216,7 @@ abstract class Files extends Core\CellAlias
     {
         $return = null;
         $path = $this->commonFilePath($index,$version);
-        
+
         if(static::pathExists($path))
         {
             $return = Main\File::new($path);
@@ -226,7 +226,7 @@ abstract class Files extends Core\CellAlias
         return $return;
     }
 
-    
+
     // commonCheckFile
     // retourne l'objet fichier, envoie une exception si non existant
     final protected function commonCheckFile(?int $index=null,$version=null):Main\File
@@ -247,7 +247,7 @@ abstract class Files extends Core\CellAlias
         $return = null;
         $col = $this->col();
         $version = $col->version($version,$exception);
-        
+
         if(is_array($version))
         {
             if(is_string($version['convert']))
@@ -256,7 +256,7 @@ abstract class Files extends Core\CellAlias
             else
             {
                 $path = $this->commonFilePath($index);
-                
+
                 if(!empty($path))
                 $return = Base\Path::extension($path);
             }
@@ -547,13 +547,13 @@ abstract class Files extends Core\CellAlias
 
         return $return;
     }
-    
-    
+
+
     // pathExists
     // méthode protégé utilisé pour vérifier si un chemin existe
     protected static function pathExists($value):bool
     {
-        return (is_string($value) && !empty($value) && Base\File::is($value));
+        return is_string($value) && !empty($value) && Base\File::is($value);
     }
 }
 
