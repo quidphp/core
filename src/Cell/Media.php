@@ -31,10 +31,18 @@ class Media extends FilesAlias
 
 
     // pair
-    // si value est true, retourne file
+    // peut retourner une version de fichier
     final public function pair($value=null,...$args)
     {
-        return $this->commonPair($value,...$args);
+        $return = $this;
+        
+        if($value !== null || !empty($args))
+        {
+            $value = ($value === true)? null:$value;
+            $return = $this->commonFile(null,$value);
+        }
+        
+        return $return;
     }
 
 

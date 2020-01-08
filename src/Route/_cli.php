@@ -28,6 +28,7 @@ trait _cli
         'group'=>'cli',
         'sitemap'=>false,
         'navigation'=>false,
+        'history'=>false,
         'cliHtmlOverload'=>true, // si ce n'est pas cli, les méthodes cli génèrent du html
         'logCron'=>Core\Row\LogCron::class // classe pour le logCron
     ];

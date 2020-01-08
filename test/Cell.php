@@ -160,6 +160,9 @@ class Cell extends Base\Test
 
         assert($thumbnail->set($image) === $thumbnail);
         assert($thumbnail->row()->updateChanged() === 1);
+        assert($thumbnail->pair() === $thumbnail);
+        assert($thumbnail->pair(true) instanceof Main\File);
+        assert($thumbnail->pair('large') instanceof Main\File);
         assert($medias instanceof Core\Cell\Medias);
         $files = Main\Files::newOverload();
         $files->sets([2=>$_file_,3=>$_file_]);
@@ -191,7 +194,12 @@ class Cell extends Base\Test
         assert($thumbnails->cellPath(null,false) === '/ormCell/1/thumbnails/0');
         assert($thumbnails->cellPath(false,false) === '/ormCell/1/thumbnails');
         assert($thumbnails->basePath() !== $thumbnails->basePath(false,false));
-
+        assert($thumbnails->pair(true) instanceof Main\Files);
+        assert($thumbnails->pair('large')->isNotEmpty());
+        assert($thumbnails->pair(0,'large') === null);
+        assert($thumbnails->pair(2,'large') instanceof Main\File);
+        assert($thumbnails->pair() === $thumbnails);
+        
         // primary
         assert($primary->isPrimary());
 

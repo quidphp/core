@@ -45,7 +45,7 @@ abstract class CliVersion extends Core\RouteAlias
         Cli::pos($boot->version(true,false));
         Cli::eol();
         Cli::pos($boot::quidCredit());
-
+        
         return;
     }
 

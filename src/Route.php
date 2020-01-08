@@ -80,11 +80,11 @@ abstract class Route extends Routing\Route
         $return['bootDescription'] = $description;
         $return['lang'] = $lang->currentLang();
         $return['label'] = $this->title();
-        $return['name'] = static::name();
+        $return['name'] = static::name(true);
         $return['type'] = static::type();
         $return['metaUri'] = $request->uri();
         $return['group'] = static::group();
-        $return['parent'] = (!empty($parent))? $parent::name():null;
+        $return['parent'] = (!empty($parent))? $parent::name(true):null;
         $return['title'] = $return['label'];
         $return['metaKeywords'] = $lang->safe('meta/keywords');
         $return['metaDescription'] = $lang->safe('meta/description') ?? $description;

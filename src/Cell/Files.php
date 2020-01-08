@@ -82,29 +82,6 @@ abstract class Files extends Core\CellAlias
     }
 
 
-    // commonPair
-    // retourne un fichier si true ou int
-    // sinon renvoie à parent
-    final protected function commonPair($value=null,...$args)
-    {
-        $return = $this;
-
-        if($value === true)
-        $return = $this->commonFile(null,...$args);
-
-        elseif(is_int($value))
-        $return = $this->commonFile($value,...$args);
-
-        elseif(is_string($value))
-        $return = $this->commonFile(null,$value);
-
-        elseif($value !== null)
-        $return = parent::pair($value,...$args);
-
-        return $return;
-    }
-
-
     // commonBasename
     // retourne un basename de fichier dans la cellule
     final protected function commonBasename(?int $index=null,$version=null):?string
@@ -190,7 +167,7 @@ abstract class Files extends Core\CellAlias
     final protected function commonFilePath(?int $index=null,$version=null):?string
     {
         $return = null;
-
+        
         if($this->isNotEmpty())
         $return = Base\Path::append($this->commonBasePath($index,$version),$this->commonBasename($index,$version));
 
@@ -217,13 +194,7 @@ abstract class Files extends Core\CellAlias
     // retourne vrai si le fichier à l'index existe
     final protected function commonFileExists(?int $index=null,$version=null):bool
     {
-        $return = false;
-        $path = $this->commonFilePath($index,$version);
-
-        if(!empty($path) && Base\File::is($path))
-        $return = true;
-
-        return $return;
+        return static::pathExists($this->commonFilePath($index,$version));
     }
 
 
@@ -244,17 +215,18 @@ abstract class Files extends Core\CellAlias
     final protected function commonFile(?int $index=null,$version=null):?Main\File
     {
         $return = null;
-
-        if($this->commonFileExists($index,$version))
+        $path = $this->commonFilePath($index,$version);
+        
+        if(static::pathExists($path))
         {
-            $return = Main\File::new($this->commonFilePath($index,$version));
+            $return = Main\File::new($path);
             $return->setAttr('defaultAlt',$this->row()->cellName());
         }
 
         return $return;
     }
 
-
+    
     // commonCheckFile
     // retourne l'objet fichier, envoie une exception si non existant
     final protected function commonCheckFile(?int $index=null,$version=null):Main\File
@@ -275,7 +247,7 @@ abstract class Files extends Core\CellAlias
         $return = null;
         $col = $this->col();
         $version = $col->version($version,$exception);
-
+        
         if(is_array($version))
         {
             if(is_string($version['convert']))
@@ -283,9 +255,10 @@ abstract class Files extends Core\CellAlias
 
             else
             {
-                $file = $this->commonFile($index);
-                if(!empty($file))
-                $return = $file->extension();
+                $path = $this->commonFilePath($index);
+                
+                if(!empty($path))
+                $return = Base\Path::extension($path);
             }
         }
 
@@ -573,6 +546,14 @@ abstract class Files extends Core\CellAlias
         $return += ($this->hasIndex())? 1:0;
 
         return $return;
+    }
+    
+    
+    // pathExists
+    // méthode protégé utilisé pour vérifier si un chemin existe
+    protected static function pathExists($value):bool
+    {
+        return (is_string($value) && !empty($value) && Base\File::is($value));
     }
 }
 
