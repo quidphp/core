@@ -42,6 +42,7 @@ abstract class Files extends Core\ColAlias
             'width'=>null,
             'height'=>null,
             'autoRotate'=>false],
+        'fromPath'=>true, // s'il faut détecter le mime type du fichier via son path ou via finfo lors de la création d'un nouveau fichier
         'fileUpload'=>true, // permet le chargement par fichier (input file)
         'route'=>['download'=>null] // route à ajouter
     ];
@@ -390,12 +391,11 @@ abstract class Files extends Core\ColAlias
     final public function versionKey($version=null,bool $exception=true)
     {
         $return = null;
-        $hasVersion = $this->hasVersion();
+        $versions = $this->versions();
+        $hasVersion = ($versions !== null);
 
         if($hasVersion === true)
         {
-            $versions = $this->versions();
-
             if($version === null)
             $return = 0;
 
