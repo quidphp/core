@@ -99,7 +99,7 @@ abstract class Files extends Core\CellAlias
         if(is_string($get) && strlen($get))
         {
             $return = Base\Path::safeBasename($get);
-            
+
             if(is_scalar($version) && $this->hasVersion())
             {
                 $extension = $this->commonVersionExtension($index,$version);
@@ -220,7 +220,7 @@ abstract class Files extends Core\CellAlias
         if(static::pathExists($path))
         {
             $fromPath = $this->getAttr('fromPath');
-            $return = Main\File::new($path,array('fromPath'=>$fromPath));
+            $return = Main\File::new($path,['fromPath'=>$fromPath]);
             $cellName = $this->row()->cellName();
             $return->setAttr('defaultAlt',$cellName);
         }
@@ -249,7 +249,7 @@ abstract class Files extends Core\CellAlias
         $return = null;
         $col = $this->col();
         $version = $col->version($version,$exception);
-        
+
         if(is_array($version))
         {
             if(is_string($version['convert']))
@@ -281,7 +281,7 @@ abstract class Files extends Core\CellAlias
         if($this->isNotEmpty() && $this->hasVersion())
         {
             $fromPath = $this->getAttr('fromPath');
-            $option = array('fromPath'=>$fromPath);
+            $option = ['fromPath'=>$fromPath];
             $return = Main\Files::newOverload();
             $col = $this->col();
 

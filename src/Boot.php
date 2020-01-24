@@ -863,7 +863,7 @@ abstract class Boot extends Main\Root
         $closure = function(...$values) use($replaceMode) {
             return Base\Arrs::replaceWithMode($replaceMode,...$values);
         };
-        
+
         $merge = Base\Classe::propertyMergeParents('config',$parent,$closure,false);
         $keep = Base\Arr::gets($keys,$merge);
         $value = $closure($keep,static::$config,$value);
@@ -880,11 +880,11 @@ abstract class Boot extends Main\Root
     final protected function makeFinalAttr():void
     {
         $classes = array_reverse(Base\Classe::parents(static::class,true));
-        foreach ($classes as $class) 
+        foreach ($classes as $class)
         {
             $class::__init();
         }
-        
+
         $attr = $this->replaceSpecial(static::class,static::initReplaceMode(),static::$config,$this->value);
         $attr = static::parseSchemeHost($attr);
         $this->makeAttr($attr);
@@ -1771,7 +1771,7 @@ abstract class Boot extends Main\Root
         $type = $this->type();
         $version = $this->version();
         $key = ['extenders',$type,$version];
-        
+
         $this->fromCache = true;
         $extenders = static::cacheFile($key,function() {
             $this->fromCache = false;
@@ -2512,7 +2512,7 @@ abstract class Boot extends Main\Root
             if(is_a($class,self::class,true))
             {
                 $namespace = Base\Fqcn::namespace($class);
-                
+
                 if(!in_array($namespace,$return,true))
                 $return[] = $namespace;
             }
