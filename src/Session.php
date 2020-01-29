@@ -48,7 +48,7 @@ class Session extends Routing\Session
     // onStart
     // callback une fois que la session a été démarré
     // lie l'objet com à db et trigge le role
-    final protected function onStart():void
+    protected function onStart():void
     {
         parent::onStart();
 

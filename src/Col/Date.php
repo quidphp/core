@@ -80,7 +80,21 @@ class Date extends Core\ColAlias
         return Base\Datetime::onSet($value,$this->date());
     }
 
-
+    
+    // parse
+    // retourne un timestamp à partir d'une date formattée
+    final public function parse(string $value):?int 
+    {
+        $return = null;
+        $format = static::makeDateFormat($this->getAttr('date'));
+        
+        if(!empty($format))
+        $return = Base\Datetime::onSet($value,$format);
+        
+        return $return;
+    }
+    
+    
     // checkFormatCalendar
     // envoie une exception si le format n'est pas compatible avec un calendrier
     // envoie aussi une exception ai aucun placeholder pour le format
@@ -264,7 +278,7 @@ class Date extends Core\ColAlias
         return $this->getAttr('formats');
     }
 
-
+    
     // makeDateFormat
     // retourne le format de date en string, gère la valeur est un true (donc par défaut)
     final public static function makeDateFormat($value):?string

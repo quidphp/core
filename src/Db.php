@@ -75,7 +75,6 @@ class Db extends Orm\Db
             'storage'=>['class'=>Col\Media::class,'path'=>'[storagePrivate]','extension'=>'pdf'],
             'storages'=>['class'=>Col\Medias::class,'path'=>'[storagePrivate]','extension'=>'pdf'],
             'code'=>['required'=>true,'general'=>true],
-            'order'=>['class'=>Col\Enum::class,'complex'=>'select','general'=>true,'order'=>true,'relation'=>20],
             'date'=>['class'=>Col\Date::class,'required'=>true],
             'dateEnd'=>['class'=>Col\Date::class,'compare'=>['>=','dateStart']],
             'dateStart'=>['class'=>Col\Date::class,'compare'=>['<='=>'dateEnd']],
