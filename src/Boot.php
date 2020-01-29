@@ -175,6 +175,13 @@ abstract class Boot extends Main\Root
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true]]],
+        '@staging'=>[
+            'cache'=>true,
+            'compile'=>true,
+            'compileJsOption'=>['compress'=>true],
+            'compileCssOption'=>['compress'=>true],
+            'composer'=>[
+                'classMapAuthoritative'=>true]],
         '@prod'=>[
             'cache'=>true,
             'compileJsOption'=>['compress'=>true],
