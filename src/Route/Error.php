@@ -100,18 +100,18 @@ abstract class Error extends Core\RouteAlias
         if(!empty($route))
         {
             $here = static::langText('lc|common/here');
-            
+
             if(is_string($route))
             {
                 $route = $route::make();
                 $link = $route->a($here);
             }
-            
+
             else
-            $link = Html::a("/",$here);
-            
+            $link = Html::a('/',$here);
+
             $r .= Html::divOp('back');
-            
+
             $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
             $r .= Html::divCl();
         }
