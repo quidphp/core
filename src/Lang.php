@@ -52,7 +52,7 @@ class Lang extends Orm\Lang
     // retourne le label du type de context
     final public function typeLabel(string $type,?string $lang=null,?array $option=null):?string
     {
-        return $this->text($this->getPath('typeLabel',$type),null,$lang,$option);
+        return $this->def($this->getPath('typeLabel',$type),null,$lang,$option);
     }
 
 

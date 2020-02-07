@@ -27,8 +27,6 @@ abstract class Relation extends Core\ColAlias
         'generalExcerptMin'=>null,
         'check'=>['null'=>true], // les relations doivent être nullables
         'inRelation'=>true,
-        'relationSortKey'=>true, // si la relation est sort par clé automatiquement
-        'relationIndex'=>true, // si la relation est indexé (donc si les clés sont string transforme en index) -> attention si une valeur contient un caractère non url ou - ça ca causer des problèmes
         'generalMax'=>3,
         'relationHtml'=>"<div class='choice'><div class='choice-in'>%</div></div>", // html pour la relation
     ];

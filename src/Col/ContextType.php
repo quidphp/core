@@ -20,6 +20,7 @@ class ContextType extends SetAlias
         'required'=>true,
         'complex'=>'checkbox',
         'relation'=>[self::class,'getContextType'],
+        'relationSortKey'=>false
     ];
 
 
