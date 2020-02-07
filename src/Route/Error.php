@@ -32,7 +32,7 @@ abstract class Error extends Core\RouteAlias
         'sitemap'=>false,
         'response'=>[
             'code'=>404],
-        'route'=>Home::class,
+        'route'=>true,
         'titleBox'=>true
     ];
 
@@ -99,9 +99,19 @@ abstract class Error extends Core\RouteAlias
 
         if(!empty($route))
         {
-            $route = $route::make();
+            $here = static::langText('lc|common/here');
+            
+            if(is_string($route))
+            {
+                $route = $route::make();
+                $link = $route->a($here);
+            }
+            
+            else
+            $link = Html::a("/",$here);
+            
             $r .= Html::divOp('back');
-            $link = $route->a(static::langText('lc|common/here'));
+            
             $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
             $r .= Html::divCl();
         }
