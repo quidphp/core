@@ -36,12 +36,12 @@ class Lang extends Core\RowAlias
 
     // getCacheIdentifier
     // retourne l'identificateur de cache
-    final public static function getCacheIdentifier(?string $type=null):array
+    final public static function getCacheIdentifier(string $lang,string $type):array
     {
         $return = [];
         $boot = static::boot();
         $type = (is_string($type))? $type:$boot->type();
-        $return = ['lang',$type,$boot->version()];
+        $return = ['lang',$lang,$type,$boot->version()];
 
         return $return;
     }
@@ -55,7 +55,11 @@ class Lang extends Core\RowAlias
 
         foreach ($boot->types() as $type)
         {
-            static::cacheFile(static::getCacheIdentifier($type),null);
+            foreach ($lang->allLang() as $lang)
+            {
+                $identifier = static::getCacheIdentifier($lang,$type);
+                static::cacheFile($identifier,null);
+            }
         }
 
         return $this;
@@ -69,7 +73,9 @@ class Lang extends Core\RowAlias
     final public static function grabContent(string $value,int $type):array
     {
         $boot = static::boot();
-        return static::cacheFile(static::getCacheIdentifier(),function() use($value,$type) {
+        $identifier = static::getCacheIdentifier($value,$boot->type());
+
+        return static::cacheFile($identifier,function() use($value,$type) {
             $return = [];
             $table = static::tableFromFqcn();
             $typeCol = $table->col('type');
