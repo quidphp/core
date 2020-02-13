@@ -16,7 +16,6 @@ use Quid\Core;
 use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
-use Quid\Test;
 
 // CliPreload
 // abstract class for the cli route to generate a preload version of the PHP application
