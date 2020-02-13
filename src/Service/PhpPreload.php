@@ -105,7 +105,10 @@ class PhpPreload extends Main\Service
             $info = Main\File\Php::infoFromString($content);
 
             if($info['name'] === 'Boot' && $info['type'] === 'class')
-            $option['closure'] = false;
+            {
+                $option['closure'] = false;
+                $option['return'] = false;
+            }
 
             $return = Main\File\Php::innerLinesFromString($content,$option);
 
@@ -137,17 +140,17 @@ class PhpPreload extends Main\Service
         $end = PHP_EOL;
         if($registerClosure === true)
         {
-            $end .= PHP_EOL."namespace Quid\Main {";
+            $end .= "namespace Quid\Main {";
             $end .= PHP_EOL.'Autoload::registerClosure(false,'.$initMethodStr.');';
             $end .= PHP_EOL.'}'.PHP_EOL;
         }
         if($bootPreload === true)
         {
-            $end .= PHP_EOL."namespace Quid\Core {";
+            $end .= "namespace Quid\Core {";
             $end .= PHP_EOL.'Boot::$config["autoload"] = "preload";';
             $end .= PHP_EOL.'}'.PHP_EOL;
         }
-        $end .= PHP_EOL.'?>'.PHP_EOL;
+        $end .= '?>';
 
         $return['base'] = [
             'start'=>$start,

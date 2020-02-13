@@ -44,8 +44,8 @@ abstract class CliPreload extends Core\RouteAlias
                     Routing::class=>[]],
                 'option'=>[
                     'credit'=>[Core\Boot::class,'quidCredit']]],
-            'init'=>[
-                'to'=>'[storage]/preload/quidphp-init.php',
+            'closure'=>[
+                'to'=>'[storage]/preload/quidphp-closure.php',
                 'from'=>[
                     Core::class=>['closure'=>true]],
                 'option'=>[
@@ -55,7 +55,11 @@ abstract class CliPreload extends Core\RouteAlias
             'app'=>[
                 'to'=>'[storage]/preload/app.php',
                 'from'=>[
-                    '%key%'=>['closure'=>true,'initMethod'=>true]]]],
+                    '%key%'=>['closure'=>true,'initMethod'=>true]],
+                'option'=>[
+                    'registerClosure'=>true,
+                    'bootPreload'=>true
+                ]]],
         'option'=>[
             'initMethod'=>'__init',
             'entry'=>[
@@ -69,6 +73,14 @@ abstract class CliPreload extends Core\RouteAlias
     // cliWrap
     // enrobe l'appel à la méthode cli
     abstract protected function cliWrap();
+
+
+    // canTrigger
+    // retourne vrai si la route peut être trigger
+    public function canTrigger():bool
+    {
+        return parent::canTrigger() && !static::boot()->isPreload();
+    }
 
 
     // cli
@@ -176,7 +188,7 @@ abstract class CliPreload extends Core\RouteAlias
         {
             $target->overwrite($preload);
             $return['method'] = 'pos';
-            $return['value'] = ['path'=>$target->path(),'size'=>$target->size()];
+            $return['value'] = [$target->path()=>$target->size()];
         }
 
         return $return;

@@ -1362,6 +1362,7 @@ abstract class Boot extends Main\Root
         if(in_array($type,['internal','composer','preload'],true))
         {
             $initMethod = '__init';
+            $hasComposer = (!empty(Service\Composer::get()));
 
             if(!Main\Autoload::isRegistered('closure'))
             Main\Autoload::registerClosure(false,$initMethod);
@@ -1376,10 +1377,10 @@ abstract class Boot extends Main\Root
                 Main\Autoload::registerPsr4($psr4,true,$initMethod);
             }
 
-            if($type === 'composer')
+            if($hasComposer === true)
             {
-                $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
                 Service\Composer::setPsr4();
+                $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
                 Service\Composer::setClassMapAuthoritative($authoritative);
             }
         }

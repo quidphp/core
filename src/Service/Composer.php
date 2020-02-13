@@ -32,7 +32,7 @@ class Composer extends Main\Service
 
     // get
     // retourne l'objet composer à partir du pool de callable autoload
-    final public static function get():Autoload\ClassLoader
+    final public static function get():?Autoload\ClassLoader
     {
         $return = null;
 
