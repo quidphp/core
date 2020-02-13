@@ -128,6 +128,7 @@ class BootCore extends Test\Suite\BootAlias
     // onReady
     final protected function onReady():void
     {
+        parent::onReady();
         Base\Response::ok();
         Base\Timezone::set('America/New_York',true);
 
@@ -245,7 +246,7 @@ class BootCore extends Test\Suite\BootAlias
 }
 
 
-/* ASSERT  */
+// ASSERT
 namespace Quid\Test\Suite\Assert {
 use Quid\Base;
 use Quid\Core;
@@ -390,7 +391,7 @@ class Sitemap extends Core\Route\Sitemap
 }
 
 
-/* COL */
+// COL
 namespace Quid\Test\Suite\Col {
 use Quid\Base;
 use Quid\Core;
@@ -445,7 +446,7 @@ class UserIds extends Core\Col\Set
 });
 }
 
-/* ROW */
+// ROW
 namespace Quid\Test\Suite\Row {
 use Quid\Core;
 use Quid\Test\Suite;
@@ -593,7 +594,7 @@ class User extends Core\Row\User
 }
 
 
-/* ROWS */
+// ROWS
 namespace Quid\Test\Suite\Rows {
 use Quid\Core;
 
@@ -609,7 +610,7 @@ class OrmDb extends Core\RowsAlias
 }
 
 
-/* TABLE */
+// TABLE
 namespace Quid\Test\Suite\Table {
 use Quid\Base;
 use Quid\Core;
