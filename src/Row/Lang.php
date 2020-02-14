@@ -52,12 +52,13 @@ class Lang extends Core\RowAlias
     final protected function onCommittedOrDeleted(array $option)
     {
         $boot = static::boot();
+        $lang = $boot->lang();
 
         foreach ($boot->types() as $type)
         {
-            foreach ($lang->allLang() as $lang)
+            foreach ($lang->allLang() as $value)
             {
-                $identifier = static::getCacheIdentifier($lang,$type);
+                $identifier = static::getCacheIdentifier($value,$type);
                 static::cacheFile($identifier,null);
             }
         }
