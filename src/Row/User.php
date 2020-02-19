@@ -84,13 +84,8 @@ class User extends Core\RowAlias
     // callback lorsque l'utilisateur login
     protected function onLogin():void
     {
-        $db = $this->db();
-        $timestamp = Base\Datetime::now();
-        $this->dateLogin()->set($timestamp);
-
-        $db->off();
-        $this->updateChanged(['include'=>false]);
-        $db->on();
+        $this->updateDateLogin();
+        $this->emptyPasswordReset();
 
         return;
     }
@@ -108,6 +103,8 @@ class User extends Core\RowAlias
     // lorsque l'utilisateur a changé son mot de passe
     protected function onChangePassword():void
     {
+        $this->emptyPasswordReset();
+
         return;
     }
 
@@ -644,6 +641,24 @@ class User extends Core\RowAlias
     }
 
 
+    // updateDateLogin
+    // permet de mettre à jour la date de login
+    final public function updateDateLogin(?array $option=null):?int
+    {
+        $return = null;
+        $option = Base\Arr::plus(['include'=>false],$option);
+        $db = $this->db();
+        $timestamp = Base\Datetime::now();
+        $this->dateLogin()->set($timestamp);
+
+        $db->off();
+        $return = $this->updateChanged(['include'=>false]);
+        $db->on();
+
+        return $return;
+    }
+
+
     // password
     // retourne la cellule de password
     final public function password():Core\Cell
@@ -741,6 +756,30 @@ class User extends Core\RowAlias
 
         if(is_int($save))
         $return = $save;
+
+        return $return;
+    }
+
+
+    // emptyPasswordReset
+    // enlève la châine du password reset
+    final public function emptyPasswordReset(?array $option=null):?int
+    {
+        $return = null;
+
+        if($this->hasPasswordReset())
+        {
+            $option = Base\Arr::plus(['include'=>false,'onCommitted'=>false,'isUpdateable'=>true],$option);
+
+            $this->passwordReset()->unset();
+
+            $db = $this->db()->off();
+            $save = $this->updateChanged($option);
+            $db->on();
+
+            if(is_int($save))
+            $return = $save;
+        }
 
         return $return;
     }

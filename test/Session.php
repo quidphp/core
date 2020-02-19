@@ -305,11 +305,8 @@ class Session extends Base\Test
         assert(strlen($password) === 10);
         assert(strlen($s->com()->flush()) === 93);
         $hash = 'abcde';
-        assert($s->loginProcess('USER','Test123',['strict'=>true]));
-        $good = Base\Crypt::passwordActivate($s->user()->passwordReset()->value(),1);
-        assert(!$user::activatePasswordProcess(4,$hash,['com'=>true]));
-        assert(strlen($s->com()->flush()) === 99);
-        assert($s->logoutProcess());
+        $v = Core\Row\User::row(3)->passwordReset()->value();
+        $good = Base\Crypt::passwordActivate($v,1);
         assert(!$user::activatePasswordProcess(1243,$hash,['com'=>true]));
         assert(strlen($s->com()->flush()) === 67);
         assert(!$user::activatePasswordProcess(0,$hash,['com'=>true]));

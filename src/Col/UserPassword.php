@@ -130,7 +130,16 @@ class UserPassword extends Core\ColAlias
     // utilisé pour ajouter de la communication et un log
     final protected function onCommitted(Orm\Cell $cell,bool $insert=false,array $option)
     {
+        $option = Base\Arr::plus(['onChange'=>true],$option);
         $pos = 'changePassword/success';
+        $row = $cell->row();
+
+        if($option['onChange'] === true)
+        {
+            $row->callThis(function() {
+                $this->onChangePassword();
+            });
+        }
 
         if(!empty($option['com']) && $option['com'] === true && $insert === false)
         $cell->com($pos,'pos');
