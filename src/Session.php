@@ -285,8 +285,11 @@ class Session extends Routing\Session
             {
                 $user = $class::findByUid($value['uid']);
 
-                if(!$this->getAttr('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
-                $return = $user;
+                if(!empty($user))
+                {
+                    if(!$this->getAttr('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
+                    $return = $user;
+                }
             }
 
             elseif($value instanceof $class && $value instanceof Row\User)
