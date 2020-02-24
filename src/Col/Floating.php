@@ -18,7 +18,8 @@ class Floating extends Core\ColAlias
 {
     // config
     public static $config = [
-        'cell'=>Core\Cell\Floating::class
+        'cell'=>Core\Cell\Floating::class,
+        'check'=>['kind'=>'float']
     ];
 }
 

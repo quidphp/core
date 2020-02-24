@@ -70,11 +70,7 @@ class User extends Core\RowAlias
     // lors de l'enregistrement d'un nouvel utilisateur
     protected function onRegister():void
     {
-        if($this->allowRegisterConfirmEmail())
-        $this->sendRegisterConfirmEmail();
-
-        if($this->allowRegisterAdminEmail())
-        $this->sendRegisterAdminEmail();
+        $this->sendRegisterEmails();
 
         return;
     }
@@ -121,6 +117,14 @@ class User extends Core\RowAlias
     // onActivatePassword
     // lorsque l'utilisateur a activé son mot de passe reset
     protected function onActivatePassword():void
+    {
+        return;
+    }
+
+
+    // onChangeActive
+    // au changement de la valeur du champ active d'un utilisateur
+    protected function onChangeActive(array $option):void
     {
         return;
     }
@@ -952,6 +956,22 @@ class User extends Core\RowAlias
 
         else
         static::throw('cannotSendEmail',$type);
+
+        return $return;
+    }
+
+
+    // sendRegisterEmails
+    // envoie les emails d'enregistrement (à admin et confirmation)
+    final public function sendRegisterEmails():array
+    {
+        $return = [];
+
+        if($this->allowRegisterConfirmEmail())
+        $return[] = $this->sendRegisterConfirmEmail();
+
+        if($this->allowRegisterAdminEmail())
+        $return[] = $this->sendRegisterAdminEmail();
 
         return $return;
     }

@@ -41,7 +41,19 @@ class UserActive extends YesAlias
         static::catchable(null,'userActiveSelf');
 
         else
-        $return = $value;
+        {
+            $return = (empty($value))? null:$value;
+            $hasChanged = (!empty($cell))? ($cell->value() !== $return):true;
+
+            if($hasChanged === true)
+            {
+                $this->setCommittedCallback('onCommitted',function(Orm\Cell $cell) use($option) {
+                    $cell->row()->callThis(function() use($option) {
+                        $this->onChangeActive($option);
+                    });
+                },$cell);
+            }
+        }
 
         return $return;
     }
