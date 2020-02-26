@@ -32,7 +32,7 @@ class EnvType extends Core\ColAlias
 
     // onCommit
     // ajoute le envtype sur insertion ou mise à jour
-    final protected function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
+    protected function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?array
     {
         $return = null;
         $boot = static::bootReady();

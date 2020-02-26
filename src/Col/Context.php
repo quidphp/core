@@ -15,19 +15,10 @@ use Quid\Core;
 
 // context
 // class for the context column, updates itself automatically on commit
-class Context extends Core\ColAlias
+class Context extends EnvType
 {
     // config
-    public static $config = [
-        'required'=>true,
-        'general'=>true,
-        'visible'=>['validate'=>'notEmpty'],
-        'complex'=>'div',
-        'onComplex'=>true,
-        'onGet'=>[Base\Json::class,'onGet'],
-        'onSet'=>[Base\Json::class,'onSet'],
-        'check'=>['kind'=>'char']
-    ];
+    public static $config = [];
 
 
     // onCommit

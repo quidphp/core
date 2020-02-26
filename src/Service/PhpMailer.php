@@ -27,8 +27,8 @@ class PhpMailer extends Core\ServiceMailerAlias
         'port'=>25, // port de connection smtp
         'encryption'=>false, // type d'encryption pour la connexion smtp
         'timeout'=>5, // durée maximale d'éxécution lors de l'envoie du courriel
-        'autoTls'=>false, // active ou non le autoTsl dans phpMailer
-        'allowSelfSigned'=>true, // permet le fonctionnement si le certificat ssl est self-signed
+        'autoTls'=>true, // active ou non le autoTsl dans phpMailer
+        'allowSelfSigned'=>false, // permet le fonctionnement si le certificat ssl est self-signed
         'debug'=>0, // code de débogage
         'output'=>'html', // output de débogagge, seulement si debug pas vide (pourrait être une callable)
         'charset'=>null, // charset du message
@@ -74,7 +74,7 @@ class PhpMailer extends Core\ServiceMailerAlias
             $mailer->Host = $value['host'];
             $mailer->Port = $value['port'];
             $mailer->SMTPAuth = false;
-            $mailer->SMTPSecure = false;
+            $mailer->SMTPSecure = '';
             $mailer->SMTPAutoTLS = false;
             $mailer->SMTPOptions = [];
 
