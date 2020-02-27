@@ -152,6 +152,7 @@ class BootCore extends Test\Suite\BootAlias
         $this->setAttr('assert/db',$db);
 
         $lang = $this->lang();
+        $this->truncateTables();
         $session = $this->session();
         $session->setUserDefault();
 
@@ -176,6 +177,7 @@ class BootCore extends Test\Suite\BootAlias
             }
         }
 
+
         return;
     }
 
@@ -187,7 +189,16 @@ class BootCore extends Test\Suite\BootAlias
         Base\Dir::emptyAndUnlink('[assertStorage]');
         Base\Dir::emptyAndUnlink('[storageLog]');
         Base\Dir::emptyAndUnlink('[storage]/session');
+        $this->truncateTables();
+        Base\Response::emptyCloseDown();
 
+        return;
+    }
+
+
+    // truncateTables
+    final protected function truncateTables():void
+    {
         $truncate = $this->getAttr('assert/truncate');
         if(is_array($truncate))
         {
@@ -195,8 +206,6 @@ class BootCore extends Test\Suite\BootAlias
             $tables = $db->tables()->gets(...$truncate);
             $tables->truncate();
         }
-
-        Base\Response::emptyCloseDown();
 
         return;
     }
