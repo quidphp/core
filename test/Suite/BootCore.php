@@ -152,9 +152,9 @@ class BootCore extends Test\Suite\BootAlias
         $this->setAttr('assert/db',$db);
 
         $lang = $this->lang();
-        $this->truncateTables();
         $session = $this->session();
         $session->setUserDefault();
+        $this->truncateTables();
 
         $fr = $this->getAttr('assert/langFile/fr');
         $session->setLang('fr');

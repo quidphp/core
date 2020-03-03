@@ -237,9 +237,15 @@ abstract class Route extends Routing\Route
 
     // rowClass
     // retourne la classe row lié à la route
-    final public static function rowClass():?string
+    // par défaut retourne la classe overload
+    final public static function rowClass(bool $overload=true):?string
     {
-        return static::$config['row'] ?? null;
+        $return = static::$config['row'] ?? null;
+
+        if(!empty($return) && $overload === true)
+        $return = $return::getOverloadClass();
+
+        return $return;
     }
 
 

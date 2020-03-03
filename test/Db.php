@@ -29,7 +29,7 @@ class Db extends Base\Test
         $db['ormCol']->cols();
 
         // orm
-        assert($db->selectCount(Core\Row\Session::class) === 1);
+        assert(is_int($db->selectCount(Core\Row\Session::class)));
         assert($tb->classe()->rows() === Suite\Rows\OrmDb::class);
         assert(is_a($db['session']->classe()->row(),Core\Row\Session::class,true));
         assert($db['ormCell']->classe()->row() === Suite\Row\OrmCell::class);
