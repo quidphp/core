@@ -228,6 +228,14 @@ abstract class Files extends Core\ColAlias
     }
 
 
+    // extensionFormat
+    // retourne les extensions admises en string, divisés par un séparateur
+    final public function extensionFormat(string $separator=', '):string
+    {
+        return implode($separator,$this->extension());
+    }
+
+
     // hasDistinctMaxFilesize
     // retourne vrai s'il y a une limite de taille de fichier distincte à la colonne, donc plus petite que php ini
     final public function hasDistinctMaxFilesize():bool
