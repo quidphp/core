@@ -82,6 +82,7 @@ abstract class Route extends Routing\Route
         $return['label'] = $this->title();
         $return['name'] = static::name(true);
         $return['type'] = static::type();
+        $return['uri'] = $request->uri();
         $return['metaUri'] = $request->uri();
         $return['group'] = static::group();
         $return['parent'] = (!empty($parent))? $parent::name(true):null;
