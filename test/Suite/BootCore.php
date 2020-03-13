@@ -353,7 +353,6 @@ class BootCore extends Test\Suite\BootAlias
 namespace Quid\Test\Suite\Assert {
 use Quid\Base;
 use Quid\Core;
-use Quid\Main;
 
 \Quid\Main\Autoload::setClosure("Quid\Test\Suite\Assert",'Home',function() {
 
