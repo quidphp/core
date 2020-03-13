@@ -11,9 +11,11 @@ declare(strict_types=1);
 
 namespace Quid\Test\Suite {
 use Quid\Base;
+use Quid\Base\Html;
 use Quid\Core;
 use Quid\Main;
 use Quid\Orm;
+use Quid\Routing;
 use Quid\Test;
 
 // prepare
@@ -36,10 +38,19 @@ class BootCore extends Test\Suite\BootAlias
         'speed'=>true,
         'timeLimit'=>30,
         'assert'=>[
+            'namespaces'=>[
+                Base::class=>Test\Base::class,
+                Main::class=>Test\Main::class,
+                Orm::class=>Test\Orm::class,
+                Routing::class=>Test\Routing::class,
+                Core::class=>Test\Core::class],
             'target'=>true,
-            'overview'=>1,
+            'overviewServer'=>true,
+            'overviewLine'=>false,
+            'overviewAutoload'=>false,
             'db'=>null,
-            'exclude'=>[\Quid\Lemur::class,\Quid\Site::class],
+            'frontEnd'=>null,
+            'exclude'=>null,
             'fileSession'=>Main\File\Session::class,
             'lang'=>['fr'=>Core\Lang\Fr::class,'en'=>Core\Lang\En::class],
             'langFile'=>['fr'=>'[assertCommon]/fr.php','en'=>'[assertCommon]/en.php'],
@@ -64,9 +75,9 @@ class BootCore extends Test\Suite\BootAlias
                     'ormTableSibling'=>['truncate'=>true]]],
             'truncate'=>['log','logCron','logEmail','logError','logHttp','logSql','queueEmail']],
         'callable'=>[
-            'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>false,'exists'=>false]],
-            'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>false,'exists'=>false]],
-            'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>false,'exists'=>false]],
+            'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>false,'exists'=>false]],
+            'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>false,'exists'=>false]],
+            'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>false,'exists'=>false]],
             'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>false,'exists'=>false]],
             'errorOutputDepth'=>[Core\Error::class,'setDefaultOutputDepth',true],
             'dbHistory'=>[Core\Db::class,'setDefaultHistory',true],
@@ -104,9 +115,9 @@ class BootCore extends Test\Suite\BootAlias
             'user'=>[20]],
         '@dev'=>[
             'callable'=>[
-                'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>false,'exists'=>false]],
-                'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>false,'exists'=>false]],
-                'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>false,'exists'=>false]],
+                'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>false,'exists'=>false]],
+                'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>false,'exists'=>false]],
+                'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>false,'exists'=>false]],
                 'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>false,'exists'=>false]],
                 'errorOutputDepth'=>[Core\Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Core\Db::class,'setDefaultHistory',true],
@@ -126,11 +137,12 @@ class BootCore extends Test\Suite\BootAlias
 
 
     // onReady
-    final protected function onReady():void
+    protected function onReady():void
     {
         parent::onReady();
         Base\Response::ok();
         Base\Timezone::set('America/New_York',true);
+        Html::setUriOption('script',['append'=>false,'exists'=>false]);
 
         Base\Dir::empty('[assertCommon]');
         Base\Dir::empty('[assertCurrent]');
@@ -177,7 +189,6 @@ class BootCore extends Test\Suite\BootAlias
             }
         }
 
-
         return;
     }
 
@@ -185,11 +196,19 @@ class BootCore extends Test\Suite\BootAlias
     // onAfter
     final protected function onAfter():void
     {
+        $this->truncateTables();
+
+        return;
+    }
+
+
+    // onTeardown
+    final protected function onTeardown():void
+    {
         Base\Dir::emptyAndUnlink('[assert]');
         Base\Dir::emptyAndUnlink('[assertStorage]');
         Base\Dir::emptyAndUnlink('[storageLog]');
         Base\Dir::emptyAndUnlink('[storage]/session');
-        $this->truncateTables();
         Base\Response::emptyCloseDown();
 
         return;
@@ -208,6 +227,81 @@ class BootCore extends Test\Suite\BootAlias
         }
 
         return;
+    }
+
+
+    // outputSuite
+    final public function outputSuite():string
+    {
+        $return = '';
+        $namespaces = $this->getAttr('assert/namespaces');
+
+        if(!empty($namespaces))
+        {
+            $target = $this->getAttr('assert/target');
+            $exclude = $this->getAttr('assert/exclude');
+            $data = ['boot'=>$this];
+
+            if($target === true)
+            {
+                $closure = function(string $value) use($namespaces) {
+                    return array_key_exists($value,$namespaces);
+                };
+                $target = Main\Autoload::findNamespace($closure,true,true,true);
+
+                if(!empty($exclude))
+                $target = Base\Arr::valuesStrip($exclude,$target);
+            }
+
+            $array = Main\Autoload::callNamespace($target,'classTestTrigger',$exclude,$data);
+            $return .= Base\Debug::exportExtra($array);
+            $return .= Base\Debug::export(Base\Num::addition(...array_values($array)));
+        }
+
+        $return .= $this->outputOverview();
+
+        return $return;
+    }
+
+
+    // outputOverview
+    final protected function outputOverview():string
+    {
+        $return = '';
+
+        $overviewServer = $this->getAttr('assert/overviewServer');
+        if($overviewServer === true)
+        $return .= Base\Debug::export(Base\Server::overview());
+
+        $overviewLine = $this->getAttr('assert/overviewLine');
+        $namespaces = $this->getAttr('assert/namespaces');
+        if($overviewLine === true && !empty($namespaces))
+        {
+            $closure = function(string $value) use($namespaces) {
+                return array_key_exists($value,$namespaces) || in_array($value,$namespaces,true);
+            };
+            $codeOverview = Base\Autoload::overview($closure,true);
+
+            $frontEnd = $this->getAttr('assert/frontEnd');
+            if(!empty($frontEnd))
+            {
+                foreach ($frontEnd as $key => $value)
+                {
+                    $codeOverview[$key.'-css'] = Base\Dir::overview($value.'/css');
+                    $codeOverview[$key.'-js'] = Base\Dir::overview($value.'/js');
+                }
+            }
+
+            $return .= Base\Debug::export($codeOverview);
+            $lines = Base\Column::value('line',$codeOverview);
+            $return .= Base\Debug::export(Base\Num::addition(...$lines));
+        }
+
+        $overviewAutoload = $this->getAttr('assert/overviewAutoload');
+        if($overviewAutoload === true)
+        $return .= Base\Debug::export(Base\Autoload::all());
+
+        return $return;
     }
 
 
@@ -282,45 +376,7 @@ class Home extends Core\Route\Home
         if($isCli === false)
         $return .= $this->docOpen();
 
-        $target = $boot->getAttr('assert/target');
-        $exclude = $boot->getAttr('assert/exclude');
-        $data = ['boot'=>$boot];
-
-        if($target === true)
-        {
-            $closure = function(string $value) {
-                return (stripos($value,'quid') === 0 && stripos($value,'quid\\test') === false)? true:false;
-            };
-            $target = Main\Autoload::findNamespace($closure,true,true,true);
-
-            if(!empty($exclude))
-            $target = Base\Arr::valuesStrip($exclude,$target);
-        }
-
-        $array = Main\Autoload::callNamespace($target,'classTestTrigger',$exclude,$data);
-        $return .= Base\Debug::exportExtra($array);
-        $return .= Base\Debug::export(Base\Num::addition(...array_values($array)));
-
-        $overview = $boot->getAttr('assert/overview');
-        if(!empty($overview))
-        {
-            $return .= Base\Debug::export(Base\Server::overview());
-
-            if($overview === true || $overview > 1)
-            {
-                $closure = function(string $value) {
-                    return (stripos($value,'quid') === 0)? true:false;
-                };
-                $codeOverview = Base\Autoload::overview($closure,true);
-
-                $return .= Base\Debug::export($codeOverview);
-                $lines = Base\Column::value('line',$codeOverview);
-                $return .= Base\Debug::export(Base\Num::addition(...$lines));
-
-                if($overview === true || $overview > 2)
-                $return .= Base\Debug::export(Base\Autoload::all());
-            }
-        }
+        $return .= $boot->outputSuite();
 
         if($isCli === false)
         $return .= $this->docClose();

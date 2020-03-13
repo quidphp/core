@@ -83,44 +83,53 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     final public static function onCloseDown():void
     {
         Base\Response::onCloseDown(function() {
-
-            $code = Base\Response::code();
-            $data = [];
-            $bool = false;
-
-            $boot = static::bootReady();
-            if(!empty($boot))
-            {
-                $request = $boot->request();
-
-                if(static::shouldLog($request))
-                {
-                    $shouldLog = Base\Response::isCodeLoggable();
-                    $data = $request->getLogData();
-
-                    if(!empty($data))
-                    $shouldLog = true;
-
-                    if($shouldLog === true)
-                    {
-                        $bool = true;
-                        $route = $boot->route();
-
-                        if(!empty($route))
-                        $data['route'] = $route;
-                    }
-                }
-            }
-
-            if($bool === true)
-            {
-                $data = (empty($data))? null:$data;
-                static::new($code,$data);
-                static::logTrim();
-            }
+            static::logCurrentRequest();
         });
 
         return;
+    }
+
+
+    // logCurrentRequest
+    // permet de logger la requête courante
+    final public static function logCurrentRequest():bool
+    {
+        $return = false;
+        $code = Base\Response::code();
+        $data = [];
+
+        $boot = static::bootReady();
+        if(!empty($boot))
+        {
+            $request = $boot->request();
+
+            if(static::shouldLog($request))
+            {
+                $shouldLog = Base\Response::isCodeLoggable();
+                $data = $request->getLogData();
+
+                if(!empty($data))
+                $shouldLog = true;
+
+                if($shouldLog === true)
+                {
+                    $return = true;
+                    $route = $boot->route();
+
+                    if(!empty($route))
+                    $data['route'] = $route;
+                }
+            }
+        }
+
+        if($return === true)
+        {
+            $data = (empty($data))? null:$data;
+            static::new($code,$data);
+            static::logTrim();
+        }
+
+        return $return;
     }
 }
 
