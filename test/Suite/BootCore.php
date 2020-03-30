@@ -24,7 +24,7 @@ class_alias(Core\Boot::class,Test\Suite\BootAlias::class);
 
 
 // bootCore
-// class for booting the testsuite
+// class for booting the Quid\Core testsuite
 class BootCore extends Test\Suite\BootAlias
 {
     // config

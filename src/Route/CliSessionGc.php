@@ -14,7 +14,7 @@ use Quid\Base\Cli;
 use Quid\Core;
 
 // cliSessionGc
-// abstract class for the cli route to remove expired sessions
+// abstract class for a cli route to remove expired sessions
 abstract class CliSessionGc extends Core\RouteAlias
 {
     // config

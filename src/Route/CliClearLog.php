@@ -14,7 +14,7 @@ use Quid\Base\Cli;
 use Quid\Core;
 
 // cliClearLog
-// class for the cli route to remove all log data
+// class for a cli route to remove all log data
 class CliClearLog extends Core\RouteAlias
 {
     // config

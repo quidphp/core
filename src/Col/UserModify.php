@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 
 // userModify
-// class for the userModify column, user_id is added automatically on update
+// class for a column which stores the current user id on update
 class UserModify extends EnumAlias
 {
     // config

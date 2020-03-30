@@ -14,7 +14,7 @@ use Quid\Base\Cli;
 use Quid\Core;
 
 // cliClearCache
-// class for the cli route to remove all cached data
+// class for a cli route to remove all cached data
 class CliClearCache extends Core\RouteAlias
 {
     // config

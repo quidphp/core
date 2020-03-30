@@ -18,7 +18,7 @@ use Quid\Orm;
 use Quid\Routing;
 
 // CliPreload
-// abstract class for the cli route to generate a preload version of the PHP application
+// abstract class for a cli route to generate a preload version of the PHP application
 abstract class CliPreload extends Core\RouteAlias
 {
     // config

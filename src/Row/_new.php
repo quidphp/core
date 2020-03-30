@@ -14,7 +14,7 @@ use Quid\Core;
 use Quid\Main;
 
 // _new
-// trait that grants access some methods which allows creating rows statically
+// trait that grants access to some methods which allows creating rows statically
 trait _new
 {
     // newData

@@ -14,7 +14,7 @@ use Quid\Base;
 use Quid\Core;
 
 // dateModify
-// class for the dateModify column, current timestamp is updated automatically on update
+// class for a column which stores the current timestamp when the row is updated
 class DateModify extends DateAlias
 {
     // config

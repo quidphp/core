@@ -13,7 +13,7 @@ namespace Quid\Core\Col;
 use Quid\Orm;
 
 // active
-// class for the active column - a simple yes checkbox
+// class for the active column - extends the Yes column class
 class Active extends YesAlias
 {
     // config
