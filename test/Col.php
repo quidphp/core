@@ -39,6 +39,8 @@ class Col extends Base\Test
         $storage = $tb['storage'];
         $row = $tb[1];
         $medias = $tb['medias'];
+        $float = $tb['float'];
+        $int = $tb['int'];
 
         // generalExcerptMin
         assert($col->generalExcerptMin() === 100);
@@ -115,8 +117,10 @@ class Col extends Base\Test
         // files
 
         // floating
+        assert($float instanceof Core\Col\Floating);
 
         // integer
+        assert($int instanceof Core\Col\Integer);
 
         // json
 

@@ -19,6 +19,7 @@ class Uri extends Core\ColAlias
     // config
     public static $config = [
         'validate'=>[1=>'uri'],
+        'keyboard'=>'url',
         'check'=>['kind'=>'char']
     ];
 }

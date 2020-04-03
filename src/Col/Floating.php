@@ -19,6 +19,7 @@ class Floating extends Core\ColAlias
     // config
     public static $config = [
         'cell'=>Core\Cell\Floating::class,
+        'keyboard'=>'decimal',
         'check'=>['kind'=>'float']
     ];
 }

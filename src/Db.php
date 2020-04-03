@@ -43,7 +43,7 @@ class Db extends Orm\Db
                 'cells'=>Cells::class],
             'colGroup'=>[ // classe pour colonne selon le group
                 'primary'=>Col\Primary::class,
-                'integer'=>Col\Integer::class,
+                'int'=>Col\Integer::class,
                 'float'=>Col\Floating::class],
             'colAttr'=>[ // classe pour colonne selon un attribut
                 'media'=>Col\Media::class,

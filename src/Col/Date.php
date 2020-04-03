@@ -25,6 +25,7 @@ class Date extends Core\ColAlias
         'filterMethod'=>[self::class,'autoFilterMethod'],
         'date'=>'dateToDay',
         'pattern'=>false,
+        'keyboard'=>'numeric',
         'check'=>['kind'=>'int'],
         'calendarFormat'=>'dateToDay', // custom
         'filterFormat'=>[ // format, méthodes et maximum pour le filter
