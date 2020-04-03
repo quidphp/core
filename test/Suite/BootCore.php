@@ -109,7 +109,6 @@ class BootCore extends Test\Suite\BootAlias
             Core\Col::class=>[
                 'generalExcerptMin'=>100]],
         'service'=>[
-            'ldap'=>[Core\Service\Ldap::class,['host'=>'james.com','port'=>388]],
             'mailer'=>[Core\Service\PhpMailer::class,['host'=>'smtp.james.com','port'=>587,'encryption'=>'tls','username'=>'james@james.com','password'=>'james','name'=>'James']]],
         'roles'=>[
             'user'=>[20]],

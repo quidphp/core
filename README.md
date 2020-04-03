@@ -61,7 +61,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 
 ### Overview
-**QuidPHP/Core** contains 113 classes and traits. Here is an overview:
+**QuidPHP/Core** contains 112 classes and traits. Here is an overview:
 - [Boot](src/Boot.php) - Abstract class for boot which is the object that bootstraps the application
 - [Cell](src/Cell.php) - Extended class to represent an existing cell within a row
     - [Date](src/Cell/Date.php) - Class to work with a cell containing a date value
@@ -166,7 +166,6 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [ClassUpload](src/Service/ClassUpload.php) - Class that provides methods to use verot/class.upload.php for resizing images
     - [Composer](src/Service/Composer.php) - Class that grants some methods related to the composer autoloader
     - [JShrink](src/Service/JShrink.php) - Class that provides methods to use tedivm/jshrink for minifying JavaScript
-    - [Ldap](src/Service/Ldap.php) - Class that grants some methods to connect to an ldap server
     - [PhpMailer](src/Service/PhpMailer.php) - Class that provides methods to use phpmailer/phpmailer in order to send emails
     - [PhpPreload](src/Service/PhpPreload.php) - Class used for concatenating a bunch of php files within a single one, for use as preloading
     - [ScssPhp](src/Service/ScssPhp.php) - Class that grants methods to use scssphp/scssphp for compiling scss files
