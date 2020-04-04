@@ -29,7 +29,6 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
     - *post_max_size* must be at least 1MB
     - *post_max_size* must be larger than *upload_max_filesize*
     - *memory_limit* must be at least 128MB
-    - *browscap* needs to contain a valid path 
 - Mysql or MariaDB database
 - Apache or Nginx server
 - Compatible with MacOs, Windows and Linux
