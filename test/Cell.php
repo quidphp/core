@@ -143,7 +143,7 @@ class Cell extends Base\Test
         assert(!$media->file()->isMimeFamily('image'));
         assert($media->file()->size() === 0);
         assert($media->file()->extension() === 'txt');
-        assert($media->file()->mime() === 'inode/x-empty; charset=binary');
+        assert(Base\Mime::isEmpty($media->file()->mime()));
         assert($media->file()->mimeGroup(false) === null);
         assert($media->file()->mimeGroup() === 'txt');
         assert($media->file()->mimeFamily(false) === null);

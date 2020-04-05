@@ -23,7 +23,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Requirement
 **QuidPHP/Core** requires the following:
-- PHP 7.3+ with these extensions:
+- PHP 7.3 or 7.4 with these extensions:
     - all PHP extensions required by [quidphp/base](https://github.com/quidphp/base) and [quidphp/orm](https://github.com/quidphp/orm)
 - The following PHP INI directives are also required:
     - *post_max_size* must be at least 1MB
