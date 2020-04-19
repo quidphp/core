@@ -344,10 +344,13 @@ class Boot extends Base\Test
         // getOption
         assert($boot->getOption('logo') === null);
 
+        // getSecretKey
+        assert($boot->getSecretKey() === get_class($boot));
+
         // info
         assert(count($boot->info()) === 9);
 
-        /* STATIC */
+        // STATIC
 
         // parseSchemeHost
 

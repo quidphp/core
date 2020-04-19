@@ -160,6 +160,7 @@ abstract class Boot extends Main\Root
         'redirectionRow'=>Row\Redirection::class, // row pour contenu additionnel de redirection
         'redirectLog'=>Row\LogHttp::class, // classe log pour les mauvaises requêtes http
         'pathOverviewExtension'=>['php','js','jsx','css','scss'], // extension pour pathOverview si extension est null
+        'secretKey'=>null, // permet de définir une clé secrète pour le boot, utiliser pour l'encryptage
         '@dev'=>[
             'compileJsOption'=>['compress'=>false],
             'compileCssOption'=>['compress'=>false],
@@ -2296,6 +2297,14 @@ abstract class Boot extends Main\Root
     final public function getOption($value)
     {
         return Base\Arrs::get($value,$this->getAttr('option'));
+    }
+
+
+    // getSecretKey
+    // permet de retourner la clé secrète de boot, utiliser pour l'encryptage
+    final public function getSecretKey():string
+    {
+        return $this->getAttr('secretKey') ?? static::class;
     }
 
 

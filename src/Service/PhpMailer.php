@@ -21,6 +21,7 @@ class PhpMailer extends Core\ServiceMailerAlias
     // config
     public static $config = [
         'ping'=>2, // fait un ping avant l'envoie
+        'kill'=>null, // permet de tuer le script après un envoie (permet d'afficher le debug)
         'username'=>null, // username pour connexion smtp
         'password'=>null, // password pour connection smtp
         'host'=>null, // host smtp
@@ -186,7 +187,10 @@ class PhpMailer extends Core\ServiceMailerAlias
             $this->prepareMailerMessage($message);
 
             if($this->isActive())
-            $return = $mailer->send();
+            {
+                $return = $mailer->send();
+                $this->afterSend($return,$value);
+            }
 
             else
             $return = true;
@@ -203,6 +207,23 @@ class PhpMailer extends Core\ServiceMailerAlias
         }
 
         return $return;
+    }
+
+
+    // afterSend
+    // callback après l'envoie, gère le kill
+    final protected function afterSend(bool $return,array $value):void
+    {
+        $debug = $value['debug'] ?? null;
+        $kill = $value['kill'] ?? null;
+
+        if($debug === true && $kill === null)
+        $kill = true;
+
+        if($kill === true)
+        Base\Response::kill();
+
+        return;
     }
 
 
