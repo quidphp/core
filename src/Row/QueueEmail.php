@@ -42,7 +42,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // retourne vrai si le email n'a pas été envoyé
     final public function isUnsent():bool
     {
-        return ($this->cell('status')->isEqual(1))? true:false;
+        return $this->cell('status')->isEqual(1);
     }
 
 
@@ -50,7 +50,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // retourne vrai si le email est en train d'être envoyé
     final public function isInProgress():bool
     {
-        return ($this->cell('status')->isEqual(2))? true:false;
+        return $this->cell('status')->isEqual(2);
     }
 
 
@@ -58,7 +58,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // retourne vrai si l'envoie du email a échoué
     final public function isError():bool
     {
-        return ($this->cell('status')->isEqual(3))? true:false;
+        return $this->cell('status')->isEqual(3);
     }
 
 
@@ -66,7 +66,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     // retourne vrai si le email a été envoyé
     final public function isSent():bool
     {
-        return ($this->cell('status')->isEqual(4))? true:false;
+        return $this->cell('status')->isEqual(4);
     }
 
 

@@ -26,7 +26,6 @@ class CliCompile extends Core\RouteAlias
     // config
     public static $config = [
         'path'=>['-compile'],
-        'longSleep'=>3,
         'fileClass'=>[
             'css'=>Core\File\Css::class,
             'js'=>Core\File\Js::class]
@@ -45,19 +44,11 @@ class CliCompile extends Core\RouteAlias
     }
 
 
-    // isLive
-    // retourne vrai si la route est présentement live (en cli)
-    final protected function isLive(bool $cli):bool
-    {
-        return ($cli === true && !$this->request()->isQuery('once'))? true:false;
-    }
-
-
     // shouldCompress
     // retourne vrai s'il faut forcer la compression
     final protected function shouldCompress(bool $cli):bool
     {
-        return ($cli === true && $this->request()->isQuery('compress'))? true:false;
+        return $cli === true && $this->request()->isQuery('compress');
     }
 
 
@@ -106,6 +97,7 @@ class CliCompile extends Core\RouteAlias
     // compileLive
     // permet de faire une compilation constante via console
     // boot est teardown avant le lancement du loop éternel
+    // logCron est seulement sur la première passe
     final protected function compileLive(array $attr,?array $overOption=null):void
     {
         $this->live(function() use($attr,$overOption) {

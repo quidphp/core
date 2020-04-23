@@ -51,7 +51,7 @@ class Media extends FilesAlias
     // si média est requis, ne peut pas effacé
     final public function canBeDeleted(?int $index=null):bool
     {
-        return (parent::canBeDeleted($index) && !$this->isRequired())? true:false;
+        return parent::canBeDeleted($index) && !$this->isRequired();
     }
 
 

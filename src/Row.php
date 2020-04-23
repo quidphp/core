@@ -10,6 +10,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
+use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
 
@@ -43,6 +44,35 @@ class Row extends Orm\Row
             {
                 $return = true;
                 break;
+            }
+        }
+
+        return $return;
+    }
+
+
+    // cellsMediaFile
+    // tente de retourner la première image disponible pour représenter la row
+    final public function cellsMediaFile($version=-1):?Main\File
+    {
+        $return = null;
+
+        foreach ($this->cells() as $cell)
+        {
+            if($cell->isMedia() && $cell->isNotEmpty())
+            {
+                $args = [];
+                if($cell->hasIndex())
+                $args[] = 0;
+                if($cell->hasVersion())
+                $args[] = $version;
+                $file = $cell->file(...$args);
+
+                if($file instanceof Main\File\Image)
+                {
+                    $return = $file;
+                    break;
+                }
             }
         }
 

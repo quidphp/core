@@ -158,7 +158,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
     final public function allowRegisterConfirmEmail():bool
     {
-        return (!empty($this->registerConfirmEmailModel()))? true:false;
+        return !empty($this->registerConfirmEmailModel());
     }
 
 
@@ -166,7 +166,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement à l'administrateur
     final public function allowRegisterAdminEmail():bool
     {
-        return (!empty($this->registerAdminEmailModel()))? true:false;
+        return !empty($this->registerAdminEmailModel());
     }
 
 
@@ -175,7 +175,7 @@ class User extends Core\RowAlias
     // doit être nobody et qu'il y ait au moins un modèle d'email de confirmation
     final public function allowRegister():bool
     {
-        return ($this->isNobody() && ($this->allowRegisterConfirmEmail() || $this->allowRegisterAdminEmail()))? true:false;
+        return $this->isNobody() && ($this->allowRegisterConfirmEmail() || $this->allowRegisterAdminEmail());
     }
 
 
@@ -183,7 +183,7 @@ class User extends Core\RowAlias
     // retourne vrai si le user permet l'envoie de courrier pour regénérer le mot de passe
     final public function allowResetPasswordEmail():bool
     {
-        return ($this->hasPasswordReset() && !empty($this->resetPasswordEmailModel()) && !empty($this->activatePasswordRoute()))? true:false;
+        return $this->hasPasswordReset() && !empty($this->resetPasswordEmailModel()) && !empty($this->activatePasswordRoute());
     }
 
 
@@ -336,7 +336,7 @@ class User extends Core\RowAlias
     // retourne vrai si l'utilisateur peut recevoir un courriel
     public function canReceiveEmail():bool
     {
-        return ($this->isSomebody() && $this->hasUsername() && $this->hasEmail())? true:false;
+        return $this->isSomebody() && $this->hasUsername() && $this->hasEmail();
     }
 
 
@@ -360,7 +360,7 @@ class User extends Core\RowAlias
     // retourne vrai si l'utilisateur a le champ password reset
     final public function hasPasswordReset():bool
     {
-        return ($this->hasCell('passwordReset'))? true:false;
+        return $this->hasCell('passwordReset');
     }
 
 
@@ -846,7 +846,7 @@ class User extends Core\RowAlias
         if($return === null && empty($neg))
         $neg = 'resetPassword/error';
 
-        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,$this->getAttr(['log','resetPassword']),$option);
+        $com->posNegLogStrict('resetPassword',(is_string($return)),$pos,$neg,$this->getAttr(['log','resetPassword']),$option);
 
         return $return;
     }
@@ -1130,7 +1130,7 @@ class User extends Core\RowAlias
         else
         $neg = 'resetPassword/invalidValue';
 
-        $com->posNegLogStrict('resetPassword',(is_string($return))? true:false,$pos,$neg,static::$config['log']['resetPassword'] ?? null,$option);
+        $com->posNegLogStrict('resetPassword',(is_string($return)),$pos,$neg,static::$config['log']['resetPassword'] ?? null,$option);
 
         return $return;
     }
@@ -1216,7 +1216,7 @@ class User extends Core\RowAlias
             $return = $table->insert($data,$option);
         }
 
-        $com->posNegLogStrict('register',($return instanceof self)? true:false,$pos,$neg,static::$config['log']['register'] ?? null,$option);
+        $com->posNegLogStrict('register',($return instanceof self),$pos,$neg,static::$config['log']['register'] ?? null,$option);
 
         return $return;
     }

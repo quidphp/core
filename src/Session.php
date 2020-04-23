@@ -161,7 +161,7 @@ class Session extends Routing\Session
     // retourne vrai si la row peut être vu
     public function canViewRow(Row $row)
     {
-        return ($row->isUpdateable() === true)? true:false;
+        return $row->isUpdateable() === true;
     }
 
 
@@ -336,7 +336,7 @@ class Session extends Routing\Session
         $return = null;
 
         elseif($mode === 'is')
-        $return = ($value === null || $value instanceof Main\Roles)? true:false;
+        $return = ($value === null || $value instanceof Main\Roles);
 
         return $return;
     }
@@ -667,7 +667,7 @@ class Session extends Routing\Session
     // retourne vrai si la session a des fake roles
     final public function hasFakeRoles():bool
     {
-        return (!empty($this->getFakeRoles()))? true:false;
+        return !empty($this->getFakeRoles());
     }
 
 
@@ -759,7 +759,7 @@ class Session extends Routing\Session
     // soit le user peut se logger ou le user est cli
     final public function canAccess():bool
     {
-        return ($this->canLogin() || $this->isCli())? true:false;
+        return $this->canLogin() || $this->isCli();
     }
 
 

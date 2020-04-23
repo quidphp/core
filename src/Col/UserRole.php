@@ -75,7 +75,7 @@ class UserRole extends SetAlias
             {
                 $table = $this->table();
                 $primary = $table->primary();
-                $isInsert = (empty($cell))? true:false;
+                $isInsert = (empty($cell));
                 $id = $row[$primary] ?? null;
 
                 $boot = static::boot();
@@ -84,9 +84,9 @@ class UserRole extends SetAlias
                 $sessionRoles = $session->roles();
                 $sessionRole = $session->role();
                 $permission = $sessionRole->permission();
-                $isNobody = (!empty($sessionRoles->nobody()))? true:false;
+                $isNobody = (!empty($sessionRoles->nobody()));
                 $isAdmin = $sessionRole->isAdmin();
-                $isInsertNobody = ($isInsert === true && $isNobody === true)? true:false;
+                $isInsertNobody = ($isInsert === true && $isNobody === true);
 
                 $roles = $boot->roles();
                 $rolesNobody = $roles->nobody();

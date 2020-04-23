@@ -85,7 +85,7 @@ abstract class Files extends Core\ColAlias
     // retourne vrai si le chargement par fichier est permis
     final public function allowFileUpload():bool
     {
-        return ($this->getAttr('fileUpload') === true)? true:false;
+        return $this->getAttr('fileUpload') === true;
     }
 
 

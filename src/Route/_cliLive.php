@@ -23,6 +23,14 @@ trait _cliLive
     protected $stdin = null; // garde une copie de la resource stdin lors
 
 
+    // isLive
+    // retourne vrai si la route est présentement live (en cli)
+    final protected function isLive(bool $cli):bool
+    {
+        return $cli === true && !$this->request()->isQuery('once');
+    }
+
+
     // live
     // loop live pour cli
     // la closure after permet de mettre un stop au loop
@@ -38,7 +46,10 @@ trait _cliLive
         while (true)
         {
             $continue = true;
-            $closure();
+            $result = $closure();
+
+            if(is_array($result))
+            $this->logCron($result);
 
             if($after instanceof \Closure)
             $continue = $after();

@@ -781,7 +781,7 @@ abstract class Boot extends Main\Root
     // isStatus
     final public function isStatus($value):bool
     {
-        return ($this->status() === $value)? true:false;
+        return $this->status() === $value;
     }
 
 
@@ -820,7 +820,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si boot est ready, status 4 ou >
     final public function isReady():bool
     {
-        return ($this->status >= 4)? true:false;
+        return $this->status >= 4;
     }
 
 
@@ -1213,7 +1213,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si l'environnement est celui fourni en argument
     final public function isEnv($value):bool
     {
-        return (is_string($value) && $this->env() === $value)? true:false;
+        return is_string($value) && $this->env() === $value;
     }
 
 
@@ -1221,7 +1221,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si l'environnement est dev
     final public function isDev():bool
     {
-        return ($this->env() === 'dev')? true:false;
+        return $this->env() === 'dev';
     }
 
 
@@ -1229,7 +1229,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si l'environnement est staging
     final public function isStaging():bool
     {
-        return ($this->env() === 'staging')? true:false;
+        return $this->env() === 'staging';
     }
 
 
@@ -1237,7 +1237,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si l'environnement est prod
     final public function isProd():bool
     {
-        return ($this->env() === 'prod')? true:false;
+        return $this->env() === 'prod';
     }
 
 
@@ -1245,7 +1245,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si le type est celui fourni en argument
     final public function isType($value):bool
     {
-        return (is_string($value) && $this->type() === $value)? true:false;
+        return is_string($value) && $this->type() === $value;
     }
 
 
@@ -1342,7 +1342,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si le type de autoload est preload
     final public function isPreload():bool
     {
-        return ($this->autoloadType() === 'preload')? true:false;
+        return $this->autoloadType() === 'preload';
     }
 
 
@@ -2210,7 +2210,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si  boot a présentement une db
     final public function hasDb():bool
     {
-        return (Db::instReady() instanceof Db)? true:false;
+        return Db::instReady() instanceof Db;
     }
 
 
@@ -2248,7 +2248,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si boot a présentement une session
     final public function hasSession():bool
     {
-        return (Session::instReady() instanceof Session)? true:false;
+        return Session::instReady() instanceof Session;
     }
 
 
@@ -2560,7 +2560,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si un boot a déjà été lancé
     final public static function isInit():bool
     {
-        return (static::$init === true)? true:false;
+        return static::$init === true;
     }
 
 
