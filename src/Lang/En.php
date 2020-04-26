@@ -17,7 +17,7 @@ use Quid\Orm;
 class En extends Orm\Lang\En
 {
     // config
-    public static $config = [
+    public static array $config = [
         // common
         'common'=>[
             'and'=>'And',

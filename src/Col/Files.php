@@ -19,7 +19,7 @@ use Quid\Main;
 abstract class Files extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'tag'=>'inputText',
         'export'=>false,
         'order'=>false,

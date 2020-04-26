@@ -22,7 +22,7 @@ use Quid\Routing;
 abstract class CliPreload extends Core\RouteAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>['-preload'],
         'service'=>Core\Service\PhpPreload::class,
         'compile'=>[

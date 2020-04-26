@@ -21,7 +21,7 @@ class Lang extends Orm\Lang
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>[ // chemin pour des types de texte précis liés à des méthodes
             'bootLabel'=>'label',
             'bootDescription'=>'description',

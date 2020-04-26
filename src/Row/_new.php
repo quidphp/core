@@ -75,7 +75,7 @@ trait _new
     // fait un overload sur la classe et ensuite passe à new
     final public static function newOverload(...$values):Main\Root
     {
-        return static::getOverloadClass()::new(...$values);
+        return static::classOverload()::new(...$values);
     }
 }
 ?>

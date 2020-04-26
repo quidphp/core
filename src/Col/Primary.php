@@ -17,7 +17,7 @@ use Quid\Core;
 class Primary extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'cell'=>Core\Cell\Primary::class,
         'general'=>true,
         'searchMinLength'=>1,

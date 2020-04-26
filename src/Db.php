@@ -21,7 +21,7 @@ class Db extends Orm\Db
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'logClass'=>[ // classe à utiliser pour logger ces différents types de requêtes
             'select'=>null,
             'show'=>null,

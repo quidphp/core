@@ -19,7 +19,7 @@ use Verot\Upload;
 class ClassUpload extends Main\Service
 {
     // config
-    public static $config = [
+    public static array $config = [
         'quality'=>null,
         'convert'=>null,
         'action'=>null,
@@ -30,7 +30,7 @@ class ClassUpload extends Main\Service
 
 
     // dynamique
-    protected $upload = null; // conserve une copie de l'objet class upload
+    protected ?Upload\Upload $upload = null; // conserve une copie de l'objet class upload
 
 
     // trigger

@@ -16,7 +16,7 @@ namespace Quid\Core\Col;
 class ContextType extends SetAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'required'=>true,
         'complex'=>'checkbox',
         'relation'=>[self::class,'getContextType'],

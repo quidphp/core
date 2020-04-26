@@ -19,7 +19,7 @@ use Quid\Main;
 class PhpMailer extends Core\ServiceMailerAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'ping'=>2, // fait un ping avant l'envoie
         'kill'=>null, // permet de tuer le script après un envoie (permet d'afficher le debug)
         'username'=>null, // username pour connexion smtp

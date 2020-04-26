@@ -21,7 +21,7 @@ class Rows extends Orm\Rows
 
 
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // tableFromFqcn

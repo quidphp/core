@@ -17,7 +17,7 @@ use Quid\Orm;
 class UserActive extends YesAlias
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // onSet
@@ -47,11 +47,8 @@ class UserActive extends YesAlias
 
             if($hasChanged === true)
             {
-                $this->setCommittedCallback('onCommitted',function(Orm\Cell $cell) use($option) {
-                    $cell->row()->callThis(function() use($option) {
-                        $this->onChangeActive($option);
-                    });
-                },$cell);
+                $closure = fn(Orm\Cell $cell) => $cell->row()->callThis(fn() => $this->onChangeActive($option));
+                $this->setCommittedCallback('onCommitted',$closure,$cell);
             }
         }
 

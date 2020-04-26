@@ -18,7 +18,7 @@ use Quid\Orm;
 class Primary extends Core\CellAlias
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // set

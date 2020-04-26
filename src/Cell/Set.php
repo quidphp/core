@@ -17,7 +17,7 @@ use Quid\Core;
 class Set extends RelationAlias
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // cast

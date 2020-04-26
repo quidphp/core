@@ -21,7 +21,7 @@ class Cells extends Orm\Cells
 
 
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // tableFromFqcn

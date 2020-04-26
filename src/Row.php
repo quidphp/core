@@ -24,7 +24,7 @@ class Row extends Orm\Row
 
 
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // isOwner

@@ -18,8 +18,8 @@ use Quid\Base\Cli;
 trait _cliLive
 {
     // dynamique
-    protected $amount = 0; // conserve le nombre de loop
-    protected $sleep = 1; // durée de sleep pour un cli live
+    protected int $amount = 0; // conserve le nombre de loop
+    protected float $sleep = 1; // durée de sleep pour un cli live
     protected $stdin = null; // garde une copie de la resource stdin lors
 
 
@@ -45,11 +45,19 @@ trait _cliLive
 
         while (true)
         {
-            $continue = true;
-            $result = $closure();
+            try
+            {
+                $continue = true;
+                $result = $closure();
 
-            if(is_array($result))
-            $this->logCron($result);
+                if(is_array($result))
+                $this->logCron($result);
+            }
+
+            catch (\Exception $e)
+            {
+                Cli::neg($e->getMessage());
+            }
 
             if($after instanceof \Closure)
             $continue = $after();
@@ -101,9 +109,7 @@ trait _cliLive
     // fin du loop si stop, exit, quit et die
     final protected function defaultExitClosure():\Closure
     {
-        return function() {
-            return ($this->isStdinLine(['stop','exit','quit','die','bye'],false,true))? false:true;
-        };
+        return fn() => $this->isStdinLine(['stop','exit','quit','die','bye'],false,true)? false:true;
     }
 
 

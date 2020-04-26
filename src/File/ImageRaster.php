@@ -18,7 +18,7 @@ use Quid\Main;
 class ImageRaster extends Main\File\ImageRaster
 {
     // config
-    public static $config = [
+    public static array $config = [
         'service'=>Core\Service\ClassUpload::class
     ];
 
@@ -27,7 +27,7 @@ class ImageRaster extends Main\File\ImageRaster
     // retourne la classe du service
     final public function getServiceClass():string
     {
-        return $this->getAttr('service')::getOverloadClass();
+        return $this->getAttr('service')::classOverload();
     }
 
 

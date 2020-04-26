@@ -17,7 +17,7 @@ use Quid\Core;
 class RequestIp extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'general'=>true
     ];
 

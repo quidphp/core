@@ -22,7 +22,7 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'priority'=>1001,
         'cols'=>[
             'request'=>['class'=>Core\Col\Request::class],

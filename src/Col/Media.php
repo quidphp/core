@@ -20,7 +20,7 @@ use Quid\Orm;
 class Media extends FilesAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'search'=>true,
         'preValidate'=>'fileUpload',
         'cell'=>Core\Cell\Media::class,
@@ -107,13 +107,10 @@ class Media extends FilesAlias
                 }
             }
 
-            $this->setCommittedCallback('getNewFiles',function() use($value) {
-                return Main\Files::newOverload($value);
-            });
+            $this->setCommittedCallback('getNewFiles',fn() => Main\Files::newOverload($value));
 
-            $this->setCommittedCallback('onCommitted',function(Core\Cell $cell) use($old,$value,$regenerate,$option) {
-                $cell->process($old,$value,$regenerate,$option);
-            },$cell);
+            $closure = fn(Core\Cell $cell) => $cell->process($old,$value,$regenerate,$option);
+            $this->setCommittedCallback('onCommitted',$closure,$cell);
         }
 
         return $return;

@@ -22,7 +22,7 @@ class Role extends Main\Role
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'label'=>null, // label du rôle
         'description'=>null, // description du rôle
         'admin'=>false, // si le rôle est admin

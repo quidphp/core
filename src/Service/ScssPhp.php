@@ -17,7 +17,7 @@ use Quid\Main;
 class ScssPhp extends Main\ServiceAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'formatsPossible'=>[
             'normal'=>\ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
             'compress'=>\ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
@@ -29,7 +29,7 @@ class ScssPhp extends Main\ServiceAlias
 
 
     // dynamique
-    protected $compiler = null; // conserve une copie de l'objet compiler
+    protected \ScssPhp\ScssPhp\Compiler $compiler; // conserve une copie de l'objet compiler
 
 
     // construct

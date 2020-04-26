@@ -20,7 +20,7 @@ use Quid\Orm;
 class Medias extends FilesAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'search'=>false,
         'preValidate'=>'fileUploads',
         'onGet'=>[Base\Json::class,'onGet'],
@@ -108,7 +108,7 @@ class Medias extends FilesAlias
             {
                 $return = Main\Files::newOverload();
 
-                foreach($this->indexRange() as $i)
+                foreach ($this->indexRange() as $i)
                 {
                     $current = null;
 
@@ -168,13 +168,10 @@ class Medias extends FilesAlias
 
             $return = (!empty($array))? Base\Json::encode($array):null;
 
-            $this->setCommittedCallback('getNewFiles',function() use($news) {
-                return $news;
-            });
+            $this->setCommittedCallback('getNewFiles',fn() => $news);
 
-            $this->setCommittedCallback('onCommitted',function(Core\Cell $cell) use($olds,$news,$regenerate,$option) {
-                $cell->process($olds,$news,$regenerate,$option);
-            },$cell);
+            $closure = fn(Core\Cell $cell) => $cell->process($olds,$news,$regenerate,$option);
+            $this->setCommittedCallback('onCommitted',$closure,$cell);
         }
 
         return $return;

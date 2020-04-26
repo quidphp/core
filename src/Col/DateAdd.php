@@ -17,7 +17,7 @@ use Quid\Base;
 class DateAdd extends DateAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'general'=>true,
         'date'=>'long',
         'visible'=>['validate'=>'notEmpty'],

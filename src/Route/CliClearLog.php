@@ -18,7 +18,7 @@ use Quid\Core;
 class CliClearLog extends Core\RouteAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>['-clearlog'],
         'clear'=>[
             '[storageLog]',

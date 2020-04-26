@@ -18,7 +18,7 @@ use Quid\Main;
 class Js extends Main\File\Js
 {
     // config
-    public static $config = [
+    public static array $config = [
         'concatenateService'=>Core\Service\JShrink::class
     ];
 
@@ -30,12 +30,7 @@ class Js extends Main\File\Js
         $return = parent::getConcatenatorOption($values,$option);
 
         if(array_key_exists('compress',$option) && $option['compress'] === true)
-        {
-            $return['callable'] = function(string $value) use($option) {
-                $service = $this->concatenateService();
-                return $service::staticTrigger($value,$option);
-            };
-        }
+        $return['callable'] = fn(string $value) => $this->concatenateService()::staticTrigger($value,$option);
 
         return $return;
     }

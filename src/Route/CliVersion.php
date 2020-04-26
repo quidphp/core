@@ -19,7 +19,7 @@ use Quid\Core;
 abstract class CliVersion extends Core\RouteAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>['-v','-version','-about'] // plusieurs chemins pour la route
     ];
 

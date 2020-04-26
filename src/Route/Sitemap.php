@@ -18,7 +18,7 @@ use Quid\Main;
 abstract class Sitemap extends Core\RouteAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>'sitemap.xml',
         'priority'=>501,
         'sitemap'=>false,

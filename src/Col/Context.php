@@ -17,7 +17,7 @@ use Quid\Core;
 class Context extends EnvType
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // onCommit

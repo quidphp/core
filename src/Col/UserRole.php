@@ -19,7 +19,7 @@ use Quid\Orm;
 class UserRole extends SetAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'required'=>true,
         'relation'=>[self::class,'getRoles'],
         'check'=>['kind'=>'text']

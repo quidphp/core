@@ -17,7 +17,7 @@ use Quid\Core;
 class Uri extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'validate'=>[1=>'uri'],
         'keyboard'=>'url',
         'check'=>['kind'=>'char']

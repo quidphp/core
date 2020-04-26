@@ -24,7 +24,7 @@ abstract class Boot extends Main\Root
 
 
     // config
-    public static $config = [
+    public static array $config = [
         // prepare
         'schemeHost'=>[], // tableau des schemeHosts, est parsed et transféré dans host et scheme
         'host'=>[], // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
@@ -193,11 +193,11 @@ abstract class Boot extends Main\Root
 
 
     // quidVersion
-    protected static $quidVersion = '5.29.0'; // version de quid
+    protected static string $quidVersion = '5.29.0'; // version de quid
 
 
     // quidCredit
-    protected static $quidCredit = [ // les crédits de quid php
+    protected static array $quidCredit = [ // les crédits de quid php
         'framework'=>'QuidPHP',
         'author'=>'Pierre-Philippe Emond',
         'email'=>'emondpph@gmail.com',
@@ -210,21 +210,21 @@ abstract class Boot extends Main\Root
 
 
     // replaceMode
-    protected static $replaceMode = ['=writable','=types','=envs']; // défini les config à ne pas merger récursivement
+    protected static array $replaceMode = ['=writable','=types','=envs']; // défini les config à ne pas merger récursivement
 
 
     // init
-    protected static $init = false; // s'il y a déjà eu un init
+    protected static bool $init = false; // s'il y a déjà eu un init
 
 
     // dynamique
-    protected $name = null; // nom du boot
-    protected $value = []; // argument de départ
-    protected $status = 0; // niveau de préparation de l'objet
-    protected $envType = null; // garde en mémoire le envType
-    protected $extenders = null; // garde l'objet extenders
-    protected $route = null; // classe de la dernière route qui a été trigger
-    protected $fromCache = false; // détermine si la cache pour extenders est utilisé
+    protected ?string $name = null; // nom du boot
+    protected array $value = []; // argument de départ
+    protected int $status = 0; // niveau de préparation de l'objet
+    protected ?array $envType = null; // garde en mémoire le envType
+    protected ?Main\Extenders $extenders = null; // garde l'objet extenders
+    protected ?string $route = null; // classe de la dernière route qui a été trigger
+    protected bool $fromCache = false; // détermine si la cache pour extenders est utilisé
 
 
     // construct
@@ -551,7 +551,7 @@ abstract class Boot extends Main\Root
         $roles = $this->getAttr('roles');
         $this->setRoles($roles);
 
-        $error = Error::getOverloadClass();
+        $error = Error::classOverload();
         if($error !== Error::class)
         $error::init();
 
@@ -577,13 +577,13 @@ abstract class Boot extends Main\Root
 
         if(!empty($attr['compileCss']))
         {
-            $class = File\Css::getOverloadClass();
+            $class = File\Css::classOverload();
             $class::concatenateMany($attr['compileCss'],null,$attr['compileCssOption']);
         }
 
         if(!empty($attr['compileJs']))
         {
-            $class = File\Js::getOverloadClass();
+            $class = File\Js::classOverload();
             $class::concatenateMany($attr['compileJs'],null,$attr['compileJsOption']);
         }
 
@@ -868,9 +868,7 @@ abstract class Boot extends Main\Root
         $parent = get_parent_class(static::class);
         $replaceMode = static::initReplaceMode();
         $keys = static::unclimbableKeys();
-        $closure = function(...$values) use($replaceMode) {
-            return Base\Arrs::replaceWithMode($replaceMode,...$values);
-        };
+        $closure = fn(...$values) => Base\Arrs::replaceWithMode($replaceMode,...$values);
 
         $merge = Base\Classe::propertyMergeParents('config',$parent,$closure,false);
         $keep = Base\Arr::gets($keys,$merge);
@@ -1292,9 +1290,7 @@ abstract class Boot extends Main\Root
     // retourne la closure à utiliser pour le merge de config des classes
     final public function makeConfigClosure():\Closure
     {
-        return function(string $class,...$values) {
-            return $this->replaceSpecial($class,$class::initReplaceMode(),...$values);
-        };
+        return fn(string $class,...$values) => $this->replaceSpecial($class,$class::initReplaceMode(),...$values);
     }
 
 
@@ -2158,7 +2154,7 @@ abstract class Boot extends Main\Root
         {
             $credentials = $this->getAttr('db');
 
-            if(is_array($credentials) && count($credentials) === 3)
+            if(is_array($credentials) && count($credentials) === 2)
             {
                 $option = (array) $this->getAttr('dbOption',true);
 

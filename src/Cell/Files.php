@@ -20,7 +20,7 @@ use Quid\Orm;
 abstract class Files extends Core\CellAlias
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // commonCast
@@ -513,7 +513,7 @@ abstract class Files extends Core\CellAlias
         $return = 0;
         $option = Base\Arr::plus(['unsetWhileEmpty'=>true,'com'=>false],$option);
         $unsetWhileEmpty = $this->unsetWhileEmptyAmount();
-        $all = $all ?? $this->all();
+        $all ??= $this->all();
 
         if(!empty($all) && $all->isNotEmpty())
         {

@@ -23,7 +23,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'priority'=>1002,
         'cols'=>[
             'request'=>['class'=>Core\Col\Request::class],
@@ -82,9 +82,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     // et si la requête doit être loggé dans shouldLOg
     final public static function onCloseDown():void
     {
-        Base\Response::onCloseDown(function() {
-            static::logCurrentRequest();
-        });
+        Base\Response::onCloseDown(fn() => static::logCurrentRequest());
 
         return;
     }

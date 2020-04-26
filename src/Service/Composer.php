@@ -19,7 +19,7 @@ use Quid\Main;
 class Composer extends Main\Service
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // construct

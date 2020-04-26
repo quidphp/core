@@ -24,7 +24,7 @@ class CliCompile extends Core\RouteAlias
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>['-compile'],
         'fileClass'=>[
             'css'=>Core\File\Css::class,
@@ -100,9 +100,7 @@ class CliCompile extends Core\RouteAlias
     // logCron est seulement sur la première passe
     final protected function compileLive(array $attr,?array $overOption=null):void
     {
-        $this->live(function() use($attr,$overOption) {
-            $this->compilePass($attr,$overOption);
-        },true,true);
+        $this->live(fn() => $this->compilePass($attr,$overOption),true,true);
 
         return;
     }

@@ -24,7 +24,7 @@ class Session extends Routing\Session
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'userClass'=>Row\User::class, // classe row de l'utilisateur
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
         'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
@@ -42,7 +42,7 @@ class Session extends Routing\Session
 
 
     // dynamique
-    protected $user = null; // objet user de la session
+    protected ?Row\User $user = null; // objet user de la session
 
 
     // onStart
@@ -193,7 +193,7 @@ class Session extends Routing\Session
     // retourne la classe à utiliser pour utilisateur
     final public function getUserClass():string
     {
-        return $this->getAttr('userClass')::getOverloadClass();
+        return $this->getAttr('userClass')::classOverload();
     }
 
 
@@ -861,10 +861,7 @@ class Session extends Routing\Session
         $this->rememberEmpty();
         $this->fakeRolesEmpty();
         $this->onLogin();
-
-        $user->callThis(function() {
-            $this->onLogin();
-        });
+        $user->callThis(fn() => $this->onLogin());
 
         if($remember === true)
         $remember = ['credential'=>$connect];
@@ -903,10 +900,7 @@ class Session extends Routing\Session
             $return = true;
             $pos = 'logout/success';
 
-            $user->callThis(function() {
-                $this->onLogout();
-            });
-
+            $user->callThis(fn() => $this->onLogout());
             $this->logout($option);
         }
 

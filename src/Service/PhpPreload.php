@@ -19,7 +19,7 @@ use Quid\Main;
 class PhpPreload extends Main\Service
 {
     // config
-    public static $config = [
+    public static array $config = [
         'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
         'registerClosure'=>false, // s'il faut register la closure
         'bootPreload'=>false, // s'il faut mettre preload dans core/boot
@@ -30,7 +30,7 @@ class PhpPreload extends Main\Service
 
 
     // dynamique
-    protected $concatenator = null; // conserve une copie de l'objet concatenator
+    protected Main\Concatenator $concatenator; // conserve une copie de l'objet concatenator
 
 
     // construct

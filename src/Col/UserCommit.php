@@ -17,7 +17,7 @@ use Quid\Core;
 class UserCommit extends EnumAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'required'=>true,
         'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],

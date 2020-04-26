@@ -17,7 +17,7 @@ use Quid\Core;
 class Session extends EnumAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'visible'=>['validate'=>'notEmpty'],
         'required'=>false,
         'complex'=>'div',

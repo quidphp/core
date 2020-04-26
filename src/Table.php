@@ -23,7 +23,7 @@ class Table extends Orm\Table
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'active'=>'active', // colonne(s) utilisé pour déterminer si une ligne est active
         'key'=>['key',0], // colonne(s) utilisé pour key
         'name'=>['name_[lang]','name','id',0], // colonne(s) utilisé pour le nom d'une ligne

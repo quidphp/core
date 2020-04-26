@@ -19,7 +19,7 @@ use Quid\Main;
 class User extends Core\RowAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'key'=>['username'], // colonne utilisé pour key
         'name'=>['name','username'], // colonne(s) utilisé pour le nom d'une ligne
         'priority'=>900,
@@ -55,7 +55,7 @@ class User extends Core\RowAlias
 
 
     // dynamique
-    protected $roles = null; // garde une copie de l'objet roles
+    protected ?Main\Roles $roles = null; // garde une copie de l'objet roles
 
 
     // onInserted
@@ -1252,7 +1252,7 @@ class User extends Core\RowAlias
     // retourne le premier utilisateur avec le rôle nobody
     final public static function findNobody(?array $order=null):self
     {
-        return static::findByRole(static::boot()->roles()->filter(['isNobody'=>true])->first(),$order);
+        return static::findByRole(static::boot()->roles()->find(fn($role) => $role->isNobody()),$order);
     }
 
 
@@ -1260,7 +1260,7 @@ class User extends Core\RowAlias
     // retourne le premier utilisateur avec le rôle cli
     final public static function findCli(?array $order=null):self
     {
-        return static::findByRole(static::boot()->roles()->filter(['isCli'=>true])->first(),$order);
+        return static::findByRole(static::boot()->roles()->find(fn($role) => $role->isCli()),$order);
     }
 
 

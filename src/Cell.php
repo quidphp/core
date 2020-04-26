@@ -23,7 +23,7 @@ class Cell extends Orm\Cell
 
 
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // generalExcerptMin

@@ -18,7 +18,7 @@ use Quid\Core;
 class CliClearCache extends Core\RouteAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'path'=>['-clearcache'],
         'clear'=>['[storageCache]']
     ];

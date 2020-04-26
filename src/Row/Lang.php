@@ -18,7 +18,7 @@ use Quid\Core;
 class Lang extends Core\RowAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'panel'=>false,
         'key'=>'key',
         'order'=>['id'=>'desc'],

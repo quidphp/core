@@ -18,7 +18,7 @@ use Quid\Main;
 class Medias extends FilesAlias
 {
     // config
-    public static $config = [];
+    public static array $config = [];
 
 
     // cast
@@ -269,7 +269,7 @@ class Medias extends FilesAlias
 
                 if(!empty($version))
                 {
-                    foreach($version as $key => $file2)
+                    foreach ($version as $key => $file2)
                     {
                         $k = $index.'/'.$key;
                         $return->set($k,$file2);

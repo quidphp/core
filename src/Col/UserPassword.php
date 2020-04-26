@@ -19,7 +19,7 @@ use Quid\Orm;
 class UserPassword extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'tag'=>'inputPassword',
         'preValidate'=>['arrCount'=>2],
         'required'=>true,
@@ -135,11 +135,7 @@ class UserPassword extends Core\ColAlias
         $row = $cell->row();
 
         if($option['onChange'] === true)
-        {
-            $row->callThis(function() {
-                $this->onChangePassword();
-            });
-        }
+        $row->callThis(fn() => $this->onChangePassword());
 
         if(!empty($option['com']) && $option['com'] === true && $insert === false)
         $cell->com($pos,'pos');

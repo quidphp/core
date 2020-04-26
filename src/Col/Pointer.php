@@ -17,7 +17,7 @@ use Quid\Core;
 class Pointer extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'required'=>true,
         'validate'=>['pointer'=>[self::class,'custom']]
     ];

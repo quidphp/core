@@ -18,7 +18,7 @@ use Quid\Core;
 class Date extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'cell'=>Core\Cell\Date::class,
         'tag'=>'inputText',
         'filter'=>true,
@@ -303,9 +303,7 @@ class Date extends Core\ColAlias
     // génère une méthode de filtre automatiquement, selon la différence de jour entre la date minimale et maximale
     final public static function autoFilterMethod(self $col):string
     {
-        return $col->cache(__METHOD__,function() use($col) {
-            return $col->dateDaysDiffFilterMethod();
-        });
+        return $col->cache(__METHOD__,fn() => $col->dateDaysDiffFilterMethod());
     }
 }
 

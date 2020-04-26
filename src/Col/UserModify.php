@@ -16,7 +16,7 @@ namespace Quid\Core\Col;
 class UserModify extends EnumAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],
         'relation'=>'user',

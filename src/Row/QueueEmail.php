@@ -23,7 +23,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
 
 
     // config
-    public static $config = [
+    public static array $config = [
         'panel'=>false,
         'search'=>false,
         'priority'=>960,

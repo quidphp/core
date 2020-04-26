@@ -18,7 +18,7 @@ use Quid\Core;
 class EnvType extends Core\ColAlias
 {
     // config
-    public static $config = [
+    public static array $config = [
         'required'=>true,
         'general'=>true,
         'visible'=>['validate'=>'notEmpty'],
