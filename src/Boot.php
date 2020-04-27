@@ -24,7 +24,7 @@ abstract class Boot extends Main\Root
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         // prepare
         'schemeHost'=>[], // tableau des schemeHosts, est parsed et transféré dans host et scheme
         'host'=>[], // tableau des hosts avec clés env/type, ne peut pas être mis dans un @
@@ -121,7 +121,6 @@ abstract class Boot extends Main\Root
         'speed'=>false, // affiche speed ou closeBody
         'version'=>[], // tableau des versions
         'config'=>[], // permet de merger des config sur une classe
-        'configUnset'=>[], // permet de retirer des config sur une classe
         // core
         'cache'=>true, // active ou désactive la cache globale
         'clearCache'=>true, // vide le dossier de cache si cache est false
@@ -502,7 +501,7 @@ abstract class Boot extends Main\Root
         Base\Lang::set(null,$lang);
 
         $response = $this->getAttr('response');
-        $response = Base\Call::digStaticMethod($response);
+        $response = (is_array($response))? Base\Call::dig(true,$response):$response;
         Base\Response::prepare($response);
 
         $speed = $this->getAttr('speed');
@@ -524,10 +523,6 @@ abstract class Boot extends Main\Root
         $config = $this->getAttr('config');
         if(is_array($config) && !empty($config))
         static::setsConfig($config);
-
-        $configUnset = $this->getAttr('configUnset');
-        if(is_array($configUnset) && !empty($configUnset))
-        static::unsetsConfig($configUnset);
 
         $this->setStatus(3);
 
@@ -868,11 +863,14 @@ abstract class Boot extends Main\Root
         $parent = get_parent_class(static::class);
         $replaceMode = static::initReplaceMode();
         $keys = static::unclimbableKeys();
-        $closure = fn(...$values) => Base\Arrs::replaceWithMode($replaceMode,...$values);
 
-        $merge = Base\Classe::propertyMergeParents('config',$parent,$closure,false);
+        $replaceClosure = fn(...$values) => Base\Arrs::replaceWithMode($replaceMode,...$values);
+        $parents = Base\Classe::parents($this);
+        $mergeClosure = Base\Classe::propertyMerge('config',static::class,$parents,$replaceClosure,false);
+        $merge = Base\Call::bindTo($this,$mergeClosure);
+
         $keep = Base\Arr::gets($keys,$merge);
-        $value = $closure($keep,static::$config,$value);
+        $value = $replaceClosure($keep,static::$config,$value);
         $value = static::parseSchemeHost($value);
         $this->makeAttr($value);
 
@@ -1261,7 +1259,7 @@ abstract class Boot extends Main\Root
     // un tableau peut être fourni, à ce moment les clés du tableau non existantes sont aussi considérés comme climbables
     final public function climbableKeys(?array $values=null):array
     {
-        $return = Base\Arr::append($this->envs(),$this->types());
+        $return = Base\Arr::merge($this->envs(),$this->types());
 
         if(is_array($values))
         {
@@ -1306,7 +1304,7 @@ abstract class Boot extends Main\Root
         {
             $typeAs = $this->typeAs($envType['type']);
             if(!empty($typeAs))
-            $envType = Base\Arr::append($typeAs,$envType);
+            $envType = Base\Arr::merge($typeAs,$envType);
         }
 
         $envType = array_values($envType);
@@ -2457,20 +2455,6 @@ abstract class Boot extends Main\Root
         {
             if(is_string($key) && is_array($value))
             $key::config($value);
-        }
-
-        return;
-    }
-
-
-    // unsetsConfig
-    // fait un unset sur les clés fournis en arguments aux différentes classes
-    final public static function unsetsConfig(array $unsets):void
-    {
-        foreach ($unsets as $key => $value)
-        {
-            if(is_string($key) && is_array($value))
-            Base\Arrs::unsetsRef($value,$key::$config);
         }
 
         return;

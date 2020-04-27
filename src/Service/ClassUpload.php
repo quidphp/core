@@ -19,7 +19,7 @@ use Verot\Upload;
 class ClassUpload extends Main\Service
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'quality'=>null,
         'convert'=>null,
         'action'=>null,

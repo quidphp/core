@@ -19,7 +19,7 @@ use Quid\Main;
 class PhpPreload extends Main\Service
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'strictType'=>true, // s'il faut mettre un declare strict Type en haut du rendu
         'registerClosure'=>false, // s'il faut register la closure
         'bootPreload'=>false, // s'il faut mettre preload dans core/boot

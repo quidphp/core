@@ -18,7 +18,7 @@ use Quid\Main;
 class Error extends Main\Error
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'log'=>[Row\LogError::class,Main\File\Error::class], // classe pour log, , s'il y a en plusieurs utilise seulement le premier qui fonctionne
         'type'=>[ // description des types additionneles à boot
             33=>['key'=>'dbException','name'=>'Database Exception'],

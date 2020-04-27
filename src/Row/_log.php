@@ -23,7 +23,7 @@ trait _log
 
 
     // configLog
-    public static array $configLog = [
+    protected static array $configLog = [
         'panel'=>false,
         'search'=>false,
         'parent'=>'system',

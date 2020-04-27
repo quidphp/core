@@ -22,7 +22,7 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         'priority'=>1005,
         'cols'=>[
             'route'=>['required'=>true,'general'=>true],

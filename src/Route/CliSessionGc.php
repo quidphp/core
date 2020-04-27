@@ -18,7 +18,7 @@ use Quid\Core;
 abstract class CliSessionGc extends Core\RouteAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'path'=>['-sessiongc']
     ];
 

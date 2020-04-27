@@ -18,7 +18,7 @@ use Quid\Core;
 class DateModify extends DateAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],
         'date'=>'long',

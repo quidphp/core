@@ -22,7 +22,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         'panel'=>false,
         'priority'=>951,
         'parent'=>'system',

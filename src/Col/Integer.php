@@ -17,7 +17,7 @@ use Quid\Core;
 class Integer extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cell'=>Core\Cell\Integer::class,
         'keyboard'=>'decimal'
     ];

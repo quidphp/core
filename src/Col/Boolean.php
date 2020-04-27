@@ -17,7 +17,7 @@ use Quid\Base;
 class Boolean extends EnumAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'complex'=>'radio',
         'required'=>true,
         'relation'=>'bool',

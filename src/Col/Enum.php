@@ -17,7 +17,7 @@ use Quid\Core;
 class Enum extends RelationAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cell'=>Core\Cell\Enum::class,
         'enum'=>true,
         'required'=>true,

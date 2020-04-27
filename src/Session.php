@@ -24,7 +24,7 @@ class Session extends Routing\Session
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         'userClass'=>Row\User::class, // classe row de l'utilisateur
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
         'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
@@ -257,7 +257,7 @@ class Session extends Routing\Session
         {
             $storage = $this->getStorageClass();
 
-            if(method_exists($storage,'sessionMostRecent'))
+            if($storage->hasMethod('sessionMostRecent'))
             {
                 $user = $this->getUserDefault();
                 $session = $storage::sessionMostRecent($this->name(),$user,null,$this->envType());
@@ -520,7 +520,7 @@ class Session extends Routing\Session
                 }
             }
 
-            if(empty($logout) && $this->isLoginSinglePerUser() && method_exists($storage,'sessionMostRecent'))
+            if(empty($logout) && $this->isLoginSinglePerUser() && $storage->hasMethod('sessionMostRecent'))
             {
                 $mostRecentStorage = $storage::sessionMostRecent($this->name(),$user,$storage,$this->envType());
                 if(!empty($mostRecentStorage))
@@ -894,7 +894,7 @@ class Session extends Routing\Session
 
         else
         {
-            if($this->isLoginSinglePerUser() && method_exists($storage,'sessionDestroyOther'))
+            if($this->isLoginSinglePerUser() && $storage->hasMethod('sessionDestroyOther'))
             $storage::sessionDestroyOther($this->name(),$user,$storage,$this->envType());
 
             $return = true;

@@ -23,7 +23,7 @@ abstract class Route extends Routing\Route
 
 
     // config
-    public static array $config = [ // config pour la route
+    protected static array $config = [ // config pour la route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
         'row'=>null, // permet de spécifier la classe row en lien avec la route
         'docOpen'=>[ // utilisé pour l'ouverture du document

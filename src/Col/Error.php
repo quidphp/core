@@ -18,7 +18,7 @@ use Quid\Core;
 class Error extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'general'=>true,
         'editable'=>false,
         'complex'=>'div',

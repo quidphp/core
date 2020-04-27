@@ -17,7 +17,7 @@ use Quid\Base;
 class DateLogin extends DateAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'general'=>false,
         'complex'=>'div',
         'date'=>'long',

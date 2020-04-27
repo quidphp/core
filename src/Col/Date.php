@@ -18,7 +18,7 @@ use Quid\Core;
 class Date extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cell'=>Core\Cell\Date::class,
         'tag'=>'inputText',
         'filter'=>true,

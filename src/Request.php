@@ -21,7 +21,7 @@ class Request extends Routing\Request
 
 
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 
 // init

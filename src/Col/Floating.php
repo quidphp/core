@@ -17,7 +17,7 @@ use Quid\Core;
 class Floating extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cell'=>Core\Cell\Floating::class,
         'keyboard'=>'decimal',
         'check'=>['kind'=>'float']

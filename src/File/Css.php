@@ -19,7 +19,7 @@ use Quid\Main;
 class Css extends Main\File\Css
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'concatenateService'=>Core\Service\ScssPhp::class,
         'extension'=>['css','scss'],
         'importPathMin'=>10 // cette variable défini après quel clé l'import path est considéré

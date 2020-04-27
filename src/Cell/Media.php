@@ -19,7 +19,7 @@ use Quid\Main;
 class Media extends FilesAlias
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // cast

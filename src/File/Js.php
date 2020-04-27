@@ -18,7 +18,7 @@ use Quid\Main;
 class Js extends Main\File\Js
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'concatenateService'=>Core\Service\JShrink::class
     ];
 

@@ -18,7 +18,7 @@ use Quid\Core;
 trait _cli
 {
     // config
-    public static array $configCli = [
+    protected static array $configCli = [
         'priority'=>800,
         'match'=>[
             'cli'=>true,

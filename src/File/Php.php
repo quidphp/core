@@ -17,7 +17,7 @@ use Quid\Main;
 class Php extends Main\File\Php
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 
 // init

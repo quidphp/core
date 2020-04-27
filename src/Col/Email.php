@@ -17,7 +17,7 @@ use Quid\Core;
 class Email extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'validate'=>[1=>'email'],
         'general'=>true,
         'keyboard'=>'email',

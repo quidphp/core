@@ -18,7 +18,7 @@ use Quid\Core;
 class Json extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>false,
         'onSet'=>[Base\Json::class,'onSet'],
         'onGet'=>[Base\Json::class,'onGet'],

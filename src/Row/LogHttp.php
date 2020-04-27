@@ -23,7 +23,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         'priority'=>1002,
         'cols'=>[
             'request'=>['class'=>Core\Col\Request::class],

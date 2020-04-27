@@ -18,7 +18,7 @@ use Quid\Core;
 class UserPasswordReset extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'complex'=>'div',
         'cell'=>Core\Cell\UserPasswordReset::class,
         'search'=>false,

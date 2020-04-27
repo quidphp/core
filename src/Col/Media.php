@@ -20,7 +20,7 @@ use Quid\Orm;
 class Media extends FilesAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>true,
         'preValidate'=>'fileUpload',
         'cell'=>Core\Cell\Media::class,

@@ -19,7 +19,7 @@ use Quid\Main;
 abstract class Files extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'tag'=>'inputText',
         'export'=>false,
         'order'=>false,
@@ -437,7 +437,7 @@ abstract class Files extends Core\ColAlias
         $fileSize = $this->fileSizeDetails($lang);
         $version = array_values((array) $this->versionDetails());
         $parent = parent::details($lang);
-        $return = Base\Arr::append($extension,$fileSize,$version,$parent);
+        $return = Base\Arr::merge($extension,$fileSize,$version,$parent);
 
         return $return;
     }

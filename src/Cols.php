@@ -21,7 +21,7 @@ class Cols extends Orm\Cols
 
 
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // tableFromFqcn

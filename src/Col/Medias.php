@@ -20,7 +20,7 @@ use Quid\Orm;
 class Medias extends FilesAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>false,
         'preValidate'=>'fileUploads',
         'onGet'=>[Base\Json::class,'onGet'],

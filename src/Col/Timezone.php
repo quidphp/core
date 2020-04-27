@@ -17,7 +17,7 @@ use Quid\Base;
 class Timezone extends EnumAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'required'=>false,
         'relation'=>[self::class,'getTimezones'],
         'check'=>['kind'=>'int']

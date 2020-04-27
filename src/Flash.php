@@ -21,7 +21,7 @@ class Flash extends Routing\Flash
 
 
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // setPost

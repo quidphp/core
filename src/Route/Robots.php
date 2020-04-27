@@ -17,7 +17,7 @@ use Quid\Core;
 abstract class Robots extends Core\RouteAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'path'=>'robots.txt',
         'priority'=>500,
         'sitemap'=>false,

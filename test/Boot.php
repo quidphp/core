@@ -370,8 +370,6 @@ class Boot extends Base\Test
 
         // setsConfig
 
-        // unsetsConfig
-
         // quidVersion
         assert(is_string($boot::quidVersion()));
 

@@ -17,7 +17,7 @@ use Quid\Base;
 class Yes extends EnumAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'complex'=>'checkbox',
         'required'=>false,
         'relation'=>'yes',

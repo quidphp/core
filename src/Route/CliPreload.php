@@ -22,7 +22,7 @@ use Quid\Routing;
 abstract class CliPreload extends Core\RouteAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'path'=>['-preload'],
         'service'=>Core\Service\PhpPreload::class,
         'compile'=>[
@@ -148,7 +148,7 @@ abstract class CliPreload extends Core\RouteAlias
         $base = $this->getAttr('option');
         $option = $array['option'] ?? null;
         $option = Base\Arrs::replace($base,$option);
-        $return = Base\Call::digStaticMethod($option);
+        $return = Base\Call::dig(true,$option);
 
         return $return;
     }

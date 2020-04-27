@@ -28,7 +28,7 @@ class_alias(Core\Boot::class,Test\Suite\BootAlias::class);
 class BootCore extends Test\Suite\BootAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'types'=>['assert'],
         'version'=>['assert'=>'1.0.1'],
         'typeAs'=>[],
@@ -355,7 +355,7 @@ use Quid\Core;
 class Home extends Core\Route\Home
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'selectedUri'=>false
     ];
 
@@ -389,7 +389,7 @@ use Quid\Core;
 class ActivatePassword extends Core\Route
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'ignore'=>true,
         'path'=>[
             'en'=>'activate/password',
@@ -408,7 +408,7 @@ use Quid\Test\Suite;
 class Priority extends Core\RouteAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'row'=>Suite\Row\OrmCol::class,
         'path'=>['en'=>'priority','fr'=>'priority']
     ];
@@ -431,7 +431,7 @@ use Quid\Core;
 class Error extends Core\Route\Error
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 });
 }
@@ -444,7 +444,7 @@ use Quid\Core;
 class Sitemap extends Core\Route\Sitemap
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 });
 }
@@ -462,7 +462,7 @@ use Quid\Orm;
 class OrmCell__Name extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'ignore'=>false,
         'required'=>true
     ];
@@ -500,7 +500,7 @@ use Quid\Core;
 class UserIds extends Core\Col\Set
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 });
 }
@@ -516,7 +516,7 @@ use Quid\Test\Suite;
 class OrmCell extends Core\RowAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cols'=>[
             'googleMaps'=>['required'=>false],
             'name'=>['class'=>Suite\Col\OrmCell__Name::class],
@@ -548,7 +548,7 @@ use Quid\Test\Suite;
 class OrmCol extends Core\Row
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'cols'=>[
             'other'=>['relation'=>[2,3,4]],
             'password'=>['class'=>Core\Col\UserPassword::class],
@@ -587,7 +587,7 @@ use Quid\Test\Suite;
 class OrmRow extends Core\RowAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'where'=>[true,'name_en'=>'test'],
         'order'=>['date'=>'desc'],
         '@assert'=>[
@@ -606,7 +606,7 @@ use Quid\Core;
 class OrmTableSibling extends Core\RowAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'relation'=>['method'=>'myMethod']
     ];
 
@@ -629,7 +629,7 @@ use Quid\Test\Suite;
 class User extends Core\Row\User
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'emailModel'=>[
             'resetPassword'=>'resetPassword',
             'registerConfirm'=>'registerConfirm'],
@@ -663,7 +663,7 @@ use Quid\Core;
 class OrmDb extends Core\RowsAlias
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 }
 });
 }
@@ -680,7 +680,7 @@ use Quid\Core;
 class OrmDb extends Core\TableAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'key'=>'name_en',
         'pair'=>'id',
         'priority'=>2000,
@@ -710,7 +710,7 @@ use Quid\Core;
 class OrmTable extends Core\TableAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'parent'=>OrmDb::class,
         'relation'=>['onGet'=>true,'what'=>['id','name_en','dateAdd'],'output'=>'[dateAdd] [name_en] _ [id]','order'=>['name_en'=>'desc']]
     ];

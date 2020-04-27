@@ -74,7 +74,7 @@ class Lang extends Base\Test
         assert(Base\Uri::relative('bla_[lang].jpg') === '/bla_ge.jpg');
         $lang->changeLang('en');
         assert(Base\Lang::all() === ['fr','en','ge']);
-        assert(Base\Request::$config['lang']['all'] === ['fr','en','ge']);
+        assert(Base\Request::config(['lang'=>['all'=>['fr','en','ge']]]));
         assert(Base\Lang::current() === 'en');
         assert(Base\Uri::relative('bla_[lang].jpg') === '/bla_en.jpg');
         $lang->removeLang('ge');
@@ -88,7 +88,7 @@ class Lang extends Base\Test
         // base
         $bootLang->unsetInst();
         $lang = new Core\Lang(['en','fr']);
-        $lang->changeLang('fr')->overwrite($fr::$config)->changeLang('en')->overwrite($en::$config)->setInst();
+        $lang->changeLang('fr')->overwrite($fr::config())->changeLang('en')->overwrite($en::config())->setInst();
         $timestamp = 1512139242;
         assert(Base\Datetime::getFormat(0,'fr') === 'j %n% Y');
         assert(Base\Datetime::getFormatReplace(0,'fr')['format'] === 'j %n% Y');

@@ -21,7 +21,7 @@ abstract class ServiceMailer extends Main\ServiceMailer
 
 
     // config
-    public static array $config = [
+    protected static array $config = [
         'queue'=>Row\QueueEmail::class,
         'log'=>Row\LogEmail::class
     ];

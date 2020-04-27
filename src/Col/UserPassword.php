@@ -19,7 +19,7 @@ use Quid\Orm;
 class UserPassword extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'tag'=>'inputPassword',
         'preValidate'=>['arrCount'=>2],
         'required'=>true,

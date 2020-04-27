@@ -19,7 +19,7 @@ use Quid\Main;
 class User extends Core\RowAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'key'=>['username'], // colonne utilisé pour key
         'name'=>['name','username'], // colonne(s) utilisé pour le nom d'une ligne
         'priority'=>900,
@@ -864,7 +864,7 @@ class User extends Core\RowAlias
         if(!$model->isActive())
         static::throw('invalidEmailModel');
 
-        if(!is_string($option['method']) || !method_exists($model,$option['method']))
+        if(!is_string($option['method']) || !$model->hasMethod($option['method']))
         static::throw('invalidMethod',$option['method']);
 
         return;

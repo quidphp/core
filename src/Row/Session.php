@@ -19,7 +19,7 @@ use Quid\Main;
 class Session extends Core\RowAlias implements Main\Contract\Session
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>false,
         'relation'=>'id',
         'priority'=>970,

@@ -18,7 +18,7 @@ use Quid\Orm;
 abstract class Relation extends Core\CellAlias
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // pair

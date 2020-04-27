@@ -19,7 +19,7 @@ use Quid\Core;
 abstract class Error extends Core\RouteAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'path'=>null,
         'priority'=>999,
         'debug'=>true,

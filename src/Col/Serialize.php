@@ -18,7 +18,7 @@ use Quid\Core;
 class Serialize extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>false,
         'onSet'=>[Base\Crypt::class,'onSetSerialize'],
         'onGet'=>[Base\Crypt::class,'onGetSerialize'],

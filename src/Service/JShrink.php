@@ -18,7 +18,7 @@ use Quid\Main;
 class JShrink extends Main\Service
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'flaggedComments'=>true
     ];
 

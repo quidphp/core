@@ -16,7 +16,7 @@ namespace Quid\Core\Col;
 class UserAdd extends EnumAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'required'=>false,
         'general'=>true,
         'visible'=>['validate'=>'notEmpty'],

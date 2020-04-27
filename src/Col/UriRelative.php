@@ -17,7 +17,7 @@ use Quid\Core;
 class UriRelative extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'validate'=>[1=>'uriRelative'],
         'check'=>['kind'=>'char']
     ];

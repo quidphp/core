@@ -17,7 +17,7 @@ use Quid\Orm;
 class Active extends YesAlias
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // onDuplicate

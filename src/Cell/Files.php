@@ -20,7 +20,7 @@ use Quid\Orm;
 abstract class Files extends Core\CellAlias
 {
     // config
-    public static array $config = [];
+    protected static array $config = [];
 
 
     // commonCast

@@ -19,7 +19,7 @@ use Quid\Core;
 abstract class Relation extends Core\ColAlias
 {
     // config
-    public static array $config = [
+    protected static array $config = [
         'search'=>false,
         'filter'=>true,
         'order'=>false,
