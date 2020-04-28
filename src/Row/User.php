@@ -18,6 +18,10 @@ use Quid\Main;
 // class for a row of the user table
 class User extends Core\RowAlias
 {
+    // trait
+    use _emailModel;
+
+
     // config
     protected static array $config = [
         'key'=>['username'], // colonne utilisé pour key
@@ -36,16 +40,16 @@ class User extends Core\RowAlias
             'dateLogin'=>true],
         'permission'=>[
             '*'=>['fakeRoles'=>false,'update'=>true]],
+        'emailModel'=>[
+            'registerAdmin'=>'registerAdmin',
+            'registerConfirm'=>'registerConfirm',
+            'resetPassword'=>'resetPassword'],
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
             'resetPassword'=>Log::class,
             'activatePassword'=>Log::class],
         'credentials'=>['email'=>'email','username'=>'username'], // champs valides pour la connexion
-        'emailModel'=>[
-            'registerAdmin'=>null,
-            'registerConfirm'=>null,
-            'resetPassword'=>null],
         'crypt'=>[
             'passwordHash'=>[ // configuration pour passwordHash
                 'algo'=>PASSWORD_DEFAULT,
@@ -63,16 +67,6 @@ class User extends Core\RowAlias
     protected function onInserted(array $option)
     {
         return $this->onRegister();
-    }
-
-
-    // onRegister
-    // lors de l'enregistrement d'un nouvel utilisateur
-    protected function onRegister():void
-    {
-        $this->sendRegisterEmails();
-
-        return;
     }
 
 
@@ -130,60 +124,219 @@ class User extends Core\RowAlias
     }
 
 
-    // onRegisterConfirmEmailSent
-    // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'utilisateur
-    final protected function onRegisterConfirmEmailSent():void
+    // onRegister
+    // lors de l'enregistrement d'un nouvel utilisateur
+    protected function onRegister():void
     {
+        $this->sendRegisterEmails();
+
         return;
     }
 
 
-    // onRegisterAdminEmailSent
-    // lorsque le courriel de confirmation de l'enregistrement a été envoyé à l'administrateur
-    final protected function onRegisterAdminEmailSent():void
+    // toEmail
+    // retourne un tableau email=>fullName lors de l'envoie dans un email
+    // peut retourner null
+    final public function toEmail():?array
     {
-        return;
+        $return = null;
+
+        if($this->canReceiveEmail())
+        {
+            $email = $this->email()->value();
+            $fullName = $this->fullName();
+            $return = [$email=>$fullName];
+        }
+
+        return $return;
     }
 
 
-    // onResetPasswordEmailSent
-    // lorsque le courriel de regénération de mot de passe a été envoyé à l'utilisateur
-    final protected function onResetPasswordEmailSent():void
+    // getEmailReplace
+    // retourne un tableau de remplacement de base pour les courriels
+    protected function getEmailReplace():array
     {
-        return;
-    }
+        $return = [];
+        $return['user'] = $this->username();
+        $return['userEmail'] = $this->email();
+        $return['userName'] = $this->fullName();
 
-
-    // allowRegisterConfirmEmail
-    // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
-    final public function allowRegisterConfirmEmail():bool
-    {
-        return !empty($this->registerConfirmEmailModel());
-    }
-
-
-    // allowRegisterAdminEmail
-    // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement à l'administrateur
-    final public function allowRegisterAdminEmail():bool
-    {
-        return !empty($this->registerAdminEmailModel());
+        return $return;
     }
 
 
     // allowRegister
     // retourne vrai si l'utilisateur pourriat procéder à un enregistrement
     // doit être nobody et qu'il y ait au moins un modèle d'email de confirmation
-    final public function allowRegister():bool
+    final public function allowRegister($type=true):bool
     {
-        return $this->isNobody() && ($this->allowRegisterConfirmEmail() || $this->allowRegisterAdminEmail());
+        return $this->allowRegisterConfirmEmail($type) || $this->allowRegisterAdminEmail($type);
+    }
+
+
+    // allowRegisterConfirmEmail
+    // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
+    final public function allowRegisterConfirmEmail($type=true):bool
+    {
+        return $this->isNobody() && $this->hasEmailModel('registerConfirm',$type);
+    }
+
+
+    // allowRegisterAdminEmail
+    // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement à l'administrateur
+    final public function allowRegisterAdminEmail($type=true):bool
+    {
+        return $this->isNobody() && $this->hasEmailModel('registerAdmin',$type);
     }
 
 
     // allowResetPasswordEmail
     // retourne vrai si le user permet l'envoie de courrier pour regénérer le mot de passe
-    final public function allowResetPasswordEmail():bool
+    final public function allowResetPasswordEmail($type=true):bool
     {
-        return $this->hasPasswordReset() && !empty($this->resetPasswordEmailModel()) && !empty($this->activatePasswordRoute());
+        return $this->hasPasswordReset() && $this->hasEmailModel('resetPassword',$type) && !empty($this->activatePasswordRoute());
+    }
+
+
+    // registerConfirmEmail
+    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement
+    final protected function registerConfirmEmail($type=true,?array $replace=null):array
+    {
+        return $this->getEmailArray('registerConfirm',$type,$this->prepareEmailReplace($this->registerConfirmEmailReplace(),$replace));
+    }
+
+
+    // registerConfirmEmailReplace
+    // retourne les valeurs de remplacement pour le courriel de confirmation de l'enregistrement
+    protected function registerConfirmEmailReplace():array
+    {
+        return [];
+    }
+
+
+    // registerAdminEmail
+    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement à l'administrateur
+    final protected function registerAdminEmail($type=true,?array $replace=null):array
+    {
+        return $this->getEmailArray('registerAdmin',$type,$this->prepareEmailReplace($this->registerAdminEmailReplace(),$replace));
+    }
+
+
+    // registerAdminEmailReplace
+    // retourne les valeurs de remplacement pour le courriel de confirmation de l'enregistrement
+    protected function registerAdminEmailReplace():array
+    {
+        return [];
+    }
+
+
+    // sendRegisterConfirmEmail
+    // envoie le courriel de confirmation de l'enregistrement
+    // plusieurs exceptions peuvent être envoyés
+    final public function sendRegisterConfirmEmail($type=true,?array $replace=null,?array $option=null):bool
+    {
+        return $this->sendEmail($this->registerConfirmEmail($type,$replace),$this,$option);
+    }
+
+
+    // sendRegisterAdminEmail
+    // envoie le courriel de confirmation de l'enregistrement à l'administrateur
+    // plusieurs exceptions peuvent être envoyés
+    final public function sendRegisterAdminEmail($type=true,?array $replace=null,?array $option=null):bool
+    {
+        return $this->sendEmail($this->registerAdminEmail($type,$replace),static::getAdminEmail(),$option);
+    }
+
+
+    // sendRegisterEmails
+    // envoie les emails d'enregistrement (à admin et confirmation)
+    final public function sendRegisterEmails($type=true):array
+    {
+        $return = [];
+
+        if($this->allowRegisterConfirmEmail($type))
+        $return[] = $this->sendRegisterConfirmEmail();
+
+        if($this->allowRegisterAdminEmail($type))
+        $return[] = $this->sendRegisterAdminEmail();
+
+        return $return;
+    }
+
+
+    // resetPasswordEmail
+    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour regénérer le mot de passe
+    final protected function resetPasswordEmail($type=true,?array $replace=null):array
+    {
+        return $this->getEmailArray('resetPassword',$type,$this->prepareEmailReplace($this->resetPasswordEmailReplace(),$replace));
+    }
+
+
+    // resetPasswordEmailReplace
+    // retourne les valeurs de remplacement pour le courriel de regénération du mot de passe
+    protected function resetPasswordEmailReplace():array
+    {
+        return [];
+    }
+
+
+    // activatePasswordRoute
+    // retourne la route à utiliser pour activer le mot de passe
+    protected function activatePasswordRoute():?string
+    {
+        return null;
+    }
+
+
+    // sendResetPasswordEmail
+    // envoie un email à un utilisateur ayant fait un reset de mot de passe
+    // plusieurs exceptions peuvent être envoyés, ne gère pas l'objet de communication
+    final public function sendResetPasswordEmail(string $password,$type=true,?array $replace=null,?array $option=null):bool
+    {
+        $return = false;
+        $array = $this->resetPasswordEmail($type,$replace);
+        $array['closure'] = function(array $return) use($password) {
+            $cell = $this->passwordReset();
+            $col = $cell->col();
+            $security = $col->getSecurity();
+            $hash = $cell->value();
+            $primary = $this->primary();
+            $route = $this->activatePasswordRoute() ?? static::throw('activatePasswordRoute');
+
+            if(is_string($hash) && !empty($hash))
+            $hash = Base\Crypt::passwordActivate($hash,1);
+
+            if(!Base\Validate::isPassword($password,$security))
+            static::throw('invalidPassword');
+
+            if(!is_string($hash) || empty($hash))
+            static::throw('invalidHash');
+
+            $route = $route::make(['primary'=>$primary,'hash'=>$hash]);
+            $absolute = $route->uriAbsolute();
+            if(empty($absolute))
+            static::throw('invalidAbsoluteUri');
+
+            $return['password'] = $password;
+            $return['uri'] = $absolute;
+
+            return $return;
+        };
+
+        return $this->sendEmail($array,$this,$option);
+    }
+
+
+    // validateSend
+    // méthode protégé qui valide que le user et le modèle de courriel sont valides
+    final protected function validateSend(Main\Contract\Email $model,?array $option=null):void
+    {
+        if(!$this->canReceiveEmail())
+        static::throw('userCannotReceiveEmail');
+
+        $this->validateSendModel($model,$option);
+
+        return;
     }
 
 
@@ -441,139 +594,6 @@ class User extends Core\RowAlias
     }
 
 
-    // getEmailArray
-    // retourne le tableau pour envoyer un courriel en lien avec l'utilisateur
-    // peut retourner null
-    final protected function getEmailArray(string $name,?array $replace=null):?array
-    {
-        $return = null;
-        $method = $name.'EmailModel';
-        $model = $this->$method();
-
-        if(!empty($model))
-        {
-            $method = $name.'EmailReplace';
-            $replace = Base\Arr::replace($this->$method(),$replace);
-
-            if(!empty($replace))
-            {
-                $return = [];
-                $return['model'] = $model;
-                $return['replace'] = $replace;
-            }
-        }
-
-        return $return;
-    }
-
-
-    // getEmailModel
-    // retourne un modèle de courriel à partir d'une clé
-    final protected function getEmailModel(string $name):?Main\Contract\Email
-    {
-        $return = null;
-        $key = $this->getAttr(['emailModel',$name]);
-
-        if(!empty($key))
-        $return = Email::find($key);
-
-        return $return;
-    }
-
-
-    // getEmailReplace
-    // retourne un tableau de remplacement de base pour les courriels
-    protected function getEmailReplace():array
-    {
-        $return = [];
-        $return['username'] = $this->username();
-        $return['email'] = $this->email();
-        $return['name'] = $this->fullName();
-
-        return $return;
-    }
-
-
-    // registerConfirmEmail
-    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement
-    final public function registerConfirmEmail(?array $replace=null):?array
-    {
-        return $this->getEmailArray('registerConfirm',$replace);
-    }
-
-
-    // registerConfirmEmailModel
-    // retourne le model pour le courriel de confirmation de l'enregistrement
-    final public function registerConfirmEmailModel():?Main\Contract\Email
-    {
-        return $this->getEmailModel('registerConfirm');
-    }
-
-
-    // registerConfirmEmailReplace
-    // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    public function registerConfirmEmailReplace():array
-    {
-        return $this->getEmailReplace();
-    }
-
-
-    // registerAdminEmail
-    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour confirmer l'enregistrement à l'administrateur
-    final public function registerAdminEmail(?array $replace=null):?array
-    {
-        return $this->getEmailArray('registerAdmin',$replace);
-    }
-
-
-    // registerAdminEmailModel
-    // retourne le model pour le courriel de confirmation de l'enregistrement à l'administrateur
-    final public function registerAdminEmailModel():?Main\Contract\Email
-    {
-        return $this->getEmailModel('registerAdmin');
-    }
-
-
-    // registerAdminEmailReplace
-    // retourne les valeurs de remplacement pour le courriel  de confirmation de l'enregistrement
-    public function registerAdminEmailReplace():array
-    {
-        return $this->getEmailReplace();
-    }
-
-
-    // resetPasswordEmail
-    // retourne un tableau avec tout ce qu'il faut pour envoyer le courriel pour regénérer le mot de passe
-    final public function resetPasswordEmail(?array $replace=null):?array
-    {
-        return $this->getEmailArray('resetPassword',$replace);
-    }
-
-
-    // resetPasswordEmailModel
-    // retourne le model pour le courriel de regénération du mot de passe
-    final public function resetPasswordEmailModel():?Main\Contract\Email
-    {
-        return $this->getEmailModel('resetPassword');
-    }
-
-
-    // resetPasswordEmailReplace
-    // retourne les valeurs de remplacement pour le courriel de regénération du mot de passe
-    public function resetPasswordEmailReplace():array
-    {
-        return $this->getEmailReplace();
-    }
-
-
-    // activatePasswordRoute
-    // retourne la route à utiliser pour activer le mot de passe
-    public function activatePasswordRoute():?string
-    {
-        return null;
-    }
-
-
     // username
     // retourne la cellule du username
     final public function username():Core\Cell
@@ -587,24 +607,6 @@ class User extends Core\RowAlias
     final public function email():Core\Cell
     {
         return $this->cell('email');
-    }
-
-
-    // toEmail
-    // retourne un tableau email=>fullName lors de l'envoie dans un email
-    // peut retourner null
-    final public function toEmail():?array
-    {
-        $return = null;
-
-        if($this->canReceiveEmail())
-        {
-            $email = $this->email()->value();
-            $fullName = $this->fullName();
-            $return = [$email=>$fullName];
-        }
-
-        return $return;
     }
 
 
@@ -810,7 +812,7 @@ class User extends Core\RowAlias
     // il faut fournir une route, un modèle de courriel, un tableau de remplacement pour le courriel
     // retourne null ou une string contenant le nouveau mot de passe
     // option com, strict et log
-    final public function resetPassword(?array $replace=null,?array $option=null):?string
+    final public function resetPassword($type=true,?array $replace=null,?array $option=null):?string
     {
         $return = null;
         $neg = $this->loginValidate('resetPassword');
@@ -828,7 +830,7 @@ class User extends Core\RowAlias
 
                 if($save === 1)
                 {
-                    $send = $this->sendResetPasswordEmail($newPassword,$replace,$option);
+                    $send = $this->sendResetPasswordEmail($newPassword,$type,$replace,$option);
 
                     if($send === true)
                     {
@@ -849,157 +851,6 @@ class User extends Core\RowAlias
         $com->posNegLogStrict('resetPassword',(is_string($return)),$pos,$neg,$this->getAttr(['log','resetPassword']),$option);
 
         return $return;
-    }
-
-
-    // validateSend
-    // méthode protégé qui valide que le user et le modèle de courriel sont valides
-    final protected function validateSend(Main\Contract\Email $model,?array $option=null):void
-    {
-        $option = Base\Arr::plus(['method'=>'dispatch'],$option);
-
-        if(!$this->canReceiveEmail())
-        static::throw('userCannotReceiveEmail');
-
-        if(!$model->isActive())
-        static::throw('invalidEmailModel');
-
-        if(!is_string($option['method']) || !$model->hasMethod($option['method']))
-        static::throw('invalidMethod',$option['method']);
-
-        return;
-    }
-
-
-    // sendResetPasswordEmail
-    // envoie un email à un utilisateur ayant fait un reset de mot de passe
-    // plusieurs exceptions peuvent être envoyés, ne gère pas l'objet de communication
-    final public function sendResetPasswordEmail(string $password,?array $replace=null,?array $option=null):bool
-    {
-        $return = false;
-        $option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
-        $array = $this->resetPasswordEmail($replace);
-        $route = $this->activatePasswordRoute();
-
-        if(!empty($array) && !empty($route))
-        {
-            $model = $array['model'];
-            $this->validateSend($model,$option);
-
-            $key = $option['key'] ?? null;
-            $method = $option['method'];
-            $replace = $array['replace'];
-            $cell = $this->passwordReset();
-            $col = $cell->col();
-            $security = $col->getSecurity();
-            $hash = $cell->value();
-            $primary = $this->primary();
-
-            if(is_string($hash) && !empty($hash))
-            $hash = Base\Crypt::passwordActivate($hash,1);
-
-            if(!Base\Validate::isPassword($password,$security))
-            static::throw('invalidPassword');
-
-            if(!is_string($hash) || empty($hash))
-            static::throw('invalidHash');
-
-            $route = $route::make(['primary'=>$primary,'hash'=>$hash]);
-            $absolute = $route->uriAbsolute();
-            if(empty($absolute))
-            static::throw('invalidAbsoluteUri');
-
-            $replace['password'] = $password;
-            $replace['uri'] = $absolute;
-            $return = $model->$method($key,$this,$replace);
-
-            if($return === true)
-            $this->onResetPasswordEmailSent();
-        }
-
-        else
-        static::throw('cannotSendEmail','resetPassword');
-
-        return $return;
-    }
-
-
-    // sendEmail
-    // méthode utilisé par différentes méthodes d'envoies de courriels
-    // plusieurs exceptions peuvent être envoyés
-    final protected function sendEmail(string $type,$to,?array $replace=null,?\Closure $closure=null,?array $option=null):bool
-    {
-        $return = false;
-        $option = Base\Arr::plus(['key'=>null,'method'=>'dispatch'],$option);
-        $method = $type.'Email';
-        $array = $this->$method($replace);
-
-        if(!empty($array) && !empty($to))
-        {
-            $model = $array['model'];
-            $this->validateSend($model,$option);
-            $key = $option['key'];
-            $method = $option['method'];
-            $replace = $array['replace'];
-
-            if(!empty($closure))
-            $replace = $closure($replace);
-
-            $return = $model->$method($key,$to,$replace);
-
-            if($return === true)
-            {
-                $method = 'on'.ucfirst($type).'EmailSent';
-                $this->$method();
-            }
-        }
-
-        else
-        static::throw('cannotSendEmail',$type);
-
-        return $return;
-    }
-
-
-    // sendRegisterEmails
-    // envoie les emails d'enregistrement (à admin et confirmation)
-    final public function sendRegisterEmails():array
-    {
-        $return = [];
-
-        if($this->allowRegisterConfirmEmail())
-        $return[] = $this->sendRegisterConfirmEmail();
-
-        if($this->allowRegisterAdminEmail())
-        $return[] = $this->sendRegisterAdminEmail();
-
-        return $return;
-    }
-
-
-    // sendRegisterConfirmEmail
-    // envoie le courriel de confirmation de l'enregistrement
-    // plusieurs exceptions peuvent être envoyés
-    final public function sendRegisterConfirmEmail(?array $replace=null,?array $option=null):bool
-    {
-        return $this->sendEmail('registerConfirm',$this,$replace,$option);
-    }
-
-
-    // sendRegisterAdminEmail
-    // envoie le courriel de confirmation de l'enregistrement à l'administrateur
-    // plusieurs exceptions peuvent être envoyés
-    final public function sendRegisterAdminEmail(?array $replace=null,?array $option=null):bool
-    {
-        return $this->sendEmail('registerAdmin',$this->getAdminEmail(),$replace,$option);
-    }
-
-
-    // getAdminEmail
-    // retourne le email de l'administrateur
-    public function getAdminEmail():?array
-    {
-        return null;
     }
 
 
@@ -1098,7 +949,7 @@ class User extends Core\RowAlias
     // reset le mot de passe d'un l'utilisateur
     // connect se fait normalement par email
     // retourne null ou le nouveau password
-    final public static function resetPasswordProcess(string $email,?array $replace=null,?array $option=null):?string
+    final public static function resetPasswordProcess(string $email,$type=true,?array $replace=null,?array $option=null):?string
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1115,7 +966,7 @@ class User extends Core\RowAlias
             $user = static::findByEmail($email);
 
             if(!empty($user))
-            $return = $user->resetPassword($replace,$option);
+            $return = $user->resetPassword($type,$replace,$option);
 
             else
             {

@@ -72,12 +72,6 @@ class Session extends Base\Test
         // isLoginSinglePerUser
         assert($s->isLoginSinglePerUser());
 
-        // allowRegister
-        assert($s->allowRegister() === false);
-
-        // allowResetPasswordEmail
-        assert($s->allowResetPasswordEmail());
-
         // getUserClass
         assert($s->getUserClass() === Suite\Row\User::class);
 
@@ -285,22 +279,22 @@ class Session extends Base\Test
         assert($user::findByUid(1)->primary() === 1);
         assert($user::getUsernameSecurity() === null);
         assert($user::getPasswordSecurity() === null);
-        assert(!$user::resetPasswordProcess('inactive@quid.com',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('inactive@quid.com',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 96);
-        assert(!$user::resetPasswordProcess('inactive@quid.com',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('inactive@quid.com',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 96);
         assert($s->logoutProcess());
-        assert(!$user::resetPasswordProcess('',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 56);
-        assert(!$user::resetPasswordProcess('test@james.com',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('test@james.com',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 67);
-        assert(!$user::resetPasswordProcess('USER',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('USER',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 56);
-        assert(!$user::resetPasswordProcess('inactive@quid.com',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('inactive@quid.com',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 64);
-        assert(!$user::resetPasswordProcess('nobody@quid.com',null,['com'=>true]));
+        assert(!$user::resetPasswordProcess('nobody@quid.com',true,null,['com'=>true]));
         assert(strlen($s->com()->flush()) === 65);
-        $password = $user::resetPasswordProcess('user@quid.com',['subject'=>'lol','domain'=>'http://google.com'],['method'=>'queue','com'=>true]);
+        $password = $user::resetPasswordProcess('user@quid.com',true,['subject'=>'lol','domain'=>'http://google.com'],['method'=>'queue','com'=>true]);
         assert(is_string($password));
         assert(strlen($password) === 10);
         assert(strlen($s->com()->flush()) === 93);

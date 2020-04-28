@@ -192,7 +192,7 @@ abstract class Boot extends Main\Root
 
 
     // quidVersion
-    protected static string $quidVersion = '5.29.0'; // version de quid
+    protected static string $quidVersion = '5.30.0'; // version de quid
 
 
     // quidCredit
@@ -372,6 +372,89 @@ abstract class Boot extends Main\Root
     final public function _cast():array
     {
         return $this->envType();
+    }
+
+
+    // getReplace
+    // retourne le tableau de remplacement de boot, utilisé pour route et email
+    public function getReplace():array
+    {
+        $return = [];
+        $session = $this->session();
+        $role = $session->role();
+        $user = $session->user();
+        $lang = $this->lang();
+        $langCode = $lang->currentLang();
+        $env = $this->env();
+        $type = $this->type();
+        $adminEmail = $this->getAdminEmail();
+
+        $return['bootLabel'] = $this->label();
+        $return['bootDescription'] = $this->description();
+
+        $return['env'] = $env;
+        $return['envLabel'] = $lang->envLabel($env);
+        $return['type'] = $type;
+        $return['typeLabel'] = $lang->typeLabel($type);
+
+        $return['role'] = $role->name();
+        $return['roleLabel'] = $role->label();
+
+        $return['lang'] = $langCode;
+        $return['langLabel'] = $lang->langLabel($langCode);
+
+        $return['sessionUser'] = $user->username()->value();
+        $return['sessionUserEmail'] = $user->email()->value();
+        $return['sessionUserName'] = $user->fullName();
+
+        if(!empty($adminEmail))
+        {
+            $return['adminEmail'] = key($adminEmail);
+            $return['adminName'] = current($adminEmail);
+        }
+
+        $return['schemeHost'] = $this->schemeHost();
+        foreach ($this->envs() as $e)
+        {
+            foreach ($this->types() as $t)
+            {
+                $key = 'schemeHost'.ucfirst($e).ucfirst($t);
+                $schemeHost = $this->schemeHost($e,$t);
+                $return[$key] = $schemeHost;
+
+                $key = 'schemeHost'.ucfirst($t);
+                $schemeHost = $this->schemeHost(null,$t);
+                $return[$key] = $schemeHost;
+            }
+        }
+
+        return Base\Arr::clean($return);
+    }
+
+
+    // getAdminEmail
+    // retourne le email du premier utilisateur administrateur
+    // peut retourner via array ou string
+    public function getAdminEmail(bool $string=false)
+    {
+        $return = null;
+        $roles = $this->roles();
+        $role = $roles->find(fn($role) => $role->isAdmin());
+
+        if(!empty($role))
+        {
+            $user = Row\User::findByRole($role);
+
+            if(!empty($user))
+            {
+                $return = $user->toEmail();
+
+                if($string === true && !empty($return))
+                $return = key($return);
+            }
+        }
+
+        return $return;
     }
 
 
@@ -1183,9 +1266,10 @@ abstract class Boot extends Main\Root
 
     // typeIndex
     // retourne l'index du type courant de l'application
-    final public function typeIndex():int
+    final public function typeIndex(?string $type=null):int
     {
-        return Base\Arr::search($this->type(),$this->types());
+        $type = (is_string($type))? $type:$this->type();
+        return Base\Arr::search($type,$this->types());
     }
 
 

@@ -10,12 +10,11 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Cell;
-use Quid\Base;
 use Quid\Core;
 
 // floating
 // class to work with a cell containing a floating value
-class Floating extends Core\CellAlias
+class Floating extends NumAlias
 {
     // config
     protected static array $config = [];
@@ -35,14 +34,6 @@ class Floating extends Core\CellAlias
         $return = parent::pair($value,...$args);
 
         return $return;
-    }
-
-
-    // moneyFormat
-    // format le nombre flottant en argent
-    final public function moneyFormat(?string $lang=null,?array $option=null):?string
-    {
-        return Base\Num::moneyFormat($this->value(),$lang,$option);
     }
 }
 

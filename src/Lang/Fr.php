@@ -195,7 +195,8 @@ class Fr extends Orm\Lang\Fr
                     'request'=>'Requête',
                     'error'=>'Erreur',
                     'userCommit'=>'Utilisateur session',
-                    'timezone'=>'Fuseau horaire'
+                    'timezone'=>'Fuseau horaire',
+                    'contentType'=>'Type de contenu'
                 ]
             ]
         ],

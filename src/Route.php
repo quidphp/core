@@ -27,7 +27,7 @@ abstract class Route extends Routing\Route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
         'row'=>null, // permet de spécifier la classe row en lien avec la route
         'docOpen'=>[ // utilisé pour l'ouverture du document
-            'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%']],
+            'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%','data-user'=>'%sessionUser%','data-error'=>'none']],
         '@dev'=>[
             'debug'=>1] // store dans debug
     ];
@@ -71,14 +71,10 @@ abstract class Route extends Routing\Route
         $lang = $boot->lang();
         $request = $this->request();
         $parent = static::parent();
-        $description = $boot->description();
         $lang = $this->lang();
 
-        $return['env'] = $boot->env();
-        $return['role'] = $session->role()->name();
-        $return['bootLabel'] = $boot->label();
-        $return['bootDescription'] = $description;
-        $return['lang'] = $lang->currentLang();
+        $return = $boot->getReplace();
+
         $return['label'] = $this->title();
         $return['name'] = static::name(true);
         $return['type'] = static::type();
@@ -88,7 +84,7 @@ abstract class Route extends Routing\Route
         $return['parent'] = (!empty($parent))? $parent::name(true):null;
         $return['title'] = $return['label'];
         $return['metaKeywords'] = $lang->safe('meta/keywords');
-        $return['metaDescription'] = $lang->safe('meta/description') ?? $description;
+        $return['metaDescription'] = $lang->safe('meta/description') ?? $return['description'] ?? null;
         $return['metaImage'] = $lang->safe('meta/image');
         $return['htmlAttr'] = null;
         $return['bodyAttr'] = null;

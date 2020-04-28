@@ -195,7 +195,8 @@ class En extends Orm\Lang\En
                     'request'=>'Request',
                     'error'=>'Error',
                     'userCommit'=>'Session user',
-                    'timezone'=>'Timezone'
+                    'timezone'=>'Timezone',
+                    'contentType'=>'Content type'
                 ]
             ]
         ],

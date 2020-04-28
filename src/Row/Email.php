@@ -28,7 +28,8 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         'parent'=>'system',
         'cols'=>[
             'active'=>true,
-            'type'=>['relation'=>'emailType','default'=>1],
+            'type'=>['class'=>Core\Col\ContextType::class],
+            'contentType'=>['relation'=>'emailType','default'=>1],
             'key'=>true,
             'name_fr'=>false,
             'name_en'=>false,
@@ -37,11 +38,35 @@ class Email extends Core\RowAlias implements Main\Contract\Email
     ];
 
 
+    // isText
+    // retourne vrai si le contentType est texte
+    final public function isText():bool
+    {
+        return $this->contentType() === 1;
+    }
+
+
+    // isHtml
+    // retourne vrai si le contentType est html
+    final public function isHtml():bool
+    {
+        return $this->contentType() === 2;
+    }
+
+
+    // getKey
+    // retourne la clé du modèle
+    final public function getKey():string
+    {
+        return $this->cellKey()->value();
+    }
+
+
     // contentType
     // retourne le type de contenu du email, retourne int
     final public function contentType():int
     {
-        return $this->cell('type')->get();
+        return $this->cell('contentType')->get();
     }
 
 
@@ -63,12 +88,23 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // find
     // retourne un objet email, à partir d'une clé
-    // doit être actif
-    final public static function find(string $key):?self
+    // le type doit être fourni, si true utilise type courant
+    // le modèle doit être actif
+    final public static function find(string $key,$type=true):?self
     {
         $return = null;
-        $row = static::tableFromFqcn()->row($key);
 
+        if($type === true)
+        $type = null;
+
+        $type = static::boot()->typeIndex($type);
+
+        $table = static::tableFromFqcn();
+        $where = [];
+        $where[] = [$table->colKey(),'=',$key];
+        $where[] = ['type','=',$type];
+
+        $row = static::tableFromFqcn()->row($where);
         if(!empty($row) && $row->isActive())
         $return = $row;
 

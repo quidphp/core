@@ -19,7 +19,8 @@ class Integer extends Core\ColAlias
     // config
     protected static array $config = [
         'cell'=>Core\Cell\Integer::class,
-        'keyboard'=>'decimal'
+        'keyboard'=>'decimal',
+        'check'=>['kind'=>'int']
     ];
 }
 

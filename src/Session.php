@@ -173,22 +173,6 @@ class Session extends Routing\Session
     }
 
 
-    // allowRegister
-    // retourne vrai si le user a accès au formulaire d'enregistrement
-    public function allowRegister():bool
-    {
-        return $this->user()->allowRegister();
-    }
-
-
-    // allowResetPasswordEmail
-    // retourne vrai si le user de la session permet l'envoie de courrier pour regénérer le mot de passe
-    final public function allowResetPasswordEmail():bool
-    {
-        return $this->user()->allowResetPasswordEmail();
-    }
-
-
     // getUserClass
     // retourne la classe à utiliser pour utilisateur
     final public function getUserClass():string
@@ -257,7 +241,7 @@ class Session extends Routing\Session
         {
             $storage = $this->getStorageClass();
 
-            if($storage->hasMethod('sessionMostRecent'))
+            if(method_exists($storage,'sessionMostRecent'))
             {
                 $user = $this->getUserDefault();
                 $session = $storage::sessionMostRecent($this->name(),$user,null,$this->envType());
