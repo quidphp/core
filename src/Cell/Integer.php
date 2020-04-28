@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Cell;
-use Quid\Core;
 
 // integer
 // class to manage a cell containing an integer value
