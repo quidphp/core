@@ -21,7 +21,6 @@ class Boolean extends EnumAlias
         'complex'=>'radio',
         'required'=>true,
         'relation'=>'bool',
-        'onSet'=>[Base\Set::class,'onSet'],
         'check'=>['kind'=>'int']
     ];
 }

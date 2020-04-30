@@ -10,6 +10,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core;
+use Quid\Base;
 use Quid\Orm;
 use Quid\Routing;
 
@@ -60,6 +61,26 @@ class Table extends Orm\Table
         '@prod'=>[
             'colsExists'=>false]
     ];
+
+
+    // safeInsert
+    // permet d'insérer une ligne dans la table
+    // la permissions est validé, les extras de la db sont mis à off
+    final public function safeInsert(array $set=[],?array $option=null)
+    {
+        $return = null;
+        $option = Base\Arr::plus(['strict'=>true,'reservePrimary'=>false],$option);
+
+        if($this->hasPermission('insert'))
+        {
+            $db = $this->db();
+            $db->off();
+            $return = $this->insert($set,$option);
+            $db->on();
+        }
+
+        return $return;
+    }
 
 
     // tableFromFqcn

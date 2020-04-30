@@ -22,8 +22,7 @@ class DateModify extends DateAlias
         'complex'=>'div',
         'visible'=>['validate'=>'notEmpty'],
         'date'=>'long',
-        'duplicate'=>false,
-        'onGet'=>[[Base\Datetime::class,'onGet'],'long'],
+        'duplicate'=>false
     ];
 
 

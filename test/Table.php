@@ -31,6 +31,8 @@ class Table extends Base\Test
         $nobody = $boot->roles()->nobody();
         $admin = $boot->roles()->get(80);
 
+        // safeInsert
+
         // tableFromFqcn
         assert($tb::tableFromFqcn() === $tb);
 
@@ -39,10 +41,9 @@ class Table extends Base\Test
 
         // rowLog
         $rowLog = Core\Row\Log::class;
-        assert($rowLog::newTable() instanceof Core\Table);
-        $row = $rowLog::new('login',['save'=>'that']);
-        assert($rowLog::logOnCloseDown('login',['save'=>'queue']) === null);
-        assert($rowLog::logOnCloseDown('login',['save'=>'queue2']) === null);
+        $row = $rowLog::log('login',['save'=>'that']);
+        assert($rowLog::logCloseDown('login',['save'=>'queue']) === null);
+        assert($rowLog::logCloseDown('login',['save'=>'queue2']) === null);
         assert($row instanceof Core\Row);
         assert($row['type']->get() === 1);
         assert(count($row['context']->get()) === 4);
@@ -57,8 +58,8 @@ class Table extends Base\Test
         $tble = $db->table($rowLog);
         assert($row->isLinked());
         $rowLogEmail = Core\Row\LogEmail::class;
-        assert($rowLogEmail::new(false,['what'=>'ok'])['status']->value() === 0);
-        assert($rowLogEmail::new(true,['what'=>'ok'])['status']->value() === 1);
+        assert($rowLogEmail::log(false,['what'=>'ok'])['status']->value() === 0);
+        assert($rowLogEmail::log(true,['what'=>'ok'])['status']->value() === 1);
 
         // orm
         assert($tb->rowsClass() === Core\Rows::class);

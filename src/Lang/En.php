@@ -103,8 +103,10 @@ class En extends Orm\Lang\En
 
             // catchableException
             'catchableException'=>[
+                'notUpdateable'=>'Row cannot be updated.',
+                'notUpdateableTimestamp'=>'Row cannot be updated because data on the server is more recent.',
                 'notDeleteable'=>'Row cannot be deleted.',
-                'notUpdatable'=>'Row cannot be updated.',
+                'notDeleteableTimestamp'=>'Row cannot be deleted because data on the server is more recent.',
                 'hostUnreachable'=>'Connexion error: host [1] is not reachable on port [2].',
                 'responseCodeShouldBe'=>'Request error: response code should be [1] not [3].',
                 'invalidResponseFormat'=>'Response error: invalid format',

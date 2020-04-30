@@ -391,6 +391,7 @@ abstract class Boot extends Main\Root
 
         $return['bootLabel'] = $this->label();
         $return['bootDescription'] = $this->description();
+        $return['bootVersion'] = $this->version();
 
         $return['env'] = $env;
         $return['envLabel'] = $lang->envLabel($env);
@@ -2347,7 +2348,7 @@ abstract class Boot extends Main\Root
         if(!empty($manage['type']))
         {
             if(!empty($log))
-            $log::logOnCloseDown($manage['type'],Base\Arr::unset('type',$manage));
+            $log::logCloseDown($manage['type'],Base\Arr::unset('type',$manage));
 
             if($manage['location'] !== null)
             Base\Response::redirect($manage['location'],$manage['code'],true);

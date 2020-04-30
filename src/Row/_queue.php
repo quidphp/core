@@ -18,7 +18,6 @@ trait _queue
 {
     // trait
     use Main\_queue;
-    use _new;
 
 
     // getQueued
@@ -26,11 +25,22 @@ trait _queue
     abstract public static function getQueued(?int $limit=null):?Main\Map;
 
 
+    // prepareQueueData
+    // méthode abstraite pour préparer les datas de la queue
+    abstract protected static function prepareQueueData():?array;
+
+
     // queue
-    // créer une nouvelle entrée dans la queue
+    // crée une nouvelle entrée du queue
     final public static function queue(...$values):?Main\Contract\Queue
     {
-        return static::new(...$values);
+        $return = null;
+        $data = static::prepareQueueData(...$values);
+
+        if($data !== null)
+        $return = static::safeInsert($data);
+
+        return $return;
     }
 }
 ?>

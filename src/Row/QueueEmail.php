@@ -121,9 +121,9 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     }
 
 
-    // newData
+    // prepareQueueData
     // crée le tableau d'insertion
-    final public static function newData(array $json):array
+    final protected static function prepareQueueData(array $json):array
     {
         $return = [];
         $return['status'] = 1;
@@ -139,7 +139,7 @@ class QueueEmail extends Core\RowAlias implements Main\Contract\Queue
     final public static function getQueued(?int $limit=null):?Main\Map
     {
         $return = null;
-        $table = static::newTable();
+        $table = static::safeTableFromFqcn();
 
         if(!empty($table))
         {

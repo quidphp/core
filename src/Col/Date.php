@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
+use Quid\Orm;
 
 // date
 // class for a date column, supports many date formats
@@ -50,17 +51,39 @@ class Date extends Core\ColAlias
 
         $allowedFormats = $return['formats'] ?? [];
 
-        if(empty($return['onGet']))
-        $return['onGet'] = [[Base\Datetime::class,'onGet'],$format];
-
-        if(empty($return['onSet']))
-        $return['onSet'] = [[Base\Datetime::class,'onSet'],$format];
-
         if($return['preValidate'] !== false && in_array($format,$allowedFormats,true))
         $return['preValidate'] = $format;
 
         if(array_key_exists('default',$return) && $return['default'] === true)
-        $return['default'] = Base\Datetime::now();
+        $return['default'] = fn() => Base\Datetime::now();
+
+        return $return;
+    }
+
+
+    // onGet
+    // gère l'affichage de la date onGet
+    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    {
+        $return = parent::onGet($return,$cell,$option);
+        $format = $this->date(true);
+
+        if(is_int($return) && !empty($format))
+        $return = Base\Datetime::format($format,$return);
+
+        return $return;
+    }
+
+
+    // onSet
+    // gère l'écriture de la date onSet
+    final protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
+    {
+        $return = parent::onSet($return,$cell,$row,$option);
+        $format = $this->date(true);
+
+        if(is_string($return) && !empty($format))
+        $return = Base\Datetime::time($return,$format);
 
         return $return;
     }
@@ -87,7 +110,7 @@ class Date extends Core\ColAlias
     final public function parse(string $value):?int
     {
         $return = null;
-        $format = static::makeDateFormat($this->getAttr('date'));
+        $format = $this->date(true);
 
         if(!empty($format))
         $return = Base\Datetime::onSet($value,$format);

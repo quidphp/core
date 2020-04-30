@@ -13,6 +13,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
 use Quid\Main;
+use Quid\Orm;
 
 // files
 // abstract class extended by the media and medias cols
@@ -290,14 +291,6 @@ abstract class Files extends Core\ColAlias
     final public function indexRange():array
     {
         return range(0,($this->getAmount() - 1));
-    }
-
-
-    // onGet
-    // logique onGet pour un champ files
-    protected function onGet($return,array $option)
-    {
-        return ($return instanceof Core\Cell\Files)? parent::onGet($return,$option):null;
     }
 
 

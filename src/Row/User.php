@@ -317,8 +317,8 @@ class User extends Core\RowAlias
             if(empty($absolute))
             static::throw('invalidAbsoluteUri');
 
-            $return['password'] = $password;
-            $return['uri'] = $absolute;
+            $return['userPassword'] = $password;
+            $return['activateUri'] = $absolute;
 
             return $return;
         };

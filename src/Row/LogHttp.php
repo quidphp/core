@@ -25,7 +25,14 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     // config
     protected static array $config = [
         'priority'=>1002,
+        'panel'=>false,
+        'parent'=>'system',
+        'permission'=>[
+            '*'=>['insert'=>true],
+            'nobody'=>['insert'=>true],
+            'admin'=>['update'=>false]],
         'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'logHttpType']],
         'block'=>[ // liste des patterns de chemins à ne pas logger, insensible à la case
@@ -63,9 +70,9 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     }
 
 
-    // newData
+    // prepareLogData
     // crée le tableau d'insertion
-    final public static function newData($type,$json=null):?array
+    final protected static function prepareLogData($type,$json=null):?array
     {
         $return = null;
         $type = static::getTypeCode($type);

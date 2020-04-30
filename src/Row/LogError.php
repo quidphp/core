@@ -24,16 +24,23 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
     // config
     protected static array $config = [
         'priority'=>1001,
+        'panel'=>false,
+        'parent'=>'system',
+        'permission'=>[
+            '*'=>['insert'=>true],
+            'nobody'=>['insert'=>true],
+            'admin'=>['update'=>false]],
         'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'type'=>['general'=>true,'relation'=>'error/label'],
             'error'=>['required'=>true,'class'=>Core\Col\Error::class]]
     ];
 
 
-    // newData
+    // prepareLogData
     // crée le tableau d'insertion
-    final public static function newData(Core\Error $error):array
+    final protected static function prepareLogData(Core\Error $error):array
     {
         $return = [];
         $return['type'] = $error->getCode();

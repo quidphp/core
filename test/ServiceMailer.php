@@ -81,9 +81,9 @@ class ServiceMailer extends Base\Test
         assert($row instanceof Core\Row);
         assert($row->contentType() === 2);
         assert($row->subject() === 'Password reset [subject]');
-        assert(strlen($row->body()) === 49);
-        assert($row->messageSegment() === ['subject','password','uri','domain']);
-        $replace = ['subject'=>'ok','password'=>'LOL','uri'=>'http://google.com','domain'=>'well'];
+        assert(strlen($row->body()) === 61);
+        assert($row->messageSegment() === ['subject','userPassword','activateUri','domain']);
+        $replace = ['subject'=>'ok','userPassword'=>'LOL','activateUri'=>'http://google.com','domain'=>'well'];
         assert(count($row->prepareMessage(['test@exempla.la','pierre'],$replace,['cc'=>'paul@ok.com'])) === 5);
         assert($row->serviceMailer('mailer') === $mailer);
         assert($row->queue('mailer',['test@exempla.la'=>'Pierre champion'],$replace));

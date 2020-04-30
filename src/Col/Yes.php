@@ -14,7 +14,7 @@ use Quid\Base;
 
 // yes
 // class for the yes column - a simple yes checkbox
-class Yes extends EnumAlias
+class Yes extends BooleanAlias
 {
     // config
     protected static array $config = [
@@ -22,7 +22,6 @@ class Yes extends EnumAlias
         'required'=>false,
         'relation'=>'yes',
         'preValidate'=>['arrMaxCount'=>1],
-        'onSet'=>[Base\Set::class,'onSet'],
         'check'=>['kind'=>'int']
     ];
 }

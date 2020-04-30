@@ -24,15 +24,22 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
     // config
     protected static array $config = [
         'priority'=>1004,
+        'panel'=>false,
+        'parent'=>'system',
+        'permission'=>[
+            '*'=>['insert'=>true],
+            'nobody'=>['insert'=>true],
+            'admin'=>['update'=>false]],
         'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
             'status'=>['class'=>Core\Col\Boolean::class]]
     ];
 
 
-    // newData
+    // prepareLogData
     // crée le tableau d'insertion
-    final public static function newData(bool $status,array $json):array
+    final protected static function prepareLogData(bool $status,array $json):array
     {
         return ['status'=>(int) $status,'json'=>$json];
     }

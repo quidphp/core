@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\Col;
 use Quid\Base;
+use Quid\Core;
 use Quid\Main;
 use Quid\Orm;
 
@@ -20,35 +21,11 @@ class UserRole extends SetAlias
 {
     // config
     protected static array $config = [
+        'cell'=>Core\Cell\UserRole::class,
         'required'=>true,
         'relation'=>[self::class,'getRoles'],
         'check'=>['kind'=>'text']
     ];
-
-
-    // onCellSet
-    // utilisé pour les changements de role
-    // si la valeur de la cellule n'est pas un int, prend la permission du premier role dans roles soit nobody
-    final protected function onCellSet(Orm\Cell $cell)
-    {
-        $role = null;
-        $roles = static::boot()->roles();
-        $permissions = $cell->get();
-
-        if(!empty($permissions))
-        $userRoles = $roles->only(...$permissions);
-
-        if(empty($userRoles) || $userRoles->isEmpty())
-        $userRoles = $roles->nobody()->roles();
-
-        if($userRoles instanceof Main\Roles)
-        $cell->row()->setRoles($userRoles);
-
-        else
-        static::throw('invalidRolesObject');
-
-        return $this;
-    }
 
 
     // onSet
@@ -57,10 +34,10 @@ class UserRole extends SetAlias
     // un utilisateur ne peut pas changer sa propre permission
     // si c'est un insert et que la valeur est default, accepte dans tous les cas
     // des exceptions attrapables peuvent être envoyés
-    final protected function onSet($values,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($values,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = null;
-        $values = $this->value($values);
+        $values = parent::onSet($values,$cell,$row,$option);
 
         if(is_scalar($values))
         $values = [$values];

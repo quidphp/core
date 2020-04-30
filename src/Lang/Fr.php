@@ -103,8 +103,10 @@ class Fr extends Orm\Lang\Fr
 
             // catchableException
             'catchableException'=>[
+                'notUpdateable'=>'La ligne ne peut pas être modifié.',
+                'notUpdateableTimestamp'=>'La ligne ne peut pas être modifié car les données sur le serveur sont plus récentes.',
                 'notDeleteable'=>'La ligne ne peut pas être effacé.',
-                'notUpdatable'=>'La ligne ne peut pas être modifié.',
+                'notDeleteableTimestamp'=>'La ligne ne peut pas être effacé car les données sur le serveur sont plus récentes.',
                 'hostUnreachable'=>"Erreur lors de la connexion: l'hôte [1] n'est pas joignable sur le port [2].",
                 'responseCodeShouldBe'=>'Erreur dans la requête: le code de la réponse devait être [1] et non [3].',
                 'invalidResponseFormat'=>'Erreur dans la réponse: format invalide',

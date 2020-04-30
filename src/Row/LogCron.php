@@ -24,15 +24,22 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
     // config
     protected static array $config = [
         'priority'=>1005,
+        'panel'=>false,
+        'parent'=>'system',
+        'permission'=>[
+            '*'=>['insert'=>true],
+            'nobody'=>['insert'=>true],
+            'admin'=>['update'=>false]],
         'cols'=>[
+            'context'=>['class'=>Core\Col\Context::class],
             'route'=>['required'=>true,'general'=>true],
             'json'=>['required'=>true]]
     ];
 
 
-    // newData
+    // prepareLogData
     // crée le tableau d'insertion
-    final public static function newData(Core\Route $route,array $data):array
+    final protected static function prepareLogData(Core\Route $route,array $data):array
     {
         $return = [];
         $return['route'] = $route::classFqcn();

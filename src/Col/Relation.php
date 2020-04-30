@@ -13,6 +13,7 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Base\Html;
 use Quid\Core;
+use Quid\Orm;
 
 // relation
 // abstract class extended by the enum and set columns
@@ -23,7 +24,6 @@ abstract class Relation extends Core\ColAlias
         'search'=>false,
         'filter'=>true,
         'order'=>false,
-        'onSet'=>[Base\Set::class,'onSet'],
         'generalExcerptMin'=>null,
         'check'=>['null'=>true], // les relations doivent être nullables
         'inRelation'=>true,
@@ -40,6 +40,19 @@ abstract class Relation extends Core\ColAlias
 
         if($table->getAttr('inRelation') === true && !empty($return['inRelation']))
         $return['validate']['inRelation'] = $this->inRelationClosure();
+
+        return $return;
+    }
+
+
+    // onSet
+    // lors du set d'une valeur de relation
+    protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
+    {
+        $return = parent::onSet($return,$cell,$row,$option);
+
+        if(is_array($return))
+        $return = Base\Set::str($return);
 
         return $return;
     }

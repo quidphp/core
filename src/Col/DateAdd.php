@@ -23,8 +23,7 @@ class DateAdd extends DateAlias
         'visible'=>['validate'=>'notEmpty'],
         'duplicate'=>false,
         'editable'=>false,
-        'complex'=>'div',
-        'onGet'=>[[Base\Datetime::class,'onGet'],'long']
+        'complex'=>'div'
     ];
 
 

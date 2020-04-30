@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\Col;
 use Quid\Core;
+use Quid\Orm;
 
 // pointer
 // class for a column which the value is a pointer to another row in the database
@@ -25,22 +26,19 @@ class Pointer extends Core\ColAlias
 
     // onGet
     // méthode appelé sur get, retourne la row ou null
-    final protected function onGet($return,array $option)
+    final protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        return static::getRow($this->value($return));
+        $return = parent::onGet($return,$cell,$option);
+
+        return (is_string($return))? static::getRow($return):$return;
     }
 
 
     // getRow
     // retourne la row ou null
-    final public static function getRow($value):?Core\Row
+    final public static function getRow(?string $value):?Core\Row
     {
-        $return = null;
-
-        if(is_string($value) && strlen($value))
-        $return = static::boot()->db()->fromPointer($value);
-
-        return $return;
+        return (is_string($value) && strlen($value))? static::boot()->db()->fromPointer($value):null;
     }
 
 

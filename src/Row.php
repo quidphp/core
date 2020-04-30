@@ -103,6 +103,26 @@ class Row extends Orm\Row
     }
 
 
+    // safeTableFromFqcn
+    // comme tableFromFqcn, mais la méthode ne peut pas déclencher d'erreur
+    // par exemple n'envoie pas d'erreur si la table n'existe pas ou si boot n'est pas prêt
+    final public static function safeTableFromFqcn():?Table
+    {
+        $return = null;
+        $boot = static::bootReady();
+
+        if(!empty($boot) && $boot->hasDb() && $boot->hasSession())
+        {
+            $db = $boot->db();
+
+            if(static::class !== self::class && $db->hasTable(static::class))
+            $return = $db->table(static::class);
+        }
+
+        return $return;
+    }
+
+
     // row
     // permet de retourner un objet row de la table
     final public static function row($row):?self
@@ -181,6 +201,16 @@ class Row extends Orm\Row
     final public static function insert(array $set=[],?array $option=null)
     {
         return static::tableFromFqcn()->insert($set,$option);
+    }
+
+
+    // safeInsert
+    // permet d'insérer une ligne dans la table à partir du fqcn
+    // les permissions est validé, les extras de la db sont mis à off
+    final public static function safeInsert(array $set=[],?array $option=null)
+    {
+        $table = static::safeTableFromFqcn();
+        return (!empty($table))? $table->safeInsert($set,$option):null;
     }
 }
 ?>

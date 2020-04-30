@@ -19,8 +19,15 @@ trait _cliLive
 {
     // dynamique
     protected int $amount = 0; // conserve le nombre de loop
-    protected float $sleep = 1; // durée de sleep pour un cli live
     protected $stdin = null; // garde une copie de la resource stdin lors
+
+
+    // getSleep
+    // retourne la durée de sleep
+    protected function getSleep():int
+    {
+        return 1;
+    }
 
 
     // isLive
@@ -33,39 +40,47 @@ trait _cliLive
 
     // live
     // loop live pour cli
-    // la closure after permet de mettre un stop au loop
+    // la closure exit permet de mettre un terme au loop, si vide utilise la méthode par défaut
     // possible de terminer le boot avant d'enclencher le loop
-    final protected function live(\Closure $closure,$after=null,bool $teardown=false):void
+    final protected function live(\Closure $closure,?\Closure $exit=null,bool $teardown=false):void
     {
-        if($after === true)
-        $after = $this->defaultExitClosure();
-
         if($teardown === true)
         static::boot()->teardown();
 
+        if(empty($exit))
+        $exit = $this->defaultExitClosure();
+
         while (true)
         {
-            try
-            {
-                $continue = true;
-                $result = $closure();
+            $continue = $exit();
 
-                if(is_array($result))
-                $this->logCron($result);
+            if($continue === true)
+            {
+                try
+                {
+
+                    $result = $closure();
+
+                    if(is_array($result))
+                    $this->logCron($result);
+
+                    elseif(is_bool($result))
+                    $continue = $result;
+                }
+
+                catch (\Exception $e)
+                {
+                    Cli::neg($e->getMessage());
+                }
             }
 
-            catch (\Exception $e)
-            {
-                Cli::neg($e->getMessage());
-            }
+            if($continue === true)
+            $continue = $exit();
 
-            if($after instanceof \Closure)
-            $continue = $after();
+            if($continue === true)
+            $continue = $this->sleep($exit);
 
-            if($continue !== false)
-            $this->sleep();
-
-            else
+            if($continue === false)
             break;
         }
 
@@ -133,35 +148,24 @@ trait _cliLive
 
     // sleep
     // le script dort
-    final protected function sleep():void
+    // retourne false s'il faut break
+    final protected function sleep(\Closure $exit):bool
     {
+        $return = true;
         $sleep = $this->getSleep();
-        if(!empty($sleep))
-        Base\Response::sleep($sleep);
 
-        return;
-    }
+        while ($sleep > 0)
+        {
+            Base\Response::sleep(1);
+            $sleep--;
 
+            $return = $exit();
 
-    // getSleep
-    // retourne la durée de sleep
-    final protected function getSleep():float
-    {
-        return $this->sleep;
-    }
+            if($return === false)
+            break;
+        }
 
-
-    // setSleep
-    // change la durée de sleep
-    final protected function setSleep(float $value):void
-    {
-        if(is_float($value))
-        $this->sleep = $value;
-
-        else
-        static::throw();
-
-        return;
+        return $return;
     }
 }
 ?>

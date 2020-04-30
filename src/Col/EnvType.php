@@ -15,7 +15,7 @@ use Quid\Core;
 
 // envType
 // class for the envType column, updates itself automatically on commit
-class EnvType extends Core\ColAlias
+class EnvType extends JsonAlias
 {
     // config
     protected static array $config = [
@@ -24,8 +24,6 @@ class EnvType extends Core\ColAlias
         'visible'=>['validate'=>'notEmpty'],
         'complex'=>'div',
         'onComplex'=>true,
-        'onGet'=>[Base\Json::class,'onGet'],
-        'onSet'=>[Base\Json::class,'onSet'],
         'check'=>['kind'=>'char']
     ];
 

@@ -21,8 +21,7 @@ class DateLogin extends DateAlias
         'general'=>false,
         'complex'=>'div',
         'date'=>'long',
-        'visible'=>['validate'=>'notEmpty'],
-        'onGet'=>[[Base\Datetime::class,'onGet'],'long'],
+        'visible'=>['validate'=>'notEmpty']
     ];
 }
 

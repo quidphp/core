@@ -86,9 +86,10 @@ class UserPassword extends Core\ColAlias
     // onSet
     // logique onSet pour le champ password
     // possible de fournir un mot de passe via un array ou une string
-    final protected function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = null;
+        $value = parent::onSet($value,$cell,$row,$option);
 
         if(is_array($value))
         {
@@ -145,7 +146,7 @@ class UserPassword extends Core\ColAlias
             $log = $this->getAttr('log');
 
             if(!empty($log))
-            $log::logOnCloseDown('changePassword',['key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null]);
+            $log::logCloseDown('changePassword',['key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null]);
         }
 
         return $this;

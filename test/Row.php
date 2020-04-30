@@ -47,6 +47,10 @@ class Row extends Base\Test
         // tableFromFqcn
         assert(Core\Row\Session::tableFromFqcn() instanceof Core\Table);
 
+        // safeTableFromFqcn
+        assert(Core\Row\Session::safeTableFromFqcn() instanceof Core\Table);
+        assert(Core\Row::safeTableFromFqcn() === null);
+
         // row
         assert(Core\Row\Session::row(3213) === null);
 
@@ -75,6 +79,8 @@ class Row extends Base\Test
         assert(Core\Row\Session::grabVisible(['id'=>1233])->isEmpty());
 
         // insert
+
+        // safeInsert
 
         // _route
 

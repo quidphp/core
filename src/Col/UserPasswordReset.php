@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
+use Quid\Orm;
 
 // userPasswordReset
 // class for the userPasswordReset column of a user row
@@ -35,9 +36,9 @@ class UserPasswordReset extends Core\ColAlias
 
     // onGet
     // retourne une string sha1 du hash
-    final protected function onGet($return,array $option)
+    final protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = $this->value($return);
+        $return = parent::onGet($return,$cell,$option);
 
         if(is_string($return) && !empty($return))
         $return = Base\Crypt::passwordActivate($return,1);

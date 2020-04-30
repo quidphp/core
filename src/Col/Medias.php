@@ -23,7 +23,6 @@ class Medias extends FilesAlias
     protected static array $config = [
         'search'=>false,
         'preValidate'=>'fileUploads',
-        'onGet'=>[Base\Json::class,'onGet'],
         'cell'=>Core\Cell\Medias::class,
         'media'=>2, // custom
         'validateKeys'=>['extension'=>'extensions','maxFilesize'=>'maxFilesizes']
@@ -77,12 +76,25 @@ class Medias extends FilesAlias
     }
 
 
+    // onGet
+    // logique onGet pour un champ medias
+    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    {
+        $return = parent::onGet($return,$cell,$option);
+
+        if(Base\Json::is($return))
+        $return = Base\Json::decode($return);
+
+        return $return;
+    }
+
+
     // onSet
     // logique onSet pour un champ médias
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
-    final protected function onSet($value,array $row,?Orm\Cell $cell=null,array $option)
+    final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($value,$row,$cell,$option);
+        $return = parent::onSet($value,$cell,$row,$option);
         $indexes = null;
 
         if(!empty($cell))

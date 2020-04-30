@@ -100,7 +100,7 @@ class CliCompile extends Core\RouteAlias
     // logCron est seulement sur la première passe
     final protected function compileLive(array $attr,?array $overOption=null):void
     {
-        $this->live(fn() => $this->compilePass($attr,$overOption),true,true);
+        $this->live(fn() => $this->compilePass($attr,$overOption),null,true);
 
         return;
     }

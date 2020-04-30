@@ -19,29 +19,37 @@ trait _log
 {
     // trait
     use Main\_log;
-    use _new;
 
 
     // configLog
     protected static array $configLog = [
-        'panel'=>false,
         'search'=>false,
-        'parent'=>'system',
-        'permission'=>[
-            '*'=>['insert'=>true],
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
-        'cols'=>[
-            'context'=>['class'=>Core\Col\Context::class]],
-        'deleteTrim'=>500 // custom
+        'deleteTrim'=>1000 // custom
     ];
+
+
+    // prepareLogData
+    // méthode abstrait pour préparer les datas du log
+    abstract protected static function prepareLogData():?array;
 
 
     // log
     // crée une nouvelle entrée du log maintenant
+    // lance le logAfter après
     final public static function log(...$values):?Main\Contract\Log
     {
-        return static::new(...$values);
+        $return = null;
+
+        $data = static::prepareLogData(...$values);
+        if($data !== null)
+        {
+            $return = static::safeInsert($data);
+
+            if(!empty($return))
+            static::logAfter();
+        }
+
+        return $return;
     }
 
 
@@ -51,8 +59,9 @@ trait _log
     final public static function logTrim():?int
     {
         $return = null;
+        $trim = static::$config['deleteTrim'];
 
-        if(array_key_exists('deleteTrim',static::$config) && is_int(static::$config['deleteTrim']))
+        if(array_key_exists('deleteTrim',static::$config) && is_int($trim))
         {
             $boot = static::bootReady();
 
@@ -68,7 +77,7 @@ trait _log
                     {
                         $currentLog = $db->getAttr('log');
                         $db->off();
-                        $return = $table->deleteTrim(static::$config['deleteTrim']);
+                        $return = $table->deleteTrim($trim);
                         $db->on();
                     }
                 }
@@ -76,6 +85,16 @@ trait _log
         }
 
         return $return;
+    }
+
+
+    // setDeleteTrim
+    // permet de changer la valeur de delete trim pour la classe
+    final public static function setDeleteTrim(?int $value):void
+    {
+        static::$config['deleteTrim'] = $value;
+
+        return;
     }
 }
 ?>

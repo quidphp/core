@@ -42,7 +42,7 @@ class Error extends Base\Test
         assert($arg->titleMessage() === "Exception: Quid\Main\Exception (#31) -> What !!! [1] numero1 james [4]");
 
         // logError
-        $row = $logError::new($fatal);
+        $row = $logError::log($fatal);
         assert($row instanceof Core\Row);
         assert(!empty($row['context']->get()));
         assert($row['request']->get() instanceof Core\Request);

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
+use Quid\Orm;
 
 // error
 // class for a column that manages an error object
@@ -29,17 +30,16 @@ class Error extends Core\ColAlias
 
     // onGet
     // sur onGet recrée l'objet error si c'est du json
-    protected function onGet($return,array $option)
+    protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        if(!$return instanceof Core\Error)
-        {
-            $return = $this->value($return);
+        $return = parent::onGet($return,$cell,$option);
 
-            if(is_scalar($return))
-            {
-                $return = Base\Json::decode($return);
-                $return = Core\Error::newOverload($return);
-            }
+        if(is_scalar($return))
+        {
+            $json = Base\Json::decode($return);
+
+            if(!empty($json))
+            $return = Core\Error::newOverload($json);
         }
 
         return $return;
