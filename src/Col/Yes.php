@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Base;
 
 // yes
 // class for the yes column - a simple yes checkbox

@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
-use Quid\Base;
 
 // dateLogin
 // class for a column which stores the current timestamp when the user logs in

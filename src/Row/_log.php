@@ -10,7 +10,6 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Row;
-use Quid\Core;
 use Quid\Main;
 
 // _log

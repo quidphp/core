@@ -13,7 +13,6 @@ namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
 use Quid\Main;
-use Quid\Orm;
 
 // files
 // abstract class extended by the media and medias cols
