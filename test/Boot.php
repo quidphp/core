@@ -165,6 +165,7 @@ class Boot extends Base\Test
 
         // context
         assert(count($boot->context()) === 4);
+        assert(count($boot->context(true)) === 5);
 
         // env
         assert(is_string($boot->env()));
@@ -399,6 +400,8 @@ class Boot extends Base\Test
         // initialize
 
         // nameFromClass
+
+        // setAutoloadType
 
         // start
 

@@ -25,6 +25,7 @@ abstract class Route extends Routing\Route
     // config
     protected static array $config = [ // config pour la route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
+        'dbHistory'=>null, // permet d'activer ou désactiver l'historique de base de données pour la route
         'row'=>null, // permet de spécifier la classe row en lien avec la route
         'docOpen'=>[ // utilisé pour l'ouverture du document
             'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%','data-user'=>'%sessionUser%','data-error'=>'none']],
@@ -57,6 +58,21 @@ abstract class Route extends Routing\Route
         }
 
         return $return;
+    }
+
+
+    // processBefore
+    // étend le processBefore de routing
+    // ajoute support pour activer/désactiver dbHistory
+    protected function processBefore():void
+    {
+        parent::processBefore();
+
+        $dbHistory = $this->getAttr('dbHistory');
+        if(is_bool($dbHistory))
+        static::boot()->db()->setHistory($dbHistory);
+
+        return;
     }
 
 

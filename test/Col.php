@@ -83,7 +83,7 @@ class Col extends Base\Test
         assert($date instanceof Core\Col\Date);
         assert($date->date() === 'dateToDay');
         assert($date::makeDateFormat(true) === 'F j, Y');
-        assert($date->allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond']);
+        assert($date->allowedFormats() === [true,'dateToDay','dateToMinute','dateToSecond','sql']);
         assert($date->dateMin() === null);
         assert($date->dateMax() === null);
         assert($date->dateDaysDiff() === null);

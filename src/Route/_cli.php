@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace Quid\Core\Route;
 use Quid\Base;
+use Quid\Base\Cli;
 use Quid\Core;
+use Quid\Main;
 
 // _cli
 // trait that provides some initial configuration for a cli route
@@ -19,7 +21,7 @@ trait _cli
 {
     // config
     protected static array $configCli = [
-        'priority'=>800,
+        'priority'=>850,
         'match'=>[
             'cli'=>true,
             'role'=>['>='=>'admin']],
@@ -30,6 +32,7 @@ trait _cli
         'navigation'=>false,
         'history'=>false,
         'cliHtmlOverload'=>true, // si ce n'est pas cli, les méthodes cli génèrent du html
+        'exception'=>['kill'=>false,'output'=>false,'cleanBuffer'=>false], // attribut par défaut pour traiter exception
         'logCron'=>Core\Row\LogCron::class // classe pour le logCron
     ];
 
@@ -78,39 +81,35 @@ trait _cli
     }
 
 
-    // clearValue
-    // utilisé par clearCache et clearLog pour effacer une valeur
-    // peut être un fichier, directoire, symlink ou table de données
-    final protected function clearValue(string $value):array
+    // outputException
+    // gère l'affichage et le traitement des exceptions en cli
+    final protected function outputException(string $type,\Exception $exception,?array $attr=null):void
     {
-        $return = ['method'=>'neg','value'=>null];
-        $value = Base\Finder::shortcut($value);
-        $return['value'] = "? $value";
+        $attr = Base\Arr::replace($this->getAttr('exception'),$attr);
+        Main\Exception::staticCatched($exception,$attr);
 
-        if(is_a($value,Core\Row::class,true))
-        {
-            $db = static::db();
+        $topArray = [$type,Base\Datetime::sql(),get_class($exception)];
+        $top = implode(', ',$topArray);
+        $cli = [
+            'message'=>$exception->getMessage(),
+            'file'=>$exception->getFile(),
+            'line'=>$exception->getLine(),
+        ];
 
-            if($db->hasTable($value))
-            {
-                $table = $db->table($value);
-                $option = ['log'=>false];
+        Cli::neg($top);
+        Cli::neg($cli);
 
-                if($table->truncate($option) === true)
-                $return = ['method'=>'pos','value'=>"x $value"];
-            }
-        }
+        return;
+    }
 
-        else
-        {
-            if(Base\Symlink::is($value) && Base\Symlink::unset($value))
-            $return = ['method'=>'pos','value'=>"- $value"];
 
-            elseif(Base\Dir::is($value) && Base\Dir::emptyAndUnlink($value))
-            $return = ['method'=>'pos','value'=>"x $value"];
-        }
+    // cliWrite
+    // permet d'écrire une valeur dans cli en utilisant la méthode spéciale write
+    final protected function cliWrite(string $method,$data,$separator=', '):void
+    {
+        Cli::write($method,$data,$separator);
 
-        return $return;
+        return;
     }
 }
 ?>

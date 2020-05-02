@@ -147,7 +147,7 @@ class PhpPreload extends Main\Service
         if($bootPreload === true)
         {
             $end .= "namespace Quid\Core {";
-            $end .= PHP_EOL.'Boot::$config["autoload"] = "preload";';
+            $end .= PHP_EOL.'Boot::setAutoloadType("preload");';
             $end .= PHP_EOL.'}'.PHP_EOL;
         }
         $end .= '?>';

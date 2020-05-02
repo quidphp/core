@@ -33,7 +33,7 @@ class Date extends Core\ColAlias
             'day'=>['format'=>0,'filter'=>'or|day','method'=>'days','max'=>100],
             'month'=>['format'=>2,'filter'=>'or|month','method'=>'months','max'=>1500],
             'year'=>['format'=>'Y','filter'=>'or|year','method'=>'years']],
-        'formats'=>[true,'dateToDay','dateToMinute','dateToSecond'],
+        'formats'=>[true,'dateToDay','dateToMinute','dateToSecond','sql'],
         'route'=>['calendar'=>null] // route à ajouter
     ];
 

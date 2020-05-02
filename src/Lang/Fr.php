@@ -221,8 +221,6 @@ class Fr extends Orm\Lang\Fr
 
             // label
             'label'=>[
-                'cliClearCache'=>'Vider les caches',
-                'cliClearLog'=>'Vider les logs',
                 'cliCompile'=>'Compiler les ressources',
                 'cliPreload'=>'Générer préchargement PHP',
                 'cliSessionGc'=>'Nettoyer les sessions',

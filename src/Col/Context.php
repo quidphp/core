@@ -17,7 +17,9 @@ use Quid\Core;
 class Context extends EnvType
 {
     // config
-    protected static array $config = [];
+    protected static array $config = [
+        'version'=>false // inclut la version dans le contexte
+    ];
 
 
     // onCommit
@@ -26,9 +28,10 @@ class Context extends EnvType
     {
         $return = null;
         $boot = static::bootReady();
+        $version = $this->getAttr('version');
 
         if(!empty($boot))
-        $return = $boot->context();
+        $return = $boot->context($version);
 
         return $return;
     }

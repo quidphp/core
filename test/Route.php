@@ -31,6 +31,8 @@ class Route extends Base\Test
         // type
         assert($priority::type() === 'assert');
 
+        // processBefore
+
         // getBaseReplace
 
         // prepareTitle

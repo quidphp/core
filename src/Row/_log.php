@@ -38,8 +38,8 @@ trait _log
     final public static function log(...$values):?Main\Contract\Log
     {
         $return = null;
-
         $data = static::prepareLogData(...$values);
+
         if($data !== null)
         {
             $return = static::safeInsert($data);
@@ -47,6 +47,24 @@ trait _log
             if(!empty($return))
             static::logAfter();
         }
+
+        return $return;
+    }
+
+
+    // logStrict
+    // crée une nouvelle entrée du log maintenant, utilise insert plutot que safeInsert
+    // lance le logAfter après, des exceptions peuvent être envoyés
+    final public static function logStrict(...$values):Main\Contract\Log
+    {
+        $return = null;
+        $data = static::prepareLogData(...$values);
+
+        if($data !== null)
+        $return = static::insert($data);
+
+        if(!empty($return))
+        static::logAfter();
 
         return $return;
     }

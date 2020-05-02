@@ -17,6 +17,12 @@ use Quid\Base\Cli;
 // trait that provides some methods for a cli script which loops
 trait _cliLive
 {
+    // config
+    protected static array $configCliLive = [
+        'dbHistory'=>false // désactive db history, sinon le RAM va sauter la limite
+    ];
+
+
     // dynamique
     protected int $amount = 0; // conserve le nombre de loop
     protected $stdin = null; // garde une copie de la resource stdin lors
@@ -58,7 +64,6 @@ trait _cliLive
             {
                 try
                 {
-
                     $result = $closure();
 
                     if(is_array($result))
@@ -70,7 +75,8 @@ trait _cliLive
 
                 catch (\Exception $e)
                 {
-                    Cli::neg($e->getMessage());
+                    dd($e->getMessage());
+                    $this->outputException('Interruption',$e);
                 }
             }
 
@@ -124,7 +130,7 @@ trait _cliLive
     // fin du loop si stop, exit, quit et die
     final protected function defaultExitClosure():\Closure
     {
-        return fn() => $this->isStdinLine(['stop','exit','quit','die','bye'],false,true)? false:true;
+        return fn() => $this->isStdinLine(['stop','exit','quit','die','bye','kill'],false,true)? false:true;
     }
 
 

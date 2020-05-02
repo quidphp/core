@@ -104,11 +104,11 @@ abstract class Boot extends Main\Root
             'emailTest'=>[Base\Email::class,'setTestTo',true],
             'sessionStorage'=>[Base\Session::class,'setSavePath','[storage]/session'],
             'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','send'],
+            'errorStorage'=>[Main\File\Error::class,'setStorageDirname','[storageError]'],
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
-            'errorStorage'=>[Main\File\Error::class,'setStorageDirname','[storageError]'],
-            'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false],
-            'dbHistory'=>[Db::class,'setDefaultHistory',false]],
+            'dbHistory'=>[Db::class,'setDefaultHistory',false],
+            'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
             'code'=>500,
@@ -173,8 +173,8 @@ abstract class Boot extends Main\Root
                 'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
-                'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true],
-                'dbHistory'=>[Db::class,'setDefaultHistory',true]]],
+                'dbHistory'=>[Db::class,'setDefaultHistory',true],
+                'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true]]],
         '@staging'=>[
             'cache'=>true,
             'compile'=>true,
@@ -1225,7 +1225,7 @@ abstract class Boot extends Main\Root
     // retourne le context courant
     // contient envType et lang, role (lang et role peuvent changer)
     // pour role, utilse seulement le vrai role (pas de fake role)
-    final public function context():array
+    final public function context(bool $version=false):array
     {
         $return = $this->envType();
         $return['lang'] = Base\Lang::current();
@@ -1236,6 +1236,9 @@ abstract class Boot extends Main\Root
             $role = $this->session()->role(false);
             $return['role'] = $role->name();
         }
+
+        if($version === true)
+        $return['version'] = $this->version();
 
         return $return;
     }
@@ -1466,7 +1469,7 @@ abstract class Boot extends Main\Root
         }
 
         else
-        static::errorKill('invalidAutoloadType',$type);
+        static::throw('invalidAutoloadType',$type);
 
         return;
     }
@@ -2649,6 +2652,17 @@ abstract class Boot extends Main\Root
     public static function nameFromClass():string
     {
         return Base\Fqcn::root(static::class);
+    }
+
+
+    // setAutoloadType
+    // permet de changer le type d'autoload de façon statique
+    // utiliser par phpPreload
+    final public static function setAutoloadType(string $value):void
+    {
+        static::$config['autoload'] = $value;
+
+        return;
     }
 
 
