@@ -32,6 +32,10 @@ class CliCompile extends Core\RouteAlias
     ];
 
 
+    // dynamique
+    protected int $fileAmount = 0; // conserve le nombre de fichiers traités
+
+
     // cli
     // disponible via http et cli
     // mais si via cli, le script est éternel
@@ -49,6 +53,24 @@ class CliCompile extends Core\RouteAlias
     final protected function shouldCompress(bool $cli):bool
     {
         return $cli === true && $this->request()->isQuery('compress');
+    }
+
+
+    // fileAmountIncrement
+    // incrément la propriété fileAmount
+    final protected function fileAmountIncrement():void
+    {
+        $this->fileAmount++;
+
+        return;
+    }
+
+
+    // fileAmount
+    // retourne la propriété fileAmount
+    final protected function fileAmount():int
+    {
+        return $this->fileAmount;
     }
 
 
@@ -183,10 +205,10 @@ class CliCompile extends Core\RouteAlias
     final protected function makePositiveOutput(Main\File $file,bool $compress,float $time):string
     {
         $return = '';
-        $this->amountIncrement();
+        $this->fileAmountIncrement();
         $compress = ($compress === true)? '+':'-';
 
-        $return .= $this->amount();
+        $return .= $this->fileAmount();
         $return .= '. ';
         $return .= $file->path();
         $return .= ' | ';
@@ -205,9 +227,9 @@ class CliCompile extends Core\RouteAlias
     final protected function makeNegativeOutput(\Exception $exception):string
     {
         $return = '';
-        $this->amountIncrement();
+        $this->fileAmountIncrement();
 
-        $return .= $this->amount();
+        $return .= $this->fileAmount();
         $return .= '. ';
         $return .= $exception->getMessage();
 

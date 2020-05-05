@@ -19,18 +19,121 @@ trait _cliLive
 {
     // config
     protected static array $configCliLive = [
-        'dbHistory'=>false // désactive db history, sinon le RAM va sauter la limite
+        'sleepInterval'=>0.3, // interval pour sleep (pour le loop)
+        'dbHistory'=>false, // désactive db history, sinon le RAM va sauter la limite
+        'opt'=>[
+            'stdin'=>true, // permet ou non de regarder le stdin
+            'once'=>false], // un seul cycle,
+        'cmd'=>[], // tableau associatif, nom de commande valide vers nom de méthode de this
+        'exit'=>['stop','exit','quit','die','bye','kill'], // variable qui peuvent tuer le loop dans le stdin
     ];
 
 
     // dynamique
-    protected int $amount = 0; // conserve le nombre de loop
+    protected int $loopAmount = 0; // conserve le nombre de loop
     protected $stdin = null; // garde une copie de la resource stdin lors
+
+
+    // onStdin
+    // callback lorsqu'une nouvelle ligne est détecté dans le std in
+    final protected function onStdin(string $value)
+    {
+        $return = $this->stdInExit($value);
+
+        if($return === true)
+        $return = $this->stdInOpt($value);
+
+        if($return === true)
+        $return = $this->stdInCmd($value);
+
+        return $return;
+    }
+
+
+    // onCallOpt
+    // callback lors d'un appel d'une commande
+    // le tableau de opt doit être retourné
+    final protected function onCallOpt(string $method,array $return):array
+    {
+        return $return;
+    }
+
+
+    // stdInExit
+    // fin du loop si stop, exit, quit et die
+    final protected function stdInExit(string $value):bool
+    {
+        return in_array($value,$this->getAttr('exit'),true)? false:true;
+    }
+
+
+    // stdInOpt
+    // permet de changer la valeur d'opt dans un cli live
+    final protected function stdInOpt(string $value):bool
+    {
+        $return = true;
+        $parse = Cli::parseOpt($value);
+        if(!empty($parse))
+        {
+            foreach ($parse as $k => $v)
+            {
+                $this->setOpt($k,$v);
+            }
+        }
+
+        return $return;
+    }
+
+
+    // stdInCmd
+    // permet d'appeler une commande à partir d'une entrée du stdin
+    final protected function stdInCmd(string $value):bool
+    {
+        $return = true;
+        $parse = Cli::parseCmd($value);
+
+        if(!empty($parse))
+        {
+            ['cmd'=>$cmd,'opt'=>$opt] = $parse;
+            $return = $this->callCmd($cmd,$parse);
+        }
+
+        return $return;
+    }
+
+
+    // hasCmd
+    // retourne vrai si la commande est permise
+    final protected function hasCmd(string $cmd):bool
+    {
+        $method = $this->getAttr(['cmd',$cmd]);
+        return is_string($method) && $this->hasMethod($method);
+    }
+
+
+    // callCmd
+    // appele une commande et retourne le résultat
+    final protected function callCmd(string $cmd,array $opt):bool
+    {
+        $return = false;
+
+        if(!$this->hasCmd($cmd))
+        static::throw('invalidCmd',$cmd);
+
+        else
+        {
+            $method = $this->getAttr(['cmd',$cmd]);
+            $opt = $this->onCallOpt($method,$opt);
+            $return = $this->$method($opt);
+        }
+
+        return $return;
+    }
 
 
     // getSleep
     // retourne la durée de sleep
-    protected function getSleep():int
+    protected function getSleep():float
     {
         return 1;
     }
@@ -40,25 +143,22 @@ trait _cliLive
     // retourne vrai si la route est présentement live (en cli)
     final protected function isLive(bool $cli):bool
     {
-        return $cli === true && !$this->request()->isQuery('once');
+        return $cli === true && !$this->isOpt('once');
     }
 
 
     // live
     // loop live pour cli
-    // la closure exit permet de mettre un terme au loop, si vide utilise la méthode par défaut
     // possible de terminer le boot avant d'enclencher le loop
-    final protected function live(\Closure $closure,?\Closure $exit=null,bool $teardown=false):void
+    final protected function live(\Closure $closure,bool $teardown=false):void
     {
         if($teardown === true)
         static::boot()->teardown();
 
-        if(empty($exit))
-        $exit = $this->defaultExitClosure();
-
         while (true)
         {
-            $continue = $exit();
+            $this->loopAmountIncrement();
+            $continue = $this->checkStdIn();
 
             if($continue === true)
             {
@@ -71,33 +171,51 @@ trait _cliLive
 
                     elseif(is_bool($result))
                     $continue = $result;
+
+                    if($continue === true)
+                    $continue = $this->checkStdIn();
+
+                    if($continue === true)
+                    $continue = $this->sleep();
+
+                    if($continue === false)
+                    break;
                 }
 
                 catch (\Exception $e)
                 {
-                    dd($e->getMessage());
                     $this->outputException('Interruption',$e);
                 }
             }
-
-            if($continue === true)
-            $continue = $exit();
-
-            if($continue === true)
-            $continue = $this->sleep($exit);
-
-            if($continue === false)
-            break;
         }
 
         return;
     }
 
 
+    // checkStdIn
+    // vérifie s'il y a du nouveau contenu dans le stdin
+    // si oui, envoie dans onStdin
+    // retourne un bool, false stop le loop et true continue
+    final protected function checkStdIn(bool $block=false,bool $lower=false):bool
+    {
+        $return = true;
+
+        if($this->isOpt('stdin'))
+        {
+            $line = $this->stdinLine($block,$lower);
+            if(!empty($line))
+            $return = $this->onStdin($line);
+        }
+
+        return $return;
+    }
+
+
     // stdin
     // retourne la resource stdin
     // emmagasine dans une propriété si non initialisé
-    final protected function stdin(bool $block=true)
+    final protected function stdin(bool $block=false)
     {
         $return = $this->stdin;
 
@@ -108,68 +226,64 @@ trait _cliLive
     }
 
 
-    // isStdinLine
-    // retourne vrai si la dernière ligne est la valeur en argument
-    final protected function isStdinLine($value,bool $block=true,bool $lower=false):bool
-    {
-        return Base\Cli::isInLine($value,$this->stdin($block),$lower);
-    }
-
-
     // stdinLine
     // retourne la dernière ligne du stdin
-    // par défaut tout est remené en lowerCase
-    final protected function stdinLine(bool $block=true,bool $lower=false):?string
+    final protected function stdinLine(bool $block=false,bool $lower=false):?string
     {
-        return Base\Cli::inLine($this->stdin($block),$lower);
+        return Base\Cli::stdinLine($this->stdin($block),$lower);
     }
 
 
-    // defaultExitClosure
-    // retourne la closure à utiliser pour terminer le script cli
-    // fin du loop si stop, exit, quit et die
-    final protected function defaultExitClosure():\Closure
+    // isFirstLoop
+    // retourne vrai si c'est le premier loop
+    final protected function isFirstLoop():bool
     {
-        return fn() => $this->isStdinLine(['stop','exit','quit','die','bye','kill'],false,true)? false:true;
+        return $this->loopAmount === 1;
     }
 
 
-    // amountIncrement
-    // incrément la propriété amount
-    final protected function amountIncrement():void
+    // loopAmountIncrement
+    // incrément la propriété loopAmount
+    final protected function loopAmountIncrement():void
     {
-        $this->amount++;
+        $this->loopAmount++;
 
         return;
     }
 
 
-    // amount
-    // retourne la propriété amount
-    final protected function amount():int
+    // loopAmount
+    // retourne la propriété loopAmount
+    final protected function loopAmount():int
     {
-        return $this->amount;
+        return $this->loopAmount;
     }
 
 
     // sleep
     // le script dort
     // retourne false s'il faut break
-    final protected function sleep(\Closure $exit):bool
+    final protected function sleep():bool
     {
         $return = true;
         $sleep = $this->getSleep();
+        $interval = $this->getAttr('sleepInterval');
 
-        while ($sleep > 0)
+        if(is_numeric($interval) && $interval > 0)
         {
-            Base\Response::sleep(1);
-            $sleep--;
+            while ($sleep > 0)
+            {
+                $return = $this->checkStdIn();
+                if($return === false)
+                break;
 
-            $return = $exit();
-
-            if($return === false)
-            break;
+                Base\Response::sleep($interval);
+                $sleep -= $interval;
+            }
         }
+
+        else
+        static::throw('invalidInterval',$interval);
 
         return $return;
     }

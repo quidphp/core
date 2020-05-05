@@ -19,6 +19,10 @@ use Quid\Main;
 // trait that provides some initial configuration for a cli route
 trait _cli
 {
+    // trait
+    use _cliOpt;
+
+
     // config
     protected static array $configCli = [
         'priority'=>850,
@@ -33,7 +37,9 @@ trait _cli
         'history'=>false,
         'cliHtmlOverload'=>true, // si ce n'est pas cli, les méthodes cli génèrent du html
         'exception'=>['kill'=>false,'output'=>false,'cleanBuffer'=>false], // attribut par défaut pour traiter exception
-        'logCron'=>Core\Row\LogCron::class // classe pour le logCron
+        'logCron'=>Core\Row\LogCron::class, // classe pour le logCron
+        'opt'=>[ // opt par défaut, output permet d'activer ou désactiver le output via cliWrite
+            'output'=>true]
     ];
 
 
@@ -89,15 +95,14 @@ trait _cli
         Main\Exception::staticCatched($exception,$attr);
 
         $topArray = [$type,Base\Datetime::sql(),get_class($exception)];
-        $top = implode(', ',$topArray);
         $cli = [
             'message'=>$exception->getMessage(),
             'file'=>$exception->getFile(),
             'line'=>$exception->getLine(),
         ];
 
-        Cli::neg($top);
-        Cli::neg($cli);
+        $this->cliWrite('neg',$topArray);
+        $this->cliWrite('neg',$cli,false);
 
         return;
     }
@@ -105,8 +110,10 @@ trait _cli
 
     // cliWrite
     // permet d'écrire une valeur dans cli en utilisant la méthode spéciale write
+    // cliWrite se désactive automatiquement si opt output est false
     final protected function cliWrite(string $method,$data,$separator=', '):void
     {
+        if($this->isOpt('output'))
         Cli::write($method,$data,$separator);
 
         return;
