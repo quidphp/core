@@ -42,6 +42,8 @@ abstract class Boot extends Main\Root
         'typeAs'=>null, // permet de spécifier des types qui doivent utiliser un ou plusieurs autres types, ne peut pas être mis dans un @
         'request'=>null, // valeur par défaut pour la création de request, ne peut pas être mis dans un @
         'finderShortcut'=>[ // shortcut pour finder
+            'php'=>'/usr/local/bin/php',
+            'cli'=>'[cli]',
             'vendor'=>'[vendor]',
             'storage'=>'[storage]',
             'storageCache'=>'[storage]/cache',

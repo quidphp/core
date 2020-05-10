@@ -87,22 +87,25 @@ trait _cli
     }
 
 
-    // outputException
-    // gère l'affichage et le traitement des exceptions en cli
-    final protected function outputException(string $type,\Exception $exception,?array $attr=null):void
+    // logException
+    // permet de logger une exception
+    final protected function logException(\Exception $exception,?array $attr=null):void
     {
         $attr = Base\Arr::replace($this->getAttr('exception'),$attr);
         Main\Exception::staticCatched($exception,$attr);
 
-        $topArray = [$type,Base\Datetime::sql(),get_class($exception)];
-        $cli = [
-            'message'=>$exception->getMessage(),
-            'file'=>$exception->getFile(),
-            'line'=>$exception->getLine(),
-        ];
+        return;
+    }
 
-        $this->cliWrite('neg',$topArray);
-        $this->cliWrite('neg',$cli,false);
+
+    // outputException
+    // gère l'affichage et le traitement des exceptions en cli
+    final protected function outputException(string $type,\Exception $exception,?array $attr=null):void
+    {
+        $this->logException($exception,$attr);
+        $this->cliWrite('neg',[get_class($exception),$type]);
+        $array = Main\Exception::staticToArray($exception);
+        $this->cliWrite('neg',$array,false);
 
         return;
     }

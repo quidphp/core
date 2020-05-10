@@ -101,7 +101,7 @@ class CliCompile extends Core\RouteAlias
 
         $this->logCron([$method=>$value]);
 
-        if($this->isLive($cli))
+        if($this->isLive())
         $this->compileLive($attr,$overOption);
 
         return;

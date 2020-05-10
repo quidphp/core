@@ -24,6 +24,7 @@ trait _cliLive
         'opt'=>[
             'stdin'=>true, // permet ou non de regarder le stdin
             'once'=>false], // un seul cycle,
+        'liveHttp'=>false, // si live est aussi actif via une requête http
         'cmd'=>[], // tableau associatif, nom de commande valide vers nom de méthode de this
         'exit'=>['stop','exit','quit','die','bye','kill'], // variable qui peuvent tuer le loop dans le stdin
     ];
@@ -72,11 +73,19 @@ trait _cliLive
     final protected function stdInOpt(string $value):bool
     {
         $return = true;
-        $parse = Cli::parseOpt($value);
-        if(!empty($parse))
+        $values = Base\Str::wordExplode($value,null,true,true);
+
+        foreach ($values as $value)
         {
+            $parse = Cli::parseOpt($value);
+
+            if(empty($parse))
+            break;
+
             foreach ($parse as $k => $v)
             {
+                $cli = ['Opt',$k,$v];
+                $this->cliWrite('neutral',$cli);
                 $this->setOpt($k,$v);
             }
         }
@@ -95,7 +104,7 @@ trait _cliLive
         if(!empty($parse))
         {
             ['cmd'=>$cmd,'opt'=>$opt] = $parse;
-            $return = $this->callCmd($cmd,$parse);
+            $return = $this->callCmd($cmd,$opt);
         }
 
         return $return;
@@ -124,7 +133,10 @@ trait _cliLive
         {
             $method = $this->getAttr(['cmd',$cmd]);
             $opt = $this->onCallOpt($method,$opt);
-            $return = $this->$method($opt);
+            $cli = ['Command',$method];
+            $this->cliWrite('neutral',$cli);
+            $this->cliWrite('neutral',$opt,false);
+            $return = $this->$method($opt) ?? true;
         }
 
         return $return;
@@ -141,9 +153,9 @@ trait _cliLive
 
     // isLive
     // retourne vrai si la route est présentement live (en cli)
-    final protected function isLive(bool $cli):bool
+    final protected function isLive():bool
     {
-        return $cli === true && !$this->isOpt('once');
+        return (Base\Server::isCli() || $this->getAttr('liveHttp')) && !$this->isOpt('once');
     }
 
 
@@ -177,6 +189,9 @@ trait _cliLive
 
                     if($continue === true)
                     $continue = $this->sleep();
+
+                    if($continue === true)
+                    $continue = $this->isLive();
 
                     if($continue === false)
                     break;
@@ -279,6 +294,10 @@ trait _cliLive
 
                 Base\Response::sleep($interval);
                 $sleep -= $interval;
+
+                $return = $this->checkStdIn();
+                if($return === false)
+                break;
             }
         }
 
