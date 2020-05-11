@@ -30,6 +30,7 @@ abstract class Route extends Routing\Route
         'docOpen'=>[ // utilisé pour l'ouverture du document
             'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%','data-user'=>'%sessionUser%','data-error'=>'none']],
         '@dev'=>[
+            'jsonEncodePretty'=>true,
             'debug'=>1] // store dans debug
     ];
 
