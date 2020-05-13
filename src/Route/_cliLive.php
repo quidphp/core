@@ -19,12 +19,13 @@ trait _cliLive
 {
     // config
     protected static array $configCliLive = [
-        'sleepInterval'=>0.3, // interval pour sleep (pour le loop)
+        'sleepInterval'=>0.2, // interval pour sleep (pour le loop)
         'dbHistory'=>false, // désactive db history, sinon le RAM va sauter la limite
         'opt'=>[
             'stdin'=>true, // permet ou non de regarder le stdin
             'once'=>false], // un seul cycle,
         'liveHttp'=>false, // si live est aussi actif via une requête http
+        'stopOnThrowable'=>true, // si le loop est arrêter sur une throwable
         'cmd'=>[], // tableau associatif, nom de commande valide vers nom de méthode de this
         'exit'=>['stop','exit','quit','die','bye','kill'], // variable qui peuvent tuer le loop dans le stdin
     ];
@@ -122,6 +123,7 @@ trait _cliLive
 
     // callCmd
     // appele une commande et retourne le résultat
+    // va toujours retourner un bool, qui détermine si le loop continue ou pas
     final protected function callCmd(string $cmd,array $opt):bool
     {
         $return = false;
@@ -136,7 +138,9 @@ trait _cliLive
             $cli = ['Command',$method];
             $this->cliWrite('neutral',$cli);
             $this->cliWrite('neutral',$opt,false);
-            $return = $this->$method($opt) ?? true;
+
+            $result = $this->$method($opt);
+            $return = (is_bool($result))? $result:true;
         }
 
         return $return;
@@ -145,7 +149,7 @@ trait _cliLive
 
     // getSleep
     // retourne la durée de sleep
-    protected function getSleep():float
+    protected function getSleep():int
     {
         return 1;
     }
@@ -162,6 +166,7 @@ trait _cliLive
     // live
     // loop live pour cli
     // possible de terminer le boot avant d'enclencher le loop
+    // va attraper toutes les throwables, n'arrête pas le processus
     final protected function live(\Closure $closure,bool $teardown=false):void
     {
         if($teardown === true)
@@ -170,11 +175,13 @@ trait _cliLive
         while (true)
         {
             $this->loopAmountIncrement();
-            $continue = $this->checkStdIn();
 
-            if($continue === true)
+            try
             {
-                try
+                $continue = true;
+                $continue = $this->checkStdIn();
+
+                if($continue === true)
                 {
                     $result = $closure();
 
@@ -196,11 +203,15 @@ trait _cliLive
                     if($continue === false)
                     break;
                 }
+            }
 
-                catch (\Exception $e)
-                {
-                    $this->outputException('Interruption',$e);
-                }
+            catch (\Throwable $e)
+            {
+                $this->outputThrowable('Catch-Live',$e);
+
+                $stopThrowable = $this->getAttr('stopOnThrowable');
+                if($stopThrowable === true)
+                break;
             }
         }
 
@@ -212,15 +223,24 @@ trait _cliLive
     // vérifie s'il y a du nouveau contenu dans le stdin
     // si oui, envoie dans onStdin
     // retourne un bool, false stop le loop et true continue
+    // la méthode utilise le try catch pour empêcher qu'un stdin puisse altérer les loops
     final protected function checkStdIn(bool $block=false,bool $lower=false):bool
     {
         $return = true;
 
         if($this->isOpt('stdin'))
         {
-            $line = $this->stdinLine($block,$lower);
-            if(!empty($line))
-            $return = $this->onStdin($line);
+            try
+            {
+                $line = $this->stdinLine($block,$lower);
+                if(!empty($line))
+                $return = $this->onStdin($line);
+            }
+
+            catch (\Throwable $e)
+            {
+                $this->outputThrowable('Catch-Stdin',$e);
+            }
         }
 
         return $return;
@@ -282,27 +302,24 @@ trait _cliLive
     {
         $return = true;
         $sleep = $this->getSleep();
+        $timeMax = Base\Datetime::now() + $sleep;
         $interval = $this->getAttr('sleepInterval');
 
-        if(is_numeric($interval) && $interval > 0)
-        {
-            while ($sleep > 0)
-            {
-                $return = $this->checkStdIn();
-                if($return === false)
-                break;
-
-                Base\Response::sleep($interval);
-                $sleep -= $interval;
-
-                $return = $this->checkStdIn();
-                if($return === false)
-                break;
-            }
-        }
-
-        else
+        if(!is_numeric($interval) || !$interval > 0)
         static::throw('invalidInterval',$interval);
+
+        while (Base\Datetime::now() < $timeMax)
+        {
+            $return = $this->checkStdIn();
+            if($return === false)
+            break;
+
+            Base\Response::sleep($interval);
+
+            $return = $this->checkStdIn();
+            if($return === false)
+            break;
+        }
 
         return $return;
     }

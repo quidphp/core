@@ -36,7 +36,7 @@ trait _cli
         'navigation'=>false,
         'history'=>false,
         'cliHtmlOverload'=>true, // si ce n'est pas cli, les méthodes cli génèrent du html
-        'exception'=>['kill'=>false,'output'=>false,'cleanBuffer'=>false], // attribut par défaut pour traiter exception
+        'exception'=>['log'=>true], // attribut par défaut pour traiter exception
         'logCron'=>Core\Row\LogCron::class, // classe pour le logCron
         'opt'=>[ // opt par défaut, output permet d'activer ou désactiver le output via cliWrite
             'output'=>true]
@@ -87,24 +87,24 @@ trait _cli
     }
 
 
-    // logException
-    // permet de logger une exception
-    final protected function logException(\Exception $exception,?array $attr=null):void
+    // logThrowable
+    // permet de logger une throwable
+    final protected function logThrowable(\Throwable $throwable,?array $attr=null):void
     {
         $attr = Base\Arr::replace($this->getAttr('exception'),$attr);
-        Main\Exception::staticCatched($exception,$attr);
+        Main\Exception::staticCatched($throwable,$attr);
 
         return;
     }
 
 
-    // outputException
-    // gère l'affichage et le traitement des exceptions en cli
-    final protected function outputException(string $type,\Exception $exception,?array $attr=null):void
+    // outputThrowable
+    // gère l'affichage et le traitement des throwable en cli
+    final protected function outputThrowable(string $type,\Throwable $throwable,?array $attr=null):void
     {
-        $this->logException($exception,$attr);
-        $this->cliWrite('neg',[get_class($exception),$type]);
-        $array = Main\Exception::staticToArray($exception);
+        $this->logThrowable($throwable,$attr);
+        $this->cliWrite('neg',[$type,get_class($throwable)]);
+        $array = Main\Exception::staticToArray($throwable);
         $this->cliWrite('neg',$array,false);
 
         return;

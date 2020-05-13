@@ -50,9 +50,7 @@ abstract class Relation extends Core\ColAlias
     protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = parent::onSet($return,$cell,$row,$option);
-
-        if(is_array($return))
-        $return = Base\Set::str($return);
+        $return = $this->autoCastRelation($return);
 
         return $return;
     }
