@@ -54,8 +54,11 @@ trait _emailModel
         $return = [];
         $model = $this->getEmailModel($name,$type);
 
-        if(empty($model) || empty($replace))
-        static::throw();
+        if(empty($model))
+        static::throw('modelNotFound',$name);
+
+        if(empty($replace))
+        static::throw('modelNoReplace',$replace);
 
         $return['model'] = $model;
         $return['replace'] = $replace;
