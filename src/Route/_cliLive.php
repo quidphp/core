@@ -208,9 +208,12 @@ trait _cliLive
             catch (\Throwable $e)
             {
                 $this->outputThrowable('Catch-Live',$e);
-
                 $stopThrowable = $this->getAttr('stopOnThrowable');
-                if($stopThrowable === true)
+
+                if($stopThrowable !== true)
+                $continue = $this->sleep();
+
+                if($continue === false || $stopThrowable === true)
                 break;
             }
         }
