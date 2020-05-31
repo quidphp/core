@@ -53,7 +53,7 @@ trait _cliClear
     {
         $return = ['method'=>'neg','value'=>null];
         $value = Base\Finder::shortcut($value);
-        $return['value'] = "? $value";
+        $return['value'] = $value;
 
         if(is_a($value,Core\Row::class,true))
         {
@@ -65,17 +65,17 @@ trait _cliClear
                 $option = ['log'=>false];
 
                 if($table->truncate($option) === true)
-                $return = ['method'=>'pos','value'=>"x $value"];
+                $return['method'] = 'pos';
             }
         }
 
         else
         {
             if(Base\Symlink::is($value) && Base\Symlink::unset($value))
-            $return = ['method'=>'pos','value'=>"- $value"];
+            $return['method'] = 'pos';
 
             elseif(Base\Dir::is($value) && Base\Dir::emptyAndUnlink($value))
-            $return = ['method'=>'pos','value'=>"x $value"];
+            $return['method'] = 'pos';
         }
 
         return $return;
