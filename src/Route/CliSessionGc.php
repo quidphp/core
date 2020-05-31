@@ -32,7 +32,7 @@ abstract class CliSessionGc extends Core\RouteAlias
     // méthode pour effacer les sesssions non valides
     final protected function cli(bool $cli)
     {
-        Cli::neutral(static::label());
+        $this->cliWrite('neutral',static::label());
         $return = $this->sessionGc();
 
         return $return;
@@ -50,7 +50,7 @@ abstract class CliSessionGc extends Core\RouteAlias
         $method = (is_int($gc))? 'pos':'neg';
         $value = "$type: $gc";
 
-        Cli::$method($value);
+        $this->cliWrite($method,$value);
         $return[] = [$method=>$value];
 
         return $return;

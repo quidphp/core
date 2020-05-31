@@ -39,12 +39,12 @@ abstract class CliVersion extends Core\RouteAlias
         if($cli === false)
         $art = Base\Debug::printr($art,true);
 
-        Cli::flush($art);
-        Cli::pos($boot->label());
-        Cli::pos($boot->typeLabel());
-        Cli::pos($boot->version(true,false));
-        Cli::eol();
-        Cli::pos($boot::quidCredit());
+        $value = [$boot->label(),$boot->typeLabel(),$boot->version(true)];
+        $this->cliWrite('pos',$value);
+        $this->cliWrite('eol',1);
+        $this->cliWrite(null,$art,false);
+        $this->cliWrite('eol',1);
+        $this->cliWrite('pos',$boot::quidCredit(),false);
 
         return;
     }

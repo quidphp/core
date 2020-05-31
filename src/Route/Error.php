@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quid\Core\Route;
 use Quid\Base;
+use Quid\Base\Cli;
 use Quid\Base\Html;
 use Quid\Core;
 
@@ -129,10 +130,10 @@ abstract class Error extends Core\RouteAlias
         $return = '';
         $boot = static::boot();
 
-        $return .= Base\Cli::neg($this->makeTitle());
-        $return .= Base\Cli::neg($this->makeSubTitle());
-        $return .= Base\Cli::neutral($this->makeContent());
-        $return .= Base\Cli::neutral($boot->typeEnvLabel());
+        $return .= Cli::neg($this->makeTitle());
+        $return .= Cli::neg($this->makeSubTitle());
+        $return .= Cli::neutral($this->makeContent());
+        $return .= Cli::neutral($boot->typeEnvLabel());
 
         return $return;
     }

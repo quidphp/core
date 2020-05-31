@@ -22,7 +22,7 @@ trait _cliClear
     // méthode pour vider les logs
     final protected function cli(bool $cli)
     {
-        Cli::neutral(static::label());
+        $this->cliWrite('neutral',static::label());
         $return = $this->clear();
 
         return $return;
@@ -38,7 +38,7 @@ trait _cliClear
         foreach ($this->getAttr('clear') as $value)
         {
             ['method'=>$method,'value'=>$value] = $this->clearValue($value);
-            Cli::$method($value);
+            $this->cliWrite($method,$value);
             $return[] = [$method=>$value];
         }
 

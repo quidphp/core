@@ -114,7 +114,7 @@ trait _cli
     // cliWrite
     // permet d'écrire une valeur dans cli en utilisant la méthode spéciale write
     // cliWrite se désactive automatiquement si opt output est false
-    final protected function cliWrite(string $method,$data,$separator=', '):void
+    final protected function cliWrite(?string $method,$data,$separator=', '):void
     {
         if($this->isOpt('output'))
         Cli::write($method,$data,$separator);

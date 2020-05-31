@@ -28,7 +28,9 @@ class CliCompile extends Core\RouteAlias
         'path'=>['-compile'],
         'fileClass'=>[
             'css'=>Core\File\Css::class,
-            'js'=>Core\File\Js::class]
+            'js'=>Core\File\Js::class],
+        'opt'=>[
+            'compress'=>0]
     ];
 
 
@@ -41,8 +43,8 @@ class CliCompile extends Core\RouteAlias
     // mais si via cli, le script est éternel
     final protected function cli(bool $cli)
     {
-        Cli::neutral(static::label());
-        $this->compileAssets($cli);
+        $this->cliWrite('neutral',static::label());
+        $this->compileAssets();
 
         return;
     }
@@ -50,9 +52,9 @@ class CliCompile extends Core\RouteAlias
 
     // shouldCompress
     // retourne vrai s'il faut forcer la compression
-    final protected function shouldCompress(bool $cli):bool
+    final protected function shouldCompress():bool
     {
-        return $cli === true && $this->request()->isQuery('compress');
+        return $this->isOpt('compress');
     }
 
 
@@ -76,53 +78,22 @@ class CliCompile extends Core\RouteAlias
 
     // compileAssets
     // compile les assets liés au type courant de boot
-    final protected function compileAssets(bool $cli):void
+    final protected function compileAssets():void
     {
-        $results = [];
-        $method = 'neg';
-        $value = 'x';
         $boot = static::boot();
         $attr = $boot->compileAttr();
-        $overOption = [];
-
-        if($this->shouldCompress($cli))
-        $overOption['compress'] = true;
-
-        $results = $this->compileFirstPass($attr,$overOption);
-
-        if(empty($results))
-        Cli::neg($value);
-
-        else
-        {
-            $method = 'pos';
-            $value = $results;
-        }
-
-        $this->logCron([$method=>$value]);
-
-        if($this->isLive())
-        $this->compileLive($attr,$overOption);
+        $this->compileLive($attr);
 
         return;
-    }
-
-
-    // compileFirstPass
-    // première passe de compilation
-    final protected function compileFirstPass(array $attr,?array $overOption=null):array
-    {
-        return $this->compilePass($attr,Base\Arrs::replace($overOption,['overwrite'=>true]));
     }
 
 
     // compileLive
     // permet de faire une compilation constante via console
     // boot est teardown avant le lancement du loop éternel
-    // logCron est seulement sur la première passe
-    final protected function compileLive(array $attr,?array $overOption=null):void
+    final protected function compileLive(array $attr):void
     {
-        $this->live(fn() => $this->compilePass($attr,$overOption),null,true);
+        $this->live(fn() => $this->compilePass($attr,[]),true);
 
         return;
     }
@@ -130,9 +101,15 @@ class CliCompile extends Core\RouteAlias
 
     // compilePass
     // fait une passe de compilation
-    final protected function compilePass(array $attr,?array $overOption=null):array
+    final protected function compilePass(array $attr,array $overOption):array
     {
         $return = [];
+
+        if($this->isFirstLoop())
+        $overOption['overwrite'] = true;
+
+        if($this->shouldCompress())
+        $overOption['compress'] = true;
 
         if(!empty($attr['compileCss']))
         {
@@ -170,27 +147,17 @@ class CliCompile extends Core\RouteAlias
 
                 if($class::shouldConcatenateOne($array))
                 {
-                    try
+                    $microtime = Base\Datetime::microtime();
+                    $result = $class::concatenateOne($array);
+
+                    if(!empty($result))
                     {
-                        $microtime = Base\Datetime::microtime();
-                        Cli::neutral(Base\Datetime::sql());
-                        $result = $class::concatenateOne($array);
+                        $compress = $array['compress'] ?? false;
+                        $time = Base\Debug::speed($microtime,2);
+                        $output = $this->makePositiveOutput($result,$compress,$time);
 
-                        if(!empty($result))
-                        {
-                            $compress = $array['compress'] ?? false;
-                            $time = Base\Debug::speed($microtime,2);
-                            $output = $this->makePositiveOutput($result,$compress,$time);
-
-                            $return[$key] = $output;
-                            Cli::pos($output);
-                        }
-                    }
-
-                    catch (\Exception $e)
-                    {
-                        $output = $this->makeNegativeOutput($e);
-                        Cli::neg($output);
+                        $return[$key] = $output;
+                        $this->cliWrite('pos',$output);
                     }
                 }
             }
@@ -202,36 +169,19 @@ class CliCompile extends Core\RouteAlias
 
     // makeFileOutput
     // génère le output à afficher pour un fichier ayant été compiler
-    final protected function makePositiveOutput(Main\File $file,bool $compress,float $time):string
+    final protected function makePositiveOutput(Main\File $file,bool $compress,float $time):array
     {
-        $return = '';
-        $this->fileAmountIncrement();
-        $compress = ($compress === true)? '+':'-';
-
-        $return .= $this->fileAmount();
-        $return .= '. ';
-        $return .= $file->path();
-        $return .= ' | ';
-        $return .= $compress;
-        $return .= $file->size(true);
-        $return .= $compress;
-        $return .= ' | ';
-        $return .= $time.'s';
-
-        return $return;
-    }
-
-
-    // makeNegativeOutput
-    // génère le output lors d'une exception lancé lors de la compilation
-    final protected function makeNegativeOutput(\Exception $exception):string
-    {
-        $return = '';
+        $return = [];
         $this->fileAmountIncrement();
 
-        $return .= $this->fileAmount();
-        $return .= '. ';
-        $return .= $exception->getMessage();
+        $size = $file->size(true);
+        if($compress === true)
+        $size .= ' (+)';
+
+        $return[] = '#'.$this->fileAmount();
+        $return[] = $file->path();
+        $return[] = $size;
+        $return[] = $time.'s';
 
         return $return;
     }

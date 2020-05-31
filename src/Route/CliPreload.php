@@ -87,7 +87,7 @@ abstract class CliPreload extends Core\RouteAlias
     // méthode pour générer le script PHP concatener
     final protected function cli(bool $cli)
     {
-        Cli::neutral(static::label());
+        $this->cliWrite('neutral',static::label());
         $return = $this->preload();
 
         return $return;
@@ -168,7 +168,7 @@ abstract class CliPreload extends Core\RouteAlias
             $option = $this->getOption($array);
             ['method'=>$method,'value'=>$value] = $this->compileOne($target,$from,$option);
 
-            Cli::$method($value);
+            $this->cliWrite($method,$value,false);
             $return[] = [$method=>$value];
         }
 

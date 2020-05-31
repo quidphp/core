@@ -25,8 +25,10 @@ trait _cliLive
             'stdin'=>true, // permet ou non de regarder le stdin
             'once'=>false], // un seul cycle,
         'liveHttp'=>false, // si live est aussi actif via une requête http
-        'stopOnThrowable'=>true, // si le loop est arrêter sur une throwable
-        'cmd'=>[], // tableau associatif, nom de commande valide vers nom de méthode de this
+        'stopOnThrowable'=>false, // si le loop est arrêter sur une throwable
+        'cmd'=>[ // tableau associatif, nom de commande valide vers nom de méthode de this
+            'helpOpt'=>'helpOpt',
+            'helpCmd'=>'helpCmd'],
         'exit'=>['stop','exit','quit','die','bye','kill'], // variable qui peuvent tuer le loop dans le stdin
     ];
 
@@ -137,6 +139,8 @@ trait _cliLive
             $opt = $this->onCallOpt($method,$opt);
             $cli = ['Command',$method];
             $this->cliWrite('neutral',$cli);
+
+            if(!empty($opt))
             $this->cliWrite('neutral',$opt,false);
 
             $result = $this->$method($opt);
@@ -160,6 +164,34 @@ trait _cliLive
     final protected function isLive():bool
     {
         return (Base\Server::isCli() || $this->getAttr('liveHttp')) && !$this->isOpt('once');
+    }
+
+
+    // helpOpt
+    // commande helpOpt, retourne toutes les opts définis et leurs valeurs courantes
+    final protected function helpOpt():void
+    {
+        $opts = $this->getAttr('opt') ?? [];
+        $output = [];
+        foreach ($opts as $key => $value)
+        {
+            $output[$key] = $this->getOpt($key);
+        }
+        $this->cliWrite('neutral',$output,false);
+
+        return;
+    }
+
+
+    // helpCmd
+    // commande helpCmd, retourne toutes les commandes définis
+    final protected function helpCmd():void
+    {
+        $cmds = $this->getAttr('cmd') ?? [];
+        $keys = array_keys($cmds);
+        $this->cliWrite('neutral',$keys,false);
+
+        return;
     }
 
 

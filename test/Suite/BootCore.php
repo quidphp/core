@@ -364,7 +364,7 @@ class Home extends Core\Route\Home
     final public function trigger():string
     {
         $return = '';
-        $isCli = Base\Cli::is();
+        $isCli = Base\Server::isCli();
         $boot = static::boot();
 
         if($isCli === false)
