@@ -34,7 +34,7 @@ abstract class Relation extends Core\ColAlias
 
     // onMakeAttr
     // gère onMakeAttr pour relation
-    final protected function onMakeAttr(array $return):array
+    final protected function onAttr(array $return):array
     {
         $table = $this->table();
 
@@ -49,10 +49,7 @@ abstract class Relation extends Core\ColAlias
     // lors du set d'une valeur de relation
     protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($return,$cell,$row,$option);
-        $return = $this->autoCastRelation($return);
-
-        return $return;
+        return $this->autoCastRelation($return);
     }
 
 

@@ -47,8 +47,6 @@ class Request extends Core\ColAlias
     // sur onGet recrée l'objet request
     protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = parent::onGet($return,$cell,$option);
-
         if(is_scalar($return))
         {
             $json = Base\Json::decode($return);

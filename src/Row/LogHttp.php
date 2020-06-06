@@ -129,7 +129,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
 
         if($return === true)
         {
-            $data = (empty($data))? null:$data;
+            $data = $data ?: null;
             static::log($code,$data);
         }
 

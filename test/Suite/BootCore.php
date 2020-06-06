@@ -471,8 +471,6 @@ class OrmCell__Name extends Core\ColAlias
     // onSet
     public function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($return,$cell,$row,$option);
-
         if(is_string($return))
         $return = Base\Str::stripEnd('abcde',$return);
 
@@ -483,8 +481,6 @@ class OrmCell__Name extends Core\ColAlias
     // onGet
     public function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = parent::onGet($return,$cell,$option);
-
         if(is_scalar($return))
         $return .= 'abcde';
 

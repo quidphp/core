@@ -28,7 +28,7 @@ class Username extends Core\ColAlias
     // onMakeAttr
     // callback lors du set des attr
     // permet de charger le niveau de sécurité du username
-    final protected function onMakeAttr(array $return):array
+    final protected function onAttr(array $return):array
     {
         $return['validate'] = $return['validate'] ?? [];
         $security = $return['security'] ?? null;

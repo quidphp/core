@@ -51,7 +51,7 @@ abstract class Files extends Core\ColAlias
     // onMakeAttr
     // gère onMakeAttr pour media et medias
     // note pour medias: si required est true, alors le nombre de media devient le validate/fileCount sauf si un fileCount est deja set
-    final protected function onMakeAttr(array $return):array
+    final protected function onAttr(array $return):array
     {
         $maxFilesize = $return['maxFilesize'] ?? null;
         if($maxFilesize !== false)

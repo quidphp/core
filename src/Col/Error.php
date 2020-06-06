@@ -32,8 +32,6 @@ class Error extends Core\ColAlias
     // sur onGet recrée l'objet error si c'est du json
     protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = parent::onGet($return,$cell,$option);
-
         if(is_scalar($return))
         {
             $json = Base\Json::decode($return);

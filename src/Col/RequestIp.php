@@ -24,7 +24,7 @@ class RequestIp extends Core\ColAlias
 
     // onCommit
     // donne le ip de la requête courante lors d'un insert ou un update
-    final protected function onCommit($value,array $row,?Core\Cell $cell=null,array $option):?string
+    final protected function onCommit($value,?Core\Cell $cell=null,array $row,array $option):?string
     {
         $return = null;
         $boot = static::bootReady();

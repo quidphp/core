@@ -38,7 +38,7 @@ class UserPassword extends Core\ColAlias
     // onMakeAttr
     // callback lors du set des attr
     // permet de charger le niveau de sécurité du mot de passe
-    final protected function onMakeAttr(array $return):array
+    final protected function onAttr(array $return):array
     {
         $return['pattern'] = $return['pattern'] ?? null;
         $return['validate'] = $return['validate'] ?? [];
@@ -89,7 +89,6 @@ class UserPassword extends Core\ColAlias
     final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = null;
-        $value = parent::onSet($value,$cell,$row,$option);
 
         if(is_array($value))
         {

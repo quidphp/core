@@ -29,8 +29,6 @@ class Num extends Core\ColAlias
     // gère la logique onSet pour un champ numérique
     protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($return,$cell,$row,$option);
-
         if(is_scalar($return))
         $return = Base\Num::cast($return);
 

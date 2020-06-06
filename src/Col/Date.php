@@ -42,7 +42,7 @@ class Date extends Core\ColAlias
     // callback lors du set des attr
     // le format spécifié dans config est utilisé comme argument pour les callbacks
     // peut envoyer une exception si le format de date est invalide
-    final protected function onMakeAttr(array $return):array
+    final protected function onAttr(array $return):array
     {
         $format = static::makeDateFormat($return['date'] ?? true);
 
@@ -65,7 +65,6 @@ class Date extends Core\ColAlias
     // gère l'affichage de la date onGet
     protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = parent::onGet($return,$cell,$option);
         $format = $this->date(true);
 
         if(is_int($return) && !empty($format))
@@ -79,7 +78,6 @@ class Date extends Core\ColAlias
     // gère l'écriture de la date onSet
     final protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($return,$cell,$row,$option);
         $format = $this->date(true);
 
         if(is_string($return) && !empty($format))
@@ -101,7 +99,7 @@ class Date extends Core\ColAlias
     // format une valeur à partir du format de date de la colonne
     final public function format($value)
     {
-        return Base\Datetime::onSet($value,$this->date());
+        return (is_string($value))? Base\Datetime::time($value,$this->date()):$value;
     }
 
 
@@ -113,7 +111,7 @@ class Date extends Core\ColAlias
         $format = $this->date(true);
 
         if(!empty($format))
-        $return = Base\Datetime::onSet($value,$format);
+        $return = Base\Datetime::time($value,$format);
 
         return $return;
     }

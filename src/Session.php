@@ -671,7 +671,7 @@ class Session extends Routing\Session
         static::throw('fakeRolesNotAllowed');
 
         if(is_array($roles))
-        $roles = static::boot()->roles()->only(...array_values($roles));
+        $roles = static::boot()->roles()->filterKeep(...array_values($roles));
 
         if($roles instanceof Main\Roles)
         {

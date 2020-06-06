@@ -94,7 +94,7 @@ class Medias extends FilesAlias
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
     final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
-        $return = parent::onSet($value,$cell,$row,$option);
+        $return = $value;
         $indexes = null;
 
         if(!empty($cell))

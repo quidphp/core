@@ -28,8 +28,6 @@ class Pointer extends Core\ColAlias
     // méthode appelé sur get, retourne la row ou null
     final protected function onGet($return,?Orm\Cell $cell=null,array $option)
     {
-        $return = parent::onGet($return,$cell,$option);
-
         return (is_string($return))? static::getRow($return):$return;
     }
 

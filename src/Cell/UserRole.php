@@ -27,7 +27,7 @@ class UserRole extends SetAlias
         $permissions = $this->get();
 
         if(!empty($permissions))
-        $userRoles = $roles->only(...$permissions);
+        $userRoles = $roles->filterKeep(...$permissions);
 
         if(empty($userRoles) || $userRoles->isEmpty())
         $userRoles = $roles->nobody()->roles();

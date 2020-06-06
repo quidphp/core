@@ -62,7 +62,6 @@ class Media extends FilesAlias
     final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = null;
-        $value = parent::onSet($value,$cell,$row,$option);
 
         if(!empty($cell))
         $return = $cell->value();
