@@ -45,11 +45,8 @@ abstract class Route extends Routing\Route
 
         if(!is_string($return))
         {
-            if(!is_string($return))
-            {
-                $boot = Boot::instReady();
-                $return = $boot->type();
-            }
+            $boot = Boot::instReady();
+            $return = $boot->type();
 
             if(is_string($return))
             static::setType($return);

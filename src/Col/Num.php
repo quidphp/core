@@ -30,7 +30,7 @@ class Num extends Core\ColAlias
     protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
         if(is_scalar($return))
-        $return = Base\Num::cast($return);
+        $return = Base\Num::cast($return,false,true);
 
         return $return;
     }

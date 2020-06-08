@@ -49,6 +49,7 @@ class Cell extends Base\Test
         $medias = $row->cell('medias');
         $thumbnails = $row->cell('thumbnails');
         $float = $row->cell('float');
+        $active = $row->cell('active');
 
         // generalExcerptMin
         assert($primary->generalExcerptMin() === 100);
@@ -60,6 +61,17 @@ class Cell extends Base\Test
         assert($integer instanceof Core\Cell\Integer);
         assert($dateAdd->set(1234235434) === $dateAdd);
         assert($dateAdd::getOverloadKeyPrepend() === 'Cell');
+
+        // active
+        assert($active->value() === 2);
+        $active->set(true);
+        assert($active->value() === 1);
+        $active->set(12);
+        assert($active->value() === 12);
+        $active->set(null);
+        assert($active->value() === null);
+        $active->set(false); // détecte que la relation 0 n'existe pas
+        assert($active->value() === null);
 
         // date
         assert($dateAdd instanceof Core\Cell\Date);
@@ -105,6 +117,8 @@ class Cell extends Base\Test
         assert($float->col() instanceof Core\Col\Floating);
         assert($float->set('1.20') === $float);
         assert($float->pair('$') === '$1.20');
+        $float->set('1,30');
+        assert($float->value() === 1.3);
 
         // integer
         assert($integer instanceof Core\Cell\Integer);
