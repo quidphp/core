@@ -712,7 +712,7 @@ class OrmTable extends Core\TableAlias
         'parent'=>OrmDb::class,
         'relation'=>['onGet'=>true,'what'=>['id','name_en','dateAdd'],'output'=>'[dateAdd] [name_en] _ [id]','order'=>['name_en'=>'desc']],
         'cols'=>[
-            'relationRange'=>['relation'=>[0=>'test',1=>'ok',2=>'what'],'required'=>false]]
+            'relation'=>['relation'=>[0=>'test',1=>'ok',2=>'what'],'required'=>false]]
     ];
 }
 });
