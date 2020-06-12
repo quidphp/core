@@ -448,25 +448,11 @@ class Session extends Routing\Session
     // synchronise le timezone de la session avec celle courante de php
     final protected function syncTimezone():void
     {
-        $timezone = $this->timezone();
+        $timezone = $this->user()->getTimezone();
         if(is_string($timezone))
         Base\Timezone::set($timezone);
 
         return;
-    }
-
-
-    // timezone
-    // retourne la timezone de la session à partir de l'utilisateur
-    final public function timezone():?string
-    {
-        $return = null;
-        $timezone = $this->user()->timezone();
-
-        if($timezone->isNotEmpty())
-        $return = $timezone->relation();
-
-        return $return;
     }
 
 

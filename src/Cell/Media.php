@@ -160,6 +160,18 @@ class Media extends FilesAlias
     }
 
 
+    // getFirstFile
+    // retourne le premier fichier pour la cellule
+    final public function getFirstFile($version=-1):?Main\File
+    {
+        $args = [];
+        if($this->hasVersion())
+        $args[] = $version;
+
+        return $this->file(...$args);
+    }
+
+
     // process
     // lance le process de déplacement du média lié
     final public function process(Main\Files $olds,?Main\File $new=null,bool $regenerate=false,?array $option=null):void

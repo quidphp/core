@@ -173,6 +173,19 @@ class Medias extends FilesAlias
     }
 
 
+    // getFirstFile
+    // retourne le premier fichier pour la cellule
+    // possible de spécifier une version
+    final public function getFirstFile($version=-1):?Main\File
+    {
+        $args = [0];
+        if($this->hasVersion())
+        $args[] = $version;
+
+        return $this->file(...$args);
+    }
+
+
     // process
     // lance le process de déplacement des médias lié
     final public function process(Main\Files $olds,Main\Files $news,array $regenerate,?array $option=null):void

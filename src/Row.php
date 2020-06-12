@@ -51,24 +51,19 @@ class Row extends Orm\Row
     }
 
 
-    // cellsMediaFile
+    // cellsImageFile
     // tente de retourner la première image disponible pour représenter la row
-    final public function cellsMediaFile($version=-1):?Main\File
+    final public function cellsImageFile($version=null,?string $type=null):?Main\File
     {
         $return = null;
 
         foreach ($this->cells() as $cell)
         {
-            if($cell->isMedia() && $cell->isNotEmpty())
+            if($cell->hasImage() && $cell->isNotEmpty())
             {
-                $args = [];
-                if($cell->hasIndex())
-                $args[] = 0;
-                if($cell->hasVersion())
-                $args[] = $version;
-                $file = $cell->file(...$args);
+                $file = $cell->getFirstImage($version,$type);
 
-                if($file instanceof Main\File\Image)
+                if(!empty($file))
                 {
                     $return = $file;
                     break;

@@ -553,6 +553,32 @@ abstract class Files extends Core\CellAlias
     }
 
 
+    // getVersionDefault
+    // retourne une version par défaut pour un type
+    final public function getVersionDefault(string $type)
+    {
+        return $this->getAttr(['versionDefault',$type]) ?? -1;
+    }
+
+
+    // getFirstImage
+    // retourne le premier fichier image de la cellule
+    final public function getFirstImage($version=null,?string $type=null):?Main\File
+    {
+        $return = null;
+
+        if($this->hasVersion() && $version === null && $type !== null)
+        $version = $this->getVersionDefault($type);
+
+        $file = $this->getFirstFile($version);
+
+        if($file instanceof Main\File\Image)
+        $return = $file;
+
+        return $return;
+    }
+
+
     // pathExists
     // méthode protégé utilisé pour vérifier si un chemin existe
     protected static function pathExists($value):bool

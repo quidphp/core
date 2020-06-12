@@ -122,9 +122,6 @@ class Session extends Base\Test
 
         // syncTimezone
 
-        // timezone
-        assert($s->timezone() === null);
-
         // userSession
 
         // setUser

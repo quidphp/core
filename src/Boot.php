@@ -409,6 +409,8 @@ abstract class Boot extends Main\Root
         $return['sessionUser'] = $user->username()->value();
         $return['sessionUserEmail'] = $user->email()->value();
         $return['sessionUserName'] = $user->fullName();
+        $return['sessionUserTimezone'] = $user->getTimezone() ?? Base\Timezone::get();
+        $return['sessionUserLocale'] = $user->getLocale() ?? Base\Datetime::getLocale();
 
         if(!empty($adminEmail))
         {

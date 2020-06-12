@@ -639,6 +639,28 @@ class User extends Core\RowAlias
     }
 
 
+    // getTimezone
+    // retourne string timezone à partir de l'utilisateur
+    final public function getTimezone():?string
+    {
+        $return = null;
+        $timezone = $this->timezone();
+
+        if($timezone->isNotEmpty())
+        $return = $timezone->relation();
+
+        return $return;
+    }
+
+
+    // getLocale
+    // retourne la string locale à partir de l'utilisateur
+    final public function getLocale():?string
+    {
+        return null;
+    }
+
+
     // dateLogin
     // retourne la cellule de dateLogin
     final public function dateLogin():Core\Cell

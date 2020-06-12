@@ -26,6 +26,22 @@ class Cell extends Orm\Cell
     protected static array $config = [];
 
 
+    // hasImage
+    // retourne vrai si la colonne peut potentiellement fournir une image
+    public function hasImage():bool
+    {
+        return $this->isMedia();
+    }
+
+
+    // isMediaOrLike
+    // retourne vrai si la colonne contient un media ou similaire à média
+    public function isMediaOrLike():bool
+    {
+        return $this->isMedia();
+    }
+
+
     // generalExcerptMin
     // retourne la longueur de l'excerpt pour general
     final public function generalExcerptMin():?int

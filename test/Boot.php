@@ -60,7 +60,7 @@ class Boot extends Base\Test
         assert(count($boot->_cast()) === 2);
 
         // getReplace
-        assert(count($boot->getReplace()) === 20);
+        assert(count($boot->getReplace()) === 22);
 
         // getAdminEmail
         assert(is_array($boot->getAdminEmail()));

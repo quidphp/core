@@ -51,6 +51,8 @@ class Cell extends Base\Test
         $float = $row->cell('float');
         $active = $row->cell('active');
 
+        // hasImage
+
         // generalExcerptMin
         assert($primary->generalExcerptMin() === 100);
         assert($userAdd->generalExcerptMin() === null);

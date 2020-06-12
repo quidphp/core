@@ -39,7 +39,7 @@ class UserRole extends SetAlias
         $values = parent::onSet($values,$cell,$row,$option);
 
         if(is_scalar($values))
-        $values = [$values];
+        $values = Base\Set::arr($values);
 
         if(is_array($values))
         {

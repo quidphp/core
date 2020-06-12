@@ -42,6 +42,7 @@ abstract class Files extends Core\ColAlias
             'width'=>null,
             'height'=>null,
             'autoRotate'=>false],
+        'versionDefault'=>[], // permet d'attribuer une version par défaut pour un type
         'fromPath'=>true, // s'il faut détecter le mime type du fichier via son path ou via finfo lors de la création d'un nouveau fichier
         'fileUpload'=>true, // permet le chargement par fichier (input file)
         'route'=>['download'=>null] // route à ajouter
