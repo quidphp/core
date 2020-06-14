@@ -42,7 +42,7 @@ class Row extends Base\Test
 
         // inAllSegment
         assert($row->inAllSegment() === false);
-        assert($row->cellClass($tb['id']) === Core\Cell\Primary::class);
+        assert(is_a($row->cellClass($tb['id']),Core\Cell\Primary::class,true));
 
         // tableFromFqcn
         assert(Core\Row\Session::tableFromFqcn() instanceof Core\Table);

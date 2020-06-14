@@ -40,7 +40,7 @@ class Db extends Base\Test
         assert(is_a($db['ormCol']->classe()->col('myRelation'),Core\Col\Enum::class,true));
         assert(is_a($db['ormCol']->classe()->col('user_id'),Core\Col\Enum::class,true));
         assert($db['ormCol']->classe()->col('user_ids') === Suite\Col\UserIds::class);
-        assert($tb->classe()->cell($tb['id']) === Core\Cell\Primary::class);
+        assert(is_a($tb->classe()->cell($tb['id']),Core\Cell\Primary::class,true));
         assert(is_a($db['user']->classe()->cell('role'),Core\Cell\Set::class,true));
         assert($db['ormCol']->classe()->cell('myRelation') === Core\Cell\Enum::class);
         assert($db['ormCol']->classe()->cell('user_id') === Core\Cell\Enum::class);
