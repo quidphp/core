@@ -21,6 +21,22 @@ abstract class Relation extends Core\CellAlias
     protected static array $config = [];
 
 
+    // isEnum
+    // retourne vrai si la colonne est de type relation enum
+    final public function isEnum():bool
+    {
+        return $this->col()->isEnum();
+    }
+
+
+    // isSet
+    // retourne vrai si la colonne est de type relation set
+    final public function isSet():bool
+    {
+        return $this->col()->isSet();
+    }
+
+
     // pair
     // si value est true, la relation, relationRow ou relationRows si c'est une relation de table
     // sinon renvoie à parent

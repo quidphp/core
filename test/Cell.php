@@ -125,11 +125,11 @@ class Cell extends Base\Test
         // integer
         assert($integer instanceof Core\Cell\Integer);
         assert(!$integer->isPrimary());
-        assert(!$primary->hasDefault());
-        assert($integer->hasDefault());
+        assert(!$primary->col()->hasDefault());
+        assert($integer->col()->hasDefault());
         assert($primary->value() === 1);
-        assert($primary->colDefault() === 0);
-        assert($integer->colDefault() === null);
+        assert($primary->col()->default() === 0);
+        assert($integer->col()->default() === null);
         assert($integer->delete() === $integer);
         $integer->set(12);
         assert($integer->value() === 12);
@@ -236,7 +236,6 @@ class Cell extends Base\Test
         assert($set->set(null) === $set);
         assert($set->get() === null);
         assert($set->relation() === null);
-        assert($userIds->isRelation());
         assert(!$userIds->isEnum());
         assert($userIds->isSet());
         assert($userIds->relation() === [2=>'admin (#2)',1=>'nobody (#1)']);

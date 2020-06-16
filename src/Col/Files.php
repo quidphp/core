@@ -21,6 +21,7 @@ abstract class Files extends Core\ColAlias
     // config
     protected static array $config = [
         'tag'=>'inputText',
+        'group'=>'media',
         'export'=>false,
         'order'=>false,
         'panel'=>'media',
@@ -28,6 +29,7 @@ abstract class Files extends Core\ColAlias
         'check'=>['kind'=>'text'],
         'version'=>null, // custom
         'generalExcerptMin'=>null,
+        'detailMaxLength'=>false,
         'defaultVersionExtension'=>['jpg','png'], // extension par défaut
         'path'=>'[storagePublic]/storage', // chemin du media
         'media'=>1, // nombre de media
@@ -82,19 +84,19 @@ abstract class Files extends Core\ColAlias
     }
 
 
+    // isMedia
+    // retourne vrai comme la colonne est un media
+    final public function isMedia():bool
+    {
+        return true;
+    }
+
+
     // allowfileUpload
     // retourne vrai si le chargement par fichier est permis
     final public function allowFileUpload():bool
     {
         return $this->getAttr('fileUpload') === true;
-    }
-
-
-    // showDetailsMaxLength
-    // n'affiche pas le détail sur le maxLength de la colonne
-    final public function showDetailsMaxLength():bool
-    {
-        return false;
     }
 
 
@@ -424,13 +426,9 @@ abstract class Files extends Core\ColAlias
     // retourne un tableau de détail en lien avec la colonne, utilise versionDetails
     final public function details(bool $lang=true):array
     {
-        $return = [];
-
-        $extension = $this->extensionDetails($lang);
-        $fileSize = $this->fileSizeDetails($lang);
+        $return = parent::details($lang);
         $version = array_values((array) $this->versionDetails());
-        $parent = parent::details($lang);
-        $return = Base\Arr::merge($extension,$fileSize,$version,$parent);
+        $return = Base\Arr::merge($return,$version);
 
         return $return;
     }

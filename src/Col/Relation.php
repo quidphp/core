@@ -22,9 +22,12 @@ abstract class Relation extends Core\ColAlias
     // config
     protected static array $config = [
         'search'=>false,
+        'group'=>'relation',
         'filter'=>true,
         'order'=>false,
+        'relation'=>null,
         'generalExcerptMin'=>null,
+        'detailMaxLength'=>false,
         'check'=>['null'=>true], // les relations doivent être nullables
         'inRelation'=>true,
         'generalMax'=>3,
@@ -32,11 +35,15 @@ abstract class Relation extends Core\ColAlias
     ];
 
 
-    // onMakeAttr
-    // gère onMakeAttr pour relation
-    final protected function onAttr(array $return):array
+    // prepareAttr
+    // gère les attributs pour relation
+    final protected function prepareAttr(array $return,Orm\ColSchema $schema):array
     {
+        $return = parent::prepareAttr($return,$schema);
         $table = $this->table();
+
+        if(!isset($return['relation']))
+        $return['relation'] = $schema->relation();
 
         if($table->getAttr('inRelation') === true && !empty($return['inRelation']))
         $return['validate']['inRelation'] = $this->inRelationClosure();
@@ -50,6 +57,30 @@ abstract class Relation extends Core\ColAlias
     protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
     {
         return $this->autoCastRelation($return);
+    }
+
+
+    // isRelation
+    // retourne vrai comme la colonne est une relation
+    final public function isRelation():bool
+    {
+        return true;
+    }
+
+
+    // isEnum
+    // retourne vrai si la colonne est de type relation enum
+    public function isEnum():bool
+    {
+        return false;
+    }
+
+
+    // isSet
+    // retourne vrai si la colonne est de type relation set
+    public function isSet():bool
+    {
+        return false;
     }
 
 
@@ -89,14 +120,6 @@ abstract class Relation extends Core\ColAlias
     final public function isRelationTable():bool
     {
         return $this->relation()->isRelationTable();
-    }
-
-
-    // showDetailsMaxLength
-    // n'affiche pas le détail sur le maxLength de la colonne
-    final public function showDetailsMaxLength():bool
-    {
-        return false;
     }
 
 

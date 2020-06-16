@@ -41,8 +41,7 @@ class Db extends Orm\Db
                 'cols'=>Cols::class,
                 'rows'=>Rows::class,
                 'cells'=>Cells::class],
-            'colGroup'=>[ // classe pour colonne selon le group
-                'primary'=>Col\Primary::class,
+            'colKind'=>[ // classe pour colonne selon le kind
                 'int'=>Col\Integer::class,
                 'float'=>Col\Floating::class],
             'colAttr'=>[ // classe pour colonne selon un attribut
@@ -51,6 +50,7 @@ class Db extends Orm\Db
                 'enum'=>Col\Enum::class]],
         'tables'=>[], // paramètre par défaut pour les tables
         'cols'=>[ // paramètre par défaut pour les colonnes
+            'id'=>['class'=>Col\Primary::class],
             'enum'=>['class'=>Col\Enum::class],
             'set'=>['class'=>Col\Set::class],
             'active'=>['class'=>Col\Active::class,'general'=>true],

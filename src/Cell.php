@@ -30,7 +30,7 @@ class Cell extends Orm\Cell
     // retourne vrai si la colonne peut potentiellement fournir une image
     public function hasImage():bool
     {
-        return $this->isMedia();
+        return $this->col()->isMedia();
     }
 
 
@@ -38,7 +38,7 @@ class Cell extends Orm\Cell
     // retourne vrai si la colonne contient un media ou similaire à média
     public function isMediaOrLike():bool
     {
-        return $this->isMedia();
+        return $this->col()->isMedia();
     }
 
 

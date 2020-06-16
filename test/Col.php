@@ -42,6 +42,11 @@ class Col extends Base\Test
         $float = $tb['float'];
         $int = $tb['int'];
 
+        // details
+        assert(count($col->details()) === 3);
+        assert($email->details() === ['Cannot be empty','Length must be at maximum 100 characters','Must be a valid email (x@x.com)']);
+        assert($email->details(false) === ['required',['maxLength'=>100],'email']);
+
         // generalExcerptMin
         assert($col->generalExcerptMin() === 100);
 
@@ -140,7 +145,7 @@ class Col extends Base\Test
         assert($media->versionKey(1) === 'large');
         assert($storage->ruleValidate()['extension'] instanceof \Closure);
         assert($storage->ruleValidate()['extension']('lang') === ['pdf']);
-        assert($storage->ruleValidate(true)[3] === 'The extension of the file must be: pdf');
+        assert($storage->ruleValidate(true)[1] === 'The extension of the file must be: pdf');
         assert(count($storage->extension()) === 1);
         assert(count($storage->extensionDetails(false)) === 1);
         assert($storage->extensionDetails() === 'The extension of the file must be: pdf');
@@ -199,6 +204,7 @@ class Col extends Base\Test
         // yes
 
         // cleanup
+        $tb->rowsUnlink();
         assert($db->truncate($table) instanceof \PDOStatement);
 
         return true;

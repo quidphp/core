@@ -21,6 +21,7 @@ class Date extends Core\ColAlias
     // config
     protected static array $config = [
         'cell'=>Core\Cell\Date::class,
+        'group'=>'date',
         'tag'=>'inputText',
         'filter'=>true,
         'filterMethod'=>[self::class,'autoFilterMethod'],
@@ -28,6 +29,7 @@ class Date extends Core\ColAlias
         'pattern'=>false,
         'keyboard'=>'numeric',
         'check'=>['kind'=>'int'],
+        'detailMaxLength'=>false,
         'calendarFormat'=>'dateToDay', // custom
         'filterFormat'=>[ // format, méthodes et maximum pour le filter
             'day'=>['format'=>0,'filter'=>'or|day','method'=>'days','max'=>100],
@@ -61,6 +63,14 @@ class Date extends Core\ColAlias
     }
 
 
+    // isDate
+    // retourne vrai comme la colonne est de type date
+    final public function isDate():bool
+    {
+        return true;
+    }
+
+
     // onGet
     // gère l'affichage de la date onGet
     protected function onGet($return,?Orm\Cell $cell=null,array $option)
@@ -84,14 +94,6 @@ class Date extends Core\ColAlias
         $return = Base\Datetime::time($return,$format);
 
         return $return;
-    }
-
-
-    // showDetailsMaxLength
-    // n'affiche pas le détail sur le maxLength de la colonne
-    final public function showDetailsMaxLength():bool
-    {
-        return false;
     }
 
 

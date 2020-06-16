@@ -18,7 +18,7 @@ class Email extends Core\ColAlias
 {
     // config
     protected static array $config = [
-        'validate'=>[1=>'email'],
+        'validate'=>['email'],
         'general'=>true,
         'keyboard'=>'email',
         'check'=>['kind'=>'char']

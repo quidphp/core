@@ -18,7 +18,7 @@ class UriRelative extends Core\ColAlias
 {
     // config
     protected static array $config = [
-        'validate'=>[1=>'uriRelative'],
+        'validate'=>['uriRelative'],
         'check'=>['kind'=>'char']
     ];
 }

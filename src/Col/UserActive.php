@@ -10,6 +10,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Col;
+use Quid\Base;
 use Quid\Orm;
 
 // userActive
@@ -26,7 +27,6 @@ class UserActive extends YesAlias
     final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
     {
         $return = null;
-        $value = parent::onSet($value,$cell,$row,$option);
         $table = $this->table();
         $primary = $table->primary();
         $session = static::boot()->session();
@@ -35,7 +35,10 @@ class UserActive extends YesAlias
         $return = $user['active']->value();
 
         if(is_array($value) && !empty($value))
-        $value = current($value);
+        {
+            $value = Base\Arr::cast($value);
+            $value = current($value);
+        }
 
         if($id === $user->primary() && $value !== $return)
         static::catchable(null,'userActiveSelf');
@@ -43,6 +46,7 @@ class UserActive extends YesAlias
         else
         {
             $return = (empty($value))? null:$value;
+
             $hasChanged = (!empty($cell))? ($cell->value() !== $return):true;
 
             if($hasChanged === true)

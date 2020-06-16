@@ -19,6 +19,7 @@ class Primary extends Core\ColAlias
     // config
     protected static array $config = [
         'cell'=>Core\Cell\Primary::class,
+        'group'=>'primary',
         'general'=>true,
         'searchMinLength'=>1,
         'order'=>true,
@@ -26,6 +27,14 @@ class Primary extends Core\ColAlias
         'complex'=>'inputHidden',
         'check'=>['kind'=>'int']
     ];
+
+
+    // isPrimary
+    // retourne vrai comme la colonne est la clé primaire
+    final public function isPrimary():bool
+    {
+        return true;
+    }
 }
 
 // init

@@ -176,17 +176,17 @@ class User extends Core\RowAlias
 
     // allowRegisterConfirmEmail
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement
-    final public function allowRegisterConfirmEmail($type=true):bool
+    public function allowRegisterConfirmEmail($type=true):bool
     {
-        return $this->isNobody() && $this->hasEmailModel('registerConfirm',$type);
+        return $this->hasEmailModel('registerConfirm',$type);
     }
 
 
     // allowRegisterAdminEmail
     // retourne vrai si le user permet l'envoie de courrier de confirmation de l'enregistrement à l'administrateur
-    final public function allowRegisterAdminEmail($type=true):bool
+    public function allowRegisterAdminEmail($type=true):bool
     {
-        return $this->isNobody() && $this->hasEmailModel('registerAdmin',$type);
+        return $this->hasEmailModel('registerAdmin',$type);
     }
 
 

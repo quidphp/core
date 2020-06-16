@@ -18,7 +18,7 @@ class UriAbsolute extends Core\ColAlias
 {
     // config
     protected static array $config = [
-        'validate'=>[1=>'uriAbsolute'],
+        'validate'=>['uriAbsolute'],
         'check'=>['kind'=>'char']
     ];
 }
