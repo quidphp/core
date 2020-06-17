@@ -2169,12 +2169,7 @@ abstract class Boot extends Main\Root
     // retourne un objet service à partir d'une clé, sinon envoie une exception
     final public function checkService(string $key):Main\Service
     {
-        $return = $this->service($key);
-
-        if(!$return instanceof Main\Service)
-        static::throw($key);
-
-        return $return;
+        return static::checkClass($this->service($key),Main\Service::class,$key);
     }
 
 
@@ -2196,12 +2191,7 @@ abstract class Boot extends Main\Root
     // retourne un objet service mailer à partir d'une clé, sinon envoie une exception
     final public function checkServiceMailer(?string $key=null):Main\ServiceMailer
     {
-        $return = $this->serviceMailer($key);
-
-        if(!$return instanceof Main\ServiceMailer)
-        static::throw($key);
-
-        return $return;
+        return static::checkClass($this->serviceMailer($key),Main\ServiceMailer::class,$key);
     }
 
 

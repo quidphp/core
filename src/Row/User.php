@@ -1114,10 +1114,7 @@ class User extends Core\RowAlias
             $return = $table->select($where,$order);
         }
 
-        if(!$return instanceof self)
-        static::throw($permission);
-
-        return $return;
+        return static::checkClass($return,self::class,$permission);
     }
 
 

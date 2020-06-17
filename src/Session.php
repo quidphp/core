@@ -529,14 +529,10 @@ class Session extends Routing\Session
         if(is_int($value))
         $value = $class::findByUid($value);
 
-        if($value instanceof $class)
-        {
-            if($value !== $user)
-            $this->triggerUser($value);
-        }
+        static::checkClass($value,$class,'userNotInstanceOf');
 
-        else
-        static::throw('userNotInstanceOf',$class);
+        if($value !== $user)
+        $this->triggerUser($value);
 
         return $this;
     }

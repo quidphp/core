@@ -89,12 +89,8 @@ class Row extends Orm\Row
     // envoie une erreur si la table n'existe pas
     final public static function tableFromFqcn():Table
     {
-        $return = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
-
-        if(!$return instanceof Table)
-        static::throw();
-
-        return $return;
+        $value = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
+        return static::checkClass($value,Table::class);
     }
 
 
