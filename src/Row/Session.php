@@ -24,6 +24,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
         'relation'=>'id',
         'priority'=>970,
         'parent'=>'system',
+        'reservePrimary'=>false,
         'order'=>['dateModify'=>'desc'],
         'cols'=>[
             'envType'=>['class'=>Core\Col\EnvType::class],
@@ -155,7 +156,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
             $data['sid'] = $sid;
 
             $db->off();
-            $row = $table->insert($data,['reservePrimary'=>false]);
+            $row = $table->insert($data);
             $db->on();
 
             if($row instanceof Core\Row)

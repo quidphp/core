@@ -23,6 +23,7 @@ trait _log
     // configLog
     protected static array $configLog = [
         'search'=>false,
+        'reservePrimary'=>false,
         'deleteTrim'=>1000 // custom
     ];
 

@@ -1098,7 +1098,7 @@ class User extends Core\RowAlias
     // findByRole
     // retourne un utilisateur par un rôle
     // envoie une exception si la méthode ne retourne pas une row
-    final public static function findByRole($permission,?array $order=null):self
+    final public static function findByRole($permission,$order=null):self
     {
         $return = null;
         $table = static::tableFromFqcn();
@@ -1110,7 +1110,7 @@ class User extends Core\RowAlias
         {
             $primary = $table->primary();
             $where = ['role'=>$permission];
-            $order = (is_array($order))? $order:[$primary=>'asc'];
+            $order ??= [$primary=>'asc'];
             $return = $table->select($where,$order);
         }
 

@@ -168,9 +168,9 @@ abstract class Files extends Core\ColAlias
                     {
                         foreach ($files as $file)
                         {
-                            $path = $file->path();
+                            $size = $file->size();
 
-                            if(!Base\File::isMaxSize($maxSize,$path))
+                            if(!is_int($size) || $size > $maxSize)
                             {
                                 $return = [$maxFilesizeKey=>$format];
                                 break;

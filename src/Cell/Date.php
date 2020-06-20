@@ -28,7 +28,7 @@ class Date extends Core\CellAlias
     {
         $return = $this;
 
-        if(is_int($value) || is_string($value))
+        if($value === true || is_int($value) || is_string($value))
         $return = $this->format($value);
 
         elseif($value !== null)
@@ -42,6 +42,9 @@ class Date extends Core\CellAlias
     // format la date contenu dans la cellule
     final public function format($format=true):?string
     {
+        if($format === true)
+        $format = $this->col()->date();
+
         return Base\Datetime::format($format,$this);
     }
 

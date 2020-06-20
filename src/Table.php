@@ -69,7 +69,7 @@ class Table extends Orm\Table
     final public function safeInsert(array $set=[],?array $option=null)
     {
         $return = null;
-        $option = Base\Arr::plus(['strict'=>true,'reservePrimary'=>false],$option);
+        $option = Base\Arr::plus(['strict'=>true],$option);
 
         if($this->hasPermission('insert'))
         {
