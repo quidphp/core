@@ -79,29 +79,14 @@ abstract class Route extends Routing\Route
     // utilisé par docOpen et docClose
     final public function getBaseReplace():array
     {
-        $return = [];
+        $return = parent::getBaseReplace();
         $boot = static::boot();
-        $session = static::session();
-        $lang = $boot->lang();
-        $request = $this->request();
-        $parent = static::parent();
         $lang = $this->lang();
+        $return = Base\Arr::merge($return,$boot->getReplace());
 
-        $return = $boot->getReplace();
-
-        $return['label'] = $this->title();
-        $return['name'] = static::name(true);
-        $return['type'] = static::type();
-        $return['uri'] = $request->uri();
-        $return['metaUri'] = $request->uri();
-        $return['group'] = static::group();
-        $return['parent'] = (!empty($parent))? $parent::name(true):null;
-        $return['title'] = $return['label'];
         $return['metaKeywords'] = $lang->safe('meta/keywords');
         $return['metaDescription'] = $lang->safe('meta/description') ?? $return['description'] ?? null;
         $return['metaImage'] = $lang->safe('meta/image');
-        $return['htmlAttr'] = null;
-        $return['bodyAttr'] = null;
 
         return $return;
     }
@@ -265,15 +250,12 @@ abstract class Route extends Routing\Route
     // envoie une exception si pas de rowClass
     final public static function tableFromRowClass():Table
     {
-        $return = null;
         $row = static::rowClass();
 
         if(empty($row))
         static::throw('noRowClass');
-        else
-        $return = static::db()->table($row);
 
-        return $return;
+        return static::db()->table($row);
     }
 
 
