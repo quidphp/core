@@ -710,6 +710,7 @@ class OrmTable extends Core\TableAlias
     // config
     protected static array $config = [
         'parent'=>OrmDb::class,
+        'deleteAutoIncrement'=>false,
         'relation'=>['onGet'=>true,'what'=>['id','name_en','dateAdd'],'output'=>'[dateAdd] [name_en] _ [id]','order'=>['name_en'=>'desc']],
         'cols'=>[
             'relation'=>['relation'=>[0=>'test',1=>'ok',2=>'what'],'required'=>false]]

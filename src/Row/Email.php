@@ -26,6 +26,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         'panel'=>false,
         'priority'=>951,
         'parent'=>'system',
+        'deleteAutoIncrement'=>true,
         'cols'=>[
             'active'=>true,
             'type'=>['class'=>Core\Col\ContextType::class],

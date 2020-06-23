@@ -24,6 +24,7 @@ class Redirection extends Core\RowAlias
         'parent'=>'system',
         'priority'=>952,
         'searchMinLength'=>1,
+        'deleteAutoIncrement'=>true,
         'cols'=>[
             'active'=>true,
             'type'=>['class'=>Core\Col\ContextType::class],

@@ -394,15 +394,12 @@ abstract class Files extends Core\CellAlias
     // peut envoyer une exception si dirname n'est pas writable ou créable
     final protected function commonCopy(Main\File $file,string $path,string $dirname):bool
     {
-        $return = false;
-
         if(!Base\Dir::setOrWritable($dirname))
         static::throw('cannnotCreateFolderStructure');
 
         $file->copy($path);
-        $return = Base\File::is($path);
 
-        return $return;
+        return Base\File::is($path);
     }
 
 
@@ -420,7 +417,7 @@ abstract class Files extends Core\CellAlias
 
         $this->copyOriginal($dirname,$new);
 
-        if($deleteSource === true)
+        if($deleteSource === true && !$new->isPhpTemp())
         $new->unlink();
 
         $this->commonMakeVersion($index);
