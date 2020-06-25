@@ -38,8 +38,6 @@ class ScssPhp extends Main\ServiceAlias
     {
         parent::__construct($attr);
         $this->compiler = new \ScssPhp\ScssPhp\Compiler();
-
-        return;
     }
 
 

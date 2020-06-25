@@ -178,8 +178,6 @@ trait _cliLive
             $output[$key] = $this->getOpt($key);
         }
         $this->cliWrite('neutral',$output,false);
-
-        return;
     }
 
 
@@ -190,8 +188,6 @@ trait _cliLive
         $cmds = $this->getAttr('cmd') ?? [];
         $keys = array_keys($cmds);
         $this->cliWrite('neutral',$keys,false);
-
-        return;
     }
 
 
@@ -252,8 +248,6 @@ trait _cliLive
                 break;
             }
         }
-
-        return;
     }
 
 
@@ -320,8 +314,6 @@ trait _cliLive
     final protected function loopAmountIncrement():void
     {
         $this->loopAmount++;
-
-        return;
     }
 
 

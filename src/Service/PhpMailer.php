@@ -55,8 +55,6 @@ class PhpMailer extends Core\ServiceMailerAlias
         $this->checkReady(false);
         $mailer = new \PHPMailer\PHPMailer\PHPMailer();
         $this->mailer = $mailer;
-
-        return;
     }
 
 
@@ -108,8 +106,6 @@ class PhpMailer extends Core\ServiceMailerAlias
             if(array_key_exists('debug',$value) || array_key_exists('output',$value))
             $this->setDebug($value['debug'] ?? null,$value['output'] ?? null);
         }
-
-        return;
     }
 
 
@@ -154,8 +150,6 @@ class PhpMailer extends Core\ServiceMailerAlias
                 $mailer->addCustomHeader($k,$v);
             }
         }
-
-        return;
     }
 
 
@@ -222,8 +216,6 @@ class PhpMailer extends Core\ServiceMailerAlias
 
         if($kill === true)
         Base\Response::kill();
-
-        return;
     }
 
 

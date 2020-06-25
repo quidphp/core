@@ -46,8 +46,6 @@ trait _bootAccess
     final public static function routeException(?array $option=null,...$values):void
     {
         static::throwCommon(Routing\Exception::class,$values,$option);
-
-        return;
     }
 
 
@@ -57,8 +55,6 @@ trait _bootAccess
     final public static function routeBreakException(?array $option=null,...$values):void
     {
         static::throwCommon(Routing\BreakException::class,$values,$option);
-
-        return;
     }
 }
 ?>

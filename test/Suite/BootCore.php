@@ -130,8 +130,6 @@ class BootCore extends Test\Suite\BootAlias
     final protected function onPrepare():void
     {
         $this->setAttr('request/path','/');
-
-        return;
     }
 
 
@@ -187,8 +185,6 @@ class BootCore extends Test\Suite\BootAlias
                 $table->setPermission($params,$role);
             }
         }
-
-        return;
     }
 
 
@@ -196,8 +192,6 @@ class BootCore extends Test\Suite\BootAlias
     final protected function onAfter():void
     {
         $this->truncateTables();
-
-        return;
     }
 
 
@@ -209,8 +203,6 @@ class BootCore extends Test\Suite\BootAlias
         Base\Dir::emptyAndUnlink('[storageLog]');
         Base\Dir::emptyAndUnlink('[storage]/session');
         Base\Response::emptyCloseDown();
-
-        return;
     }
 
 
@@ -224,8 +216,6 @@ class BootCore extends Test\Suite\BootAlias
             $tables = $db->tables()->gets(...$truncate);
             $tables->truncate();
         }
-
-        return;
     }
 
 

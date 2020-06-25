@@ -241,8 +241,6 @@ abstract class Boot extends Main\Root
         $this->setName($root);
         $this->makeInitialAttr($value);
         $this->setStatus(1);
-
-        return;
     }
 
 
@@ -263,8 +261,6 @@ abstract class Boot extends Main\Root
             $this->teardown();
             $this->cleanup();
         }
-
-        return;
     }
 
 
@@ -322,8 +318,6 @@ abstract class Boot extends Main\Root
     protected function onReady():void
     {
         $this->getAttr('onReady',true);
-
-        return;
     }
 
 
@@ -491,8 +485,6 @@ abstract class Boot extends Main\Root
 
         $this->setStatus(2);
         static::$init = true;
-
-        return;
     }
 
 
@@ -613,8 +605,6 @@ abstract class Boot extends Main\Root
         static::setsConfig($config);
 
         $this->setStatus(3);
-
-        return;
     }
 
 
@@ -647,8 +637,6 @@ abstract class Boot extends Main\Root
         $this->manageRedirect();
 
         $this->onReady();
-
-        return;
     }
 
 
@@ -669,8 +657,6 @@ abstract class Boot extends Main\Root
             $class = File\Js::classOverload();
             $class::concatenateMany($attr['compileJs'],null,$attr['compileJsOption']);
         }
-
-        return;
     }
 
 
@@ -773,8 +759,6 @@ abstract class Boot extends Main\Root
     final protected function setRoute(Route $value):void
     {
         $this->route = get_class($value);
-
-        return;
     }
 
 
@@ -823,8 +807,6 @@ abstract class Boot extends Main\Root
         $this->unsetInst();
 
         static::$init = false;
-
-        return;
     }
 
 
@@ -840,8 +822,6 @@ abstract class Boot extends Main\Root
         Base\Finder::emptyHost();
         Base\Uri::setAllAbsolute(false);
         Base\Lang::set(null,true);
-
-        return;
     }
 
 
@@ -873,8 +853,6 @@ abstract class Boot extends Main\Root
     final protected function setStatus(int $value):void
     {
         $this->status = $value;
-
-        return;
     }
 
 
@@ -925,8 +903,6 @@ abstract class Boot extends Main\Root
     final protected function setName(string $value):void
     {
         $this->name = lcfirst($value);
-
-        return;
     }
 
 
@@ -961,8 +937,6 @@ abstract class Boot extends Main\Root
         $value = $replaceClosure($keep,static::$config,$value);
         $value = static::parseSchemeHost($value);
         $this->makeAttr($value);
-
-        return;
     }
 
 
@@ -998,8 +972,6 @@ abstract class Boot extends Main\Root
             $attr = static::parseSchemeHost($attr);
             $this->makeAttr($attr);
         }
-
-        return;
     }
 
 
@@ -1039,8 +1011,6 @@ abstract class Boot extends Main\Root
             $finderShortcut = $this->makePaths($finderShortcut);
             Base\Finder::setsShortcut($finderShortcut);
         }
-
-        return;
     }
 
 
@@ -1055,8 +1025,6 @@ abstract class Boot extends Main\Root
 
         $request = Request::newOverload();
         $request->setInst();
-
-        return;
     }
 
 
@@ -1192,8 +1160,6 @@ abstract class Boot extends Main\Root
 
         if(!is_string($host) || !is_array($hosts) || !in_array($host,$hosts,true))
         static::throw($host,$hosts);
-
-        return;
     }
 
 
@@ -1211,8 +1177,6 @@ abstract class Boot extends Main\Root
 
         else
         $this->envType = $envType;
-
-        return;
     }
 
 
@@ -1419,8 +1383,6 @@ abstract class Boot extends Main\Root
 
         Base\Ini::setIncludePath(['public'=>$this->path('public')]);
         Base\Ini::setDefault(['default_charset'=>$charset,'date.timezone'=>$timezone]);
-
-        return;
     }
 
 
@@ -1474,8 +1436,6 @@ abstract class Boot extends Main\Root
 
         else
         static::throw('invalidAutoloadType',$type);
-
-        return;
     }
 
 
@@ -1495,8 +1455,6 @@ abstract class Boot extends Main\Root
             if(empty($ip) || !Base\Ip::allowed($ip,$value))
             static::throw($ip);
         }
-
-        return;
     }
 
 
@@ -1699,8 +1657,6 @@ abstract class Boot extends Main\Root
         }
 
         Base\Uri::setsShortcut($shortcut);
-
-        return;
     }
 
 
@@ -1791,8 +1747,6 @@ abstract class Boot extends Main\Root
             if($array['status'] === false)
             static::throw('from',$array['from'],'to',$to);
         }
-
-        return;
     }
 
 
@@ -1813,8 +1767,6 @@ abstract class Boot extends Main\Root
                 Base\Call::staticClass(...array_values($value));
             }
         }
-
-        return;
     }
 
 
@@ -1913,8 +1865,6 @@ abstract class Boot extends Main\Root
         $routes->readOnly(true);
 
         $this->extenders = $extenders;
-
-        return;
     }
 
 
@@ -2028,8 +1978,6 @@ abstract class Boot extends Main\Root
         $roles->sortDefault();
         $roles->readOnly(true);
         $roles->setInst();
-
-        return;
     }
 
 
@@ -2363,8 +2311,6 @@ abstract class Boot extends Main\Root
             if($manage['location'] !== null)
             Base\Response::redirect($manage['location'],$manage['code'],true);
         }
-
-        return;
     }
 
 
@@ -2486,8 +2432,6 @@ abstract class Boot extends Main\Root
         $ini = Base\Ini::requirement();
         if(!empty($ini))
         static::throw('ini',$ini);
-
-        return;
     }
 
 
@@ -2503,8 +2447,6 @@ abstract class Boot extends Main\Root
         static::throw('notWritableOrCreatable',$value);
 
         Base\Ini::setErrorLog($value);
-
-        return;
     }
 
 
@@ -2524,8 +2466,6 @@ abstract class Boot extends Main\Root
                 static::throw($v);
             }
         }
-
-        return;
     }
 
 
@@ -2538,8 +2478,6 @@ abstract class Boot extends Main\Root
             if(is_string($key) && is_array($value))
             $key::config($value);
         }
-
-        return;
     }
 
 
@@ -2636,8 +2574,6 @@ abstract class Boot extends Main\Root
         Base\Constant::set('QUID_TIMESTAMP',time());
         Base\Server::setQuidVersion($version);
         class_exists(Base\Debug::class,true);
-
-        return;
     }
 
 
@@ -2655,8 +2591,6 @@ abstract class Boot extends Main\Root
     final public static function setAutoloadType(string $value):void
     {
         static::$config['autoload'] = $value;
-
-        return;
     }
 
 

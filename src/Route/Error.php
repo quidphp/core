@@ -54,8 +54,6 @@ abstract class Error extends Core\RouteAlias
     {
         if($context instanceof \Exception)
         $context->echoOutput();
-
-        return;
     }
 
 

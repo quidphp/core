@@ -36,8 +36,6 @@ class Error extends Main\Error
         Base\Error::setHandler([static::class,'handler']);
         Base\Exception::setHandler([static::class,'exception']);
         Base\Assert::setHandler([static::class,'assert']);
-
-        return;
     }
 }
 

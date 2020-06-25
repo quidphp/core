@@ -69,8 +69,6 @@ abstract class Route extends Routing\Route
         $dbHistory = $this->getAttr('dbHistory');
         if(is_bool($dbHistory))
         static::boot()->db()->setHistory($dbHistory);
-
-        return;
     }
 
 

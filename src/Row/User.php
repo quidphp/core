@@ -76,8 +76,6 @@ class User extends Core\RowAlias
     {
         $this->updateDateLogin();
         $this->emptyPasswordReset();
-
-        return;
     }
 
 
@@ -94,8 +92,6 @@ class User extends Core\RowAlias
     protected function onChangePassword():void
     {
         $this->emptyPasswordReset();
-
-        return;
     }
 
 
@@ -129,8 +125,6 @@ class User extends Core\RowAlias
     protected function onRegister():void
     {
         $this->sendRegisterEmails();
-
-        return;
     }
 
 
@@ -335,8 +329,6 @@ class User extends Core\RowAlias
         static::throw('userCannotReceiveEmail');
 
         $this->validateSendModel($model,$option);
-
-        return;
     }
 
 
@@ -557,8 +549,6 @@ class User extends Core\RowAlias
     final public function setRoles(Main\Roles $value):void
     {
         $this->roles = $value;
-
-        return;
     }
 
 

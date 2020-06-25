@@ -183,8 +183,6 @@ class Media extends FilesAlias
 
         elseif($regenerate === true)
         $this->makeVersion($option);
-
-        return;
     }
 
 

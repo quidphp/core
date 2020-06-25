@@ -111,8 +111,6 @@ trait _log
     final public static function setDeleteTrim(?int $value):void
     {
         static::$config['deleteTrim'] = $value;
-
-        return;
     }
 }
 ?>

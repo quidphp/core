@@ -45,8 +45,6 @@ class CliCompile extends Core\RouteAlias
     {
         $this->cliWrite('neutral',static::label());
         $this->compileAssets();
-
-        return;
     }
 
 
@@ -63,8 +61,6 @@ class CliCompile extends Core\RouteAlias
     final protected function fileAmountIncrement():void
     {
         $this->fileAmount++;
-
-        return;
     }
 
 
@@ -83,8 +79,6 @@ class CliCompile extends Core\RouteAlias
         $boot = static::boot();
         $attr = $boot->compileAttr();
         $this->compileLive($attr);
-
-        return;
     }
 
 
@@ -94,8 +88,6 @@ class CliCompile extends Core\RouteAlias
     final protected function compileLive(array $attr):void
     {
         $this->live(fn() => $this->compilePass($attr,[]),true);
-
-        return;
     }
 
 

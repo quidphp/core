@@ -185,8 +185,6 @@ abstract class Files extends Core\CellAlias
 
         $array[] = $version;
         static::throw(...$array);
-
-        return;
     }
 
 
@@ -421,8 +419,6 @@ abstract class Files extends Core\CellAlias
         $new->unlink();
 
         $this->commonMakeVersion($index);
-
-        return;
     }
 
 
@@ -495,8 +491,6 @@ abstract class Files extends Core\CellAlias
 
         else
         $this->commonCopy($file,$target,$dirname);
-
-        return;
     }
 
 

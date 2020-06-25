@@ -125,8 +125,6 @@ trait _emailModel
     final protected function validateSend(Main\Contract\Email $model,?array $option=null):void
     {
         $this->validateSendModel($model,$option);
-
-        return;
     }
 
 
@@ -141,8 +139,6 @@ trait _emailModel
 
         if(!is_string($option['method']) || !$model->hasMethod($option['method']))
         static::throw('invalidMethod',$option['method']);
-
-        return;
     }
 
 

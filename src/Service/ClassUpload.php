@@ -83,8 +83,6 @@ class ClassUpload extends Main\Service
 
         $this->reset($filename);
         $this->prepareImage($option);
-
-        return;
     }
 
 
@@ -148,8 +146,6 @@ class ClassUpload extends Main\Service
         $upload->file_safe_name = false;
         $upload->file_force_extension = true;
         $upload->file_new_name_body = $filename;
-
-        return;
     }
 
 
@@ -182,8 +178,6 @@ class ClassUpload extends Main\Service
             if(is_int($option['width']) || is_int($option['height']))
             $this->prepareResize($option['width'],$option['height'],$option['action']);
         }
-
-        return;
     }
 
 
@@ -247,8 +241,6 @@ class ClassUpload extends Main\Service
                 }
             }
         }
-
-        return;
     }
 
 

@@ -40,8 +40,6 @@ class PhpPreload extends Main\Service
         parent::__construct($attr);
         $this->setAttr('concatenator',$this->concatenatorOption());
         $this->concatenator = Main\Concatenator::newOverload($this->getAttr('concatenator/base'));
-
-        return;
     }
 
 

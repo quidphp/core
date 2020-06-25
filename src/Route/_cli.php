@@ -93,8 +93,6 @@ trait _cli
     {
         $attr = Base\Arr::replace($this->getAttr('exception'),$attr);
         Main\Exception::staticCatched($throwable,$attr);
-
-        return;
     }
 
 
@@ -106,8 +104,6 @@ trait _cli
         $this->cliWrite('neg',[$type,get_class($throwable)]);
         $array = Main\Exception::staticToArray($throwable);
         $this->cliWrite('neg',$array,false);
-
-        return;
     }
 
 
@@ -118,8 +114,6 @@ trait _cli
     {
         if($this->isOpt('output'))
         Cli::write($method,$data,$separator);
-
-        return;
     }
 }
 ?>

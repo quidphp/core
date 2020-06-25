@@ -37,8 +37,6 @@ class UserRole extends SetAlias
 
         else
         static::throw('invalidRolesObject');
-
-        return;
     }
 }
 

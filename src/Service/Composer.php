@@ -80,8 +80,6 @@ class Composer extends Main\Service
     {
         $psr4 = static::getPsr4();
         Base\Autoload::setsPsr4($psr4);
-
-        return;
     }
 
 
@@ -91,8 +89,6 @@ class Composer extends Main\Service
     {
         $composer = static::get();
         $composer->setClassMapAuthoritative($value);
-
-        return;
     }
 }
 

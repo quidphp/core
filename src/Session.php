@@ -60,8 +60,6 @@ class Session extends Routing\Session
         $this->db()->setCom($com);
         $roles = $this->roles();
         $this->setRoles($roles);
-
-        return;
     }
 
 
@@ -79,8 +77,6 @@ class Session extends Routing\Session
         $nobody = $roles->nobody()->roles();
         $this->setRoles($nobody);
         Base\Timezone::reset(true);
-
-        return;
     }
 
 
@@ -395,8 +391,6 @@ class Session extends Routing\Session
         $this->set('user',$value->toSession());
         $roles = $value->roles();
         $this->setRoles($roles);
-
-        return;
     }
 
 
@@ -426,8 +420,6 @@ class Session extends Routing\Session
             if($sync === false)
             $this->logout();
         }
-
-        return;
     }
 
 
@@ -439,8 +431,6 @@ class Session extends Routing\Session
         $current = $this->lang();
         $current = ($lang->isLang($current))? $current:$lang->defaultLang();
         $this->setLang($current);
-
-        return;
     }
 
 
@@ -451,8 +441,6 @@ class Session extends Routing\Session
         $timezone = $this->user()->getTimezone();
         if(is_string($timezone))
         Base\Timezone::set($timezone);
-
-        return;
     }
 
 
@@ -510,8 +498,6 @@ class Session extends Routing\Session
 
         if($logout === true)
         $this->logout(['neg'=>$neg]);
-
-        return;
     }
 
 
@@ -563,8 +549,6 @@ class Session extends Routing\Session
         static::throw('rolesEmpty');
 
         $this->db()->setRoles($roles);
-
-        return;
     }
 
 
@@ -674,8 +658,6 @@ class Session extends Routing\Session
         $roles = $this->user()->roles();
 
         $this->setRoles($roles);
-
-        return;
     }
 
 
@@ -692,8 +674,6 @@ class Session extends Routing\Session
     final public function fakeRolesEmpty():void
     {
         $this->setFakeRoles(null);
-
-        return;
     }
 
 

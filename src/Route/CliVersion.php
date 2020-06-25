@@ -45,8 +45,6 @@ abstract class CliVersion extends Core\RouteAlias
         $this->cliWrite(null,$art,false);
         $this->cliWrite('eol',1);
         $this->cliWrite('pos',$boot::quidCredit(),false);
-
-        return;
     }
 
 

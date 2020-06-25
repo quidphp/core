@@ -49,8 +49,6 @@ trait _cliOpt
     {
         parent::processBefore();
         $this->prepareOpt();
-
-        return;
     }
 
 
@@ -66,8 +64,6 @@ trait _cliOpt
         {
             $this->setOpt($key,$value);
         }
-
-        return;
     }
 
 
@@ -78,8 +74,6 @@ trait _cliOpt
         $default = $this->defaultOpt();
         if(!Base\Arr::keyExists($key,$default))
         static::throw($key,'notDefined');
-
-        return;
     }
 
 
@@ -89,8 +83,6 @@ trait _cliOpt
     {
         if(!is_scalar($value))
         static::throw($value,'notScalar');
-
-        return;
     }
 
 
@@ -159,8 +151,6 @@ trait _cliOpt
         $this->checkOptValue($value);
 
         Base\Arr::setRef($key,$value,$this->opt);
-
-        return;
     }
 
 

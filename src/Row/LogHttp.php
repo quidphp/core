@@ -90,8 +90,6 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     final public static function onCloseDown():void
     {
         Base\Response::onCloseDown(fn() => static::logCurrentRequest());
-
-        return;
     }
 
 

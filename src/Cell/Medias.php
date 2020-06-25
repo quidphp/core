@@ -199,8 +199,6 @@ class Medias extends FilesAlias
 
         if(!empty($regenerate))
         $this->makeVersion($regenerate,$option);
-
-        return;
     }
 
 
