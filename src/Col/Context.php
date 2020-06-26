@@ -24,14 +24,10 @@ class Context extends EnvType
     // ajoute le contexte sur insertion ou mise à jour
     final protected function onCommit($value,?Core\Cell $cell=null,array $row,array $option):?array
     {
-        $return = null;
         $boot = static::bootReady();
         $version = $this->getAttr('version');
 
-        if(!empty($boot))
-        $return = $boot->context($version);
-
-        return $return;
+        return (!empty($boot))? $boot->context($version):null;
     }
 }
 

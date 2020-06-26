@@ -40,11 +40,10 @@ class LogError extends Core\RowAlias implements Main\Contract\Log
     // crée le tableau d'insertion
     final protected static function prepareLogData(Core\Error $error):array
     {
-        $return = [];
-        $return['type'] = $error->getCode();
-        $return['error'] = $error->toArray();
-
-        return $return;
+        return [
+            'type'=>$error->getCode(),
+            'error'=>$error->toArray()
+        ];
     }
 }
 

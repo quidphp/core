@@ -168,12 +168,10 @@ abstract class Error extends Core\RouteAlias
     // peut retourner null
     final protected function makeContent():?string
     {
-        $return = null;
         $code = Base\Response::code();
         $lang = static::lang();
-        $return = $lang->safe('error/page/content/'.$code);
 
-        return $return;
+        return $lang->safe('error/page/content/'.$code);
     }
 }
 

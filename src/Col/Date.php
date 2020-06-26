@@ -107,13 +107,8 @@ class Date extends Core\ColAlias
     // retourne un timestamp à partir d'une date formattée
     final public function parse(string $value):?int
     {
-        $return = null;
         $format = $this->date(true);
-
-        if(!empty($format))
-        $return = Base\Datetime::time($value,$format);
-
-        return $return;
+        return (!empty($format))? Base\Datetime::time($value,$format):null;
     }
 
 
@@ -137,41 +132,41 @@ class Date extends Core\ColAlias
 
     // dateMin
     // retourne la date la plus petite de la colonne dans la table
-    final public function dateMin():?int
+    final public function dateMin(bool $cache=true):?int
     {
-        return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'asc'],1);
+        return $this->cache(__METHOD__,function() {
+            return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'asc'],1);
+        },$cache);
     }
 
 
     // dateMax
     // retourne la date la plus grande de la colonne dans la table
-    final public function dateMax():?int
+    final public function dateMax(bool $cache=true):?int
     {
-        return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'desc'],1);
+        return $this->cache(__METHOD__,function() {
+            return $this->db()->selectColumn($this,$this->table(),[[$this->name(),true]],[$this->name()=>'desc'],1);
+        },$cache);
     }
 
 
     // dateDaysDiff
     // retourne la différence de jour entre la date minimum et maximum
-    final public function dateDaysDiff():?int
+    final public function dateDaysDiff(bool $cache=true):?int
     {
-        $return = null;
-        $min = $this->dateMin();
-        $max = $this->dateMax();
+        $min = $this->dateMin($cache);
+        $max = $this->dateMax($cache);
 
-        if(is_int($min) && is_int($max))
-        $return = Base\Datetime::daysDiff($min,$max);
-
-        return $return;
+        return (is_int($min) && is_int($max))? Base\Datetime::daysDiff($min,$max):null;
     }
 
 
     // dateDaysDiffFilterMethod
     // retourne la méthode de filtre à utiliser selon la différence de jours
-    final public function dateDaysDiffFilterMethod():string
+    final public function dateDaysDiffFilterMethod(bool $cache=true):string
     {
         $return = null;
-        $diff = $this->dateDaysDiff() ?? 0;
+        $diff = $this->dateDaysDiff($cache) ?? 0;
         $filterFormat = $this->getAttr('filterFormat');
 
         foreach ($filterFormat as $array)
@@ -195,11 +190,7 @@ class Date extends Core\ColAlias
     final public function date(bool $make=false)
     {
         $return = $this->getAttr('date');
-
-        if($make === true)
-        $return = static::makeDateFormat($return);
-
-        return $return;
+        return ($make === true)? static::makeDateFormat($return):$return;
     }
 
 
@@ -267,14 +258,8 @@ class Date extends Core\ColAlias
 
         if(is_string($filterMethod))
         {
-            foreach ($filterFormat as $key => $value)
-            {
-                if(is_array($value) && array_key_exists('filter',$value) && $value['filter'] === $filterMethod)
-                {
-                    $return = $key;
-                    break;
-                }
-            }
+            $closure = fn($value) => (is_array($value) && array_key_exists('filter',$value) && $value['filter'] === $filterMethod);
+            $return = Base\Arr::findKey($filterFormat,$closure);
         }
 
         if($return === null)
@@ -305,18 +290,13 @@ class Date extends Core\ColAlias
     // retourne le format de date en string, gère la valeur est un true (donc par défaut)
     final public static function makeDateFormat($value):?string
     {
-        $return = null;
-
         if($value === true)
         {
             $lang = static::lang()->currentLang();
             $value = Base\Datetime::getFormat($value,$lang);
         }
 
-        if(is_string($value))
-        $return = $value;
-
-        return $return;
+        return (is_string($value))? $value:null;
     }
 
 

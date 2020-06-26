@@ -80,6 +80,8 @@ class ClassUpload extends Main\Service
         $filename = (is_string($filename))? $filename:Base\Path::filename($source);
 
         $this->reset($filename);
+
+        if($this->isImage())
         $this->prepareImage($option);
     }
 
@@ -96,13 +98,8 @@ class ClassUpload extends Main\Service
     // retourne vrai si le fichier dans upload est une image
     final public function isImage():bool
     {
-        $return = false;
         $upload = $this->getClassUpload();
-
-        if($upload->file_is_image === true)
-        $return = true;
-
-        return $return;
+        return $upload->file_is_image === true;
     }
 
 
@@ -151,31 +148,28 @@ class ClassUpload extends Main\Service
     // paramètre pour image
     final protected function prepareImage(array $option):void
     {
-        if($this->isImage())
+        $upload = $this->getClassUpload();
+        $upload->jpeg_quality = -1;
+        $upload->png_compression = -1;
+        $upload->image_convert = '';
+
+        if(is_string($option['convert']))
+        $upload->image_convert = strtolower($option['convert']);
+
+        if(is_bool($option['autoRotate']))
+        $upload->image_auto_rotate = $option['autoRotate'];
+
+        if(is_int($option['quality']))
         {
-            $upload = $this->getClassUpload();
-            $upload->jpeg_quality = -1;
-            $upload->png_compression = -1;
-            $upload->image_convert = '';
+            if($this->isConvertImageType('jpg','jpeg'))
+            $upload->jpeg_quality = static::qualityJpg($option['quality']);
 
-            if(is_string($option['convert']))
-            $upload->image_convert = strtolower($option['convert']);
-
-            if(is_bool($option['autoRotate']))
-            $upload->image_auto_rotate = $option['autoRotate'];
-
-            if(is_int($option['quality']))
-            {
-                if($this->isConvertImageType('jpg','jpeg'))
-                $upload->jpeg_quality = static::qualityJpg($option['quality']);
-
-                elseif($this->isConvertImageType('png'))
-                $upload->png_compression = static::qualityPng($option['quality']);
-            }
-
-            if(is_int($option['width']) || is_int($option['height']))
-            $this->prepareResize($option['width'],$option['height'],$option['action']);
+            elseif($this->isConvertImageType('png'))
+            $upload->png_compression = static::qualityPng($option['quality']);
         }
+
+        if(is_int($option['width']) || is_int($option['height']))
+        $this->prepareResize($option['width'],$option['height'],$option['action']);
     }
 
 
@@ -183,57 +177,54 @@ class ClassUpload extends Main\Service
     // méthode pour paramétrer un resize dans l'objet upload
     final protected function prepareResize(?int $width=null,?int $height=null,$action=null):void
     {
-        if(is_int($width) || is_int($height))
+        $upload = $this->getClassUpload();
+        $upload->image_resize = true;
+
+        if(is_int($width))
+        $upload->image_x = $width;
+
+        if(is_int($height))
+        $upload->image_y = $height;
+
+        $value = true;
+        if(is_array($action) && count($action) === 1)
         {
-            $upload = $this->getClassUpload();
-            $upload->image_resize = true;
+            $value = current($action);
+            $action = key($action);
+        }
 
-            if(is_int($width))
-            $upload->image_x = $width;
+        if(is_string($action) && (is_int($width) || is_int($height)))
+        {
+            if($action === 'ratio')
+            $upload->image_ratio = $value;
 
-            if(is_int($height))
-            $upload->image_y = $height;
+            elseif($action === 'ratio_x')
+            $upload->image_ratio_x = $value;
 
-            $value = true;
-            if(is_array($action) && count($action) === 1)
+            elseif($action === 'ratio_y')
+            $upload->image_ratio_y = $value;
+
+            if(is_int($width) && is_int($height))
             {
-                $value = current($action);
-                $action = key($action);
-            }
+                if($action === 'crop')
+                $upload->image_ratio_crop = $value;
 
-            if(is_string($action) && (is_int($width) || is_int($height)))
-            {
-                if($action === 'ratio')
-                $upload->image_ratio = $value;
+                elseif($action === 'fill')
+                $upload->image_ratio_fill = $value;
 
-                elseif($action === 'ratio_x')
-                $upload->image_ratio_x = $value;
-
-                elseif($action === 'ratio_y')
-                $upload->image_ratio_y = $value;
-
-                if(is_int($width) && is_int($height))
+                elseif($action === 'bestFit')
                 {
-                    if($action === 'crop')
-                    $upload->image_ratio_crop = $value;
+                    $imageWidth = $upload->image_src_x;
+                    $imageHeight = $upload->image_src_y;
 
-                    elseif($action === 'fill')
-                    $upload->image_ratio_fill = $value;
-
-                    elseif($action === 'bestFit')
+                    if(is_int($imageWidth) && is_int($imageHeight))
                     {
-                        $imageWidth = $upload->image_src_x;
-                        $imageHeight = $upload->image_src_y;
+                        $bestFit = Base\ImageRaster::bestFit($width,$height,$imageWidth,$imageHeight,false);
 
-                        if(is_int($imageWidth) && is_int($imageHeight))
+                        if(!empty($bestFit))
                         {
-                            $bestFit = Base\ImageRaster::bestFit($width,$height,$imageWidth,$imageHeight,false);
-
-                            if(!empty($bestFit))
-                            {
-                                $upload->image_x = $bestFit['width'];
-                                $upload->image_y = $bestFit['height'];
-                            }
+                            $upload->image_x = $bestFit['width'];
+                            $upload->image_y = $bestFit['height'];
                         }
                     }
                 }

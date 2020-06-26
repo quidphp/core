@@ -36,15 +36,13 @@ class Redirection extends Core\RowAlias
     // il faut fournir un un type (index)
     final public static function grabContent(int $type):array
     {
-        $return = [];
         $table = static::tableFromFqcn();
         $typeCol = $table->col('type');
         $keyCol = $table->colKey();
         $valueCol = $table->col('value');
         $where = [true,[$typeCol,'findInSet',$type]];
-        $return = $table->keyValue($keyCol,$valueCol,false,$where);
 
-        return $return;
+        return $table->keyValue($keyCol,$valueCol,false,$where);
     }
 }
 

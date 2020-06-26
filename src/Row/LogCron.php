@@ -39,11 +39,10 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
     // crée le tableau d'insertion
     final protected static function prepareLogData(Core\Route $route,array $data):array
     {
-        $return = [];
-        $return['route'] = $route::classFqcn();
-        $return['json'] = $data;
-
-        return $return;
+        return [
+            'route'=>$route::classFqcn(),
+            'json'=>$data
+        ];
     }
 }
 

@@ -28,7 +28,6 @@ abstract class Sitemap extends Core\RouteAlias
     // lance la route sitemap et génère toutes les uris accessible à l'utilisateur de la session courante
     public function trigger()
     {
-        $r = '';
         $xml = Main\Xml::newOverload('sitemap');
         $lang = $this->lang();
         $routes = static::routes();
@@ -37,9 +36,7 @@ abstract class Sitemap extends Core\RouteAlias
         if(!empty($uris))
         $xml->sitemap(...$uris);
 
-        $r = $xml->output();
-
-        return $r;
+        return $xml->output();
     }
 }
 

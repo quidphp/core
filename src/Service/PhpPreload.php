@@ -53,7 +53,6 @@ class PhpPreload extends Main\Service
     // trigger et retourne la string php concatene
     final public function trigger(array $from):string
     {
-        $return = null;
         $concatenator = $this->getConcatenator();
         $credit = $this->getAttr('credit',true);
 
@@ -70,9 +69,7 @@ class PhpPreload extends Main\Service
             }
         }
 
-        $return = $concatenator->trigger();
-
-        return $return;
+        return $concatenator->trigger();
     }
 
 

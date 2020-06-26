@@ -26,14 +26,10 @@ class JShrink extends Main\Service
     // retourne le js minify
     final public function trigger(string $value):string
     {
-        $return = '';
-
         if($value instanceof Main\File\Js)
         $value = $value->read(true,true);
 
-        $return = Minifier::minify($value,$this->attr());
-
-        return $return;
+        return Minifier::minify($value,$this->attr());
     }
 
 
@@ -42,11 +38,8 @@ class JShrink extends Main\Service
     // retourne une string
     final public static function staticTrigger(string $value,?array $attr=null):string
     {
-        $return = null;
         $minifier = new static($attr);
-        $return = $minifier->trigger($value);
-
-        return $return;
+        return $minifier->trigger($value);
     }
 }
 

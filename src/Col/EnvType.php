@@ -29,13 +29,8 @@ class EnvType extends JsonAlias
     // ajoute le envtype sur insertion ou mise à jour
     protected function onCommit($value,?Core\Cell $cell=null,array $row,array $option):?array
     {
-        $return = null;
         $boot = static::bootReady();
-
-        if(!empty($boot))
-        $return = $boot->envType();
-
-        return $return;
+        return (!empty($boot))? $boot->envType():null;
     }
 }
 

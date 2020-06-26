@@ -89,7 +89,6 @@ trait _emailModel
 
     // sendEmail
     // méthode utilisé par différentes méthodes d'envoies de courriels
-    // plusieurs exceptions peuvent être envoyés
     // une closure peut être donné en argument de array pour faire les derniers remplacements avant l'envoie du courriel
     final protected function sendEmail(array $array,$to,?array $option=null):bool
     {

@@ -70,18 +70,14 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     // écrit de nouvelles data dans la ligne de session
     final public function sessionWrite(string $data):bool
     {
-        $return = false;
-        $db = $this->db();
         $this->cell('data')->set($data);
 
+        $db = $this->db();
         $db->off();
         $save = $this->update();
         $db->on();
 
-        if(is_int($save))
-        $return = true;
-
-        return $return;
+        return is_int($save);
     }
 
 
@@ -89,17 +85,12 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     // update le timestamp de la ligne, retourne true même si rien n'a changé
     final public function sessionUpdateTimestamp():bool
     {
-        $return = false;
         $db = $this->db();
-
         $db->off();
         $save = $this->update();
         $db->on();
 
-        if(is_int($save))
-        $return = true;
-
-        return $return;
+        return is_int($save);
     }
 
 
@@ -107,17 +98,12 @@ class Session extends Core\RowAlias implements Main\Contract\Session
     // détruit la ligne de session
     final public function sessionDestroy():bool
     {
-        $return = false;
         $db = $this->db();
-
         $db->off();
         $delete = $this->delete();
         $db->on();
 
-        if(is_int($delete))
-        $return = true;
-
-        return $return;
+        return is_int($delete);
     }
 
 

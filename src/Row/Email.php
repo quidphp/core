@@ -91,8 +91,6 @@ class Email extends Core\RowAlias implements Main\Contract\Email
     // le modèle doit être actif
     final public static function find(string $key,$type=true):?self
     {
-        $return = null;
-
         if($type === true)
         $type = null;
 
@@ -104,10 +102,8 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         $where[] = ['type','find',$type];
 
         $row = static::tableFromFqcn()->row($where);
-        if(!empty($row) && $row->isActive())
-        $return = $row;
 
-        return $return;
+        return (!empty($row) && $row->isActive())? $row:null;
     }
 }
 

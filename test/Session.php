@@ -263,7 +263,6 @@ class Session extends Base\Test
         assert($user->isPassword('Test123'));
         assert(!$user->isPassword('test123'));
         assert($user->setPassword(['Test123','Test123'],['com'=>false]) === null);
-        assert($user->loginValidate('login') === null);
         assert($user->cellName()->name() === 'username');
         assert($user::findNobody()->primary() === 1);
         assert($user::findByCredentials('USÉR@quid.COM')->primary() === 3);

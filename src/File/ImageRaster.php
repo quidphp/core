@@ -33,12 +33,10 @@ class ImageRaster extends Main\File\ImageRaster
     // comprime le fichier image avec le service spécifié dans config
     final public function compress(string $dirname,?string $filename=null,?array $option=null)
     {
-        $return = null;
         $class = $this->getServiceClass();
         $upload = new $class($option);
-        $return = $upload->trigger($this,$dirname,$filename);
 
-        return $return;
+        return $upload->trigger($this,$dirname,$filename);
     }
 }
 

@@ -126,11 +126,8 @@ class ScssPhp extends Main\ServiceAlias
     // retourne une string
     final public static function staticTrigger(string $value,?array $attr=null):string
     {
-        $return = null;
         $minifier = new static($attr);
-        $return = $minifier->trigger($value);
-
-        return $return;
+        return $minifier->trigger($value);
     }
 }
 

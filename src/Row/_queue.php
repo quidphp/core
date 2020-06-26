@@ -32,13 +32,8 @@ trait _queue
     // crée une nouvelle entrée du queue
     final public static function queue(...$values):?Main\Contract\Queue
     {
-        $return = null;
         $data = static::prepareQueueData(...$values);
-
-        if($data !== null)
-        $return = static::safeInsert($data);
-
-        return $return;
+        return ($data !== null)? static::safeInsert($data):null;
     }
 }
 ?>
