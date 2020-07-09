@@ -150,7 +150,7 @@ class User extends Core\RowAlias
     {
         return [
             'user'=>$this->username(),
-            'email'=>$this->email(),
+            'userEmail'=>$this->email(),
             'userName'=>$this->fullName()
         ];
     }
