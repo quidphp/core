@@ -81,13 +81,11 @@ abstract class Error extends Core\RouteAlias
 
     // outputHtml
     // génère le output html de la route error
-    final protected function outputHtml():string
+    final protected function outputHtml(?bool $titleBox=null):string
     {
         $r = '';
         $route = $this->getAttr('route');
-        $titleBox = $this->getAttr('titleBox');
-
-        $r .= Html::divOp('ajax-parse-error');
+        $titleBox ??= $this->getAttr('titleBox');
 
         if($titleBox === true)
         $r .= $this->makeTitleBox();
@@ -113,9 +111,7 @@ abstract class Error extends Core\RouteAlias
             $r .= Html::divCl();
         }
 
-        $r .= Html::divCl();
-
-        return $r;
+        return Html::div($r,'ajax-parse-error');
     }
 
 
