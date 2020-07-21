@@ -26,6 +26,11 @@ class Route extends Base\Test
         $priorityMake = $priority::make();
         $admin = $boot->roles()->get(80);
 
+        // shouldCache
+
+        // getCacheContext
+        assert(count($priorityMake->getCacheContext()) === 3);
+
         // type
         assert($priority::type() === 'assert');
 

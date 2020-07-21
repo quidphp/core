@@ -32,6 +32,7 @@ class Table extends Orm\Table
         'order'=>['order'=>'asc','date'=>'desc','name_[lang]'=>'asc','key'=>'asc','id'=>'desc'], // ordre et direction à utiliser par défaut, prend la première qui existe
         'route'=>null, // permet de lier une classe de route à la table
         'inRelation'=>true, // active ou non la validation que la valeur des relations sont dans la relation
+        'cacheEmpty'=>false, // si à l'insertion, update ou delete il faut vider la cache
         'permission'=>[
             '*'=>[
                 'download'=>true, // pouvoir télécharger un média

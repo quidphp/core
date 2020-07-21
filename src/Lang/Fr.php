@@ -134,6 +134,7 @@ class Fr extends Orm\Lang\Fr
                 'email'=>'Modèle de courriel',
                 'lang'=>'Contenu de langue',
                 'redirection'=>'Redirection',
+                'cacheRoute'=>'Cache - Route',
                 'log'=>'Log - Activité',
                 'logCron'=>'Log - Cron',
                 'logEmail'=>'Log - Courriel',

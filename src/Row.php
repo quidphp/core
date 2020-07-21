@@ -25,6 +25,18 @@ class Row extends Orm\Row
     protected static array $config = [];
 
 
+    // onCommittedOrDeleted
+    // au changement d'une row, vide la cache si la row l'exige
+    protected function onCommittedOrDeleted(array $option)
+    {
+        $cacheEmpty = $this->getAttr('cacheEmpty');
+        if($cacheEmpty === true)
+        Row\CacheRoute::clearAll();
+
+        return;
+    }
+
+
     // isOwner
     // retourne vrai si l'utilisateur donné en argument est un des propriétaires de la ligne
     // si null prend l'utilisateur de la session courante

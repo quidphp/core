@@ -25,10 +25,6 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
         'priority'=>1002,
         'panel'=>false,
         'parent'=>'system',
-        'permission'=>[
-            '*'=>['insert'=>true],
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],
@@ -87,13 +83,15 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     // et si la requête doit être loggé dans shouldLOg
     final public static function onCloseDown():void
     {
-        Base\Response::onCloseDown(fn() => static::logCurrentRequest());
+        static::logClosureCloseDown(function() {
+            return static::logCurrentRequest();
+        });
     }
 
 
     // logCurrentRequest
     // permet de logger la requête courante
-    final public static function logCurrentRequest():bool
+    final public static function logCurrentRequest(bool $after=false):bool
     {
         $return = false;
         $code = Base\Response::code();
@@ -126,7 +124,7 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
         if($return === true)
         {
             $data = $data ?: null;
-            static::log($code,$data);
+            static::logStrictAfter(false,$after,$code,$data);
         }
 
         return $return;

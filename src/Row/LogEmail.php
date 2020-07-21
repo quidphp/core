@@ -24,10 +24,6 @@ class LogEmail extends Core\RowAlias implements Main\Contract\Log
         'priority'=>1004,
         'panel'=>false,
         'parent'=>'system',
-        'permission'=>[
-            '*'=>['insert'=>true],
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'request'=>['class'=>Core\Col\Request::class],

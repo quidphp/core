@@ -177,7 +177,6 @@ abstract class Boot extends Main\Root
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true]]],
         '@staging'=>[
             'cache'=>true,
-            'compile'=>true,
             'compileJsOption'=>['compress'=>true],
             'compileCssOption'=>['compress'=>true],
             'composer'=>[
@@ -1072,7 +1071,7 @@ abstract class Boot extends Main\Root
     final public function pathOverview(string $path,$extension=null):array
     {
         $return = [];
-        $extension = ($extension === null)? $this->getAttr('pathOverviewExtension'):$extension;
+        $extension ??= $this->getAttr('pathOverviewExtension');
         $path = $this->path($path);
         $return['line'] = 0;
         $size = 0;
@@ -1780,7 +1779,7 @@ abstract class Boot extends Main\Root
     // retourne vrai si la cache globale est activé
     final public function shouldCache():bool
     {
-        return $this->getAttr('cache');
+        return $this->getAttr('cache') === true;
     }
 
 
@@ -2124,7 +2123,7 @@ abstract class Boot extends Main\Root
     final public function serviceMailer(?string $key=null):?Main\ServiceMailer
     {
         $return = null;
-        $key = ($key === null)? $this->getAttr('serviceMailer'):$key;
+        $key ??= $this->getAttr('serviceMailer');
 
         if(is_string($key))
         $return = $this->service($key);

@@ -104,7 +104,7 @@ class Row extends Base\Test
         assert(!empty($user->relationChilds()));
         assert(Core\Row\Session::className(true) === 'session');
         assert(Core\Row\Session::className() === 'Session');
-        assert($row->getAttr('priority') === 150);
+        assert($row->getAttr('priority') === 160);
         assert(Core\Row::getOverloadKeyPrepend() === null);
         assert(Core\Row\Session::getOverloadKeyPrepend() === 'Row');
 

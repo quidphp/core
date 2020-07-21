@@ -22,6 +22,10 @@ trait _log
     protected static array $configLog = [
         'search'=>false,
         'reservePrimary'=>false,
+        'permission'=>[
+            '*'=>['insert'=>true,'update'=>false,'delete'=>true],
+            'nobody'=>['insert'=>true],
+            'admin'=>['update'=>false]],
         'deleteTrim'=>1000 // custom
     ];
 
@@ -36,34 +40,30 @@ trait _log
     // lance le logAfter après
     final public static function log(...$values):?Main\Contract\Log
     {
-        $return = null;
-        $data = static::prepareLogData(...$values);
-
-        if($data !== null)
-        {
-            $return = static::safeInsert($data);
-
-            if(!empty($return))
-            static::logAfter();
-        }
-
-        return $return;
+        return static::logStrictAfter(false,true,...$values);
     }
 
 
-    // logStrict
-    // crée une nouvelle entrée du log maintenant, utilise insert plutot que safeInsert
-    // lance le logAfter après, des exceptions peuvent être envoyés
-    final public static function logStrict(...$values):Main\Contract\Log
+    // logStrictAfter
+    // méthode utilisé pour faire le log
+    // gère les options strict et after
+    final public static function logStrictAfter(bool $strict,bool $after,...$values):?Main\Contract\Log
     {
         $return = null;
         $data = static::prepareLogData(...$values);
 
         if($data !== null)
-        $return = static::insert($data);
+        {
+            static::logHad();
+            $method = ($strict === true)? 'insert':'safeInsert';
+            $return = static::$method($data);
 
-        if(!empty($return))
-        static::logAfter();
+            if(!empty($return) && $after === true)
+            static::logAfter();
+        }
+
+        if($strict === true && empty($return))
+        static::throw('couldNotLog');
 
         return $return;
     }

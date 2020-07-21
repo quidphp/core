@@ -105,10 +105,8 @@ abstract class Error extends Core\RouteAlias
             else
             $link = Html::a('/',$here);
 
-            $r .= Html::divOp('back');
-
-            $r .= Html::span(static::langText('error/page/back',['link'=>$link]));
-            $r .= Html::divCl();
+            $span = Html::span(static::langText('error/page/back',['link'=>$link]));
+            $r .= Html::div($span,'back');
         }
 
         return Html::div($r,'ajax-parse-error');

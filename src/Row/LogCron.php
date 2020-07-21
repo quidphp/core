@@ -24,10 +24,6 @@ class LogCron extends Core\RowAlias implements Main\Contract\Log
         'priority'=>1005,
         'panel'=>false,
         'parent'=>'system',
-        'permission'=>[
-            '*'=>['insert'=>true],
-            'nobody'=>['insert'=>true],
-            'admin'=>['update'=>false]],
         'cols'=>[
             'context'=>['class'=>Core\Col\Context::class],
             'route'=>['required'=>true,'general'=>true],

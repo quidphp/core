@@ -134,6 +134,7 @@ class En extends Orm\Lang\En
                 'email'=>'Email',
                 'lang'=>'Language content',
                 'redirection'=>'Redirection',
+                'cacheRoute'=>'Cache - Route',
                 'log'=>'Log - Event',
                 'logCron'=>'Log - Cron',
                 'logEmail'=>'Log - Email',

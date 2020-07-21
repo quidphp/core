@@ -25,12 +25,33 @@ abstract class Route extends Routing\Route
         'metaTitle'=>['bootLabel'=>true,'typeLabel'=>false], // éléments à ajouter à la fin du titre
         'dbHistory'=>null, // permet d'activer ou désactiver l'historique de base de données pour la route
         'row'=>null, // permet de spécifier la classe row en lien avec la route
+        'cacheClass'=>Row\CacheRoute::class, // détermine la classe à utiliser pour les caches de route
         'docOpen'=>[ // utilisé pour l'ouverture du document
             'html'=>['data-type'=>'%type%','data-env'=>'%env%','data-role'=>'%role%','data-user'=>'%sessionUser%','data-locale'=>'%sessionUserLocale%','data-timezone'=>'%sessionUserTimezone%','data-error'=>'none']],
         '@dev'=>[
             'jsonEncodePretty'=>true,
             'debug'=>1] // store dans debug
     ];
+
+
+    // shouldCache
+    // retourne vrai s'il la route gère la mise en cache
+    protected function shouldCache():bool
+    {
+        return parent::shouldCache() && (static::boot()->shouldCache() || static::boot()->isApp());
+    }
+
+
+    // getCacheContext
+    // retourne le contexte de cache, ajouter les éléments de boot
+    public function getCacheContext():array
+    {
+        $return = parent::getCacheContext();
+        $boot = static::boot();
+        $return = Base\Arr::merge($return,$boot->envType());
+
+        return $return;
+    }
 
 
     // type

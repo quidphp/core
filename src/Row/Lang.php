@@ -39,8 +39,9 @@ class Lang extends Core\RowAlias
     {
         $return = [];
         $boot = static::boot();
+        $table = static::tableFromFqcn();
         $type = (is_string($type))? $type:$boot->type();
-        $return = ['lang',$lang,$type,$boot->version()];
+        $return = [$table->name(),$lang,$type,$boot->version()];
 
         return $return;
     }
@@ -50,6 +51,8 @@ class Lang extends Core\RowAlias
     // sur insert, update ou delete efface la cache de tous les types
     final protected function onCommittedOrDeleted(array $option)
     {
+        parent::onCommittedOrDeleted($option);
+
         $boot = static::boot();
         $lang = $boot->lang();
 

@@ -166,10 +166,7 @@ abstract class Relation extends Core\ColAlias
             $return = $complex;
         }
 
-        if($return === null)
-        $return = parent::tag($attr,false);
-
-        return $return;
+        return $return ?? parent::tag($attr,false);
     }
 
 
