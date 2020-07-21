@@ -27,6 +27,7 @@ class Session extends Routing\Session
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
         'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
         'loginLifetime'=>3600, // durée du login dans une session
+        'loginLifetimeCom'=>false, // s'il faut afficher la communication de déconnexion à cause du lifetime
         'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
         'log'=>[ // lit des événements à des classes de table
             'login'=>Row\Log::class,
@@ -447,6 +448,7 @@ class Session extends Routing\Session
         {
             $user = $this->user();
             $loginLifetime = $this->getLoginLifetime();
+            $loginLifetimeCom = $this->getAttr('loginLifetimeCom');
             $storage = $this->storage();
 
             if(!$user->isActive())
@@ -461,7 +463,7 @@ class Session extends Routing\Session
 
                 if(is_int($timestampDifference) && $timestampDifference > $loginLifetime)
                 {
-                    $neg = 'userSession/loginLifetime';
+                    $neg = ($loginLifetimeCom === true)? 'userSession/loginLifetime':null;
                     $logout = true;
                 }
             }

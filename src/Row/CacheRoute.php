@@ -71,20 +71,10 @@ class CacheRoute extends Core\RowAlias implements Main\Contract\Cache
     // la méthode est safe, donc pas d'erreur si la table n'existe pas
     public static function clearAll():void
     {
-        $boot = static::bootReady();
+        $table = static::safeTableFromFqcn();
 
-        if(!empty($boot) && $boot->hasDb())
-        {
-            $db = $boot->db();
-
-            if($db->hasTable(static::class))
-            {
-                $table = $db->table(static::class);
-
-                if($table->hasPermission('truncate'))
-                $table->truncate();
-            }
-        }
+        if(!empty($table) && $table->hasPermission('truncate'))
+        $table->truncate();
     }
 
 
@@ -93,9 +83,7 @@ class CacheRoute extends Core\RowAlias implements Main\Contract\Cache
     final public static function findByContext(array $context):?self
     {
         $table = static::tableFromFqcn();
-        $where = ['context'=>$context];
-
-        return $table->select($where);
+        return $table->select(['context'=>$context]);
     }
 }
 

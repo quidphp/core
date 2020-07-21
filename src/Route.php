@@ -38,7 +38,7 @@ abstract class Route extends Routing\Route
     // retourne vrai s'il la route gère la mise en cache
     protected function shouldCache():bool
     {
-        return parent::shouldCache() && (static::boot()->shouldCache() || static::boot()->isApp());
+        return parent::shouldCache() && static::boot()->shouldCache();
     }
 
 

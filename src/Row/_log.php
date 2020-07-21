@@ -79,24 +79,15 @@ trait _log
 
         if(array_key_exists('deleteTrim',static::$config) && is_int($trim))
         {
-            $boot = static::bootReady();
+            $table = static::safeTableFromFqcn();
 
-            if(!empty($boot) && $boot->hasDb())
+            if(!empty($table) && $table->hasPermission('delete'))
             {
-                $db = $boot->db();
-
-                if($db->hasTable(static::class))
-                {
-                    $table = $db->table(static::class);
-
-                    if($table->hasPermission('delete'))
-                    {
-                        $currentLog = $db->getAttr('log');
-                        $db->off();
-                        $return = $table->deleteTrim($trim);
-                        $db->on();
-                    }
-                }
+                $db = $table->db();
+                $currentLog = $db->getAttr('log');
+                $db->off();
+                $return = $table->deleteTrim($trim);
+                $db->on();
             }
         }
 
