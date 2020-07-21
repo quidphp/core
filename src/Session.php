@@ -139,15 +139,10 @@ class Session extends Routing\Session
     // c'est à dire que le user objet a le même id et permission que dans les data de session
     final public function isUserSynched():bool
     {
-        $return = false;
         $userUid = $this->userUid();
         $userPermission = $this->userPermission();
         $row = $this->user;
-
-        if(!empty($row) && $userUid === $row->uid() && $userPermission === $row->permission())
-        $return = true;
-
-        return $return;
+        return !empty($row) && $userUid === $row->uid() && $userPermission === $row->permission();
     }
 
 
@@ -293,12 +288,7 @@ class Session extends Routing\Session
         }
 
         elseif($mode === 'is')
-        {
-            $return = false;
-
-            if($value instanceof $class && $value instanceof Row\User)
-            $return = true;
-        }
+        $return = ($value instanceof $class && $value instanceof Row\User);
 
         return $return;
     }
@@ -688,13 +678,8 @@ class Session extends Routing\Session
     // retourne vrai si le user permet le login dans le type
     final public function canLogin(?string $key=null):bool
     {
-        $return = false;
         $user = $this->user();
-
-        if($user->isSomebody() && $user->canLogin($key))
-        $return = true;
-
-        return $return;
+        return $user->isSomebody() && $user->canLogin($key);
     }
 
 
@@ -711,14 +696,9 @@ class Session extends Routing\Session
     // retourne vrai si le champ mot de passe devrait s'afficher
     final public function isPasswordVisible(Col $col,Cell $cell):bool
     {
-        $return = true;
         $user = $this->user();
         $row = $cell->row();
-
-        if($user === $row)
-        $return = false;
-
-        return $return;
+        return $user !== $row;
     }
 
 

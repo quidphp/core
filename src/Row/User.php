@@ -344,10 +344,7 @@ class User extends Core\RowAlias
             $permission = $this->permission();
 
             if($isNobody === false || $session->isAdmin())
-            {
-                if($currentPermission > $permission || $currentUser === $this || ($isAdmin === true && $currentPermission === $permission))
-                $return = true;
-            }
+            $return = ($currentPermission > $permission || $currentUser === $this || ($isAdmin === true && $currentPermission === $permission));
         }
 
         return $return;
@@ -362,15 +359,13 @@ class User extends Core\RowAlias
 
         if($return === true)
         {
-            $return = false;
             $session = static::session();
             $currentPermission = $session->permission();
 
             $isNobody = $this->isNobody();
             $permission = $this->permission();
 
-            if($isNobody === false && $currentPermission > $permission)
-            $return = true;
+            $return = ($isNobody === false && $currentPermission > $permission);
         }
 
         return $return;
@@ -499,10 +494,7 @@ class User extends Core\RowAlias
         $passwordReset = $this->passwordReset()->value();
 
         if(is_string($value) && strlen($value) && is_string($passwordReset) && strlen($passwordReset))
-        {
-            if(Base\Crypt::passwordActivate($passwordReset,1) === $value)
-            $return = true;
-        }
+        $return = (Base\Crypt::passwordActivate($passwordReset,1) === $value);
 
         return $return;
     }

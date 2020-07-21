@@ -42,22 +42,9 @@ class Row extends Orm\Row
     // si null prend l'utilisateur de la session courante
     final public function isOwner(?Row\User $user=null):bool
     {
-        $return = false;
         $owner = $this->cellsOwner();
-
-        if(empty($user))
-        $user = static::session()->user();
-
-        foreach ($owner as $cell)
-        {
-            if($cell->value() === $user->primary())
-            {
-                $return = true;
-                break;
-            }
-        }
-
-        return $return;
+        $user ??= static::session()->user();
+        return $owner->some(fn($cell) => $cell->value() === $user->primary());
     }
 
 

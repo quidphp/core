@@ -40,7 +40,7 @@ class Pointer extends Core\ColAlias
 
     // custom
     // méthode de validation custom pour le champ pointeur
-    final public static function custom($value)
+    final public static function custom($value):?bool
     {
         $return = null;
         $row = static::getRow($value);

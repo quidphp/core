@@ -116,10 +116,7 @@ class ClassUpload extends Main\Service
             $type = $upload->image_src_type;
 
             if(is_string($convert) && !empty($convert))
-            {
-                if(in_array(strtolower($convert),$types,true))
-                $return = true;
-            }
+            $return = (in_array(strtolower($convert),$types,true));
 
             elseif(is_string($type) && !empty($type) && in_array(strtolower($type),$types,true))
             $return = true;

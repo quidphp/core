@@ -117,8 +117,7 @@ class Session extends Core\RowAlias implements Main\Contract\Session
         if(!empty($name) && !empty($sid))
         {
             $count = $table->db()->selectCount($table,['name'=>$name,'sid'=>$sid]);
-            if($count > 0)
-            $return = true;
+            $return = ($count > 0);
         }
 
         return $return;

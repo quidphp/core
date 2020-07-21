@@ -58,10 +58,7 @@ class Role extends Main\Role
         if(is_array($value))
         {
             if(Base\Arr::isIndexed($value))
-            {
-                if(in_array($permission,$value,true) || in_array($name,$value,true))
-                $return = true;
-            }
+            $return = (in_array($permission,$value,true) || in_array($name,$value,true));
 
             else
             {
@@ -77,8 +74,7 @@ class Role extends Main\Role
                         $array[$k] = (int) $v;
                     }
 
-                    if(!empty($array) && Base\Validate::isAnd($array,$permission))
-                    $return = true;
+                    $return = (!empty($array) && Base\Validate::isAnd($array,$permission));
                 }
             }
         }

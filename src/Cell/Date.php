@@ -74,10 +74,7 @@ class Date extends Core\CellAlias
         $value = $this->value();
 
         if(is_int($value))
-        {
-            if(Base\Validate::compare($value,$symbol,$time))
-            $return = true;
-        }
+        $return = (Base\Validate::compare($value,$symbol,$time));
 
         elseif($allowEmpty === true)
         $return = true;

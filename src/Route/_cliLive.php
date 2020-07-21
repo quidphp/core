@@ -73,7 +73,6 @@ trait _cliLive
     // permet de changer la valeur d'opt dans un cli live
     final protected function stdInOpt(string $value):bool
     {
-        $return = true;
         $values = Base\Str::wordExplode($value,null,true,true);
 
         foreach ($values as $value)
@@ -91,7 +90,7 @@ trait _cliLive
             }
         }
 
-        return $return;
+        return true;
     }
 
 

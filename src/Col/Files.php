@@ -241,14 +241,9 @@ abstract class Files extends Core\ColAlias
     // retourne vrai s'il y a une limite de taille de fichier distincte à la colonne, donc plus petite que php ini
     final public function hasDistinctMaxFilesize():bool
     {
-        $return = false;
         $iniMaxFilesize = Base\Ini::uploadMaxFilesize(1);
         $maxFilesize = $this->maxFilesize();
-
-        if($maxFilesize < $iniMaxFilesize)
-        $return = true;
-
-        return $return;
+        return $maxFilesize < $iniMaxFilesize;
     }
 
 
@@ -342,9 +337,8 @@ abstract class Files extends Core\ColAlias
 
     // checkVersion
     // vérifie qu'une version est valide, envoie une exception sinon
-    final public function checkVersion(array $value):bool
+    final public function checkVersion(array $value):void
     {
-        $return = true;
         $throw = [];
 
         foreach (['quality','width','height'] as $z)
@@ -365,8 +359,6 @@ abstract class Files extends Core\ColAlias
 
         if(!empty($throw))
         static::throw($this->tableName(),$this->name(),$throw,...array_values($value));
-
-        return $return;
     }
 
 
