@@ -24,7 +24,6 @@ abstract class Relation extends Core\ColAlias
         'filter'=>true,
         'order'=>false,
         'relation'=>null,
-        'generalExcerptMin'=>null,
         'detailMaxLength'=>false,
         'check'=>['null'=>true], // les relations doivent être nullables
         'inRelation'=>true,

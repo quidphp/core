@@ -45,9 +45,6 @@ class Col extends Base\Test
         assert($email->details() === ['Cannot be empty','Length must be at maximum 100 characters','Must be a valid email (x@x.com)']);
         assert($email->details(false) === ['required',['maxLength'=>100],'email']);
 
-        // generalExcerptMin
-        assert($col->generalExcerptMin() === 100);
-
         // generalCurrentLang
         assert(Core\Col::generalCurrentLang($col) === false);
 

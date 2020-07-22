@@ -102,10 +102,7 @@ class BootCore extends Test\Suite\BootAlias
             'assertMedia'=>'[storagePublic]/media/assert'],
         'config'=>[
             Core\Table::class=>[
-                'order'=>['id'=>'desc'],
-                'relation'=>['appendPrimary'=>true]],
-            Core\Col::class=>[
-                'generalExcerptMin'=>100]],
+                'order'=>['id'=>'desc']]],
         'service'=>[
             'mailer'=>[Core\Service\PhpMailer::class,['host'=>'smtp.james.com','port'=>587,'encryption'=>'tls','username'=>'james@james.com','password'=>'james','name'=>'James']]],
         'roles'=>[

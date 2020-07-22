@@ -26,8 +26,7 @@ class Col extends Orm\Col
         'route'=>null, // permet de définir la route à utiliser en lien avec complex
         'detailMaxLength'=>true, // affiche le max length dans detail
         'detailPreValidate'=>false, // affiche la prévalidation dans detail
-        'detailValidate'=>true, // affiche la validation dans détail
-        'generalExcerptMin'=>null // excerpt min pour l'affichage dans general
+        'detailValidate'=>true // affiche la validation dans détail
     ];
 
 
@@ -73,14 +72,6 @@ class Col extends Orm\Col
         }
 
         return $return;
-    }
-
-
-    // generalExcerptMin
-    // retourne la longueur de l'excerpt pour general
-    final public function generalExcerptMin():?int
-    {
-        return $this->getAttr('generalExcerptMin');
     }
 
 

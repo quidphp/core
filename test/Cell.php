@@ -51,10 +51,6 @@ class Cell extends Base\Test
 
         // hasImage
 
-        // generalExcerptMin
-        assert($primary->generalExcerptMin() === 100);
-        assert($userAdd->generalExcerptMin() === null);
-
         // orm
         assert(is_array($dateAdd->getPermission($admin)));
         assert($primary instanceof Core\Cell\Primary);
@@ -102,8 +98,8 @@ class Cell extends Base\Test
         assert($enum->relation() === null);
         $enum->set(3);
         assert($enum->row()->updateChanged(['strict'=>true]) === 1);
-        assert($userAdd->relation() === 'admin (#2)');
-        assert($userIds->relationKeyValue() === [2=>'admin (#2)',1=>'nobody (#1)']);
+        assert($userAdd->relation() === 'admin');
+        assert($userIds->relationKeyValue() === [2=>'admin',1=>'nobody']);
         assert($userAdd->relationRow() instanceof Core\Row);
         assert($userAdd->isEnum());
         assert($userAdd->isRelationTable());
@@ -236,7 +232,7 @@ class Cell extends Base\Test
         assert($set->relation() === null);
         assert(!$userIds->isEnum());
         assert($userIds->isSet());
-        assert($userIds->relation() === [2=>'admin (#2)',1=>'nobody (#1)']);
+        assert($userIds->relation() === [2=>'admin',1=>'nobody']);
         assert($userIds->relationRows()->isCount(2));
         assert($userIds->isRelationTable());
         assert($userIds->relationTable() instanceof Core\Table);

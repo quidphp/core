@@ -26,7 +26,6 @@ abstract class Files extends Core\ColAlias
         'duplicate'=>false,
         'check'=>['kind'=>'text'],
         'version'=>null, // custom
-        'generalExcerptMin'=>null,
         'detailMaxLength'=>false,
         'defaultVersionExtension'=>['jpg','png'], // extension par défaut
         'path'=>'[storagePublic]/storage', // chemin du media

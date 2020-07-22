@@ -38,14 +38,6 @@ class Cell extends Orm\Cell
     {
         return $this->col()->isMedia();
     }
-
-
-    // generalExcerptMin
-    // retourne la longueur de l'excerpt pour general
-    final public function generalExcerptMin():?int
-    {
-        return $this->col()->generalExcerptMin();
-    }
 }
 
 // init
