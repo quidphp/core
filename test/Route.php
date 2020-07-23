@@ -29,7 +29,7 @@ class Route extends Base\Test
         // shouldCache
 
         // getCacheContext
-        assert(count($priorityMake->getCacheContext()) === 3);
+        assert(count($priorityMake->getCacheContext()) === 4);
 
         // type
         assert($priority::type() === 'assert');
