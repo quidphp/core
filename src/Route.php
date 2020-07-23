@@ -49,6 +49,7 @@ abstract class Route extends Routing\Route
         $return = parent::getCacheContext();
         $boot = static::boot();
         $return = Base\Arr::merge($return,$boot->envType());
+        $return['version'] = $boot->version();
 
         return $return;
     }
