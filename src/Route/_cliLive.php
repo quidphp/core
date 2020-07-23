@@ -192,10 +192,8 @@ trait _cliLive
     // loop live pour cli
     // possible de terminer le boot avant d'enclencher le loop
     // va attraper toutes les throwables, n'arrête pas le processus
-    final protected function live(\Closure $closure,?bool $teardown=null):void
+    final protected function live(\Closure $closure,bool $teardown=false):void
     {
-        $teardown ??= Base\Server::isCli();
-
         if($teardown === true)
         static::boot()->teardown();
 

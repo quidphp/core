@@ -429,7 +429,7 @@ abstract class Boot extends Main\Root
 
 
     // getAdminEmail
-    // retourne le email du premier utilisateur administrateur (dans l'ordre par défaut)
+    // retourne le email du premier utilisateur administrateur (ordre ascendant id)
     // peut retourner via array ou string
     public function getAdminEmail(bool $string=false)
     {
@@ -439,7 +439,10 @@ abstract class Boot extends Main\Root
 
         if(!empty($role))
         {
-            $user = Row\User::findByRole($role,true);
+            $table = Row\User::tableFromFqcn();
+            $primary = $table->primary();
+            $order = [$primary=>'asc'];
+            $user = Row\User::findByRole($role,$order);
 
             if(!empty($user))
             {

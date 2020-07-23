@@ -85,7 +85,7 @@ class CliCompile extends Core\RouteAlias
     // boot est teardown avant le lancement du loop éternel
     final protected function compileLive(array $attr):void
     {
-        $this->live(fn() => $this->compilePass($attr,[]));
+        $this->live(fn() => $this->compilePass($attr,[],Base\Server::isCli()));
     }
 
 
