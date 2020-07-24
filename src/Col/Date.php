@@ -206,17 +206,14 @@ class Date extends Core\ColAlias
             $method = $filterFormat[$key]['method'] ?? null;
             $format = $filterFormat[$key]['format'] ?? null;
 
-            if(is_string($method) && $format !== null)
-            {
-                $min = $this->dateMin();
-                $max = $this->dateMax();
-
-                if(is_int($min) && is_int($max))
-                $return = Base\Datetime::$method($max,$min,1,$format);
-            }
-
-            else
+            if(!is_string($method) || $format === null)
             static::throw($filterFormat[$key]);
+
+            $min = $this->dateMin();
+            $max = $this->dateMax();
+
+            if(is_int($min) && is_int($max))
+            $return = Base\Datetime::$method($max,$min,1,$format);
         }
 
         return $return;

@@ -38,7 +38,6 @@ class Redirection extends Core\RowAlias
         $return = [];
         $boot = static::boot();
         $table = static::tableFromFqcn();
-        $type = (is_string($type))? $type:$boot->type();
         $return = [$table->name(),$type,$boot->version()];
 
         return $return;

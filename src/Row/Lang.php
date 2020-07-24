@@ -40,7 +40,6 @@ class Lang extends Core\RowAlias
         $return = [];
         $boot = static::boot();
         $table = static::tableFromFqcn();
-        $type = (is_string($type))? $type:$boot->type();
         $return = [$table->name(),$lang,$type,$boot->version()];
 
         return $return;

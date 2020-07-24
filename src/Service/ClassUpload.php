@@ -77,7 +77,7 @@ class ClassUpload extends Main\Service
     final protected function setClassUpload(string $source,?string $filename=null,array $option):void
     {
         $this->upload = new Upload\Upload($source);
-        $filename = (is_string($filename))? $filename:Base\Path::filename($source);
+        $filename ??= Base\Path::filename($source);
 
         $this->reset($filename);
 

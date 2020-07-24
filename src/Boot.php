@@ -2362,14 +2362,11 @@ abstract class Boot extends Main\Root
                 $scheme = Base\Uri::scheme($value);
                 $host = Base\Uri::host($value);
 
-                if(!empty($scheme) && !empty($host))
-                {
-                    $return['scheme'][$envType] = $scheme;
-                    $return['host'][$envType] = $host;
-                }
-
-                else
+                if(empty($scheme) || empty($host))
                 static::throw($envType,$value);
+
+                $return['scheme'][$envType] = $scheme;
+                $return['host'][$envType] = $host;
             }
 
             $return['schemeHost'] = [];

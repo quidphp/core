@@ -310,22 +310,19 @@ abstract class Files extends Core\ColAlias
 
                 foreach ($this->getAttr('version') as $key => $value)
                 {
-                    if(is_string($key) && !empty($value))
-                    {
-                        $v = $this->defaultVersion();
-                        $keys = array_keys($v);
-                        $value = Base\Arr::keysChange($keys,$value);
-                        $v = Base\Arr::plus($v,$value);
-
-                        if(is_string($v['convert']))
-                        $v['convert'] = strtolower($v['convert']);
-
-                        $this->checkVersion($v);
-                        $return[$key] = $v;
-                    }
-
-                    else
+                    if(!is_string($key) || empty($value))
                     static::throw($key,'versionKeyValue');
+
+                    $v = $this->defaultVersion();
+                    $keys = array_keys($v);
+                    $value = Base\Arr::keysChange($keys,$value);
+                    $v = Base\Arr::plus($v,$value);
+
+                    if(is_string($v['convert']))
+                    $v['convert'] = strtolower($v['convert']);
+
+                    $this->checkVersion($v);
+                    $return[$key] = $v;
                 }
             }
 
