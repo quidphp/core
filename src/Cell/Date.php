@@ -29,7 +29,7 @@ class Date extends Core\CellAlias
         if($value === true || is_int($value) || is_string($value))
         $return = $this->format($value);
 
-        elseif($value !== null)
+        else
         $return = parent::pair($value,...$args);
 
         return $return;

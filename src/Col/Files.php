@@ -58,8 +58,10 @@ abstract class Files extends Core\ColAlias
         {
             $maxFilesize = static::makeMaxFilesize($maxFilesize);
             $iniMaxFilesize = Base\Ini::uploadMaxFilesize(1);
+
             if($maxFilesize > $iniMaxFilesize)
             static::throw('maxFilesizeCannotBeLargetThanIni');
+
             $maxFilesizeKey = $return['validateKeys']['maxFilesize'];
             $return['validate'][$maxFilesizeKey] = $this->maxFilesizeClosure();
         }
@@ -71,10 +73,11 @@ abstract class Files extends Core\ColAlias
         if($this->hasIndex() && $required === true && !array_key_exists('fileCount',$return['validate']))
         {
             $media = $return['media'] ?? null;
-            if(is_int($media))
-            $return['validate']['fileCount'] = $media;
-            else
+
+            if(!is_int($media))
             static::throw('invalidAmount',$media);
+
+            $return['validate']['fileCount'] = $media;
         }
 
         return $return;
@@ -506,10 +509,7 @@ abstract class Files extends Core\ColAlias
             $return = Base\Finder::normalize($return);
         }
 
-        if(empty($return))
-        static::throw($this);
-
-        return $return;
+        return $return ?: static::throw($this);
     }
 
 
@@ -630,10 +630,7 @@ abstract class Files extends Core\ColAlias
         if(is_int($value))
         $return = $value;
 
-        if(empty($return))
-        $return = Base\Ini::uploadMaxFilesize(1);
-
-        return $return;
+        return $return ?: Base\Ini::uploadMaxFilesize(1);
     }
 }
 

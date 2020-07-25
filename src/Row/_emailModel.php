@@ -49,7 +49,6 @@ trait _emailModel
     // peut retourner null
     final protected function getEmailArray(string $name,$type=true,?array $replace=null):array
     {
-        $return = [];
         $model = $this->getEmailModel($name,$type);
 
         if(empty($model))
@@ -58,10 +57,7 @@ trait _emailModel
         if(empty($replace))
         static::throw('modelNoReplace',$replace);
 
-        $return['model'] = $model;
-        $return['replace'] = $replace;
-
-        return $return;
+        return ['model'=>$model,'replace'=>$replace];
     }
 
 

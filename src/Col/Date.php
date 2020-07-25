@@ -259,10 +259,7 @@ class Date extends Core\ColAlias
             $return = Base\Arr::findKey($filterFormat,$closure);
         }
 
-        if($return === null)
-        static::throw('invalidFilterMethod',$filterMethod);
-
-        return $return;
+        return $return ?? static::throw('invalidFilterMethod',$filterMethod);
     }
 
 

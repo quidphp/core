@@ -51,7 +51,7 @@ abstract class Relation extends Core\CellAlias
             $return = $this->relation();
         }
 
-        elseif($value !== null)
+        else
         $return = parent::pair($value,...$args);
 
         return $return;

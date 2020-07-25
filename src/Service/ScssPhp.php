@@ -86,7 +86,6 @@ class ScssPhp extends Main\ServiceAlias
     // retourne la string css
     final public function trigger($value):string
     {
-        $return = null;
         $compiler = $this->getCompiler();
         $format = $this->getFormat();
         $importPaths = $this->getImportPaths();
@@ -101,23 +100,18 @@ class ScssPhp extends Main\ServiceAlias
             $value = $value->read(true,true);
         }
 
-        if(is_string($value))
-        {
-            $compiler->setFormatter($format);
-
-            if(!empty($importPaths))
-            $compiler->setImportPaths($importPaths);
-
-            if(!empty($variables))
-            $compiler->setVariables($variables);
-
-            $return = $compiler->compile($value);
-        }
-
-        else
+        if(!is_string($value))
         static::throw('invalidValue');
 
-        return $return;
+        $compiler->setFormatter($format);
+
+        if(!empty($importPaths))
+        $compiler->setImportPaths($importPaths);
+
+        if(!empty($variables))
+        $compiler->setVariables($variables);
+
+        return $compiler->compile($value);
     }
 
 

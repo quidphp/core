@@ -130,19 +130,16 @@ trait _cliLive
         if(!$this->hasCmd($cmd))
         static::throw('invalidCmd',$cmd);
 
-        else
-        {
-            $method = $this->getAttr(['cmd',$cmd]);
-            $opt = $this->onCallOpt($method,$opt);
-            $cli = ['Command',$method];
-            $this->cliWrite('neutral',$cli);
+        $method = $this->getAttr(['cmd',$cmd]);
+        $opt = $this->onCallOpt($method,$opt);
+        $cli = ['Command',$method];
+        $this->cliWrite('neutral',$cli);
 
-            if(!empty($opt))
-            $this->cliWrite('neutral',$opt,false);
+        if(!empty($opt))
+        $this->cliWrite('neutral',$opt,false);
 
-            $result = $this->$method($opt);
-            $return = (is_bool($result))? $result:true;
-        }
+        $result = $this->$method($opt);
+        $return = (is_bool($result))? $result:true;
 
         return $return;
     }

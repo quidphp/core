@@ -29,13 +29,10 @@ class UserPasswordReset extends Core\CellAlias
         if(Base\Validate::isPassword($value,$security))
         $hash = Base\Crypt::passwordHash($value,$hashOption);
 
-        if(!empty($hash))
-        $this->set($hash);
-
-        else
+        if(empty($hash))
         static::throw('invalidPassword');
 
-        return $this;
+        return $this->set($hash);
     }
 }
 

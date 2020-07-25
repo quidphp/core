@@ -1175,7 +1175,6 @@ abstract class Boot extends Main\Root
         if(empty($envType))
         static::throw('invalidEnvType',$host);
 
-        else
         $this->envType = $envType;
     }
 
@@ -1408,34 +1407,31 @@ abstract class Boot extends Main\Root
     {
         $type = $this->autoloadType();
 
-        if(in_array($type,['internal','composer','preload'],true))
+        if(!in_array($type,['internal','composer','preload'],true))
+        static::throw('invalidAutoloadType',$type);
+
+        $initMethod = '__init';
+        $hasComposer = (!empty(Service\Composer::get()));
+
+        if(!Main\Autoload::isRegistered('closure'))
+        Main\Autoload::registerClosure(false,$initMethod);
+
+        if(!Main\Autoload::isRegistered('alias'))
+        Main\Autoload::registerAlias();
+
+        $psr4 = $this->getAttr('psr4');
+        if(!empty($psr4))
         {
-            $initMethod = '__init';
-            $hasComposer = (!empty(Service\Composer::get()));
-
-            if(!Main\Autoload::isRegistered('closure'))
-            Main\Autoload::registerClosure(false,$initMethod);
-
-            if(!Main\Autoload::isRegistered('alias'))
-            Main\Autoload::registerAlias();
-
-            $psr4 = $this->getAttr('psr4');
-            if(!empty($psr4))
-            {
-                $psr4 = $this->makePaths($psr4,true);
-                Main\Autoload::registerPsr4($psr4,true,$initMethod);
-            }
-
-            if($hasComposer === true)
-            {
-                Service\Composer::setPsr4();
-                $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
-                Service\Composer::setClassMapAuthoritative($authoritative);
-            }
+            $psr4 = $this->makePaths($psr4,true);
+            Main\Autoload::registerPsr4($psr4,true,$initMethod);
         }
 
-        else
-        static::throw('invalidAutoloadType',$type);
+        if($hasComposer === true)
+        {
+            Service\Composer::setPsr4();
+            $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
+            Service\Composer::setClassMapAuthoritative($authoritative);
+        }
     }
 
 
@@ -2117,7 +2113,7 @@ abstract class Boot extends Main\Root
     // retourne un objet service à partir d'une clé, sinon envoie une exception
     final public function checkService(string $key):Main\Service
     {
-        return static::checkClass($this->service($key),Main\Service::class,$key);
+        return static::typecheck($this->service($key),Main\Service::class,$key);
     }
 
 
@@ -2139,7 +2135,7 @@ abstract class Boot extends Main\Root
     // retourne un objet service mailer à partir d'une clé, sinon envoie une exception
     final public function checkServiceMailer(?string $key=null):Main\ServiceMailer
     {
-        return static::checkClass($this->serviceMailer($key),Main\ServiceMailer::class,$key);
+        return static::typecheck($this->serviceMailer($key),Main\ServiceMailer::class,$key);
     }
 
 
@@ -2182,48 +2178,45 @@ abstract class Boot extends Main\Root
         {
             $credentials = $this->getAttr('db');
 
-            if(is_array($credentials) && count($credentials) === 2)
+            if(!is_array($credentials) || count($credentials) !== 2)
+            static::throw('invalidCredentials');
+
+            $option = (array) $this->getAttr('dbOption',true);
+
+            if($this->shouldCache())
             {
-                $option = (array) $this->getAttr('dbOption',true);
+                $type = $this->type();
+                $version = $this->version();
 
-                if($this->shouldCache())
-                {
-                    $type = $this->type();
-                    $version = $this->version();
+                $option['classeClosure'] = function(Main\Extenders $extenders) use($type,$version) {
+                    $key = ['classe',$type,$version];
+                    return static::cacheFile($key,function() use($extenders) {
+                        $this->classe = Orm\Classe::newOverload($extenders,$this->getAttr('classe'));
+                        $this->tablesColsLoad();
+                        return $this->classe;
+                    });
+                };
 
-                    $option['classeClosure'] = function(Main\Extenders $extenders) use($type,$version) {
-                        $key = ['classe',$type,$version];
-                        return static::cacheFile($key,function() use($extenders) {
-                            $this->classe = Orm\Classe::newOverload($extenders,$this->getAttr('classe'));
-                            $this->tablesColsLoad();
-                            return $this->classe;
-                        });
-                    };
-
-                    $option['schemaClosure'] = function(Db $db) use($type,$version) {
-                        $key = ['schema',$type,$version];
-                        return static::cacheFile($key,function() use($db) {
-                            $schema = Orm\Schema::newOverload(null,$db);
-                            $schema->all();
-                            return $schema->toArray();
-                        });
-                    };
-                }
-
-                $lang = $this->lang();
-                $extenders = $this->extenders();
-                $nobody = $this->roles()->nobody()->roles();
-                $values = Base\Arr::push($credentials,$extenders,$nobody,$option);
-                $return = Db::newOverload(...array_values($values));
-                $return->setLang($lang);
-
-                $langRow = $this->getAttr('langRow');
-                if(!empty($langRow))
-                $return->table($langRow)->cols();
+                $option['schemaClosure'] = function(Db $db) use($type,$version) {
+                    $key = ['schema',$type,$version];
+                    return static::cacheFile($key,function() use($db) {
+                        $schema = Orm\Schema::newOverload(null,$db);
+                        $schema->all();
+                        return $schema->toArray();
+                    });
+                };
             }
 
-            else
-            static::throw('invalidCredentials');
+            $lang = $this->lang();
+            $extenders = $this->extenders();
+            $nobody = $this->roles()->nobody()->roles();
+            $values = Base\Arr::push($credentials,$extenders,$nobody,$option);
+            $return = Db::newOverload(...array_values($values));
+            $return->setLang($lang);
+
+            $langRow = $this->getAttr('langRow');
+            if(!empty($langRow))
+            $return->table($langRow)->cols();
         }
 
         return $return;

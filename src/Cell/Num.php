@@ -19,6 +19,22 @@ class Num extends Core\CellAlias
     protected static array $config = [];
 
 
+    // pair
+    // retourne la valeur formatté, sinon renvoie à parent
+    public function pair($value=null,...$args)
+    {
+        $return = $this;
+
+        if($value === '$')
+        $return = $this->moneyFormat(...$args);
+
+        else
+        $return = parent::pair($value,...$args);
+
+        return $return;
+    }
+
+
     // cast
     // retourne une version cast de la valeur numérique
     final public function cast()

@@ -278,14 +278,11 @@ class Session extends Routing\Session
             if($mode === 'insert')
             $value = $this->getUserDefault();
 
-            if($value instanceof $class)
-            {
-                $this->user = $value;
-                $return = $value->toSession();
-            }
-
-            else
+            if(!$value instanceof $class)
             static::throw('userInvalid');
+
+            $this->user = $value;
+            $return = $value->toSession();
         }
 
         elseif($mode === 'is')
@@ -505,7 +502,7 @@ class Session extends Routing\Session
         if(is_int($value))
         $value = $class::findByUid($value);
 
-        static::checkClass($value,$class,'userNotInstanceOf');
+        static::typecheck($value,$class,'userNotInstanceOf');
 
         if($value !== $user)
         $this->triggerUser($value);
@@ -882,15 +879,11 @@ class Session extends Routing\Session
         if($this->isNobody())
         static::throw('notConnected');
 
-        else
+        $save = $this->user()->setPassword([$newPassword,$newPasswordConfirm,$oldPassword],$option);
+        if($save === 1)
         {
-            $save = $this->user()->setPassword([$newPassword,$newPasswordConfirm,$oldPassword],$option);
-
-            if($save === 1)
-            {
-                $this->regenerateId();
-                $return = true;
-            }
+            $this->regenerateId();
+            $return = true;
         }
 
         return $return;

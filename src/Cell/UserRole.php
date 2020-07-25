@@ -30,11 +30,10 @@ class UserRole extends SetAlias
         if(empty($userRoles) || $userRoles->isEmpty())
         $userRoles = $roles->nobody()->roles();
 
-        if($userRoles instanceof Main\Roles)
-        $this->row()->setRoles($userRoles);
-
-        else
+        if(!$userRoles instanceof Main\Roles)
         static::throw('invalidRolesObject');
+
+        $this->row()->setRoles($userRoles);
     }
 }
 

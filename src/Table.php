@@ -88,7 +88,7 @@ class Table extends Orm\Table
     final public static function tableFromFqcn():self
     {
         $value = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
-        return static::checkClass($value,self::class);
+        return static::typecheck($value,self::class);
     }
 }
 

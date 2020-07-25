@@ -68,11 +68,10 @@ abstract class Route extends Routing\Route
             $boot = Boot::instReady();
             $return = $boot->type();
 
-            if(is_string($return))
-            static::setType($return);
-
-            else
+            if(!is_string($return))
             static::throw('noType');
+
+            static::setType($return);
         }
 
         return $return;
@@ -268,11 +267,7 @@ abstract class Route extends Routing\Route
     // envoie une exception si pas de rowClass
     final public static function tableFromRowClass():Table
     {
-        $row = static::rowClass();
-
-        if(empty($row))
-        static::throw('noRowClass');
-
+        $row = static::rowClass() ?: static::throw('noRowClass');
         return static::db()->table($row);
     }
 

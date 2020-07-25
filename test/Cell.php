@@ -109,7 +109,7 @@ class Cell extends Base\Test
         // files
 
         // floating
-        assert($float instanceof Core\Cell\Floating);
+        assert($float instanceof Core\Cell\Num);
         assert($float->col() instanceof Core\Col\Floating);
         assert($float->set('1.20') === $float);
         assert($float->pair('$') === '$1.20');

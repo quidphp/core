@@ -16,7 +16,7 @@ class Floating extends Core\ColAlias
 {
     // config
     protected static array $config = [
-        'cell'=>Core\Cell\Floating::class,
+        'cell'=>Core\Cell\Num::class,
         'keyboard'=>'decimal',
         'check'=>['kind'=>'float']
     ];

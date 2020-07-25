@@ -301,9 +301,7 @@ class User extends Core\RowAlias
             static::throw('invalidHash');
 
             $route = $route::make(['primary'=>$primary,'hash'=>$hash]);
-            $absolute = $route->uriAbsolute();
-            if(empty($absolute))
-            static::throw('invalidAbsoluteUri');
+            $absolute = $route->uriAbsolute() ?: static::throw('invalidAbsoluteUri');
 
             $return['userPassword'] = $password;
             $return['activateUri'] = $absolute;
@@ -706,10 +704,7 @@ class User extends Core\RowAlias
     {
         $option = Base\Arr::plus(['include'=>false],$option);
         $passwordReset = $this->passwordReset();
-        $value = $passwordReset->value();
-
-        if(empty($value))
-        static::throw('emptyPasswordReset');
+        $value = $passwordReset->value() ?: static::throw('emptyPasswordReset');
 
         $password = $this->password()->set($value);
         $passwordReset->set(null);
@@ -1059,7 +1054,7 @@ class User extends Core\RowAlias
             $return = $table->select($where,$order);
         }
 
-        return static::checkClass($return,self::class,$permission);
+        return static::typecheck($return,self::class,$permission);
     }
 
 

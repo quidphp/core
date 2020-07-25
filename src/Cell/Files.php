@@ -49,12 +49,7 @@ abstract class Files extends Core\CellAlias
     // retourne vrai si le média peut être effacé, sinon envoie une exception
     final public function checkCanBeDeleted(?int $index=null):bool
     {
-        $return = $this->canBeDeleted($index);
-
-        if($return === false)
-        static::throw('cannotDelete',$index);
-
-        return $return;
+        return $this->canBeDeleted($index) ?: static::throw('cannotDelete',$index);
     }
 
 
@@ -71,12 +66,7 @@ abstract class Files extends Core\CellAlias
     // retourne vrai si le média peut être effacé, sinon envoie une exception
     final public function checkCanBeRegenerated(?int $index=null):bool
     {
-        $return = $this->canBeRegenerated($index);
-
-        if($return === false)
-        static::throw('cannotRegenerate',$index);
-
-        return $return;
+        return $this->canBeRegenerated($index) ?: static::throw('cannotRegenerate',$index);
     }
 
 
@@ -229,12 +219,7 @@ abstract class Files extends Core\CellAlias
     // retourne l'objet fichier, envoie une exception si non existant
     final protected function commonCheckFile(?int $index=null,$version=null):Main\File
     {
-        $return = $this->commonFile($index,$version);
-
-        if(empty($return))
-        $return = $this->commonThrow($index,$version);
-
-        return $return;
+        return $this->commonFile($index,$version) ?: $this->commonThrow($index,$version);
     }
 
 
@@ -260,10 +245,7 @@ abstract class Files extends Core\CellAlias
             }
         }
 
-        if(empty($return))
-        $return = $col->defaultConvertExtension();
-
-        return $return;
+        return $return ?: $col->defaultConvertExtension();
     }
 
 
@@ -343,34 +325,28 @@ abstract class Files extends Core\CellAlias
                 $indexDirname = $this->commonBasePath($index,false);
                 $originalDirname = $this->commonBasePath($index,null);
 
-                if(!empty($indexDirname) && !empty($originalDirname))
+                if(empty($indexDirname) || empty($originalDirname))
+                static::throw();
+
+                foreach (Base\Dir::get($indexDirname) as $path)
                 {
-                    foreach (Base\Dir::get($indexDirname) as $path)
-                    {
-                        if($path !== $originalDirname)
-                        {
-                            if(Base\Dir::emptyAndUnlink($path) !== true)
-                            static::throw('cannotUnlink',$path);
-                        }
-                    }
-
-                    foreach ($versions as $key => $version)
-                    {
-                        $path = $this->commonFilePath($index,$key);
-                        $dirname = $this->commonBasePath($index,$key);
-
-                        if($isImage === true)
-                        $r = $file->compress($dirname,null,$version);
-
-                        else
-                        $r = $this->commonCopy($file,$path,$dirname);
-
-                        $return[$path] = $r;
-                    }
+                    if($path !== $originalDirname && Base\Dir::emptyAndUnlink($path) !== true)
+                    static::throw('cannotUnlink',$path);
                 }
 
-                else
-                static::throw();
+                foreach ($versions as $key => $version)
+                {
+                    $path = $this->commonFilePath($index,$key);
+                    $dirname = $this->commonBasePath($index,$key);
+
+                    if($isImage === true)
+                    $r = $file->compress($dirname,null,$version);
+
+                    else
+                    $r = $this->commonCopy($file,$path,$dirname);
+
+                    $return[$path] = $r;
+                }
             }
 
             $count = count($return);

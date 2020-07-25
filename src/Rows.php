@@ -28,7 +28,7 @@ class Rows extends Orm\Rows
     final public static function tableFromFqcn():Table
     {
         $value = (static::class !== self::class)? static::boot()->db()->table(static::class):null;
-        return static::checkClass($value,Table::class);
+        return static::typecheck($value,Table::class);
     }
 }
 ?>
