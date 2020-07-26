@@ -33,14 +33,11 @@ trait _emailModel
 
     // getEmailModel
     // retourne un modèle de courriel ou null
+    // si la clé est défini dans les attributs, remplace sinon utilise celle donné
     final public function getEmailModel(string $name,$type=true):?Main\Contract\Email
     {
-        $return = null;
-        $key = $this->getAttr(['emailModel',$name]);
-        if(!empty($key))
-        $return = static::getEmailModelStatic($key,$type);
-
-        return $return;
+        $key = $this->getAttr(['emailModel',$name]) ?? $name;
+        return static::getEmailModelStatic($key,$type);
     }
 
 
