@@ -73,42 +73,50 @@ class Media extends FilesAlias
         }
 
         if($value instanceof Main\File)
+        $return = $this->setFromFile($value,$cell,$option);
+
+        return $return;
+    }
+
+
+    // setFromFile
+    // permet de set à partir d'un objet fichier
+    final public function setFromFile(Main\File $value,?Orm\Cell $cell=null,array $option):string
+    {
+        $old = Main\Files::newOverload();
+        $regenerate = false;
+        $basename = $value->mimeBasename($value->getAttr('uploadBasename'));
+        $return = Base\Path::safeBasename($basename);
+
+        if(!empty($cell))
         {
-            $old = Main\Files::newOverload();
-            $regenerate = false;
-            $basename = $value->mimeBasename($value->getAttr('uploadBasename'));
-            $return = Base\Path::safeBasename($basename);
+            $old = $cell->all();
+            $action = $value->getAttr('uploadAction');
 
-            if(!empty($cell))
+            if(!empty($action))
             {
-                $old = $cell->all();
-                $action = $value->getAttr('uploadAction');
-
-                if(!empty($action))
+                if($action === 'delete')
                 {
-                    if($action === 'delete')
-                    {
-                        $cell->checkCanBeDeleted();
-                        $value = null;
-                        $return = null;
-                    }
+                    $cell->checkCanBeDeleted();
+                    $value = null;
+                    $return = null;
+                }
 
-                    elseif($action === 'regenerate')
-                    {
-                        $cell->checkCanBeRegenerated();
-                        $old = Main\Files::newOverload();
-                        $value = null;
-                        $regenerate = true;
-                        $return = $cell->value();
-                    }
+                elseif($action === 'regenerate')
+                {
+                    $cell->checkCanBeRegenerated();
+                    $old = Main\Files::newOverload();
+                    $value = null;
+                    $regenerate = true;
+                    $return = $cell->value();
                 }
             }
-
-            $this->setCommittedCallback('getNewFiles',fn() => Main\Files::newOverload($value));
-
-            $closure = fn(Core\Cell $cell) => $cell->process($old,$value,$regenerate,$option);
-            $this->setCommittedCallback('onCommitted',$closure,$cell);
         }
+
+        $this->setCommittedCallback('getNewFiles',fn() => Main\Files::newOverload($value));
+
+        $closure = fn(Core\Cell $cell) => $cell->process($old,$value,$regenerate,$option);
+        $this->setCommittedCallback('onCommitted',$closure,$cell);
 
         return $return;
     }

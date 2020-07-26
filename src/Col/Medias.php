@@ -108,81 +108,90 @@ class Medias extends FilesAlias
         }
 
         if($value instanceof Main\Files)
+        $return = $this->setFromFiles($value,$cell,$option);
+
+        return $return;
+    }
+
+
+    // setFromFiles
+    // permet de set à partir d'un objet contenant plusieurs fichiers
+    final public function setFromFiles(Main\Files $value,?Orm\Cell $cell=null,array $option)
+    {
+        $this->checkFilesIndex($value);
+        $news = Main\Files::newOverload();
+        $olds = Main\Files::newOverload();
+        $regenerate = [];
+
+        if(!empty($cell))
         {
-            $this->checkFilesIndex($value);
-            $news = Main\Files::newOverload();
-            $olds = Main\Files::newOverload();
-            $regenerate = [];
+            $return = Main\Files::newOverload();
+            $indexes = $cell->indexes();
 
-            if(!empty($cell))
+            foreach ($this->indexRange() as $i)
             {
-                $return = Main\Files::newOverload();
+                $current = null;
 
-                foreach ($this->indexRange() as $i)
+                if($indexes->exists($i))
+                $current = $indexes->get($i);
+
+                if($value->exists($i))
                 {
-                    $current = null;
+                    $new = $value->get($i);
+                    $action = $new->getAttr('uploadAction');
 
-                    if($indexes->exists($i))
-                    $current = $indexes->get($i);
-
-                    if($value->exists($i))
+                    if(empty($action) || $action === 'delete')
                     {
-                        $new = $value->get($i);
-                        $action = $new->getAttr('uploadAction');
-
-                        if(empty($action) || $action === 'delete')
+                        if(empty($action))
                         {
-                            if(empty($action))
-                            {
-                                $news->set($i,$new);
-                                $return->set($i,$new);
-                            }
-
-                            else
-                            $cell->checkCanBeDeleted($i);
-
-                            if(!empty($current))
-                            {
-                                $version = $cell->version($i);
-                                if(!empty($version))
-                                $olds->add($version);
-                                $olds->set(null,$current);
-                            }
+                            $news->set($i,$new);
+                            $return->set($i,$new);
                         }
 
-                        elseif($action === 'regenerate')
+                        else
+                        $cell->checkCanBeDeleted($i);
+
+                        if(!empty($current))
                         {
-                            $cell->checkCanBeRegenerated($i);
-                            $regenerate[] = $i;
-                            $return->set($i,$new);
+                            $version = $cell->version($i);
+                            if(!empty($version))
+                            $olds->add($version);
+                            $olds->set(null,$current);
                         }
                     }
 
-                    elseif(!empty($current))
-                    $return->set($i,$current);
+                    elseif($action === 'regenerate')
+                    {
+                        $cell->checkCanBeRegenerated($i);
+                        $regenerate[] = $i;
+                        $return->set($i,$new);
+                    }
                 }
 
-                $return->sort();
-                $news->sort();
+                elseif(!empty($current))
+                $return->set($i,$current);
             }
 
-            else
-            $return = $news = $value;
-
-            $array = [];
-            foreach ($return as $key => $file)
-            {
-                $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
-                $array[$key] = Base\Path::safeBasename($basename);
-            }
-
-            $return = (!empty($array))? Base\Json::encode($array):null;
-
-            $this->setCommittedCallback('getNewFiles',fn() => $news);
-
-            $closure = fn(Core\Cell $cell) => $cell->process($olds,$news,$regenerate,$option);
-            $this->setCommittedCallback('onCommitted',$closure,$cell);
+            $return->sort();
+            $news->sort();
         }
+
+        else
+        $return = $news = $value;
+
+        $array = [];
+        foreach ($return as $key => $file)
+        {
+            $basename = $file->mimeBasename($file->getAttr('uploadBasename'));
+            $array[$key] = Base\Path::safeBasename($basename);
+        }
+
+        $return = (!empty($array))? Base\Json::encode($array):null;
+
+        $this->setCommittedCallback('getNewFiles',fn() => $news);
+
+        $closure = fn(Core\Cell $cell) => $cell->process($olds,$news,$regenerate,$option);
+        $this->setCommittedCallback('onCommitted',$closure,$cell);
 
         return $return;
     }
