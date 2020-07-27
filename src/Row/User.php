@@ -132,7 +132,7 @@ class User extends Core\RowAlias
     protected function onCommittedOrDeleted(array $option)
     {
         if(empty($option['dateLogin']))
-        parent::onCommittedOrDeleted();
+        parent::onCommittedOrDeleted($option);
 
         return;
     }
