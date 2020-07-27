@@ -126,6 +126,18 @@ class User extends Core\RowAlias
     }
 
 
+    // onCommittedOrDeleted
+    // au changement d'une row user, vide la cache si nécessaire
+    // pas de commit si c'est un login (évite de vider la cache lors du login)
+    protected function onCommittedOrDeleted(array $option)
+    {
+        if(empty($option['dateLogin']))
+        parent::onCommittedOrDeleted();
+
+        return;
+    }
+
+
     // toEmail
     // retourne un tableau email=>fullName lors de l'envoie dans un email
     // peut retourner null
@@ -637,7 +649,7 @@ class User extends Core\RowAlias
         $this->dateLogin()->set($timestamp);
 
         $db->off();
-        $return = $this->updateChanged(['include'=>false]);
+        $return = $this->updateChanged(['include'=>false,'dateLogin'=>true]);
         $db->on();
 
         return $return;
