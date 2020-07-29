@@ -28,7 +28,6 @@ class Date extends Core\ColAlias
         'keyboard'=>'numeric',
         'check'=>['kind'=>'int'],
         'detailMaxLength'=>false,
-        'calendarFormat'=>'dateToDay', // custom
         'filterFormat'=>[ // format, méthodes et maximum pour le filter
             'day'=>['format'=>0,'filter'=>'or|day','method'=>'days','max'=>100],
             'month'=>['format'=>2,'filter'=>'or|month','method'=>'months','max'=>1500],

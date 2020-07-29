@@ -196,11 +196,19 @@ trait _cliLive
 
         while (true)
         {
-            $this->loopAmountIncrement();
+            try
+            {
+                $this->checkLiveState($teardown);
+            }
+
+            catch (\Throwable $e)
+            {
+                break;
+            }
 
             try
             {
-                $continue = true;
+                $this->loopAmountIncrement();
                 $continue = $this->checkStdIn();
 
                 if($continue === true)
@@ -242,6 +250,26 @@ trait _cliLive
                 break;
             }
         }
+    }
+
+
+    // checkLiveState
+    // méthode qui permet de faire un check de state au début d'un cycle live
+    // par défaut, prend une table de la db au hasard et fait un check alive dessus
+    protected function checkLiveState(bool $tearDown):void
+    {
+        if($tearDown === false)
+        {
+            $tables = static::boot()->db()->tables();
+            $count = $tables->count();
+            $index = Base\Crypt::randomInt(null,0,($count - 1));
+            $table = $tables->index($index);
+
+            if(!$table->alive())
+            static::throw();
+        }
+
+        return;
     }
 
 

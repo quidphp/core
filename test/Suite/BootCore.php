@@ -235,9 +235,22 @@ class BootCore extends Test\Suite\BootAlias
                 $target = Base\Arr::valuesStrip($exclude,$target);
             }
 
-            $array = Main\Autoload::callNamespace($target,'classTestTrigger',$exclude,$data);
+            try
+            {
+                $array = Main\Autoload::callNamespace($target,'classTestTrigger',$exclude,$data);
+            }
+
+            catch (\Throwable $e)
+            {
+                Main\Exception::staticCatched($e,['output'=>true,'kill'=>true]);
+            }
+
             $return .= Base\Debug::exportExtra($array);
-            $return .= Base\Debug::export(Base\Num::addition(...array_values($array)));
+
+            $array = Base\Arr::filter($array,fn($value) => is_numeric($value));
+            $total = Base\Num::addition(...array_values($array));
+
+            $return .= Base\Debug::export($total);
         }
 
         $return .= $this->outputOverview();

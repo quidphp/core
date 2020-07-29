@@ -309,6 +309,14 @@ abstract class Boot extends Main\Root
     }
 
 
+    // onBeforeReady
+    // callback à un moment clé du makeExtenders
+    protected function onBeforeReady():void
+    {
+        return;
+    }
+
+
     // onReady
     // callback étant appelé une fois le status à ready (4)
     // possible d'avoir une callable dans les attributs
@@ -631,6 +639,7 @@ abstract class Boot extends Main\Root
         if($this->shouldCompile())
         $this->compile();
 
+        $this->onBeforeReady();
         $this->setStatus(4);
         $this->session();
 
