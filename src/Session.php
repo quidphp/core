@@ -760,7 +760,7 @@ class Session extends Routing\Session
                 else
                 {
                     $return = true;
-                    $pos = $this->login($connect,$user,$option['remember']);
+                    $pos = $this->login($user,$connect,$option['remember']);
 
                     if($option['rehash'] === true)
                     $user->passwordRehash($password);
@@ -776,7 +776,7 @@ class Session extends Routing\Session
 
     // login
     // méthode appelé après la validation pour le login réussi
-    final public function login(string $connect,Row $user,$remember=null):string
+    final public function login(Row $user,?string $connect=null,$remember=null):string
     {
         $return = 'login/success';
         $this->regenerateId();
