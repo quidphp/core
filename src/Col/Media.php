@@ -81,7 +81,7 @@ class Media extends FilesAlias
 
     // setFromFile
     // permet de set à partir d'un objet fichier
-    final public function setFromFile(Main\File $value,?Orm\Cell $cell=null,array $option):string
+    final public function setFromFile(Main\File $value,?Orm\Cell $cell=null,array $option):?string
     {
         $old = Main\Files::newOverload();
         $regenerate = false;
