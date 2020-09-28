@@ -42,6 +42,7 @@ class User extends Core\RowAlias
             'registerAdmin'=>'registerAdmin',
             'registerConfirm'=>'registerConfirm',
             'resetPassword'=>'resetPassword'],
+        'register'=>false, // détermine si on peut enregistrer un nouvel utilisateur
         'log'=>[ // lit des événements à des classes de table
             'register'=>Log::class,
             'changePassword'=>Log::class,
@@ -173,7 +174,7 @@ class User extends Core\RowAlias
     // doit être nobody et qu'il y ait au moins un modèle d'email de confirmation
     final public function allowRegister($type=true):bool
     {
-        return $this->allowRegisterConfirmEmail($type) || $this->allowRegisterAdminEmail($type);
+        return $this->getAttr('register') === true && ($this->allowRegisterConfirmEmail($type) || $this->allowRegisterAdminEmail($type));
     }
 
 

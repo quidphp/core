@@ -55,6 +55,40 @@ abstract class Route extends Routing\Route
     }
 
 
+    // getCacheReplaceSystem
+    // retourne le tableau de remplacement pour le système
+    protected function getCacheReplaceSystem():array
+    {
+        $boot = static::boot();
+        $parent = parent::getCacheReplaceSystem();
+
+        return Base\Arr::merge($parent,$boot->getReplaceForCache());
+    }
+
+
+    // getPrepareDocReplace
+    // retourne le tableau de remplacement pour prepareDoc
+    protected function getPrepareDocReplace(string $type):array
+    {
+        $return = parent::getPrepareDocReplace($type);
+
+        if($type === 'docOpen')
+        {
+            $boot = static::boot();
+            $replace = $boot->getReplaceForCache();
+
+            foreach ($replace as $key => $value)
+            {
+                $newKey = "%$key%";
+                if(array_key_exists($newKey,$return))
+                $return[$newKey] = $this->makeCacheKey($key);
+            }
+        }
+
+        return $return;
+    }
+
+
     // type
     // retourne le type de la route
     // si pas de type, utilise celui de boot

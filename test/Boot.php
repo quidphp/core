@@ -62,6 +62,9 @@ class Boot extends Base\Test
         // getReplace
         assert(count($boot->getReplace()) === 22);
 
+        // getReplaceForCache
+        assert(count($boot->getReplaceForCache()) === 5);
+
         // getAdminEmail
         assert(is_array($boot->getAdminEmail()));
         assert(is_string($boot->getAdminEmail(true)));

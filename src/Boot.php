@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Quid\Core;
 use Quid\Base;
+use Quid\Base\Cli;
+use Quid\Base\Html;
 use Quid\Main;
 use Quid\Orm;
 use Quid\Routing;
@@ -97,9 +99,9 @@ abstract class Boot extends Main\Root
             'assertQuietEval'=>[Base\Assert::class,'set',ASSERT_QUIET_EVAL,false],
             'dirCurrent'=>[Base\Dir::class,'setCurrent','[storage]'],
             'rootCacheFile'=>[Base\Root::class,'setCacheFileStorage','[storageCache]'],
-            'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>['v'=>'%version%'],'exists'=>false]],
-            'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>['v'=>'%version%'],'exists'=>false]],
-            'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>['v'=>'%version%'],'exists'=>false]],
+            'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>['v'=>'%version%'],'exists'=>false]],
+            'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>['v'=>'%version%'],'exists'=>false]],
+            'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>['v'=>'%version%'],'exists'=>false]],
             'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>['v'=>'%version%'],'exists'=>false]],
             'emailTest'=>[Base\Email::class,'setTestTo',true],
             'sessionStorage'=>[Base\Session::class,'setSavePath','[storage]/session'],
@@ -167,9 +169,9 @@ abstract class Boot extends Main\Root
             'umaskGroupWritable'=>true,
             'callable'=>[
                 'resSelfSigned'=>[Base\Res::class,'setSelfSigned',true],
-                'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>true,'exists'=>true]],
-                'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>true,'exists'=>true]],
-                'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>true,'exists'=>true]],
+                'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>true,'exists'=>true]],
+                'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>true,'exists'=>true]],
+                'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>true,'exists'=>true]],
                 'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>true,'exists'=>true]],
                 'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
@@ -381,7 +383,7 @@ abstract class Boot extends Main\Root
     // retourne le tableau de remplacement de boot, utilisé pour route et email
     public function getReplace():array
     {
-        $return = [];
+        $return = $this->getReplaceForCache();
         $session = $this->session();
         $role = $session->role();
         $user = $session->user();
@@ -395,22 +397,17 @@ abstract class Boot extends Main\Root
         $return['bootDescription'] = $this->description();
         $return['bootVersion'] = $this->version();
 
-        $return['env'] = $env;
         $return['envLabel'] = $lang->envLabel($env);
         $return['type'] = $type;
         $return['typeLabel'] = $lang->typeLabel($type);
 
-        $return['role'] = $role->name();
         $return['roleLabel'] = $role->label();
 
         $return['lang'] = $langCode;
         $return['langLabel'] = $lang->langLabel($langCode);
 
-        $return['sessionUser'] = $user->username()->value();
-        $return['sessionUserEmail'] = $user->email()->value();
         $return['sessionUserName'] = $user->fullName();
-        $return['sessionUserTimezone'] = $user->getTimezone() ?? Base\Timezone::get();
-        $return['sessionUserLocale'] = $user->getLocale() ?? Base\Datetime::getLocale();
+        $return['sessionUserEmail'] = $user->email()->value();
 
         if(!empty($adminEmail))
         {
@@ -434,6 +431,26 @@ abstract class Boot extends Main\Root
         }
 
         return Base\Arr::clean($return);
+    }
+
+
+    // getReplaceForCache
+    // retourne le tableau de remplacement pour la cache, utilisé par route
+    final public function getReplaceForCache():array
+    {
+        $return = [];
+        $session = $this->session();
+        $user = $session->user();
+        $role = $session->role();
+        $env = $this->env();
+
+        $return['role'] = $role->name();
+        $return['sessionUser'] = $user->username()->value();
+        $return['sessionUserTimezone'] = $user->getTimezone() ?? Base\Timezone::get();
+        $return['sessionUserLocale'] = $user->getLocale() ?? Base\Datetime::getLocale();
+        $return['env'] = $env;
+
+        return $return;
     }
 
 
@@ -842,7 +859,7 @@ abstract class Boot extends Main\Root
         Base\Buffer::flushEcho($return);
 
         if(Base\Server::isCli())
-        Base\Cli::eol();
+        Cli::eol();
 
         $this->teardown();
         $this->cleanup();

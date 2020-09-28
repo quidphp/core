@@ -31,6 +31,10 @@ class Route extends Base\Test
         // getCacheContext
         assert(count($priorityMake->getCacheContext()) === 4);
 
+        // getCacheReplaceSystem
+
+        // getPrepareDocReplace
+
         // type
         assert($priority::type() === 'assert');
 

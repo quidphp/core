@@ -317,7 +317,7 @@ trait _cliLive
     // retourne la dernière ligne du stdin
     final protected function stdinLine(bool $block=false,bool $lower=false):?string
     {
-        return Base\Cli::stdinLine($this->stdin($block),$lower);
+        return Cli::stdinLine($this->stdin($block),$lower);
     }
 
 
