@@ -352,7 +352,8 @@ abstract class Files extends Core\CellAlias
             $count = count($return);
             if($option['com'] === true && $count > 0)
             {
-                $text = static::langPlural($count,'com/pos/media/regenerate',['count'=>$count]);
+                $lang = static::lang();
+                $text = $lang->plural($count,'com/pos/media/regenerate',['count'=>$count]);
                 $this->com($text,'pos');
             }
         }
@@ -497,7 +498,8 @@ abstract class Files extends Core\CellAlias
 
             if($option['com'] === true && $return > 0)
             {
-                $text = static::langPlural($return,'com/pos/media/delete',['count'=>$return]);
+                $lang = static::lang();
+                $text = $lang->plural($return,'com/pos/media/delete',['count'=>$return]);
                 $this->com($text,'pos');
             }
         }

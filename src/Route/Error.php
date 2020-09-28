@@ -86,6 +86,7 @@ abstract class Error extends Core\RouteAlias
         $r = '';
         $route = $this->getAttr('route');
         $titleBox ??= $this->getAttr('titleBox');
+        $lang = static::lang();
 
         if($titleBox === true)
         $r .= $this->makeTitleBox();
@@ -94,7 +95,7 @@ abstract class Error extends Core\RouteAlias
 
         if(!empty($route))
         {
-            $here = static::langText('lc|common/here');
+            $here = $lang->text('lc|common/here');
 
             if(is_string($route))
             {
@@ -105,7 +106,7 @@ abstract class Error extends Core\RouteAlias
             else
             $link = Html::a('/',$here);
 
-            $span = Html::span(static::langText('error/page/back',['link'=>$link]));
+            $span = Html::span($lang->text('error/page/back',['link'=>$link]));
             $r .= Html::div($span,'back');
         }
 
