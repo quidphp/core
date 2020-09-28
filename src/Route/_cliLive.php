@@ -261,9 +261,7 @@ trait _cliLive
         if($tearDown === false)
         {
             $tables = static::boot()->db()->tables();
-            $count = $tables->count();
-            $index = Base\Crypt::randomInt(null,0,($count - 1));
-            $table = $tables->index($index);
+            $table = $tables->random();
 
             if(!$table->alive())
             static::throw();

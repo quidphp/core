@@ -166,6 +166,7 @@ abstract class Boot extends Main\Root
             'cache'=>false,
             'umaskGroupWritable'=>true,
             'callable'=>[
+                'resSelfSigned'=>[Base\Res::class,'setSelfSigned',true],
                 'uriOptionImg'=>[Base\Html::class,'setUriOption','img',['append'=>true,'exists'=>true]],
                 'uriOptionLink'=>[Base\Html::class,'setUriOption','link',['append'=>true,'exists'=>true]],
                 'uriOptionScript'=>[Base\Html::class,'setUriOption','script',['append'=>true,'exists'=>true]],
