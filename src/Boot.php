@@ -660,7 +660,7 @@ abstract class Boot extends Main\Root
         $this->onBeforeReady();
         $this->setStatus(4);
         $this->session();
-
+        $this->makeServicesSymlink();
         $this->manageRedirect();
 
         $this->onReady();
@@ -2163,6 +2163,23 @@ abstract class Boot extends Main\Root
     final public function checkServiceMailer(?string $key=null):Main\ServiceMailer
     {
         return static::typecheck($this->serviceMailer($key),Main\ServiceMailer::class,$key);
+    }
+
+
+    // makeServicesSymlink
+    // génère les symlinks pour les services
+    final protected function makeServicesSymlink():void
+    {
+        $services = $this->services()->filter(fn($service) => $service->isServiceType('route'));
+
+        foreach ($services as $service)
+        {
+            $symlink = $service->getSymlink();
+            if(!empty($symlink))
+            static::setsSymlink($symlink);
+        }
+
+        return;
     }
 
 
