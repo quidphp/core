@@ -406,6 +406,7 @@ abstract class Boot extends Main\Root
         $return['lang'] = $langCode;
         $return['langLabel'] = $lang->langLabel($langCode);
 
+        $return['sessionNobody'] = $user->isNobody();
         $return['sessionUserName'] = $user->fullName();
         $return['sessionUserEmail'] = $user->email()->value();
 
