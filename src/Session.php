@@ -383,7 +383,7 @@ class Session extends Routing\Session
     // syncUser
     // tente de resynchroniser le user objet avec le user dans les data de session
     // il faut resynchroniser pour le regenerateId (onEnd annule le user)
-    final protected function syncUser():void
+    protected function syncUser():void
     {
         if(!$this->isUserSynched())
         {

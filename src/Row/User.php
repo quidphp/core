@@ -433,14 +433,18 @@ class User extends Core\RowAlias
 
     // canLogin
     // retourne vrai si le role permet le login
-    final public function canLogin(?string $type=null):bool
+    public function canLogin(?string $type=null):bool
     {
-        if($type === null)
-        $type = static::boot()->type();
+        return $this->hasPermission($this->getLoginKey());
+    }
 
-        $key = $type.'Login';
 
-        return $this->hasPermission($key);
+    // getLoginKey
+    // retourne la clé à utiliser pour la méthode canLogin
+    protected function getLoginKey(?string $type=null):string
+    {
+        $type ??= static::boot()->type();
+        return $type.'Login';
     }
 
 
@@ -790,7 +794,7 @@ class User extends Core\RowAlias
     // il faut fournir une route, un modèle de courriel, un tableau de remplacement pour le courriel
     // retourne null ou une string contenant le nouveau mot de passe
     // option com, strict et log
-    final public function resetPassword($type=true,?array $replace=null,?array $option=null):?string
+    public function resetPassword($type=true,?array $replace=null,?array $option=null):?string
     {
         $return = null;
         $neg = $this->loginValidate('resetPassword');
