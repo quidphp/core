@@ -60,7 +60,7 @@ class Boot extends Base\Test
         assert(count($boot->_cast()) === 2);
 
         // getReplace
-        assert(count($boot->getReplace()) === 22);
+        assert(count($boot->getReplace()) === 23);
 
         // getReplaceForCache
         assert(count($boot->getReplaceForCache()) === 5);
