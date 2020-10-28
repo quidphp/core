@@ -285,6 +285,7 @@ class En extends Orm\Lang\En
 
                 // userSession
                 'userSession'=>[
+                    'cannotBeLogin'=>'This user cannot be logged in.',
                     'userInactive'=>'This user is now inactive.',
                     'loginLifetime'=>'Please reconnect. The session has expired.',
                     'mostRecentStorage'=>'Please reconnect. A newer session has been detected for this user.'

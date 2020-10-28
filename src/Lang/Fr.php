@@ -285,6 +285,7 @@ class Fr extends Orm\Lang\Fr
 
                 // userSession
                 'userSession'=>[
+                    'cannotBeLogin'=>'Cet utilisateur ne peut pas être connecté.',
                     'userInactive'=>'Cet utilisateur est maintenant inactif.',
                     'loginLifetime'=>'Svp vous reconnecter. La durée de vie de la session a été dépassée.',
                     'mostRecentStorage'=>'Svp vous reconnecter. Une session plus récente a été détectée pour cet utilisateur.'

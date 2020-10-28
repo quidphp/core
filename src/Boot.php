@@ -406,7 +406,6 @@ abstract class Boot extends Main\Root
         $return['lang'] = $langCode;
         $return['langLabel'] = $lang->langLabel($langCode);
 
-        $return['sessionNobody'] = $user->isNobody()? 1:0;
         $return['sessionUserName'] = $user->fullName();
         $return['sessionUserEmail'] = $user->email()->value();
 
@@ -446,6 +445,7 @@ abstract class Boot extends Main\Root
         $env = $this->env();
 
         $return['role'] = $role->name();
+        $return['sessionSomebody'] = $user->isSomebody() ? 1:0;
         $return['sessionUser'] = $user->username()->value();
         $return['sessionUserTimezone'] = $user->getTimezone() ?? Base\Timezone::get();
         $return['sessionUserLocale'] = $user->getLocale() ?? Base\Datetime::getLocale();

@@ -438,52 +438,45 @@ class Session extends Routing\Session
     // lors du logout ne regénère pas le id de la session
     final protected function userSession():void
     {
-        $logout = false;
         $neg = null;
 
-        if($this->isSomebody() && $this->canLogin())
+        if($this->isSomebody())
         {
-            $user = $this->user();
-            $loginLifetime = $this->getLoginLifetime();
-            $loginLifetimeCom = $this->getAttr('loginLifetimeCom');
-            $storage = $this->storage();
+            if(!$this->canLogin())
+            $neg = ['userSession','cannotBeLogin'];
 
-            if(!$user->isActive())
+            else
             {
+                $user = $this->user();
+                $loginLifetime = $this->getLoginLifetime();
+                $loginLifetimeCom = $this->getAttr('loginLifetimeCom');
+                $storage = $this->storage();
+
+                if(!$user->isActive())
                 $neg = 'userSession/userInactive';
-                $logout = true;
-            }
 
-            if(empty($logout) && is_int($loginLifetime))
-            {
-                $timestampDifference = $this->timestampDifference();
-
-                if(is_int($timestampDifference) && $timestampDifference > $loginLifetime)
+                if(empty($logout) && is_int($loginLifetime))
                 {
+                    $timestampDifference = $this->timestampDifference();
+
+                    if(is_int($timestampDifference) && $timestampDifference > $loginLifetime)
                     $neg = ($loginLifetimeCom === true)? 'userSession/loginLifetime':null;
-                    $logout = true;
                 }
-            }
 
-            if(empty($logout) && $this->isLoginSinglePerUser() && $storage->hasMethod('sessionMostRecent'))
-            {
-                $mostRecentStorage = $storage::sessionMostRecent($this->name(),$user,$storage,$this->envType());
-                if(!empty($mostRecentStorage))
+                if(empty($logout) && $this->isLoginSinglePerUser() && $storage->hasMethod('sessionMostRecent'))
                 {
+                    $mostRecentStorage = $storage::sessionMostRecent($this->name(),$user,$storage,$this->envType());
+                    if(!empty($mostRecentStorage))
                     $neg = 'userSession/mostRecentStorage';
-                    $logout = true;
                 }
-            }
 
-            $validate = $user->userSessionValidate();
-            if(is_string($validate))
-            {
-                $logout = true;
+                $validate = $user->userSessionValidate();
+                if(is_string($validate))
                 $neg = ['userSession',$validate];
             }
         }
 
-        if($logout === true)
+        if(!empty($neg))
         $this->logout(['neg'=>$neg]);
     }
 
