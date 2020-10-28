@@ -71,17 +71,17 @@ class Email extends Core\RowAlias implements Main\Contract\Email
 
     // subject
     // retourne le sujet du email
-    final public function subject():string
+    final public function subject(?string $lang=null):string
     {
-        return $this->cell('name_[lang]')->get();
+        return $this->cellName($lang)->get();
     }
 
 
     // body
     // retourne le body du email
-    final public function body():string
+    final public function body(?string $lang=null):string
     {
-        return $this->cell('content_[lang]')->get();
+        return $this->cellContent($lang)->get();
     }
 
 

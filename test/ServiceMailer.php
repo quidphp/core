@@ -82,13 +82,13 @@ class ServiceMailer extends Base\Test
         assert(strlen($row->body()) === 61);
         assert($row->messageSegment() === ['subject','userPassword','activateUri','domain']);
         $replace = ['subject'=>'ok','userPassword'=>'LOL','activateUri'=>'http://google.com','domain'=>'well'];
-        assert(count($row->prepareMessage(['test@exempla.la','pierre'],$replace,['cc'=>'paul@ok.com'])) === 5);
+        assert(count($row->prepareMessage(['test@exempla.la','pierre'],$replace,null,['cc'=>'paul@ok.com'])) === 5);
         assert($row->serviceMailer('mailer') === $mailer);
         assert($row->queue('mailer',['test@exempla.la'=>'Pierre champion'],$replace));
         assert($row instanceof Main\Contract\Email);
         assert($row->queue('mailer',$user,$replace));
         assert($row->queue('mailer',$user['email'],$replace));
-        $row->queue('mailer','test@exempla.la',$replace,['debug'=>2,'output'=>'html','priority'=>1,'header'=>['test'=>4]]);
+        $row->queue('mailer','test@exempla.la',$replace,null,['debug'=>2,'output'=>'html','priority'=>1,'header'=>['test'=>4]]);
         assert($db->truncate($queue::tableFromFqcn()) instanceof \PdoStatement);
 
         return true;

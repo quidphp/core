@@ -80,6 +80,14 @@ trait _emailModel
     }
 
 
+    // getEmailLang
+    // retourne la langue à utiliser pour le courriel
+    protected function getEmailLang(Main\Contract\Email $model):?string
+    {
+        return null;
+    }
+
+
     // sendEmail
     // méthode utilisé par différentes méthodes d'envoies de courriels
     // une closure peut être donné en argument de array pour faire les derniers remplacements avant l'envoie du courriel
@@ -101,7 +109,8 @@ trait _emailModel
         if(!empty($closure))
         $replace = $closure($replace);
 
-        $return = $model->$method($key,$to,$replace);
+        $lang = $this->getEmailLang($model);
+        $return = $model->$method($key,$to,$replace,$lang);
 
         if($return === true)
         $this->onEmailSent($model);
