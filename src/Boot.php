@@ -1099,18 +1099,23 @@ abstract class Boot extends Main\Root
     // pathOverview
     // retourne le total des lignes et size pour un path
     // possible de filtrer par extension
-    final public function pathOverview(string $path,$extension=null):array
+    final public function pathOverview(string $path,$extension=null):?array
     {
-        $return = [];
+        $return = null;
         $extension ??= $this->getAttr('pathOverviewExtension');
         $path = $this->path($path);
-        $return['line'] = 0;
-        $size = 0;
-        $size += Base\Dir::size($path,false,$extension);
 
-        $return['size'] = Base\Num::sizeFormat($size);
-        $return['line'] += Base\Dir::line($path,$extension);
-        $return['path'] = Base\Dir::subDirLine($path,null,$extension);
+        if(!empty($path))
+        {
+            $return = [];
+            $return['line'] = 0;
+            $size = 0;
+            $size += Base\Dir::size($path,false,$extension);
+
+            $return['size'] = Base\Num::sizeFormat($size);
+            $return['line'] += Base\Dir::line($path,$extension);
+            $return['path'] = Base\Dir::subDirLine($path,null,$extension);
+        }
 
         return $return;
     }
