@@ -706,7 +706,7 @@ abstract class Boot extends Main\Root
     // launch
     // match la route avec la request et lance la route
     // retourne le contenu du match
-    final protected function launch()
+    final protected function launch():?string
     {
         $return = null;
         $this->checkReady();
