@@ -1005,13 +1005,14 @@ class User extends Core\RowAlias
     // gère la validation avant l'enregistrement
     // peut valider que passwordConfirm est conforme si donnée en argument
     // retourne une string ou null
-    final public static function registerValidate(array $data,?string $passwordConfirm=null):?string
+    final public static function registerValidate(array $data,?string $passwordConfirm=null,?array $option=null):?string
     {
         $return = null;
+        $option = Base\Arr::plus(['onlyNobody'=>true],$option);
         $session = static::session();
         $password = 'password';
 
-        if(!$session->isNobody())
+        if($option['onlyNobody'] === true && !$session->isNobody())
         $return = 'register/alreadyConnected';
 
         elseif(!empty($data) && array_key_exists($password,$data) && is_string($data[$password]))
@@ -1037,7 +1038,7 @@ class User extends Core\RowAlias
         $table = static::tableFromFqcn();
         $password = 'password';
         $com = $table->db()->com();
-        $neg = static::registerValidate($data,$passwordConfirm);
+        $neg = static::registerValidate($data,$passwordConfirm,$option);
         $pos = null;
 
         if(empty($neg))
@@ -1107,12 +1108,16 @@ class User extends Core\RowAlias
             foreach ($credentials as $key)
             {
                 $col = $table->col($key);
-                $name = $col->name();
 
-                if(!empty($where))
-                $where[] = 'or';
+                if($col->shouldBeUnique())
+                {
+                    $name = $col->name();
 
-                $where[$name] = $value;
+                    if(!empty($where))
+                    $where[] = 'or';
+
+                    $where[$name] = $value;
+                }
             }
 
             if(!empty($where))

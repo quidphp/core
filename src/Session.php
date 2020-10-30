@@ -660,9 +660,9 @@ class Session extends Routing\Session
     // flashPost
     // flash les données de post
     // retourne l'objet session flash
-    final public function flashPost(Route $route,bool $onlyCol=true,bool $stripTags=false):Flash
+    final public function flashPost(Route $route,bool $onlyCol=true,bool $stripTags=false,?string $notStart=null):Flash
     {
-        return $this->flash()->setPost($route,$onlyCol,$stripTags);
+        return $this->flash()->setPost($route,$onlyCol,$stripTags,$notStart);
     }
 
 
