@@ -305,6 +305,7 @@ class En extends Orm\Lang\En
                     'userCantLogin'=>'This user cannot login',
                     'error'=>'Error while doing a password reset',
                     'userNotFound'=>'This user does not exist',
+                    'userNoEmail'=>'This user does not have an email',
                     'email'=>'Error while sending the email',
                     'invalidValue'=>'Invalid value'
                 ],

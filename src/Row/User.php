@@ -928,9 +928,10 @@ class User extends Core\RowAlias
     // reset le mot de passe d'un l'utilisateur
     // connect se fait normalement par email
     // retourne null ou le nouveau password
-    final public static function resetPasswordProcess(string $email,$type=true,?array $replace=null,?array $option=null):?string
+    final public static function resetPasswordProcess(string $value,$type=true,?array $replace=null,?array $option=null):?string
     {
         $return = null;
+        $option = Base\Arr::plus(['onlyEmail'=>true],$option);
         $table = static::tableFromFqcn();
         $session = static::session();
         $com = $table->db()->com();
@@ -940,21 +941,25 @@ class User extends Core\RowAlias
         if(!$session->isNobody())
         $neg = 'resetPassword/alreadyConnected';
 
-        elseif(strlen($email))
+        elseif($option['onlyEmail'] === true && !Base\Validate::isEmail($value))
+        $neg = 'resetPassword/invalidEmail';
+
+        elseif(strlen($value))
         {
-            $user = static::findByEmail($email);
+            $method = ($option['onlyEmail'] === true)? 'findByEmail':'findByCredentials';
+            $user = static::$method($value);
 
             if(!empty($user))
-            $return = $user->resetPassword($type,$replace,$option);
-
-            else
             {
-                if(!Base\Validate::isEmail($email))
-                $neg = 'resetPassword/invalidEmail';
+                if(!$user->hasEmail())
+                $neg = 'resetPassword/userNoEmail';
 
                 else
-                $neg = 'resetPassword/userNotFound';
+                $return = $user->resetPassword($type,$replace,$option);
             }
+
+            else
+            $neg = 'resetPassword/userNotFound';
         }
 
         else

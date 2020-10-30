@@ -305,6 +305,7 @@ class Fr extends Orm\Lang\Fr
                     'userCantLogin'=>"L'utilisateur ne peut pas se connecter",
                     'error'=>'Impossible de regénérer le mot de passe',
                     'userNotFound'=>"L'utilisateur n'existe pas",
+                    'userNoEmail'=>"L'utilisateur n'a pas de courriel",
                     'email'=>"Erreur lors de l'envoie courriel",
                     'invalidValue'=>'Valeur fournie invalide'
                 ],
