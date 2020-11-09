@@ -99,7 +99,7 @@ class Email extends Core\RowAlias implements Main\Contract\Email
         $table = static::tableFromFqcn();
         $where = [];
         $where[] = [$table->colKey(),'=',$key];
-        $where[] = ['type','find',$type];
+        $where[] = ['type','findInSet',$type];
 
         $row = static::tableFromFqcn()->row($where);
 
