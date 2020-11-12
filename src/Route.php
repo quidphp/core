@@ -189,19 +189,19 @@ abstract class Route extends Routing\Route
     }
 
 
-    // getOtherMeta
-    // retourne la row meta lié à la route
+    // getOtherMetas
+    // retourne un tableau de contact meta à utiliser
     // par défaut vérifie si la row a l'interface meta
-    final public function getOtherMeta():?Main\Contract\Meta
+    public function getOtherMetas():array
     {
-        $return = null;
+        $return = [];
 
         if($this->rowExists())
         {
             $row = $this->row();
 
             if($row instanceof Main\Contract\Meta)
-            $return = $row;
+            $return[] = $row;
         }
 
         return $return;
