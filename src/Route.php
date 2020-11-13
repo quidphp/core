@@ -190,7 +190,7 @@ abstract class Route extends Routing\Route
 
 
     // getOtherMetas
-    // retourne un tableau de contact meta à utiliser
+    // retourne un tableau de contract meta à utiliser
     // par défaut vérifie si la row a l'interface meta
     public function getOtherMetas():array
     {

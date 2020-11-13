@@ -52,7 +52,7 @@ class Route extends Base\Test
         // row
         assert($priorityMake->row() === null);
 
-        // getOtherMeta
+        // getOtherMetas
 
         // getFormText
 

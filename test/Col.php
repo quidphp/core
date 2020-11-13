@@ -138,6 +138,7 @@ class Col extends Base\Test
         assert($media->versionKey(null) === 0);
         assert($media->versionKey(-1) === 'small');
         assert($media->versionKey(1) === 'large');
+        assert($media->accept() === '.jpg,.png');
         assert($storage->ruleValidate()['extension'] instanceof \Closure);
         assert($storage->ruleValidate()['extension']('lang') === ['pdf']);
         assert($storage->ruleValidate(true)[1] === 'The extension of the file must be: pdf');
