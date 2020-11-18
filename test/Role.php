@@ -67,6 +67,9 @@ class Role extends Base\Test
         // description
         assert($nobody->description() === null);
 
+        // output
+        assert(count($nobody->output()) === 3);
+
         return true;
     }
 }

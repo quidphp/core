@@ -154,6 +154,18 @@ class Role extends Main\Role
 
         return $return;
     }
+
+
+    // output
+    // permet de faire un output du rôle (permission, name et label)
+    final public function output():array
+    {
+        return [
+            'permission'=>$this->permission(),
+            'name'=>$this->name(),
+            'label'=>$this->label()
+        ];
+    }
 }
 
 // init
