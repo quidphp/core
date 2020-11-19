@@ -132,7 +132,7 @@ class UserPassword extends Core\ColAlias
         $pos = 'changePassword/success';
         $row = $cell->row();
 
-        if($option['onChange'] === true)
+        if($option['onChange'] === true && $insert === false)
         $row->callThis(fn() => $this->onChangePassword());
 
         if(!empty($option['com']) && $option['com'] === true && $insert === false)
