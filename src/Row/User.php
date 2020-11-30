@@ -435,7 +435,7 @@ class User extends Core\RowAlias
     // retourne vrai si le role permet le login
     public function canLogin(?string $type=null):bool
     {
-        return $this->hasPermission($this->getLoginKey());
+        return $this->hasPermission($this->getLoginKey($type));
     }
 
 
