@@ -276,23 +276,6 @@ abstract class Files extends Core\CellAlias
     }
 
 
-    // commonDownloadRoute
-    // retourne la route pour le téléchargement
-    final protected function commonDownloadRoute(?int $index=null):Core\Route
-    {
-        $return = null;
-        $col = $this->col();
-        $array = ['table'=>$this,'primary'=>$this,'col'=>$this];
-
-        if($this->hasIndex())
-        $array['index'] = $index;
-
-        $return = $col->route('download',$array);
-
-        return $return;
-    }
-
-
     // commonMakeVersion
     // reconstruit les versions pour un ou plusieurs index à partir de l'image originale
     // efface tous les dossiers sauf celui de l'original (donc efface contenu de version inexistante)

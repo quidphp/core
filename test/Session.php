@@ -251,7 +251,7 @@ class Session extends Base\Test
         assert($user->hasUsername());
         assert($user->canReceiveEmail());
         assert(count($user->toEmail()) === 1);
-        assert($user->toSession() === ['uid'=>3,'permission'=>20]);
+        assert($user->toSession() === ['uid'=>3,'permission'=>20,'username'=>'user']);
         assert($user->canLogin());
         assert($user->canLogin('assert'));
         assert($user->username()->name() === 'username');

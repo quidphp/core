@@ -25,7 +25,8 @@ class Session extends Routing\Session
     protected static array $config = [
         'userClass'=>Row\User::class, // classe row de l'utilisateur
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
-        'logoutOnPermissionChange'=>true, // force le logout sur changement de la valeur de permission
+        'ignoreOnPermissionChange'=>true, // ignore la session sur changement de la valeur de permission
+        'ignoreOnUsernameChange'=>false, // ignore la session sur changement de username
         'loginLifetime'=>3600, // durée du login dans une session
         'loginLifetimeCom'=>false, // s'il faut afficher la communication de déconnexion à cause du lifetime
         'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
@@ -231,7 +232,7 @@ class Session extends Routing\Session
         {
             $storage = $this->getStorageClass();
 
-            if(method_exists($storage,'sessionMostRecent'))
+            if($storage::classHasMethod('sessionMostRecent'))
             {
                 $user = $this->getUserDefault();
                 $session = $storage::sessionMostRecent($this->name(),$user,null,$this->envType());
@@ -255,13 +256,18 @@ class Session extends Routing\Session
 
         if($mode === 'init')
         {
-            if(is_array($value) && Base\Arr::keysAre(['uid','permission'],$value) && is_int($value['uid']))
+            if(is_array($value) && !empty($value['uid']) && is_int($value['uid']))
             {
                 $user = $class::findByUid($value['uid']);
 
                 if(!empty($user))
                 {
-                    if(!$this->getAttr('logoutOnPermissionChange') || ($user->permission() === $value['permission']))
+                    $bool = (!$this->getAttr('ignoreOnPermissionChange') || ($user->permission() === ($value['permission'] ?? null)));
+
+                    if($bool === true)
+                    $bool = (!$this->getAttr('ignoreOnUsernameChange') || ((string) $user->username() === ($value['username'] ?? null)));
+
+                    if($bool === true)
                     $return = $user;
                 }
             }

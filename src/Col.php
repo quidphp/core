@@ -26,6 +26,7 @@ class Col extends Orm\Col
         'route'=>null, // permet de définir la route à utiliser en lien avec complex
         'detailMaxLength'=>true, // affiche le max length dans detail
         'detailPreValidate'=>false, // affiche la prévalidation dans detail
+        'detailCompare'=>true, // affiche le compare dans détail
         'detailValidate'=>true // affiche la validation dans détail
     ];
 
@@ -61,7 +62,15 @@ class Col extends Orm\Col
         if($this->getAttr('detailPreValidate'))
         {
             $preValidate = $this->rulePreValidate($lang);
+            if(!empty($preValidate))
             $return = Base\Arr::merge($return,$preValidate);
+        }
+
+        if($this->getAttr('detailCompare'))
+        {
+            $compare = $this->ruleCompare($lang);
+            if(!empty($compare))
+            $return = Base\Arr::merge($return,$compare);
         }
 
         if($this->getAttr('detailValidate'))

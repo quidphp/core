@@ -602,11 +602,11 @@ class User extends Core\RowAlias
     // retourne le tableau a mettre dans session
     final public function toSession():array
     {
-        $return = [];
-        $return['uid'] = $this->primary();
-        $return['permission'] = $this->permission();
-
-        return $return;
+        return [
+            'uid'=>$this->primary(),
+            'permission'=>$this->permission(),
+            'username'=>(string) $this->username()
+        ];
     }
 
 

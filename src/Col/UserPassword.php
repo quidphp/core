@@ -124,26 +124,25 @@ class UserPassword extends Core\ColAlias
 
 
     // onCommitted
-    // lors d'un changement de mot de passe réussi que ce soit sur insertion ou mise à jour
-    // utilisé pour ajouter de la communication et un log
+    // lors d'un changement de mot de passe réussi sur une mise à jour seulement
+    // utilisé pour ajouter de la communication et un log, et le callback onChangePassword pour le user
     final protected function onCommitted(Orm\Cell $cell,bool $insert=false,array $option)
     {
-        $option = Base\Arr::plus(['onChange'=>true],$option);
-        $pos = 'changePassword/success';
-        $row = $cell->row();
-
-        if($option['onChange'] === true && $insert === false)
-        $row->callThis(fn() => $this->onChangePassword());
-
-        if(!empty($option['com']) && $option['com'] === true && $insert === false)
-        $cell->com($pos,'pos');
-
-        if(!empty($option['log']) && $option['log'] === true)
+        if($insert === false)
         {
+            $option = Base\Arr::plus(['onChange'=>true],$option);
+            $row = $cell->row();
+            $pos = 'changePassword/success';
             $log = $this->getAttr('log');
 
-            if(!empty($log))
+            if(!empty($option['log']) && $option['log'] === true && !empty($log))
             $log::logCloseDown('changePassword',['key'=>'changePassword','bool'=>true,'pos'=>$pos,'neg'=>null]);
+
+            if($option['onChange'] === true)
+            $row->callThis(fn() => $this->onChangePassword());
+
+            if(!empty($option['com']) && $option['com'] === true)
+            $cell->com($pos,'pos');
         }
 
         return $this;

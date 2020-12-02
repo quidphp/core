@@ -163,14 +163,6 @@ class Medias extends FilesAlias
     }
 
 
-    // downloadRoute
-    // retourne la route pour le téléchargement
-    final public function downloadRoute(int $index):Core\Route
-    {
-        return $this->commonDownloadRoute($index);
-    }
-
-
     // getFirstFile
     // retourne le premier fichier pour la cellule
     // possible de spécifier une version
