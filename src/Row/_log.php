@@ -30,11 +30,6 @@ trait _log
     ];
 
 
-    // prepareLogData
-    // méthode abstrait pour préparer les datas du log
-    abstract protected static function prepareLogData():?array;
-
-
     // log
     // crée une nouvelle entrée du log maintenant
     // lance le logAfter après

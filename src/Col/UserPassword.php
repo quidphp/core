@@ -126,7 +126,7 @@ class UserPassword extends Core\ColAlias
     // onCommitted
     // lors d'un changement de mot de passe réussi sur une mise à jour seulement
     // utilisé pour ajouter de la communication et un log, et le callback onChangePassword pour le user
-    final protected function onCommitted(Orm\Cell $cell,bool $insert=false,array $option)
+    final protected function onCommitted(Orm\Cell $cell,bool $insert,array $option)
     {
         if($insert === false)
         {

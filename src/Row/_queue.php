@@ -23,11 +23,6 @@ trait _queue
     abstract public static function getQueued(?int $limit=null):?Main\Map;
 
 
-    // prepareQueueData
-    // méthode abstraite pour préparer les datas de la queue
-    abstract protected static function prepareQueueData():?array;
-
-
     // queue
     // crée une nouvelle entrée du queue
     final public static function queue(...$values):?Main\Contract\Queue
