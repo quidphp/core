@@ -73,6 +73,7 @@ class BootCore extends Test\Suite\BootAlias
                     'ormTableSibling'=>['truncate'=>true]]],
             'truncate'=>['log','logCron','logEmail','logError','logHttp','logSql','queueEmail']],
         'callable'=>[
+            'assertActive'=>[Base\Assert::class,'set',ASSERT_ACTIVE,true],
             'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>false,'exists'=>false]],
             'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>false,'exists'=>false]],
             'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>false,'exists'=>false]],

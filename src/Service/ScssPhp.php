@@ -103,7 +103,7 @@ class ScssPhp extends Main\ServiceAlias
         if(!is_string($value))
         static::throw('invalidValue');
 
-        $compiler->setFormatter($format);
+        // $compiler->setOutputStyle($format);
 
         if(!empty($importPaths))
         $compiler->setImportPaths($importPaths);

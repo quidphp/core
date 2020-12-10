@@ -26,7 +26,8 @@ trait _log
             '*'=>['insert'=>true,'update'=>false,'delete'=>true],
             'nobody'=>['insert'=>true],
             'admin'=>['update'=>false]],
-        'deleteTrim'=>1000 // custom
+        'deleteTrim'=>1000, // custom
+        'logPrepareMethod'=>'prepareLogData' // méthode à utiliser pour préparer les données
     ];
 
 
@@ -45,7 +46,8 @@ trait _log
     final public static function logStrictAfter(bool $strict,bool $after,...$values):?Main\Contract\Log
     {
         $return = null;
-        $data = static::prepareLogData(...$values);
+        $method = static::$config['logPrepareMethod'] ?? static::throw('invalidLogPrepareMethod');
+        $data = static::$method(...$values);
 
         if($data !== null)
         {

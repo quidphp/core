@@ -27,7 +27,7 @@ class PhpMailer extends Core\ServiceMailerAlias
         'encryption'=>false, // type d'encryption pour la connexion smtp
         'timeout'=>5, // durée maximale d'éxécution lors de l'envoie du courriel
         'autoTls'=>true, // active ou non le autoTsl dans phpMailer
-        'allowSelfSigned'=>false, // permet le fonctionnement si le certificat ssl est self-signed
+        'allowSelfSigned'=>null, // permet le fonctionnement si le certificat ssl est self-signed, si null utilise configuration de base/server
         'debug'=>0, // code de débogage
         'output'=>'html', // output de débogagge, seulement si debug pas vide (pourrait être une callable)
         'charset'=>null, // charset du message
@@ -92,10 +92,15 @@ class PhpMailer extends Core\ServiceMailerAlias
             if(array_key_exists('autoTls',$value))
             $mailer->SMTPAutoTLS = $value['autoTls'];
 
-            if(array_key_exists('allowSelfSigned',$value) && !empty($value['allowSelfSigned']))
+            if(array_key_exists('allowSelfSigned',$value))
             {
-                $options = ['ssl'=>['verify_peer'=>false,'verify_peer_name'=>false,'allow_self_signed'=>true]];
-                $mailer->SMTPOptions = $options;
+                $value['allowSelfSigned'] ??= Base\Server::allowSelfSignedCertificate();
+
+                if(!empty($value['allowSelfSigned']))
+                {
+                    $options = ['ssl'=>['verify_peer'=>false,'verify_peer_name'=>false,'allow_self_signed'=>true]];
+                    $mailer->SMTPOptions = $options;
+                }
             }
 
             if(array_key_exists('timeout',$value))

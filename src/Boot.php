@@ -93,9 +93,6 @@ abstract class Boot extends Main\Root
         'symlink'=>[ // symlink à créer au chargement
             '[storagePublic]/*'=>'[public]'],
         'callable'=>[
-            'assertActive'=>[Base\Assert::class,'set',ASSERT_ACTIVE,true],
-            'assertBail'=>[Base\Assert::class,'set',ASSERT_BAIL,true],
-            'assertWarning'=>[Base\Assert::class,'set',ASSERT_WARNING,true],
             'dirCurrent'=>[Base\Dir::class,'setCurrent','[storage]'],
             'rootCacheFile'=>[Base\Root::class,'setCacheFileStorage','[storageCache]'],
             'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>['v'=>'%version%'],'exists'=>false]],
@@ -167,7 +164,7 @@ abstract class Boot extends Main\Root
             'cache'=>false,
             'umaskGroupWritable'=>true,
             'callable'=>[
-                'resSelfSigned'=>[Base\Res::class,'setSelfSigned',true],
+                'serverSelfSignedCertificate'=>[Base\Server::class,'setAllowSelfSignedCertificate',true],
                 'uriOptionImg'=>[Html::class,'setUriOption','img',['append'=>true,'exists'=>true]],
                 'uriOptionLink'=>[Html::class,'setUriOption','link',['append'=>true,'exists'=>true]],
                 'uriOptionScript'=>[Html::class,'setUriOption','script',['append'=>true,'exists'=>true]],

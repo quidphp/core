@@ -18,6 +18,12 @@ trait _queue
     use Main\_queue;
 
 
+    // config
+    protected static array $configQueue = [
+        'queuePrepareMethod'=>'prepareQueueData' // méthode à utiliser pour préparer les données
+    ];
+
+
     // getQueued
     // retourne un objet rows avec toutes les rows queued
     abstract public static function getQueued(?int $limit=null):?Main\Map;
@@ -27,7 +33,8 @@ trait _queue
     // crée une nouvelle entrée du queue
     final public static function queue(...$values):?Main\Contract\Queue
     {
-        $data = static::prepareQueueData(...$values);
+        $method = static::$config['queuePrepareMethod'] ?? static::throw('invalidQueuePrepareMethod');
+        $data = static::$method(...$values);
         return ($data !== null)? static::safeInsert($data):null;
     }
 }
