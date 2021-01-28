@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Quid\Core\Col;
 use Quid\Base;
 use Quid\Core;
+use Quid\Main;
 use Quid\Orm;
 
 // userRole
@@ -35,6 +36,12 @@ class UserRole extends SetAlias
     {
         $return = null;
         $values = parent::onSet($values,$cell,$row,$option);
+
+        if($values instanceof Main\Roles)
+        $values = array_values($values->pair('permission'));
+
+        if($values instanceof Main\Role)
+        $values = $values->permission();
 
         if(is_scalar($values))
         $values = Base\Set::arr($values);
