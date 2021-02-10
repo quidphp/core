@@ -20,7 +20,7 @@ abstract class Error extends Core\RouteAlias
     // config
     protected static array $config = [
         'path'=>null,
-        'priority'=>999,
+        'priority'=>9999,
         'debug'=>true,
         'match'=>[
             'cli'=>null,
