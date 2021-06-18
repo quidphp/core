@@ -43,7 +43,7 @@ class Date extends Core\CellAlias
         if($format === true)
         $format = $this->col()->date();
 
-        return Base\Datetime::format($format,$this);
+        return ($this->value() !== null)? Base\Datetime::format($format,$this):null;
     }
 
 
