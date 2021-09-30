@@ -23,7 +23,6 @@ trait _cli
 
     // config
     protected static array $configCli = [
-        'priority'=>850,
         'match'=>[
             'cli'=>true,
             'role'=>['>='=>'admin']],

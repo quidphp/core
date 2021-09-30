@@ -24,6 +24,7 @@ class CliCompile extends Core\RouteAlias
     // config
     protected static array $config = [
         'path'=>['-compile'],
+        'priority'=>8030,
         'fileClass'=>[
             'css'=>Core\File\Css::class,
             'js'=>Core\File\Js::class],

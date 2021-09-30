@@ -17,7 +17,8 @@ abstract class CliSessionGc extends Core\RouteAlias
 {
     // config
     protected static array $config = [
-        'path'=>['-sessiongc']
+        'path'=>['-sessiongc'],
+        'priority'=>8010
     ];
 
 

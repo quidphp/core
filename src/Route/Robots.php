@@ -17,7 +17,7 @@ abstract class Robots extends Core\RouteAlias
     // config
     protected static array $config = [
         'path'=>'robots.txt',
-        'priority'=>500,
+        'priority'=>5000,
         'sitemap'=>false,
         'group'=>'seo',
         'response'=>[

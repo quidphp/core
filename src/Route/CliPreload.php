@@ -22,6 +22,7 @@ abstract class CliPreload extends Core\RouteAlias
     // config
     protected static array $config = [
         'path'=>['-preload'],
+        'priority'=>8020,
         'service'=>Core\Service\PhpPreload::class,
         'compile'=>[
             'root'=>[

@@ -18,7 +18,8 @@ abstract class CliVersion extends Core\RouteAlias
 {
     // config
     protected static array $config = [
-        'path'=>['-v','-version','-about'] // plusieurs chemins pour la route
+        'path'=>['-v','-version','-about'], // plusieurs chemins pour la route
+        'priority'=>8000
     ];
 
 
