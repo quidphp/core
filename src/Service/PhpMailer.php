@@ -172,6 +172,7 @@ class PhpMailer extends Core\ServiceMailerAlias
         $return = false;
         $mailer = $this->mailer();
         $value = Base\Arr::replace($this->attr(),$value);
+        $message = [];
 
         if(!empty($value['host']) && !empty($value['port']) && !empty($value['ping']) && is_int($value['ping']))
         static::checkPing($value['host'],$value['port'],$value['ping']);
