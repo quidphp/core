@@ -269,6 +269,8 @@ class Boot extends Base\Test
 
         // setsSymlink
 
+        // setsCopyLink
+
         // setsCallable
 
         // isFromCache

@@ -657,7 +657,7 @@ abstract class Boot extends Main\Root
         $this->onBeforeReady();
         $this->setStatus(4);
         $this->session();
-        $this->makeServicesSymlink();
+        $this->copyServicesLink();
         $this->manageRedirect();
 
         $this->onReady();
@@ -1775,6 +1775,30 @@ abstract class Boot extends Main\Root
     }
 
 
+    // setsCopyLink
+    // gère la copie de fichier de services
+    // envoie une exception en cas d'erreur de la copie
+    final public function setsCopyLink(array $array):void
+    {
+        $array = Base\Dir::fromToCatchAll($array);
+
+        foreach ($array as $from => $to)
+        {
+            // à retirer
+            if(Base\Symlink::is($to))
+            Base\Symlink::unset($to);
+
+            if(!Base\Finder::is($to))
+            {
+                $copy = Base\Finder::copy($to,$from);
+
+                if(empty($copy))
+                static::throw('from',$array['from'],'to',$to);
+            }
+        }
+    }
+
+
     // setsCallable
     // fait les appels au callable pour configuration plus poussée
     final protected function setsCallable(array $array):void
@@ -2168,17 +2192,17 @@ abstract class Boot extends Main\Root
     }
 
 
-    // makeServicesSymlink
-    // génère les symlinks pour les services
-    final protected function makeServicesSymlink():void
+    // copyServicesLink
+    // copie les fichiers nécessaires pour les services
+    final protected function copyServicesLink():void
     {
         $services = $this->services()->filter(fn($service) => $service->isServiceType('route'));
 
         foreach ($services as $service)
         {
-            $symlink = $service->getSymlink();
-            if(!empty($symlink))
-            static::setsSymlink($symlink);
+            $copyLink = $service->getCopyLink();
+            if(!empty($copyLink))
+            static::setsCopyLink($copyLink);
         }
 
         return;
