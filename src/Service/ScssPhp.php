@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 namespace Quid\Core\Service;
+use Quid\Base;
 use Quid\Main;
 
 // scssPhp
@@ -17,8 +18,8 @@ class ScssPhp extends Main\ServiceAlias
     // config
     protected static array $config = [
         'formatsPossible'=>[
-            'normal'=>\ScssPhp\ScssPhp\Formatter\Expanded::class, // si compress est false
-            'compress'=>\ScssPhp\ScssPhp\Formatter\Crunched::class], // si compress est true
+            'expanded'=>\ScssPhp\ScssPhp\OutputStyle::EXPANDED, // si compress est false
+            'compressed'=>\ScssPhp\ScssPhp\OutputStyle::COMPRESSED], // si compress est true
         'compress'=>true, // permet de spécifier s'il faut compresser ou non le rendu
         'format'=>null, // permet de spécifier un format, ne prend pas en compte l'option compress
         'importPaths'=>null, // chemins d'importation à déclarer
@@ -57,7 +58,7 @@ class ScssPhp extends Main\ServiceAlias
         {
             $formats = $this->getAttr('formatsPossible');
             $compress = $this->getAttr('compress');
-            $return = ($compress === true)? $formats['compress']:$formats['normal'];
+            $return = ($compress === true)? $formats['compressed']:$formats['expanded'];
         }
 
         return $return;
@@ -103,13 +104,16 @@ class ScssPhp extends Main\ServiceAlias
         if(!is_string($value))
         static::throw('invalidValue');
 
-        // $compiler->setOutputStyle($format);
+        $compiler->setOutputStyle($format);
 
         if(!empty($importPaths))
         $compiler->setImportPaths($importPaths);
 
         if(!empty($variables))
-        $compiler->setVariables($variables);
+        {
+            $variables = Base\Arr::map($variables,fn($value) => static::prepareVariable($value));
+            $compiler->addVariables($variables);
+        }
 
         return $compiler->compile($value);
     }
@@ -122,6 +126,14 @@ class ScssPhp extends Main\ServiceAlias
     {
         $minifier = new static($attr);
         return $minifier->trigger($value);
+    }
+
+
+    // prepareVariable
+    // depuis scssphp 1.50, les variables doivent être préparés
+    final public static function prepareVariable($value)
+    {
+        return \ScssPhp\ScssPhp\ValueConverter::fromPhp($value);
     }
 }
 

@@ -106,6 +106,7 @@ abstract class Boot extends Main\Root
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false],
+            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',false],
             'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
@@ -173,6 +174,7 @@ abstract class Boot extends Main\Root
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true],
+                'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true]]],
         '@staging'=>[
             'cache'=>true,
@@ -1784,10 +1786,6 @@ abstract class Boot extends Main\Root
 
         foreach ($array as $from => $to)
         {
-            // à retirer
-            if(Base\Symlink::is($to))
-            Base\Symlink::unset($to);
-
             if(!Base\Finder::is($to))
             {
                 $copy = Base\Finder::copy($to,$from);

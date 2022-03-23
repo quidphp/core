@@ -80,6 +80,7 @@ class BootCore extends Test\Suite\BootAlias
             'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>false,'exists'=>false]],
             'errorOutputDepth'=>[Core\Error::class,'setDefaultOutputDepth',true],
             'dbHistory'=>[Core\Db::class,'setDefaultHistory',true],
+            'dbCheckVersion'=>[Core\Db::class,'setDefaultCheckVersion',true],
             'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true]],
@@ -116,6 +117,7 @@ class BootCore extends Test\Suite\BootAlias
                 'uriOptionStyle'=>[Base\Style::class,'setUriOption',['append'=>false,'exists'=>false]],
                 'errorOutputDepth'=>[Core\Error::class,'setDefaultOutputDepth',true],
                 'dbHistory'=>[Core\Db::class,'setDefaultHistory',true],
+                'dbCheckVersion'=>[Core\Db::class,'setDefaultCheckVersion',true],
                 'mailerDispatch'=>[Main\ServiceMailer::class,'setDispatch','queue'],
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true]]]
