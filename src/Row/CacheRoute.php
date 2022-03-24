@@ -30,6 +30,16 @@ class CacheRoute extends Core\RowAlias implements Main\Contract\Cache
     ];
 
 
+    // isValid
+    // retourne vrai si la ligne de cache est valide
+    // pour le moment toujours valide, sauf si incomplete est true
+    public function isValid():bool
+    {
+        $data = $this->getData();
+        return empty($data['incomplete']);
+    }
+
+
     // getData
     // retourne le tableau des donnés de la cache
     final public function getData():array

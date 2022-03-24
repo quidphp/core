@@ -308,7 +308,7 @@ class Session extends Routing\Session
         $return = null;
 
         elseif($mode === 'is')
-        $return = ($value === null || $value instanceof Main\Roles);
+        $return = ($value === null || Base\Arr::isSequential($value));
 
         return $return;
     }
@@ -617,6 +617,7 @@ class Session extends Routing\Session
 
     // setFakeRoles
     // applique des fakes rôles si l'utilisateur peut en avoir
+    // les roles sont conservés dans un tableau et non pas en objet
     final public function setFakeRoles($roles):void
     {
         if(!$this->allowFakeRoles() && !empty($roles))
@@ -641,7 +642,8 @@ class Session extends Routing\Session
             $roles = null;
         }
 
-        $this->set('fakeRoles',$roles);
+        $setRoles = ($roles instanceof Main\Roles)? ($roles->toSet() ?: null):null;
+        $this->set('fakeRoles',$setRoles);
 
         if($roles === null)
         $roles = $this->user()->roles();
@@ -652,9 +654,19 @@ class Session extends Routing\Session
 
     // getFakeRoles
     // retourne les fake roles si l'utilisateur peut en avoir
+    // une opération supplémentaire est faite pour s'assurer que les objets rôles soient identiques à dans boot
     final public function getFakeRoles():?Main\Roles
     {
-        return ($this->allowFakeRoles())? $this->get('fakeRoles'):null;
+        $return = null;
+
+        if($this->allowFakeRoles())
+        {
+            $fakeRoles = $this->get('fakeRoles');
+            if(is_array($fakeRoles) && !empty($fakeRoles))
+            $return = static::boot()->roles()->filterKeep(...array_values($fakeRoles));
+        }
+
+        return $return;
     }
 
 

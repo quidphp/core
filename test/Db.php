@@ -25,8 +25,10 @@ class Db extends Base\Test
         $tb = $db[$table];
         $tb->cols();
         $db['ormCol']->cols();
+        $roles = Core\Boot::inst()->roles();
 
         // orm
+        assert($db['ormCell']->selectDebug(['id'=>'BLA',['id','in',$roles]])['emulate'] === "SELECT * FROM `ormCell` WHERE `id` = 'BLA' AND `id` IN(1, 20, 60, 80, 90)");
         assert(is_int($db->selectCount(Core\Row\Session::class)));
         assert($tb->classe()->rows() === Suite\Rows\OrmDb::class);
         assert(is_a($db['session']->classe()->row(),Core\Row\Session::class,true));
