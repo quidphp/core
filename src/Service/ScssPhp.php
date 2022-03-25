@@ -115,7 +115,8 @@ class ScssPhp extends Main\ServiceAlias
             $compiler->addVariables($variables);
         }
 
-        return $compiler->compile($value);
+        $result = $compiler->compileString($value) ?: static::throw('compileStringFailed');
+        return $result->getCss();
     }
 
 
