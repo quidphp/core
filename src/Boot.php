@@ -1783,16 +1783,17 @@ abstract class Boot extends Main\Root
     final public function setsCopyLink(array $array):void
     {
         $array = Base\Dir::fromToCatchAll($array);
+        $array = Base\Dir::fromToFilterDate($array);
 
         foreach ($array as $from => $to)
         {
-            if(!Base\Finder::is($to))
-            {
-                $copy = Base\Finder::copy($to,$from);
+            if(Base\Finder::is($to))
+            Base\Finder::unlink($to,true);
 
-                if(empty($copy))
-                static::throw('from',$array['from'],'to',$to);
-            }
+            $copy = Base\Finder::copy($to,$from);
+
+            if(empty($copy))
+            static::throw('from',$from,'to',$to);
         }
     }
 
@@ -2198,9 +2199,10 @@ abstract class Boot extends Main\Root
 
         foreach ($services as $service)
         {
-            $copyLink = $service->getCopyLink();
-            if(!empty($copyLink))
-            static::setsCopyLink($copyLink);
+            $copyLinks = $service->getCopyLinks();
+
+            if(!empty($copyLinks))
+            static::setsCopyLink($copyLinks);
         }
 
         return;
