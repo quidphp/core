@@ -26,7 +26,7 @@ class Session extends EnumAlias
     // onCommit
     // retourne le id de la session sur insertion ou sur update
     // note: retourne null si le storage de session n'est pas une row de base de données
-    final protected function onCommit($value,?Core\Cell $cell=null,array $row,array $option):?Core\Row
+    final protected function onCommit($value,?Core\Cell $cell,array $row,array $option):?Core\Row
     {
         $return = null;
         $boot = static::bootReady();

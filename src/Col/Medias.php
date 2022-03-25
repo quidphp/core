@@ -76,7 +76,7 @@ class Medias extends FilesAlias
 
     // onGet
     // logique onGet pour un champ medias
-    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         $return = parent::onGet($return,$cell,$option);
 
@@ -90,7 +90,7 @@ class Medias extends FilesAlias
     // onSet
     // logique onSet pour un champ médias
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
-    final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
+    final protected function onSet($value,?Orm\Cell $cell,array $row,array $option)
     {
         $return = $value;
         $indexes = null;
@@ -116,7 +116,7 @@ class Medias extends FilesAlias
 
     // setFromFiles
     // permet de set à partir d'un objet contenant plusieurs fichiers
-    final public function setFromFiles(Main\Files $value,?Orm\Cell $cell=null,array $option)
+    final public function setFromFiles(Main\Files $value,?Orm\Cell $cell,array $option)
     {
         $this->checkFilesIndex($value);
         $news = Main\Files::newOverload();

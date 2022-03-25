@@ -22,7 +22,7 @@ class UserActive extends YesAlias
     // onSet
     // sur changement de active
     // une exception attrapable peut être envoyé
-    final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
+    final protected function onSet($value,?Orm\Cell $cell,array $row,array $option)
     {
         $return = null;
         $table = $this->table();

@@ -1973,7 +1973,7 @@ abstract class Boot extends Main\Root
     final protected function newExtendersClosure():\Closure
     {
         $currentKey = $this->name(true);
-        $return = function(string $class,?string $key=null,array $namespaces,?array $option=null) use($currentKey)  {
+        $return = function(string $class,?string $key,array $namespaces,?array $option=null) use($currentKey)  {
             if(is_string($key))
             $ucKey = ucfirst($key);
             $namespace = [];

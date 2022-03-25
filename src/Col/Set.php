@@ -37,7 +37,7 @@ class Set extends RelationAlias
 
     // onGet
     // sur get de la valeur de relation
-    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         $return = parent::onGet($return,$cell,$option);
 

@@ -51,7 +51,7 @@ abstract class Relation extends Core\ColAlias
 
     // onSet
     // lors du set d'une valeur de relation
-    protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
+    protected function onSet($return,?Orm\Cell $cell,array $row,array $option)
     {
         return $this->autoCastRelation($return);
     }

@@ -25,7 +25,7 @@ class Json extends Core\ColAlias
 
     // onGet
     // sur le onGet du json
-    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         if(Base\Json::is($return))
         $return = Base\Json::decode($return);
@@ -36,7 +36,7 @@ class Json extends Core\ColAlias
 
     // onSet
     // sur le onSet du json
-    protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
+    protected function onSet($return,?Orm\Cell $cell,array $row,array $option)
     {
         if(is_array($return) || is_object($return))
         $return = Base\Json::encode($return);

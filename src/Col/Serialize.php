@@ -26,7 +26,7 @@ class Serialize extends Core\ColAlias
 
     // onGet
     // get la value à déserializer
-    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         if(is_string($return))
         $return = Base\Crypt::unserialize($return);
@@ -37,7 +37,7 @@ class Serialize extends Core\ColAlias
 
     // onSet
     // set la value, à serializer
-    protected function onSet($return,?Orm\Cell $cell=null,array $row,array $option)
+    protected function onSet($return,?Orm\Cell $cell,array $row,array $option)
     {
         if(is_array($return) || is_object($return))
         $return = Base\Crypt::serialize($return);

@@ -57,7 +57,7 @@ class Media extends FilesAlias
     // onSet
     // logique onSet pour un champ média
     // process ne sera lancé que si l'opération sur la ligne (insertion/mise à jour) a réussi
-    final protected function onSet($value,?Orm\Cell $cell=null,array $row,array $option)
+    final protected function onSet($value,?Orm\Cell $cell,array $row,array $option)
     {
         $return = null;
 
@@ -81,7 +81,7 @@ class Media extends FilesAlias
 
     // setFromFile
     // permet de set à partir d'un objet fichier
-    final public function setFromFile(Main\File $value,?Orm\Cell $cell=null,array $option):?string
+    final public function setFromFile(Main\File $value,?Orm\Cell $cell,array $option):?string
     {
         $old = Main\Files::newOverload();
         $regenerate = false;

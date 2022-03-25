@@ -28,7 +28,7 @@ class UserCommit extends EnumAlias
     // onCommit
     // donne le user courant lors d'un insert ou un update
     // il faut vérifier que boot hasSession car la row session à un champ userCommit
-    final protected function onCommit($value,?Core\Cell $cell=null,array $row,array $option)
+    final protected function onCommit($value,?Core\Cell $cell,array $row,array $option)
     {
         $return = 1;
         $boot = static::bootReady();

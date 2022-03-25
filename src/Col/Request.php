@@ -43,7 +43,7 @@ class Request extends Core\ColAlias
 
     // onGet
     // sur onGet recrée l'objet request
-    protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         if(is_scalar($return))
         {

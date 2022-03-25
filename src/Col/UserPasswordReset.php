@@ -34,7 +34,7 @@ class UserPasswordReset extends Core\ColAlias
 
     // onGet
     // retourne une string sha1 du hash
-    final protected function onGet($return,?Orm\Cell $cell=null,array $option)
+    final protected function onGet($return,?Orm\Cell $cell,array $option)
     {
         if(is_string($return) && !empty($return))
         $return = Base\Crypt::passwordActivate($return,1);

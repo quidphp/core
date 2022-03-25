@@ -362,7 +362,7 @@ abstract class Files extends Core\CellAlias
     // commonProcess
     // lance le process de déplacement du média lié
     // efface le dossier de l'original avant de le recréer
-    final protected function commonProcess(?int $index=null,Main\File $new):void
+    final protected function commonProcess(?int $index,Main\File $new):void
     {
         $this->col()->checkWritable();
         $dirname = $this->commonBasePath($index);

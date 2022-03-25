@@ -32,7 +32,7 @@ class UserRole extends SetAlias
     // un utilisateur ne peut pas changer sa propre permission
     // si c'est un insert et que la valeur est default, accepte dans tous les cas
     // des exceptions attrapables peuvent être envoyés
-    final protected function onSet($values,?Orm\Cell $cell=null,array $row,array $option)
+    final protected function onSet($values,?Orm\Cell $cell,array $row,array $option)
     {
         $return = null;
         $values = parent::onSet($values,$cell,$row,$option);
