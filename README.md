@@ -23,22 +23,22 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Requirement
 **QuidPHP/Core** requires the following:
-- PHP 7.3 or 7.4 with these extensions:
+- PHP 7.4, 8.0 or 8.1 with these extensions:
     - all PHP extensions required by [quidphp/base](https://github.com/quidphp/base) and [quidphp/orm](https://github.com/quidphp/orm)
 - The following PHP INI directives are also required:
     - *post_max_size* must be at least 1MB
     - *post_max_size* must be larger than *upload_max_filesize*
     - *memory_limit* must be at least 128MB
-- Mysql or MariaDB database
+- Mysql (>= 8.0) or MariaDB (>= 10.5) database
 - Apache or Nginx server
-- Compatible with MacOs, Windows and Linux
+    - Running on MacOs, Windows or Linux
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
 - [quidphp/base](https://github.com/quidphp/base) - Quid\Base - PHP library that provides a set of low-level static methods
 - [quidphp/main](https://github.com/quidphp/main) - Quid\Main - PHP library that provides a set of base objects and collections 
 - [quidphp/orm](https://github.com/quidphp/orm) - Quid\Orm - PHP library that provides database access and a comprehensive ORM
-- [quidphp/routing](https://github.com/quidphp/routing) - Quid\Routing - PHP library that provides a simple route matching and triggering procedure
+- [quidphp/routing](https://github.com/quidphp/routing) - Quid\Routing - PHP library that provides a route matching and triggering procedure
 - [verot/class.upload.php](https://github.com/verot/class.upload.php) - Verot\Upload - A popular PHP class used for resizing images
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) - PHPMailer\PHPMailer - The classic email sending library for PHP
 - [tedivm/jshrink](https://github.com/tedious/JShrink) - JShrink - Javascript Minifier written in PHP
@@ -60,20 +60,21 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 
 ### Overview
-**QuidPHP/Core** contains 112 classes and traits. Here is an overview:
+**QuidPHP/Core** contains 115 classes and traits. Here is an overview:
 - [Boot](src/Boot.php) - Abstract class for boot which is the object that bootstraps the application
 - [Cell](src/Cell.php) - Extended class to represent an existing cell within a row
     - [Date](src/Cell/Date.php) - Class to work with a cell containing a date value
     - [Enum](src/Cell/Enum.php) - Class to manage a cell containing a single relation (enum)
     - [Files](src/Cell/Files.php) - Abstract class extended by the media and medias cells
-    - [Floating](src/Cell/Floating.php) - Class to work with a cell containing a floating value
     - [Integer](src/Cell/Integer.php) - Class to manage a cell containing an integer value
     - [Media](src/Cell/Media.php) - Class to work with a cell containing a value which is a link to a file
     - [Medias](src/Cell/Medias.php) - Class to manage a cell containing a value which is a link to many files
+    - [Num](src/Cell/Num.php) - Class to manage a cell containing a numeric value
     - [Primary](src/Cell/Primary.php) - Class for dealing with a cell of a column which has an auto increment primary key
     - [Relation](src/Cell/Relation.php) - Abstract class extended by the enum and set cells
     - [Set](src/Cell/Set.php) - Class to manage a cell containing many relations separated by comma (set)
-    - [UserPasswordReset](src/Cell/UserPasswordReset.php) - Class to work with a password reset column within a user table
+    - [UserPasswordReset](src/Cell/UserPasswordReset.php) - Class to work with a password reset cell within a user table
+    - [UserRole](src/Cell/UserRole.php) - Class to work with the user role cell within a user table
 - [Cells](src/Cells.php) - Extended class for a collection of many cells within a same row
 - [Col](src/Col.php) - Extended class to represent an existing column within a table
     - [Active](src/Col/Active.php) - Class for the active column - extends the Yes column class
@@ -95,6 +96,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [Json](src/Col/Json.php) - Class for a column which manages json values
     - [Media](src/Col/Media.php) - Class to work with a column containing a value which is a link to a file
     - [Medias](src/Col/Medias.php) - Class to work with a column containing a value which is a link to many files
+    - [Num](src/Col/Num.php) - Class for a column which deals with numeric values (string, float or int)
     - [Pointer](src/Col/Pointer.php) - Class for a column which the value is a pointer to another row in the database
     - [Primary](src/Col/Primary.php) - Class for dealing with a column which has an auto increment primary key
     - [Relation](src/Col/Relation.php) - Abstract class extended by the enum and set columns
@@ -132,8 +134,6 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [Request](src/Request.php) - Extended class with methods to manage an HTTP request
 - [Role](src/Role.php) - Extended abstract class that provides more advanced logic for a role
 - [Route](src/Route.php) - Extended abstract class for a route that acts as both a View and a Controller
-    - [CliClearCache](src/Route/CliClearCache.php) - Class for a cli route to remove all cached data
-    - [CliClearLog](src/Route/CliClearLog.php) - Class for a cli route to remove all log data
     - [CliCompile](src/Route/CliCompile.php) - Class for a cli route to compile assets (js and css)
     - [CliPreload](src/Route/CliPreload.php) - Abstract class for a cli route to generate a preload version of the PHP application
     - [CliSessionGc](src/Route/CliSessionGc.php) - Abstract class for a cli route to remove expired sessions
@@ -143,8 +143,11 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [Robots](src/Route/Robots.php) - Abstract class for a robots.txt route
     - [Sitemap](src/Route/Sitemap.php) - Abstract class for automated sitemap.xml route
     - [_cli](src/Route/_cli.php) - Trait that provides some initial configuration for a cli route
+    - [_cliClear](src/Route/_cliClear.php) - Trait for a cli route to remove log files and truncate tables
     - [_cliLive](src/Route/_cliLive.php) - Trait that provides some methods for a cli script which loops
+    - [_cliOpt](src/Route/_cliOpt.php) - Trait that provides some methods to manage opt in a cli application
 - [Row](src/Row.php) - Extended class to represent an existing row within a table
+    - [CacheRoute](src/Row/CacheRoute.php) - Class to store rendered route caches
     - [Email](src/Row/Email.php) - Class to deal with a row of the email table, contains the emailModels
     - [Lang](src/Row/Lang.php) - Class to work with a row of the lang table, contains the text and translations
     - [Log](src/Row/Log.php) - Class to represent a row of the log table, stores user activities
@@ -157,8 +160,8 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [Redirection](src/Row/Redirection.php) - Class to work with a row of the redirection table
     - [Session](src/Row/Session.php) - Class to work with a row of the session table
     - [User](src/Row/User.php) - Class for a row of the user table
+    - [_emailModel](src/Row/_emailModel.php) - Trait with methods relative to sending emails from models
     - [_log](src/Row/_log.php) - Trait that adds log-related methods to a row
-    - [_new](src/Row/_new.php) - Trait that grants access to some methods which allows creating rows statically
     - [_queue](src/Row/_queue.php) - Trait that adds queuing-related methods to a row
 - [Rows](src/Rows.php) - Extended class for a collection of many rows within a same table
 - [Service](src/Service)
