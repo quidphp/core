@@ -47,7 +47,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 All dependencies will be resolved by using the [Composer](https://getcomposer.org) installation process.
 
 ## Comment
-**QuidPHP/Core** code is commented and all methods are explained. However, most of the comments are currently written in French.
+**QuidPHP/Core** code is commented and all methods are explained. However, most of the comments are written in French.
 
 ## Convention
 **QuidPHP/Core** is built on the following conventions:
