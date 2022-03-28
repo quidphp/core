@@ -106,7 +106,7 @@ abstract class Boot extends Main\Root
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false],
-            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',true],
+            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',false],
             'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
@@ -184,6 +184,7 @@ abstract class Boot extends Main\Root
                 'classMapAuthoritative'=>true]],
         '@prod'=>[
             'cache'=>true,
+            'live'=>false,
             'compileJsOption'=>['compress'=>true],
             'compileCssOption'=>['compress'=>true],
             'composer'=>[
@@ -1462,6 +1463,7 @@ abstract class Boot extends Main\Root
         {
             Service\Composer::setPsr4();
             $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
+            dd($authoritative);
             Service\Composer::setClassMapAuthoritative($authoritative);
         }
     }
@@ -1838,6 +1840,8 @@ abstract class Boot extends Main\Root
     // shouldCompile
     // retourne vrai s'il faut compiler css et le js
     // jamais de compilation si request ajax ou cli
+    // on saute la compilation si compile est null et qu'on est dans cache
+    // avoir live à true aussi va sauter la compilation
     final public function shouldCompile():bool
     {
         $return = false;
