@@ -1463,7 +1463,6 @@ abstract class Boot extends Main\Root
         {
             Service\Composer::setPsr4();
             $authoritative = $this->getAttr(['composer','classMapAuthoritative']);
-            dd($authoritative);
             Service\Composer::setClassMapAuthoritative($authoritative);
         }
     }
