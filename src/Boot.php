@@ -106,7 +106,7 @@ abstract class Boot extends Main\Root
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false],
-            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',false],
+            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',true],
             'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
