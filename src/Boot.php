@@ -139,7 +139,7 @@ abstract class Boot extends Main\Root
             'admin'=>[80,['admin'=>true]],
             'cli'=>[90,['admin'=>true,'cli'=>true]]],
         'routeNamespace'=>null, // permet de spécifier un ensemble de classe de route pour un type
-        'compile'=>null, // valeur qui permet d'activer ou désactiver la compilation, si compile est null -> compile seulement si cache est false
+        'compile'=>true, // valeur qui permet d'activer ou désactiver la compilation, si compile est null -> compile seulement si cache est false
         'compileCss'=>null, // tableau pour la compilation de css
         'compileCssOption'=>null, // options supplémentaires pour toutes les compilations css
         'compileJs'=>null, // tableau pour la compilation de js
@@ -989,6 +989,7 @@ abstract class Boot extends Main\Root
 
         $live = $this->getAttr('live');
         $liveConfig = $this->getAttr('configLive');
+
         if($live === true && is_array($liveConfig) && !empty($liveConfig))
         $merge[] = $liveConfig;
 
