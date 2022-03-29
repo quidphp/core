@@ -35,11 +35,11 @@ abstract class CliPreload extends Core\RouteAlias
                     Main::class=>[
                         'priority'=>[
                             '_root.php','_rootClone.php','File/_log.php','File/_storage.php','Map/_classeObj.php','Map/_obj.php','Map/_classe.php','Lang/_overload.php',
-                            'Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','Res.php','File.php','Service.php','Widget.php','File/Binary.php','File/Text.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php']],
+                            'Root.php','ArrObj.php','ArrMap.php','Exception.php','Map.php','MapObj.php','Res.php','File.php','Service.php','Widget.php','File/Binary.php','File/Text.php','File/Html.php','File/Dump.php','File/Log.php','File/Serialize.php','File/Json.php']],
                     Orm::class=>[
                         'priority'=>[
-                            '_tableAccess.php',
-                            'Relation.php','Exception.php','Pdo.php','Operation.php','RowOperation.php','TableOperation.php','Syntax.php']],
+                            '_tableAccess.php','_mapIndex.php',
+                            'Relation.php','Exception.php','Pdo.php','Map.php','ColsMap.php','CellsMap.php','RowsMap.php','Operation.php','RowOperation.php','TableOperation.php','Syntax.php']],
                     Routing::class=>[]],
                 'option'=>[
                     'credit'=>[Core\Boot::class,'quidCredit']]],

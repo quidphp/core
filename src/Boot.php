@@ -62,10 +62,12 @@ abstract class Boot extends Main\Root
         'configFile'=>null, // fichiers config supplémentaire à charger, doit retourner un tableau
         'live'=>false, // active ou désactive le merge du tableau de configLive
         'configLive'=>[ // peut contenir un tableau de configuration à mettre par-dessus à utiliser si live est true
+            'cache'=>true,
             'requirement'=>false,
             'writable'=>false,
             'symlink'=>false,
-            'compile'=>false],
+            'compile'=>false,
+            'serviceCopy'=>false],
         'autoload'=>'composer', // type d'autoload utilisé peut être composer, internal ou preload
         'psr4'=>[ // psr4 pour autoload
             '%key%'=>'[src]'],
@@ -106,7 +108,6 @@ abstract class Boot extends Main\Root
             'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',false],
             'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',false],
             'dbHistory'=>[Db::class,'setDefaultHistory',false],
-            'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',false],
             'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',false]],
         'lang'=>'en', // lang à mettre dans setLang
         'response'=>[ // tableau de paramètre à envoyer comme défaut de réponse
@@ -148,6 +149,7 @@ abstract class Boot extends Main\Root
         'langRow'=>Row\Lang::class, // row pour contenu additionnel lang
         'langOption'=>null, // option pour lang, peut être une callable
         'service'=>null, // tableau des classes credentials pour les services
+        'serviceCopy'=>true, // spécifie si les fichiers de service doivent être copiés
         'serviceMailer'=>'mailer', // clé par défaut pour le serviceMailer
         'db'=>null, // tableau de connexion à db
         'dbOption'=>null, // option pour db, peut être une callable
@@ -174,7 +176,6 @@ abstract class Boot extends Main\Root
                 'ormExceptionQuery'=>[Orm\Exception::class,'showQuery',true],
                 'ormCatchableExceptionQuery'=>[Orm\CatchableException::class,'showQuery',true],
                 'dbHistory'=>[Db::class,'setDefaultHistory',true],
-                'dbCheckVersion'=>[Db::class,'setDefaultCheckVersion',true],
                 'errorOutputDepth'=>[Error::class,'setDefaultOutputDepth',true]]],
         '@staging'=>[
             'cache'=>true,
@@ -642,6 +643,9 @@ abstract class Boot extends Main\Root
         $this->checkStatus(3);
         $this->onCore();
 
+        if(!$this->isFromCache())
+        Db::setDefaultCheckVersion(($this->getAttr('requirement') === true));
+
         if($this->getAttr('clearCache') === true && !$this->shouldCache())
         static::emptyCacheFile();
 
@@ -660,7 +664,10 @@ abstract class Boot extends Main\Root
         $this->onBeforeReady();
         $this->setStatus(4);
         $this->session();
+
+        if($this->getAttr('serviceCopy') === true)
         $this->copyServicesLink();
+
         $this->manageRedirect();
 
         $this->onReady();
@@ -2147,7 +2154,8 @@ abstract class Boot extends Main\Root
 
         if(empty($return))
         {
-            $services = $this->getAttr('service');
+            $services = (array) $this->getAttr('service');
+            $services = Base\Arr::clean($services);
             $return = Main\Services::newOverload($services);
             $return->setInst();
             $return->readOnly(true);
