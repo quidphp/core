@@ -201,4 +201,4 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
     - [BootCore](test/Suite/BootCore.php) - Class for booting the Quid\Core testsuite
 - [Table](test/Table.php) - Class for testing Quid\Core\Table
 
-**QuidPHP/Core** PHP testsuite can be run by creating a new [QuidPHP/Assert](https://github.com/quidphp/assert) project.
+**QuidPHP/Core** testsuite can be run by creating a new [QuidPHP/Assert](https://github.com/quidphp/assert) project.
