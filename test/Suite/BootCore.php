@@ -198,7 +198,6 @@ class BootCore extends Test\Suite\BootAlias
         Base\Dir::emptyAndUnlink('[assertStorage]');
         Base\Dir::emptyAndUnlink('[storageLog]');
         Base\Dir::emptyAndUnlink('[storage]/session');
-        Base\Dir::emptyAndUnlink('[publicJs]');
         Base\Response::emptyCloseDown();
     }
 

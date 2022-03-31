@@ -31,7 +31,7 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
     - *memory_limit* must be at least 128MB
 - Mysql (>= 8.0) or MariaDB (>= 10.5) database
 - Apache or Nginx server
-    - Running on MacOs, Windows or Linux
+    - Running on MacOs, Linux or Windows
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
