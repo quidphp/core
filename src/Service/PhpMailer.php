@@ -41,7 +41,9 @@ class PhpMailer extends Core\ServiceMailerAlias
         'replyTo'=>null, // addresse replyTo
         'to'=>null, // address To
         'from'=>null, // address from, note name et email ont plus de priorités
-        'header'=>null // tableau header additionnels
+        'header'=>null, // tableau header additionnels
+        'oauthProviders'=>[ // permet de lier un provider à une classe de gestion oauth
+            'google'=>\League\OAuth2\Client\Provider\Google::class]
     ];
 
 
@@ -70,20 +72,29 @@ class PhpMailer extends Core\ServiceMailerAlias
             $mailer->isSMTP();
             $mailer->Host = $value['host'];
             $mailer->Port = $value['port'];
+            $mailer->AuthType = '';
             $mailer->SMTPAuth = false;
             $mailer->SMTPSecure = '';
             $mailer->SMTPAutoTLS = false;
             $mailer->SMTPOptions = [];
 
-            if(!empty($value['username']) || !empty($value['password']))
+            if(!empty($value['username']) && is_string($value['username']))
             {
                 $mailer->SMTPAuth = true;
 
                 if(!empty($value['username']))
                 $mailer->Username = $value['username'];
 
-                if(array_key_exists('password',$value) && !empty($value['password']))
+                if(array_key_exists('password',$value) && is_string($value['password']) && !empty($value['password']))
                 $mailer->Password = $value['password'];
+
+                elseif(array_key_exists('xoauth2',$value) && is_array($value['xoauth2']) && !empty($value['xoauth2']))
+                {
+                    ['client'=>$xoauthClient,'secret'=>$xoauthSecret,'refresh'=>$xoauthRefresh] = $value['xoauth2'];
+                    $oauth = $this->makeOauth('google',$value['username'],$xoauthClient,$xoauthSecret,$xoauthRefresh);
+                    $mailer->AuthType = 'XOAUTH2';
+                    $mailer->setOAuth($oauth);
+                }
             }
 
             if(array_key_exists('encryption',$value))
@@ -243,6 +254,19 @@ class PhpMailer extends Core\ServiceMailerAlias
         }
 
         return $this;
+    }
+
+
+    // makeOauth
+    // génère l'objet oauth, utilisépour les connexions via Google (xoauth2)
+    final public function makeOauth(string $type,string $username,string $client,string $secret,string $refresh):\PHPMailer\PHPMailer\OAuth
+    {
+        $class = $this->getAttr(['oauthProviders',$type]) ?? static::throw('invalidProvider',$type);
+        $oauthClass = \PHPMailer\PHPMailer\OAuth::class;
+        $provider = new $class(['clientId'=>$client,'clientSecret'=>$secret]);
+        $args = ['provider'=>$provider,'userName'=>$username,'clientId'=>$client,'clientSecret'=>$secret,'refreshToken'=>$refresh];
+
+        return new $oauthClass($args);
     }
 }
 

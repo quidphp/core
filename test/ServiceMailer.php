@@ -42,14 +42,14 @@ class ServiceMailer extends Base\Test
         assert($mailer->isActive());
         assert($mailer->setDebug(0) === $mailer);
         assert($mailer->error() === '');
-        assert(count($mailer->attr()) === 30);
+        assert(count($mailer->attr()) === 31);
         assert($mailer->getServiceKey(true) === 'mailer');
         assert($mailer->username() === $from);
         assert($mailer->from() === ['email'=>'james@james.com','name'=>'James']);
         assert($mailer->mailer() instanceof \PHPMailer\PHPMailer\PHPMailer);
         assert($mailer->isReady());
         assert($mailer->checkReady() === $mailer);
-        assert(count($mailer->messageWithOption($msg)) === 29);
+        assert(count($mailer->messageWithOption($msg)) === 30);
         assert($mailer->queue($msg));
         assert($mailer->prepareMessage($msg2)['to'][0]['name'] === 'admin');
         assert($mailer->prepareMessage($msg3)['to'][0]['name'] === 'administrator');
@@ -68,7 +68,7 @@ class ServiceMailer extends Base\Test
         assert(!$row->isInProgress());
         assert(!$row->isError());
         assert(!$row->isSent());
-        assert(count($row->sendEmail()) === 32);
+        assert(count($row->sendEmail()) === 33);
         assert(count($row->sendEmail()['header']) === 0);
         assert($row->serviceMailer($row->getMailerKey()) === $mailer);
         assert($mailer::setDispatch('queue') === null);
