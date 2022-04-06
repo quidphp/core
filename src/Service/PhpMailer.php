@@ -90,8 +90,8 @@ class PhpMailer extends Core\ServiceMailerAlias
 
                 elseif(array_key_exists('xoauth2',$value) && is_array($value['xoauth2']) && !empty($value['xoauth2']))
                 {
-                    ['client'=>$xoauthClient,'secret'=>$xoauthSecret,'refresh'=>$xoauthRefresh] = $value['xoauth2'];
-                    $oauth = $this->makeOauth('google',$value['username'],$xoauthClient,$xoauthSecret,$xoauthRefresh);
+                    ['provider'=>$xoauthProvider,'client'=>$xoauthClient,'secret'=>$xoauthSecret,'refresh'=>$xoauthRefresh] = $value['xoauth2'];
+                    $oauth = $this->makeOauth($value['username'],$xoauthProvider,$xoauthClient,$xoauthSecret,$xoauthRefresh);
                     $mailer->AuthType = 'XOAUTH2';
                     $mailer->setOAuth($oauth);
                 }
@@ -259,7 +259,7 @@ class PhpMailer extends Core\ServiceMailerAlias
 
     // makeOauth
     // génère l'objet oauth, utilisépour les connexions via Google (xoauth2)
-    final public function makeOauth(string $type,string $username,string $client,string $secret,string $refresh):\PHPMailer\PHPMailer\OAuth
+    final public function makeOauth(string $username,string $type,string $client,string $secret,string $refresh):\PHPMailer\PHPMailer\OAuth
     {
         $class = $this->getAttr(['oauthProviders',$type]) ?? static::throw('invalidProvider',$type);
         $oauthClass = \PHPMailer\PHPMailer\OAuth::class;
