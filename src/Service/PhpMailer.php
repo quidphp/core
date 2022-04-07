@@ -85,16 +85,16 @@ class PhpMailer extends Core\ServiceMailerAlias
                 if(!empty($value['username']))
                 $mailer->Username = $value['username'];
 
-                if(array_key_exists('password',$value) && is_string($value['password']) && !empty($value['password']))
-                $mailer->Password = $value['password'];
-
-                elseif(array_key_exists('xoauth2',$value) && is_array($value['xoauth2']) && !empty($value['xoauth2']))
+                if(array_key_exists('xoauth2',$value) && is_array($value['xoauth2']) && !empty($value['xoauth2']))
                 {
                     ['provider'=>$xoauthProvider,'client'=>$xoauthClient,'secret'=>$xoauthSecret,'refresh'=>$xoauthRefresh] = $value['xoauth2'];
                     $oauth = $this->makeOauth($value['username'],$xoauthProvider,$xoauthClient,$xoauthSecret,$xoauthRefresh);
                     $mailer->AuthType = 'XOAUTH2';
                     $mailer->setOAuth($oauth);
                 }
+
+                elseif(array_key_exists('password',$value) && is_string($value['password']) && !empty($value['password']))
+                $mailer->Password = $value['password'];
             }
 
             if(array_key_exists('encryption',$value))
