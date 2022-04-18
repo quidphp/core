@@ -35,12 +35,10 @@ class Redirection extends Core\RowAlias
     // retourne l'identificateur de cache
     final public static function getCacheIdentifier(string $type):array
     {
-        $return = [];
         $boot = static::boot();
         $table = static::tableFromFqcn();
-        $return = [$table->name(),$type,$boot->version()];
 
-        return $return;
+        return [$table->name(),$type,$boot->version()];
     }
 
 

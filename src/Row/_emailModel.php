@@ -42,7 +42,6 @@ trait _emailModel
 
     // getEmailArray
     // retourne le tableau pour envoyer un courriel en lien avec l'utilisateur
-    // peut retourner null
     final protected function getEmailArray(string $name,$type=true,?array $replace=null):array
     {
         $model = $this->getEmailModel($name,$type);
