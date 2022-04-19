@@ -26,7 +26,7 @@ class Session extends Routing\Session
         'userClass'=>Row\User::class, // classe row de l'utilisateur
         'userDefault'=>null, // définit le user par défaut (à l'insertion)
         'ignoreOnPermissionChange'=>true, // ignore la session sur changement de la valeur de permission
-        'ignoreOnUsernameChange'=>false, // ignore la session sur changement de username
+        'ignoreOnUsernameChange'=>true, // ignore la session sur changement de username
         'loginLifetime'=>3600, // durée du login dans une session
         'loginLifetimeCom'=>false, // s'il faut afficher la communication de déconnexion à cause du lifetime
         'loginSinglePerUser'=>true, // un user peut seulement avoir une session ouverte à la fois, garde la plus récente
