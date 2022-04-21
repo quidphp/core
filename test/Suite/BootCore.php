@@ -133,7 +133,7 @@ class BootCore extends Test\Suite\BootAlias
     protected function onReady():void
     {
         parent::onReady();
-        Base\Response::ok();
+        $this->response()->ok();
         Base\Timezone::set('America/New_York',true);
         Html::setUriOption('script',['append'=>false,'exists'=>false]);
 
@@ -198,7 +198,7 @@ class BootCore extends Test\Suite\BootAlias
         Base\Dir::emptyAndUnlink('[assertStorage]');
         Base\Dir::emptyAndUnlink('[storageLog]');
         Base\Dir::emptyAndUnlink('[storage]/session');
-        Base\Response::emptyCloseDown();
+        $this->response()->emptyCloseDown();
     }
 
 

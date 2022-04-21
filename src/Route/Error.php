@@ -146,7 +146,7 @@ abstract class Error extends Core\RouteAlias
     // génère le titre pour la route
     final protected function makeTitle(?string $lang=null):string
     {
-        return static::label().' '.Base\Response::code();
+        return static::label().' '.static::response()->code();
     }
 
 
@@ -154,7 +154,7 @@ abstract class Error extends Core\RouteAlias
     // génère le sous-titre pour la route
     final protected function makeSubTitle(?string $lang=null):string
     {
-        return static::lang()->headerResponseStatus(Base\Response::code());
+        return static::lang()->headerResponseStatus(static::response()->code());
     }
 
 
@@ -163,7 +163,7 @@ abstract class Error extends Core\RouteAlias
     // peut retourner null
     final protected function makeContent():?string
     {
-        $code = Base\Response::code();
+        $code = static::response()->code();
         $lang = static::lang();
 
         return $lang->safe('error/page/content/'.$code);

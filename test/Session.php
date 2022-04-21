@@ -167,6 +167,9 @@ class Session extends Base\Test
         // canAccess
         assert(!$s->canAccess());
 
+        // canAccessCli
+        assert(!$s->canAccess());
+
         // beforeLogin
 
         // loginProcess

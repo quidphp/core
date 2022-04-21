@@ -498,7 +498,7 @@ abstract class Boot extends Main\Root
         $this->onPrepare();
 
         Main\Error::init();
-        Base\Response::serverError();
+        $this->response()->serverError();
 
         $this->makeRequest();
         $this->checkHost();
@@ -522,6 +522,7 @@ abstract class Boot extends Main\Root
     {
         $this->checkStatus(2);
         $this->onDispatch();
+        $currentResponse = $this->response();
 
         if($this->getAttr('requirement') === true)
         static::requirement();
@@ -543,7 +544,7 @@ abstract class Boot extends Main\Root
 
         $kill = $this->getAttr('kill');
         if(!empty($kill))
-        Base\Response::kill($kill);
+        $currentResponse->kill($kill);
 
         $ip = $this->getAttr('ip');
         if($ip !== null)
@@ -555,7 +556,7 @@ abstract class Boot extends Main\Root
 
         $timeLimit = $this->getAttr('timelimit');
         if(is_int($timeLimit))
-        Base\Response::timeLimit($timeLimit);
+        $currentResponse->timeLimit($timeLimit);
 
         $alias = $this->getAttr('alias');
         if(is_array($alias) && !empty($alias))
@@ -609,23 +610,23 @@ abstract class Boot extends Main\Root
 
         $response = $this->getAttr('response');
         $response = (is_array($response))? Base\Call::dig(true,$response):$response;
-        Base\Response::prepare($response);
+        $currentResponse->prepare($response);
 
         $speed = $this->getAttr('speed');
         if($speed === true)
-        Base\Response::speedOnCloseBody();
+        $currentResponse->speedOnCloseBody();
 
         $closeBody = $this->onCloseBody();
         if(!empty($closeBody))
-        Base\Response::onCloseBody($closeBody);
+        $currentResponse->onCloseBody($closeBody);
 
         $closeDown = $this->onCloseDown();
         if(!empty($closeDown))
-        Base\Response::onCloseDown($closeDown);
+        $currentResponse->onCloseDown($closeDown);
 
         $shutDown = $this->onShutDown();
         if(!empty($shutDown))
-        Base\Response::onShutDown($shutDown);
+        $currentResponse->onShutDown($shutDown);
 
         $config = $this->getAttr('config');
         if(is_array($config) && !empty($config))
@@ -811,7 +812,7 @@ abstract class Boot extends Main\Root
     {
         $this->onTeardown();
         Base\Root::setInitCallable(null);
-        Base\Response::closeDown();
+        $this->response()->closeDown();
 
         if($this->isReady())
         {
@@ -863,7 +864,7 @@ abstract class Boot extends Main\Root
     // termine le boot, flush les données teardown + cleanup
     final public function end($return=null)
     {
-        Base\Buffer::flushEcho($return);
+        $this->response()->flushEchoBody($return);
 
         if(Base\Server::isCli())
         Cli::eol();
@@ -1068,6 +1069,14 @@ abstract class Boot extends Main\Root
     final public function request():Request
     {
         return Request::inst();
+    }
+
+
+    // response
+    // retourne l'objet response
+    final public function response():Main\ResponseCurrent
+    {
+        return Main\ResponseCurrent::singleton();
     }
 
 
@@ -2358,6 +2367,7 @@ abstract class Boot extends Main\Root
     final protected function manageRedirect():void
     {
         $request = $this->request();
+        $response = $this->response();
         $redirection = $this->redirection();
         $manage = $request->manageRedirect($redirection);
         $log = $this->getAttr('redirectLog');
@@ -2371,10 +2381,10 @@ abstract class Boot extends Main\Root
             $log::logCloseDown($manage['type'],Base\Arr::unset('type',$manage));
 
             if($manage['location'] !== null)
-            Base\Response::redirect($manage['location'],$manage['code'],true);
+            $response->redirect($manage['location'],$manage['code'],true);
 
             elseif(!empty($manage['code']))
-            Base\Response::error($manage['code'],true);
+            $response->error($manage['code'],true);
         }
 
         // pour les codes non positif en fin au closeDown
@@ -2384,7 +2394,7 @@ abstract class Boot extends Main\Root
             $log::onCloseDown();
 
             if($manage['location'] !== null)
-            Base\Response::redirect($manage['location'],$manage['code'],true);
+            $response->redirect($manage['location'],$manage['code'],true);
         }
     }
 

@@ -94,17 +94,18 @@ class LogHttp extends Core\RowAlias implements Main\Contract\Log
     final public static function logCurrentRequest(bool $after=false):bool
     {
         $return = false;
-        $code = Base\Response::code();
         $data = [];
-
         $boot = static::bootReady();
+
         if(!empty($boot))
         {
+            $response = $boot->response();
             $request = $boot->request();
+            $code = $response->code();
 
             if(static::shouldLog($request))
             {
-                $shouldLog = Base\Response::isCodeLoggable();
+                $shouldLog = $response->isCodeLoggable();
                 $data = $request->getLogData();
 
                 if(!empty($data))

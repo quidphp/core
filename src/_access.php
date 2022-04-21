@@ -89,5 +89,13 @@ trait _access
     {
         return static::boot()->checkServiceMailer($key);
     }
+
+
+    // response
+    // retourne l'objet de la reponse courante
+    final public static function response():Main\ResponseCurrent
+    {
+        return static::boot()->response();
+    }
 }
 ?>

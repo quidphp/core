@@ -352,6 +352,7 @@ trait _cliLive
     {
         $return = true;
         $sleep = $this->getSleep();
+        $response = static::response();
         $timeMax = Base\Datetime::now() + $sleep;
         $interval = $this->getAttr('sleepInterval');
 
@@ -364,7 +365,7 @@ trait _cliLive
             if($return === false)
             break;
 
-            Base\Response::sleep($interval);
+            $response->sleep($interval);
 
             $return = $this->checkStdIn();
             if($return === false)

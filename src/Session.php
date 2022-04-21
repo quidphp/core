@@ -705,6 +705,14 @@ class Session extends Routing\Session
     }
 
 
+    // canAccessCli
+    // retourne vrai si le user peut accéder au cli
+    public function canAccessCli():bool
+    {
+        return $this->isAdmin() || $this->isCli();
+    }
+
+
     // isPasswordVisible
     // retourne vrai si le champ mot de passe devrait s'afficher
     final public function isPasswordVisible(Col $col,Cell $cell):bool

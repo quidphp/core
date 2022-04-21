@@ -25,7 +25,7 @@ trait _cli
     protected static array $configCli = [
         'match'=>[
             'cli'=>true,
-            'role'=>['>='=>'admin']],
+            'session'=>'canAccessCli'],
         'response'=>[
             'timeLimit'=>0],
         'group'=>'cli',

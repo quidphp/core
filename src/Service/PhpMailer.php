@@ -230,7 +230,7 @@ class PhpMailer extends Core\ServiceMailerAlias
         $kill = true;
 
         if($kill === true)
-        Base\Response::kill();
+        static::boot()->response()->kill();
     }
 
 

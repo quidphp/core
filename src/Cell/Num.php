@@ -35,9 +35,9 @@ class Num extends Core\CellAlias
     }
 
 
-    // cast
+    // _cast
     // retourne une version cast de la valeur numérique
-    final public function cast()
+    final public function _cast()
     {
         return Base\Scalar::cast($this->value(),3);
     }
@@ -47,7 +47,7 @@ class Num extends Core\CellAlias
     // increment la valeur de la cell
     final public function increment():self
     {
-        $value = $this->cast();
+        $value = $this->_cast();
         $value = (is_int($value))? ($value + 1):1;
         $this->set($value);
 
@@ -59,7 +59,7 @@ class Num extends Core\CellAlias
     // decrement la valeur de la cell
     final public function decrement():self
     {
-        $value = $this->cast();
+        $value = $this->_cast();
         $value = (is_int($value) && $value > 1)? ($value - 1):0;
         $this->set($value);
 
@@ -71,7 +71,7 @@ class Num extends Core\CellAlias
     // format le nombre flottant en argent
     final public function moneyFormat(?string $lang=null,?array $option=null):?string
     {
-        return Base\Num::moneyFormat($this->cast(),$lang,$option);
+        return Base\Num::moneyFormat($this->_cast(),$lang,$option);
     }
 }
 

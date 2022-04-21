@@ -133,6 +133,9 @@ class Boot extends Base\Test
         // request
         assert($boot->request() instanceof Core\Request);
 
+        // response
+        assert($boot->response() instanceof Main\ResponseCurrent);
+
         // paths
         assert(count($boot->paths()) >= 6);
 
