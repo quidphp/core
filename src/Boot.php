@@ -551,7 +551,7 @@ abstract class Boot extends Main\Root
         $this->checkIp($ip);
 
         $writable = $this->getAttr('writable');
-        if($writable !== null)
+        if(!empty($writable))
         static::checkWritable($writable);
 
         $timeLimit = $this->getAttr('timelimit');
