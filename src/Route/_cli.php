@@ -98,7 +98,7 @@ trait _cli
     final protected function outputThrowable(string $type,\Throwable $throwable,?array $attr=null):void
     {
         $this->logThrowable($throwable,$attr);
-        $this->cliWrite('neg',[$type,get_class($throwable)]);
+        $this->cliWrite('neg',[$type,$throwable::class]);
         $array = Main\Exception::staticToArray($throwable);
         $this->cliWrite('neg',$array,false);
     }

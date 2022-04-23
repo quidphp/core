@@ -201,7 +201,7 @@ trait _cliLive
                 $this->checkLiveState($teardown);
             }
 
-            catch (\Throwable $e)
+            catch (\Throwable)
             {
                 break;
             }

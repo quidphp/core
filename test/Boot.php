@@ -361,7 +361,7 @@ class Boot extends Base\Test
         assert($boot->getOption('logo') === null);
 
         // getSecretKey
-        assert($boot->getSecretKey() === get_class($boot));
+        assert($boot->getSecretKey() === $boot::class);
 
         // info
         assert(count($boot->info()) === 9);

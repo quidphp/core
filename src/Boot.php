@@ -793,7 +793,7 @@ abstract class Boot extends Main\Root
     // doit fournir un objet, le nom de la classe est gardé
     final protected function setRoute(Route $value):void
     {
-        $this->route = get_class($value);
+        $this->route = $value::class;
     }
 
 
