@@ -262,7 +262,7 @@ abstract class Route extends Routing\Route
     // reourne un objet table à partir du tableau keyValue utilisé dans segment
     // sinon, utilise la rowClass
     // peut retourner null
-    protected static function tableSegment(array &$keyValue):?Table
+    protected static function tableSegment(array &$keyValue,?string $type=null):?Table
     {
         $return = null;
         $table = $keyValue['table'] ?? null;
