@@ -48,6 +48,7 @@ class BootCore extends Test\Suite\BootAlias
             'overviewAutoload'=>false,
             'db'=>null,
             'frontEnd'=>null,
+            'frontEndWithPhp'=>[],
             'exclude'=>null,
             'fileSession'=>Main\File\Session::class,
             'lang'=>['fr'=>Core\Lang\Fr::class,'en'=>Core\Lang\En::class],
@@ -281,11 +282,20 @@ class BootCore extends Test\Suite\BootAlias
             {
                 foreach ($frontEnd as $key => $value)
                 {
+                    $withPhp = $this->isFrontEndWithPhp($key);
+
                     $codeOverview[$key.'-css'] = Base\Dir::overview($value.'/css');
                     $codeOverview[$key.'-js'] = Base\Dir::overview($value.'/js');
+
+                    if($withPhp === false)
+                    {
+                        $codeOverview[$key.'-src'] = Base\Dir::overview($value.'/src');
+                        $codeOverview[$key.'-test'] = Base\Dir::overview($value.'/test');
+                    }
                 }
             }
 
+            $codeOverview = Base\Arr::filter($codeOverview,fn($array) => !empty($array['count']));
             $return .= Base\Debug::export($codeOverview);
             $lines = Base\Column::value('line',$codeOverview);
             $return .= Base\Debug::export(Base\Num::addition(...$lines));
@@ -296,6 +306,14 @@ class BootCore extends Test\Suite\BootAlias
         $return .= Base\Debug::export(Base\Autoload::all());
 
         return $return;
+    }
+
+
+    // isFrontEndWithPhp
+    final protected function isFrontEndWithPhp(string $key):bool
+    {
+        $array = $this->getAttr('assert/frontEndWithPhp') ?? [];
+        return !empty($array[$key]);
     }
 
 
