@@ -12,7 +12,7 @@
 **QuidPHP/Core** is available as an open-source software under the [MIT license](LICENSE).
 
 ## Documentation
-**QuidPHP/Core** documentation is being written. Once ready, it will be available at [QuidPHP/Docs](https://github.com/quidphp/docs).
+**QuidPHP/Core** documentation is available at [QuidPHP/Docs](https://github.com/quidphp/docs).
 
 ## Installation
 **QuidPHP/Core** can be easily installed with [Composer](https://getcomposer.org). It is available on [Packagist](https://packagist.org/packages/quidphp/core).
@@ -23,41 +23,35 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 
 ## Requirement
 **QuidPHP/Core** requires the following:
-- PHP 7.4, 8.0 or 8.1 with these extensions:
-    - all PHP extensions required by [quidphp/base](https://github.com/quidphp/base) and [quidphp/orm](https://github.com/quidphp/orm)
-- The following PHP INI directives are also required:
-    - *post_max_size* must be at least 1MB
-    - *post_max_size* must be larger than *upload_max_filesize*
-    - *memory_limit* must be at least 128MB
-- Mysql (>= 8.0) or MariaDB (>= 10.5) database
-- Apache or Nginx server
-    - Running on MacOs, Linux or Windows
+- PHP 8.1:
+- Mysql (>= 8.0) or MariaDB (>= 10.4) database
+- Apache or Nginx server (running on MacOs, Linux or Windows)
+- All requirements of [quidphp/orm](https://github.com/quidphp/orm)
+- All requirements of [quidphp/routing](https://github.com/quidphp/routing)
 
 ## Dependency
 **QuidPHP/Core** has the following dependencies:
-- [quidphp/base](https://github.com/quidphp/base) - Quid\Base - PHP library that provides a set of low-level static methods
-- [quidphp/main](https://github.com/quidphp/main) - Quid\Main - PHP library that provides a set of base objects and collections 
 - [quidphp/orm](https://github.com/quidphp/orm) - Quid\Orm - PHP library that provides database access and a comprehensive ORM
 - [quidphp/routing](https://github.com/quidphp/routing) - Quid\Routing - PHP library that provides a route matching and triggering procedure
-- [verot/class.upload.php](https://github.com/verot/class.upload.php) - Verot\Upload - A popular PHP class used for resizing images
 - [phpmailer/phpmailer](https://github.com/phpmailer/phpmailer) - PHPMailer\PHPMailer - The classic email sending library for PHP
-- [tedivm/jshrink](https://github.com/tedious/JShrink) - JShrink - Javascript Minifier written in PHP
 - [scssphp/scssphp](https://github.com/scssphp/scssphp) - ScssPhp\ScssPhp - SCSS compiler written in PHP
+- [tedivm/jshrink](https://github.com/tedious/JShrink) - JShrink - Javascript Minifier written in PHP
+- [verot/class.upload.php](https://github.com/verot/class.upload.php) - Verot\Upload - A popular PHP class used for resizing images
 
 All dependencies will be resolved by using the [Composer](https://getcomposer.org) installation process.
 
 ## Comment
-**QuidPHP/Core** code is commented and all methods are explained. However, most of the comments are written in French.
+**QuidPHP/Core** code is commented and all methods are explained (in French).
 
 ## Convention
 **QuidPHP/Core** is built on the following conventions:
 - *Auto-alias*: All class names that finishes by Alias will resolve to the existing class if no alias exists. Exemple: MyRole extents RoleAlias -> will resolve to Role if no alias is found.
 - *Class overloading*: It is possible to retrieve an overloaded class with the same name but higher in the namespace hierarchy. We do this by using the static method $class::getOverloadClass(). Exemple Quid\Orm\Col::getOverloadClass() will return Quid\Core\Col.
+- *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
+- *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
 - *Core overloading*: Using auto-alias and class overloading, it is possible to effectively replace all classes within Quid\Core by classes within an application directory.
 - *Traits*: Traits filenames start with an underscore (_).
 - *Type*: Files, function arguments and return types are strict typed.
-- *Config*: A special $config static property exists in all classes. This property gets recursively merged with the parents' property on initialization.
-- *Coding*: No curly braces are used in a IF statement if the condition can be resolved in only one statement.
 
 ### Overview
 **QuidPHP/Core** contains 115 classes and traits. Here is an overview:
