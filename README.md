@@ -173,7 +173,7 @@ All dependencies will be resolved by using the [Composer](https://getcomposer.or
 - [_dbAccess](src/_dbAccess.php) - Trait that provides a method to access the current database
 - [_fullAccess](src/_fullAccess.php) - Trait that provides all access methods related to the Boot
 	
-## Testing
+### Testing
 **QuidPHP/Core** contains 18 test classes:
 - [Boot](test/Boot.php) - Class for testing Quid\Core\Boot
 - [Cell](test/Cell.php) - Class for testing Quid\Core\Cell
