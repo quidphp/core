@@ -25,7 +25,6 @@ Once installed, the **Quid\Core** namespace will be available within your PHP ap
 **QuidPHP/Core** requires the following:
 - PHP 8.1
 - Mysql (>= 8.0) or MariaDB (>= 10.4) database
-- Apache or Nginx server (running on MacOs, Linux or Windows)
 - All requirements of [quidphp/orm](https://github.com/quidphp/orm)
 - All requirements of [quidphp/routing](https://github.com/quidphp/routing)
 
