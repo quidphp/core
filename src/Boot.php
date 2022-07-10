@@ -194,7 +194,7 @@ abstract class Boot extends Main\Root
 
 
     // quidVersion
-    protected static string $quidVersion = '5.31.0'; // version de quid
+    protected static string $quidVersion = '5.32.0'; // version de quid
 
 
     // quidCredit

@@ -13,8 +13,8 @@
     }],
     "require": {
         "php": ">=8.1.0",
-        "quidphp/orm": "5.31.*",
-        "quidphp/routing": "5.31.*",
+        "quidphp/orm": "dev-master",
+        "quidphp/routing": "dev-master",
         "phpmailer/phpmailer": "^6.6",
         "scssphp/scssphp": "^1.10",
         "tedivm/jshrink": "^1.4",
